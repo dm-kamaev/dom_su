@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет клиента компании Домовенок</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui"/>
+    <meta name="format-detection" content="telephone=no">
+    {{ #debug }}
+    <meta name="robots" content="noindex, nofollow">
+    {{ /debug }}
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/general/img/apple-touch-icon-57x57.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/general/img/apple-touch-icon-60x60.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/general/img/apple-touch-icon-72x72.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/general/img/apple-touch-icon-76x76.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/general/img/apple-touch-icon-114x114.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/general/img/apple-touch-icon-120x120.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/general/img/apple-touch-icon-144x144.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/general/img/apple-touch-icon-152x152.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/general/img/apple-touch-icon-180x180.png?v=1.0">
+    <link rel="icon" type="image/png" href="/static/general/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
+    <link rel="icon" type="image/png" href="/static/general/img/favicon-16x16.png?v=1.01" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/general/img/favicon-32x32.png?v=1.01" sizes="32x32">
+    <link rel="icon" type="image/png" href="/static/general/img/favicon-48x48.png?v=1.0" sizes="48x48">
+    <link rel="manifest" href="/static/general/manifest.json?v=1.02">
+    <link rel="mask-icon" href="/static/general/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
+    <meta name="apple-mobile-web-app-title" content="Domovenok">
+    <meta name="application-name" content="Domovenok">
+    <meta name="msapplication-TileColor" content="#fd8204">
+    <meta name="msapplication-TileImage" content="/static/general/img/mstile-144x144.png?v=1.0">
+    <meta name="msapplication-config" content="/static/general/browserconfig.xml?v=1.02">
+    <meta name="theme-color" content="#fd8204">
+    <link rel="stylesheet" href="/static/general/css/style.min.css?v=1.06">
+    <script>
+      var domovenokClient = {
+        name: '{{GetCommon.response.Name}}'
+      }
+      var generalPath = {
+        schema: '{{pathSchema}}',
+        domain: '{{pathDomain}}',
+        url: '{{pathUrl}}'
+      };
+      generalPath.buildUrl = function (additional) {
+        var build = this.schema + '://' + this.domain + '/' + this.url + '/';
+        if (additional)
+          build += additional;
+        return build
+      };
+
+    </script>
+  </head>
+  <body class="page">
+    <div class="page__wrap">
+      <!-- Page Header -->
+      <header class="page-header  page-header--scroll  {{ #GetCommon.response }}page-header--contact{{ /GetCommon.response }}">
+
+        <div class="page-header__top">
+          <button class="main-menu__btn  main-menu__btn--open">
+            <svg class="main-menu__image" width="31" height="23.9" viewBox="0 0 31 23.9">
+              <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
+              <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
+              <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
+            </svg>
+          </button>
+          <a class="page-header__logo" href="https://www.domovenok.su"><img height="38" width="152" src="/static/general/img/logo.svg"
+                                                    alt="Логотип"></a>
+          {{! TODO calltracking }}
+          <a class="page-header__tel" href="tel: +74956680468"><span class="page-header__tel-brown">8 (495)</span> 668-04-68</a>
+        </div>
+
+        <div class="page-header__wrap">
+          <a class="main-menu__icon-close  icon-close" href="#">
+            <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+              <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1"
+                    style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+              <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1"
+                    style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+            </svg>
+          </a>
+
+          <!--Main Menu-->
+          <nav class="page-header__main-menu  main-menu  scroll-container">
+
+            <ul class="main-menu__list">
+              {{ ^GetCommon.response }}
+              <li class="main-menu__item">
+                <a class="main-menu__link"  href="{{ authUrl }}">
+                  Войти
+                </a>
+              </li>
+              {{ /GetCommon.response }}
+              {{ #GetCommon.response }}
+              <li class="main-menu__item  main-menu__item--sub  main-menu__item--active">
+                <a class="main-menu__link"  href="">
+                  {{ GetCommon.response.FullTitle }}
+                </a>
+
+                <!--Sub Menu-->
+                <ul class="main-menu__list  main-menu__list--sub">
+                  <li class="main-menu__item-sub  main-menu__item-sub--active">
+                    <a class="main-menu__link-sub" href="{{ordersUrl}}" id="openOrderDefine">
+                      Заказы
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub  main-menu__link-sub--application" href="">
+                      Оставить заявку
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub  main-menu__link-sub--application" href="{{inviteUrl}}">
+                      Пригласить друга
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub  main-menu__item-sub--exit">
+                    <a class="main-menu__link-sub" href="/private/logout?_csrf={{ logoutCsrf }}">Выход</a>
+                  </li>
+                </ul>
+                <!--/Sub Menu-->
+              </li>
+              {{ /GetCommon.response }}
+              <li class="main-menu__item  main-menu__item--sub">
+                <a class="main-menu__link">
+                  Физическим лицам
+                </a>
+
+                <!--Sub Menu-->
+                <ul class="main-menu__list  main-menu__list--sub">
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/podderzhka">
+                      Поддерживающая уборка
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/domrabotnica">
+                      Домработница
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/generalnaya_uborka">
+                      Генеральная уборка
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/posle_remonta">
+                      Уборка после ремонта
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/uborka-kottedzhej">
+                      Уборка коттеджей
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub  main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/mite_okon">
+                      Мытье окон
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="http://www.himchistka.domovenok.su">
+                      Химчистка
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/vizov_mastera_na_dom">
+                      Домашний мастер
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/obrabotka_poverhnostey">
+                      Обработка поверхностей
+                    </a>
+                  </li>
+                </ul>
+                <!--/Sub Menu-->
+              </li>
+              <li class="main-menu__item  main-menu__item--sub">
+                <a class="main-menu__link">
+                  Юридическим лицам
+                </a>
+
+                <!--Sub Menu-->
+                <ul class="main-menu__list  main-menu__list--sub">
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/obrabotka_poverhnostey">
+                      Обработка поверхностей
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/uborka_ofisov">
+                      Уборка офисов
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/uborka-proizvodstvennyh-pomewenij">
+                      Уборка производственных помещений
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/ofisnyy-master">
+                      Офисный мастер
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/mite_stekol">
+                      Мытье стекол
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="https://www.domovenok.su/myte-fasadov">
+                      Мытье фасадов
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="http://www.promyshlennyj-alpinizm.domovenok.su">
+                      Промышленный альпинизм
+                    </a>
+                  </li>
+                </ul>
+                <!--/Sub Menu-->
+              </li>
+              <li class="main-menu__item">
+                <a class="main-menu__link"  href="https://www.domovenok.su/contacts/">
+                  Контакты
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <!--/Main Menu-->
+
+          <!--Contacts-->
+          {{ #GetCommon.response }}
+          <div class="page-header__contact  contact">
+            <a class="contact__callback" href>Свяжитесь со мной</a>
+          </div>
+          {{ /GetCommon.response }}
+          <!--/Contacts-->
+
+        </div>
+
+      </header>
+      <!-- /Page Header -->
+      <!-- Main Content -->
+      <main class="page__main-content  main-content">
+        <div class="error scroll-container">
+          <div class="error__wrap">
+            <img class="error__image" height="auto" width="200" src="/static/general/img/400.svg" alt="400">
+            <h1 class="error__title  title"><span>404</span><br>Страница не найдена</h1>
+            <ul class="error__list">
+              <p class="error__heading  text">Мы приносим свои извинения за доставленные неудобства и предлагаем следующие
+                пути:</p>
+              <li class="error__item  text">Перейти на <a class="error__link" href="https://www.domovenok.su">главную страницу</a> или <a
+                  class="error__link" href="https://www.domovenok.su/sitemap">карту сайта</a></li>
+              {{! TODO calltracking }}
+              <li class="error__item  text">Связаться с нами по телефону <a
+                  class="error__link" href="tel: +74956680468">+7 (495) 668-04-68</a></li>
+              <li class="error__item  text"><a class="error__link" href="mailto:develop@domovenok.su">Написать письмо</a> нашим сотрудникам</li>
+            </ul>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="/static/general/js/script.min.js?v=1.14"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+{
+    "app": {
+        "debug": true,
+        "port": 3003
+    },
+    "db": {
+        "user": "root",
+        "password": "resu",
+        "database": "pancaketest",
+        "host": "localhost"
+    }
+}

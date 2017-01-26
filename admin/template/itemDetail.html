@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {{#each item.dataValues as | value key |}}
+        {{lookup attr key }}
+        <p>{{key}}</p>
+        <p>{{value}}</p>
+    {{/each}}
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "appenders": [
+    {
+      "type": "file",
+      "filename": "log_file.log",
+      "maxLogSize": 20480,
+      "backups": 5,
+      "category": "relative-logger"
+    }
+  ]
+}
