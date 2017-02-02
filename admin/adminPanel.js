@@ -48,9 +48,10 @@ class AdminPanel {
         return model.getItemList(options)
     }
 
-    getModelItem(modelName, keyValue, options){
+    async getModelItem(modelName, keyValue, options){
         const model = this.getModel(modelName)
-        return model.getItem(keyValue, options)
+        const item = await model.getItem(keyValue, options)
+        return {item: item, attrs: model.getAttrs()}
     }
 
     buildReferences(){
@@ -59,7 +60,7 @@ class AdminPanel {
             let attrs = this.models[model_name].getAttrs()
             for (let attr of attrs){
                 if (attr.ref){
-                    this.models[model_name].model.belongsTo(this.models[attr.ref].model, {foreignKey: attr.name})
+                    this.models[model_name].model.belongsTo(this.models[attr.ref].model, {foreignKey: attr.name, as: attr.ref })
                     if (this.models[attr.ref] === undefined)
                         throw new AdminPanelError(ErrorCodes.ReferencesModelError, `Model - ${this.models[model_name].name} | Attr - ${attr.name} | Please AdminPanel.addModel() - ${attr.ref}`)
                     attr.refModel = this.models[attr.ref]

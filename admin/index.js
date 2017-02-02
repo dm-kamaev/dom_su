@@ -1,14 +1,6 @@
 'use strict';
 
-const { router } = require('./middleware')
-
-
-
-
-
-
-
-
+const {adminRouter} = require('./router')
 
 
 //adminPanel.getAllModel()
@@ -17,11 +9,9 @@ const { router } = require('./middleware')
 //adminPanel.getModelItem('articles', {attr: 'id', value: 3})
 
 
-
-
 // console.log(AdminArticle.name)
 // console.log(AdminArticle.getAttr())
 //
 // console.log(AdminArticle.ref)
 
-module.exports = {router: router }
+module.exports = {adminRouter: adminRouter}

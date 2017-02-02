@@ -2,13 +2,13 @@
 let { Method1C, Request1C } = require('./lib1C.js')
 //let { FilePath }= require('models/filePath')
 let { Token, FilePath }= require('models')
-let { magicUrl } = require('utils')
-let { UUID } = require('utils')
+//let { magicUrl } = require('utils')
+//let { UUID } = require('utils')
 const fs = require('fs');
 let errors = require('./errors')
-let mcClient = require('mcClient')
+//let mcClient = require('mcClient')
 let moment = require('moment')
-let log = require('log')(module)
+let log = require('logger')(module)
 
 const emptyToken = null
 

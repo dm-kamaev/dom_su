@@ -1,5 +1,4 @@
 'use strict';
+const {articlesRouterAjax, articlesRouter} = require('./router');
 
-const router = require('./router')
-
-module.exports = {router: router}
+module.exports = {articlesRouterAjax: articlesRouterAjax, articlesRouter: articlesRouter };

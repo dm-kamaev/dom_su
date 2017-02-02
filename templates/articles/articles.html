@@ -6,29 +6,28 @@
   <title>Личный кабинет клиента компании Домовенок</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui" />
   <meta name="format-detection" content="telephone=no">
-  <link rel="apple-touch-icon" sizes="57x57" href="/static/general/img/apple-touch-icon-57x57.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="60x60" href="/static/general/img/apple-touch-icon-60x60.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="72x72" href="/static/general/img/apple-touch-icon-72x72.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="76x76" href="/static/general/img/apple-touch-icon-76x76.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="114x114" href="/static/general/img/apple-touch-icon-114x114.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="120x120" href="/static/general/img/apple-touch-icon-120x120.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="144x144" href="/static/general/img/apple-touch-icon-144x144.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="152x152" href="/static/general/img/apple-touch-icon-152x152.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/static/general/img/apple-touch-icon-180x180.png?v=1.0">
-  <link rel="icon" type="image/png" href="/static/general/img/favicon-32x32.png?v=1.0" sizes="32x32">
-  <link rel="icon" type="image/png" href="/static/general/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
-  <link rel="icon" type="image/png" href="/static/general/img/favicon-16x16.png?v=1.0" sizes="16x16">
-  <link rel="manifest" href="/static/general/manifest.json?v=1.02">
-  <link rel="mask-icon" href="/static/general/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
+  <link rel="apple-touch-icon" sizes="57x57" href="/static/img/apple-touch-icon-57x57.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="60x60" href="/static/img/apple-touch-icon-60x60.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="72x72" href="/static/img/apple-touch-icon-72x72.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="76x76" href="/static/img/apple-touch-icon-76x76.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="114x114" href="/static/img/apple-touch-icon-114x114.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="120x120" href="/static/img/apple-touch-icon-120x120.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="144x144" href="/static/img/apple-touch-icon-144x144.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="152x152" href="/static/img/apple-touch-icon-152x152.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon-180x180.png?v=1.0">
+  <link rel="icon" type="image/png" href="/static/img/favicon-32x32.png?v=1.0" sizes="32x32">
+  <link rel="icon" type="image/png" href="/static/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
+  <link rel="icon" type="image/png" href="/static/img/favicon-16x16.png?v=1.0" sizes="16x16">
+  <link rel="manifest" href="/static/manifest.json?v=1.02">
+  <link rel="mask-icon" href="/static/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
   <meta name="apple-mobile-web-app-title" content="Domovenok">
   <meta name="application-name" content="Domovenok">
   <meta name="msapplication-TileColor" content="#fd8204">
-  <meta name="msapplication-TileImage" content="/static/general/img/mstile-144x144.png?v=1.0">
-  <meta name="msapplication-config" content="/static/general/browserconfig.xml?v=1.02">
+  <meta name="msapplication-TileImage" content="/static/img/mstile-144x144.png?v=1.0">
+  <meta name="msapplication-config" content="/static/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
-  <link rel="stylesheet" href="/static/general/css/style.css">
-  <script src="/static/general/js/vendor/vendor.min.js"></script>
-  <script src="//yastatic.net/share2/share.js" async></script>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="/static/js/vendor/vendor.js"></script>
   <base href="" >
   <script>
     var domovenokClient = {
@@ -58,9 +57,9 @@
 <script>
 
   var generalPath = {
-    schema: 'https',
-    domain: 'www.dev.domovenok.su',
-    url: 'private'
+    schema: 'http',
+    domain: 'site.domovenok.corp:3004',
+    url: 'articles'
   };
 
   generalPath.buildUrl = function (additional) {
@@ -91,7 +90,7 @@
           <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
         </svg>
       </a>
-      <a class="page-header__logo" href="http://www.domovenok.su"><img height="38" width="152" src="/static/general/img/logo.svg" alt="Логотип"></a>
+      <a class="page-header__logo" href="http://www.domovenok.su"><img height="38" width="152" src="/static/img/logo.svg" alt="Логотип"></a>
 
       <a class="page-header__tel" href="tel: +74956680468"><span class="page-header__tel-brown">8 (495)</span> 668-04-68</a>
     </div>
@@ -352,7 +351,7 @@
         <div class="left-side__wrap scroll-container-unstable">
           <div class="left-side__list articles">
             {{#each articles}}
-            <article  class="left-side__item articles__item">
+            <article  class="left-side__item articles__item" data-id="{{url}}">
               <div class="articles__row">
                 <div class="articles__column">
                   <img class="articles__image" src="https://www.domovenok.su/media/{{ pic }}">
@@ -378,9 +377,11 @@
       </a>
 
     </div>
-    <div class="right-side  right-side--hide  right-side--mobile">
 
-      <div class="right-side__wrap  right-side__wrap--grafic scroll-container-unstable" data-departureid="105dfbc1-3255-11e3-93ff-002590306b4f">
+
+    <div class="right-side  right-side--hide  right-side--mobile scroll-container-unstable"  >
+      {{#with article}}
+      <div class="right-side__wrap" data-id="{{url}}">
 
         <button class="right-side__btn  right-side__btn--close  icon-close" type="button">
           <svg class="icon-close__image" width="22.47" height="22.47" viewBox="0 0 22.47 22.47">
@@ -391,13 +392,13 @@
 
         <article  class="article">
           <div class="article__wrap">
-            {{#with article}}
+
             <h2>{{title}}</h2>
             <time datetime="">{{pub_date}}</time>
             <!--<p>Время чтения: <span>10 минут</span><a>Нет времени читать?</a></p>-->
             <img srcset="https://www.domovenok.su/media/{{pic}}" alt="" width="300" height="200">
             {{{full_text}}}
-            {{/with}}
+
           </div>
 
           <footer class="article__footer">
@@ -425,6 +426,7 @@
           </footer>
         </article>
       </div>
+      {{/with}}
     </div>
 
     <div class="contact-btn">
@@ -445,7 +447,60 @@
 
 <!-- Java Script -->
 
-<script src="/static/general/js/bundle.js"></script>
+<!-- Template Order -->
+
+<script id="article-active" type="text/html">
+  {{{{raw}}}}
+  <button class="right-side__btn  right-side__btn--close  icon-close">
+    <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+      <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </svg>
+  </button>
+  
+    <article  class="article">
+      <div class="article__wrap">
+
+        <h2>{{title}}</h2>
+        <time datetime="">{{pub_date}}</time>
+        <img srcset="https://www.domovenok.su/media/{{pic}}" alt="" width="300" height="200">
+        {{{full_text}}}
+
+      </div>
+
+      <footer class="article__footer">
+        <div class="article__inner">
+          <h3 class="article__title">Понравилась статья?</h3>
+          <label class="article__label label" for="subscription">Подписывайтесь на нашу рассылку</label>
+          <div class="article__row">
+            <input class="article__input input" type="email" name="email-subscription" id="subscription" placeholder="Напишите e-mail">
+            <button class="article__button button" type="submit">Подписаться</button>
+          </div>
+        </div>
+
+        <div class="article__inner">
+          <h3 class="article__title">Была ли Вам полезна статья?</h3>
+          <div class="article__row">
+            <button class="article__button button">Да</button>
+            <button class="article__button button">Нет</button>
+          </div>
+        </div>
+
+        <div class="article__inner">
+          <h3 class="article__title">Поделиться:</h3>
+          <div class="article__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
+        </div>
+      </footer>
+    </article>
+
+
+
+  </section>
+  {{{{/raw}}}}
+</script>
+<!-- /Template Active Order -->
+
+<script src="/static/js/bundle.js"></script>
 <!-- /Java Script -->
 
 </body>

@@ -1,35 +1,37 @@
 'use strict'
 const koa = require('koa');
 const config = require('config');
-const db = require('database');
+const { errorMiddleware, throw404, accessLogger, applyRouters } = require('middlewares')
+const { setUserUUID, setUserVisit, eventCreator } = require('user_manager')
+const schedule = require('schedule')
 
 
-//require Middleware
-const { errorMiddleware, throw404, accessLogger } = require('middlewares')
+schedule()
 
-const admin = require('admin')
-
-
-
-
-
-const articles = require('articles')
 
 
 const app = new koa();
 
-app.context.db = db;
 
-// Middleware
+
+// Service middleware
 if (config.app.debug){
     app.use(accessLogger())
 }
-
 app.use(errorMiddleware)
 
-app.use(admin.router.routes())
-app.use(articles.router.routes())
+// App middleware
+// analytics
+app.use(setUserUUID)
+// app.use(setUserVisit)
+// app.use(eventCreator)
+
+// Add routers
+applyRouters(app)
+
+// Throw 404
 app.use(throw404)
+
 
 
 app.listen(config.app.port)

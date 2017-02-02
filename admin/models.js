@@ -12,6 +12,7 @@ class AdminModel {
         this.pk = false;
         this.model = Model
         this.previewFields = false;
+        this.refPreviewFields = false;
 
         /* Get attr and type */
         this.attrs = [];
@@ -34,36 +35,58 @@ class AdminModel {
             throw new AdminPanelError(ErrorCodes.PrimaryKeyNotFound)
     }
 
-    getItemList(options){
+    async getItemList(options){
         const optionsQ = options || {};
         const offsetQ = optionsQ.offset || 0;
         const limitQ = optionsQ.limit || 100;
         const orderQ = optionsQ.order || this.pk;
         const directQ = optionsQ.direct || 'ASC';
         const fieldQ = optionsQ.attributes || this.previewFields || [this.pk];
-        return this.model.findAndCountAll({ limit: limitQ, offset: offsetQ, order: [[orderQ, directQ]], attributes: fieldQ })
-            // .then((result)=>{console.log(JSON.stringify(result))})
+        return await this.model.findAndCountAll({ limit: limitQ, offset: offsetQ, order: [[orderQ, directQ]], attributes: fieldQ })
     }
 
-    getItem(keyValue, options){
+    async getItem(keyValue, options){
         const keyAttr = options.attr || this.pk
         let query = {}
         let includes = []
         let attr = []
         for (let i of this.attrs){
             if (i.ref){
-                includes.push({model: i.refModel.model, attributes: [i.refModel.pk] })
+                includes.push({model: i.refModel.model, as: i.refModel.name, attributes: i.refModel.getRefPreviewField() })
             } else {
                 attr.push(i.name)
             }
         }
         query[keyAttr] = keyValue;
-        return this.model.findOne({attributes: attr, where:query, include:includes})
+        return await this.model.findOne({attributes: attr, where:query, include:includes})
     }
 
     setPreviewField(previewFields){
         this.previewFields = previewFields;
     }
+
+    getPreviewField(){
+        const previewFields = (this.previewFields) ? this.previewFields : [this.pk]
+        return previewFields
+    }
+
+    setRefPreviewField(refPreviewFields){
+        this.refPreviewFields = refPreviewFields
+    }
+
+    getRefPreviewField(options){
+        options = options || {}
+        let refPreviewFields;
+        if (options.withType){
+            refPreviewFields = (this.refPreviewFields) ? this.refPreviewFields : [this.pk]
+            return this.getAttrs().filter((item)=>{return refPreviewFields.indexOf(item.name) > -1 })
+        }
+        refPreviewFields = (this.refPreviewFields) ? this.refPreviewFields : [this.pk]
+
+        return refPreviewFields
+    }
+
+
 
     getAttrs(){
         return this.attrs

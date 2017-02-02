@@ -1,16 +1,16 @@
 'use strict';
 let http = require('http');
 let querystring = require('querystring');
-let log = require('log')(module)
+let log = require('logger')(module)
 let errors = require('./errors')
 var config = require('config')
 const uap = require('node-uap');
 
 
 let server = {
-    ip: config.get('api1C:ip'),
-    port: config.get('api1C:port'),
-    url: config.get('api1C:url')
+    ip: "192.168.1.243",
+    port: 80,
+    url: "/domovenok/hs/api/v2/"
 }
 
 

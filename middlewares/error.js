@@ -7,7 +7,7 @@ async function errorMiddleware(ctx, next) {
         try {
             await next()
         } catch (err) {
-            logger.info(err)
+            logger.error(err)
             if (err.status === 404) {
                 ctx.type = 'text/html'
                 ctx.status = 404

@@ -1,10 +1,10 @@
 'use strict';
 let { Method1C, Request1C } = require('./lib1C.js')
 let moment = require('moment')
-let mcClient = require('mcClient')
+//let mcClient = require('mcClient')
 let errors = require('./errors')
 let { cachedRequest, magicUrl } = require('utils')
-let log = require('log')(module)
+let log = require('logger')(module)
 const { PromoCode }= require('models')
 
 

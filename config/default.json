@@ -8,5 +8,23 @@
         "password": "resu",
         "database": "pancaketest",
         "host": "localhost"
+    },
+    "api1C": {
+        "ip": "192.168.1.243",
+        "url": "/domovenok/hs/api/v2/",
+        "port": 80,
+        "ticket_url": "/domovenok/hs/rq"
+    },
+    "cookie": {
+        "domain": ".domovenok.corp"
+    },
+    "serverPath": {
+        "schema": "https",
+        "domain": "site.domovenok.corp",
+        "uri": "/"
+    },
+    "sitePath": {
+        "schema": "http",
+        "domain": "www.dev.domovenok.su"
     }
 }

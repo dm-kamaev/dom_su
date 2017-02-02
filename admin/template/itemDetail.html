@@ -5,10 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-    {{#each item.dataValues as | value key |}}
-        {{lookup attr key }}
-        <p>{{key}}</p>
-        <p>{{value}}</p>
-    {{/each}}
+    {{{showModel item attr}}}
 </body>
 </html>

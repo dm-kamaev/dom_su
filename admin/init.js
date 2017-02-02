@@ -9,18 +9,21 @@ const { AdminPanel } = require('./adminPanel')
 const { AdminModel } = require('./models')
 
 
-
 const adminPanel = new AdminPanel()
 
 const AArticle = new AdminModel(Article, {preview:['id', 'title']})
 const APictures = new AdminModel(Picture)
 
-AArticle.setPreviewField(['id','title'])
+AArticle.setPreviewField(['id','title', 'url'])
+APictures.setRefPreviewField(['title'])
+
+
 
 adminPanel.addModel(AArticle)
 adminPanel.addModel(APictures)
-adminPanel.buildReferences()
 
+
+adminPanel.buildReferences()
 
 module.exports = {
     adminPanel: adminPanel
