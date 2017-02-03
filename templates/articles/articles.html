@@ -28,15 +28,22 @@
   <meta name="theme-color" content="#fd8204">
   <link rel="stylesheet" href="/static/css/style.css">
   <script src="/static/js/vendor/vendor.js"></script>
+  <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
   <script>
     var domovenokClient = {
       name: ''
     };
+//    var generalPath = {
+//      schema: '',
+//      domain: '',
+//      url: ''
+//    };
+
     var generalPath = {
-      schema: '',
-      domain: '',
-      url: ''
+      schema: 'http',
+      domain: 'site.domovenok.corp:3004',
+      url: 'articles'
     };
 
     generalPath.buildUrl = function (additional) {
@@ -47,34 +54,14 @@
     };
 
 
-    var departureList = {
-      begin: true,
-      end: false
+    var itemList = {
+      begin: {{Begin}},
+      end: {{End}}
     };
+
     var clientId = '';
   </script>
 </head>
-<script>
-
-  var generalPath = {
-    schema: 'http',
-    domain: 'site.domovenok.corp:3004',
-    url: 'articles'
-  };
-
-  generalPath.buildUrl = function (additional) {
-    var build = this.schema + '://' + this.domain + '/' + this.url + '/';
-    if (additional)
-      build += additional;
-    return build;
-  };
-
-  var departureList = {
-    begin: false,
-    end: false
-  };
-
-</script>
 <body class="page  page--articles">
 <!-- Page wrapper -->
 <div class="page__wrap">
@@ -350,11 +337,11 @@
       <div class="left-side__content">
         <div class="left-side__wrap scroll-container-unstable">
           <div class="left-side__list articles">
-            {{#each articles}}
+            {{#each ItemList}}
             <article  class="left-side__item articles__item" data-id="{{url}}">
               <div class="articles__row">
                 <div class="articles__column">
-                  <img class="articles__image" src="https://www.domovenok.su/media/{{ pic }}">
+                  <img class="articles__image" src="https://www.domovenok.su/media/{{ picture.pic }}">
                 </div>
                 <div class="articles__column">
                   <h3 class="articles__title title">{{ title }}</h3>
@@ -380,8 +367,8 @@
 
 
     <div class="right-side  right-side--hide  right-side--mobile scroll-container-unstable"  >
-      {{#with article}}
-      <div class="right-side__wrap" data-id="{{url}}">
+      {{#with Item}}
+      <div class="right-side__wrap right-side-default" data-id="{{url}}">
 
         <button class="right-side__btn  right-side__btn--close  icon-close" type="button">
           <svg class="icon-close__image" width="22.47" height="22.47" viewBox="0 0 22.47 22.47">
@@ -394,16 +381,16 @@
           <div class="article__wrap">
 
             <h2>{{title}}</h2>
-            <time datetime="">{{pub_date}}</time>
+            <time datetime="">{{formatDate pub_date}}</time>
             <!--<p>Время чтения: <span>10 минут</span><a>Нет времени читать?</a></p>-->
-            <img srcset="https://www.domovenok.su/media/{{pic}}" alt="" width="300" height="200">
+            <img srcset="https://www.domovenok.su/media/{{ picture.pic }}" alt="" width="300" height="200">
             {{{full_text}}}
 
           </div>
 
           <footer class="article__footer">
             <div class="article__inner">
-              <h3 class="article__title">Понравилась статья?</h3>
+              <h3 class="right-side__heading title">Понравилась статья?</h3>
               <label class="article__label label" for="subscription">Подписывайтесь на нашу рассылку</label>
               <div class="article__row">
                 <input class="article__input input" type="email" name="email-subscription" id="subscription" placeholder="Напишите e-mail">
@@ -412,19 +399,33 @@
             </div>
 
             <div class="article__inner">
-              <h3 class="article__title">Была ли Вам полезна статья?</h3>
-              <div class="article__row">
+              <h3 class="right-side__heading title">Была ли Вам полезна статья?</h3>
+              <div class="article__row article__row--sm">
                 <button class="article__button button">Да</button>
                 <button class="article__button button">Нет</button>
               </div>
             </div>
 
             <div class="article__inner">
-              <h3 class="article__title">Поделиться:</h3>
+              <h3 class="right-side__heading title">Поделиться:</h3>
               <div class="article__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
             </div>
           </footer>
         </article>
+
+        <h3 class="right-side__heading title">У нас Вы можете заказать:</h3>
+
+        <ul class="list">
+          <li class="item item--circle">
+            <a class="link" href="">Мытье пластиковых окон</a>
+          </li>
+          <li class="item item--circle">
+            <a class="link" href="">Поддерживающую уборку офисов в Москве</a>
+          </li>
+          <li class="item item--circle">
+            <a class="link" href="">Уборку таунхауса после ремонта по подходящим ценам</a>
+          </li>
+        </ul>
       </div>
       {{/with}}
     </div>
@@ -448,8 +449,22 @@
 <!-- Java Script -->
 
 <!-- Template Order -->
+<script id="left-side__item" type="text/html">
+  {{{{raw}}}}
+    <div class="articles__row">
+      <div class="articles__column">
+        <img class="articles__image" src="https://www.domovenok.su/media/{{ pic }}">
+      </div>
+      <div class="articles__column">
+        <h3 class="articles__title title">{{ title }}</h3>
+        <p class="articles__text text">{{{ preview_text }}}</p>
+      </div>
+    </div>
+  {{{{/raw}}}}
+</script>
+<!-- /Template Active Order -->
 
-<script id="article-active" type="text/html">
+<script id="right-side__wrap" type="text/html">
   {{{{raw}}}}
   <button class="right-side__btn  right-side__btn--close  icon-close">
     <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
@@ -463,14 +478,16 @@
 
         <h2>{{title}}</h2>
         <time datetime="">{{pub_date}}</time>
-        <img srcset="https://www.domovenok.su/media/{{pic}}" alt="" width="300" height="200">
+        {{#picture}}
+        <img srcset="https://www.domovenok.su/media/{{ pic }}" alt="" width="300" height="200">
+        {{/picture}}
         {{{full_text}}}
 
       </div>
 
       <footer class="article__footer">
         <div class="article__inner">
-          <h3 class="article__title">Понравилась статья?</h3>
+          <h3 class="right-side__heading title">Понравилась статья?</h3>
           <label class="article__label label" for="subscription">Подписывайтесь на нашу рассылку</label>
           <div class="article__row">
             <input class="article__input input" type="email" name="email-subscription" id="subscription" placeholder="Напишите e-mail">
@@ -479,15 +496,15 @@
         </div>
 
         <div class="article__inner">
-          <h3 class="article__title">Была ли Вам полезна статья?</h3>
-          <div class="article__row">
+          <h3 class="right-side__heading title">Была ли Вам полезна статья?</h3>
+          <div class="article__row article__row--sm">
             <button class="article__button button">Да</button>
             <button class="article__button button">Нет</button>
           </div>
         </div>
 
         <div class="article__inner">
-          <h3 class="article__title">Поделиться:</h3>
+          <h3 class="right-side__heading title">Поделиться:</h3>
           <div class="article__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
         </div>
       </footer>

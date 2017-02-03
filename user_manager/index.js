@@ -1,5 +1,5 @@
 "use strict";
 
-const { setUserUUID, setUserVisit, eventCreator } = require('./middleware')
+const { setUserUUID, setUserVisit, createEventRequest } = require('./middleware')
 
-module.exports = {setUserUUID: setUserUUID, setUserVisit: setUserVisit, eventCreator: eventCreator}
+module.exports = {setUserUUID: setUserUUID, setUserVisit: setUserVisit, createEventRequest: createEventRequest}

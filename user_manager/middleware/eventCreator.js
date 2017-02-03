@@ -1,18 +1,12 @@
 "use strict";
 
-const { models, ErrorCodes, ModelsError } = require('models');
-const { Event } = models;
-const uuid4 = require('uuid/v4');
+const {taskEventCreate} = require('../task')
 
-async function eventCreator(ctx, next) {
-    Event.create({
-        uuid: uuid4(),
-        visit_uuid: ctx.state.dom_user.visit_uuid,
-        data: {url: ctx.path},
-        type: 'OpenPage',
-    })
-        .catch(e=>{console.log(e)});
+async function createEventRequest(ctx, next) {
+    let task = taskEventCreate({data: {url: ctx.path}, type: 'Request'})
+    ctx.state.queue.push(task)
+
     await next()
 }
 
-module.exports = {eventCreator: eventCreator}
+module.exports = {createEventRequest: createEventRequest}

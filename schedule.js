@@ -1,7 +1,7 @@
 "use strict";
 
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize('postgres://domovenok:domovenokPG@localhost:5432/pancake', {});
+const sequelize = new Sequelize('postgres://domovenok:domovenokPG@localhost:5432/pancake', {logging: false});
 const schedule = require('node-schedule');
 const logger = require('logger')(module)
 
@@ -11,7 +11,8 @@ const CRON_MINUTE = 1;
 function setVisitFinish() {
     sequelize.query(
         "UPDATE visits " +
-        "SET active = False " +
+        'SET (active, "end") = ' +
+        "(False, NOW()) " +
         "WHERE uuid IN " +
             "(SELECT DISTINCT visit_uuid " +
             "FROM events " +
@@ -29,7 +30,7 @@ function setVisitFinish() {
 }
 
 module.exports = ()=> {
-    logger.info('start')
+    logger.info('Schedule - CLOSE VISIT - START')
     let task = schedule.scheduleJob(`*/${CRON_MINUTE} * * * *`, function(){
       setVisitFinish()
     });

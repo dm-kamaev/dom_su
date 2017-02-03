@@ -10,6 +10,23 @@ const opts = {
 const sequelize = new Sequelize('postgres://domovenok:domovenokPG@localhost:5432/pancake', opts);
 
 
+const FAQ = sequelize.define('faq', {
+        name: Sequelize.STRING,
+        pub_date: Sequelize.DATE,
+        question: Sequelize.TEXT,
+        answer: Sequelize.TEXT,
+        active: Sequelize.BOOLEAN,
+        mail: Sequelize.STRING,
+        title_meta: Sequelize.STRING,
+        description_meta: Sequelize.STRING,
+        keywords_meta: Sequelize.STRING,
+        h1_text: Sequelize.STRING,
+        note: Sequelize.TEXT,
+    }, {
+        scopes: {active: {where: {active: true}}}
+    }
+)
+
 const Picture = sequelize.define('pictures', {
     title: Sequelize.STRING,
     pic: Sequelize.STRING
@@ -34,7 +51,8 @@ const Article = sequelize.define('articles', {
         description_meta: Sequelize.STRING,
         keywords_meta: Sequelize.STRING,
     },
-    { scopes: { active: { where: {active: true}}}
+    {
+        scopes: {active: {where: {active: true}}}
     },
     {
         indexes: [
@@ -60,12 +78,50 @@ const Employee = sequelize.define('employees', {
 });
 
 const City = sequelize.define('cities', {
-    uuid: {type: Sequelize.UUID, primaryKey: true},
     title: Sequelize.STRING,
     domain: Sequelize.STRING,
     keyword: Sequelize.STRING,
     active: {type: Sequelize.BOOLEAN}
 });
+
+const News = sequelize.define('news', {
+        title: Sequelize.STRING,
+        pub_date: Sequelize.DATEONLY,
+        picture_id: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: Picture,
+                key: 'id',
+                deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+            }
+        },
+        preview_text: Sequelize.TEXT,
+        full_text: Sequelize.TEXT,
+        active: Sequelize.BOOLEAN,
+        url: Sequelize.STRING,
+        title_meta: Sequelize.STRING,
+        description_meta: Sequelize.STRING,
+        keywords_meta: Sequelize.STRING,
+        city_id: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: City,
+                key: 'id',
+                deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+            }
+        },
+    },
+    {
+        scopes: {active: {where: {active: true}}}
+    },
+    {
+        indexes: [
+            {
+                unique: true,
+                fields: ['url']
+            }]
+    }
+)
 
 const Token = sequelize.define('tokens', {
     uuid: {type: Sequelize.UUID, primaryKey: true},
@@ -106,11 +162,11 @@ const Phone = sequelize.define('phones', {
         type: Sequelize.STRING,
         allowNull: false,
     },
-    city_uuid: {
-        type: Sequelize.UUID,
+    city_id: {
+        type: Sequelize.INTEGER,
         references: {
             model: City,
-            key: 'uuid',
+            key: 'id',
             deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
         }
     },
@@ -146,6 +202,27 @@ const Visit = sequelize.define('visits', {
     },
     end: Sequelize.DATE,
     data: Sequelize.JSON,
+})
+
+const Review = sequelize.define('reviews', {
+    name: Sequelize.STRING,
+    date: Sequelize.DATE,
+    age: Sequelize.STRING,
+    job: Sequelize.STRING,
+    mail: Sequelize.STRING,
+    rating: Sequelize.INTEGER,
+    review: Sequelize.TEXT,
+    answer: Sequelize.TEXT,
+    active: Sequelize.BOOLEAN,
+    send_on_save: Sequelize.BOOLEAN,
+    last_modified: Sequelize.DATE,
+    note: Sequelize.TEXT,
+    title_meta: Sequelize.STRING,
+    description_meta: Sequelize.STRING,
+    keywords_meta: Sequelize.STRING,
+    isOld: Sequelize.BOOLEAN,
+}, {
+    scopes: {active: {where: {active: true}}}
 })
 
 const Event = sequelize.define('events', {
@@ -212,4 +289,7 @@ module.exports = {
     User: User,
     Visit: Visit,
     Event: Event,
+    FAQ: FAQ,
+    Review: Review,
+    News: News,
 }

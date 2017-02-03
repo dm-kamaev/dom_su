@@ -1,11 +1,11 @@
 'use strict';
 
-async function scrollModel(model, opts) {
+async function scrollModel(model, opts, include) {
     let modelList;
     let begin = false;
     let end = false;
     const options = opts || {};
-    const {limit=20, order='id', sort=-1, direction=-1, keyName='id', keyValue, keyItemInclude=false } = options;
+    const {limit=20, order='id', sort=-1, direction=-1, keyName='id', keyValue, keyItemInclude=false, attributes=undefined } = options;
 
     let getOrdering = function (sort){
         if (sort === 1) {
@@ -42,7 +42,7 @@ async function scrollModel(model, opts) {
         if (direction == 1){
             WHERE[keyName] = {}
             WHERE[keyName][getOperator(keyItemInclude, sort, direction)] = keyValue
-            modelList = await model.findAll({ where: WHERE, limit: limit, order: [[order, getOrdering(sort)]]});
+            modelList = await model.findAll({attributes: attributes, where: WHERE, limit: limit, order: [[order, getOrdering(sort)]], include: include});
             if (modelList.length < limit){
                 begin = true;
             }
@@ -51,10 +51,10 @@ async function scrollModel(model, opts) {
         if (direction == -1){
             WHERE[keyName] = {}
             WHERE[keyName][getOperator(keyItemInclude, sort, direction)] = keyValue
-            modelList = await model.findAll({ where: WHERE, limit: limit, order: [[order, getOrdering(sort*direction)]]})
+            modelList = await model.findAll({attributes: attributes, where: WHERE, limit: limit, order: [[order, getOrdering(sort*direction)]], include: include})
             if (modelList.length < limit){
                 end = true;
-            }}
+        }}
 
         if (direction == 0){
             downWHERE[keyName] = {}
@@ -62,8 +62,8 @@ async function scrollModel(model, opts) {
             upWHERE[keyName] = {};
             upWHERE[keyName][getOperator(true, sort, 1)] = keyValue;
             const [upModelList, downModelList] = await Promise.all([
-                model.findAll({where: upWHERE, limit: limit, order: [[order, getOrdering(sort)]]}),
-                model.findAll({where: downWHERE, limit: limit, order: [[order, getOrdering(sort*-1)]]}),
+                model.findAll({attributes: attributes, where: upWHERE, limit: limit, order: [[order, getOrdering(sort)]], include: include}),
+                model.findAll({attributes: attributes, where: downWHERE, limit: limit, order: [[order, getOrdering(sort*-1)]], include: include}),
             ]);
             let halfLong = (limit % 2 == 1) ? (limit+1)/2 : limit/2;
             if (upModelList.length <= halfLong){
@@ -90,7 +90,7 @@ async function scrollModel(model, opts) {
             }
         }
     } else {
-        modelList = await model.findAll({ limit: limit, order: [[order, getOrdering(sort)]]})
+        modelList = await model.findAll({attributes: attributes, limit: limit, order: [[order, getOrdering(sort*-1)]], include: include})
         begin = true;
         if (modelList.length < limit){
             end = true;

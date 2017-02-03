@@ -2,7 +2,7 @@
 
 const {setUserUUID} = require('./setUserUUID');
 const {setUserVisit} = require('./setUserVisit');
-const {eventCreator} = require('./eventCreator');
+const {createEventRequest} = require('./eventCreator');
 
 
-module.exports = {setUserUUID: setUserUUID, setUserVisit: setUserVisit, eventCreator: eventCreator}
+module.exports = {setUserUUID: setUserUUID, setUserVisit: setUserVisit, createEventRequest: createEventRequest}

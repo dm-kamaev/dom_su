@@ -2,7 +2,8 @@
 const koa = require('koa');
 const config = require('config');
 const { errorMiddleware, throw404, accessLogger, applyRouters } = require('middlewares')
-const { setUserUUID, setUserVisit, eventCreator } = require('user_manager')
+const { setUserUUID, setUserVisit, createEventRequest } = require('user_manager')
+const {adminRouter} = require('admin')
 const schedule = require('schedule')
 
 
@@ -23,8 +24,8 @@ app.use(errorMiddleware)
 // App middleware
 // analytics
 app.use(setUserUUID)
-// app.use(setUserVisit)
-// app.use(eventCreator)
+app.use(setUserVisit)
+app.use(createEventRequest)
 
 // Add routers
 applyRouters(app)

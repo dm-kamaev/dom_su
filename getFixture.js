@@ -1,5 +1,7 @@
-'use sctict';
-const { Article, Picture } = require('createSchema')
+'use strict';
+
+//const { models } = require('models');
+const { Article, Picture, FAQ, Review, City, News } = require('models/models.js');
 
 const uuidV4 = require('uuid/v4')
 
@@ -44,6 +46,29 @@ function migrateArticle() {
     });
 }
 
+function migrateFAQ() {
+    connection.query('SELECT * FROM faq_question ORDER BY id', function (error, results, fields) {
+        if (error) console.log(error);
+        for (let i of results) {
+            FAQ.create({
+                id: i.id,
+                name: i.name,
+                pub_date: i.pub_date,
+                question: i.question,
+                answer: i.answer,
+                active: i.active,
+                mail: i.mail,
+                send_on_save: i.send_on_save,
+                title_meta: i.title_meta,
+                description_meta: i.description_meta,
+                keywords_meta: i.keywords_meta,
+                h1_text: i.h1_text,
+                note: i.note
+            })
+        }
+    });
+}
+
 
 function migratePicture() {
     connection.query('SELECT * FROM pictures_picture ORDER BY id', function (error, results, fields) {
@@ -55,6 +80,41 @@ function migratePicture() {
 }
 
 
+function migrateReviews() {
+    connection.query('SELECT * FROM reviews_review ORDER BY id', function (error, results, fields) {
+        if (error) console.log(error);
+        for (let i of results) {
+            Review.create(i)
+        }
+    });
+}
 
+function migrateCity() {
+        connection.query('SELECT * FROM city_support', function (error, results, fields) {
+        if (error) console.log(error);
+        for (let i of results) {
+            City.create(i)
+        }
+    });
+}
+
+function migrateNews() {
+        connection.query('SELECT * FROM news_news ORDER BY id', function (error, results, fields) {
+        if (error) console.log(error);
+        for (let i of results) {
+            i.url = i.code
+            News.create(i)
+        }
+    });
+}
+
+
+function addCity() {
+    City.create({id: 1, title: 'Москва', keyword: 'moscow', domain: 'www', active: true})
+    City.create({id: 2, title: 'Санкт-Петербург', keyword: 'spb', domain: 'spb', active: true})
+}
+
+
+migrateNews()
 
 connection.end();

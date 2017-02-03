@@ -53,7 +53,7 @@
 
 
 	__webpack_require__(1);
-	__webpack_require__(182);
+	__webpack_require__(184);
 
 
 
@@ -78,7 +78,11 @@
 	page('/:id/', pageState.setArticle);
 	page('contact/:id/', pageState.setArticle);
 	page('articles/:id/', pageState.setArticle);
-	//page('articles/', pageState.initArticle);
+	page('articles/', pageState.setArticle);
+	page('faq/:id/', pageState.setArticle);
+	page('faq/', pageState.setArticle);
+	// page('articles/:id/', pageState.setArticle);
+	// page('articles/:id/', pageState.setArticle);
 	function add(ctx) {
 	    console.log('здесь яяяяяяяяяя');
 	}
@@ -109,10 +113,12 @@
 	var urlThridColumn = __webpack_require__(9);
 	//let page = require('./../page/page');
 	var init = __webpack_require__(10);
-	var renderOrder = __webpack_require__(185);
-	var renderSchedule = __webpack_require__(186);
-	var renderArticle = __webpack_require__(187);
-	var message = __webpack_require__(188);
+	var renderOrder = __webpack_require__(187);
+	var renderSchedule = __webpack_require__(188);
+	var renderArticle = __webpack_require__(189);
+	var renderQuestion = __webpack_require__(190);
+	var renderItem = __webpack_require__(261);
+	var message = __webpack_require__(191);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	var pageState = {
@@ -278,31 +284,38 @@
 	        }
 	    },
 	    setArticle: function (ctx) {
-	        console.log('зашел пи пип ');
-	        console.log(ctx.state, "gghhjjkl;;''kjhgfd");
-	        console.log(ctx.state.InitRightSide == true);
-	        console.log(ctx.state.delete == true);
-	        if (!ctx.state.init) {
-	            console.log(ctx, ctx);
-	            //(ctx.path != ('/' + url.get()) || ctx.state.cancelOrder == true) || ctx.state.rerender
-	            console.log(ctx.path);
-	            console.log(urlThridColumn.get());
-	            console.log(ctx.state);
+	        if (!ctx.state.delete && ctx.state.open) {
 	            urlThridColumn.update(ctx.params.id);
 	            function render(data) {
-	                console.log('взял');
-	                //init.leftSide.render(data);
-	                renderArticle(data);
+	                renderItem(data);
+	                init.leftSide.setActiveItem(urlThridColumn.item);
 	            }
-	            console.log(url_1, "url");
-	            console.log(urlThridColumn.get(), "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-	            var url_1 = urlThridColumn.get();
-	            console.log(urlThridColumn.requestItem(), "99999999999999999999999999999");
 	            request.get(urlThridColumn.requestItem(), render.bind(this));
 	        }
-	        else {
-	            console.log('урряяя');
+	        else if (ctx.state.delete) {
+	            urlThridColumn.update(ctx.params.id);
+	            tabs.delete();
+	            init.leftSide.setActiveItem(urlThridColumn.item);
 	        }
+	    },
+	    setReview: function (ctx) {
+	    },
+	    setQuestion: function (ctx) {
+	        if (!ctx.state.delete && ctx.state.open) {
+	            urlThridColumn.update(ctx.params.id);
+	            function render(data) {
+	                renderQuestion(data);
+	                init.leftSide.setActiveItem(urlThridColumn.item);
+	            }
+	            request.get(urlThridColumn.requestItem(), render.bind(this));
+	        }
+	        else if (ctx.state.delete) {
+	            urlThridColumn.update(ctx.params.id);
+	            tabs.delete();
+	            init.leftSide.setActiveItem(urlThridColumn.item);
+	        }
+	    },
+	    setNews: function (ctx) {
 	    }
 	};
 	console.log("прочитал инициализацию page-state");
@@ -761,15 +774,16 @@
 	var SelectionMenu = __webpack_require__(35);
 	var PopUp = __webpack_require__(36);
 	var LeftSide = __webpack_require__(42);
+	var LeftSideChild = __webpack_require__(244);
 	var tabs = __webpack_require__(3);
 	var ChangeTown = __webpack_require__(151);
 	var ContactBtn = __webpack_require__(152);
 	var Counter = __webpack_require__(153);
 	var ServiceCard = __webpack_require__(154);
 	var Section = __webpack_require__(157);
-	var question = __webpack_require__(158);
+	var questionForm = __webpack_require__(158);
 	var leftSideList = __webpack_require__(159);
-	var pageHeader = __webpack_require__(179);
+	var pageHeader = __webpack_require__(181);
 	var pageElement = document.querySelector('.page');
 	var pageAuth = document.querySelector('.page--authorization');
 	var pagePrivate = document.querySelector('.page--orders');
@@ -790,6 +804,7 @@
 	initScroll();
 	if (!pageAuth) {
 	    urlThridColumn.init();
+	    console.log(urlThridColumn.item, "--------------------------------------------");
 	}
 	if (menuElement) {
 	    pageInit.menu = pageHeader.mainMenu;
@@ -830,26 +845,40 @@
 	    pageInit.popUp = new PopUp(popUpElement);
 	}
 	console.log(urlThridColumn, "00000");
+	// if (leftSideElement) {
+	//   console.log(leftSideElement)
+	//     pageInit.leftSide = new leftSideList.itemsObject();
+	//     pageInit.leftSide.setActiveItem(urlThridColumn.item);
+	//     if (RightSideList.length) {
+	//       RightSideList.forEach(function(item) {
+	//         let item = new leftSideList.itemObject(item);
+	//       })
+	//     }
+	//
+	//   console.log(urlThridColumn.item, "--------------------------------------------");
+	//
+	// }
 	if (leftSideElement) {
 	    console.log(leftSideElement);
-	    pageInit.leftSide = new leftSideList.itemsObject();
+	    pageInit.leftSide = new LeftSideChild();
+	    console.log(pageInit.leftSide, "neewwwww");
+	    pageInit.leftSide.setActiveItem(urlThridColumn.item);
 	    if (RightSideList.length) {
 	        RightSideList.forEach(function (item) {
+	            debugger;
 	            var item = new leftSideList.itemObject(item);
 	        });
 	    }
+	    console.log(urlThridColumn.item, "--------------------------------------------");
 	}
 	if (changeTownElement) {
 	    pageInit.changeTown = new ChangeTown(changeTownElement);
 	}
-	question();
+	questionForm();
 	if (pageAuth) {
-	    var authorization = __webpack_require__(184);
+	    var authorization = __webpack_require__(186);
 	    authorization();
 	}
-	var href = "/articles/319/";
-	page.show(href, { Active: true });
-	console.log('прочитал инициализацию');
 	module.exports = pageInit;
 
 
@@ -3143,7 +3172,8 @@
 	var Mustache = __webpack_require__(43);
 	var moment = __webpack_require__(44);
 	var request = __webpack_require__(6);
-	var url = __webpack_require__(4);
+	//let url = require('./../../js/utility/state-address/state-address');
+	var urlThridColumn = __webpack_require__(9);
 	var html = document.querySelector('html');
 	var LeftSide = (function () {
 	    function LeftSide() {
@@ -3157,25 +3187,59 @@
 	            return this.page.querySelector('.left-side__item--active');
 	        };
 	        this.scrollTop = 0;
-	        this.scrollEnd = departureList.end; // заменить
-	        this.scrollBegin = departureList.begin; // заменить
+	        this.scrollEnd = itemList.end;
+	        this.scrollBegin = itemList.begin;
 	        this.scrollDirection = -1;
-	        this.requestUrl = '';
+	        this.requestUrl = function () {
+	            return "";
+	        };
 	        this.elementAttribute = 'data-id';
 	        this.addScroll = this.addScroll.bind(this);
 	        this.openItem = this.openItem.bind(this);
 	        this.render = this.render.bind(this);
-	        //this.addEvent();
+	        this.addEvent();
 	        this.setHeightContainer();
 	        this.scrollCoordinate(this.activeElement());
 	    }
 	    LeftSide.prototype.addEvent = function () {
+	        console.log("добавить интереактив");
 	        this.container.addEventListener('scroll', this.addScroll);
 	        this.listElement.addEventListener('click', this.openItem);
 	    };
 	    LeftSide.prototype.removeEvent = function () {
+	        console.log("снять интереактив");
 	        this.container.removeEventListener('scroll', this.addScroll);
 	        this.listElement.removeEventListener('click', this.openItem);
+	    };
+	    LeftSide.prototype.addScroll = function () {
+	        var newScrollTop = this.container.scrollTop;
+	        var directionUP = newScrollTop < this.scrollTop;
+	        this.scrollTop = newScrollTop;
+	        console.log("перед ремувом");
+	        this.removeEvent();
+	        if (!this.scrollBegin && directionUP) {
+	            if ((client.isMobile() && window.pageYOffset < 100) || (!client.isMobile() && this.container.scrollTop < 100)) {
+	                this.scrollDirection = 1;
+	                console.log('вверх');
+	                request.get(this.requestUrl(), this.render);
+	                return;
+	            }
+	        }
+	        if (!this.scrollEnd && !directionUP) {
+	            if (this.getBottomScroll() < 150) {
+	                this.scrollDirection = -1;
+	                console.log("вниз");
+	                console.log(this.requestUrl());
+	                request.get(this.requestUrl(), this.render);
+	                return;
+	            }
+	        }
+	        console.log('я здесб?');
+	        // Когда отрисуется рендер, нужно вернуть евенты, вставить промысы в рендер
+	        setTimeout(function () {
+	            console.log('адд евент');
+	            this.addEvent();
+	        }.bind(this), 0);
 	    };
 	    LeftSide.prototype.setHeightContainer = function () {
 	        var x = document.querySelector(".left-side__content");
@@ -3226,6 +3290,7 @@
 	        this.listElement.appendChild(text);
 	    };
 	    LeftSide.prototype.render = function (response) {
+	        console.log("рендер");
 	        if (response.Data.Begin) {
 	            this.scrollBegin = response.Data.Begin;
 	        }
@@ -3243,47 +3308,34 @@
 	                if (item_1.classList.contains('left-side__item--active')) {
 	                    item_1.classList.remove('left-side__item--active');
 	                }
-	                if (item_1 && url.item.uuid) {
-	                    if (item_1.getAttribute("" + this.elementAttribute) === url.item.uuid) {
+	                console.log(urlThridColumn.item.url);
+	                if (item_1 && urlThridColumn.item.url) {
+	                    if (item_1.getAttribute("" + this.elementAttribute) === urlThridColumn.item.url) {
 	                        item_1.classList.add('left-side__item--active');
 	                    }
 	                }
 	            }
 	        }
 	    };
-	    LeftSide.prototype.addScroll = function () {
-	        console.log('scroll');
-	        console.log(this.scrollBegin);
-	        console.log(this.scrollEnd);
-	        console.log(this.itemElements().length);
-	        for (var _i = 0, _a = this.itemElements(); _i < _a.length; _i++) {
-	            var item = _a[_i];
-	            console.log(item.getAttribute(''));
-	        }
-	        var newScrollTop = this.container.scrollTop;
-	        var directionUP = newScrollTop < this.scrollTop;
-	        this.scrollTop = newScrollTop;
-	        this.removeEvent();
-	        if (!this.scrollBegin && directionUP) {
-	            if ((client.isMobile() && window.pageYOffset < 100) || (!client.isMobile() && this.container.scrollTop < 100)) {
-	                this.scrollDirection = 1;
-	                console.log(this.requestUrl());
-	                request.get(this.requestUrl(), this.render);
-	                return;
-	            }
-	        }
-	        if (!this.scrollEnd && !directionUP) {
-	            if (this.getBottomScroll() < 150) {
-	                this.scrollDirection = -1;
-	                console.log(this.requestUrl());
-	                request.get(this.requestUrl(), this.render);
-	                return;
-	            }
-	        }
-	        setTimeout(function () {
-	            this.addEvent();
-	        }.bind(this), 0);
-	    };
+	    // public setActiveItem(item): void {
+	    //   if (client.isMobile()) {
+	    //     return;
+	    //   }
+	    //
+	    //   if (this.itemElements()) {
+	    //     for (let item of this.itemElements()) {
+	    //       if (item.classList.contains('left-side__item--active')) {
+	    //         item.classList.remove('left-side__item--active');
+	    //       }
+	    //
+	    //       if (item && url.item.uuid) {
+	    //         if (item.getAttribute(`${this.elementAttribute}`) === url.item.uuid) {
+	    //           item.classList.add('left-side__item--active');
+	    //         }
+	    //       }
+	    //     }
+	    //   }
+	    // }
 	    LeftSide.prototype.defineContainer = function () {
 	        if (client.isMobile()) {
 	            return window;
@@ -18689,12 +18741,15 @@
 	var Orders = __webpack_require__(169);
 	var Article = __webpack_require__(171);
 	var Articles = __webpack_require__(172);
-	var Promotion = __webpack_require__(173);
-	var Promotions = __webpack_require__(174);
-	var Review = __webpack_require__(175);
-	var Reviews = __webpack_require__(176);
-	var News = __webpack_require__(177);
-	var NewsItem = __webpack_require__(178);
+	var Question = __webpack_require__(173);
+	var Questions = __webpack_require__(174);
+	var Promotion = __webpack_require__(175);
+	var Promotions = __webpack_require__(176);
+	var Review = __webpack_require__(177);
+	var Reviews = __webpack_require__(178);
+	var News = __webpack_require__(179);
+	var NewsItem = __webpack_require__(180);
+	var RightSide = __webpack_require__(250);
 	var LeftSideList = [
 	    {
 	        item: 'pageArticles',
@@ -18718,13 +18773,19 @@
 	        item: 'pagePromo',
 	        itemClass: "page--promotion",
 	        itemsObject: Promotions,
-	        itemObject: Promotion
+	        itemObject: RightSide
 	    },
 	    {
 	        item: 'pageNews',
 	        itemClass: "page--news",
 	        itemsObject: News,
 	        itemObject: NewsItem
+	    },
+	    {
+	        item: 'pageQuestions',
+	        itemClass: "page--questions",
+	        itemsObject: Questions,
+	        itemObject: Question
 	    }
 	];
 	function defineLeftSide() {
@@ -19540,14 +19601,9 @@
 	    };
 	    Article.prototype.close = function (e) {
 	        e.preventDefault();
-	        var itemUrl = (tabs.length() > 1) ? ('/' + tabs.array[tabs.length() - 2].url) : '';
-	        console.log(itemUrl, "item");
-	        // console.log(tabs.array[tabs.length() - 2].url)
-	        console.log(tabs.array);
-	        //let currentAddressUrl = '/' + url.address.url + itemUrl;
-	        var currentAddressUrl = '/' + url.objectType.url + itemUrl;
+	        var itemUrl = (tabs.length() > 1) ? (tabs.array[tabs.length() - 2].url) : '';
+	        var currentAddressUrl = '/' + url.objectType.url + '/' + itemUrl;
 	        this.removeEvent();
-	        console.log(currentAddressUrl);
 	        page.show(currentAddressUrl, { delete: true });
 	    };
 	    return Article;
@@ -19573,17 +19629,16 @@
 	var moment = __webpack_require__(44);
 	var request = __webpack_require__(6);
 	var path = __webpack_require__(5);
-	var url = __webpack_require__(4);
+	var url = __webpack_require__(9);
 	var LeftSide = __webpack_require__(42);
 	var Articles = (function (_super) {
 	    __extends(Articles, _super);
 	    function Articles() {
 	        _super.call(this);
 	        this.elementAttribute = 'data-id';
-	        // this.requestUrl = function () {
-	        //   return `${path.buildUrl(path.item)}${url.type.address}${url.address.id}?direction=${this.scrollDirection}&status=${this.filter.status}&departureID=${this.getElementIdDirection(this.elementAttribute)}`;
-	        // };
-	        this.addEvent();
+	        this.requestUrl = function () {
+	            return "" + path.buildUrl(path.item) + url.objectType.url + "/?direction=" + this.scrollDirection + "&key=" + this.getElementIdDirection(this.elementAttribute);
+	        };
 	    }
 	    Articles.prototype.addEvent = function () {
 	        _super.prototype.addEvent.call(this);
@@ -19591,97 +19646,65 @@
 	    Articles.prototype.removeEvent = function () {
 	        _super.prototype.removeEvent.call(this);
 	    };
-	    // public render(response) {
-	    //   super.render(response);
-	    //
-	    //
-	    //   if (this.scrollDirection == 1) {
-	    //     response.DepartureList = response.Data.DepartureList.reverse();
-	    //   }
-	    //
-	    //   let oldHeight = this.listElement.getBoundingClientRect().height;
-	    //
-	    //   if (response.Data.DepartureList.length) {
-	    //     response.Data.DepartureList.forEach(function(item) {
-	    //       let template = document.getElementById('orders-template').innerHTML;
-	    //       let Html = Mustache.render(template, {
-	    //         'number': item.OrderNumber,
-	    //         'time': moment.parseZone(moment.utc(item.Date).utcOffset(item.TimeZone).format()).format('DD.MM.YYYY HH:mm'),
-	    //         'cost': item.TotalAmount.toFixed(2),
-	    //         'id': item.DepartureID
-	    //       });
-	    //
-	    //       let div = document.createElement('div');
-	    //       div.setAttribute('data-id', item.DepartureID);
-	    //       div.classList.add('left-side__item');
-	    //       div.classList.add('orders-item');
-	    //       div.innerHTML = Html;
-	    //
-	    //       if (this.scrollDirection === -1) {
-	    //         this.listElement.appendChild(div);
-	    //       } else if (this.scrollDirection === 1) {
-	    //         this.listElement.insertBefore(div, this.listElement.firstChild);
-	    //         console.log(this.listElement.parentElement.scrollTop)
-	    //         this.listElement.parentElement.scrollTop = '100';
-	    //         if (!this.scrollBegin) {
-	    //           this.listElement.parentElement.scrollTop = '100';
-	    //         }
-	    //
-	    //       } else {
-	    //         this.listElement.appendChild(div);
-	    //       }
-	    //     }.bind(this));
-	    //     // if (super.scrollDirection === 1) {
-	    //     //   console.log(this.listElement.parentElement.scrollTop)
-	    //     //   console.log(this.listElement.getBoundingClientRect().height - oldHeight);
-	    //     //   this.listElement.parentElement.scrollTop = this.listElement.getBoundingClientRect().height - oldHeight;
-	    //     //   super.scrollTop = this.listElement.parentElement.scrollTop;
-	    //     //   console.log(this.listElement.parentElement.scrollTop)
-	    //     // }
-	    //   } else {
-	    //     if (!this.itemElements().length) {
-	    //       let comment = '';
-	    //       switch (this.filter.status){
-	    //         case 'Completed':
-	    //           comment = 'Выполненные заказы отсутствуют';
-	    //           break;
-	    //         case 'Active':
-	    //           comment = 'Актуальные заказы отсутствуют';
-	    //           break;
-	    //         case 'Canceled':
-	    //           comment = 'Отменненые заказы отсутствуют';
-	    //           break;
-	    //       };
-	    //
-	    //       this.addComment(comment);
-	    //     }
-	    //   }
-	    //
-	    //   setTimeout(function () {
-	    //     this.addEvent();
-	    //   }.bind(this), 0);
-	    //
-	    //   console.log(this.scrollBegin);
-	    //   console.log(this.scrollEnd);
-	    // }
+	    Articles.prototype.render = function (response) {
+	        _super.prototype.render.call(this, response);
+	        if (this.scrollDirection == 1) {
+	            response.ItemList = response.Data.ItemList.reverse();
+	        }
+	        var oldHeight = this.listElement.getBoundingClientRect().height;
+	        if (response.Data.ItemList.length) {
+	            response.Data.ItemList.forEach(function (item) {
+	                var template = document.getElementById('articles-template').innerHTML;
+	                var Html = Mustache.render(template, {
+	                    'url': item.id,
+	                    'title': item.title,
+	                    'preview_text': item.preview_text,
+	                    'picture': item.picture !== null,
+	                    'pic': item.picture !== null ? item.picture.pic : ''
+	                });
+	                var div = document.createElement('article');
+	                div.classList.add('left-side__item');
+	                div.classList.add('articles__item');
+	                div.setAttribute('data-id', item.url);
+	                div.innerHTML = Html;
+	                if (this.scrollDirection === -1) {
+	                    this.listElement.appendChild(div);
+	                }
+	                else if (this.scrollDirection === 1) {
+	                    this.listElement.insertBefore(div, this.listElement.firstChild);
+	                    this.listElement.parentElement.scrollTop = '100';
+	                    if (!this.scrollBegin) {
+	                        this.listElement.parentElement.scrollTop = '100';
+	                    }
+	                }
+	                else {
+	                    this.listElement.appendChild(div);
+	                }
+	            }.bind(this));
+	            if (_super.prototype.scrollDirection === 1) {
+	                this.listElement.parentElement.scrollTop = this.listElement.getBoundingClientRect().height - oldHeight;
+	                _super.prototype.scrollTop = this.listElement.parentElement.scrollTop;
+	            }
+	        }
+	        setTimeout(function () {
+	            this.addEvent();
+	        }.bind(this), 0);
+	        //
+	        // console.log(this.scrollBegin);
+	        // console.log(this.scrollEnd);
+	    };
 	    Articles.prototype.openItem = function (e) {
-	        e.preventDefault();
 	        e.preventDefault();
 	        var target = e.target;
 	        while (target != this) {
 	            if (target.classList.contains('left-side__item')) {
 	                var departureid = target.getAttribute('data-id');
-	                console.log(target);
-	                console.log(departureid);
 	                if (departureid) {
-	                    var href = "/articles/" + departureid + "/";
-	                    //let href = `http://site.domovenok.corp:3004/contact/${departureid}/`;
-	                    console.log(href);
+	                    var href = "/articles/" + departureid + "/"; // заменить
 	                    if (target.classList.contains('left-side__item--active')) {
 	                    }
 	                    else {
-	                        console.log(page);
-	                        page.show(href, { Active: true });
+	                        page.show(href, { open: true });
 	                    }
 	                }
 	                return;
@@ -19699,6 +19722,24 @@
 /***/ function(module, exports) {
 
 	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+
+
+/***/ },
+/* 174 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+
+
+/***/ },
+/* 175 */
+/***/ function(module, exports) {
+
+	/**
 	 * Created by Lobova.A on 26.01.2017.
 	 */
 	"use strict";
@@ -19711,7 +19752,7 @@
 
 
 /***/ },
-/* 174 */
+/* 176 */
 /***/ function(module, exports) {
 
 	/**
@@ -19727,7 +19768,7 @@
 
 
 /***/ },
-/* 175 */
+/* 177 */
 /***/ function(module, exports) {
 
 	/**
@@ -19743,7 +19784,7 @@
 
 
 /***/ },
-/* 176 */
+/* 178 */
 /***/ function(module, exports) {
 
 	/**
@@ -19759,7 +19800,7 @@
 
 
 /***/ },
-/* 177 */
+/* 179 */
 /***/ function(module, exports) {
 
 	/**
@@ -19775,7 +19816,7 @@
 
 
 /***/ },
-/* 178 */
+/* 180 */
 /***/ function(module, exports) {
 
 	/**
@@ -19791,17 +19832,17 @@
 
 
 /***/ },
-/* 179 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 25.11.2016.
 	 */
 	"use strict";
-	var Menu = __webpack_require__(180);
+	var Menu = __webpack_require__(182);
 	var openApplication = __webpack_require__(37);
-	var callback = __webpack_require__(181);
-	var init = __webpack_require__(182);
+	var callback = __webpack_require__(183);
+	var init = __webpack_require__(184);
 	var initElement = __webpack_require__(10);
 	var headerElement = document.querySelector('.page-header');
 	var menuElement = headerElement.querySelector('.main-menu');
@@ -19834,7 +19875,7 @@
 
 
 /***/ },
-/* 180 */
+/* 182 */
 /***/ function(module, exports) {
 
 	/**
@@ -19918,7 +19959,7 @@
 
 
 /***/ },
-/* 181 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19995,7 +20036,7 @@
 
 
 /***/ },
-/* 182 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20079,13 +20120,13 @@
 	//
 	// };
 	var initElements = __webpack_require__(10);
-	var resize = __webpack_require__(183);
+	var resize = __webpack_require__(185);
 	window.addEventListener('resize', resize);
 	console.log(initElements, "Инициализация елементов и ресайза");
 
 
 /***/ },
-/* 183 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20187,7 +20228,7 @@
 
 
 /***/ },
-/* 184 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20301,7 +20342,7 @@
 
 
 /***/ },
-/* 185 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20313,7 +20354,7 @@
 	var moment = __webpack_require__(44);
 	var url = __webpack_require__(4);
 	var Order = __webpack_require__(160);
-	var init = __webpack_require__(182);
+	var init = __webpack_require__(184);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	var paymentType = {
@@ -20436,7 +20477,7 @@
 
 
 /***/ },
-/* 186 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20448,7 +20489,7 @@
 	var moment = __webpack_require__(44);
 	var url = __webpack_require__(4);
 	var Order = __webpack_require__(160);
-	var init = __webpack_require__(182);
+	var init = __webpack_require__(184);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	module.exports = function (data) {
@@ -20568,7 +20609,7 @@
 
 
 /***/ },
-/* 187 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20579,13 +20620,13 @@
 	var Mustache = __webpack_require__(43);
 	var moment = __webpack_require__(44);
 	var url = __webpack_require__(4);
-	var init = __webpack_require__(182);
+	var init = __webpack_require__(184);
 	var urlThridColumn = __webpack_require__(9);
 	var Article = __webpack_require__(171);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	module.exports = function (data) {
-	    //let data = data.Data.DepartureData;
+	    var receivedData = data.Data.Item;
 	    console.log(data);
 	    // общая часть можно вынести в отдельный модуль
 	    if (client.isMobile()) {
@@ -20611,16 +20652,19 @@
 	    // let timeZone = data.TimeZone;
 	    // let timeOf = moment.parseZone(moment.utc(data.Date).utcOffset(timeZone).format());
 	    //
-	    var newtemplate = document.getElementById('article-active').innerHTML;
-	    var html = Mustache.render(newtemplate, {
-	        'title': data.title,
-	        'pic': data.pic,
-	        'full_text': data.full_text
+	    var template = document.getElementById('article-active').innerHTML;
+	    console.log(receivedData.picture);
+	    var html = Mustache.render(template, {
+	        'title': receivedData.title,
+	        'picture': receivedData.picture !== null,
+	        'pic': receivedData.picture !== null ? receivedData.picture.pic : '',
+	        'full_text': receivedData.full_text,
+	        'pub_date': moment(receivedData.pub_date).format('DD.MM.YYYY')
 	    });
 	    //
 	    var div = document.createElement('div');
 	    div.classList.add('right-side__wrap');
-	    div.setAttribute('data-id', data.id);
+	    div.setAttribute('data-id', receivedData.url);
 	    // div.setAttribute('data-ordernumber', data.OrderNumber);
 	    // div.setAttribute('data-status', StatusCode);
 	    div.innerHTML = html;
@@ -20638,7 +20682,77 @@
 
 
 /***/ },
-/* 188 */
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+	"use strict";
+	var client = __webpack_require__(8);
+	var Mustache = __webpack_require__(43);
+	var moment = __webpack_require__(44);
+	var url = __webpack_require__(4);
+	var init = __webpack_require__(184);
+	var urlThridColumn = __webpack_require__(9);
+	var Question = __webpack_require__(173);
+	var leftSide = document.querySelector('.left-side');
+	var rightSide = document.querySelector('.right-side');
+	module.exports = function (data) {
+	    var receivedData = data.Data.Item;
+	    console.log(data);
+	    // общая часть можно вынести в отдельный модуль
+	    if (client.isMobile()) {
+	        var orders = rightSide.querySelectorAll('.right-side__wrap');
+	        if (orders.length != 0) {
+	            for (var i = 0; orders.length > i; i++) {
+	                rightSide.removeChild(orders[i]);
+	            }
+	        }
+	        leftSide.classList.add('left-side--hide');
+	        rightSide.classList.remove('right-side--hide');
+	    }
+	    //---------
+	    // ------
+	    // for (let i = 0; i < data.Services.length; i++) {
+	    //   data.Services[i].AmountWithDiscount = data.Services[i].AmountWithDiscount.toFixed(2);
+	    //   data.Services[i].Amount = data.Services[i].Amount.toFixed(2);
+	    //   for (let j = 0; j < data.Services[i].ObjectClass.length; j++) {
+	    //     data.Services[i].ObjectClass[j].Amount = data.Services[i].ObjectClass[j].Amount.toFixed(2);
+	    //   }
+	    // }
+	    //
+	    // let departureid = data.DepartureID;
+	    // let timeZone = data.TimeZone;
+	    // let timeOf = moment.parseZone(moment.utc(data.Date).utcOffset(timeZone).format());
+	    //
+	    var newtemplate = document.getElementById('question-active').innerHTML;
+	    var html = Mustache.render(newtemplate, {
+	        'name': receivedData.name,
+	        'question': receivedData.question,
+	        'answer': receivedData.answer,
+	        'pub_date': moment(receivedData.pub_date).format('DD.MM.YYYY')
+	    });
+	    //
+	    var div = document.createElement('div');
+	    div.classList.add('right-side__wrap');
+	    div.setAttribute('data-id', receivedData.url);
+	    div.innerHTML = html;
+	    //
+	    // if (!client.isMobile()) {
+	    //   console.log('dfhfdf')
+	    //   console.log(init.tabs);
+	    //   console.log(init.tabs.add);
+	    //   init.tabs.add(div, departureid, url.type.order);
+	    // }
+	    //
+	    rightSide.appendChild(div);
+	    var question = new Question(div);
+	};
+
+
+/***/ },
+/* 191 */
 /***/ function(module, exports) {
 
 	/**
@@ -20653,6 +20767,423 @@
 	    setTimeout(function () {
 	        rightSide.removeChild(div);
 	    }, 4000);
+	};
+
+
+/***/ },
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var client = __webpack_require__(8);
+	var Mustache = __webpack_require__(43);
+	var templateConf = __webpack_require__(256);
+	var createElement = __webpack_require__(259);
+	var defineObject = __webpack_require__(260);
+	var request = __webpack_require__(6);
+	var path = __webpack_require__(5);
+	var url = __webpack_require__(9);
+	var LeftSideParent = __webpack_require__(42);
+	var LeftSide = (function (_super) {
+	    __extends(LeftSide, _super);
+	    function LeftSide() {
+	        _super.call(this);
+	        this.elementAttribute = 'data-id';
+	        this.requestUrl = function () {
+	            return "" + path.buildUrl(path.item) + url.objectType.url + "/?direction=" + this.scrollDirection + "&key=" + this.getElementIdDirection(this.elementAttribute);
+	        };
+	    }
+	    LeftSide.prototype.addEvent = function () {
+	        _super.prototype.addEvent.call(this);
+	    };
+	    LeftSide.prototype.removeEvent = function () {
+	        _super.prototype.removeEvent.call(this);
+	    };
+	    LeftSide.prototype.render = function (response) {
+	        _super.prototype.render.call(this, response);
+	        if (this.scrollDirection == 1) {
+	            response.ItemList = response.Data.ItemList.reverse();
+	        }
+	        var oldHeight = this.listElement.getBoundingClientRect().height;
+	        if (response.Data.ItemList.length) {
+	            response.Data.ItemList.forEach(function (item) {
+	                var template = document.getElementById('left-side__item').innerHTML;
+	                var Html = Mustache.render(template, defineObject.leftSide.templateConf(item));
+	                var element = defineObject.leftSide.createItem(item);
+	                element.innerHTML = Html;
+	                if (this.scrollDirection === -1) {
+	                    this.listElement.appendChild(element);
+	                }
+	                else if (this.scrollDirection === 1) {
+	                    this.listElement.insertBefore(element, this.listElement.firstChild);
+	                    this.listElement.parentElement.scrollTop = '100';
+	                    if (!this.scrollBegin) {
+	                        this.listElement.parentElement.scrollTop = '100';
+	                    }
+	                }
+	                else {
+	                    this.listElement.appendChild(element);
+	                }
+	            }.bind(this));
+	            if (_super.prototype.scrollDirection === 1) {
+	                this.listElement.parentElement.scrollTop = this.listElement.getBoundingClientRect().height - oldHeight;
+	                _super.prototype.scrollTop = this.listElement.parentElement.scrollTop;
+	            }
+	        }
+	        setTimeout(function () {
+	            this.addEvent();
+	        }.bind(this), 0);
+	    };
+	    LeftSide.prototype.openItem = function (e) {
+	        e.preventDefault();
+	        var target = e.target;
+	        while (target != this) {
+	            if (target.classList.contains('left-side__item')) {
+	                var departureid = target.getAttribute('data-id');
+	                if (departureid) {
+	                    console.log();
+	                    var href = "/" + url.objectType.url + "/" + departureid + "/"; // заменить
+	                    if (target.classList.contains('left-side__item--active')) {
+	                        page.show(href, { active: true });
+	                    }
+	                    else {
+	                        page.show(href, { open: true });
+	                    }
+	                }
+	                return;
+	            }
+	            target = target.parentNode;
+	        }
+	    };
+	    return LeftSide;
+	}(LeftSideParent));
+	module.exports = LeftSide;
+
+
+/***/ },
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+	"use strict";
+	var url = __webpack_require__(9);
+	var tabs = __webpack_require__(3);
+	var Article = (function () {
+	    function Article(element) {
+	        this.element = element;
+	        this.id = this.element.getAttribute('data-id');
+	        this.buttonClose = this.element.querySelector('.right-side__btn--close');
+	        this.close = this.close.bind(this);
+	        this.addEvent();
+	        tabs.add(this, this.element, this.id);
+	    }
+	    Article.prototype.addEvent = function () {
+	        this.buttonClose.addEventListener('click', this.close);
+	    };
+	    Article.prototype.removeEvent = function () {
+	        this.buttonClose.removeEventListener('click', this.close);
+	    };
+	    Article.prototype.close = function (e) {
+	        e.preventDefault();
+	        var itemUrl = (tabs.length() > 1) ? (tabs.array[tabs.length() - 2].url) : '';
+	        var currentAddressUrl = '/' + url.objectType.url + '/' + itemUrl;
+	        this.removeEvent();
+	        page.show(currentAddressUrl, { delete: true });
+	    };
+	    return Article;
+	}());
+	module.exports = Article;
+
+
+/***/ },
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+	"use strict";
+	var moment = __webpack_require__(44);
+	module.exports = function (data) {
+	    return {
+	        'url': data.id,
+	        'title': data.title,
+	        'preview_text': data.preview_text,
+	        'picture': data.picture !== null,
+	        'pic': data.picture !== null ? data.picture.pic : ''
+	    };
+	};
+
+
+/***/ },
+/* 257 */,
+/* 258 */,
+/* 259 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+	"use strict";
+	module.exports = function (data) {
+	    var element = document.createElement('article');
+	    element.classList.add('left-side__item');
+	    element.classList.add('articles__item');
+	    element.setAttribute('data-id', data.url);
+	    return element;
+	};
+
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+	"use strict";
+	var page = document.querySelector('.page');
+	var moment = __webpack_require__(44);
+	var objectList = [
+	    {
+	        itemClass: "page--articles",
+	        leftSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'url': data.id,
+	                    'title': data.title,
+	                    'preview_text': data.preview_text,
+	                    'picture': data.picture !== null,
+	                    'pic': data.picture !== null ? data.picture.pic : ''
+	                };
+	            },
+	            createItem: function (data) {
+	                var element = document.createElement('article');
+	                element.classList.add('left-side__item');
+	                element.classList.add('articles__item');
+	                element.setAttribute('data-id', data.url);
+	                return element;
+	            }
+	        },
+	        rightSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'title': data.title,
+	                    'picture': data.picture !== null,
+	                    'pic': data.picture !== null ? data.picture.pic : '',
+	                    'full_text': data.full_text,
+	                    'pub_date': moment(data.pub_date).format('DD.MM.YYYY')
+	                };
+	            }
+	        }
+	    },
+	    {
+	        itemClass: "page--questions",
+	        leftSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'name': data.name,
+	                    'question': data.question,
+	                    'answer': data.answer,
+	                    'pub_date': moment(data.pub_date).format('DD.MM.YYYY')
+	                };
+	            },
+	            createItem: function (data) {
+	                var element = document.createElement('article');
+	                element.classList.add('left-side__item');
+	                element.classList.add('questions__item');
+	                element.setAttribute('data-id', data.url);
+	                return element;
+	            }
+	        },
+	        rightSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'name': data.name,
+	                    'question': data.question,
+	                    'answer': data.answer,
+	                    'pub_date': moment(data.pub_date).format('DD.MM.YYYY')
+	                };
+	            }
+	        }
+	    },
+	    {
+	        itemClass: "page--reviews",
+	        leftSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'name': data.name,
+	                    'review': data.review,
+	                    'answer': data.answer,
+	                    'date': moment(data.pub_date).format('DD.MM.YYYY'),
+	                    'rating': data.rating
+	                };
+	            },
+	            createItem: function (data) {
+	                var element = document.createElement('div');
+	                element.classList.add('left-side__item');
+	                element.classList.add('reviews__item');
+	                element.setAttribute('data-id', data.url);
+	                return element;
+	            }
+	        },
+	        rightSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'name': data.name,
+	                    'review': data.review,
+	                    'answer': data.answer,
+	                    'date': moment(data.pub_date).format('DD.MM.YYYY'),
+	                    'rating': data.rating
+	                };
+	            }
+	        }
+	    }
+	];
+	function defineObject() {
+	    for (var _i = 0, objectList_1 = objectList; _i < objectList_1.length; _i++) {
+	        var item = objectList_1[_i];
+	        if (page.classList.contains(item.itemClass)) {
+	            return item;
+	        }
+	    }
+	}
+	module.exports = defineObject();
+
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+	"use strict";
+	var client = __webpack_require__(8);
+	var Mustache = __webpack_require__(43);
+	var moment = __webpack_require__(44);
+	var url = __webpack_require__(4);
+	var init = __webpack_require__(184);
+	var urlThridColumn = __webpack_require__(9);
+	var defineObject = __webpack_require__(260);
+	var RightSide = __webpack_require__(250);
+	var leftSide = document.querySelector('.left-side');
+	var rightSide = document.querySelector('.right-side');
+	module.exports = function (data) {
+	    var receivedData = data.Data.Item;
+	    console.log(data);
+	    // общая часть можно вынести в отдельный модуль
+	    if (client.isMobile()) {
+	        var orders = rightSide.querySelectorAll('.right-side__wrap');
+	        if (orders.length != 0) {
+	            for (var i = 0; orders.length > i; i++) {
+	                rightSide.removeChild(orders[i]);
+	            }
+	        }
+	        leftSide.classList.add('left-side--hide');
+	        rightSide.classList.remove('right-side--hide');
+	    }
+	    // ------
+	    // for (let i = 0; i < data.Services.length; i++) {
+	    //   data.Services[i].AmountWithDiscount = data.Services[i].AmountWithDiscount.toFixed(2);
+	    //   data.Services[i].Amount = data.Services[i].Amount.toFixed(2);
+	    //   for (let j = 0; j < data.Services[i].ObjectClass.length; j++) {
+	    //     data.Services[i].ObjectClass[j].Amount = data.Services[i].ObjectClass[j].Amount.toFixed(2);
+	    //   }
+	    // }
+	    //
+	    // let departureid = data.DepartureID;
+	    // let timeZone = data.TimeZone;
+	    // let timeOf = moment.parseZone(moment.utc(data.Date).utcOffset(timeZone).format());
+	    //
+	    var template = document.getElementById('right-side__wrap').innerHTML;
+	    var html = Mustache.render(template, defineObject.rightSide.templateConf(receivedData));
+	    var element = document.createElement('div');
+	    element.classList.add('right-side__wrap');
+	    element.setAttribute('data-id', receivedData.url);
+	    element.innerHTML = html;
+	    //
+	    // if (!client.isMobile()) {
+	    //   console.log('dfhfdf')
+	    //   console.log(init.tabs);
+	    //   console.log(init.tabs.add);
+	    //   init.tabs.add(div, departureid, url.type.order);
+	    // }
+	    //
+	    rightSide.appendChild(element);
+	    var rightSideItem = new RightSide(element);
 	};
 
 
