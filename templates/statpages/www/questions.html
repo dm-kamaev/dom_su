@@ -7,46 +7,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui" />
   <meta name="format-detection" content="telephone=no">
 
-  <link rel="apple-touch-icon" sizes="57x57" href="/static/img/apple-touch-icon-57x57.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="60x60" href="/static/img/apple-touch-icon-60x60.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="72x72" href="/static/img/apple-touch-icon-72x72.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="76x76" href="/static/img/apple-touch-icon-76x76.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="114x114" href="/static/img/apple-touch-icon-114x114.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="120x120" href="/static/img/apple-touch-icon-120x120.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="144x144" href="/static/img/apple-touch-icon-144x144.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="152x152" href="/static/img/apple-touch-icon-152x152.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon-180x180.png?v=1.0">
-  <link rel="icon" type="image/png" href="/static/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
-  <link rel="icon" type="image/png" href="/static/img/favicon-16x16.png?v=1.01" sizes="16x16">
-  <link rel="icon" type="image/png" href="/static/img/favicon-32x32.png?v=1.01" sizes="32x32">
-  <link rel="icon" type="image/png" href="/static/img/favicon-48x48.png?v=1.0" sizes="48x48">
-  <link rel="manifest" href="/static/manifest.json?v=1.02">
-  <link rel="mask-icon" href="/static/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
+  <link rel="apple-touch-icon" sizes="57x57" href="/static/general/img/apple-touch-icon-57x57.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="60x60" href="/static/general/img/apple-touch-icon-60x60.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="72x72" href="/static/general/img/apple-touch-icon-72x72.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="76x76" href="/static/general/img/apple-touch-icon-76x76.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="114x114" href="/static/general/img/apple-touch-icon-114x114.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="120x120" href="/static/general/img/apple-touch-icon-120x120.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="144x144" href="/static/general/img/apple-touch-icon-144x144.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="152x152" href="/static/general/img/apple-touch-icon-152x152.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/general/img/apple-touch-icon-180x180.png?v=1.0">
+  <link rel="icon" type="image/png" href="/static/general/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
+  <link rel="icon" type="image/png" href="/static/general/img/favicon-16x16.png?v=1.01" sizes="16x16">
+  <link rel="icon" type="image/png" href="/static/general/img/favicon-32x32.png?v=1.01" sizes="32x32">
+  <link rel="icon" type="image/png" href="/static/general/img/favicon-48x48.png?v=1.0" sizes="48x48">
+  <link rel="manifest" href="/static/general/manifest.json?v=1.02">
+  <link rel="mask-icon" href="/static/general/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
   <meta name="apple-mobile-web-app-title" content="Domovenok">
   <meta name="application-name" content="Domovenok">
   <meta name="msapplication-TileColor" content="#fd8204">
-  <meta name="msapplication-TileImage" content="/static/img/mstile-144x144.png?v=1.0">
-  <meta name="msapplication-config" content="/static/browserconfig.xml?v=1.02">
+  <meta name="msapplication-TileImage" content="/static/general/img/mstile-144x144.png?v=1.0">
+  <meta name="msapplication-config" content="/static/general/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/css/style.css?v00">
-  <script src="/static/js/vendor/vendor.min.js?v00"></script>
+  <link rel="stylesheet" href="/static/css/style.css?v01">
+  <script src="/static/js/vendor/vendor.min.js?v01"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
   <script>
     var domovenokClient = {
       name: ''
     };
-    //    var generalPath = {
-    //      schema: '',
-    //      domain: '',
-    //      url: ''
-    //    };
-
     var generalPath = {
-      schema: 'http',
-      domain: 'site.domovenok.corp:3004',
-      url: 'articles'
+      schema: '',
+      domain: '',
+      url: ''
     };
 
     generalPath.buildUrl = function (additional) {
@@ -56,12 +50,19 @@
       return build;
     };
 
+  /*  {{ #help }}
+    var helpList = [];
 
-    var itemList = {
-      begin: {{Begin}},
-    end: {{End}}
+    var popupIsAnswer =  false;
+    var popupAnswerResult = true;
+
+    {{ /help }}
+  */
+
+    var departureList = {
+      begin: true,
+      end: false
     };
-
     var clientId = '';
   </script>
 </head>
@@ -369,13 +370,39 @@
         <div class="left-side__wrap scroll-container-unstable">
 
           <div class="left-side__list questions">
-            {{#each ItemList}}
-            <article  class="left-side__item questions__item" data-id="{{id}}">
-              <h3 class="questions__title title">{{name}}</h3>
-              <time class="questions__time" datetime="">{{formateDate pub_date}}</time>
-              <p class="questions__text review__text text">{{question}}</p>
+            <article  class="left-side__item questions__item">
+              <h3 class="questions__title title">Татьяна</h3>
+              <time class="questions__time" datetime="">01.12.2016</time>
+              <p class="questions__text review__text text">Добрый день! Интересует уборка квартиры (65кв.м.) после ремонта. Территориально - г. Балашиха Московской области....</p>
             </article>
-            {{#each}}
+            <article  class="left-side__item questions__item">
+              <h3 class="questions__title title">Ольга</h3>
+              <time class="questions__time" datetime="">13.09.2016</time>
+              <p class="questions__text review__text text">Добрый день! Интересует стоимость мытья окон после ремонта. Сама квартира не требует уборки, но на стеклах на некоторых створках имеются брызги цементного раствора....</p>
+            </article>
+            <article  class="left-side__item questions__item">
+              <h3 class="questions__title title">Анна</h3>
+              <time class="questions__time" datetime="">03.08.2016</time>
+              <p class="questions__text review__text text">Скажите пожалуйста,сколько будет стоить ген.уборка кухни 6.5кв.м?</p>
+            </article>
+
+            <article  class="left-side__item questions__item">
+              <h3 class="questions__title title">шалимова светлана</h3>
+              <time class="questions__time" datetime="">01.08.2016</time>
+              <p class="questions__text review__text text">Добрый день! Можно ли примерно рассчитать стоимость мойки окон на 11 эт.?</p>
+            </article>
+
+            <article  class="left-side__item questions__item">
+              <h3 class="questions__title title">Голубкова Людмида</h3>
+              <time class="questions__time" datetime="">24.07.2016</time>
+              <p class="questions__text review__text text"> Имеется ли услуга по мытью хрустальных люстр и стоимость </p>
+            </article>
+
+            <article  class="left-side__item questions__item">
+              <h3 class="questions__title title">Марина</h3>
+              <time class="questions__time" datetime="">23.07.2016</time>
+              <p class="questions__text review__text text">Здравствуйте. Подскажите, пожалуйста, стоимость мытья 3-х окон в квартире...</p>
+            </article>
           </div>
 
         </div>
@@ -394,7 +421,7 @@
     <div class="right-side  right-side--hide  right-side--mobile">
 
       <div class="right-side__wrap scroll-container-unstable" data-departureid="105dfbc1-3255-11e3-93ff-002590306b4f">
-        {{#with Item}}
+
         <button class="right-side__btn  right-side__btn--close  icon-close" type="button">
           <svg class="icon-close__image" width="22.47" height="22.47" viewBox="0 0 22.47 22.47">
             <rect class="icon-close__element" x="182.81" y="107.75" width="31" height="1.64" rx="0.82" ry="0.82" transform="translate(-205.73 74.73) rotate(-45)" fill="#fd8204"/>
@@ -403,13 +430,15 @@
         </button>
 
         <article  class="question">
-          <h3 class="question__title title">{{name}}</h3>
-          <time class="question__time" datetime="">{{formateDate pub_date}}</time>
-          <p class="question__text text">{{question}}</p>
+          <h3 class="question__title title">Шиве Василий</h3>
+          <time class="question__time" datetime="">05.03.2015</time>
+          <p class="question__text text">Cколько производится по времени поддерживающаю уборка в помещении 40-42 кв.м. Может ли домашний мастер доделать...</p>
         </article>
         <article class="question__answer">
           <h3 class="question__title title">Ответ:</h3>
-          <p class="question__text question__text--light-brown text">{{answer}}</p>
+          <p class="question__text question__text--light-brown text">Компания Домовенок приносит Вам свои глубочайшие извинения за невнимание, проявленное сотрудниками нашей компании по отношению к Вам. Подобный случай абсолютно недопустим для нас, так как мы стремимся установить с клиентами длительные и доверительные отношения, основанные на качественном обслуживании.
+            Мы просим Вас сохранить отношения с нашей компанией, и уверяем, что Вам больше не придётся столкнуться с подобным невнимательным отношением. Мы проведем тщательное расследование (разбирательство) по данной ситуации, и обязательно проинформируем Вас о принятых нами мерах.
+            Мы очень надеемся на дальнейшее сотрудничество и в качестве компенсации мы предлагаем Вам бесплатную поддерживающую уборку.</p>
           <span class="question__sign">С уважением, Ваш Домовенок</span>
         </article>
 
@@ -428,7 +457,6 @@
             <a class="link" href="">Уборку таунхауса после ремонта по подходящим ценам</a>
           </li>
         </ul>
-        {{/with}}
       </div>
 
       <div class="right-side__wrap right-side__wrap--form right-side__wrap--hide scroll-container-unstable" data-departureid="105dfbc1-3255-11e3-93ff-002590306b4f">
@@ -485,7 +513,7 @@
 
 <!-- Java Script -->
 
-<script src="/static/js/bundle.js?v00"></script>
+<script src="/static/js/bundle.js?v01"></script>
 <!-- /Java Script -->
 
 </body>

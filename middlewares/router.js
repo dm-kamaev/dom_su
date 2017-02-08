@@ -1,10 +1,12 @@
 'use strict';
 
 const {articlesRouterAjax, articlesRouter} = require('articles')
+const {statpagesRouter} = require('statpages')
 const {newsRouterAjax, newsRouter} = require('news')
 const {FAQRouterAjax, FAQRouter} = require('faq')
 const {reviewsRouterAjax, reviewsRouter} = require('reviews')
 const {adminRouter: adminRouter} = require('admin')
+const { internalAPI } = require('internal_api')
 
 module.exports = {applyRouters: applyRouters}
 
@@ -24,6 +26,12 @@ function applyRouters(app) {
     // Reviews
     app.use(reviewsRouter.routes())
     app.use(reviewsRouterAjax.routes())
+
+    // Statpages
+    app.use(statpagesRouter.routes())
+
+    // Internal API
+    app.use(internalAPI.routes())
 
     // Admin
     app.use(adminRouter.routes())

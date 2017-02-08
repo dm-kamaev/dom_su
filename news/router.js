@@ -28,7 +28,7 @@ newsRouter.get('newsList', '/', async function (ctx, next) {
     const {modelList, begin, end} = await getNewsListScroll()
     const html = await fs.readFile('templates/news/news.html', 'utf-8')
     const template = Handlebars.compile(html)
-    ctx.body = template({ItemList: modelList, Begin: begin, End: end})
+    ctx.body = template({ItemList: modelList, Begin: begin, End: end, HasRightSide: false})
 })
 
 newsRouter.get('newsItem', '/:key/', async function (ctx, next) {
@@ -36,7 +36,7 @@ newsRouter.get('newsItem', '/:key/', async function (ctx, next) {
     const {modelList, begin, end}= await getNewsListScroll({direction: 0, keyValue: news.id})
     const html = await fs.readFile('templates/news/news.html', 'utf-8')
     const template = Handlebars.compile(html)
-    ctx.body = template({ItemList: modelList, Item: article, Begin: begin, End: end})
+    ctx.body = template({ItemList: modelList, Item: article, Begin: begin, End: end, HasRightSide: true})
 })
 
 newsRouterAjax.get('newsListAjax', '/', async function (ctx, next) {
@@ -56,7 +56,6 @@ newsRouterAjax.get('newsListAjax', '/', async function (ctx, next) {
 
 newsRouterAjax.get('newsItemAjax', '/:key/', async function (ctx, next) {
     try {
-        console.log(ctx.params.key)
         const news = await getNews(ctx.params.key)
         let response = { Success: true, Data: { Item: news} }
         ctx.type = 'application/json'

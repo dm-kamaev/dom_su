@@ -16,15 +16,14 @@
         "ticket_url": "/domovenok/hs/rq"
     },
     "cookie": {
-        "domain": ".domovenok.corp"
+        "domain": ".dev.domovenok.su"
     },
     "serverPath": {
         "schema": "https",
-        "domain": "site.domovenok.corp",
+        "domain": {
+            "default": "www.dev.domovenok.su",
+            "withoutCity": "dev.domovenok.su"
+        },
         "uri": "/"
-    },
-    "sitePath": {
-        "schema": "http",
-        "domain": "www.dev.domovenok.su"
     }
 }

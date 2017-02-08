@@ -25,7 +25,6 @@ Handlebars.registerHelper({
             if (i.ref === false){
                 tag[i.name] = type_html[i.type]
             } else {
-                console.log()
                 tag[i.refModel.name] = {}
                 i.refModel.getRefPreviewField({withType: true}).forEach((refAttr)=>{
                     tag[i.refModel.name][refAttr.name] = type_html.ref

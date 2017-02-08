@@ -7,40 +7,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui" />
   <meta name="format-detection" content="telephone=no">
 
-  <link rel="apple-touch-icon" sizes="57x57" href="/static/general/img/apple-touch-icon-57x57.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="60x60" href="/static/general/img/apple-touch-icon-60x60.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="72x72" href="/static/general/img/apple-touch-icon-72x72.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="76x76" href="/static/general/img/apple-touch-icon-76x76.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="114x114" href="/static/general/img/apple-touch-icon-114x114.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="120x120" href="/static/general/img/apple-touch-icon-120x120.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="144x144" href="/static/general/img/apple-touch-icon-144x144.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="152x152" href="/static/general/img/apple-touch-icon-152x152.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/static/general/img/apple-touch-icon-180x180.png?v=1.0">
-  <link rel="icon" type="image/png" href="/static/general/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
-  <link rel="icon" type="image/png" href="/static/general/img/favicon-16x16.png?v=1.01" sizes="16x16">
-  <link rel="icon" type="image/png" href="/static/general/img/favicon-32x32.png?v=1.01" sizes="32x32">
-  <link rel="icon" type="image/png" href="/static/general/img/favicon-48x48.png?v=1.0" sizes="48x48">
-  <link rel="manifest" href="/static/general/manifest.json?v=1.02">
-  <link rel="mask-icon" href="/static/general/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
+  <link rel="apple-touch-icon" sizes="57x57" href="/static/img/apple-touch-icon-57x57.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="60x60" href="/static/img/apple-touch-icon-60x60.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="72x72" href="/static/img/apple-touch-icon-72x72.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="76x76" href="/static/img/apple-touch-icon-76x76.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="114x114" href="/static/img/apple-touch-icon-114x114.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="120x120" href="/static/img/apple-touch-icon-120x120.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="144x144" href="/static/img/apple-touch-icon-144x144.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="152x152" href="/static/img/apple-touch-icon-152x152.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon-180x180.png?v=1.0">
+  <link rel="icon" type="image/png" href="/static/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
+  <link rel="icon" type="image/png" href="/static/img/favicon-16x16.png?v=1.01" sizes="16x16">
+  <link rel="icon" type="image/png" href="/static/img/favicon-32x32.png?v=1.01" sizes="32x32">
+  <link rel="icon" type="image/png" href="/static/img/favicon-48x48.png?v=1.0" sizes="48x48">
+  <link rel="manifest" href="/static/manifest.json?v=1.02">
+  <link rel="mask-icon" href="/static/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
   <meta name="apple-mobile-web-app-title" content="Domovenok">
   <meta name="application-name" content="Domovenok">
   <meta name="msapplication-TileColor" content="#fd8204">
-  <meta name="msapplication-TileImage" content="/static/general/img/mstile-144x144.png?v=1.0">
-  <meta name="msapplication-config" content="/static/general/browserconfig.xml?v=1.02">
+  <meta name="msapplication-TileImage" content="/static/img/mstile-144x144.png?v=1.0">
+  <meta name="msapplication-config" content="/static/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/general/css/style.css?v00">
-  <script src="/static/general/js/vendor/vendor.min.js?v00"></script>
+  <link rel="stylesheet" href="/static/css/style.css?v00">
+  <script src="/static/js/vendor/vendor.min.js?v00"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
   <script>
     var domovenokClient = {
       name: ''
     };
+    //    var generalPath = {
+    //      schema: '',
+    //      domain: '',
+    //      url: ''
+    //    };
+
     var generalPath = {
-      schema: '',
-      domain: '',
-      url: ''
+      schema: 'http',
+      domain: 'site.domovenok.corp:3004',
+      url: 'news'
     };
 
     generalPath.buildUrl = function (additional) {
@@ -50,19 +56,12 @@
       return build;
     };
 
-  /*  {{ #help }}
-    var helpList = [];
 
-    var popupIsAnswer =  false;
-    var popupAnswerResult = true;
-
-    {{ /help }}
-  */
-
-    var departureList = {
-      begin: true,
-      end: false
+    var itemList = {
+      begin: {{Begin}},
+      end: {{End}}
     };
+
     var clientId = '';
   </script>
 </head>
@@ -82,7 +81,7 @@
           <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
         </svg>
       </button>
-      <a class="page-header__logo" href="http://www.domovenok.su"><img height="38" width="152" src="/static/general/img/logo.svg" alt="Логотип"/></a>
+      <a class="page-header__logo" href="http://www.domovenok.su"><img height="38" width="152" src="/static/img/logo.svg" alt="Логотип"/></a>
   
       <a class="page-header__tel" href="tel: +74956680468"><span class="page-header__tel-brown">8 (495)</span> 668-04-68</a>
     </div>
@@ -357,7 +356,7 @@
 
   <!-- Main Content -->
   <main class="page__main-content  main-content">
-    <div class="left-side  left-side--mobile">
+    <div class="left-side {{#HasRightSide}}left-side--mobile{{/HasRightSide}}">
 
       <div class="left-side__top">
         <h1 class="left-side__title  title">Новости</h1>
@@ -367,194 +366,19 @@
       <div class="left-side__content">
         <div class="left-side__wrap scroll-container-unstable">
           <div class="left-side__list news">
-            <article  class="left-side__item news__item">
+            {{#each ItemList}}
+            <article  class="left-side__item news__item" data-id="{{url}}">
               <div class="news__row">
                 <div class="news__column">
-                  <img class="news__image" srcset="/static/general/img/misha.jpg 1x, /static/general/img/misha.jpg 2x, /static/general/img/misha.jpg 3x" width="120" height="120">
+                  <img class="news__image" src="https://www.domovenok.su/media/{{ picture.pic }}" width="120" height="120">
                 </div>
                 <div class="news__column">
-                  <h3 class="news__title title">Написать Генеральному директору</h3>
-                  <p class="news__text text">Если у Вас есть нерешенная проблема, идея по улучшению сервиса, а также другие вопросы, Вы ...</p>
+                  <h3 class="news__title title">{{ title }}</h3>
+                  <p class="news__text text">{{full_text}}</p>
                 </div>
               </div>
             </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image" srcset="/static/general/img/pen.jpg 1x, /static/general/img/pen.jpg 2x, /static/general/img/pen.jpg 3x" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Весна в деталях</h3>
-                  <p class="news__text text">Мы убеждены, что весна должна ощущаться в каждой детали дома. Поэтому мы решили ...</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image" srcset="/static/general/img/misha.jpg 1x, /static/general/img/misha.jpg 2x, /static/general/img/misha.jpg 3x" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Приводим квартиру в порядок после Нового года</h3>
-                  <p class="news__text text">Празднование Нового Года подошло к концу – и каждая хозяйка сталкивается с необходимостью ...</p>
-                  <div class="news__row">
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image" srcset="/static/general/img/pen.jpg 1x, /static/general/img/pen.jpg 2x, /static/general/img/pen.jpg 3x" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">25 вещей, которые должны быть обязательно в доме</h3>
-                  <p class="news__text text">Обустройство дома – задача не из простых. Но сегодня мы поговорим не о декоре, а о ...</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image" srcset="/static/general/img/pen.jpg 1x, /static/general/img/pen.jpg 2x, /static/general/img/pen.jpg 3x" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Идеи для подарков на Новый год</h3>
-                  <p class="news__text text">Новый Год не мыслим без подарков! Как выбрать подходящие, чтобы наверняка пора ...</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image"  src="/static/general/img/pen.jpg" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Уход за обувью в период холодов</h3>
-                  <p class="news__text text">Любимая пара туфель, кроссовок или сапог прослужит дольше, если правильно за ней ухаживать....</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image"  src="/static/general/img/misha.jpg" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Уход за обувью в период холодов</h3>
-                  <p class="news__text text">Любимая пара туфель, кроссовок или сапог прослужит дольше, если правильно за ней ухаживать....</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image"  src="/static/general/img/pen.jpg" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Уход за обувью в период холодов</h3>
-                  <p class="news__text text">Любимая пара туфель, кроссовок или сапог прослужит дольше, если правильно за ней ухаживать....</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image"  src="/static/general/img/misha.jpg" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Уход за обувью в период холодов</h3>
-                  <p class="news__text text">Любимая пара туфель, кроссовок или сапог прослужит дольше, если правильно за ней ухаживать....</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image"  src="/static/general/img/pen.jpg" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Уход за обувью в период холодов</h3>
-                  <p class="news__text text">Любимая пара туфель, кроссовок или сапог прослужит дольше, если правильно за ней ухаживать....</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image"  src="/static/general/img/pen.jpg" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Уход за обувью в период холодов</h3>
-                  <p class="news__text text">Любимая пара туфель, кроссовок или сапог прослужит дольше, если правильно за ней ухаживать....</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image"  src="/static/general/img/pen.jpg" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Уход за обувью в период холодов</h3>
-                  <p class="news__text text">Любимая пара туфель, кроссовок или сапог прослужит дольше, если правильно за ней ухаживать....</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image"  src="/static/general/img/pen.jpg" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Уход за обувью в период холодов</h3>
-                  <p class="news__text text">Любимая пара туфель, кроссовок или сапог прослужит дольше, если правильно за ней ухаживать....</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image"  src="/static/general/img/pen.jpg" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Уход за обувью в период холодов</h3>
-                  <p class="news__text text">Любимая пара туфель, кроссовок или сапог прослужит дольше, если правильно за ней ухаживать....</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image"  src="/static/general/img/pen.jpg" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Уход за обувью в период холодов</h3>
-                  <p class="news__text text">Любимая пара туфель, кроссовок или сапог прослужит дольше, если правильно за ней ухаживать....</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image"  src="/static/general/img/pen.jpg" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Уход за обувью в период холодов</h3>
-                  <p class="news__text text">Любимая пара туфель, кроссовок или сапог прослужит дольше, если правильно за ней ухаживать....</p>
-                </div>
-              </div>
-            </article>
-            <article  class="left-side__item news__item">
-              <div class="news__row">
-                <div class="news__column">
-                  <img class="news__image"  src="/static/general/img/pen.jpg" width="120" height="120">
-                </div>
-                <div class="news__column">
-                  <h3 class="news__title title">Уход за обувью в период холодов</h3>
-                  <p class="news__text text">Любимая пара туфель, кроссовок или сапог прослужит дольше, если правильно за ней ухаживать....</p>
-                </div>
-              </div>
-            </article>
+            {{/each}}
         </div>
       </div>
       </div>
@@ -569,9 +393,9 @@
       </a>
 
     </div>
-    <div class="right-side  right-side--hide  right-side--mobile">
-
-      <div class="right-side__wrap  right-side__wrap--grafic scroll-container-unstable" data-departureid="105dfbc1-3255-11e3-93ff-002590306b4f">
+    <div class="right-side  right-side--hide {{#HasRightSide}}right-side--mobile{{/HasRightSide}}">
+      {{#with Item}}
+      <div class="right-side__wrap">
 
         <button class="right-side__btn  right-side__btn--close  icon-close" type="button">
           <svg class="icon-close__image" width="22.47" height="22.47" viewBox="0 0 22.47 22.47">
@@ -582,18 +406,10 @@
 
         <article  class="news-item">
           <div class="news-item__wrap">
-            <h2>Быстрая уборка к приезду родителей/девушки</h2>
+            <h2>{{title}}</h2>
             <time datetime="">05.03.2015</time>
-            <img src="/static/general/img/spray.jpg" alt="" width="300" height="200">
-            <p>Иногда возникают ситуации, когда наводить порядок просто нет времени, и нужно быстро создать видимость чистоты. В этом поможет правильная тактика, благодаря которой вы узнаете, с чего следует начинать экспресс-уборку и на что нужно обязательно обратить внимание.</p>
-            <h3>Придерживаемся плана</h3>
-            <img src="/static/general/img/woman.jpg" alt="" width="300" height="200">
-            <p>Внезапный приезд родственников или друзей может поставить в тупик. Чтобы быстро подготовить жилье к приему гостей, нужно придерживаться следующих правил:</p>
-            <ul>
-              <li>не паниковать;</li>
-              <li>если дома находятся другие члены семьи, без зазрения совести привлекать их к уборке;</li>
-              <li>соблюдать последовательность действий: сперва привести в порядок прихожую и гостиную, затем санузел и кухню, а спальню в последнюю очередь</li>
-            </ul>
+            <img src="https://www.domovenok.su/media/{{ picture.pic }}" alt="" width="300" height="200">
+            {{{full_text}}}
           </div>
 
           <footer class="news-item__footer">
@@ -604,7 +420,94 @@
             </div>
           </footer>
         </article>
+        <div class="linking-pages">
+          <h3 class="right-side__heading title">У нас Вы можете заказать:</h3>
 
+          <ul class="list">
+            <li class="item item--circle">
+              <a class="link" href="">Мытье пластиковых окон</a>
+            </li>
+            <li class="item item--circle">
+              <a class="link" href="">Поддерживающую уборку офисов в Москве</a>
+            </li>
+            <li class="item item--circle">
+              <a class="link" href="">Уборку таунхауса после ремонта по подходящим ценам</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+      {{/with}}
+    </div>
+  </main>
+  <!-- /Main Content -->
+
+</div>
+<!-- /Page wrapper -->
+
+<!-- Java Script -->
+
+<!-- Template Order -->
+<script id="left-side__item" type="text/html">
+  {{{{raw}}}}
+  <div class="articles__row">
+    <div class="articles__column">
+      <img class="articles__image" src="https://www.domovenok.su/media/{{ pic }}">
+    </div>
+    <div class="articles__column">
+      <h3 class="articles__title title">{{ title }}</h3>
+      <p class="articles__text text">{{{ preview_text }}}</p>
+    </div>
+  </div>
+  {{{{/raw}}}}
+</script>
+<!-- /Template Active Order -->
+
+<script id="right-side__wrap" type="text/html">
+  {{{{raw}}}}
+  <button class="right-side__btn  right-side__btn--close  icon-close">
+    <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+      <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </svg>
+  </button>
+
+  <article  class="article">
+    <div class="article__wrap">
+
+      <h2>{{title}}</h2>
+      <time datetime="">{{pub_date}}</time>
+      {{#picture}}
+      <img srcset="https://www.domovenok.su/media/{{ pic }}" alt="" width="300" height="200">
+      {{/picture}}
+      {{{full_text}}}
+
+    </div>
+
+    <footer class="article__footer">
+      <div class="article__inner">
+        <h3 class="right-side__heading title">Понравилась статья?</h3>
+        <label class="article__label label" for="subscription">Подписывайтесь на нашу рассылку</label>
+        <div class="article__row">
+          <input class="article__input input" type="email" name="email-subscription" id="subscription" placeholder="Напишите e-mail">
+          <button class="article__button button" type="submit">Подписаться</button>
+        </div>
+      </div>
+
+      <div class="article__inner">
+        <h3 class="right-side__heading title">Была ли Вам полезна статья?</h3>
+        <div class="article__row article__row--sm">
+          <button class="article__button button">Да</button>
+          <button class="article__button button">Нет</button>
+        </div>
+      </div>
+
+      <div class="article__inner">
+        <h3 class="right-side__heading title">Поделиться:</h3>
+        <div class="article__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
+      </div>
+
+      <div class="linking-pages">
         <h3 class="right-side__heading title">У нас Вы можете заказать:</h3>
 
         <ul class="list">
@@ -618,29 +521,18 @@
             <a class="link" href="">Уборку таунхауса после ремонта по подходящим ценам</a>
           </li>
         </ul>
-
       </div>
-    </div>
+    </footer>
+  </article>
 
-    <div class="contact-btn">
-      <button class="contact-btn__btn contact-btn__btn--main" type="button">Кнопка контакта</button>
-      <div class="contact-btn__list">
-        <button class="contact-btn__btn contact-btn__btn--left" type="button">T</button>
-        <button class="contact-btn__btn contact-btn__btn--center" type="button">E</button>
-        <button class="contact-btn__btn contact-btn__btn--right" type="button">C</button>
-      </div>
-      <div class="contact-btn__window"></div>
-    </div>
 
-  </main>
-  <!-- /Main Content -->
 
-</div>
-<!-- /Page wrapper -->
+  </section>
+  {{{{/raw}}}}
+</script>
+<!-- /Template Active Order -->
 
-<!-- Java Script -->
-
-<script src="/static/general/js/bundle.js?v00"></script>
+<script src="/static/js/bundle.js?v00"></script>
 <!-- /Java Script -->
 
 </body>

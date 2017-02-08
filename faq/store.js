@@ -7,7 +7,7 @@ const FAQActive = FAQ.scope('active')
 
 
 async function getFAQ(id) {
-    let attributes = [['id', 'url'], 'name', 'pub_date', 'question', 'answer']
+    let attributes = ['id', 'name', 'pub_date', 'question', 'answer']
     if (typeof additionalAttr == 'list'){
         attributes = attributes.concat(additionalAttr)
     } if (typeof additionalAttr == 'string')
@@ -19,7 +19,7 @@ async function getFAQ(id) {
 
 async function getFAQListScroll(opts) {
     let options = opts || {}
-    options.attributes = [['id', 'url'], 'name', 'pub_date', 'question', 'answer']
+    options.attributes = ['id', 'name', 'pub_date', 'question', 'answer']
     return await scrollModel(FAQActive, options);
 }
 

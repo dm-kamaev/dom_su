@@ -14,7 +14,6 @@ function taskEventCreate (opts) {
             visit_uuid = callback_visit_uuid
         }
         await Event.create({
-            uuid: uuid4(),
             visit_uuid: visit_uuid,
             token_uuid: token_uuid,
             data: data,

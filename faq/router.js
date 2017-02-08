@@ -24,19 +24,31 @@ const FAQRouterAjax = new Router({
 //
 // let template = readTemplate()
 
+FAQRouter.post('FAQFormHandler', '/form/', async function (ctx, next) {
+    ctx.type = 'application/json'
+    ctx.body = JSON.stringify({ Success: true })
+})
+
 FAQRouter.get('FAQList', '/', async function (ctx, next) {
     const {modelList, begin, end} = await getFAQListScroll()
     const html = await fs.readFile('templates/faq/faq.html', 'utf-8')
     const template = Handlebars.compile(html)
-    ctx.body = template({ItemList: modelList, Begin: begin, End: end})
+    ctx.body = template({ItemList: modelList, Begin: begin, End: end, RightForm: false, HasRightSide: false})
 })
 
 FAQRouter.get('FAQItem', '/:key/', async function (ctx, next) {
-    const faq = await getFAQ(ctx.params.key)
+    let faq, RightForm;
+    if (ctx.params.key === 'form'){
+        RightForm = true;
+        faq = {id: null}
+    } else {
+        faq = await getFAQ(ctx.params.key)
+        RightForm = false;
+    }
     const {modelList, begin, end}= await getFAQListScroll({direction: 0, keyValue: faq.id})
     const html = await fs.readFile('templates/faq/faq.html', 'utf-8')
     const template = Handlebars.compile(html)
-    ctx.body = template({ItemList: modelList, Item: faq, Begin: begin, End: end})
+    ctx.body = template({ItemList: modelList, Item: faq, Begin: begin, End: end, RightForm: RightForm, HasRightSide: true})
 })
 
 FAQRouterAjax.get('FAQListAjax', '/', async function (ctx, next) {

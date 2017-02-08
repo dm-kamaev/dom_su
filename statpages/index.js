@@ -1,3 +1,5 @@
-/**
- * Created by Руслан on 25.01.2017.
- */
+"use strict";
+
+const { statpagesRouter } = require('./router')
+
+module.exports = {statpagesRouter}

@@ -24,20 +24,31 @@ const reviewsRouterAjax = new Router({
 //
 // let template = readTemplate()
 
+reviewsRouter.post('reviewsFormHandler', '/form/', async function (ctx, next) {
+    ctx.type = 'application/json'
+    ctx.body = JSON.stringify({ Success: true })
+})
+
 reviewsRouter.get('reviewsList', '/', async function (ctx, next) {
     const {modelList, begin, end} = await getReviewListScroll()
     const html = await fs.readFile('templates/reviews/reviews.html', 'utf-8')
     const template = Handlebars.compile(html)
-    for (let i of modelList) {console.log(i.url)}
-    ctx.body = template({ItemList: modelList, Begin: begin, End: end})
+    ctx.body = template({ItemList: modelList, Begin: begin, End: end, RightForm: false, HasRightSide: false})
 })
 
 reviewsRouter.get('reviewItem', '/:key/', async function (ctx, next) {
-    const review = await getReview(ctx.params.key)
+    let review, RightForm;
+    if (ctx.params.key === 'form'){
+        review = { id: null }
+        RightForm = true
+    } else {
+        review = await getReview(ctx.params.key)
+        RightForm = false
+    }
     const {modelList, begin, end}= await getReviewListScroll({direction: 0, keyValue: review.id})
     const html = await fs.readFile('templates/reviews/reviews.html', 'utf-8')
     const template = Handlebars.compile(html)
-    ctx.body = template({ItemList: modelList, Item: review, Begin: begin, End: end})
+    ctx.body = template({ItemList: modelList, Item: review, Begin: begin, End: end, RightForm: RightForm, HasRightSide: true})
 })
 
 reviewsRouterAjax.get('reviewListAjax', '/', async function (ctx, next) {

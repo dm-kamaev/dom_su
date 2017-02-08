@@ -53,7 +53,10 @@
 
 
 	__webpack_require__(1);
-	__webpack_require__(184);
+	__webpack_require__(191);
+	let resize = __webpack_require__(198);
+
+	window.addEventListener('resize', resize);
 
 
 
@@ -67,25 +70,23 @@
 	 * Created by Lobova.A on 25.11.2016.
 	 */
 	var pageState = __webpack_require__(2);
-	//let pageOrders: HTMLElement = document.querySelector('.page--orders') as HTMLElement;
 	console.log('прочитал pageLib начал');
 	page.base('/');
+	page('/:id/', pageState.setRightSide);
+	page('contact/:id/', pageState.setRightSide);
+	page('articles/:id/', pageState.setRightSide);
+	page('articles/', pageState.setRightSide);
+	page('faq/:id/', pageState.setRightSide);
+	page('faq/', pageState.setRightSide);
+	page('news/:id/', pageState.setRightSide);
+	page('news/', pageState.setRightSide);
+	page('otzivi/:id/', pageState.setRightSide);
+	page('otzivi/', pageState.setRightSide);
 	// if (pageOrders) {
-	//   page('/adr:adrid/ord:ordid', pageState.setAddressOrder);
-	//   page('/adr:adrid/shd:shdid', pageState.setAddressSchedule);
-	//   page('/adr:adrid', pageState.setAddress);
+	//   page('/adr:adrid/ord:ordid', pageState.personal.setAddressOrder);
+	//   page('/adr:adrid/shd:shdid', pageState.personal.setAddressSchedule);
+	//   page('/adr:adrid', pageState.personal.setAddress);
 	// }
-	page('/:id/', pageState.setArticle);
-	page('contact/:id/', pageState.setArticle);
-	page('articles/:id/', pageState.setArticle);
-	page('articles/', pageState.setArticle);
-	page('faq/:id/', pageState.setArticle);
-	page('faq/', pageState.setArticle);
-	// page('articles/:id/', pageState.setArticle);
-	// page('articles/:id/', pageState.setArticle);
-	function add(ctx) {
-	    console.log('здесь яяяяяяяяяя');
-	}
 	// page('', function (ctx) {
 	//   window.location.replace(ctx.state.redirect);
 	// });
@@ -106,219 +107,209 @@
 	"use strict";
 	var tabs = __webpack_require__(3);
 	var request = __webpack_require__(6);
-	//let init.orders = require('./../init.orders/init.orders');
 	var eventHelper = __webpack_require__(7);
 	var client = __webpack_require__(8);
 	var url = __webpack_require__(4);
-	var urlThridColumn = __webpack_require__(9);
-	//let page = require('./../page/page');
+	var urlThirdColumn = __webpack_require__(9);
 	var init = __webpack_require__(10);
-	var renderOrder = __webpack_require__(187);
-	var renderSchedule = __webpack_require__(188);
-	var renderArticle = __webpack_require__(189);
-	var renderQuestion = __webpack_require__(190);
-	var renderItem = __webpack_require__(261);
-	var message = __webpack_require__(191);
+	var renderOrder = __webpack_require__(193);
+	var renderSchedule = __webpack_require__(194);
+	var renderItem = __webpack_require__(195);
+	var renderForm = __webpack_require__(196);
+	var message = __webpack_require__(197);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	var pageState = {
-	    setAddress: function (ctx) {
-	        if ((ctx.path != ('/' + url.get())) || ctx.state.rerender) {
-	            tabs.clear();
-	            url.update(url.item, null);
-	            if ((ctx.params.adrid != url.address.id) || ctx.state.rerender) {
-	                init.orders.listElement.innerHTML = '';
-	                url.update(url.address, ctx.params.adrid, url.type.address);
-	                init.orders.hideScheduleButton();
-	                //utils.address.change(self.address.uuid);
-	                function render(data) {
-	                    init.leftSide.render(data);
-	                    init.leftSide.setActiveItem(url.item);
-	                    eventHelper.open();
+	    personal: {
+	        setAddress: function (ctx) {
+	            if ((ctx.path != ('/' + url.get())) || ctx.state.rerender) {
+	                tabs.clear();
+	                url.update(url.item, null);
+	                if ((ctx.params.adrid != url.address.id) || ctx.state.rerender) {
+	                    init.orders.listElement.innerHTML = '';
+	                    url.update(url.address, ctx.params.adrid, url.type.address);
+	                    init.orders.hideScheduleButton();
+	                    //utils.address.change(self.address.uuid);
+	                    function render(data) {
+	                        init.leftSide.render(data);
+	                        init.leftSide.setActiveItem(url.item);
+	                        eventHelper.open();
+	                    }
+	                    request.get(url.request(), render.bind(this));
 	                }
-	                request.get(url.request(), render.bind(this));
+	                else {
+	                    init.leftSide.setActiveItem(url.item);
+	                    if (client.isMobile() && (ctx.state.delete == true)) {
+	                        // let order = rightSide.querySelector('.right-side__wrap');
+	                        // console.log(order, "order")
+	                        // rightSide.removeChild(order);
+	                        leftSide.classList.remove('left-side--hide');
+	                        leftSide.classList.remove('left-side--mobile');
+	                        rightSide.classList.add('right-side--hide');
+	                        rightSide.classList.remove('right-side--mobile');
+	                        setTimeout(function () {
+	                            eventHelper.open();
+	                        }, 0);
+	                    }
+	                }
 	            }
 	            else {
-	                init.leftSide.setActiveItem(url.item);
-	                if (client.isMobile() && (ctx.state.delete == true)) {
-	                    // let order = rightSide.querySelector('.right-side__wrap');
-	                    // console.log(order, "order")
-	                    // rightSide.removeChild(order);
-	                    leftSide.classList.remove('left-side--hide');
-	                    leftSide.classList.remove('left-side--mobile');
-	                    rightSide.classList.add('right-side--hide');
-	                    rightSide.classList.remove('right-side--mobile');
+	                if (ctx.state.addressActive === true) {
 	                    setTimeout(function () {
 	                        eventHelper.open();
 	                    }, 0);
 	                }
+	                ctx.handled = false;
 	            }
-	        }
-	        else {
-	            if (ctx.state.addressActive === true) {
-	                setTimeout(function () {
-	                    eventHelper.open();
-	                }, 0);
-	            }
-	            ctx.handled = false;
-	        }
-	    },
-	    setAddressOrder: function (ctx) {
-	        console.log('заказы');
-	        if ((ctx.path != ('/' + url.get()) || ctx.state.cancelOrder == true) || ctx.state.rerender) {
-	            console.log('1');
-	            if ((ctx.params.adrid != url.address.id || (ctx.state.cancelOrder == true && !client.isMobile())) || ctx.state.rerender) {
-	                console.log('2');
-	                if (client.isMobile() && !ctx.state.rerender) {
-	                    page.redirect('/adr' + ctx.params.adrid);
-	                    return;
-	                }
-	                tabs.clear();
-	                url.update(url.address, ctx.params.adrid, url.type.address);
-	                url.update(url.item, ctx.params.ordid, url.type.order);
-	                init.leftSide.hideScheduleButton();
-	                if (ctx.state.cancelOrder == true) {
-	                    var option = document.querySelector('.orders__option--canceled');
-	                    init.leftSide.filter.setFilterOption(option);
-	                }
-	                else {
-	                    var option = document.querySelector('.orders__option--actived');
-	                    init.leftSide.filter.setFilterOption(option);
-	                }
-	                function render1(data) {
-	                    if (!ctx.state.cancelOrder == true) {
-	                        init.leftSide.render(data);
+	        },
+	        setAddressOrder: function (ctx) {
+	            console.log('заказы');
+	            if ((ctx.path != ('/' + url.get()) || ctx.state.cancelOrder == true) || ctx.state.rerender) {
+	                console.log('1');
+	                if ((ctx.params.adrid != url.address.id || (ctx.state.cancelOrder == true && !client.isMobile())) || ctx.state.rerender) {
+	                    console.log('2');
+	                    if (client.isMobile() && !ctx.state.rerender) {
+	                        page.redirect('/adr' + ctx.params.adrid);
+	                        return;
 	                    }
-	                    renderSchedule(data);
-	                    renderOrder(data);
-	                    console.log(init, "");
-	                    console.log(init.leftSide);
-	                    init.leftSide.setActiveItem(url.item);
+	                    tabs.clear();
+	                    url.update(url.address, ctx.params.adrid, url.type.address);
+	                    url.update(url.item, ctx.params.ordid, url.type.order);
+	                    init.leftSide.hideScheduleButton();
 	                    if (ctx.state.cancelOrder == true) {
-	                        message();
+	                        var option = document.querySelector('.orders__option--canceled');
+	                        init.leftSide.filter.setFilterOption(option);
 	                    }
-	                    eventHelper.open();
-	                }
-	                request.get(url.request(), render1.bind(this));
-	            }
-	            else if (ctx.params.ordid != url.item.id || (client.isMobile() && ctx.state.cancelOrder == true)) {
-	                console.log('3');
-	                url.update(url.item, ctx.params.ordid, url.type.order);
-	                if (ctx.state.delete == true && tabs.canDelete(url.item.uuid)) {
-	                    console.log('4');
-	                    tabs.delete();
-	                    init.leftSide.setActiveItem(url.item);
-	                }
-	                else {
-	                    console.log('5');
-	                    function render2(data) {
-	                        console.log(init.leftSide, "{");
-	                        console.log('открыть заказ');
-	                        //init.leftSide.render(data);
+	                    else {
+	                        var option = document.querySelector('.orders__option--actived');
+	                        init.leftSide.filter.setFilterOption(option);
+	                    }
+	                    function render1(data) {
+	                        if (!ctx.state.cancelOrder == true) {
+	                            init.leftSide.render(data);
+	                        }
+	                        renderSchedule(data);
 	                        renderOrder(data);
-	                        console.log();
+	                        console.log(init, "");
+	                        console.log(init.leftSide);
 	                        init.leftSide.setActiveItem(url.item);
+	                        if (ctx.state.cancelOrder == true) {
+	                            message();
+	                        }
 	                        eventHelper.open();
 	                    }
-	                    console.log(url.requestItem(), "--------------");
-	                    request.get(url.requestItem(), render2);
+	                    request.get(url.request(), render1.bind(this));
+	                }
+	                else if (ctx.params.ordid != url.item.id || (client.isMobile() && ctx.state.cancelOrder == true)) {
+	                    console.log('3');
+	                    url.update(url.item, ctx.params.ordid, url.type.order);
+	                    if (ctx.state.delete == true && tabs.canDelete(url.item.uuid)) {
+	                        console.log('4');
+	                        tabs.delete();
+	                        init.leftSide.setActiveItem(url.item);
+	                    }
+	                    else {
+	                        console.log('5');
+	                        function render2(data) {
+	                            console.log(init.leftSide, "{");
+	                            console.log('открыть заказ');
+	                            //init.leftSide.render(data);
+	                            renderOrder(data);
+	                            console.log();
+	                            init.leftSide.setActiveItem(url.item);
+	                            eventHelper.open();
+	                        }
+	                        console.log(url.requestItem(), "--------------");
+	                        request.get(url.requestItem(), render2);
+	                    }
 	                }
 	            }
-	        }
-	        else {
-	            console.log('6');
-	            if (ctx.state.orderActive === true || ctx.state.addressActive === true) {
+	            else {
 	                console.log('6');
-	                console.log('ничего');
-	                setTimeout(function () {
-	                    eventHelper.open();
-	                }, 0);
+	                if (ctx.state.orderActive === true || ctx.state.addressActive === true) {
+	                    console.log('6');
+	                    console.log('ничего');
+	                    setTimeout(function () {
+	                        eventHelper.open();
+	                    }, 0);
+	                }
+	                ctx.handled = false;
 	            }
-	            ctx.handled = false;
-	        }
-	    },
-	    setAddressSchedule: function (ctx) {
-	        if ((ctx.path != ('/' + url.get())) || ctx.state.rerender) {
-	            if ((ctx.params.adrid != url.address.id) || ctx.state.rerender) {
-	                if (client.isMobile() && !ctx.state.rerender) {
-	                    page.redirect('/adr' + ctx.params.adrid);
-	                    return;
-	                }
-	                tabs.clear();
-	                url.update(url.address, ctx.params.adrid, url.type.address);
-	                url.update(url.item, ctx.params.shdid, url.type.schedule);
-	                //init.leftSide.hideScheduleButton();
-	                //utils.address.change(self.address.uuid);
-	                function render1(data) {
-	                    init.leftSide.render(data);
-	                    renderSchedule(data);
-	                    init.leftSide.setActiveItem(url.item);
-	                    eventHelper.open();
-	                }
-	                request.get(url.request(), render1.bind(this));
-	            }
-	            else if (ctx.params.shdid != url.item.id) {
-	                url.update(url.item, ctx.params.shdid, url.type.schedule);
-	                if (ctx.state.delete == true && tabs.canDelete(url.item.uuid)) {
-	                    tabs.delete();
-	                    console.log(url.item);
-	                    init.leftSide.setActiveItem(url.item);
-	                }
-	                else {
-	                    function render2(data) {
+	        },
+	        setAddressSchedule: function (ctx) {
+	            if ((ctx.path != ('/' + url.get())) || ctx.state.rerender) {
+	                if ((ctx.params.adrid != url.address.id) || ctx.state.rerender) {
+	                    if (client.isMobile() && !ctx.state.rerender) {
+	                        page.redirect('/adr' + ctx.params.adrid);
+	                        return;
+	                    }
+	                    tabs.clear();
+	                    url.update(url.address, ctx.params.adrid, url.type.address);
+	                    url.update(url.item, ctx.params.shdid, url.type.schedule);
+	                    //init.leftSide.hideScheduleButton();
+	                    //utils.address.change(self.address.uuid);
+	                    function render1(data) {
+	                        init.leftSide.render(data);
 	                        renderSchedule(data);
 	                        init.leftSide.setActiveItem(url.item);
 	                        eventHelper.open();
 	                    }
-	                    request.get(url.requestItem(), render2.bind(this));
+	                    request.get(url.request(), render1.bind(this));
+	                }
+	                else if (ctx.params.shdid != url.item.id) {
+	                    url.update(url.item, ctx.params.shdid, url.type.schedule);
+	                    if (ctx.state.delete == true && tabs.canDelete(url.item.uuid)) {
+	                        tabs.delete();
+	                        console.log(url.item);
+	                        init.leftSide.setActiveItem(url.item);
+	                    }
+	                    else {
+	                        function render2(data) {
+	                            renderSchedule(data);
+	                            init.leftSide.setActiveItem(url.item);
+	                            eventHelper.open();
+	                        }
+	                        request.get(url.requestItem(), render2.bind(this));
+	                    }
 	                }
 	            }
-	        }
-	        else {
-	            if ((ctx.state.addressActive === true) || (ctx.state.scheduleBtn === true)) {
-	                setTimeout(function () {
-	                    eventHelper.open();
-	                }, 0);
+	            else {
+	                if ((ctx.state.addressActive === true) || (ctx.state.scheduleBtn === true)) {
+	                    setTimeout(function () {
+	                        eventHelper.open();
+	                    }, 0);
+	                }
+	                ctx.handled = false;
 	            }
-	            ctx.handled = false;
-	        }
+	        },
 	    },
-	    setArticle: function (ctx) {
-	        if (!ctx.state.delete && ctx.state.open) {
-	            urlThridColumn.update(ctx.params.id);
+	    setRightSide: function (ctx) {
+	        if (!ctx.state.delete && ctx.state.open && ctx.params.id !== 'form') {
+	            urlThirdColumn.update(ctx.params.id);
 	            function render(data) {
 	                renderItem(data);
-	                init.leftSide.setActiveItem(urlThridColumn.item);
+	                init.leftSide.setActiveItem(urlThirdColumn.item);
 	            }
-	            request.get(urlThridColumn.requestItem(), render.bind(this));
+	            request.get(urlThirdColumn.requestItem(), render.bind(this));
+	        }
+	        else if (!ctx.state.delete && ctx.state.open && ctx.params.id === 'form') {
+	            urlThirdColumn.update(ctx.params.id);
+	            renderForm();
+	            init.leftSide.setActiveItem(urlThirdColumn.item);
 	        }
 	        else if (ctx.state.delete) {
-	            urlThridColumn.update(ctx.params.id);
+	            urlThirdColumn.update(ctx.params.id);
 	            tabs.delete();
-	            init.leftSide.setActiveItem(urlThridColumn.item);
-	        }
-	    },
-	    setReview: function (ctx) {
-	    },
-	    setQuestion: function (ctx) {
-	        if (!ctx.state.delete && ctx.state.open) {
-	            urlThridColumn.update(ctx.params.id);
-	            function render(data) {
-	                renderQuestion(data);
-	                init.leftSide.setActiveItem(urlThridColumn.item);
+	            init.leftSide.setActiveItem(urlThirdColumn.item);
+	            if (client.isMobile()) {
+	                leftSide.classList.remove('left-side--hide');
+	                leftSide.classList.remove('left-side--mobile');
+	                rightSide.classList.add('right-side--hide');
+	                rightSide.classList.remove('right-side--mobile');
 	            }
-	            request.get(urlThridColumn.requestItem(), render.bind(this));
 	        }
-	        else if (ctx.state.delete) {
-	            urlThridColumn.update(ctx.params.id);
-	            tabs.delete();
-	            init.leftSide.setActiveItem(urlThridColumn.item);
-	        }
-	    },
-	    setNews: function (ctx) {
 	    }
 	};
-	console.log("прочитал инициализацию page-state");
 	module.exports = pageState;
 
 
@@ -747,8 +738,9 @@
 	    Url.prototype.init = function () {
 	        console.log(this);
 	        console.log(this.item.url, this.objectType.url, "ppppppppppppppppppppppppppppppppppppppp");
-	        this.item.url = window.location.pathname.split('/')[0];
+	        this.item.url = window.location.pathname.split('/')[2];
 	        this.objectType.url = window.location.pathname.split('/')[1];
+	        console.log(this.item.url, "222222ppppppppppppppppppppppppppppppppppppppp");
 	        console.log(window.location.pathname.split('/'), "[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[");
 	        console.log(window.location);
 	        console.log(this.item.url, this.objectType.url, "ppppppppppppppppppppppppppppppppppppppp");
@@ -773,17 +765,17 @@
 	var Selection = __webpack_require__(34);
 	var SelectionMenu = __webpack_require__(35);
 	var PopUp = __webpack_require__(36);
-	var LeftSide = __webpack_require__(42);
-	var LeftSideChild = __webpack_require__(244);
+	var LeftSide = __webpack_require__(44);
+	var LeftSideChild = __webpack_require__(153);
 	var tabs = __webpack_require__(3);
-	var ChangeTown = __webpack_require__(151);
-	var ContactBtn = __webpack_require__(152);
-	var Counter = __webpack_require__(153);
-	var ServiceCard = __webpack_require__(154);
-	var Section = __webpack_require__(157);
-	var questionForm = __webpack_require__(158);
-	var leftSideList = __webpack_require__(159);
-	var pageHeader = __webpack_require__(181);
+	var ChangeTown = __webpack_require__(156);
+	var ContactBtn = __webpack_require__(157);
+	var Counter = __webpack_require__(158);
+	var ServiceCard = __webpack_require__(159);
+	var ServiceCalc = __webpack_require__(162);
+	var Section = __webpack_require__(163);
+	var leftSideList = __webpack_require__(164);
+	var pageHeader = __webpack_require__(188);
 	var pageElement = document.querySelector('.page');
 	var pageAuth = document.querySelector('.page--authorization');
 	var pagePrivate = document.querySelector('.page--orders');
@@ -800,11 +792,11 @@
 	var RightSideList = document.querySelectorAll('.right-side__wrap');
 	var serviceCardElements = pageElement.querySelectorAll('.service-card');
 	var sectionWrapElements = pageElement.querySelectorAll('.section__wrap--toggle');
+	console.log('init');
 	var pageInit = {};
 	initScroll();
 	if (!pageAuth) {
 	    urlThridColumn.init();
-	    console.log(urlThridColumn.item, "--------------------------------------------");
 	}
 	if (menuElement) {
 	    pageInit.menu = pageHeader.mainMenu;
@@ -822,13 +814,12 @@
 	//     pageInit.counters.push(new Counter(item));
 	//   }
 	// }
-	if (serviceCardElements) {
-	    pageInit.serviceCards = [];
-	    for (var _i = 0, serviceCardElements_1 = serviceCardElements; _i < serviceCardElements_1.length; _i++) {
-	        var item = serviceCardElements_1[_i];
-	        pageInit.serviceCards.push(new ServiceCard(item));
-	    }
-	}
+	// if (serviceCardElements) {
+	//   pageInit.serviceCards = [];
+	//   for (let item of serviceCardElements) {
+	//     pageInit.serviceCards.push(new ServiceCard(item));
+	//   }
+	// }
 	if (selectionMenu) {
 	    pageInit.selectionMenu = new SelectionMenu(selectionMenu);
 	}
@@ -836,8 +827,8 @@
 	    pageInit.contactBtn = new ContactBtn(contactBtnElement);
 	}
 	if (sectionWrapElements) {
-	    for (var _a = 0, sectionWrapElements_1 = sectionWrapElements; _a < sectionWrapElements_1.length; _a++) {
-	        var item = sectionWrapElements_1[_a];
+	    for (var _i = 0, sectionWrapElements_1 = sectionWrapElements; _i < sectionWrapElements_1.length; _i++) {
+	        var item = sectionWrapElements_1[_i];
 	        pageInit.sectionWrap = new Section(item);
 	    }
 	}
@@ -865,20 +856,25 @@
 	    pageInit.leftSide.setActiveItem(urlThridColumn.item);
 	    if (RightSideList.length) {
 	        RightSideList.forEach(function (item) {
-	            debugger;
-	            var item = new leftSideList.itemObject(item);
+	            console.log(item);
+	            if (!item.classList.contains('right-side__form')) {
+	                var rightSide_1 = new leftSideList.rightSide(item);
+	            }
+	            else {
+	                console.log(item);
+	                var rightSide_2 = new leftSideList.form(item);
+	            }
 	        });
 	    }
-	    console.log(urlThridColumn.item, "--------------------------------------------");
 	}
 	if (changeTownElement) {
 	    pageInit.changeTown = new ChangeTown(changeTownElement);
 	}
-	questionForm();
 	if (pageAuth) {
-	    var authorization = __webpack_require__(186);
+	    var authorization = __webpack_require__(192);
 	    authorization();
 	}
+	console.log('/init');
 	module.exports = pageInit;
 
 
@@ -2709,6 +2705,8 @@
 	var Application = __webpack_require__(37);
 	var Rating = __webpack_require__(39);
 	var Question = __webpack_require__(41);
+	var Message = __webpack_require__(42);
+	var ServiceOrder = __webpack_require__(43);
 	var mainContent = document.querySelector('.main-content');
 	var PopUp = (function () {
 	    function PopUp(element) {
@@ -2733,23 +2731,28 @@
 	        }
 	        if (this.items.length) {
 	            this.items.forEach(function (item) {
-	                if (item.classList.contains(e.detail.elem.dataset.name)) {
+	                if (item.classList.contains(e.detail.id)) {
 	                    item.classList.remove('pop-up__item--hide');
 	                }
 	            });
 	        }
-	        switch (e.detail.elem.dataset.name) {
+	        switch (e.detail.id) {
 	            case 'application':
 	                this.item = new Application(this, this.element);
+	                break;
+	            case 'service-order':
+	                this.item = new ServiceOrder(this, this.element);
 	                break;
 	            case 'rating-form':
 	                this.item = new Rating(this, this.element);
 	                break;
 	            case 'general-question':
-	                this.item = new Question(this, this.element, e.detail.elem.dataset.action);
+	                this.item = new Question(this, this.element, e.detail.id);
+	                break;
+	            case 'notification':
+	                this.item = new Message(this, this.element, e.detail.text);
 	                break;
 	        }
-	        console.log(this.item, "this");
 	        if (!client.isDesktop()) {
 	            mainContent.classList.add('main-content--hide');
 	        }
@@ -3165,12 +3168,101 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
+	 * Created by Lobova.A on 06.02.2017.
+	 */
+	"use strict";
+	var client = __webpack_require__(8);
+	var url = __webpack_require__(4);
+	var request = __webpack_require__(6);
+	var path = __webpack_require__(5);
+	var preventDefault = __webpack_require__(38);
+	var requestApiUrl = generalPath.buildUrl(path.api);
+	var rightSide = document.querySelector('.right-side');
+	var Message = (function () {
+	    function Message(parent, parentElement, text) {
+	        this.parent = parent;
+	        this.parentElement = parentElement;
+	        this.element = this.parentElement.querySelector('.notification');
+	        this.text = this.parentElement.querySelector('.notification__text');
+	        console.log(this.text);
+	        this.text.innerText = text;
+	    }
+	    Message.prototype.close = function () { };
+	    return Message;
+	}());
+	module.exports = Message;
+
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 30.01.2017.
+	 */
+	"use strict";
+	var client = __webpack_require__(8);
+	var request = __webpack_require__(6);
+	var path = __webpack_require__(5);
+	var preventDefault = __webpack_require__(38);
+	var ServiceOrder = (function () {
+	    function ServiceOrder(parent, parentElement) {
+	        this.parent = parent;
+	        this.parentElement = parentElement;
+	        this.element = this.parentElement.querySelector('.service-order');
+	        this.form = this.element.querySelector('.service-order__form');
+	        this.inputName = this.form.querySelector('input[type="text"]');
+	        this.inputTel = this.form.querySelector('input[type="tel"]');
+	        this.textarea = this.form.querySelector('.service-order__textarea');
+	        this.submitButton = this.form.querySelector('button[type="submit"]');
+	        this.submitForm = this.submitForm.bind(this);
+	        this.form.addEventListener('submit', this.submitForm);
+	    }
+	    ServiceOrder.prototype.close = function () {
+	        this.form.removeEventListener('submit', this.submitForm);
+	    };
+	    ServiceOrder.prototype.submitForm = function (e) {
+	        e.preventDefault();
+	        var formData = {
+	            Method: 'Client.PostCallBackOrder',
+	            Param: {
+	                "dop_info": this.textarea.value,
+	                "service": this.button.innerHTML,
+	                "square": this.input.value
+	            }
+	        };
+	        function response(data) {
+	            if (data.Success == false) {
+	                this.submitButton.disabled = false;
+	            }
+	            else {
+	                this.submitButton.disabled = false;
+	                this.parent.close();
+	            }
+	        }
+	        function error() {
+	            this.submitButton.disabled = false;
+	        }
+	        var json = JSON.stringify(formData);
+	        this.submitButton.disabled = true;
+	        request.send(path.buildUrl(path.api), json, response.bind(this), error.bind(this));
+	    };
+	    return ServiceOrder;
+	}());
+	module.exports = ServiceOrder;
+
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
 	 * Created by Lobova.A on 13.12.2016.
 	 */
 	"use strict";
 	var client = __webpack_require__(8);
-	var Mustache = __webpack_require__(43);
-	var moment = __webpack_require__(44);
+	var Mustache = __webpack_require__(45);
+	var moment = __webpack_require__(46);
 	var request = __webpack_require__(6);
 	//let url = require('./../../js/utility/state-address/state-address');
 	var urlThridColumn = __webpack_require__(9);
@@ -3197,17 +3289,14 @@
 	        this.addScroll = this.addScroll.bind(this);
 	        this.openItem = this.openItem.bind(this);
 	        this.render = this.render.bind(this);
-	        this.addEvent();
 	        this.setHeightContainer();
 	        this.scrollCoordinate(this.activeElement());
 	    }
 	    LeftSide.prototype.addEvent = function () {
-	        console.log("добавить интереактив");
 	        this.container.addEventListener('scroll', this.addScroll);
 	        this.listElement.addEventListener('click', this.openItem);
 	    };
 	    LeftSide.prototype.removeEvent = function () {
-	        console.log("снять интереактив");
 	        this.container.removeEventListener('scroll', this.addScroll);
 	        this.listElement.removeEventListener('click', this.openItem);
 	    };
@@ -3215,12 +3304,10 @@
 	        var newScrollTop = this.container.scrollTop;
 	        var directionUP = newScrollTop < this.scrollTop;
 	        this.scrollTop = newScrollTop;
-	        console.log("перед ремувом");
 	        this.removeEvent();
 	        if (!this.scrollBegin && directionUP) {
 	            if ((client.isMobile() && window.pageYOffset < 100) || (!client.isMobile() && this.container.scrollTop < 100)) {
 	                this.scrollDirection = 1;
-	                console.log('вверх');
 	                request.get(this.requestUrl(), this.render);
 	                return;
 	            }
@@ -3228,16 +3315,12 @@
 	        if (!this.scrollEnd && !directionUP) {
 	            if (this.getBottomScroll() < 150) {
 	                this.scrollDirection = -1;
-	                console.log("вниз");
-	                console.log(this.requestUrl());
 	                request.get(this.requestUrl(), this.render);
 	                return;
 	            }
 	        }
-	        console.log('я здесб?');
 	        // Когда отрисуется рендер, нужно вернуть евенты, вставить промысы в рендер
 	        setTimeout(function () {
-	            console.log('адд евент');
 	            this.addEvent();
 	        }.bind(this), 0);
 	    };
@@ -3275,8 +3358,6 @@
 	        this.scrollTop = container.scrollTop;
 	    };
 	    LeftSide.prototype.getElementIdDirection = function (attr) {
-	        console.log(this.scrollDirection);
-	        console.log(this.itemElements());
 	        if (this.scrollDirection === 1) {
 	            return this.itemElements()[0].getAttribute("" + attr);
 	        }
@@ -3290,7 +3371,6 @@
 	        this.listElement.appendChild(text);
 	    };
 	    LeftSide.prototype.render = function (response) {
-	        console.log("рендер");
 	        if (response.Data.Begin) {
 	            this.scrollBegin = response.Data.Begin;
 	        }
@@ -3308,7 +3388,6 @@
 	                if (item_1.classList.contains('left-side__item--active')) {
 	                    item_1.classList.remove('left-side__item--active');
 	                }
-	                console.log(urlThridColumn.item.url);
 	                if (item_1 && urlThridColumn.item.url) {
 	                    if (item_1.getAttribute("" + this.elementAttribute) === urlThridColumn.item.url) {
 	                        item_1.classList.add('left-side__item--active');
@@ -3353,7 +3432,6 @@
 	        var target = e.target;
 	        while (target != this) {
 	            if (target.classList.contains('left-side__item')) {
-	                console.log('open item', target);
 	                return;
 	            }
 	            target = target.parentNode;
@@ -3365,7 +3443,7 @@
 
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -4000,7 +4078,7 @@
 
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
@@ -5799,7 +5877,7 @@
 	                module && module.exports) {
 	            try {
 	                oldLocale = globalLocale._abbr;
-	                __webpack_require__(46)("./" + name);
+	                __webpack_require__(48)("./" + name);
 	                // because defineLocale currently also sets the global locale, we
 	                // want to undo that for lazy loaded locales
 	                locale_locales__getSetGlobalLocale(oldLocale);
@@ -8237,10 +8315,10 @@
 	    return _moment;
 
 	}));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47)(module)))
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -8256,218 +8334,218 @@
 
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./af": 47,
-		"./af.js": 47,
-		"./ar": 48,
-		"./ar-ly": 49,
-		"./ar-ly.js": 49,
-		"./ar-ma": 50,
-		"./ar-ma.js": 50,
-		"./ar-sa": 51,
-		"./ar-sa.js": 51,
-		"./ar-tn": 52,
-		"./ar-tn.js": 52,
-		"./ar.js": 48,
-		"./az": 53,
-		"./az.js": 53,
-		"./be": 54,
-		"./be.js": 54,
-		"./bg": 55,
-		"./bg.js": 55,
-		"./bn": 56,
-		"./bn.js": 56,
-		"./bo": 57,
-		"./bo.js": 57,
-		"./br": 58,
-		"./br.js": 58,
-		"./bs": 59,
-		"./bs.js": 59,
-		"./ca": 60,
-		"./ca.js": 60,
-		"./cs": 61,
-		"./cs.js": 61,
-		"./cv": 62,
-		"./cv.js": 62,
-		"./cy": 63,
-		"./cy.js": 63,
-		"./da": 64,
-		"./da.js": 64,
-		"./de": 65,
-		"./de-at": 66,
-		"./de-at.js": 66,
-		"./de.js": 65,
-		"./dv": 67,
-		"./dv.js": 67,
-		"./el": 68,
-		"./el.js": 68,
-		"./en-au": 69,
-		"./en-au.js": 69,
-		"./en-ca": 70,
-		"./en-ca.js": 70,
-		"./en-gb": 71,
-		"./en-gb.js": 71,
-		"./en-ie": 72,
-		"./en-ie.js": 72,
-		"./en-nz": 73,
-		"./en-nz.js": 73,
-		"./eo": 74,
-		"./eo.js": 74,
-		"./es": 75,
-		"./es-do": 76,
-		"./es-do.js": 76,
-		"./es.js": 75,
-		"./et": 77,
-		"./et.js": 77,
-		"./eu": 78,
-		"./eu.js": 78,
-		"./fa": 79,
-		"./fa.js": 79,
-		"./fi": 80,
-		"./fi.js": 80,
-		"./fo": 81,
-		"./fo.js": 81,
-		"./fr": 82,
-		"./fr-ca": 83,
-		"./fr-ca.js": 83,
-		"./fr-ch": 84,
-		"./fr-ch.js": 84,
-		"./fr.js": 82,
-		"./fy": 85,
-		"./fy.js": 85,
-		"./gd": 86,
-		"./gd.js": 86,
-		"./gl": 87,
-		"./gl.js": 87,
-		"./he": 88,
-		"./he.js": 88,
-		"./hi": 89,
-		"./hi.js": 89,
-		"./hr": 90,
-		"./hr.js": 90,
-		"./hu": 91,
-		"./hu.js": 91,
-		"./hy-am": 92,
-		"./hy-am.js": 92,
-		"./id": 93,
-		"./id.js": 93,
-		"./is": 94,
-		"./is.js": 94,
-		"./it": 95,
-		"./it.js": 95,
-		"./ja": 96,
-		"./ja.js": 96,
-		"./jv": 97,
-		"./jv.js": 97,
-		"./ka": 98,
-		"./ka.js": 98,
-		"./kk": 99,
-		"./kk.js": 99,
-		"./km": 100,
-		"./km.js": 100,
-		"./ko": 101,
-		"./ko.js": 101,
-		"./ky": 102,
-		"./ky.js": 102,
-		"./lb": 103,
-		"./lb.js": 103,
-		"./lo": 104,
-		"./lo.js": 104,
-		"./lt": 105,
-		"./lt.js": 105,
-		"./lv": 106,
-		"./lv.js": 106,
-		"./me": 107,
-		"./me.js": 107,
-		"./mi": 108,
-		"./mi.js": 108,
-		"./mk": 109,
-		"./mk.js": 109,
-		"./ml": 110,
-		"./ml.js": 110,
-		"./mr": 111,
-		"./mr.js": 111,
-		"./ms": 112,
-		"./ms-my": 113,
-		"./ms-my.js": 113,
-		"./ms.js": 112,
-		"./my": 114,
-		"./my.js": 114,
-		"./nb": 115,
-		"./nb.js": 115,
-		"./ne": 116,
-		"./ne.js": 116,
-		"./nl": 117,
-		"./nl.js": 117,
-		"./nn": 118,
-		"./nn.js": 118,
-		"./pa-in": 119,
-		"./pa-in.js": 119,
-		"./pl": 120,
-		"./pl.js": 120,
-		"./pt": 121,
-		"./pt-br": 122,
-		"./pt-br.js": 122,
-		"./pt.js": 121,
-		"./ro": 123,
-		"./ro.js": 123,
-		"./ru": 124,
-		"./ru.js": 124,
-		"./se": 125,
-		"./se.js": 125,
-		"./si": 126,
-		"./si.js": 126,
-		"./sk": 127,
-		"./sk.js": 127,
-		"./sl": 128,
-		"./sl.js": 128,
-		"./sq": 129,
-		"./sq.js": 129,
-		"./sr": 130,
-		"./sr-cyrl": 131,
-		"./sr-cyrl.js": 131,
-		"./sr.js": 130,
-		"./ss": 132,
-		"./ss.js": 132,
-		"./sv": 133,
-		"./sv.js": 133,
-		"./sw": 134,
-		"./sw.js": 134,
-		"./ta": 135,
-		"./ta.js": 135,
-		"./te": 136,
-		"./te.js": 136,
-		"./th": 137,
-		"./th.js": 137,
-		"./tl-ph": 138,
-		"./tl-ph.js": 138,
-		"./tlh": 139,
-		"./tlh.js": 139,
-		"./tr": 140,
-		"./tr.js": 140,
-		"./tzl": 141,
-		"./tzl.js": 141,
-		"./tzm": 142,
-		"./tzm-latn": 143,
-		"./tzm-latn.js": 143,
-		"./tzm.js": 142,
-		"./uk": 144,
-		"./uk.js": 144,
-		"./uz": 145,
-		"./uz.js": 145,
-		"./vi": 146,
-		"./vi.js": 146,
-		"./x-pseudo": 147,
-		"./x-pseudo.js": 147,
-		"./zh-cn": 148,
-		"./zh-cn.js": 148,
-		"./zh-hk": 149,
-		"./zh-hk.js": 149,
-		"./zh-tw": 150,
-		"./zh-tw.js": 150
+		"./af": 49,
+		"./af.js": 49,
+		"./ar": 50,
+		"./ar-ly": 51,
+		"./ar-ly.js": 51,
+		"./ar-ma": 52,
+		"./ar-ma.js": 52,
+		"./ar-sa": 53,
+		"./ar-sa.js": 53,
+		"./ar-tn": 54,
+		"./ar-tn.js": 54,
+		"./ar.js": 50,
+		"./az": 55,
+		"./az.js": 55,
+		"./be": 56,
+		"./be.js": 56,
+		"./bg": 57,
+		"./bg.js": 57,
+		"./bn": 58,
+		"./bn.js": 58,
+		"./bo": 59,
+		"./bo.js": 59,
+		"./br": 60,
+		"./br.js": 60,
+		"./bs": 61,
+		"./bs.js": 61,
+		"./ca": 62,
+		"./ca.js": 62,
+		"./cs": 63,
+		"./cs.js": 63,
+		"./cv": 64,
+		"./cv.js": 64,
+		"./cy": 65,
+		"./cy.js": 65,
+		"./da": 66,
+		"./da.js": 66,
+		"./de": 67,
+		"./de-at": 68,
+		"./de-at.js": 68,
+		"./de.js": 67,
+		"./dv": 69,
+		"./dv.js": 69,
+		"./el": 70,
+		"./el.js": 70,
+		"./en-au": 71,
+		"./en-au.js": 71,
+		"./en-ca": 72,
+		"./en-ca.js": 72,
+		"./en-gb": 73,
+		"./en-gb.js": 73,
+		"./en-ie": 74,
+		"./en-ie.js": 74,
+		"./en-nz": 75,
+		"./en-nz.js": 75,
+		"./eo": 76,
+		"./eo.js": 76,
+		"./es": 77,
+		"./es-do": 78,
+		"./es-do.js": 78,
+		"./es.js": 77,
+		"./et": 79,
+		"./et.js": 79,
+		"./eu": 80,
+		"./eu.js": 80,
+		"./fa": 81,
+		"./fa.js": 81,
+		"./fi": 82,
+		"./fi.js": 82,
+		"./fo": 83,
+		"./fo.js": 83,
+		"./fr": 84,
+		"./fr-ca": 85,
+		"./fr-ca.js": 85,
+		"./fr-ch": 86,
+		"./fr-ch.js": 86,
+		"./fr.js": 84,
+		"./fy": 87,
+		"./fy.js": 87,
+		"./gd": 88,
+		"./gd.js": 88,
+		"./gl": 89,
+		"./gl.js": 89,
+		"./he": 90,
+		"./he.js": 90,
+		"./hi": 91,
+		"./hi.js": 91,
+		"./hr": 92,
+		"./hr.js": 92,
+		"./hu": 93,
+		"./hu.js": 93,
+		"./hy-am": 94,
+		"./hy-am.js": 94,
+		"./id": 95,
+		"./id.js": 95,
+		"./is": 96,
+		"./is.js": 96,
+		"./it": 97,
+		"./it.js": 97,
+		"./ja": 98,
+		"./ja.js": 98,
+		"./jv": 99,
+		"./jv.js": 99,
+		"./ka": 100,
+		"./ka.js": 100,
+		"./kk": 101,
+		"./kk.js": 101,
+		"./km": 102,
+		"./km.js": 102,
+		"./ko": 103,
+		"./ko.js": 103,
+		"./ky": 104,
+		"./ky.js": 104,
+		"./lb": 105,
+		"./lb.js": 105,
+		"./lo": 106,
+		"./lo.js": 106,
+		"./lt": 107,
+		"./lt.js": 107,
+		"./lv": 108,
+		"./lv.js": 108,
+		"./me": 109,
+		"./me.js": 109,
+		"./mi": 110,
+		"./mi.js": 110,
+		"./mk": 111,
+		"./mk.js": 111,
+		"./ml": 112,
+		"./ml.js": 112,
+		"./mr": 113,
+		"./mr.js": 113,
+		"./ms": 114,
+		"./ms-my": 115,
+		"./ms-my.js": 115,
+		"./ms.js": 114,
+		"./my": 116,
+		"./my.js": 116,
+		"./nb": 117,
+		"./nb.js": 117,
+		"./ne": 118,
+		"./ne.js": 118,
+		"./nl": 119,
+		"./nl.js": 119,
+		"./nn": 120,
+		"./nn.js": 120,
+		"./pa-in": 121,
+		"./pa-in.js": 121,
+		"./pl": 122,
+		"./pl.js": 122,
+		"./pt": 123,
+		"./pt-br": 124,
+		"./pt-br.js": 124,
+		"./pt.js": 123,
+		"./ro": 125,
+		"./ro.js": 125,
+		"./ru": 126,
+		"./ru.js": 126,
+		"./se": 127,
+		"./se.js": 127,
+		"./si": 128,
+		"./si.js": 128,
+		"./sk": 129,
+		"./sk.js": 129,
+		"./sl": 130,
+		"./sl.js": 130,
+		"./sq": 131,
+		"./sq.js": 131,
+		"./sr": 132,
+		"./sr-cyrl": 133,
+		"./sr-cyrl.js": 133,
+		"./sr.js": 132,
+		"./ss": 134,
+		"./ss.js": 134,
+		"./sv": 135,
+		"./sv.js": 135,
+		"./sw": 136,
+		"./sw.js": 136,
+		"./ta": 137,
+		"./ta.js": 137,
+		"./te": 138,
+		"./te.js": 138,
+		"./th": 139,
+		"./th.js": 139,
+		"./tl-ph": 140,
+		"./tl-ph.js": 140,
+		"./tlh": 141,
+		"./tlh.js": 141,
+		"./tr": 142,
+		"./tr.js": 142,
+		"./tzl": 143,
+		"./tzl.js": 143,
+		"./tzm": 144,
+		"./tzm-latn": 145,
+		"./tzm-latn.js": 145,
+		"./tzm.js": 144,
+		"./uk": 146,
+		"./uk.js": 146,
+		"./uz": 147,
+		"./uz.js": 147,
+		"./vi": 148,
+		"./vi.js": 148,
+		"./x-pseudo": 149,
+		"./x-pseudo.js": 149,
+		"./zh-cn": 150,
+		"./zh-cn.js": 150,
+		"./zh-hk": 151,
+		"./zh-hk.js": 151,
+		"./zh-tw": 152,
+		"./zh-tw.js": 152
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -8480,11 +8558,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 46;
+	webpackContext.id = 48;
 
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8492,7 +8570,7 @@
 	//! author : Werner Mollentze : https://github.com/wernerm
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8561,7 +8639,7 @@
 	}));
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8571,7 +8649,7 @@
 	//! author : forabi https://github.com/forabi
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8702,7 +8780,7 @@
 	}));
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8710,7 +8788,7 @@
 	//! author : Ali Hmer: https://github.com/kikoanis
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8828,7 +8906,7 @@
 	}));
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8837,7 +8915,7 @@
 	//! author : Abdel Said : https://github.com/abdelsaid
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -8892,7 +8970,7 @@
 	}));
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -8900,7 +8978,7 @@
 	//! author : Suhail Alkowaileet : https://github.com/xsoh
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9000,7 +9078,7 @@
 	}));
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9008,7 +9086,7 @@
 	//! author : Nader Toukabri : https://github.com/naderio
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9063,7 +9141,7 @@
 	}));
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9071,7 +9149,7 @@
 	//! author : topchiyev : https://github.com/topchiyev
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9172,7 +9250,7 @@
 	}));
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9182,7 +9260,7 @@
 	//! Author : Menelion Elensúle : https://github.com/Oire
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9310,7 +9388,7 @@
 	}));
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9318,7 +9396,7 @@
 	//! author : Krasen Borisov : https://github.com/kraz
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9404,7 +9482,7 @@
 	}));
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9412,7 +9490,7 @@
 	//! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9527,7 +9605,7 @@
 	}));
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9535,7 +9613,7 @@
 	//! author : Thupten N. Chakrishar : https://github.com/vajradog
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9650,7 +9728,7 @@
 	}));
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9658,7 +9736,7 @@
 	//! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9762,7 +9840,7 @@
 	}));
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9771,7 +9849,7 @@
 	//! based on (hr) translation by Bojan Marković
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9909,7 +9987,7 @@
 	}));
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -9917,7 +9995,7 @@
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -9994,7 +10072,7 @@
 	}));
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10002,7 +10080,7 @@
 	//! author : petrbela : https://github.com/petrbela
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10170,7 +10248,7 @@
 	}));
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10178,7 +10256,7 @@
 	//! author : Anatoly Mironov : https://github.com/mirontoli
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10237,7 +10315,7 @@
 	}));
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10246,7 +10324,7 @@
 	//! author : https://github.com/ryangreaves
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10322,7 +10400,7 @@
 	}));
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10330,7 +10408,7 @@
 	//! author : Ulrik Nielsen : https://github.com/mrbase
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10386,7 +10464,7 @@
 	}));
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10396,7 +10474,7 @@
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10468,7 +10546,7 @@
 	}));
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10479,7 +10557,7 @@
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10551,7 +10629,7 @@
 	}));
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10559,7 +10637,7 @@
 	//! author : Jawish Hameed : https://github.com/jawish
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10654,7 +10732,7 @@
 	}));
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10662,7 +10740,7 @@
 	//! author : Aggelos Karalias : https://github.com/mehiel
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10756,7 +10834,7 @@
 	}));
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10764,7 +10842,7 @@
 	//! author : Jared Morse : https://github.com/jarcoal
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10827,7 +10905,7 @@
 	}));
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10835,7 +10913,7 @@
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10894,7 +10972,7 @@
 	}));
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10902,7 +10980,7 @@
 	//! author : Chris Gedrim : https://github.com/chrisgedrim
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -10965,7 +11043,7 @@
 	}));
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -10973,7 +11051,7 @@
 	//! author : Chris Cartlidge : https://github.com/chriscartlidge
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11036,7 +11114,7 @@
 	}));
 
 /***/ },
-/* 73 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11044,7 +11122,7 @@
 	//! author : Luke McGregor : https://github.com/lukemcgregor
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11107,7 +11185,7 @@
 	}));
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11117,7 +11195,7 @@
 	//!          Se ne, bonvolu korekti kaj avizi min por ke mi povas lerni!
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11184,7 +11262,7 @@
 	}));
 
 /***/ },
-/* 75 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11192,7 +11270,7 @@
 	//! author : Julio Napurí : https://github.com/julionc
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11269,14 +11347,14 @@
 	}));
 
 /***/ },
-/* 76 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale : Spanish (Dominican Republic) [es-do]
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11353,7 +11431,7 @@
 	}));
 
 /***/ },
-/* 77 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11362,7 +11440,7 @@
 	//! improvements : Illimar Tambek : https://github.com/ragulka
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11437,7 +11515,7 @@
 	}));
 
 /***/ },
-/* 78 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11445,7 +11523,7 @@
 	//! author : Eneko Illarramendi : https://github.com/eillarra
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11507,7 +11585,7 @@
 	}));
 
 /***/ },
-/* 79 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11515,7 +11593,7 @@
 	//! author : Ebrahim Byagowi : https://github.com/ebraminio
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11617,7 +11695,7 @@
 	}));
 
 /***/ },
-/* 80 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11625,7 +11703,7 @@
 	//! author : Tarmo Aidantausta : https://github.com/bleadof
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11728,7 +11806,7 @@
 	}));
 
 /***/ },
-/* 81 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11736,7 +11814,7 @@
 	//! author : Ragnar Johannesen : https://github.com/ragnar123
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11792,7 +11870,7 @@
 	}));
 
 /***/ },
-/* 82 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11800,7 +11878,7 @@
 	//! author : John Fischer : https://github.com/jfroffice
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11860,7 +11938,7 @@
 	}));
 
 /***/ },
-/* 83 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11868,7 +11946,7 @@
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11924,7 +12002,7 @@
 	}));
 
 /***/ },
-/* 84 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -11932,7 +12010,7 @@
 	//! author : Gaspard Bucher : https://github.com/gaspard
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -11992,7 +12070,7 @@
 	}));
 
 /***/ },
-/* 85 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12000,7 +12078,7 @@
 	//! author : Robin van der Vliet : https://github.com/robin0van0der0v
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12069,7 +12147,7 @@
 	}));
 
 /***/ },
-/* 86 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12077,7 +12155,7 @@
 	//! author : Jon Ashdown : https://github.com/jonashdown
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12149,7 +12227,7 @@
 	}));
 
 /***/ },
-/* 87 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12157,7 +12235,7 @@
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12230,7 +12308,7 @@
 	}));
 
 /***/ },
-/* 88 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12240,7 +12318,7 @@
 	//! author : Tal Ater : https://github.com/TalAter
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12333,7 +12411,7 @@
 	}));
 
 /***/ },
-/* 89 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12341,7 +12419,7 @@
 	//! author : Mayank Singhal : https://github.com/mayanksinghal
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12461,7 +12539,7 @@
 	}));
 
 /***/ },
-/* 90 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12469,7 +12547,7 @@
 	//! author : Bojan Marković : https://github.com/bmarkovic
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12610,7 +12688,7 @@
 	}));
 
 /***/ },
-/* 91 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12618,7 +12696,7 @@
 	//! author : Adam Brunner : https://github.com/adambrunner
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12723,7 +12801,7 @@
 	}));
 
 /***/ },
-/* 92 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12731,7 +12809,7 @@
 	//! author : Armendarabyan : https://github.com/armendarabyan
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12822,7 +12900,7 @@
 	}));
 
 /***/ },
-/* 93 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12831,7 +12909,7 @@
 	//! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -12909,7 +12987,7 @@
 	}));
 
 /***/ },
-/* 94 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -12917,7 +12995,7 @@
 	//! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13040,7 +13118,7 @@
 	}));
 
 /***/ },
-/* 95 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13049,7 +13127,7 @@
 	//! author: Mattia Larentis: https://github.com/nostalgiaz
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13114,7 +13192,7 @@
 	}));
 
 /***/ },
-/* 96 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13122,7 +13200,7 @@
 	//! author : LI Long : https://github.com/baryon
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13194,7 +13272,7 @@
 	}));
 
 /***/ },
-/* 97 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13203,7 +13281,7 @@
 	//! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13281,7 +13359,7 @@
 	}));
 
 /***/ },
-/* 98 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13289,7 +13367,7 @@
 	//! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13374,7 +13452,7 @@
 	}));
 
 /***/ },
-/* 99 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13382,7 +13460,7 @@
 	//! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13465,7 +13543,7 @@
 	}));
 
 /***/ },
-/* 100 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13473,7 +13551,7 @@
 	//! author : Kruy Vanna : https://github.com/kruyvanna
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13527,7 +13605,7 @@
 	}));
 
 /***/ },
-/* 101 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13536,7 +13614,7 @@
 	//! author : Jeeeyul Lee <jeeeyul@gmail.com>
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13596,7 +13674,7 @@
 	}));
 
 /***/ },
-/* 102 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13604,7 +13682,7 @@
 	//! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13688,7 +13766,7 @@
 	}));
 
 /***/ },
-/* 103 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13697,7 +13775,7 @@
 	//! author : David Raison : https://github.com/kwisatz
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13829,7 +13907,7 @@
 	}));
 
 /***/ },
-/* 104 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13837,7 +13915,7 @@
 	//! author : Ryan Hart : https://github.com/ryanhart2
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -13903,7 +13981,7 @@
 	}));
 
 /***/ },
-/* 105 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -13911,7 +13989,7 @@
 	//! author : Mindaugas Mozūras : https://github.com/mmozuras
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14024,7 +14102,7 @@
 	}));
 
 /***/ },
-/* 106 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14033,7 +14111,7 @@
 	//! author : Jānis Elmeris : https://github.com/JanisE
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14125,7 +14203,7 @@
 	}));
 
 /***/ },
-/* 107 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14133,7 +14211,7 @@
 	//! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14240,7 +14318,7 @@
 	}));
 
 /***/ },
-/* 108 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14248,7 +14326,7 @@
 	//! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14308,7 +14386,7 @@
 	}));
 
 /***/ },
-/* 109 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14316,7 +14394,7 @@
 	//! author : Borislav Mickov : https://github.com/B0k0
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14402,7 +14480,7 @@
 	}));
 
 /***/ },
-/* 110 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14410,7 +14488,7 @@
 	//! author : Floyd Pink : https://github.com/floydpink
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14487,7 +14565,7 @@
 	}));
 
 /***/ },
-/* 111 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14496,7 +14574,7 @@
 	//! author : Vivek Athalye : https://github.com/vnathalye
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14650,7 +14728,7 @@
 	}));
 
 /***/ },
-/* 112 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14658,7 +14736,7 @@
 	//! author : Weldan Jamili : https://github.com/weldan
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14736,7 +14814,7 @@
 	}));
 
 /***/ },
-/* 113 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14745,7 +14823,7 @@
 	//! author : Weldan Jamili : https://github.com/weldan
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14823,7 +14901,7 @@
 	}));
 
 /***/ },
-/* 114 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14833,7 +14911,7 @@
 	//! author : Tin Aung Lin : https://github.com/thanyawzinmin
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14922,7 +15000,7 @@
 	}));
 
 /***/ },
-/* 115 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14931,7 +15009,7 @@
 	//!           Sigurd Gartmann : https://github.com/sigurdga
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -14989,7 +15067,7 @@
 	}));
 
 /***/ },
-/* 116 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -14997,7 +15075,7 @@
 	//! author : suvash : https://github.com/suvash
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15116,7 +15194,7 @@
 	}));
 
 /***/ },
-/* 117 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15125,7 +15203,7 @@
 	//! author : Jacob Middag : https://github.com/middagj
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15206,7 +15284,7 @@
 	}));
 
 /***/ },
-/* 118 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15214,7 +15292,7 @@
 	//! author : https://github.com/mechuwind
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15270,7 +15348,7 @@
 	}));
 
 /***/ },
-/* 119 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15278,7 +15356,7 @@
 	//! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15398,7 +15476,7 @@
 	}));
 
 /***/ },
-/* 120 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15406,7 +15484,7 @@
 	//! author : Rafal Hirsz : https://github.com/evoL
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15507,7 +15585,7 @@
 	}));
 
 /***/ },
-/* 121 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15515,7 +15593,7 @@
 	//! author : Jefferson : https://github.com/jalex79
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15576,7 +15654,7 @@
 	}));
 
 /***/ },
-/* 122 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15584,7 +15662,7 @@
 	//! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15641,7 +15719,7 @@
 	}));
 
 /***/ },
-/* 123 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15650,7 +15728,7 @@
 	//! author : Valentin Agachi : https://github.com/avaly
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15720,7 +15798,7 @@
 	}));
 
 /***/ },
-/* 124 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15730,7 +15808,7 @@
 	//! author : Коренберг Марк : https://github.com/socketpair
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15907,7 +15985,7 @@
 	}));
 
 /***/ },
-/* 125 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15915,7 +15993,7 @@
 	//! authors : Bård Rolstad Henriksen : https://github.com/karamell
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -15972,7 +16050,7 @@
 	}));
 
 /***/ },
-/* 126 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -15980,7 +16058,7 @@
 	//! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -16047,7 +16125,7 @@
 	}));
 
 /***/ },
-/* 127 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -16056,7 +16134,7 @@
 	//! based on work of petrbela : https://github.com/petrbela
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -16201,7 +16279,7 @@
 	}));
 
 /***/ },
-/* 128 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -16209,7 +16287,7 @@
 	//! author : Robert Sedovšek : https://github.com/sedovsek
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -16367,7 +16445,7 @@
 	}));
 
 /***/ },
-/* 129 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -16377,7 +16455,7 @@
 	//! author : Oerd Cukalla : https://github.com/oerd
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -16441,7 +16519,7 @@
 	}));
 
 /***/ },
-/* 130 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -16449,7 +16527,7 @@
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -16555,7 +16633,7 @@
 	}));
 
 /***/ },
-/* 131 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -16563,7 +16641,7 @@
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -16669,7 +16747,7 @@
 	}));
 
 /***/ },
-/* 132 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -16677,7 +16755,7 @@
 	//! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -16762,7 +16840,7 @@
 	}));
 
 /***/ },
-/* 133 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -16770,7 +16848,7 @@
 	//! author : Jens Alm : https://github.com/ulmus
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -16835,7 +16913,7 @@
 	}));
 
 /***/ },
-/* 134 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -16843,7 +16921,7 @@
 	//! author : Fahad Kassim : https://github.com/fadsel
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -16898,7 +16976,7 @@
 	}));
 
 /***/ },
-/* 135 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -16906,7 +16984,7 @@
 	//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -17031,7 +17109,7 @@
 	}));
 
 /***/ },
-/* 136 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -17039,7 +17117,7 @@
 	//! author : Krishna Chaitanya Thota : https://github.com/kcthota
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -17124,7 +17202,7 @@
 	}));
 
 /***/ },
-/* 137 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -17132,7 +17210,7 @@
 	//! author : Kridsada Thanabulpong : https://github.com/sirn
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -17195,7 +17273,7 @@
 	}));
 
 /***/ },
-/* 138 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -17203,7 +17281,7 @@
 	//! author : Dan Hagman : https://github.com/hagmandan
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -17261,7 +17339,7 @@
 	}));
 
 /***/ },
-/* 139 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -17269,7 +17347,7 @@
 	//! author : Dominika Kruk : https://github.com/amaranthrose
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -17385,7 +17463,7 @@
 	}));
 
 /***/ },
-/* 140 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -17394,7 +17472,7 @@
 	//!           Burak Yiğit Kaya: https://github.com/BYK
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -17479,7 +17557,7 @@
 	}));
 
 /***/ },
-/* 141 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -17488,7 +17566,7 @@
 	//! author : Iustì Canun
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -17574,7 +17652,7 @@
 	}));
 
 /***/ },
-/* 142 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -17582,7 +17660,7 @@
 	//! author : Abdel Said : https://github.com/abdelsaid
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -17636,7 +17714,7 @@
 	}));
 
 /***/ },
-/* 143 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -17644,7 +17722,7 @@
 	//! author : Abdel Said : https://github.com/abdelsaid
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -17698,7 +17776,7 @@
 	}));
 
 /***/ },
-/* 144 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -17707,7 +17785,7 @@
 	//! Author : Menelion Elensúle : https://github.com/Oire
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -17848,7 +17926,7 @@
 	}));
 
 /***/ },
-/* 145 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -17856,7 +17934,7 @@
 	//! author : Sardor Muminov : https://github.com/muminoff
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -17910,7 +17988,7 @@
 	}));
 
 /***/ },
-/* 146 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -17918,7 +17996,7 @@
 	//! author : Bang Nguyen : https://github.com/bangnk
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -17993,7 +18071,7 @@
 	}));
 
 /***/ },
-/* 147 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -18001,7 +18079,7 @@
 	//! author : Andrew Hood : https://github.com/andrewhood125
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -18065,7 +18143,7 @@
 	}));
 
 /***/ },
-/* 148 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -18074,7 +18152,7 @@
 	//! author : Zeno Zeng : https://github.com/zenozeng
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -18196,7 +18274,7 @@
 	}));
 
 /***/ },
-/* 149 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -18206,7 +18284,7 @@
 	//! author : Konstantin : https://github.com/skfd
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -18305,7 +18383,7 @@
 	}));
 
 /***/ },
-/* 150 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -18314,7 +18392,7 @@
 	//! author : Chris Lam : https://github.com/hehachris
 
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(44)) :
+	    true ? factory(__webpack_require__(46)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, function (moment) { 'use strict';
@@ -18413,7 +18491,315 @@
 	}));
 
 /***/ },
-/* 151 */
+/* 153 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var client = __webpack_require__(8);
+	var Mustache = __webpack_require__(45);
+	var createElement = __webpack_require__(154);
+	var defineObject = __webpack_require__(155);
+	var request = __webpack_require__(6);
+	var path = __webpack_require__(5);
+	var url = __webpack_require__(9);
+	var LeftSideParent = __webpack_require__(44);
+	var LeftSide = (function (_super) {
+	    __extends(LeftSide, _super);
+	    function LeftSide() {
+	        _super.call(this);
+	        this.elementAttribute = 'data-id';
+	        this.requestUrl = function () {
+	            return "" + path.buildUrl(path.item) + url.objectType.url + "/?direction=" + this.scrollDirection + "&key=" + this.getElementIdDirection(this.elementAttribute);
+	        };
+	        this.buttonForm = this.page.querySelector('.left-side__button');
+	        console.log(this.buttonForm);
+	        this.openForm = this.openForm.bind(this);
+	        this.addEvent();
+	    }
+	    LeftSide.prototype.addEvent = function () {
+	        _super.prototype.addEvent.call(this);
+	        if (this.buttonForm) {
+	            this.buttonForm.addEventListener('click', this.openForm);
+	        }
+	    };
+	    LeftSide.prototype.removeEvent = function () {
+	        _super.prototype.removeEvent.call(this);
+	    };
+	    LeftSide.prototype.render = function (response) {
+	        _super.prototype.render.call(this, response);
+	        if (this.scrollDirection == 1) {
+	            response.ItemList = response.Data.ItemList.reverse();
+	        }
+	        if (response.Data) {
+	            this.scrollBegin = response.Data;
+	        }
+	        if (response.Data) {
+	            this.scrollEnd = response.Data;
+	        }
+	        var oldHeight = this.listElement.getBoundingClientRect().height;
+	        if (response.Data.ItemList.length) {
+	            response.Data.ItemList.forEach(function (item) {
+	                var template = document.getElementById('left-side__item').innerHTML;
+	                var Html = Mustache.render(template, defineObject.leftSide.templateConf(item));
+	                var element = defineObject.leftSide.createItem(item);
+	                element.innerHTML = Html;
+	                if (this.scrollDirection === -1) {
+	                    this.listElement.appendChild(element);
+	                }
+	                else if (this.scrollDirection === 1) {
+	                    this.listElement.insertBefore(element, this.listElement.firstChild);
+	                    this.listElement.parentElement.scrollTop = '100';
+	                    if (!this.scrollBegin) {
+	                        this.listElement.parentElement.scrollTop = '100';
+	                    }
+	                }
+	                else {
+	                    this.listElement.appendChild(element);
+	                }
+	            }.bind(this));
+	            if (_super.prototype.scrollDirection === 1) {
+	                this.listElement.parentElement.scrollTop = this.listElement.getBoundingClientRect().height - oldHeight;
+	                _super.prototype.scrollTop = this.listElement.parentElement.scrollTop;
+	            }
+	        }
+	        setTimeout(function () {
+	            this.addEvent();
+	        }.bind(this), 0);
+	    };
+	    LeftSide.prototype.openItem = function (e) {
+	        e.preventDefault();
+	        var target = e.target;
+	        while (target != this) {
+	            if (target.classList.contains('left-side__item')) {
+	                var departureid = target.getAttribute('data-id');
+	                if (departureid) {
+	                    var href = "/" + url.objectType.url + "/" + departureid + "/"; // заменить
+	                    if (target.classList.contains('left-side__item--active')) {
+	                        page.show(href, { active: true });
+	                    }
+	                    else {
+	                        page.show(href, { open: true });
+	                    }
+	                }
+	                return;
+	            }
+	            target = target.parentNode;
+	        }
+	    };
+	    LeftSide.prototype.openForm = function (e) {
+	        e.preventDefault();
+	        var href = "/" + url.objectType.url + "/form/";
+	        page.show(href, { open: true });
+	    };
+	    return LeftSide;
+	}(LeftSideParent));
+	module.exports = LeftSide;
+
+
+/***/ },
+/* 154 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+	"use strict";
+	module.exports = function (data) {
+	    var element = document.createElement('article');
+	    element.classList.add('left-side__item');
+	    element.classList.add('articles__item');
+	    element.setAttribute('data-id', data.url);
+	    return element;
+	};
+
+
+/***/ },
+/* 155 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+	"use strict";
+	var page = document.querySelector('.page');
+	var moment = __webpack_require__(46);
+	var objectList = [
+	    {
+	        itemClass: "page--articles",
+	        leftSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'url': data.id,
+	                    'title': data.title,
+	                    'preview_text': data.preview_text,
+	                    'picture': data.picture !== null,
+	                    'pic': data.picture !== null ? data.picture.pic : ''
+	                };
+	            },
+	            createItem: function (data) {
+	                var element = document.createElement('article');
+	                element.classList.add('left-side__item');
+	                element.classList.add('articles__item');
+	                element.setAttribute('data-id', data.url);
+	                return element;
+	            }
+	        },
+	        rightSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'title': data.title,
+	                    'picture': data.picture !== null,
+	                    'pic': data.picture !== null ? data.picture.pic : '',
+	                    'full_text': data.full_text,
+	                    'pub_date': moment(data.pub_date).format('DD.MM.YYYY')
+	                };
+	            },
+	            createItem: function (data) {
+	                var element = document.createElement('article');
+	                element.classList.add('right-side__wrap');
+	                element.setAttribute('data-id', data.id);
+	            }
+	        }
+	    },
+	    {
+	        itemClass: "page--news",
+	        leftSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'url': data.id,
+	                    'title': data.title,
+	                    'preview_text': data.preview_text,
+	                    'picture': data.picture !== null,
+	                    'pic': data.picture !== null ? data.picture.pic : ''
+	                };
+	            },
+	            createItem: function (data) {
+	                var element = document.createElement('article');
+	                element.classList.add('left-side__item');
+	                element.classList.add('articles__item');
+	                element.setAttribute('data-id', data.id);
+	                return element;
+	            }
+	        },
+	        rightSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'title': data.title,
+	                    'picture': data.picture !== null,
+	                    'pic': data.picture !== null ? data.picture.pic : '',
+	                    'full_text': data.full_text,
+	                    'pub_date': moment(data.pub_date).format('DD.MM.YYYY')
+	                };
+	            },
+	            createItem: function (data) {
+	                var element = document.createElement('article');
+	                element.classList.add('right-side__wrap');
+	                element.setAttribute('data-id', data.url);
+	            }
+	        }
+	    },
+	    {
+	        itemClass: "page--questions",
+	        leftSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'name': data.name,
+	                    'question': data.question,
+	                    'answer': data.answer,
+	                    'pub_date': moment(data.pub_date).format('DD.MM.YYYY')
+	                };
+	            },
+	            createItem: function (data) {
+	                var element = document.createElement('article');
+	                element.classList.add('left-side__item');
+	                element.classList.add('questions__item');
+	                element.setAttribute('data-id', data.id);
+	                return element;
+	            }
+	        },
+	        rightSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'name': data.name,
+	                    'question': data.question,
+	                    'answer': data.answer,
+	                    'pub_date': moment(data.pub_date).format('DD.MM.YYYY')
+	                };
+	            },
+	            createItem: function (data) {
+	                var element = document.createElement('div');
+	                element.classList.add('right-side__wrap');
+	                element.setAttribute('data-id', data.id);
+	            }
+	        }
+	    },
+	    {
+	        itemClass: "page--reviews",
+	        leftSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'name': data.name,
+	                    'review': data.review,
+	                    'answer': data.answer,
+	                    'date': moment(data.pub_date).format('DD.MM.YYYY'),
+	                    'ratingGorgeous': data.rating === 5,
+	                    'ratingGood': data.rating === 4,
+	                    'ratingRegular': data.rating === 3,
+	                    'ratingPoor': data.rating === 2,
+	                    'ratingBad': data.rating === 1
+	                };
+	            },
+	            createItem: function (data) {
+	                var element = document.createElement('article');
+	                element.classList.add('left-side__item');
+	                element.classList.add('reviews__item');
+	                element.setAttribute('data-id', data.id);
+	                return element;
+	            }
+	        },
+	        rightSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'name': data.name,
+	                    'review': data.review,
+	                    'answer': data.answer,
+	                    'date': moment(data.pub_date).format('DD.MM.YYYY'),
+	                    'ratingGorgeous': data.rating === 5,
+	                    'ratingGood': data.rating === 4,
+	                    'ratingRegular': data.rating === 3,
+	                    'ratingPoor': data.rating === 2,
+	                    'ratingBad': data.rating === 1
+	                };
+	            },
+	            createItem: function (data) {
+	                var element = document.createElement('article');
+	                element.classList.add('right-side__wrap');
+	                element.setAttribute('data-id', data.id);
+	            }
+	        }
+	    }
+	];
+	function defineObject() {
+	    for (var _i = 0, objectList_1 = objectList; _i < objectList_1.length; _i++) {
+	        var item = objectList_1[_i];
+	        if (page.classList.contains(item.itemClass)) {
+	            return item;
+	        }
+	    }
+	}
+	module.exports = defineObject();
+
+
+/***/ },
+/* 156 */
 /***/ function(module, exports) {
 
 	/**
@@ -18445,7 +18831,7 @@
 
 
 /***/ },
-/* 152 */
+/* 157 */
 /***/ function(module, exports) {
 
 	/**
@@ -18468,7 +18854,7 @@
 
 
 /***/ },
-/* 153 */
+/* 158 */
 /***/ function(module, exports) {
 
 	/**
@@ -18524,15 +18910,15 @@
 
 
 /***/ },
-/* 154 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 22.12.2016.
 	 */
 	"use strict";
-	var Counter = __webpack_require__(155);
-	var Selection = __webpack_require__(156);
+	var Counter = __webpack_require__(160);
+	var Selection = __webpack_require__(161);
 	var Card = (function () {
 	    function Card(element) {
 	        this.element = element;
@@ -18569,10 +18955,10 @@
 	    };
 	    Card.prototype.change = function () {
 	        var sum = 0;
-	        if (this.selectElement) {
+	        if (this.selectElement && this.counterElement) {
 	            sum = Number(this.counterValue()) * Number(this.selectValue());
 	        }
-	        else {
+	        else if (this.counterElement) {
 	            sum = Number(this.counterValue()) * Number(this.counterElement.getAttribute('data-value'));
 	        }
 	        this.output.innerText = sum;
@@ -18583,7 +18969,7 @@
 
 
 /***/ },
-/* 155 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -18595,7 +18981,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var BaseCounter = __webpack_require__(153);
+	var BaseCounter = __webpack_require__(158);
 	var Counter = (function (_super) {
 	    __extends(Counter, _super);
 	    function Counter(parent, element) {
@@ -18644,7 +19030,7 @@
 
 
 /***/ },
-/* 156 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -18674,7 +19060,55 @@
 
 
 /***/ },
-/* 157 */
+/* 162 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Lobova.A on 31.01.2017.
+	 */
+	"use strict";
+	var CalcSquare = (function () {
+	    function CalcSquare(element) {
+	        this.element = element;
+	        this.buttonsContainer = this.element.querySelector('.service-calc__row--square');
+	        this.buttons = this.element.querySelectorAll('.service-calc__item--square');
+	        this.outputs = this.element.querySelectorAll('.service-calc__item--price');
+	        this.switchButton = this.switchButton.bind(this);
+	        this.addEvent();
+	    }
+	    CalcSquare.prototype.addEvent = function () {
+	        this.buttonsContainer.addEventListener('click', this.switchButton);
+	    };
+	    CalcSquare.prototype.removeEvent = function () {
+	        this.buttonsContainer.removeEventListener('click', this.switchButton);
+	    };
+	    CalcSquare.prototype.switchButton = function (e) {
+	        e.preventDefault();
+	        var target = e.target;
+	        while (target != e.currentTarget) {
+	            if (target.classList.contains('service-calc__item--square')) {
+	                this.setButton(target);
+	                return;
+	            }
+	            target = target.parentNode;
+	        }
+	    };
+	    CalcSquare.prototype.setButton = function (button) {
+	        for (var _i = 0, _a = this.buttons; _i < _a.length; _i++) {
+	            var item = _a[_i];
+	            if (item.classList.contains('service-calc__item--active')) {
+	                item.classList.remove('service-calc__item--active');
+	            }
+	        }
+	        button.classList.add('service-calc__item--active');
+	    };
+	    return CalcSquare;
+	}());
+	module.exports = CalcSquare;
+
+
+/***/ },
+/* 163 */
 /***/ function(module, exports) {
 
 	/**
@@ -18696,40 +19130,7 @@
 
 
 /***/ },
-/* 158 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by Lobova.A on 23.01.2017.
-	 */
-	"use strict";
-	module.exports = function () {
-	    var button = document.querySelector('.left-side__button');
-	    if (button) {
-	        button.addEventListener('click', openForm);
-	    }
-	    function openForm() {
-	        var wraps = document.querySelectorAll('.right-side__wrap');
-	        for (var _i = 0, wraps_1 = wraps; _i < wraps_1.length; _i++) {
-	            var item = wraps_1[_i];
-	            if (!item.classList.contains('right-side__wrap--hide')) {
-	                item.classList.add('right-side__wrap--hide');
-	                if (item.classList.contains('right-side__wrap--form')) {
-	                    item.classList.add('right-side__wrap--hide');
-	                }
-	            }
-	            else {
-	                if (item.classList.contains('right-side__wrap--form')) {
-	                    item.classList.remove('right-side__wrap--hide');
-	                }
-	            }
-	        }
-	    }
-	};
-
-
-/***/ },
-/* 159 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -18737,31 +19138,34 @@
 	 */
 	"use strict";
 	var page = document.querySelector('.page');
-	var Order = __webpack_require__(160);
-	var Orders = __webpack_require__(169);
-	var Article = __webpack_require__(171);
-	var Articles = __webpack_require__(172);
-	var Question = __webpack_require__(173);
-	var Questions = __webpack_require__(174);
-	var Promotion = __webpack_require__(175);
-	var Promotions = __webpack_require__(176);
-	var Review = __webpack_require__(177);
-	var Reviews = __webpack_require__(178);
-	var News = __webpack_require__(179);
-	var NewsItem = __webpack_require__(180);
-	var RightSide = __webpack_require__(250);
+	var Order = __webpack_require__(165);
+	var Orders = __webpack_require__(174);
+	var Article = __webpack_require__(176);
+	var Articles = __webpack_require__(177);
+	var Question = __webpack_require__(178);
+	var Questions = __webpack_require__(179);
+	var Promotion = __webpack_require__(180);
+	var Promotions = __webpack_require__(181);
+	var Review = __webpack_require__(182);
+	var Reviews = __webpack_require__(183);
+	var News = __webpack_require__(184);
+	var NewsItem = __webpack_require__(185);
+	var RightSide = __webpack_require__(186);
+	var LeftSide = __webpack_require__(153);
+	var Form = __webpack_require__(187);
 	var LeftSideList = [
 	    {
 	        item: 'pageArticles',
 	        itemClass: "page--articles",
-	        itemsObject: Articles,
-	        itemObject: Article
+	        leftSide: LeftSide,
+	        rightSide: RightSide
 	    },
 	    {
 	        item: 'pageReviews',
 	        itemClass: "page--reviews",
-	        itemsObject: Reviews,
-	        itemObject: Review
+	        leftSide: LeftSide,
+	        rightSide: RightSide,
+	        form: Form
 	    },
 	    {
 	        item: 'pageOrders',
@@ -18772,20 +19176,21 @@
 	    {
 	        item: 'pagePromo',
 	        itemClass: "page--promotion",
-	        itemsObject: Promotions,
-	        itemObject: RightSide
+	        leftSide: LeftSide,
+	        rightSide: RightSide
 	    },
 	    {
 	        item: 'pageNews',
 	        itemClass: "page--news",
-	        itemsObject: News,
-	        itemObject: NewsItem
+	        leftSide: LeftSide,
+	        rightSide: RightSide
 	    },
 	    {
 	        item: 'pageQuestions',
 	        itemClass: "page--questions",
-	        itemsObject: Questions,
-	        itemObject: Question
+	        leftSide: LeftSide,
+	        rightSide: RightSide,
+	        form: Form
 	    }
 	];
 	function defineLeftSide() {
@@ -18800,7 +19205,7 @@
 
 
 /***/ },
-/* 160 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -18809,14 +19214,14 @@
 	"use strict";
 	var url = __webpack_require__(4);
 	var tabs = __webpack_require__(3);
-	var toggleSelect = __webpack_require__(161);
-	var toggleDays = __webpack_require__(162);
-	var changePayment = __webpack_require__(164);
-	var sendMethodPayment = __webpack_require__(165);
-	var paymentOrder = __webpack_require__(166);
-	var openRating = __webpack_require__(167);
-	var actionOrder = __webpack_require__(168);
-	var toggleService = __webpack_require__(163);
+	var toggleSelect = __webpack_require__(166);
+	var toggleDays = __webpack_require__(167);
+	var changePayment = __webpack_require__(169);
+	var sendMethodPayment = __webpack_require__(170);
+	var paymentOrder = __webpack_require__(171);
+	var openRating = __webpack_require__(172);
+	var actionOrder = __webpack_require__(173);
+	var toggleService = __webpack_require__(168);
 	var Order = (function () {
 	    function Order(element) {
 	        this.element = element;
@@ -18909,7 +19314,7 @@
 
 
 /***/ },
-/* 161 */
+/* 166 */
 /***/ function(module, exports) {
 
 	/**
@@ -18941,14 +19346,14 @@
 
 
 /***/ },
-/* 162 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 04.12.2016.
 	 */
 	"use strict";
-	var toggleService = __webpack_require__(163);
+	var toggleService = __webpack_require__(168);
 	var eventHelper = __webpack_require__(7);
 	module.exports = function (e) {
 	    e.preventDefault();
@@ -18983,7 +19388,7 @@
 
 
 /***/ },
-/* 163 */
+/* 168 */
 /***/ function(module, exports) {
 
 	/**
@@ -19004,7 +19409,7 @@
 
 
 /***/ },
-/* 164 */
+/* 169 */
 /***/ function(module, exports) {
 
 	/**
@@ -19048,7 +19453,7 @@
 
 
 /***/ },
-/* 165 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19142,7 +19547,7 @@
 
 
 /***/ },
-/* 166 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19180,7 +19585,7 @@
 
 
 /***/ },
-/* 167 */
+/* 172 */
 /***/ function(module, exports) {
 
 	/**
@@ -19199,7 +19604,7 @@
 
 
 /***/ },
-/* 168 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19299,7 +19704,7 @@
 
 
 /***/ },
-/* 169 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19312,13 +19717,13 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var client = __webpack_require__(8);
-	var Filter = __webpack_require__(170);
-	var Mustache = __webpack_require__(43);
-	var moment = __webpack_require__(44);
+	var Filter = __webpack_require__(175);
+	var Mustache = __webpack_require__(45);
+	var moment = __webpack_require__(46);
 	var request = __webpack_require__(6);
 	var path = __webpack_require__(5);
 	var url = __webpack_require__(4);
-	var LeftSide = __webpack_require__(42);
+	var LeftSide = __webpack_require__(44);
 	var Orders = (function (_super) {
 	    __extends(Orders, _super);
 	    function Orders() {
@@ -19479,7 +19884,7 @@
 
 
 /***/ },
-/* 170 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19575,7 +19980,7 @@
 
 
 /***/ },
-/* 171 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19612,7 +20017,7 @@
 
 
 /***/ },
-/* 172 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19625,12 +20030,12 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var client = __webpack_require__(8);
-	var Mustache = __webpack_require__(43);
-	var moment = __webpack_require__(44);
+	var Mustache = __webpack_require__(45);
+	var moment = __webpack_require__(46);
 	var request = __webpack_require__(6);
 	var path = __webpack_require__(5);
 	var url = __webpack_require__(9);
-	var LeftSide = __webpack_require__(42);
+	var LeftSide = __webpack_require__(44);
 	var Articles = (function (_super) {
 	    __extends(Articles, _super);
 	    function Articles() {
@@ -19718,7 +20123,7 @@
 
 
 /***/ },
-/* 173 */
+/* 178 */
 /***/ function(module, exports) {
 
 	/**
@@ -19727,7 +20132,7 @@
 
 
 /***/ },
-/* 174 */
+/* 179 */
 /***/ function(module, exports) {
 
 	/**
@@ -19736,7 +20141,7 @@
 
 
 /***/ },
-/* 175 */
+/* 180 */
 /***/ function(module, exports) {
 
 	/**
@@ -19752,7 +20157,7 @@
 
 
 /***/ },
-/* 176 */
+/* 181 */
 /***/ function(module, exports) {
 
 	/**
@@ -19768,7 +20173,7 @@
 
 
 /***/ },
-/* 177 */
+/* 182 */
 /***/ function(module, exports) {
 
 	/**
@@ -19784,7 +20189,7 @@
 
 
 /***/ },
-/* 178 */
+/* 183 */
 /***/ function(module, exports) {
 
 	/**
@@ -19800,7 +20205,7 @@
 
 
 /***/ },
-/* 179 */
+/* 184 */
 /***/ function(module, exports) {
 
 	/**
@@ -19816,7 +20221,7 @@
 
 
 /***/ },
-/* 180 */
+/* 185 */
 /***/ function(module, exports) {
 
 	/**
@@ -19832,17 +20237,234 @@
 
 
 /***/ },
-/* 181 */
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+	"use strict";
+	var url = __webpack_require__(9);
+	var tabs = __webpack_require__(3);
+	var request = __webpack_require__(6);
+	var path = __webpack_require__(5);
+	var RightSide = (function () {
+	    function RightSide(element) {
+	        this.element = element;
+	        this.id = this.element.getAttribute('data-id');
+	        this.buttonClose = this.element.querySelector('.right-side__btn--close');
+	        this.subscribeForm = this.element.querySelector('.article-subscribe');
+	        this.articleLike = this.element.querySelector('.article-like');
+	        this.close = this.close.bind(this);
+	        this.sendSubscribeForm = this.sendSubscribeForm.bind(this);
+	        this.sendArticleLike = this.sendArticleLike.bind(this);
+	        this.addEvent();
+	        tabs.add(this, this.element, this.id);
+	    }
+	    RightSide.prototype.addEvent = function () {
+	        this.buttonClose.addEventListener('click', this.close);
+	        if (this.subscribeForm) {
+	            this.subscribeForm.addEventListener('submit', this.sendSubscribeForm);
+	            var buttonYes = this.element.querySelector('.article-like__button--yes');
+	            var buttonNo = this.element.querySelector('.article-like__button--no');
+	            buttonNo.addEventListener('click', this.sendArticleLike);
+	            buttonYes.addEventListener('click', this.sendArticleLike);
+	        }
+	    };
+	    RightSide.prototype.removeEvent = function () {
+	        this.buttonClose.removeEventListener('click', this.close);
+	    };
+	    RightSide.prototype.sendSubscribeForm = function (e) {
+	        e.preventDefault();
+	        var email = this.subscribeForm.querySelector('input[name="email"]');
+	        var button = this.subscribeForm.querySelector('button[type="submit"]');
+	        var formData = {
+	            Method: '',
+	            Param: {
+	                "email": email.value
+	            }
+	        };
+	        function response(data) {
+	            if (data.Success === true) {
+	                button.disabled = false;
+	                email.value = '';
+	                e.preventDefault();
+	                var event_1 = document.createEvent('Event');
+	                event_1.initEvent('open-popup', true, true);
+	                event_1.detail = {
+	                    id: 'notification',
+	                    text: 'Спасибо вы подписались на рассылку'
+	                };
+	                document.dispatchEvent(event_1);
+	            }
+	            else {
+	                button.disabled = false;
+	            }
+	        }
+	        function error() {
+	            this.button.disabled = false;
+	        }
+	        var json = JSON.stringify(formData);
+	        var requestUrl = "/ticket-handler";
+	        button.disabled = true;
+	        request.send(requestUrl, json, response.bind(this), error.bind(this));
+	    };
+	    RightSide.prototype.sendArticleLike = function (e) {
+	        e.preventDefault();
+	        console.log(e.target, "button");
+	        var formData = {
+	            Method: '',
+	            Param: {
+	                "email": e.target.innerText
+	            }
+	        };
+	        function response(data) {
+	            if (data.Success === true) {
+	                e.preventDefault();
+	                var event_2 = document.createEvent('Event');
+	                event_2.initEvent('open-popup', true, true);
+	                event_2.detail = {
+	                    id: 'notification',
+	                    text: 'Спасибо за информацию'
+	                };
+	                document.dispatchEvent(event_2);
+	            }
+	            else {
+	            }
+	        }
+	        function error() {
+	            this.button.disabled = false;
+	        }
+	        var json = JSON.stringify(formData);
+	        var requestUrl = "/ticket-handler";
+	        request.send(requestUrl, json, response.bind(this), error.bind(this));
+	    };
+	    RightSide.prototype.close = function (e) {
+	        e.preventDefault();
+	        var itemUrl = (tabs.length() > 1) ? (tabs.array[tabs.length() - 2].url) : '';
+	        var currentAddressUrl = '/' + url.objectType.url + '/' + itemUrl;
+	        this.removeEvent();
+	        page.show(currentAddressUrl, { delete: true });
+	    };
+	    return RightSide;
+	}());
+	module.exports = RightSide;
+
+
+/***/ },
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 06.02.2017.
+	 */
+	"use strict";
+	var url = __webpack_require__(9);
+	var tabs = __webpack_require__(3);
+	var request = __webpack_require__(6);
+	var path = __webpack_require__(5);
+	var Form = (function () {
+	    function Form(element) {
+	        this.element = element;
+	        this.id = this.element.getAttribute('data-id');
+	        this.buttonClose = this.element.querySelector('.right-side__btn--close');
+	        this.form = this.element.querySelector('form');
+	        this.buttonSubmit = this.element.querySelector('button[type="submit"]');
+	        this.close = this.close.bind(this);
+	        this.sendForm = this.sendForm.bind(this);
+	        this.addEvent();
+	        tabs.add(this, this.element, this.id);
+	    }
+	    Form.prototype.addEvent = function () {
+	        this.buttonClose.addEventListener('click', this.close);
+	        this.form.addEventListener('submit', this.sendForm);
+	    };
+	    Form.prototype.removeEvent = function () {
+	        this.buttonClose.removeEventListener('click', this.close);
+	    };
+	    Form.prototype.sendForm = function (e) {
+	        e.preventDefault();
+	        var email = this.element.querySelector('input[name="email"]');
+	        var title = this.element.querySelector('input[name="title"]');
+	        console.log(email, title, "нашла здесь");
+	        var formData = {
+	            title: title.value,
+	            email: email.value
+	        };
+	        if (this.form.classList.contains('review-form')) {
+	            var review = this.element.querySelector('textarea');
+	            var rating = this.element.querySelector('input[type="radio"]:checked');
+	            formData.review = review.value;
+	            formData.rating = rating ? rating.value : 0;
+	        }
+	        else {
+	            var question = this.element.querySelector('textarea');
+	            formData.question = question.value;
+	        }
+	        function response(data) {
+	            if (data.Success === true) {
+	                this.buttonSubmit.disabled = false;
+	                var itemUrl = (tabs.length() > 1) ? (tabs.array[tabs.length() - 2].url) : '';
+	                var currentAddressUrl = '/' + url.objectType.url + '/' + itemUrl;
+	                this.removeEvent();
+	                page.show(currentAddressUrl, { delete: true });
+	                if (this.form.classList.contains('review-form')) {
+	                    e.preventDefault();
+	                    var event_1 = document.createEvent('Event');
+	                    event_1.initEvent('open-popup', true, true);
+	                    event_1.detail = {
+	                        id: 'notification',
+	                        text: 'Спасибо за отзыв'
+	                    };
+	                    document.dispatchEvent(event_1);
+	                }
+	                else {
+	                    e.preventDefault();
+	                    var event_2 = document.createEvent('Event');
+	                    event_2.initEvent('open-popup', true, true);
+	                    event_2.detail = {
+	                        id: 'notification',
+	                        text: 'Спасибо за вопрос, мы ответим в ближайщее время'
+	                    };
+	                    document.dispatchEvent(event_2);
+	                }
+	            }
+	            else {
+	                this.buttonSubmit.disabled = false;
+	            }
+	        }
+	        function error() {
+	            this.button.disabled = false;
+	        }
+	        var json = JSON.stringify(formData);
+	        var requestUrl = path.buildUrl() + url.get();
+	        this.buttonSubmit.disabled = true;
+	        request.send(requestUrl, json, response.bind(this), error.bind(this));
+	    };
+	    Form.prototype.close = function (e) {
+	        e.preventDefault();
+	        var itemUrl = (tabs.length() > 1) ? (tabs.array[tabs.length() - 2].url) : '';
+	        var currentAddressUrl = '/' + url.objectType.url + '/' + itemUrl;
+	        this.removeEvent();
+	        page.show(currentAddressUrl, { delete: true });
+	    };
+	    return Form;
+	}());
+	module.exports = Form;
+
+
+/***/ },
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 25.11.2016.
 	 */
 	"use strict";
-	var Menu = __webpack_require__(182);
+	var Menu = __webpack_require__(189);
 	var openApplication = __webpack_require__(37);
-	var callback = __webpack_require__(183);
-	var init = __webpack_require__(184);
+	var callback = __webpack_require__(190);
+	var init = __webpack_require__(191);
 	var initElement = __webpack_require__(10);
 	var headerElement = document.querySelector('.page-header');
 	var menuElement = headerElement.querySelector('.main-menu');
@@ -19875,7 +20497,7 @@
 
 
 /***/ },
-/* 182 */
+/* 189 */
 /***/ function(module, exports) {
 
 	/**
@@ -19959,7 +20581,7 @@
 
 
 /***/ },
-/* 183 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20036,7 +20658,7 @@
 
 
 /***/ },
-/* 184 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20120,115 +20742,11 @@
 	//
 	// };
 	var initElements = __webpack_require__(10);
-	var resize = __webpack_require__(185);
-	window.addEventListener('resize', resize);
 	console.log(initElements, "Инициализация елементов и ресайза");
 
 
 /***/ },
-/* 185 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by Lobova.A on 28.11.2016.
-	 */
-	"use strict";
-	var client = __webpack_require__(8);
-	var init = __webpack_require__(10);
-	var tabs = __webpack_require__(3);
-	var initScroll = __webpack_require__(33);
-	module.exports = function () {
-	    var pageElement = document.querySelector('.page');
-	    var mainContent = document.querySelector('.main-content');
-	    var application = document.querySelector('.application');
-	    var pageHeader = document.querySelector('.page-header');
-	    var popUp = document.querySelector('.pop-up');
-	    var leftSideElement = document.querySelector('.left-side');
-	    var right = document.querySelector('.right-side');
-	    var left = document.querySelector('.orders__wrap');
-	    var mYurl = null;
-	    if (client.height() !== client.oldHeight && !client.isMobile()) {
-	        if (leftSideElement) {
-	            console.log('hhhhhh');
-	            console.log(init);
-	            console.log(init.leftSide);
-	            init.leftSide.setHeightContainer();
-	        }
-	    }
-	    switch (client.define()) {
-	        case client.mobile:
-	            if (client.oldWidth === client.desktop) {
-	                if ('popup' in init) {
-	                    if (init.popup.isOpen) {
-	                        if (!mainContent.classList.contains('main-content--hide')) {
-	                            mainContent.classList.add('main-content--hide');
-	                        }
-	                    }
-	                    if (init.menu.isOpen) {
-	                        init.menu.close();
-	                    }
-	                }
-	            }
-	            if (client.oldWidth === client.desktop || client.oldWidth === client.tablet) {
-	                console.log("mob -- desc, tab");
-	                console.log(tabs.length());
-	                if (tabs.length()) {
-	                    console.log('есть правая часть');
-	                }
-	                initScroll();
-	            }
-	            break;
-	        case client.tablet:
-	            if (client.oldWidth === client.desktop) {
-	                console.log("tab -- desc");
-	                if ('popup' in init) {
-	                    if (init.popup.isOpen) {
-	                        if (!mainContent.classList.contains('main-content--hide')) {
-	                            mainContent.classList.add('main-content--hide');
-	                        }
-	                    }
-	                    if (init.menu.isOpen) {
-	                        console.log(init.menu.isOpen);
-	                        init.menu.close();
-	                    }
-	                }
-	            }
-	            if (client.oldWidth === client.mobile) {
-	                console.log("tab -- mob");
-	                initScroll();
-	            }
-	            break;
-	        case client.desktop:
-	            if (client.oldWidth === client.tablet || client.oldWidth === client.mobile) {
-	                console.log("des -- tab, mob");
-	                if ('popup' in init) {
-	                    if (init.popup.isOpen) {
-	                        if (mainContent.classList.contains('main-content--hide')) {
-	                            mainContent.classList.remove('main-content--hide');
-	                        }
-	                    }
-	                    if (init.menu.isOpen) {
-	                        console.log(init.menu.isOpen);
-	                        init.menu.close();
-	                    }
-	                }
-	                if (client.current === client.mobile) {
-	                    initScroll();
-	                }
-	            }
-	            break;
-	        default:
-	            break;
-	    }
-	    // if (pageOrders) {
-	    //   scrollContainer();
-	    // }
-	    client.init();
-	};
-
-
-/***/ },
-/* 186 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20342,7 +20860,7 @@
 
 
 /***/ },
-/* 187 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20350,11 +20868,11 @@
 	 */
 	"use strict";
 	var client = __webpack_require__(8);
-	var Mustache = __webpack_require__(43);
-	var moment = __webpack_require__(44);
+	var Mustache = __webpack_require__(45);
+	var moment = __webpack_require__(46);
 	var url = __webpack_require__(4);
-	var Order = __webpack_require__(160);
-	var init = __webpack_require__(184);
+	var Order = __webpack_require__(165);
+	var init = __webpack_require__(191);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	var paymentType = {
@@ -20477,7 +20995,7 @@
 
 
 /***/ },
-/* 188 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20485,11 +21003,11 @@
 	 */
 	"use strict";
 	var client = __webpack_require__(8);
-	var Mustache = __webpack_require__(43);
-	var moment = __webpack_require__(44);
+	var Mustache = __webpack_require__(45);
+	var moment = __webpack_require__(46);
 	var url = __webpack_require__(4);
-	var Order = __webpack_require__(160);
-	var init = __webpack_require__(184);
+	var Order = __webpack_require__(165);
+	var init = __webpack_require__(191);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	module.exports = function (data) {
@@ -20609,80 +21127,7 @@
 
 
 /***/ },
-/* 189 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by Lobova.A on 27.01.2017.
-	 */
-	"use strict";
-	var client = __webpack_require__(8);
-	var Mustache = __webpack_require__(43);
-	var moment = __webpack_require__(44);
-	var url = __webpack_require__(4);
-	var init = __webpack_require__(184);
-	var urlThridColumn = __webpack_require__(9);
-	var Article = __webpack_require__(171);
-	var leftSide = document.querySelector('.left-side');
-	var rightSide = document.querySelector('.right-side');
-	module.exports = function (data) {
-	    var receivedData = data.Data.Item;
-	    console.log(data);
-	    // общая часть можно вынести в отдельный модуль
-	    if (client.isMobile()) {
-	        var orders = rightSide.querySelectorAll('.right-side__wrap');
-	        if (orders.length != 0) {
-	            for (var i = 0; orders.length > i; i++) {
-	                rightSide.removeChild(orders[i]);
-	            }
-	        }
-	        leftSide.classList.add('left-side--hide');
-	        rightSide.classList.remove('right-side--hide');
-	    }
-	    // ------
-	    // for (let i = 0; i < data.Services.length; i++) {
-	    //   data.Services[i].AmountWithDiscount = data.Services[i].AmountWithDiscount.toFixed(2);
-	    //   data.Services[i].Amount = data.Services[i].Amount.toFixed(2);
-	    //   for (let j = 0; j < data.Services[i].ObjectClass.length; j++) {
-	    //     data.Services[i].ObjectClass[j].Amount = data.Services[i].ObjectClass[j].Amount.toFixed(2);
-	    //   }
-	    // }
-	    //
-	    // let departureid = data.DepartureID;
-	    // let timeZone = data.TimeZone;
-	    // let timeOf = moment.parseZone(moment.utc(data.Date).utcOffset(timeZone).format());
-	    //
-	    var template = document.getElementById('article-active').innerHTML;
-	    console.log(receivedData.picture);
-	    var html = Mustache.render(template, {
-	        'title': receivedData.title,
-	        'picture': receivedData.picture !== null,
-	        'pic': receivedData.picture !== null ? receivedData.picture.pic : '',
-	        'full_text': receivedData.full_text,
-	        'pub_date': moment(receivedData.pub_date).format('DD.MM.YYYY')
-	    });
-	    //
-	    var div = document.createElement('div');
-	    div.classList.add('right-side__wrap');
-	    div.setAttribute('data-id', receivedData.url);
-	    // div.setAttribute('data-ordernumber', data.OrderNumber);
-	    // div.setAttribute('data-status', StatusCode);
-	    div.innerHTML = html;
-	    //
-	    // if (!client.isMobile()) {
-	    //   console.log('dfhfdf')
-	    //   console.log(init.tabs);
-	    //   console.log(init.tabs.add);
-	    //   init.tabs.add(div, departureid, url.type.order);
-	    // }
-	    //
-	    rightSide.appendChild(div);
-	    var article = new Article(div);
-	};
-
-
-/***/ },
-/* 190 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20690,12 +21135,13 @@
 	 */
 	"use strict";
 	var client = __webpack_require__(8);
-	var Mustache = __webpack_require__(43);
-	var moment = __webpack_require__(44);
+	var Mustache = __webpack_require__(45);
+	var moment = __webpack_require__(46);
 	var url = __webpack_require__(4);
-	var init = __webpack_require__(184);
+	var init = __webpack_require__(191);
 	var urlThridColumn = __webpack_require__(9);
-	var Question = __webpack_require__(173);
+	var defineObject = __webpack_require__(155);
+	var RightSide = __webpack_require__(186);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	module.exports = function (data) {
@@ -20712,7 +21158,74 @@
 	        leftSide.classList.add('left-side--hide');
 	        rightSide.classList.remove('right-side--hide');
 	    }
-	    //---------
+	    // ------
+	    // for (let i = 0; i < data.Services.length; i++) {
+	    //   data.Services[i].AmountWithDiscount = data.Services[i].AmountWithDiscount.toFixed(2);
+	    //   data.Services[i].Amount = data.Services[i].Amount.toFixed(2);
+	    //   for (let j = 0; j < data.Services[i].ObjectClass.length; j++) {
+	    //     data.Services[i].ObjectClass[j].Amount = data.Services[i].ObjectClass[j].Amount.toFixed(2);
+	    //   }
+	    // }
+	    //
+	    // let departureid = data.DepartureID;
+	    // let timeZone = data.TimeZone;
+	    // let timeOf = moment.parseZone(moment.utc(data.Date).utcOffset(timeZone).format());
+	    console.log(receivedData.rating);
+	    console.log(receivedData.rating === 5, receivedData.rating === '5', receivedData.rating == 5);
+	    //
+	    var template = document.getElementById('right-side__wrap').innerHTML;
+	    var html = Mustache.render(template, defineObject.rightSide.templateConf(receivedData));
+	    console.log(html);
+	    var element = defineObject.leftSide.createItem(receivedData);
+	    element.innerHTML = html;
+	    // let element = document.createElement('div');
+	    // element.classList.add('right-side__wrap');
+	    // element.setAttribute('data-id', receivedData.url);
+	    //
+	    // element.innerHTML = html;
+	    //
+	    // if (!client.isMobile()) {
+	    //   console.log('dfhfdf')
+	    //   console.log(init.tabs);
+	    //   console.log(init.tabs.add);
+	    //   init.tabs.add(div, departureid, url.type.order);
+	    // }
+	    //
+	    rightSide.appendChild(element);
+	    window.scrollTo(0, 0);
+	    var rightSideItem = new RightSide(element);
+	};
+
+
+/***/ },
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 06.02.2017.
+	 */
+	"use strict";
+	var client = __webpack_require__(8);
+	var Mustache = __webpack_require__(45);
+	var moment = __webpack_require__(46);
+	var url = __webpack_require__(4);
+	var init = __webpack_require__(191);
+	var urlThridColumn = __webpack_require__(9);
+	var defineObject = __webpack_require__(155);
+	var Form = __webpack_require__(187);
+	var leftSide = document.querySelector('.left-side');
+	var rightSide = document.querySelector('.right-side');
+	module.exports = function () {
+	    if (client.isMobile()) {
+	        var orders = rightSide.querySelectorAll('.right-side__wrap');
+	        if (orders.length != 0) {
+	            for (var i = 0; orders.length > i; i++) {
+	                rightSide.removeChild(orders[i]);
+	            }
+	        }
+	        leftSide.classList.add('left-side--hide');
+	        rightSide.classList.remove('right-side--hide');
+	    }
 	    // ------
 	    // for (let i = 0; i < data.Services.length; i++) {
 	    //   data.Services[i].AmountWithDiscount = data.Services[i].AmountWithDiscount.toFixed(2);
@@ -20726,18 +21239,12 @@
 	    // let timeZone = data.TimeZone;
 	    // let timeOf = moment.parseZone(moment.utc(data.Date).utcOffset(timeZone).format());
 	    //
-	    var newtemplate = document.getElementById('question-active').innerHTML;
-	    var html = Mustache.render(newtemplate, {
-	        'name': receivedData.name,
-	        'question': receivedData.question,
-	        'answer': receivedData.answer,
-	        'pub_date': moment(receivedData.pub_date).format('DD.MM.YYYY')
-	    });
-	    //
-	    var div = document.createElement('div');
-	    div.classList.add('right-side__wrap');
-	    div.setAttribute('data-id', receivedData.url);
-	    div.innerHTML = html;
+	    var template = document.getElementById('right-side__form').innerHTML;
+	    var html = Mustache.render(template);
+	    var element = document.createElement('div');
+	    element.classList.add('right-side__wrap');
+	    element.setAttribute('data-id', 'form');
+	    element.innerHTML = html;
 	    //
 	    // if (!client.isMobile()) {
 	    //   console.log('dfhfdf')
@@ -20746,13 +21253,13 @@
 	    //   init.tabs.add(div, departureid, url.type.order);
 	    // }
 	    //
-	    rightSide.appendChild(div);
-	    var question = new Question(div);
+	    rightSide.appendChild(element);
+	    var form = new Form(element);
 	};
 
 
 /***/ },
-/* 191 */
+/* 197 */
 /***/ function(module, exports) {
 
 	/**
@@ -20771,419 +21278,106 @@
 
 
 /***/ },
-/* 192 */,
-/* 193 */,
-/* 194 */,
-/* 195 */,
-/* 196 */,
-/* 197 */,
-/* 198 */,
-/* 199 */,
-/* 200 */,
-/* 201 */,
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */,
-/* 208 */,
-/* 209 */,
-/* 210 */,
-/* 211 */,
-/* 212 */,
-/* 213 */,
-/* 214 */,
-/* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */,
-/* 219 */,
-/* 220 */,
-/* 221 */,
-/* 222 */,
-/* 223 */,
-/* 224 */,
-/* 225 */,
-/* 226 */,
-/* 227 */,
-/* 228 */,
-/* 229 */,
-/* 230 */,
-/* 231 */,
-/* 232 */,
-/* 233 */,
-/* 234 */,
-/* 235 */,
-/* 236 */,
-/* 237 */,
-/* 238 */,
-/* 239 */,
-/* 240 */,
-/* 241 */,
-/* 242 */,
-/* 243 */,
-/* 244 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * Created by Lobova.A on 03.02.2017.
+	 * Created by Lobova.A on 28.11.2016.
 	 */
 	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
 	var client = __webpack_require__(8);
-	var Mustache = __webpack_require__(43);
-	var templateConf = __webpack_require__(256);
-	var createElement = __webpack_require__(259);
-	var defineObject = __webpack_require__(260);
-	var request = __webpack_require__(6);
-	var path = __webpack_require__(5);
-	var url = __webpack_require__(9);
-	var LeftSideParent = __webpack_require__(42);
-	var LeftSide = (function (_super) {
-	    __extends(LeftSide, _super);
-	    function LeftSide() {
-	        _super.call(this);
-	        this.elementAttribute = 'data-id';
-	        this.requestUrl = function () {
-	            return "" + path.buildUrl(path.item) + url.objectType.url + "/?direction=" + this.scrollDirection + "&key=" + this.getElementIdDirection(this.elementAttribute);
-	        };
-	    }
-	    LeftSide.prototype.addEvent = function () {
-	        _super.prototype.addEvent.call(this);
-	    };
-	    LeftSide.prototype.removeEvent = function () {
-	        _super.prototype.removeEvent.call(this);
-	    };
-	    LeftSide.prototype.render = function (response) {
-	        _super.prototype.render.call(this, response);
-	        if (this.scrollDirection == 1) {
-	            response.ItemList = response.Data.ItemList.reverse();
-	        }
-	        var oldHeight = this.listElement.getBoundingClientRect().height;
-	        if (response.Data.ItemList.length) {
-	            response.Data.ItemList.forEach(function (item) {
-	                var template = document.getElementById('left-side__item').innerHTML;
-	                var Html = Mustache.render(template, defineObject.leftSide.templateConf(item));
-	                var element = defineObject.leftSide.createItem(item);
-	                element.innerHTML = Html;
-	                if (this.scrollDirection === -1) {
-	                    this.listElement.appendChild(element);
-	                }
-	                else if (this.scrollDirection === 1) {
-	                    this.listElement.insertBefore(element, this.listElement.firstChild);
-	                    this.listElement.parentElement.scrollTop = '100';
-	                    if (!this.scrollBegin) {
-	                        this.listElement.parentElement.scrollTop = '100';
-	                    }
-	                }
-	                else {
-	                    this.listElement.appendChild(element);
-	                }
-	            }.bind(this));
-	            if (_super.prototype.scrollDirection === 1) {
-	                this.listElement.parentElement.scrollTop = this.listElement.getBoundingClientRect().height - oldHeight;
-	                _super.prototype.scrollTop = this.listElement.parentElement.scrollTop;
-	            }
-	        }
-	        setTimeout(function () {
-	            this.addEvent();
-	        }.bind(this), 0);
-	    };
-	    LeftSide.prototype.openItem = function (e) {
-	        e.preventDefault();
-	        var target = e.target;
-	        while (target != this) {
-	            if (target.classList.contains('left-side__item')) {
-	                var departureid = target.getAttribute('data-id');
-	                if (departureid) {
-	                    console.log();
-	                    var href = "/" + url.objectType.url + "/" + departureid + "/"; // заменить
-	                    if (target.classList.contains('left-side__item--active')) {
-	                        page.show(href, { active: true });
-	                    }
-	                    else {
-	                        page.show(href, { open: true });
-	                    }
-	                }
-	                return;
-	            }
-	            target = target.parentNode;
-	        }
-	    };
-	    return LeftSide;
-	}(LeftSideParent));
-	module.exports = LeftSide;
-
-
-/***/ },
-/* 245 */,
-/* 246 */,
-/* 247 */,
-/* 248 */,
-/* 249 */,
-/* 250 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by Lobova.A on 03.02.2017.
-	 */
-	"use strict";
-	var url = __webpack_require__(9);
+	var init = __webpack_require__(10);
 	var tabs = __webpack_require__(3);
-	var Article = (function () {
-	    function Article(element) {
-	        this.element = element;
-	        this.id = this.element.getAttribute('data-id');
-	        this.buttonClose = this.element.querySelector('.right-side__btn--close');
-	        this.close = this.close.bind(this);
-	        this.addEvent();
-	        tabs.add(this, this.element, this.id);
-	    }
-	    Article.prototype.addEvent = function () {
-	        this.buttonClose.addEventListener('click', this.close);
-	    };
-	    Article.prototype.removeEvent = function () {
-	        this.buttonClose.removeEventListener('click', this.close);
-	    };
-	    Article.prototype.close = function (e) {
-	        e.preventDefault();
-	        var itemUrl = (tabs.length() > 1) ? (tabs.array[tabs.length() - 2].url) : '';
-	        var currentAddressUrl = '/' + url.objectType.url + '/' + itemUrl;
-	        this.removeEvent();
-	        page.show(currentAddressUrl, { delete: true });
-	    };
-	    return Article;
-	}());
-	module.exports = Article;
-
-
-/***/ },
-/* 251 */,
-/* 252 */,
-/* 253 */,
-/* 254 */,
-/* 255 */,
-/* 256 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by Lobova.A on 03.02.2017.
-	 */
-	"use strict";
-	var moment = __webpack_require__(44);
-	module.exports = function (data) {
-	    return {
-	        'url': data.id,
-	        'title': data.title,
-	        'preview_text': data.preview_text,
-	        'picture': data.picture !== null,
-	        'pic': data.picture !== null ? data.picture.pic : ''
-	    };
-	};
-
-
-/***/ },
-/* 257 */,
-/* 258 */,
-/* 259 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by Lobova.A on 03.02.2017.
-	 */
-	"use strict";
-	module.exports = function (data) {
-	    var element = document.createElement('article');
-	    element.classList.add('left-side__item');
-	    element.classList.add('articles__item');
-	    element.setAttribute('data-id', data.url);
-	    return element;
-	};
-
-
-/***/ },
-/* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by Lobova.A on 03.02.2017.
-	 */
-	"use strict";
-	var page = document.querySelector('.page');
-	var moment = __webpack_require__(44);
-	var objectList = [
-	    {
-	        itemClass: "page--articles",
-	        leftSide: {
-	            templateConf: function (data) {
-	                return {
-	                    'url': data.id,
-	                    'title': data.title,
-	                    'preview_text': data.preview_text,
-	                    'picture': data.picture !== null,
-	                    'pic': data.picture !== null ? data.picture.pic : ''
-	                };
-	            },
-	            createItem: function (data) {
-	                var element = document.createElement('article');
-	                element.classList.add('left-side__item');
-	                element.classList.add('articles__item');
-	                element.setAttribute('data-id', data.url);
-	                return element;
-	            }
-	        },
-	        rightSide: {
-	            templateConf: function (data) {
-	                return {
-	                    'title': data.title,
-	                    'picture': data.picture !== null,
-	                    'pic': data.picture !== null ? data.picture.pic : '',
-	                    'full_text': data.full_text,
-	                    'pub_date': moment(data.pub_date).format('DD.MM.YYYY')
-	                };
-	            }
-	        }
-	    },
-	    {
-	        itemClass: "page--questions",
-	        leftSide: {
-	            templateConf: function (data) {
-	                return {
-	                    'name': data.name,
-	                    'question': data.question,
-	                    'answer': data.answer,
-	                    'pub_date': moment(data.pub_date).format('DD.MM.YYYY')
-	                };
-	            },
-	            createItem: function (data) {
-	                var element = document.createElement('article');
-	                element.classList.add('left-side__item');
-	                element.classList.add('questions__item');
-	                element.setAttribute('data-id', data.url);
-	                return element;
-	            }
-	        },
-	        rightSide: {
-	            templateConf: function (data) {
-	                return {
-	                    'name': data.name,
-	                    'question': data.question,
-	                    'answer': data.answer,
-	                    'pub_date': moment(data.pub_date).format('DD.MM.YYYY')
-	                };
-	            }
-	        }
-	    },
-	    {
-	        itemClass: "page--reviews",
-	        leftSide: {
-	            templateConf: function (data) {
-	                return {
-	                    'name': data.name,
-	                    'review': data.review,
-	                    'answer': data.answer,
-	                    'date': moment(data.pub_date).format('DD.MM.YYYY'),
-	                    'rating': data.rating
-	                };
-	            },
-	            createItem: function (data) {
-	                var element = document.createElement('div');
-	                element.classList.add('left-side__item');
-	                element.classList.add('reviews__item');
-	                element.setAttribute('data-id', data.url);
-	                return element;
-	            }
-	        },
-	        rightSide: {
-	            templateConf: function (data) {
-	                return {
-	                    'name': data.name,
-	                    'review': data.review,
-	                    'answer': data.answer,
-	                    'date': moment(data.pub_date).format('DD.MM.YYYY'),
-	                    'rating': data.rating
-	                };
-	            }
+	var initScroll = __webpack_require__(33);
+	console.log(init, "reaize");
+	module.exports = function () {
+	    var pageElement = document.querySelector('.page');
+	    var mainContent = document.querySelector('.main-content');
+	    var application = document.querySelector('.application');
+	    var pageHeader = document.querySelector('.page-header');
+	    var popUp = document.querySelector('.pop-up');
+	    var leftSideElement = document.querySelector('.left-side');
+	    var right = document.querySelector('.right-side');
+	    var left = document.querySelector('.orders__wrap');
+	    var mYurl = null;
+	    console.log(init, "reaize");
+	    if (client.height() !== client.oldHeight && !client.isMobile()) {
+	        if (leftSideElement) {
+	            console.log('hhhhhh');
+	            console.log(init);
+	            console.log(init.leftSide);
+	            init.leftSide.setHeightContainer();
 	        }
 	    }
-	];
-	function defineObject() {
-	    for (var _i = 0, objectList_1 = objectList; _i < objectList_1.length; _i++) {
-	        var item = objectList_1[_i];
-	        if (page.classList.contains(item.itemClass)) {
-	            return item;
-	        }
-	    }
-	}
-	module.exports = defineObject();
-
-
-/***/ },
-/* 261 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by Lobova.A on 03.02.2017.
-	 */
-	"use strict";
-	var client = __webpack_require__(8);
-	var Mustache = __webpack_require__(43);
-	var moment = __webpack_require__(44);
-	var url = __webpack_require__(4);
-	var init = __webpack_require__(184);
-	var urlThridColumn = __webpack_require__(9);
-	var defineObject = __webpack_require__(260);
-	var RightSide = __webpack_require__(250);
-	var leftSide = document.querySelector('.left-side');
-	var rightSide = document.querySelector('.right-side');
-	module.exports = function (data) {
-	    var receivedData = data.Data.Item;
-	    console.log(data);
-	    // общая часть можно вынести в отдельный модуль
-	    if (client.isMobile()) {
-	        var orders = rightSide.querySelectorAll('.right-side__wrap');
-	        if (orders.length != 0) {
-	            for (var i = 0; orders.length > i; i++) {
-	                rightSide.removeChild(orders[i]);
+	    switch (client.define()) {
+	        case client.mobile:
+	            if (client.oldWidth === client.desktop) {
+	                if ('popup' in init) {
+	                    if (init.popup.isOpen) {
+	                        if (!mainContent.classList.contains('main-content--hide')) {
+	                            mainContent.classList.add('main-content--hide');
+	                        }
+	                    }
+	                    if (init.menu.isOpen) {
+	                        init.menu.close();
+	                    }
+	                }
 	            }
-	        }
-	        leftSide.classList.add('left-side--hide');
-	        rightSide.classList.remove('right-side--hide');
+	            if (client.oldWidth === client.desktop || client.oldWidth === client.tablet) {
+	                console.log("mob -- desc, tab");
+	                console.log(tabs.length());
+	                if (tabs.length()) {
+	                    console.log('есть правая часть');
+	                }
+	                initScroll();
+	            }
+	            break;
+	        case client.tablet:
+	            if (client.oldWidth === client.desktop) {
+	                console.log("tab -- desc");
+	                if ('popup' in init) {
+	                    if (init.popup.isOpen) {
+	                        if (!mainContent.classList.contains('main-content--hide')) {
+	                            mainContent.classList.add('main-content--hide');
+	                        }
+	                    }
+	                    if (init.menu.isOpen) {
+	                        console.log(init.menu.isOpen);
+	                        init.menu.close();
+	                    }
+	                }
+	            }
+	            if (client.oldWidth === client.mobile) {
+	                console.log("tab -- mob");
+	                initScroll();
+	            }
+	            break;
+	        case client.desktop:
+	            if (client.oldWidth === client.tablet || client.oldWidth === client.mobile) {
+	                console.log("des -- tab, mob");
+	                if ('popup' in init) {
+	                    if (init.popup.isOpen) {
+	                        if (mainContent.classList.contains('main-content--hide')) {
+	                            mainContent.classList.remove('main-content--hide');
+	                        }
+	                    }
+	                    if (init.menu.isOpen) {
+	                        console.log(init.menu.isOpen);
+	                        init.menu.close();
+	                    }
+	                }
+	                if (client.current === client.mobile) {
+	                    initScroll();
+	                }
+	            }
+	            break;
+	        default:
+	            break;
 	    }
-	    // ------
-	    // for (let i = 0; i < data.Services.length; i++) {
-	    //   data.Services[i].AmountWithDiscount = data.Services[i].AmountWithDiscount.toFixed(2);
-	    //   data.Services[i].Amount = data.Services[i].Amount.toFixed(2);
-	    //   for (let j = 0; j < data.Services[i].ObjectClass.length; j++) {
-	    //     data.Services[i].ObjectClass[j].Amount = data.Services[i].ObjectClass[j].Amount.toFixed(2);
-	    //   }
+	    // if (pageOrders) {
+	    //   scrollContainer();
 	    // }
-	    //
-	    // let departureid = data.DepartureID;
-	    // let timeZone = data.TimeZone;
-	    // let timeOf = moment.parseZone(moment.utc(data.Date).utcOffset(timeZone).format());
-	    //
-	    var template = document.getElementById('right-side__wrap').innerHTML;
-	    var html = Mustache.render(template, defineObject.rightSide.templateConf(receivedData));
-	    var element = document.createElement('div');
-	    element.classList.add('right-side__wrap');
-	    element.setAttribute('data-id', receivedData.url);
-	    element.innerHTML = html;
-	    //
-	    // if (!client.isMobile()) {
-	    //   console.log('dfhfdf')
-	    //   console.log(init.tabs);
-	    //   console.log(init.tabs.add);
-	    //   init.tabs.add(div, departureid, url.type.order);
-	    // }
-	    //
-	    rightSide.appendChild(element);
-	    var rightSideItem = new RightSide(element);
+	    client.init();
 	};
 
 

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Личный кабинет клиента компании Домовенок</title>
+  <title>Статьи</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui" />
   <meta name="format-detection" content="telephone=no">
   <link rel="apple-touch-icon" sizes="57x57" href="/static/img/apple-touch-icon-57x57.png?v=1.0">
@@ -327,7 +327,7 @@
 
   <!-- Main Content -->
   <main class="page__main-content  main-content">
-    <div class="left-side  left-side--mobile">
+    <div class="left-side {{#HasRightSide}}left-side--mobile{{/HasRightSide}}">
 
       <div class="left-side__top">
         <h1 class="left-side__title  title">Статьи</h1>
@@ -345,7 +345,7 @@
                 </div>
                 <div class="articles__column">
                   <h3 class="articles__title title">{{ title }}</h3>
-                  <p class="articles__text text">{{{ preview_text }}}</p>
+                  {{{ preview_text }}}
                 </div>
               </div>
             </article>
@@ -365,8 +365,7 @@
 
     </div>
 
-
-    <div class="right-side  right-side--hide  right-side--mobile scroll-container-unstable"  >
+    <div class="right-side  right-side--hide {{#HasRightSide}}right-side--mobile{{/HasRightSide}}"  >
       {{#with Item}}
       <div class="right-side__wrap right-side-default" data-id="{{url}}">
 
@@ -389,20 +388,20 @@
           </div>
 
           <footer class="article__footer">
-            <div class="article__inner">
-              <h3 class="right-side__heading title">Понравилась статья?</h3>
-              <label class="article__label label" for="subscription">Подписывайтесь на нашу рассылку</label>
-              <div class="article__row">
-                <input class="article__input input" type="email" name="email-subscription" id="subscription" placeholder="Напишите e-mail">
-                <button class="article__button button" type="submit">Подписаться</button>
+            <form class="article__inner article-subscribe">
+              <h3 class="article-subscribe__title title">Понравилась статья?</h3>
+              <p class="article-subscribe__text text">Подписывайтесь на нашу рассылку</p>
+              <div class="article-subscribe__row">
+                <input class="article-subscribe__input input" type="email" name="email" placeholder="Напишите e-mail" required>
+                <button class="article-subscribe__button button" type="submit">Подписаться</button>
               </div>
-            </div>
+            </form>
 
-            <div class="article__inner">
-              <h3 class="right-side__heading title">Была ли Вам полезна статья?</h3>
-              <div class="article__row article__row--sm">
-                <button class="article__button button">Да</button>
-                <button class="article__button button">Нет</button>
+            <div class="article__inner article-like">
+              <h3 class="article-like__title title">Была ли Вам полезна статья?</h3>
+              <div class="article-like__row">
+                <button class="article-like__button article-like__button--yes button">Да</button>
+                <button class="article-like__button article-like__button--no button">Нет</button>
               </div>
             </div>
 
@@ -410,37 +409,200 @@
               <h3 class="right-side__heading title">Поделиться:</h3>
               <div class="article__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
             </div>
+
+            <div class="linking-pages">
+              <h3 class="right-side__heading title">У нас Вы можете заказать:</h3>
+
+              <ul class="list">
+                <li class="item item--circle">
+                  <a class="link" href="">Мытье пластиковых окон</a>
+                </li>
+                <li class="item item--circle">
+                  <a class="link" href="">Поддерживающую уборку офисов в Москве</a>
+                </li>
+                <li class="item item--circle">
+                  <a class="link" href="">Уборку таунхауса после ремонта по подходящим ценам</a>
+                </li>
+              </ul>
+            </div>
           </footer>
         </article>
-
-        <h3 class="right-side__heading title">У нас Вы можете заказать:</h3>
-
-        <ul class="list">
-          <li class="item item--circle">
-            <a class="link" href="">Мытье пластиковых окон</a>
-          </li>
-          <li class="item item--circle">
-            <a class="link" href="">Поддерживающую уборку офисов в Москве</a>
-          </li>
-          <li class="item item--circle">
-            <a class="link" href="">Уборку таунхауса после ремонта по подходящим ценам</a>
-          </li>
-        </ul>
       </div>
       {{/with}}
     </div>
 
-    <div class="contact-btn">
-      <button class="contact-btn__btn contact-btn__btn--main" type="button">Кнопка контакта</button>
-      <div class="contact-btn__list">
-        <button class="contact-btn__btn contact-btn__btn--left" type="button">T</button>
-        <button class="contact-btn__btn contact-btn__btn--center" type="button">E</button>
-        <button class="contact-btn__btn contact-btn__btn--right" type="button">C</button>
+  </main>
+
+  <!-- Pop up -->
+  <div class="pop-up  pop-up--hide  scroll-container-unstable">
+
+    <div class="pop-up__wrap">
+
+      <button class="pop-up__btn-close  icon-close" type="button">
+        <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+        </svg>
+      </button>
+
+      <div class="pop-up__item pop-up__item--hide  application">
+        <div class="application__wrap">
+          <form class="application__form">
+            <h2 class="application__title  title">Форма заказа</h2>
+            <div class="application__row">
+              <label class="application__label  label">Площадь квартиры</label>
+              <input class="application__input  application__input--square  application__input--half  input" type="number" autofocus><span class="application__size">м<sup><small>2</small></sup></span>
+            </div>
+            <div class="application__row">
+              <p class="application__label  label">Вид услуг</p>
+              <div class="application__selection selection">
+                <button class="application__selection-btn selection__btn" type="button">Поддерживающая уборка</button>
+                <ul class="application__list selection__list  scroll-container">
+                  <li class="application__option selection__option">Поддерживающая уборка</li>
+                  <li class="application__option selection__option">Генеральная уборка</li>
+                  <li class="application__option selection__option">Уборка после ремонта</li>
+                  <li class="application__option selection__option">Мытье окон</li>
+                  <li class="application__option selection__option">Домработница</li>
+                  <li class="application__option selection__option">Химчистка</li>
+                  <li class="application__option selection__option">Глажка/стирка</li>
+                  <li class="application__option selection__option">Уборка офисов</li>
+                  <li class="application__option selection__option">Обработка поверхностей</li>
+                  <li class="application__option selection__option">Промышленный альпинизм</li>
+                  <li class="application__option selection__option">Уборка коттеджей</li>
+                  <li class="application__option selection__option">Домашний мастер</li>
+                  <li class="application__option selection__option">Мытье фасадов</li>
+                  <li class="application__option selection__option">Чистка бассейнов</li>
+                  <li class="application__option selection__option">Офисный мастер</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="application__row">
+              <p class="application__label  label">Дополнительная информация</p>
+              <textarea  class="application__textarea  textarea"></textarea>
+            </div>
+            <div class="application__row">
+              <label class="label-checkbox">
+                <input type="checkbox" class="checkbox  checkbox--small" checked  required>
+                <span class="checkbox__indicator  checkbox__indicator--small  checkbox__indicator--light"></span>
+                <span class="label-text">Cогласен с обработкой моих персональных данных в соответствии с ФЗ РФ от 27.06.06 г. N°152-ФЗ «О персональных данных»</span>
+              </label>
+            </div>
+            <div class="application__row">
+              <button class="application__button  button" type="submit">Отправить</button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="contact-btn__window"></div>
+
+      <!-- Post rating -->
+      <div class="pop-up__item pop-up__item--hide  post-rating">
+
+        <div class="post-rating__wrap">
+          <h2 class="post-rating__title  title">Спасибо за оказанное доверие. <br>Мы и впредь будем стараться!</h2>
+
+          <section class="post-rating__section">
+            <p class="post-rating__heading  text">Мы были бы Вам признательны, если Вы опубликуете отзыв о нас на порталах с отзывами:</p>
+            <div class="post-rating__social-links  social-links--btn">
+              <a href="http://otzovik.com/reviews/kliningovaya_kompaniya_domovenok_russia_moscow/" class="social-link social-link--otzovic social-link--btn"  target="_blank" data-ga='{"hitType": "event","eventCategory": "review_order", "eventAction": "share","eventLabel": "otzovik"}'>
+                <svg class="social-link__icon--otzovic" width="131" height="32.02" viewBox="0 0 131 32.02">
+                  <circle cx="17.55" cy="14.36" r="0.06" style="fill: #fd8204"/>
+                  <path d="M381.12,15.28a16,16,0,1,0,16,16A16,16,0,0,0,381.12,15.28Zm0,0.7A2.09,2.09,0,1,1,379,18.07,2.09,2.09,0,0,1,381.09,16Zm0.12,25.92a10.58,10.58,0,0,1-.87-21.12v5.64a4.86,4.86,0,1,0,1.39,0V20.75A10.58,10.58,0,0,1,381.21,41.89Z" transform="translate(-365.11 -15.28)" style="fill: #fd8204"/>
+                  <path d="M408.37,25h-5.7a3.5,3.5,0,0,0-3.49,3.49v5.7a3.5,3.5,0,0,0,3.49,3.49h5.7a3.5,3.5,0,0,0,3.49-3.49V28.5A3.5,3.5,0,0,0,408.37,25ZM409,33.79a1,1,0,0,1-1,1h-4.82a1,1,0,0,1-1-1V28.91a1,1,0,0,1,1-1h4.82a1,1,0,0,1,1,1v4.88Z" transform="translate(-365.11 -15.28)" style="fill: #fd8204"/>
+                  <path d="M450.21,25.07h-5.7A3.5,3.5,0,0,0,441,28.56v5.7a3.5,3.5,0,0,0,3.49,3.49h5.7a3.5,3.5,0,0,0,3.49-3.49v-5.7A3.5,3.5,0,0,0,450.21,25.07Zm0.61,8.78a1,1,0,0,1-1,1H445a1,1,0,0,1-1-1V29a1,1,0,0,1,1-1h4.82a1,1,0,0,1,1,1v4.88Z" transform="translate(-365.11 -15.28)" style="fill: #fd8204"/>
+                  <polygon points="60.62 9.76 48.03 9.76 48.03 12.58 52.92 12.58 52.92 22.32 55.74 22.32 55.74 12.58 60.62 12.58 60.62 9.76" style="fill: #fd8204"/>
+                  <polygon points="113.62 9.79 113.62 9.83 113.57 9.79 106.62 18.07 106.62 9.79 103.86 9.79 103.86 22.32 106.62 22.32 106.62 22.29 106.66 22.32 113.62 14.02 113.62 22.32 116.38 22.32 116.38 9.79 113.62 9.79" style="fill: #fd8204"/>
+                  <polygon points="127.57 22.34 131 22.33 125.73 16.03 130.97 9.79 127.43 9.77 123.34 14.65 120.6 14.65 120.6 9.76 117.81 9.76 117.81 22.32 120.6 22.32 120.6 17.46 123.48 17.46 127.57 22.34" style="fill: #fd8204"/>
+                  <path d="M439.66,28.87A3.82,3.82,0,0,0,436,25.05h-8.86v2.8H436a1,1,0,0,1,0,2l-3.79,0H432v2.83h0.16l3.79,0a1,1,0,0,1,0,2l-2.61,0H427.1v2.8H436a3.82,3.82,0,0,0,2.8-6.28A3.81,3.81,0,0,0,439.66,28.87Z" transform="translate(-365.11 -15.28)" style="fill: #fd8204"/>
+                  <path d="M467.55,28.88a3.82,3.82,0,0,0-3.68-3.82H455V37.62h8.84a3.82,3.82,0,0,0,2.8-6.28A3.81,3.81,0,0,0,467.55,28.88Zm-3.71,5.93-2.61,0h-3.44V32.74h2.27l3.79,0A1,1,0,0,1,463.84,34.81Zm0-4.92-3.79,0h-2.26v-2h6.08A1,1,0,0,1,463.84,29.89Z" transform="translate(-365.11 -15.28)" style="fill: #fd8204"/>
+                </svg>
+              </a>
+              <a href="http://www.yell.ru/moscow/com/domovenok_10838159/#reviewForm" class="social-link social-link--yell social-link--btn" target="_blank" data-ga='{"hitType": "event","eventCategory": "review_order", "eventAction": "share","eventLabel": "yell"}'>
+                <svg class="social-link__icon--yell" width="106" height="26.44" viewBox="0 0 106 26.44">
+                  <path d="M391.7,71.36s1.11,9,2.18,11.69a69.15,69.15,0,0,0,6.64-11.74,18.68,18.68,0,0,1,5.71.56A72,72,0,0,1,396,88.76l-1.44,8.58s-1.67.6-6.08,0.19l1.58-9a43.73,43.73,0,0,1-4.36-16.66A16,16,0,0,1,391.7,71.36Z" transform="translate(-385.72 -71.23)" style="fill: #fd8204"/>
+                  <path d="M407.25,71.64L402.7,97.48l14.94,0a15.31,15.31,0,0,0,1-5.2h-9.23l1-5.38,8.4-.51s1-1.16,1-5.2l-8.45.56,0.84-5.15h9.14a11.09,11.09,0,0,0,.88-5H407.25Z" transform="translate(-385.72 -71.23)" style="fill: #fd8204"/>
+                  <path d="M425.72,71.59l-4.36,25.8H435s0.74-1.07,1-5.06l-7.52-.46,3.67-20.37S428,70.85,425.72,71.59Z" transform="translate(-385.72 -71.23)" style="fill: #fd8204"/>
+                  <path d="M441.54,71.64l-4.36,25.8h13.69s0.74-1.07,1-5.06l-7.52-.46L448,71.54S443.81,70.89,441.54,71.64Z" transform="translate(-385.72 -71.23)" style="fill: #fd8204"/>
+                  <path d="M478.85,80.17l-2,12.13s-1.21,5.23,5.75,5.26,7.15-6.77,7.15-6.77l1.95-10.64a12,12,0,0,0-4.18,0l-1.83,11s-0.4,3.12-2.63,3.09-2.32-.87-1.95-3.31,1.79-10.67,1.79-10.67A7,7,0,0,0,478.85,80.17Z" transform="translate(-385.72 -71.23)" style="fill: #fd8204"/>
+                  <path d="M474.95,86.58c0.9-2.11.42-5.77-2.57-6.31a64.63,64.63,0,0,0-8.14-.12l-3,17.29a9.36,9.36,0,0,0,3.77-.06l1.24-6.4a8.18,8.18,0,0,0,2.07-.06,15.2,15.2,0,0,0,1.89,6.5,15,15,0,0,0,4.45,0s-2.35-4.45-2.44-7.33A9.91,9.91,0,0,0,474.95,86.58Zm-3.62-.9a2.58,2.58,0,0,1-1.89,1.86,15.94,15.94,0,0,1-2.47,0l0.59-3.93a22.38,22.38,0,0,1,2.75.06A1.42,1.42,0,0,1,471.33,85.68Z" transform="translate(-385.72 -71.23)" style="fill: #fd8204"/>
+                </svg>
+              </a>
+            </div>
+          </section>
+
+          <section class="post-rating__section">
+            <p class="post-rating__heading  text">Или же Вы можете оставить свой отзыв на нашем сайте:</p>
+            <button class="post-rating__button  button" data-ga='{"hitType": "event","eventCategory": "review_order", "eventAction": "share", "eventLabel": "site"}'>Опубликовать на сайте</button>
+          </section>
+
+          <section class="post-rating__section">
+            <p class="post-rating__heading  text">Также мы будем рады Вашим отзывам в социальных сетях:</p>
+
+            <div class="post-rating__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- /Pop up -->
+
+      <div class="pop-up__item  pop-up__item--sm  pop-up__item--hide  notification">
+        <p class="notification__text  title">Текст</p>
+      </div>
+
+      <div class="pop-up__item  pop-up__item--sm  pop-up__item--hide  general-question">
+        <form class="general-question__form">
+          <h2 class="general-question__title  title">Вы уверены?</h2>
+          <button class="general-question__button  general-question__button--ok  button" data-ga='{"hitType": "event","eventCategory": "form","eventAction": "send","eventLabel": "canceled_order"}'>Да</button>
+          <button class="general-question__button  general-question__button--no  button" type="button">Нет</button>
+        </form>
+      </div>
+
+      <!-- Rating-form  -->
+      <div class="pop-up__item pop-up__item--hide  rating-form">
+
+        <form class="rating-form__wrap" method="get" data-ga='{"hitType": "event","eventCategory": "form","eventAction": "send","eventLabel": "review_order"}'>
+          <h2 class="rating-form__title  title">Оценка за заказ</h2>
+          <p class="rating-form__text  text">Оцените, пожалуйста, проведенную уборку. Все ли Вам понравилось? Если У Вас остались какие-то замечания или пожелания, то напишите, пожалуйста, ниже. Нам важно Ваше мнение!
+            Будем очень признательны, если Вы заполните анкету. Спасибо!</p>
+
+          <!-- rating-form  Sections-->
+          <div class="rating-form__sections">
+
+            <div class="rating-form__section">
+              <p class="rating-form__heading  heading">Качество оказанных услуг</p>
+
+              <div class="rating-form__stars stars">
+                <input class="stars__input  stars__input--quality" id="star-34" type="radio" name="Quality" value="5"/>
+                <label class="stars__label  stars__label--quality" title="Отлично" for="star-34"></label>
+
+                <input class="stars__input  stars__input--quality" id="star-33" type="radio" name="Quality" value="4"/>
+                <label class="stars__label  stars__label--quality" title="Хорошо" for="star-33"></label>
+
+                <input class="stars__input  stars__input--quality" id="star-32" type="radio" name="Quality" value="3"/>
+                <label class="stars__label  stars__label--quality" title="Неплохо" for="star-32"></label>
+
+                <input class="stars__input  stars__input--quality" id="star-31" type="radio" name="Quality" value="2"/>
+                <label class="stars__label  stars__label--quality" title="Плохо" for="star-31"></label>
+
+                <input class="stars__input  stars__input--quality" id="star-30" type="radio" name="Quality" value="1"/>
+                <label class="stars__label  stars__label--quality" title="Ужасно" for="star-30"></label>
+              </div>
+            </div>
+            <!-- /rating-form  Sections-->
+
+            <p class="rating-form__heading  heading">Примечания</p>
+            <textarea class="rating-form__textarea  textarea"></textarea>
+            <button class="rating-form__button  button" type="submit">Оценить</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- /Rating-form  -->
     </div>
 
-  </main>
+  </div>
+  <!-- /Pop up -->
 
 
 </div>
@@ -486,26 +648,42 @@
       </div>
 
       <footer class="article__footer">
-        <div class="article__inner">
-          <h3 class="right-side__heading title">Понравилась статья?</h3>
-          <label class="article__label label" for="subscription">Подписывайтесь на нашу рассылку</label>
-          <div class="article__row">
-            <input class="article__input input" type="email" name="email-subscription" id="subscription" placeholder="Напишите e-mail">
-            <button class="article__button button" type="submit">Подписаться</button>
+        <div class="article__inner article-subscribe">
+          <h3 class="article-subscribe__heading title">Понравилась статья?</h3>
+          <p class="article-subscribe__text text" for="subscription">Подписывайтесь на нашу рассылку</p>
+          <div class="article-subscribe__row">
+            <input class="article-subscribe__input input" type="email" name="email-subscription" id="subscription" placeholder="Напишите e-mail">
+            <button class="article-subscribe__button button" type="submit">Подписаться</button>
           </div>
         </div>
 
         <div class="article__inner">
           <h3 class="right-side__heading title">Была ли Вам полезна статья?</h3>
           <div class="article__row article__row--sm">
-            <button class="article__button button">Да</button>
-            <button class="article__button button">Нет</button>
+            <button class="article__button article__button--yes button">Да</button>
+            <button class="article__button article__button--no button">Нет</button>
           </div>
         </div>
 
         <div class="article__inner">
           <h3 class="right-side__heading title">Поделиться:</h3>
           <div class="article__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
+        </div>
+
+        <div class="linking-pages">
+          <h3 class="right-side__heading title">У нас Вы можете заказать:</h3>
+
+          <ul class="list">
+            <li class="item item--circle">
+              <a class="link" href="">Мытье пластиковых окон</a>
+            </li>
+            <li class="item item--circle">
+              <a class="link" href="">Поддерживающую уборку офисов в Москве</a>
+            </li>
+            <li class="item item--circle">
+              <a class="link" href="">Уборку таунхауса после ремонта по подходящим ценам</a>
+            </li>
+          </ul>
         </div>
       </footer>
     </article>

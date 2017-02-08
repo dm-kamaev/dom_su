@@ -3,11 +3,9 @@ const { models, ErrorCodes, ModelsError, scrollModel } = require('models')
 const { Review } = models;
 const ReviewActive = Review.scope('active')
 
-//throw new ModelsError(ErrorCodes.QueryParamError, `Get article with id - ${id} | type - ${typeof id}`)
-
 
 async function getReview(id) {
-    let attributes = [['id', 'url'], 'name', 'date', 'rating', 'answer', 'review']
+    let attributes = ['id', 'name', 'date', 'rating', 'answer', 'review']
 
     if (typeof additionalAttr == 'list'){
         attributes = attributes.concat(additionalAttr)
@@ -21,7 +19,7 @@ async function getReview(id) {
 
 async function getReviewListScroll(opts) {
     let options = opts || {}
-    options.attributes = [['id', 'url'], 'name', 'date', 'rating', 'answer', 'review']
+    options.attributes = ['id', 'name', 'date', 'rating', 'answer', 'review']
     return await scrollModel(ReviewActive, options);
 }
 

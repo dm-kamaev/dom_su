@@ -124,7 +124,7 @@ const News = sequelize.define('news', {
 )
 
 const Token = sequelize.define('tokens', {
-    uuid: {type: Sequelize.UUID, primaryKey: true},
+    uuid: {type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV4},
     token: {type: Sequelize.UUID, allowNull: false},
     user_uuid: {
         allowNull: false,
@@ -182,7 +182,7 @@ const Phone = sequelize.define('phones', {
 });
 
 const Visit = sequelize.define('visits', {
-    uuid: {type: Sequelize.UUID, primaryKey: true},
+    uuid: {type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV4},
     user_uuid: {
         allowNull: false,
         type: Sequelize.UUID,
@@ -226,7 +226,7 @@ const Review = sequelize.define('reviews', {
 })
 
 const Event = sequelize.define('events', {
-    uuid: {type: Sequelize.UUID, primaryKey: true},
+    uuid: {type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV4},
     date: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW'),
