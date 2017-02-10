@@ -1,5 +1,6 @@
 'use strict';
 const Sequelize = require('sequelize')
+const moment = require('moment')
 const opts = {
     define: {
         freezeTableName: true
@@ -155,9 +156,27 @@ const Token = sequelize.define('tokens', {
 
 });
 
+const Ticket = sequelize.define('tickets', {
+    data: Sequelize.JSON,
+    type: Sequelize.STRING,
+    isSend: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+    }
+}, {
+    instanceMethods: {
+        buildMessage: function (UTMS) {
+            UTMS = UTMS || []
+            let textTicket = {action: "NewOnlineObjects", param: [{utms: UTMS, type: this.type, data: this.data}]}
+            textTicket.param.data.date = moment(this.createdAt).toISOString()
+            console.log(JSON.stringify(textTicket))
+            return JSON.stringify(textTicket)
+        }
+    }
+})
 
 const Phone = sequelize.define('phones', {
-    uuid: {type: Sequelize.UUID, primaryKey: true},
+    key: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
     number: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -253,7 +272,7 @@ const Event = sequelize.define('events', {
 })
 
 const UTMS = sequelize.define('utms', {
-    uuid: {type: Sequelize.UUID, primaryKey: true},
+    uuid: {type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV4},
     data: Sequelize.JSON,
     event_uuid: {
         allowNull: false,
@@ -292,4 +311,5 @@ module.exports = {
     FAQ: FAQ,
     Review: Review,
     News: News,
+    Ticket: Ticket
 }

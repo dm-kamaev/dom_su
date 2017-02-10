@@ -2,6 +2,7 @@
 
 const eventType = {
     Request: "Request",
+    Living: "Living",
     NewUserFromPrivate: "NewUserFromPrivate",
     NewTokenFromPrivate: "NewTokenFromPrivate",
     DeactivateTokenFromPrivate: "DeactivateTokenFromPrivate",

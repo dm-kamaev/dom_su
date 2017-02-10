@@ -3,7 +3,8 @@
 const logger = require('logger')(module)
 
 class QueueAsync{
-    constructor(){
+    constructor(pancakeUser){
+        this.pancakeUser = pancakeUser
         this.queue = []
     }
     push(task){
@@ -15,7 +16,7 @@ class QueueAsync{
             let previousResult;
             while (this.queue.length !== 0){
                 let task = this.queue.shift()
-                previousResult = await task(previousResult)
+                previousResult = await task(previousResult, this.pancakeUser)
             }
             return previousResult
         } catch (e){

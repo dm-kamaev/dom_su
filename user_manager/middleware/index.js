@@ -1,8 +1,21 @@
 "use strict";
 
-const {setUserUUID} = require('./setUserUUID');
+const {initPancakeUser} = require('./initPancakeUser');
 const {setUserVisit} = require('./setUserVisit');
-const {createEventRequest} = require('./eventCreator');
+const {createEventRequest} = require('./createEventRequest');
+const {createEventLiving} = require('./createEventLiving');
+const {UTMCollector} = require('./UTMCollector');
+const {LUIDHandler} = require('./LUIDHandler');
+const {callTracking} = require('./callTracking');
 
 
-module.exports = {setUserUUID: setUserUUID, setUserVisit: setUserVisit, createEventRequest: createEventRequest}
+
+module.exports = {
+    initPancakeUser,
+    setUserVisit,
+    createEventRequest,
+    createEventLiving,
+    UTMCollector,
+    LUIDHandler,
+    callTracking,
+}

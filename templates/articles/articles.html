@@ -648,20 +648,20 @@
       </div>
 
       <footer class="article__footer">
-        <div class="article__inner article-subscribe">
-          <h3 class="article-subscribe__heading title">Понравилась статья?</h3>
-          <p class="article-subscribe__text text" for="subscription">Подписывайтесь на нашу рассылку</p>
+        <form class="article__inner article-subscribe">
+          <h3 class="article-subscribe__title title">Понравилась статья?</h3>
+          <p class="article-subscribe__text text">Подписывайтесь на нашу рассылку</p>
           <div class="article-subscribe__row">
-            <input class="article-subscribe__input input" type="email" name="email-subscription" id="subscription" placeholder="Напишите e-mail">
+            <input class="article-subscribe__input input" type="email" name="email" id="subscription" placeholder="Напишите e-mail" required>
             <button class="article-subscribe__button button" type="submit">Подписаться</button>
           </div>
-        </div>
+        </form>
 
-        <div class="article__inner">
-          <h3 class="right-side__heading title">Была ли Вам полезна статья?</h3>
-          <div class="article__row article__row--sm">
-            <button class="article__button article__button--yes button">Да</button>
-            <button class="article__button article__button--no button">Нет</button>
+        <div class="article__inner article-like">
+          <h3 class="article-like__title title">Была ли Вам полезна статья?</h3>
+          <div class="article-like__row article__row--sm">
+            <button class="article-like__button article-like__button--yes button">Да</button>
+            <button class="article-like__button article-like__button--no button">Нет</button>
           </div>
         </div>
 

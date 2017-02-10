@@ -3,23 +3,25 @@
 const { models, ErrorCodes, ModelsError } = require('models');
 const { Event } = models;
 const uuid4 = require('uuid/v4');
+const { eventType } = require('./event_type')
 
 function taskEventCreate (opts) {
-    let { visit_uuid, token_uuid, type, data} = opts
+    let { type, data} = opts
     if (type == undefined){
         throw new Error()
     }
-    return async function (callback_visit_uuid) {
-        if (visit_uuid == undefined){
-            visit_uuid = callback_visit_uuid
-        }
-        await Event.create({
-            visit_uuid: visit_uuid,
-            token_uuid: token_uuid,
+    return async function (previousResult, pancakeUser) {
+
+        let event = await Event.create({
+            visit_uuid: pancakeUser.visit_uuid,
+            token_uuid: pancakeUser.token_uuid,
             data: data,
             type: type,
         })
-        return visit_uuid
+        if (type == eventType.Request) {
+            pancakeUser.request_event_uuid = event.uuid
+        }
+        return event
     }
 }
 

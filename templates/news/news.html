@@ -65,7 +65,7 @@
     var clientId = '';
   </script>
 </head>
-<body class="page  page--orders">
+<body class="page  page--news">
 <!-- Page wrapper -->
 <div class="page__wrap">
 
@@ -374,7 +374,7 @@
                 </div>
                 <div class="news__column">
                   <h3 class="news__title title">{{ title }}</h3>
-                  <p class="news__text text">{{full_text}}</p>
+                  <p class="news__text text">{{{ preview_text }}}</p>
                 </div>
               </div>
             </article>
@@ -413,28 +413,24 @@
           </div>
 
           <footer class="news-item__footer">
+            <div class="linking-pages">
+              <h3 class="right-side__heading title">У нас Вы можете заказать:</h3>
 
-            <div class="news-item__inner">
-              <h3 class="right-side__heading title">Поделиться:</h3>
-              <div class="news-item__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
+              <ul class="list">
+                <li class="item item--circle">
+                  <a class="link" href="">Мытье пластиковых окон</a>
+                </li>
+                <li class="item item--circle">
+                  <a class="link" href="">Поддерживающую уборку офисов в Москве</a>
+                </li>
+                <li class="item item--circle">
+                  <a class="link" href="">Уборку таунхауса после ремонта по подходящим ценам</a>
+                </li>
+              </ul>
             </div>
           </footer>
         </article>
-        <div class="linking-pages">
-          <h3 class="right-side__heading title">У нас Вы можете заказать:</h3>
 
-          <ul class="list">
-            <li class="item item--circle">
-              <a class="link" href="">Мытье пластиковых окон</a>
-            </li>
-            <li class="item item--circle">
-              <a class="link" href="">Поддерживающую уборку офисов в Москве</a>
-            </li>
-            <li class="item item--circle">
-              <a class="link" href="">Уборку таунхауса после ремонта по подходящим ценам</a>
-            </li>
-          </ul>
-        </div>
 
       </div>
       {{/with}}
@@ -485,27 +481,6 @@
     </div>
 
     <footer class="article__footer">
-      <div class="article__inner">
-        <h3 class="right-side__heading title">Понравилась статья?</h3>
-        <label class="article__label label" for="subscription">Подписывайтесь на нашу рассылку</label>
-        <div class="article__row">
-          <input class="article__input input" type="email" name="email-subscription" id="subscription" placeholder="Напишите e-mail">
-          <button class="article__button button" type="submit">Подписаться</button>
-        </div>
-      </div>
-
-      <div class="article__inner">
-        <h3 class="right-side__heading title">Была ли Вам полезна статья?</h3>
-        <div class="article__row article__row--sm">
-          <button class="article__button button">Да</button>
-          <button class="article__button button">Нет</button>
-        </div>
-      </div>
-
-      <div class="article__inner">
-        <h3 class="right-side__heading title">Поделиться:</h3>
-        <div class="article__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
-      </div>
 
       <div class="linking-pages">
         <h3 class="right-side__heading title">У нас Вы можете заказать:</h3>

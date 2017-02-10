@@ -53,8 +53,8 @@
 
 
 	__webpack_require__(1);
-	__webpack_require__(191);
-	let resize = __webpack_require__(198);
+	__webpack_require__(192);
+	let resize = __webpack_require__(199);
 
 	window.addEventListener('resize', resize);
 
@@ -82,6 +82,9 @@
 	page('news/', pageState.setRightSide);
 	page('otzivi/:id/', pageState.setRightSide);
 	page('otzivi/', pageState.setRightSide);
+	page('skidki_akcii/:id/', pageState.setRightSide);
+	page('skidki_akcii/', pageState.setRightSide);
+	page('vakansii/:id/', pageState.openCareer);
 	// if (pageOrders) {
 	//   page('/adr:adrid/ord:ordid', pageState.personal.setAddressOrder);
 	//   page('/adr:adrid/shd:shdid', pageState.personal.setAddressSchedule);
@@ -112,11 +115,11 @@
 	var url = __webpack_require__(4);
 	var urlThirdColumn = __webpack_require__(9);
 	var init = __webpack_require__(10);
-	var renderOrder = __webpack_require__(193);
-	var renderSchedule = __webpack_require__(194);
-	var renderItem = __webpack_require__(195);
-	var renderForm = __webpack_require__(196);
-	var message = __webpack_require__(197);
+	var renderOrder = __webpack_require__(194);
+	var renderSchedule = __webpack_require__(195);
+	var renderItem = __webpack_require__(196);
+	var renderForm = __webpack_require__(197);
+	var message = __webpack_require__(198);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	var pageState = {
@@ -307,6 +310,11 @@
 	                rightSide.classList.add('right-side--hide');
 	                rightSide.classList.remove('right-side--mobile');
 	            }
+	        }
+	    },
+	    openCareer: function (ctx) {
+	        if (ctx.state.open) {
+	            init.careers.open(ctx.params.id);
 	        }
 	    }
 	};
@@ -510,9 +518,8 @@
 	    item: 'm/',
 	    api: 'm/api/',
 	    code: 'm/getcode',
-	    schema: generalPath.schema,
-	    domain: generalPath.domain,
-	    url: generalPath.url,
+	    domain: window.location.origin,
+	    url: window.location.pathname.split('/')[1],
 	    //
 	    // buildUrl: function(additional: string): string {
 	    //   console.log(this.domain);
@@ -525,8 +532,7 @@
 	    //   return build;
 	    // }
 	    buildUrl: function (additional) {
-	        console.log(this.domain);
-	        var build = this.schema + '://' + this.domain + '/';
+	        var build = this.domain + '/';
 	        if (additional) {
 	            build += additional;
 	        }
@@ -534,7 +540,6 @@
 	        return build;
 	    }
 	};
-	console.log(path.schema, path.domain, path.url);
 	module.exports = path;
 
 
@@ -775,7 +780,8 @@
 	var ServiceCalc = __webpack_require__(162);
 	var Section = __webpack_require__(163);
 	var leftSideList = __webpack_require__(164);
-	var pageHeader = __webpack_require__(188);
+	var Careers = __webpack_require__(188);
+	var pageHeader = __webpack_require__(189);
 	var pageElement = document.querySelector('.page');
 	var pageAuth = document.querySelector('.page--authorization');
 	var pagePrivate = document.querySelector('.page--orders');
@@ -792,6 +798,7 @@
 	var RightSideList = document.querySelectorAll('.right-side__wrap');
 	var serviceCardElements = pageElement.querySelectorAll('.service-card');
 	var sectionWrapElements = pageElement.querySelectorAll('.section__wrap--toggle');
+	var careersElement = pageElement.querySelector('.careers');
 	console.log('init');
 	var pageInit = {};
 	initScroll();
@@ -870,8 +877,11 @@
 	if (changeTownElement) {
 	    pageInit.changeTown = new ChangeTown(changeTownElement);
 	}
+	if (careersElement) {
+	    pageInit.careers = new Careers(careersElement);
+	}
 	if (pageAuth) {
-	    var authorization = __webpack_require__(192);
+	    var authorization = __webpack_require__(193);
 	    authorization();
 	}
 	console.log('/init');
@@ -18666,6 +18676,7 @@
 	                var element = document.createElement('article');
 	                element.classList.add('right-side__wrap');
 	                element.setAttribute('data-id', data.id);
+	                return element;
 	            }
 	        }
 	    },
@@ -18684,8 +18695,8 @@
 	            createItem: function (data) {
 	                var element = document.createElement('article');
 	                element.classList.add('left-side__item');
-	                element.classList.add('articles__item');
-	                element.setAttribute('data-id', data.id);
+	                element.classList.add('news__item');
+	                element.setAttribute('data-id', data.url);
 	                return element;
 	            }
 	        },
@@ -18703,6 +18714,7 @@
 	                var element = document.createElement('article');
 	                element.classList.add('right-side__wrap');
 	                element.setAttribute('data-id', data.url);
+	                return element;
 	            }
 	        }
 	    },
@@ -18738,6 +18750,7 @@
 	                var element = document.createElement('div');
 	                element.classList.add('right-side__wrap');
 	                element.setAttribute('data-id', data.id);
+	                return element;
 	            }
 	        }
 	    },
@@ -18783,6 +18796,25 @@
 	                var element = document.createElement('article');
 	                element.classList.add('right-side__wrap');
 	                element.setAttribute('data-id', data.id);
+	                return element;
+	            }
+	        }
+	    },
+	    {
+	        itemClass: "page--promotion",
+	        rightSide: {
+	            templateConf: function (data) {
+	                return {
+	                    'title': data.title,
+	                    'pic': data.picture,
+	                    'text': data.text
+	                };
+	            },
+	            createItem: function (data) {
+	                var element = document.createElement('article');
+	                element.classList.add('right-side__wrap');
+	                element.setAttribute('data-id', data.id);
+	                return element;
 	            }
 	        }
 	    }
@@ -18791,6 +18823,7 @@
 	    for (var _i = 0, objectList_1 = objectList; _i < objectList_1.length; _i++) {
 	        var item = objectList_1[_i];
 	        if (page.classList.contains(item.itemClass)) {
+	            console.log(item, "define");
 	            return item;
 	        }
 	    }
@@ -20458,13 +20491,136 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
+	 * Created by Lobova.A on 25.01.2017.
+	 */
+	var url = __webpack_require__(9);
+	var request = __webpack_require__(6);
+	var Careers = (function () {
+	    function Careers(element) {
+	        this.element = element;
+	        this.items = element.querySelectorAll('.careers__item');
+	        this.container = element.querySelector('.careers__list');
+	        this.activeItem = element.querySelector('.careers__item--active');
+	        this.activeDetail = element.querySelector('.careers__detail--active');
+	        this.toggle = this.toggle.bind(this);
+	        this.close = this.close.bind(this);
+	        this.formOpen = this.formOpen.bind(this);
+	        this.sendForm = this.sendForm.bind(this);
+	        for (var _i = 0, _a = this.items; _i < _a.length; _i++) {
+	            var item = _a[_i];
+	            item.addEventListener('click', this.toggle);
+	        }
+	        this.addEvent(this.activeDetail);
+	    }
+	    Careers.prototype.addEvent = function (item) {
+	        if (item) {
+	            var buttonClose = item.querySelector('.career__btn');
+	            var buttonForm = item.querySelector('.career__button');
+	            buttonClose.addEventListener('click', this.close);
+	            buttonForm.addEventListener('click', this.formOpen);
+	        }
+	    };
+	    Careers.prototype.removeEvent = function () {
+	    };
+	    Careers.prototype.toggle = function (e) {
+	        e.preventDefault();
+	        var target = e.currentTarget;
+	        if (target == this.activeItem) {
+	            return;
+	        }
+	        else {
+	            if (this.activeItem) {
+	                this.activeItem.classList.remove('careers__item--active');
+	                this.activeDetail.classList.remove('careers__detail--active');
+	            }
+	            target.classList.add('careers__item--active');
+	            this.activeItem = target;
+	            var requestUrl = "/" + url.objectType.url + "/" + target.dataset.id;
+	            page.show(requestUrl, { open: true });
+	        }
+	    };
+	    Careers.prototype.open = function (id) {
+	        var list = document.querySelectorAll('.careers__detail');
+	        for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
+	            var item = list_1[_i];
+	            if (item.dataset.id === id + "/") {
+	                item.classList.add('careers__detail--active');
+	                this.activeDetail = item;
+	                this.addEvent(item);
+	            }
+	        }
+	    };
+	    Careers.prototype.close = function (e) {
+	        e.preventDefault();
+	        this.activeItem.classList.remove('careers__item--active');
+	        this.activeItem = null;
+	        this.activeDetail.classList.remove('careers__detail--active');
+	        this.activeDetail = null;
+	    };
+	    Careers.prototype.formOpen = function (e) {
+	        e.preventDefault();
+	        var form = this.activeDetail.querySelector('.career__form');
+	        e.target.parentNode.removeChild(e.target);
+	        form.classList.remove('career__form--hide');
+	        form.addEventListener('submit', this.sendForm);
+	    };
+	    Careers.prototype.sendForm = function (e) {
+	        e.preventDefault();
+	        var name = this.activeDetail.querySelector('input[name="name"]');
+	        var contact = this.activeDetail.querySelector('input[name="contact"]');
+	        var citizenship = this.activeDetail.querySelector('input[name="citizenship"]');
+	        var birthdate = this.activeDetail.querySelector('input[name="birthdate"]');
+	        var button = this.activeDetail.querySelector('button[type="submit"]');
+	        var formData = {
+	            type: 'applicant_cleaner',
+	            data: {
+	                "contact": contact.value,
+	                "name": name.value,
+	                "citizenship": citizenship.value,
+	                "birthdate": birthdate.value,
+	            }
+	        };
+	        function response(data) {
+	            if (data.Success === true) {
+	                button.disabled = false;
+	                var form = this.activeDetail.querySelector('.career__form');
+	                var parent_1 = form.parentNode;
+	                var p = document.createElement('p');
+	                p.classList.add('career__answer');
+	                p.classList.add('title');
+	                p.innerText = "Спасибо за заявку";
+	                parent_1.removeChild(form);
+	                parent_1.appendChild(p);
+	            }
+	            else {
+	                button.disabled = false;
+	            }
+	        }
+	        function error() {
+	            this.button.disabled = false;
+	        }
+	        var json = JSON.stringify(formData);
+	        var requestUrl = "/ticket-handler";
+	        button.disabled = true;
+	        request.send(requestUrl, json, response.bind(this), error.bind(this));
+	    };
+	    return Careers;
+	}());
+	module.exports = Careers;
+
+
+/***/ },
+/* 189 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
 	 * Created by Lobova.A on 25.11.2016.
 	 */
 	"use strict";
-	var Menu = __webpack_require__(189);
+	var Menu = __webpack_require__(190);
 	var openApplication = __webpack_require__(37);
-	var callback = __webpack_require__(190);
-	var init = __webpack_require__(191);
+	var callback = __webpack_require__(191);
+	var init = __webpack_require__(192);
 	var initElement = __webpack_require__(10);
 	var headerElement = document.querySelector('.page-header');
 	var menuElement = headerElement.querySelector('.main-menu');
@@ -20497,7 +20653,7 @@
 
 
 /***/ },
-/* 189 */
+/* 190 */
 /***/ function(module, exports) {
 
 	/**
@@ -20581,7 +20737,7 @@
 
 
 /***/ },
-/* 190 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20658,7 +20814,7 @@
 
 
 /***/ },
-/* 191 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20746,7 +20902,7 @@
 
 
 /***/ },
-/* 192 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20860,7 +21016,7 @@
 
 
 /***/ },
-/* 193 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20872,7 +21028,7 @@
 	var moment = __webpack_require__(46);
 	var url = __webpack_require__(4);
 	var Order = __webpack_require__(165);
-	var init = __webpack_require__(191);
+	var init = __webpack_require__(192);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	var paymentType = {
@@ -20995,7 +21151,7 @@
 
 
 /***/ },
-/* 194 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21007,7 +21163,7 @@
 	var moment = __webpack_require__(46);
 	var url = __webpack_require__(4);
 	var Order = __webpack_require__(165);
-	var init = __webpack_require__(191);
+	var init = __webpack_require__(192);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	module.exports = function (data) {
@@ -21127,7 +21283,7 @@
 
 
 /***/ },
-/* 195 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21138,7 +21294,7 @@
 	var Mustache = __webpack_require__(45);
 	var moment = __webpack_require__(46);
 	var url = __webpack_require__(4);
-	var init = __webpack_require__(191);
+	var init = __webpack_require__(192);
 	var urlThridColumn = __webpack_require__(9);
 	var defineObject = __webpack_require__(155);
 	var RightSide = __webpack_require__(186);
@@ -21170,13 +21326,11 @@
 	    // let departureid = data.DepartureID;
 	    // let timeZone = data.TimeZone;
 	    // let timeOf = moment.parseZone(moment.utc(data.Date).utcOffset(timeZone).format());
-	    console.log(receivedData.rating);
-	    console.log(receivedData.rating === 5, receivedData.rating === '5', receivedData.rating == 5);
 	    //
 	    var template = document.getElementById('right-side__wrap').innerHTML;
 	    var html = Mustache.render(template, defineObject.rightSide.templateConf(receivedData));
-	    console.log(html);
-	    var element = defineObject.leftSide.createItem(receivedData);
+	    var element = defineObject.rightSide.createItem(receivedData);
+	    console.log(element);
 	    element.innerHTML = html;
 	    // let element = document.createElement('div');
 	    // element.classList.add('right-side__wrap');
@@ -21198,7 +21352,7 @@
 
 
 /***/ },
-/* 196 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21209,7 +21363,7 @@
 	var Mustache = __webpack_require__(45);
 	var moment = __webpack_require__(46);
 	var url = __webpack_require__(4);
-	var init = __webpack_require__(191);
+	var init = __webpack_require__(192);
 	var urlThridColumn = __webpack_require__(9);
 	var defineObject = __webpack_require__(155);
 	var Form = __webpack_require__(187);
@@ -21259,7 +21413,7 @@
 
 
 /***/ },
-/* 197 */
+/* 198 */
 /***/ function(module, exports) {
 
 	/**
@@ -21278,7 +21432,7 @@
 
 
 /***/ },
-/* 198 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**

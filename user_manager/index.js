@@ -1,11 +1,15 @@
 "use strict";
 
-const {setUserUUID, setUserVisit, createEventRequest} = require('./middleware')
+const {initPancakeUser, setUserVisit, createEventRequest, UTMCollector, LUIDHandler, callTracking, createEventLiving} = require('./middleware')
 const {eventType} = require('./event_type')
 
 module.exports = {
     eventType,
-    setUserUUID,
+    initPancakeUser,
     setUserVisit,
     createEventRequest,
+    createEventLiving,
+    UTMCollector,
+    LUIDHandler,
+    callTracking,
 }

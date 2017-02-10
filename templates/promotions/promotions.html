@@ -3,30 +3,30 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Контакты</title>
+  <title>Акции и скидки</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui" />
   <meta name="format-detection" content="telephone=no">
 
-  <link rel="apple-touch-icon" sizes="57x57" href="/static/general/img/apple-touch-icon-57x57.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="60x60" href="/static/general/img/apple-touch-icon-60x60.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="72x72" href="/static/general/img/apple-touch-icon-72x72.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="76x76" href="/static/general/img/apple-touch-icon-76x76.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="114x114" href="/static/general/img/apple-touch-icon-114x114.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="120x120" href="/static/general/img/apple-touch-icon-120x120.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="144x144" href="/static/general/img/apple-touch-icon-144x144.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="152x152" href="/static/general/img/apple-touch-icon-152x152.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/static/general/img/apple-touch-icon-180x180.png?v=1.0">
-  <link rel="icon" type="image/png" href="/static/general/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
-  <link rel="icon" type="image/png" href="/static/general/img/favicon-16x16.png?v=1.01" sizes="16x16">
-  <link rel="icon" type="image/png" href="/static/general/img/favicon-32x32.png?v=1.01" sizes="32x32">
-  <link rel="icon" type="image/png" href="/static/general/img/favicon-48x48.png?v=1.0" sizes="48x48">
-  <link rel="manifest" href="/static/general/manifest.json?v=1.02">
-  <link rel="mask-icon" href="/static/general/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
+  <link rel="apple-touch-icon" sizes="57x57" href="/static/img/apple-touch-icon-57x57.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="60x60" href="/static/img/apple-touch-icon-60x60.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="72x72" href="/static/img/apple-touch-icon-72x72.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="76x76" href="/static/img/apple-touch-icon-76x76.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="114x114" href="/static/img/apple-touch-icon-114x114.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="120x120" href="/static/img/apple-touch-icon-120x120.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="144x144" href="/static/img/apple-touch-icon-144x144.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="152x152" href="/static/img/apple-touch-icon-152x152.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon-180x180.png?v=1.0">
+  <link rel="icon" type="image/png" href="/static/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
+  <link rel="icon" type="image/png" href="/static/img/favicon-16x16.png?v=1.01" sizes="16x16">
+  <link rel="icon" type="image/png" href="/static/img/favicon-32x32.png?v=1.01" sizes="32x32">
+  <link rel="icon" type="image/png" href="/static/img/favicon-48x48.png?v=1.0" sizes="48x48">
+  <link rel="manifest" href="/static/manifest.json?v=1.02">
+  <link rel="mask-icon" href="/static/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
   <meta name="apple-mobile-web-app-title" content="Domovenok">
   <meta name="application-name" content="Domovenok">
   <meta name="msapplication-TileColor" content="#fd8204">
-  <meta name="msapplication-TileImage" content="/static/general/img/mstile-144x144.png?v=1.0">
-  <meta name="msapplication-config" content="/static/general/browserconfig.xml?v=1.02">
+  <meta name="msapplication-TileImage" content="/static/img/mstile-144x144.png?v=1.0">
+  <meta name="msapplication-config" content="/static/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
   <link rel="stylesheet" href="/static/css/style.css?v01">
@@ -50,26 +50,17 @@
       return build;
     };
 
-  /*  {{ #help }}
-    var helpList = [];
 
-    var popupIsAnswer =  false;
-    var popupAnswerResult = true;
-
-    {{ /help }}
-  */
-
-    var departureList = {
-      begin: true,
-      end: false
+    var itemList = {
+      begin: {{Begin}},
+    end: {{End}}
     };
     var clientId = '';
   </script>
-  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 </head>
-<body class="page">
+<body class="page  page--promotion">
 <!-- Page wrapper -->
-<div class="page__wrap page__wrap--scroll">
+<div class="page__wrap">
 
   <!-- Page Header -->
   <!-- page-header.html -->
@@ -122,19 +113,19 @@
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/about-us.html">
+                <a class="main-menu__link-sub" href="http://site.domovenok.corp/about__.html">
                   О нас
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/uslugi.html">
+                <a class="main-menu__link-sub" href="http://site.domovenok.corp/uslugi__.html">
                   Услуги
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/important.html">
+                <a class="main-menu__link-sub" href="http://site.domovenok.corp/vazhno_znat__.html">
                   Важно знать
                 </a>
               </li>
@@ -164,19 +155,19 @@
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/promotion.html">
+                <a class="main-menu__link-sub" href="http://site.domovenok.corp/skidki_akcii__.html">
                   Специальные акции
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/career.html">
+                <a class="main-menu__link-sub" href="http://site.domovenok.corp/vakansii__.html">
                   Вакансии
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/davay_druzhit.html">
+                <a class="main-menu__link-sub" href="http://site.domovenok.corp/davay_druzhit__.html">
                   Обслуживание по графику
                 </a>
               </li>
@@ -315,13 +306,13 @@
           </li>
   
           <li class="main-menu__item">
-            <a class="main-menu__link" href="http://site.domovenok.corp/price.html">
+            <a class="main-menu__link" href="http://site.domovenok.corp/price__.html">
               Цены
             </a>
           </li>
   
           <li class="main-menu__item">
-            <a class="main-menu__link"  href="http://site.domovenok.corp/contacts.html">
+            <a class="main-menu__link"  href="http://site.domovenok.corp/contacts__.html">
               Контакты
             </a>
           </li>
@@ -357,27 +348,196 @@
   <!-- /Page Header -->
 
   <!-- Main Content -->
-  <main class="page__main-content  main-content  main-content--vertical scroll-container-unstable">
-    <section class="page__section  section  section--bg-light">
-      <div class="section__wrap">
-        <h1 class="section__title section__title--main title">Контакты</h1>
+  <main class="page__main-content  main-content">
+    <div class="left-side {{#HasRightSide}}left-side--mobile{{/HasRightSide}}">
 
-        <p class="contact-page__text text">Телефон: <a class="contact-page__link link">+7 (495) 668-04-68</a></p>
-        <p class="contact-page__text text">Выполнение заказов: с 09:00 до 21:00  </p>
-        <p class="contact-page__text text">Веб-сайт: <a class="contact-page__link link">www.domovenok.su</a></p>
-        <div class="contact-page__text  contact-page__row text">
-          <p class="contact-page__text text">Почта: </p>
-          <div class="contact-page__column">
-            <p class="contact-page__text contact-page__text--sm text"><a class="contact-page__link link">info@domovenok.su</a> (для общих вопросов)</p>
-            <p class="contact-page__text contact-page__text--sm text"><a class="contact-page__link link">doc@domovenok.su</a> (для документов)</p>
-          </div>
-        </div>
-        <p class="contact-page__text text">Адрес: 125412, Москва, ул. Матросская тишина, 16Г</p>
-        <p class="contact-page__text text">Как добраться: от станции метро Сокольники на маршрутке 175м до остановки "Улица Матросская Тишина, 16" </p>
-        <div class="map  map--freejs" id="map" style="width: 100%; height: 400px" ></div>
+      <div class="left-side__top">
+        <h1 class="left-side__title  title">Скидки и акции</h1>
       </div>
 
+      <!-- Promotions -->
+      <div class="left-side__content">
+        <div class="left-side__wrap scroll-container-unstable">
+          <div class="left-side__list promotions">
+
+            <div class="left-side__item promotions__item" data-id="invite">
+              <div class="promotions__row">
+                <div class="promotions__column promotions__column--image">
+                  <img class="promotions__image" height="100" width="100" src="/static/img/promotion-birthday.svg">
+                </div>
+                <div class="promotions__column">
+                  <h3 class="promotions__title title">Приведи друга</h3>
+                  <p class="promotions__text text--orange">1 час бесплатно</p>
+
+                  <p class="text">Делитесь приятными впечатлениями о «Домовенке»! Это выгодно...</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="left-side__item promotions__item" data-id="reviews">
+              <div class="promotions__row">
+                <div class="promotions__column promotions__column--image">
+                  <img class="promotions__image" height="100" width="100" src="/static/img/promotion-ironing.svg">
+                </div>
+                <div class="promotions__column">
+                  <h3 class="promotions__title title">Глажка в подарок</h3>
+                  <p class="promotions__text text--orange">1 час бесплатно</p>
+                  <p class="promotions__text text">Если Вы являетесь нашим Постоянным клиентом или пользовались нашими...</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="left-side__item promotions__item" data-id="birthday">
+              <div class="promotions__row">
+                <div class="promotions__column promotions__column--image">
+                  <img class="promotions__image" height="100" width="100" src="/static/img/promotion-birthday.svg">
+                </div>
+                <div class="promotions__column">
+                  <h3 class="promotions__title title">День рождения.</h3>
+                  <p class="promotions__text text--orange">Поддерживающую уборку бесплатно</p>
+                  <p class="text">В знак заботы и любви, нашим постоянным клиентам подарок - в День рождения ...</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="left-side__item promotions__item" data-id="certificates">
+              <div class="promotions__row">
+                <div class="promotions__column promotions__column--image">
+                  <img class="promotions__image" height="100" width="100" src="/static/img/promotion-certificate.svg">
+                </div>
+                <div class="promotions__column">
+                  <h3 class="promotions__title title">Подарочный сертификат.</h3>
+                  <p class="text">Если Вы хотите сделать необычный подарок своим друзьям или близким людям...</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="left-side__item promotions__item" data-id="schedule">
+              <div class="promotions__row">
+                <div class="promotions__column promotions__column--image">
+                  <img class="promotions__image" height="100" width="100" src="/static/img/promotion-schedule.svg">
+                </div>
+                <div class="promotions__column">
+                  <h3 class="promotions__title title">Обслуживание по графику</h3>
+                  <p class="text">Клиенты, которые обслуживаются по графику, имеют скидки на мытье окон 15% и на генеральную уборку не менее 35%....</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="left-side__item promotions__item" data-id="lateness">
+              <div class="promotions__row">
+                <div class="promotions__column promotion__column--image">
+                  <img class="promotions__image" height="100" width="100" src="/static/img/promotion-delay.svg">
+                </div>
+                <div class="promotions__column">
+                  <h3 class="promotions__title title">За опоздание.</h3>
+                  <p class="promotions__text text--orange">скидка 500 рублей</p>
+
+                  <p class="text">Если Вы сделали заказ в нашей компании, время проведения которого утром или в первой ...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- /Promotions -->
+    </div>
+    <div class="right-side  right-side--hide {{#HasRightSide}}right-side--mobile{{/HasRightSide}}">
+      {{#with Item}}
+      <div class="right-side__wrap" data-id="{{id}}">
+
+        <button class="right-side__btn  right-side__btn--close  icon-close" type="button">
+          <svg class="icon-close__image" width="22.47" height="22.47" viewBox="0 0 22.47 22.47">
+            <rect class="icon-close__element" x="182.81" y="107.75" width="31" height="1.64" rx="0.82" ry="0.82" transform="translate(-205.73 74.73) rotate(-45)" fill="#fd8204"/>
+            <rect class="icon-close__element" x="182.74" y="107.68" width="31" height="1.64" rx="0.82" ry="0.82" transform="translate(-52.26 -205.7) rotate(45)" fill="#fd8204"/>
+          </svg>
+        </button>
+
+        <article class="promotion">
+          <h2 class="title">{{title}}</h2>
+          <img class="promotion__image" height="100" width="100" src="/static/img/promotion-ironing.svg">
+          <p class="promotion__text text--orange">1 час бесплатно</p>
+          {{{text}}}
+          <button class="promotion__button button">Заказать уборку</button>
+        </article>
+
+
+
+
+        <!--
+        <article>
+          <soan>
+            <img class="promotion__image" height="100" width="100" src="/static/img/promotion-delay.svg">
+          </span>
+          <h3 class="promotion__title title">Команда</h3>
+          <p class="promotion__time">1.05.14 - 31.05.16</p>
+          <p class="promotion__text text--orange">1 час бесплатно</p>
+          <p class="text">В Домовенке дружный и молодой коллектив единомышленников, где каждый может получать
+            достойный заработок и реализовать себя. </p>
+        </article>
+        <article>
+          <span>
+            <img class="promotion__image" height="100" width="100" src="/static/img/promotion-birthday.svg">
+          </span>
+          <div class="promotion__column">
+          <h3 class="promotion__title title">Оплата</h3>
+          <p class="promotion__time">1.05.14 - 31.05.16</p>
+          <p class="promotion__text text--orange">1 час бесплатно</p>
+
+          <p class="text">Гибкий график выплат – получаете заработанные деньги тогда, когда удобно Вам.
+            Заработок зависит от Вас – больше и лучше работаете, больше получаете.</p>
+        </article>
+        <article>
+          <span>
+            <img class="promotion__image" height="100" width="100" src="/static/img/promotion-schedule.svg">
+          </span>
+          <h3 class="promotion__title title">Обучение</h3>
+          <p class="promotion__time">1.05.14 - 31.05.16</p>
+          <p class="promotion__text text--orange">1 час бесплатно</p>
+          <p class="text">Мы обучаем бесплатно. Совершенствуем и дорабатываем технологии, внедряем новые
+            тренинги и курсы - развиваемся сами и развиваем Вас.</p>
+        </article>
+        <article>
+          <span>
+            <img height="100" width="100" src="/static/img/promotion-certificate.svg">
+          </span>
+          <h3 class="promotion__title title">Обеспечиваем всем необходимым</h3>
+          <p class="promotion__time">1.05.14 - 31.05.16</p>
+          <p class="promotion__text text--orange">1 час бесплатно</p>
+          <p class="text">Предоставляем форму, моющие средства и расходные материалы, предоставляем
+            корпоративную сим-карту.</p>
+        </article>
+        <article class="promotion">
+          <span>
+            <img class="promotion__image" height="100" width="100" src="/static/img/career-training.svg">
+          </span>
+          <h3 class="promotion__title title">Корпоративная жизнь Домовёнка</h3>
+          <p class="promotion__time">1.05.14 - 31.05.16</p>
+          <p class="promotion__text text--orange">1 час бесплатно</p>
+
+          <p class="text">«Домовенок» всегда уделяет большое внимание организации тимбилдингов,
+            направленных на развитие командного духа, сплочение коллектива,и создание отличного настроения.</p>
+        </article>
+      -->
+
+
+
+      </div>
+      {{/with}}
+    </div>
+    <!--<section class="page__section  section  section--bg-light">
+      <div class="section__wrap">
+
+
+        <div class="promotions">
+          <ul class="promotion__list list">
+
+          </ul>
+        </div>
+      </div>
     </section>
+
 
     <section class="page__section  section   section--bg-dark  section--contact">
       <div class="section__wrap">
@@ -400,9 +560,10 @@
       </div>
       <div class="contact-btn__window"></div>
     </div>
+
     <!-- /Main Content -->
 
-    <!-- Page Footer -->
+    <!-- Page Footer --><!--
     <footer class="page-footer">
       <nav class="page-footer__secondary-menu  secondary-menu">
         <ul class="secondary-menu__list list">
@@ -447,16 +608,16 @@
                 <a class="secondary-menu__link  secondary-menu__link--sub  link">Обработка поверхнистей</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="link" href="ezhednevnaya_uborka.html">Ежедневная уборка квартиры</a>
+                <a class="link link--lg-brown" href="ezhednevnaya_uborka.html">Ежедневная уборка квартиры</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="link" href="kompleksnaya_uborka.html">Комплексная уборка</a>
+                <a class="link link--lg-brown" href="kompleksnaya_uborka.html">Комплексная уборка</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="link" href="uborka_kvartir.html">Уборка квартир</a>
+                <a class="link link--lg-brown" href="uborka_kvartir.html">Уборка квартир</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="link" href="drugie_raboty.html">Дополнительные работы</a>
+                <a class="link link--lg-brown" href="drugie_raboty.html">Дополнительные работы</a>
               </li>
             </ul>
           </li>
@@ -493,7 +654,7 @@
     
       <div class="page-footer__row">
         <div class="page-footer__column">
-          <p class="page-footer__copyright">2007-2016 © www.domovenok.su<br> Клининговая компания ООО «Комфорт-сервис «Домовёнок»<br> все права защищены</p>
+          <p class="page-footer__copyright">© ООО «Комфорт-сервис «Домовёнок», 2007-2016</p>
         </div>
         <div class="page-footer__column">
           <div class="page-footer__social-links  social-links">
@@ -538,26 +699,118 @@
       </div>
     </footer>
     <!-- /Page Footer -->
-	</main>
 
+	<div class="contact-btn">
+	  <button class="contact-btn__btn contact-btn__btn--main" type="button">Кнопка контакта</button>
+	  <div class="contact-btn__list">
+	    <button class="contact-btn__btn contact-btn__btn--left" type="button">T</button>
+	    <button class="contact-btn__btn contact-btn__btn--center" type="button">E</button>
+	    <button class="contact-btn__btn contact-btn__btn--right" type="button">C</button>
+	  </div>
+	  <div class="contact-btn__window"></div>
+	</div>
 
-
+  </main>
+  <!-- /Main Content -->
+  <!-- Pop up -->
+  <div class="pop-up  pop-up--hide  scroll-container-unstable">
+  
+    <div class="pop-up__wrap">
+  
+      <button class="pop-up__btn-close  icon-close" type="button">
+        <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+        </svg>
+      </button>
+  
+      <div class="pop-up__item pop-up__item--hide  service-order">
+        <div class="service-order__wrap">
+          <form class="service-order__form">
+            <h2 class="service-order__title  title">Оставить заявку</h2>
+            <div class="service-order__row">
+              <label class="service-order__label  label">ФИО</label>
+              <input class="service-order__input  input" type="text" autofocus>
+            </div>
+  
+            <div class="service-order__row">
+              <label class="service-order__label  label">Номер телефона</label>
+              <input class="service-order__input  input" type="tel" autofocus>
+            </div>
+  
+            <div class="service-order__row">
+              <p class="service-order__label  label">Дополнительная информация</p>
+              <textarea  class="service-order__textarea  textarea"></textarea>
+            </div>
+            <div class="service-order__row">
+              <label class="label-checkbox">
+                <input type="checkbox" class="checkbox  checkbox--small" checked  required>
+                <span class="checkbox__indicator  checkbox__indicator--small  checkbox__indicator--light"></span>
+                <span class="label-text">Cогласен с обработкой моих персональных данных в соответствии с ФЗ РФ от 27.06.06 г. N°152-ФЗ «О персональных данных»</span>
+              </label>
+            </div>
+            <div class="service-order__row">
+              <div class="service-order__button">
+                <button class="button" type="submit">Отправить</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+    </div>
+  
+  </div>
+  <!-- /Pop up -->
 
 </div>
 <!-- /Page wrapper -->
 
 <!-- Java Script -->
+<script id="right-side__wrap" type="text/html">
+  {{{{raw}}}}
+  <button class="right-side__btn  right-side__btn--close  icon-close">
+    <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+      <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </svg>
+  </button>
 
-<script type="text/javascript">
-  ymaps.ready(init);
-  var myMap;
+  <article  class="promotion">
+    <div class="promotion__wrap">
 
-  function init(){
-    myMap = new ymaps.Map("map", {
-      center: [55.76, 37.64],
-      zoom: 16
-    });
-  }
+      <h2 class="promotion__title title">{{title}}</h2>
+      <time datetime="">{{pub_date}}</time>
+      {{#picture}}
+      <img class="promotion__image" srcset="/static/img/{{ pic }}" alt="" width="200" height="200">
+      {{/picture}}
+      {{{text}}}
+    </div>
+
+    <footer class="promotion__footer">
+
+      <div class="linking-pages">
+        <h3 class="right-side__heading title">У нас Вы можете заказать:</h3>
+
+        <ul class="list">
+          <li class="item item--circle">
+            <a class="link" href="">Мытье пластиковых окон</a>
+          </li>
+          <li class="item item--circle">
+            <a class="link" href="">Поддерживающую уборку офисов в Москве</a>
+          </li>
+          <li class="item item--circle">
+            <a class="link" href="">Уборку таунхауса после ремонта по подходящим ценам</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+  </article>
+
+
+
+  </section>
+  {{{{/raw}}}}
 </script>
 
 <script src="/static/js/bundle.js?v01"></script>

@@ -1,13 +1,12 @@
 'use strict';
 
 const Router = require('koa-router');
-const router = new Router();
 const fs = require('fs-promise')
 const fsSync = require('fs')
 const Handlebars = require('handlebars');
 const { getArticle, getArticleListScroll } = require('./store')
 const logger = require('logger')(module)
-let moment = require('moment')
+const moment = require('moment')
 
 
 

@@ -36,7 +36,7 @@ newsRouter.get('newsItem', '/:key/', async function (ctx, next) {
     const {modelList, begin, end}= await getNewsListScroll({direction: 0, keyValue: news.id})
     const html = await fs.readFile('templates/news/news.html', 'utf-8')
     const template = Handlebars.compile(html)
-    ctx.body = template({ItemList: modelList, Item: article, Begin: begin, End: end, HasRightSide: true})
+    ctx.body = template({ItemList: modelList, Item: news, Begin: begin, End: end, HasRightSide: true})
 })
 
 newsRouterAjax.get('newsListAjax', '/', async function (ctx, next) {
