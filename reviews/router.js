@@ -9,13 +9,7 @@ const { getReview, getReviewListScroll } = require('./store')
 const logger = require('logger')(module)
 
 
-const reviewsRouter = new Router({
-  prefix: '/otzivi'
-});
-
-const reviewsRouterAjax = new Router({
-    prefix: '/m/otzivi'
-})
+const reviewsRouter = new Router();
 
 // function readTemplate () {
 //     let html = fsSync.readFileSync('templates/articles/articles.html', 'utf-8')
@@ -24,25 +18,25 @@ const reviewsRouterAjax = new Router({
 //
 // let template = readTemplate()
 
-reviewsRouter.post('reviewsFormHandler', '/form/', async function (ctx, next) {
+reviewsRouter.post('reviewsFormHandler', /^\/otzivi\/form\/$/, async function (ctx, next) {
     ctx.type = 'application/json'
     ctx.body = JSON.stringify({ Success: true })
 })
 
-reviewsRouter.get('reviewsList', '/', async function (ctx, next) {
+reviewsRouter.get('reviewsList', /^\/otzivi\/$/, async function (ctx, next) {
     const {modelList, begin, end} = await getReviewListScroll()
     const html = await fs.readFile('templates/reviews/reviews.html', 'utf-8')
     const template = Handlebars.compile(html)
     ctx.body = template({ItemList: modelList, Begin: begin, End: end, RightForm: false, HasRightSide: false})
 })
 
-reviewsRouter.get('reviewItem', '/:key/', async function (ctx, next) {
+reviewsRouter.get('reviewItem', /^\/otzivi\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
     let review, RightForm;
-    if (ctx.params.key === 'form'){
+    if (ctx.params[0] === 'form'){
         review = { id: null }
         RightForm = true
     } else {
-        review = await getReview(ctx.params.key)
+        review = await getReview(ctx.params[0])
         RightForm = false
     }
     const {modelList, begin, end}= await getReviewListScroll({direction: 0, keyValue: review.id})
@@ -51,7 +45,7 @@ reviewsRouter.get('reviewItem', '/:key/', async function (ctx, next) {
     ctx.body = template({ItemList: modelList, Item: review, Begin: begin, End: end, RightForm: RightForm, HasRightSide: true})
 })
 
-reviewsRouterAjax.get('reviewListAjax', '/', async function (ctx, next) {
+reviewsRouter.get('reviewListAjax', /^\/m\/otzivi\/$/, async function (ctx, next) {
     try {
         const direction = ctx.query.direction;
         const {modelList, begin, end} = await getReviewListScroll({keyValue: ctx.query.key, direction: direction})
@@ -65,9 +59,9 @@ reviewsRouterAjax.get('reviewListAjax', '/', async function (ctx, next) {
     }
 })
 
-reviewsRouterAjax.get('reviewItemAjax', '/:key/', async function (ctx, next) {
+reviewsRouter.get('reviewItemAjax', /^\/m\/otzivi\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
     try {
-        const review = await getReview(ctx.params.key)
+        const review = await getReview(ctx.params[0])
         let response = { Success: true, Data: { Item: review} }
         ctx.type = 'application/json'
         ctx.body = response
@@ -78,4 +72,4 @@ reviewsRouterAjax.get('reviewItemAjax', '/:key/', async function (ctx, next) {
     }
 })
 
-module.exports = { reviewsRouter: reviewsRouter, reviewsRouterAjax: reviewsRouterAjax}
+module.exports = { reviewsRouter: reviewsRouter}

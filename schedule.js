@@ -46,7 +46,7 @@ function cleanPhoneNumber() {
                     "(SELECT uuid " +
                     "FROM visits " +
                     "WHERE user_uuid IN " +
-                        "(SELECT user_uuid FROM phones WHERE user_uuid IS NOT NULL)) " +
+                        "(SELECT user_uuid FROM phones WHERE living IS True)) " +
                 "GROUP BY visit_uuid " +
                 `HAVING	MAX(date) < (NOW() - INTERVAL '${MAX_STAGNATION_TAKE_NUMBER_MINUTE} minutes')) `
     )
@@ -54,7 +54,7 @@ function cleanPhoneNumber() {
             if (results.length > 0){
                 let user_uuid_list = []
                 for (let item of results){
-                    logger.info(`clean user track number uuid  ${item.user_uuid}`)
+                    logger.info(`kill track session | uuid - ${item.user_uuid}`)
                     user_uuid_list.push(item.user_uuid)
                     let user = await User.findOne({where: {uuid: item.user_uuid}})
                     user.set('data.track.number', null)

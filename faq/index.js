@@ -1,4 +1,4 @@
 'use strict';
-const {FAQRouter, FAQRouterAjax} = require('./router');
+const {FAQRouter} = require('./router');
 
-module.exports = {FAQRouter: FAQRouter, FAQRouterAjax: FAQRouterAjax };
+module.exports = {FAQRouter: FAQRouter };

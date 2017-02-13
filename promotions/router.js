@@ -5,30 +5,25 @@ const { getPromotion, getPromotionList } = require('./store')
 const fs = require('fs-promise')
 const Handlebars = require('handlebars');
 
-const promotionsRouter = new Router({
-  prefix: '/skidki_akcii'
-});
+const promotionsRouter = new Router();
 
-const promotionsRouterAjax = new Router({
-    prefix: '/m/skidki_akcii'
-})
 
-promotionsRouter.get('promotionsList', '/', async function (ctx, next) {
+promotionsRouter.get('promotionsList', /^\/skidki_akcii\/$/, async function (ctx, next) {
     const modelList = getPromotionList(ctx.state.pancakeUser.city)
     const html = await fs.readFile('templates/promotions/promotions.html', 'utf-8')
     const template = Handlebars.compile(html)
     ctx.body = template({ItemList: modelList, Begin: true, End: true, HasRightSide: false})
 })
 
-promotionsRouter.get('promotionsItem', '/:key/', async function (ctx, next) {
+promotionsRouter.get('promotionsItem', /^\/skidki_akcii\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
     const modelList = getPromotionList(ctx.state.pancakeUser.city)
-    const promotion = getPromotion(ctx.state.pancakeUser.city, ctx.params.key)
+    const promotion = getPromotion(ctx.state.pancakeUser.city, ctx.params[0])
     const html = await fs.readFile('templates/promotions/promotions.html', 'utf-8')
     const template = Handlebars.compile(html)
     ctx.body = template({ItemList: modelList, Item: promotion, Begin: true, End: true, HasRightSide: true})
 })
 
-promotionsRouterAjax.get('promotionsListAjax', '/', async function (ctx, next) {
+promotionsRouter.get('promotionsListAjax', /^\/m\/skidki_akcii\/$/, async function (ctx, next) {
     try {
         const modelList = getPromotionList(ctx.state.pancakeUser.city)
         const response = { Success: true, Data: {ItemList: modelList, Begin: true, End: true }}
@@ -41,9 +36,9 @@ promotionsRouterAjax.get('promotionsListAjax', '/', async function (ctx, next) {
     }
 })
 
-promotionsRouterAjax.get('promotionsItemAjax', '/:key/', async function (ctx, next) {
+promotionsRouter.get('promotionsItemAjax', /^\/m\/skidki_akcii\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
     try {
-        const promotion = getPromotion(ctx.state.pancakeUser.city, ctx.params.key)
+        const promotion = getPromotion(ctx.state.pancakeUser.city, ctx.params[0])
         let response = { Success: true, Data: { Item: promotion} }
         ctx.type = 'application/json'
         ctx.body = response
@@ -56,5 +51,4 @@ promotionsRouterAjax.get('promotionsItemAjax', '/:key/', async function (ctx, ne
 
 module.exports = {
     promotionsRouter,
-    promotionsRouterAjax,
 }

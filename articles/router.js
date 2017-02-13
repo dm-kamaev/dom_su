@@ -46,9 +46,7 @@ Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
     }
 });
 
-const articlesRouter = new Router({
-  prefix: '/articles'
-});
+const articlesRouter = new Router();
 
 const articlesRouterAjax = new Router({
     prefix: '/m/articles'
@@ -61,22 +59,22 @@ const articlesRouterAjax = new Router({
 //
 // let template = readTemplate()
 
-articlesRouter.get('articlesList', '/', async function (ctx, next) {
+articlesRouter.get('articlesList', /^\/articles\/$/, async function (ctx, next) {
     const {modelList, begin, end} = await getArticleListScroll()
     const html = await fs.readFile('templates/articles/articles.html', 'utf-8')
     const template = Handlebars.compile(html)
     ctx.body = template({ItemList: modelList, Begin: begin, End: end, HasRightSide: false})
 })
 
-articlesRouter.get('articlesItem', '/:key/', async function (ctx, next) {
-    const article = await getArticle(ctx.params.key, 'id')
+articlesRouter.get('articlesItem', /^\/articles\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
+    const article = await getArticle(ctx.params[0], 'id')
     const {modelList, begin, end}= await getArticleListScroll({direction: 0, keyValue: article.id})
     const html = await fs.readFile('templates/articles/articles.html', 'utf-8')
     const template = Handlebars.compile(html)
     ctx.body = template({ItemList: modelList, Item: article, Begin: begin, End: end, HasRightSide: true})
 })
 
-articlesRouterAjax.get('articlesListAjax', '/', async function (ctx, next) {
+articlesRouter.get('articlesListAjax', /^\/m\/articles\/$/, async function (ctx, next) {
     try {
         const direction = ctx.query.direction;
         const article = await getArticle(ctx.query.key, 'id')
@@ -91,9 +89,9 @@ articlesRouterAjax.get('articlesListAjax', '/', async function (ctx, next) {
     }
 })
 
-articlesRouterAjax.get('articlesItemAjax', '/:key/', async function (ctx, next) {
+articlesRouter.get('articlesItemAjax', /^\/m\/articles\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
     try {
-        const article = await getArticle(ctx.params.key)
+        const article = await getArticle(ctx.params[0])
         let response = { Success: true, Data: { Item: article} }
         ctx.type = 'application/json'
         ctx.body = response
@@ -104,4 +102,4 @@ articlesRouterAjax.get('articlesItemAjax', '/:key/', async function (ctx, next) 
     }
 })
 
-module.exports = { articlesRouterAjax: articlesRouterAjax, articlesRouter: articlesRouter}
+module.exports = { articlesRouter: articlesRouter}

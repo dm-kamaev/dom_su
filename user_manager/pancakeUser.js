@@ -7,7 +7,7 @@ const uuid4 = require('uuid/v4')
 const {taskEventCreate} = require('./task')
 const {saveAndSend} = require('tickets')
 const {URL} = require('url')
-const http = require('http');
+
 
 const USER_COOKIE_KEY = 'session_uid_dom'
 
@@ -71,7 +71,7 @@ class PancakeUser {
 
     async getUtms() {
         if (this._utms === null) {
-            let utm_list = UTMS.findAll({where: {user_uuid: this.uuid,}})
+            let utm_list = await UTMS.findAll({where: {user_uuid: this.uuid,}})
             utm_list = utm_list || []
             this._utms = utm_list
             return utm_list
@@ -126,41 +126,6 @@ class PancakeUser {
                 return phone
             })
         }
-    }
-
-    async setTrackDone(data) {
-        let phone = await Phone.findOne({where: {number: data.phone}})
-        if (phone == null) {
-            throw new Error(`Post call tracking | Phone - ${data.phone} - not found`)
-        }
-        let user = await User.findOne({where: {uuid: phone.user_uuid}})
-        let ticket = {
-            channel: data.channel,
-            google_id: user.google_id,
-            active: phone.living
-        }
-        if (user == null){
-            throw new Error(`Post call tracking | User on Phone - ${data.phone} - not found`)
-        }
-        this.sendTicket('NewTrackingCall', ticket)
-        this.sendDataGA({'params': {
-            'v': 1,
-            'tid': this.ctx.analytics.google,
-            'cid': user.uuid,
-            't': 'event',
-            'ec': 'call',
-            'ea': 'incoming',
-            'ds': 'call center'
-        }})
-
-        // Clean Track Phone Number
-        user.track = {done: true, waiting: false, number: null}
-        this.queue.push(async function (previousResult, pancakeUser) {
-            user.set('data.track', user.track);
-            await user.save()
-            await phone.update({user_uuid: null})
-            return phone
-        })
     }
 
     async setVisit() {
@@ -234,21 +199,6 @@ class PancakeUser {
         })
     }
 
-    sendDataGA(data){
-        this.queue.push(async function (previousResult, pancakeUser) {
-            let connectParam = {
-                hostname: 'www.google-analytics.com',
-                port: 80,
-                path: "/collect",
-                method: 'POST',
-                headers: {
-                    "User-Agent": "AstDom"
-                }
-            }
-            await pancakeUser.sendRequest(connectParam, JSON.stringify(data), 20)
-        })
-    }
-
     setSelfInCookie() {
         this.ctx.cookies.set(USER_COOKIE_KEY, this.uuid, {
             httpOnly: false,
@@ -257,39 +207,9 @@ class PancakeUser {
         })
     }
 
-    sendRequest(connectParam, body, timeout){
-        timeout = timeout || 20
-        let response = ''
-        if (connectParam.method == 'POST'){
-            connectParam.headers['Content-length'] = Buffer.from(body).length;
-        }
-        return new Promise((reslove, reject) => {
-            let req = http.request(connectParam, (res) => {
-                res.setEncoding('utf8')
-                res.on('data', (chunk) => {
-                    response += chunk
-                });
-                res.on('end', () => {
-                    reslove(response);
-                });
-            })
-            req.setTimeout(1000 * timeout, function () {
-                reject(new Error(`Request timeout error - ${connectParam}`))
-            })
-            req.on('error', (e) => {
-                reject(new Error(`The request ended in failure - ${connectParam}`))
-            })
-            if (connectParam.method == 'POST'){
-                req.write(body)
-            }
-            req.end()
-        })
-    }
-
     runAsyncTask() {
         this.queue.do()
     }
-
 }
 
 module.exports = {PancakeUser}

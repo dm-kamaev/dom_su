@@ -7,7 +7,8 @@ const {createEventLiving} = require('./createEventLiving');
 const {UTMCollector} = require('./UTMCollector');
 const {LUIDHandler} = require('./LUIDHandler');
 const {callTracking} = require('./callTracking');
-
+const {definitionRequestType} = require('./definitionRequestType')
+const { initPancakeService } = require('./service/initPancakeService')
 
 
 module.exports = {
@@ -18,4 +19,6 @@ module.exports = {
     UTMCollector,
     LUIDHandler,
     callTracking,
+    definitionRequestType,
+    initPancakeService,
 }

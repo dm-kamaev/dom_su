@@ -9,13 +9,8 @@ const { getFAQ, getFAQListScroll } = require('./store')
 const logger = require('logger')(module)
 
 
-const FAQRouter = new Router({
-  prefix: '/faq'
-});
+const FAQRouter = new Router();
 
-const FAQRouterAjax = new Router({
-    prefix: '/m/faq'
-})
 
 // function readTemplate () {
 //     let html = fsSync.readFileSync('templates/articles/articles.html', 'utf-8')
@@ -24,25 +19,25 @@ const FAQRouterAjax = new Router({
 //
 // let template = readTemplate()
 
-FAQRouter.post('FAQFormHandler', '/form/', async function (ctx, next) {
+FAQRouter.post('FAQFormHandler', /^\/faq\/form\/$/, async function (ctx, next) {
     ctx.type = 'application/json'
     ctx.body = JSON.stringify({ Success: true })
 })
 
-FAQRouter.get('FAQList', '/', async function (ctx, next) {
+FAQRouter.get('FAQList', /^\/faq\/$/, async function (ctx, next) {
     const {modelList, begin, end} = await getFAQListScroll()
     const html = await fs.readFile('templates/faq/faq.html', 'utf-8')
     const template = Handlebars.compile(html)
     ctx.body = template({ItemList: modelList, Begin: begin, End: end, RightForm: false, HasRightSide: false})
 })
 
-FAQRouter.get('FAQItem', '/:key/', async function (ctx, next) {
+FAQRouter.get('FAQItem', /^\/faq\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
     let faq, RightForm;
-    if (ctx.params.key === 'form'){
+    if (ctx.params[0] === 'form'){
         RightForm = true;
         faq = {id: null}
     } else {
-        faq = await getFAQ(ctx.params.key)
+        faq = await getFAQ(ctx.params[0])
         RightForm = false;
     }
     const {modelList, begin, end}= await getFAQListScroll({direction: 0, keyValue: faq.id})
@@ -51,7 +46,7 @@ FAQRouter.get('FAQItem', '/:key/', async function (ctx, next) {
     ctx.body = template({ItemList: modelList, Item: faq, Begin: begin, End: end, RightForm: RightForm, HasRightSide: true})
 })
 
-FAQRouterAjax.get('FAQListAjax', '/', async function (ctx, next) {
+FAQRouter.get('FAQListAjax', /^\/m\/faq\/$/, async function (ctx, next) {
     try {
         const direction = ctx.query.direction;
         const {modelList, begin, end} = await getFAQListScroll({keyValue: ctx.query.key, direction: direction})
@@ -65,9 +60,9 @@ FAQRouterAjax.get('FAQListAjax', '/', async function (ctx, next) {
     }
 })
 
-FAQRouterAjax.get('FAQItemAjax', '/:key/', async function (ctx, next) {
+FAQRouter.get('FAQItemAjax', /^\/m\/faq\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
     try {
-        const faq = await getFAQ(ctx.params.key)
+        const faq = await getFAQ(ctx.params[0])
         let response = { Success: true, Data: { Item: faq} }
         ctx.type = 'application/json'
         ctx.body = response
@@ -78,4 +73,4 @@ FAQRouterAjax.get('FAQItemAjax', '/:key/', async function (ctx, next) {
     }
 })
 
-module.exports = { FAQRouter: FAQRouter, FAQRouterAjax: FAQRouterAjax}
+module.exports = { FAQRouter: FAQRouter}

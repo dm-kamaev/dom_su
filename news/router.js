@@ -9,13 +9,7 @@ const { getNews, getNewsListScroll } = require('./store')
 const logger = require('logger')(module)
 
 
-const newsRouter = new Router({
-  prefix: '/news'
-});
-
-const newsRouterAjax = new Router({
-    prefix: '/m/news'
-})
+const newsRouter = new Router();
 
 // function readTemplate () {
 //     let html = fsSync.readFileSync('templates/articles/articles.html', 'utf-8')
@@ -24,22 +18,22 @@ const newsRouterAjax = new Router({
 //
 // let template = readTemplate()
 
-newsRouter.get('newsList', '/', async function (ctx, next) {
+newsRouter.get('newsList', /^\/news\/$/, async function (ctx, next) {
     const {modelList, begin, end} = await getNewsListScroll()
     const html = await fs.readFile('templates/news/news.html', 'utf-8')
     const template = Handlebars.compile(html)
     ctx.body = template({ItemList: modelList, Begin: begin, End: end, HasRightSide: false})
 })
 
-newsRouter.get('newsItem', '/:key/', async function (ctx, next) {
-    const news = await getNews(ctx.params.key, 'id')
+newsRouter.get('newsItem', /^\/news\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
+    const news = await getNews(ctx.params[0], 'id')
     const {modelList, begin, end}= await getNewsListScroll({direction: 0, keyValue: news.id})
     const html = await fs.readFile('templates/news/news.html', 'utf-8')
     const template = Handlebars.compile(html)
     ctx.body = template({ItemList: modelList, Item: news, Begin: begin, End: end, HasRightSide: true})
 })
 
-newsRouterAjax.get('newsListAjax', '/', async function (ctx, next) {
+newsRouter.get('newsListAjax', /^\/m\/news\/$/, async function (ctx, next) {
     try {
         const direction = ctx.query.direction;
         const news = await getNews(ctx.query.key, 'id')
@@ -48,23 +42,23 @@ newsRouterAjax.get('newsListAjax', '/', async function (ctx, next) {
         ctx.type = 'application/json'
         ctx.body = JSON.stringify(response)
     } catch (e) {
-        logger.info(e)
+        logger.error(e)
         ctx.type = 'application/json'
         ctx.body = JSON.stringify({ Success: false })
     }
 })
 
-newsRouterAjax.get('newsItemAjax', '/:key/', async function (ctx, next) {
+newsRouter.get('newsItemAjax', /^\/m\/news\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
     try {
-        const news = await getNews(ctx.params.key)
+        const news = await getNews(ctx.params[0])
         let response = { Success: true, Data: { Item: news} }
         ctx.type = 'application/json'
         ctx.body = response
     } catch (e){
-        logger.info(e)
+        logger.error(e)
         ctx.type = 'application/json'
         ctx.body = JSON.stringify({ Success: false })
     }
 })
 
-module.exports = { newsRouterAjax: newsRouterAjax, newsRouter: newsRouter}
+module.exports = {newsRouter: newsRouter}

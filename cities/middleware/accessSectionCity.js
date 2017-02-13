@@ -6,7 +6,6 @@ let regexpString = '^(:?\\w+)' + '\\\.' + config.serverPath.domain.withoutCity.r
 
 let regexp = new RegExp(regexpString, 'g');
 
-
 function needChangeCity(ctx) {
     let newCity = ctx.state.pancakeUser.city;
     if (getUrlHost(ctx.state.pancakeUser.city.keyword) != ctx.request.host){
