@@ -11,8 +11,8 @@ const statpagesRouter = new Router();
 const moscowTemplates = {
     'dir': 'templates/statpages/www/',
     'main': {name: 'main.html'},
-    'ezhednevnaya_uborka_ofisov': {name: 'ezhednevnaya_uborka_ofisov.html'},
-    'generalnaya_uborka_ofisov': {name: 'generalnaya_uborka_ofisov.html'},
+    'ezhednevnaya_uborka_ofisov': {name: 'ezhednevnaya_uborka_ofisov.html', ServiceName: 'Ежедневная уборка офисов'},
+    'generalnaya_uborka_ofisov': {name: 'generalnaya_uborka_ofisov.html', ServiceName: 'Генеральная уборка офисов'},
     'domrabotnica__perechen_rabot': {name: 'domrabotnica__perechen_rabot.html'},
     'vechernyaya_uborka_ofisov': {name: 'vechernyaya_uborka_ofisov.html'},
     'utrennyaya_uborka_ofisov': {name: 'utrennyaya_uborka_ofisov.html'},

@@ -168,8 +168,7 @@ const Ticket = sequelize.define('tickets', {
         buildMessage: function (UTMS) {
             UTMS = UTMS || []
             let textTicket = {action: "NewOnlineObjects", param: [{utms: UTMS, type: this.type, data: this.data}]}
-            textTicket.param.data.date = moment(this.createdAt).toISOString()
-            console.log(JSON.stringify(textTicket))
+            textTicket.param[0].data.date = moment(this.createdAt).toISOString()
             return JSON.stringify(textTicket)
         }
     }
@@ -188,6 +187,10 @@ const Phone = sequelize.define('phones', {
             key: 'id',
             deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
         }
+    },
+    living: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
     },
     user_uuid: {
         type: Sequelize.UUID,

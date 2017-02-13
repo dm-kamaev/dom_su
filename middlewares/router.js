@@ -6,6 +6,7 @@ const {newsRouterAjax, newsRouter} = require('news')
 const {FAQRouterAjax, FAQRouter} = require('faq')
 const {reviewsRouterAjax, reviewsRouter} = require('reviews')
 const {promotionsRouterAjax, promotionsRouter,} = require('promotions')
+const {userManagerRouter} = require("user_manager")
 const {adminRouter: adminRouter} = require('admin')
 const { ticketRouter } = require('tickets')
 const { internalAPI } = require('internal_api')
@@ -35,6 +36,8 @@ function applyRouters(app) {
     // Promotions
     app.use(promotionsRouter.routes())
     app.use(promotionsRouterAjax.routes())
+
+    app.use(userManagerRouter.routes())
 
     // Statpages
     app.use(statpagesRouter.routes())

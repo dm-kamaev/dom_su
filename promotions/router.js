@@ -1,7 +1,7 @@
 "use strict";
 
 const Router = require('koa-router');
-const { getPromotion } = require('./store')
+const { getPromotion, getPromotionList } = require('./store')
 const fs = require('fs-promise')
 const Handlebars = require('handlebars');
 
@@ -14,21 +14,24 @@ const promotionsRouterAjax = new Router({
 })
 
 promotionsRouter.get('promotionsList', '/', async function (ctx, next) {
+    const modelList = getPromotionList(ctx.state.pancakeUser.city)
     const html = await fs.readFile('templates/promotions/promotions.html', 'utf-8')
     const template = Handlebars.compile(html)
-    ctx.body = template({ Begin: true, End: true, HasRightSide: false})
+    ctx.body = template({ItemList: modelList, Begin: true, End: true, HasRightSide: false})
 })
 
 promotionsRouter.get('promotionsItem', '/:key/', async function (ctx, next) {
+    const modelList = getPromotionList(ctx.state.pancakeUser.city)
     const promotion = getPromotion(ctx.state.pancakeUser.city, ctx.params.key)
     const html = await fs.readFile('templates/promotions/promotions.html', 'utf-8')
     const template = Handlebars.compile(html)
-    ctx.body = template({Item: promotion, Begin: true, End: true, HasRightSide: true})
+    ctx.body = template({ItemList: modelList, Item: promotion, Begin: true, End: true, HasRightSide: true})
 })
 
 promotionsRouterAjax.get('promotionsListAjax', '/', async function (ctx, next) {
     try {
-        const response = { Success: true, Data: {ItemList: [], Begin: true, End: true }}
+        const modelList = getPromotionList(ctx.state.pancakeUser.city)
+        const response = { Success: true, Data: {ItemList: modelList, Begin: true, End: true }}
         ctx.type = 'application/json'
         ctx.body = JSON.stringify(response)
     } catch (e) {

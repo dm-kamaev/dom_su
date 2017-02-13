@@ -5,7 +5,7 @@ const { errorMiddleware, throw404, accessLogger, applyRouters } = require('middl
 const { initPancakeUser, setUserVisit, createEventRequest, createEventLiving, UTMCollector, LUIDHandler, callTracking } = require('user_manager')
 const { accessSectionCity, loadCities } = require('cities')
 const koaBody = require('koa-body');
-const {adminRouter} = require('admin')
+const { adminRouter } = require('admin')
 const schedule = require('schedule')
 
 schedule()
@@ -15,7 +15,7 @@ async function run() {
     const app = new koa();
     // Task
     app.context.cities = await loadCities()
-
+    app.context.analytics = config.analytics
 
     // Service middleware
     if (config.app.debug){

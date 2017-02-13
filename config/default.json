@@ -25,5 +25,8 @@
             "withoutCity": "dev.domovenok.su"
         },
         "uri": "/"
+    },
+    "analytics": {
+        "google": "UA-91645230-1"
     }
 }

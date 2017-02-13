@@ -4,8 +4,8 @@ module.exports = {
   up: function (queryInterface, Sequelize) {
     queryInterface.addColumn(
     'phones',
-    'syncAt',
-        {type: Sequelize.DATE, defaultValue: Sequelize.fn('NOW')}
+    'living',
+        {type: Sequelize.BOOLEAN, defaultValue: false}
   )
   },
 

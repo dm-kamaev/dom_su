@@ -2746,11 +2746,13 @@
 	                }
 	            });
 	        }
+	        console.log(e.detail.id);
 	        switch (e.detail.id) {
 	            case 'application':
 	                this.item = new Application(this, this.element);
 	                break;
 	            case 'service-order':
+	                console.log('hhjjjjjjj');
 	                this.item = new ServiceOrder(this, this.element);
 	                break;
 	            case 'rating-form':
@@ -20288,9 +20290,11 @@
 	        this.buttonClose = this.element.querySelector('.right-side__btn--close');
 	        this.subscribeForm = this.element.querySelector('.article-subscribe');
 	        this.articleLike = this.element.querySelector('.article-like');
+	        this.promotion = this.element.querySelector('.promotion');
 	        this.close = this.close.bind(this);
 	        this.sendSubscribeForm = this.sendSubscribeForm.bind(this);
 	        this.sendArticleLike = this.sendArticleLike.bind(this);
+	        this.sendApplication = this.sendApplication.bind(this);
 	        this.addEvent();
 	        tabs.add(this, this.element, this.id);
 	    }
@@ -20303,6 +20307,20 @@
 	            buttonNo.addEventListener('click', this.sendArticleLike);
 	            buttonYes.addEventListener('click', this.sendArticleLike);
 	        }
+	        if (this.promotion) {
+	            var button = this.promotion.querySelector('.button--application');
+	            button.addEventListener('click', this.sendApplication);
+	        }
+	    };
+	    RightSide.prototype.sendApplication = function (e) {
+	        e.preventDefault();
+	        var event = document.createEvent('Event');
+	        event.initEvent('open-popup', true, true);
+	        event.detail = {
+	            elem: e.currentTarget,
+	            id: e.currentTarget.dataset.name
+	        };
+	        document.dispatchEvent(event);
 	    };
 	    RightSide.prototype.removeEvent = function () {
 	        this.buttonClose.removeEventListener('click', this.close);
