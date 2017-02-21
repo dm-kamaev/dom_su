@@ -57,7 +57,7 @@ function cleanPhoneNumber() {
                     logger.info(`kill track session | uuid - ${item.user_uuid}`)
                     user_uuid_list.push(item.user_uuid)
                     let user = await User.findOne({where: {uuid: item.user_uuid}})
-                    user.set('data.track.number', null)
+                    user.set('data.track.numbers', {})
                     await user.save()
                 }
                 sequelize.query("UPDATE phones " +

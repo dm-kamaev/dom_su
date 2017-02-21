@@ -9,7 +9,6 @@ const {promotionsRouter} = require('promotions')
 const {adminRouter: adminRouter} = require('admin')
 const { ticketRouter } = require('tickets')
 const { internalAPI } = require('internal_api')
-const { onlyUser } = require('user_manager')
 
 module.exports = {applyRouters: applyRouters}
 

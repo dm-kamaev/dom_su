@@ -29,8 +29,8 @@
   <meta name="msapplication-config" content="/static/general/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static//css/style.css?v01">
-  <script src="/static//js/vendor/vendor.min.js?v01"></script>
+  <link rel="stylesheet" href="/static/css/style.css?v01">
+  <script src="/static/js/vendor/vendor.min.js?v01"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
   <script>
@@ -63,7 +63,7 @@
 <div class="page__wrap page__wrap--scroll">
 
   <!-- Page Header -->
-  
+  <!-- page-header.html -->
   <header class="page-header  page-header--scroll  page-header--contact">
   
     <div class="page-header__top">
@@ -74,7 +74,7 @@
           <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
         </svg>
       </button>
-      <a class="page-header__logo" href="http://www.domovenok.su"><img height="38" width="152" src="/static//img/logo.svg" alt="Логотип"/></a>
+      <a class="page-header__logo" href="http://www.domovenok.su"><img height="38" width="152" src="/static/img/logo.svg" alt="Логотип"/></a>
   
       <a class="page-header__tel" href="tel: +74956680468"><span class="page-header__tel-brown">8 (495)</span> 668-04-68</a>
     </div>
@@ -93,13 +93,13 @@
         <ul class="main-menu__list">
   
           <li class="main-menu__item">
-            <a class="main-menu__link"  href="https://spb.dev.domovenok.su/private">
+            <a class="main-menu__link"  href="{{buildUrl general.city '/private'}}">
               Личный кабинет
             </a>
           </li>
   
           <li class="main-menu__item main-menu__item--sub">
-            <a class="main-menu__link"  href="https://spb.dev.domovenok.su/main">
+            <a class="main-menu__link">
               Главная
             </a>
   
@@ -107,67 +107,67 @@
             <ul class="main-menu__list  main-menu__list--sub">
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/main">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/'}}">
                   Главная
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/about__">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/about/'}}">
                   О нас
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/uslugi__">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/uslugi/'}}">
                   Услуги
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/vazhno_znat__">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/vazhno_znat/'}}">
                   Важно знать
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/questions">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/faq/'}}">
                   Вопросы и ответы
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/news">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/news/'}}">
                   Новости
                 </a>
               </li>
   
               <li class="main-menu__item-sub  main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/articles">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/articles/'}}">
                   Статьи
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/gallery">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/gallery/'}}">
                   Галерея
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/skidki_akcii__">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/skidki_akcii/'}}">
                   Специальные акции
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/vakansii__">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/vakansii/'}}">
                   Вакансии
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/davay_druzhit__">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/davay_druzhit/'}}">
                   Обслуживание по графику
                 </a>
               </li>
@@ -186,55 +186,55 @@
             <ul class="main-menu__list  main-menu__list--sub">
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/podderzhka">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/podderzhka'}}">
                   Поддерживающая уборка
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/domrabotnica">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/domrabotnica'}}">
                   Домработница
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/generalnaya_uborka">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/generalnaya_uborka'}}">
                   Генеральная уборка
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/posle_remonta">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/posle_remonta'}}">
                   Уборка после ремонта
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/uborka-kottedzhej">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka-kottedzhej'}}">
                   Уборка коттеджей
                 </a>
               </li>
   
               <li class="main-menu__item-sub  main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/mite_okon">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/mite_okon'}}">
                   Мытьё окон
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/himchistka">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/himchistka'}}">
                   Химчистка
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/vizov_mastera_na_dom">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
                   Домашний мастер
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/obrabotka_poverhnostey">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
                   Обработка поверхностей
                 </a>
               </li>
@@ -253,43 +253,43 @@
             <ul class="main-menu__list  main-menu__list--sub">
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/uborka_ofisov">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka_ofisov'}}">
                   Уборка офисов
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/uborka-proizvodstvennyh-pomewenij">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka-proizvodstvennyh-pomewenij'}}">
                   Уборка производственных помещений
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/ofisnyy-master">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/ofisnyy-master'}}">
                   Офисный мастер
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/mite_stekol">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/mite_stekol'}}">
                   Мытьё стекол
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/myte-fasadov">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/myte-fasadov'}}">
                   Мытьё фасадов
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/promyshlennyj-alpinizm">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/promyshlennyj-alpinizm'}}">
                   Промышленный альпинизм
                 </a>
               </li>
   
               <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="https://spb.dev.domovenok.su/obrabotka_poverhnostey">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
                   Обработка поверхностей
                 </a>
               </li>
@@ -300,19 +300,19 @@
           </li>
   
           <li class="main-menu__item">
-            <a class="main-menu__link" href="https://spb.dev.domovenok.su/review">
+            <a class="main-menu__link" href="{{buildUrl general.city '/otzivi/'}}">
               Отзывы
             </a>
           </li>
   
           <li class="main-menu__item">
-            <a class="main-menu__link" href="https://spb.dev.domovenok.su/price__">
+            <a class="main-menu__link" href="{{buildUrl general.city '/price/'}}">
               Цены
             </a>
           </li>
   
           <li class="main-menu__item">
-            <a class="main-menu__link"  href="https://spb.dev.domovenok.su/contacts__">
+            <a class="main-menu__link"  href="{{buildUrl general.city '/contacts/'}}">
               Контакты
             </a>
           </li>
@@ -353,7 +353,7 @@
       <div class="section__wrap">
         <h1 class="section__title section__title--main title">Контакты</h1>
 
-        <p class="contact-page__text text">Телефон: <a class="contact-page__link link">+7 (812) 319-39-03</a></p>
+        <p class="contact-page__text text">Телефон: <a class="contact-page__link link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
         <p class="contact-page__text text">Выполнение заказов: с 09:00 до 21:00  </p>
         <p class="contact-page__text text">Веб-сайт: <a class="contact-page__link link">spb.domovenok.su</a></p>
         <div class="contact-page__text  contact-page__row text">
@@ -396,67 +396,67 @@
     <footer class="page-footer">
       <nav class="page-footer__secondary-menu  secondary-menu">
         <ul class="secondary-menu__list list">
-          <li class="secondary-menu__item item"><a class="link" href="http://site.domovenok.corp/private.html">Личный кабинет</a></li>
-          <li class="secondary-menu__item item"><a class="link" href="http://site.domovenok.corp/about__.html">О компании</a></li>
-          <li class="secondary-menu__item item"><a class="link" href="http://site.domovenok.corp/vazhno_znat__.html">Важно знать</a></li>
-          <li class="secondary-menu__item item"><a class="link" href="http://site.domovenok.corp/davay_druzhit__.html">Обслуживание по графику</a></li>
-          <li class="secondary-menu__item item"><a class="link" href="http://site.domovenok.corp/questions.html">Вопросы и ответы</a></li>
-          <li class="secondary-menu__item item"><a class="link" href="http://site.domovenok.corp/news.html">Новости</a></li>
-          <li class="secondary-menu__item item"><a class="link" href="http://site.domovenok.corp/articles.html">Статьи</a></li>
-          <li class="secondary-menu__item item"><a class="link" href="http://site.domovenok.corp/gallery.html">Галерея</a></li>
-          <li class="secondary-menu__item item"><a class="link" href="http://site.domovenok.corp/skidki_akcii__.html">Специальные акции</a></li>
-          <li class="secondary-menu__item item"><a class="link" href="http://site.domovenok.corp/vakansii__.html">Вакансии</a></li>
-          <li class="secondary-menu__item item"><a class="link" href="http://site.domovenok.corp/contacts__.html">Контакты</a></li>
+          <li class="secondary-menu__item item"><a href="{{buildUrl general.city '/private'}}">Личный кабинет</a></li>
+          <li class="secondary-menu__item item"><a href="{{buildUrl general.city '/about/'}}">О компании</a></li>
+          <li class="secondary-menu__item item"><a href="{{buildUrl general.city '/vazhno_znat/'}}">Важно знать</a></li>
+          <li class="secondary-menu__item item"><a href="{{buildUrl general.city '/davay_druzhit/'}}">Обслуживание по графику</a></li>
+          <li class="secondary-menu__item item"><a href="{{buildUrl general.city '/faq/'}}">Вопросы и ответы</a></li>
+          <li class="secondary-menu__item item"><a href="{{buildUrl general.city '/news/'}}">Новости</a></li>
+          <li class="secondary-menu__item item"><a href="{{buildUrl general.city '/articles/'}}">Статьи</a></li>
+          <li class="secondary-menu__item item"><a href="{{buildUrl general.city '/gallery/'}}">Галерея</a></li>
+          <li class="secondary-menu__item item"><a href="{{buildUrl general.city '/skidki_akcii/'}}">Специальные акции</a></li>
+          <li class="secondary-menu__item item"><a href="{{buildUrl general.city '/vakansii/'}}">Вакансии</a></li>
+          <li class="secondary-menu__item item"><a href="{{buildUrl general.city '/contacts/'}}">Контакты</a></li>
         </ul>
     
         <ul class="secondary-menu__list list">
-          <li class="secondary-menu__item  item"><a>Физическим лицам</a>
+          <li class="secondary-menu__item  item"><a class="link link--lg-brown" href="{{buildUrl general.city '/'}}">Физическим лицам</a>
             <ul class="secondary-menu__list secondary-menu__list--sub list">
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="http://site.domovenok.corp/podderzhka.html">Поддерживающая уборка</a>
+                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/podderzhka'}}">Поддерживающая уборка</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="http://site.domovenok.corp/generalnaya_uborka.html">Генеральная уборка</a>
+                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/generalnaya_uborka'}}">Генеральная уборка</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="http://site.domovenok.corp/posle_remonta.html">Уборка после ремонта</a>
+                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/posle_remonta'}}">Уборка после ремонта</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="http://site.domovenok.corp/uborka-kottedzhej.html">Уборка котеджей</a>
+                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/uborka-kottedzhej'}}">Уборка котеджей</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="http://site.domovenok.corp/mite_okon.html">Мытьё окон</a>
+                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/mite_okon'}}">Мытьё окон</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="http://site.domovenok.corp/himchistka.html">Химчистка</a>
+                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/himchistka'}}">Химчистка</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="http://site.domovenok.corp/vizov_mastera_na_dom.html">Домашний мастер</a>
+                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">Домашний мастер</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="link link--lg-brown" href="http://site.domovenok.corp/ezhednevnaya_uborka.html">Ежедневная уборка квартиры</a>
+                <a class="link link--lg-brown" href="{{buildUrl general.city '/ezhednevnaya_uborka'}}">Ежедневная уборка квартиры</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="link link--lg-brown" href="http://site.domovenok.corp/drugie_raboty.html">Дополнительные работы</a>
+                <a class="link link--lg-brown" href="{{buildUrl general.city '/drugie_raboty'}}">Дополнительные работы</a>
               </li>
             </ul>
           </li>
         </ul>
     
         <ul class="secondary-menu__list list">
-          <li class="secondary-menu__item  item"><a>Юридическим лицам</a>
+          <li class="secondary-menu__item  item"><a class="link link--lg-brown" href="{{buildUrl general.city '/b2b/'}}">Юридическим лицам</a>
             <ul class="secondary-menu__list secondary-menu__list--sub list">
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="http://site.domovenok.corp/uborka_ofisov.html">Уборка офисов</a>
+                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/uborka_ofisov'}}">Уборка офисов</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="http://site.domovenok.corp/uborka-proizvodstvennyh-pomewenij.html">Уборка производственных помещений</a>
+                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/uborka-proizvodstvennyh-pomewenij'}}">Уборка производственных помещений</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="http://site.domovenok.corp/mite_stekol.html">Мытье стекол</a>
+                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/mite_stekol'}}">Мытье стекол</a>
               </li>
               <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="http://site.domovenok.corp/myte-fasadov.html">Мытье фасадов</a>
+                <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/myte-fasadov'}}">Мытье фасадов</a>
               </li>
             </ul>
           </li>
@@ -531,7 +531,7 @@
   }
 </script>
 
-<script src="/static//js/bundle.js?v01"></script>
+<script src="/static/js/bundle.js?v01"></script>
 <!-- /Java Script -->
 
 </body>

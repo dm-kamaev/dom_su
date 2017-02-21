@@ -8,7 +8,7 @@ const ArticleActive = Article.scope('active')
 Article.belongsTo(Picture, { foreignKey: 'picture_id' })
 
 async function getArticle(url, additionalAttr) {
-    let attributes = ['title', 'pub_date', 'full_text', 'url']
+    let attributes = ['title', 'pub_date', 'full_text', 'url', 'title_meta', 'description_meta', 'keywords_meta']
     if (typeof additionalAttr == 'list'){
         attributes = attributes.concat(additionalAttr)
     } if (typeof additionalAttr == 'string')

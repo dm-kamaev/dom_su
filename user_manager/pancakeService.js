@@ -83,6 +83,8 @@ class PancakeService {
         return utm_list
     };
 
+    //async check404
+
     sendRequest(connectParam, body, timeout){
         timeout = timeout || 20
         let response = ''

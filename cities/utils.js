@@ -2,28 +2,33 @@
 
 
 const config = require('config');
-const { CITIES_DICT } = require('./cities')
+const { CITIES } = require('./cities')
 
 function getCityByDomain(domain) {
-    for (let city_kw of Object.keys(CITIES_DICT)){
-        if (CITIES_DICT[city_kw].domain == domain){
-            return CITIES_DICT[city_kw]
+    for (let city_kw of Object.keys(CITIES.DICT)){
+        if (CITIES.DICT[city_kw].domain == domain){
+            return CITIES.DICT[city_kw]
         }
     }
 }
 
+function _getUrlSchemaHost(city) {
+    return config.serverPath.schema + '://' + city.domain + '.' + config.serverPath.domain.withoutCity
+}
+
 function getUrlSchemaHost(cityKW) {
-    let city = CITIES_DICT[cityKW]
+    let city = CITIES.DICT[cityKW]
     if (city === undefined)
         throw new Error(`City keyword incorrect - ${cityKW}`)
-    let url = config.serverPath.schema + '://' + city.domain + '.' + config.serverPath.domain.withoutCity
+    let url = _getUrlSchemaHost(city)
     return url
 }
 
 function getUrlHost(cityKW) {
-    let city = CITIES_DICT[cityKW]
-    if (city === undefined)
+    let city = CITIES.DICT[cityKW]
+    if (city === undefined){
         throw new Error(`City keyword incorrect - ${cityKW}`)
+    }
     let url = city.domain + '.' + config.serverPath.domain.withoutCity
     return url
 }

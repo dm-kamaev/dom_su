@@ -9,6 +9,7 @@ let regexp = new RegExp(regexpString, 'g');
 function needChangeCity(ctx) {
     let newCity = ctx.state.pancakeUser.city;
     if (getUrlHost(ctx.state.pancakeUser.city.keyword) != ctx.request.host){
+        regexp.lastIndex = 0;
         let match = regexp.exec(ctx.request.host)
         if (match === null) {
             newCity = ctx.cities.default

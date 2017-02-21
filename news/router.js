@@ -2,42 +2,48 @@
 
 const Router = require('koa-router');
 const router = new Router();
-const fs = require('fs-promise')
-const fsSync = require('fs')
-const Handlebars = require('handlebars');
 const { getNews, getNewsListScroll } = require('./store')
 const logger = require('logger')(module)
+const { getTemplate, loadTemplate } = require('utils')
+
+
+const newsTemplateOpts = {
+    path: 'templates/news/news.html',
+    name: 'news'
+}
+
+const menu = {
+    main: true,
+    news: true
+}
+
+loadTemplate(newsTemplateOpts)
 
 
 const newsRouter = new Router();
 
-// function readTemplate () {
-//     let html = fsSync.readFileSync('templates/articles/articles.html', 'utf-8')
-//     return Handlebars.compile(html)
-// }
-//
-// let template = readTemplate()
-
 newsRouter.get('newsList', /^\/news\/$/, async function (ctx, next) {
-    const {modelList, begin, end} = await getNewsListScroll()
-    const html = await fs.readFile('templates/news/news.html', 'utf-8')
-    const template = Handlebars.compile(html)
-    ctx.body = template({ItemList: modelList, Begin: begin, End: end, HasRightSide: false})
+    const {modelList, begin, end} = await getNewsListScroll({where: {city_id: ctx.state.pancakeUser.city.id}})
+    const template = getTemplate(newsTemplateOpts)
+    ctx.body = template(ctx.proc({ItemList: modelList, Begin: begin, End: end, HasRightSide: false, menu: menu}))
 })
 
 newsRouter.get('newsItem', /^\/news\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
     const news = await getNews(ctx.params[0], 'id')
-    const {modelList, begin, end}= await getNewsListScroll({direction: 0, keyValue: news.id})
-    const html = await fs.readFile('templates/news/news.html', 'utf-8')
-    const template = Handlebars.compile(html)
-    ctx.body = template({ItemList: modelList, Item: news, Begin: begin, End: end, HasRightSide: true})
+    if (news === null){
+        await next()
+        return
+    }
+    const {modelList, begin, end}= await getNewsListScroll({direction: 0, keyValue: news.id, where: {city_id: ctx.state.pancakeUser.city.id}})
+    const template = getTemplate(newsTemplateOpts)
+    ctx.body = template(ctx.proc({ItemList: modelList, Item: news, Begin: begin, End: end, HasRightSide: true, menu: menu}))
 })
 
-newsRouter.get('newsListAjax', /^\/m\/news\/$/, async function (ctx, next) {
+newsRouter.get('newsListAjax', /^\/m\/news$/, async function (ctx, next) {
     try {
         const direction = ctx.query.direction;
         const news = await getNews(ctx.query.key, 'id')
-        const {modelList, begin, end} = await getNewsListScroll({keyValue: news.id, direction: direction})
+        const {modelList, begin, end} = await getNewsListScroll({keyValue: news.id, direction: direction, where: {city_id: ctx.state.pancakeUser.city.id}})
         const response = { Success: true, Data: {ItemList: modelList, Begin: begin, End: end }}
         ctx.type = 'application/json'
         ctx.body = JSON.stringify(response)
@@ -48,7 +54,7 @@ newsRouter.get('newsListAjax', /^\/m\/news\/$/, async function (ctx, next) {
     }
 })
 
-newsRouter.get('newsItemAjax', /^\/m\/news\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
+newsRouter.get('newsItemAjax', /^\/m\/news\/([0-9a-zA-Z_\-]+)$/, async function (ctx, next) {
     try {
         const news = await getNews(ctx.params[0])
         let response = { Success: true, Data: { Item: news} }

@@ -1,7 +1,6 @@
 'use strict';
 const fs = require('fs-promise')
 
-
 async function throw404(ctx, next) {
         await next()
         if (ctx.status === 404){

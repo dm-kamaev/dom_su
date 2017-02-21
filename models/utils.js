@@ -5,7 +5,7 @@ async function scrollModel(model, opts, include) {
     let begin = false;
     let end = false;
     const options = opts || {};
-    const {limit=20, order='id', sort=-1, direction=-1, keyName='id', keyValue, keyItemInclude=false, attributes=undefined } = options;
+    const {limit=20, order='id', sort=-1, direction=-1, keyName='id', keyValue, keyItemInclude=false, attributes=undefined, where={} } = options;
 
     let getOrdering = function (sort){
         if (sort === 1) {
@@ -32,9 +32,9 @@ async function scrollModel(model, opts, include) {
         return operator
     }
 
-    let WHERE = {};
-    let upWHERE = {};
-    let downWHERE = {};
+    let WHERE = JSON.parse(JSON.stringify(where));
+    let upWHERE = JSON.parse(JSON.stringify(where));
+    let downWHERE = JSON.parse(JSON.stringify(where));
 
 
 
@@ -90,7 +90,7 @@ async function scrollModel(model, opts, include) {
             }
         }
     } else {
-        modelList = await model.findAll({attributes: attributes, limit: limit, order: [[order, getOrdering(sort*-1)]], include: include})
+        modelList = await model.findAll({attributes: attributes, where:WHERE, limit: limit, order: [[order, getOrdering(sort*-1)]], include: include})
         begin = true;
         if (modelList.length < limit){
             end = true;
@@ -99,5 +99,10 @@ async function scrollModel(model, opts, include) {
     return {modelList: modelList, begin: begin, end: end}
 }
 
+async function getLastId(model, key){
+    key = key || 'id'
+    let item = await model.findOne({order: [[key, 'DESC']]})
+    return item.id
+}
 
-module.exports = {scrollModel: scrollModel}
+module.exports = {scrollModel: scrollModel, getLastId: getLastId}

@@ -1,7 +1,9 @@
 {
     "app": {
         "debug": true,
-        "port": 3003
+        "port": 3003,
+        "develop": true,
+        "production": false
     },
     "db": {
         "user": "root",
@@ -26,6 +28,7 @@
         },
         "uri": "/"
     },
+    "USER_COOKIE_KEY":"session_uid_dom_dev",
     "analytics": {
         "google": "UA-91645230-1"
     }

@@ -2,8 +2,9 @@
 const Sequelize = require('sequelize')
 const moment = require('moment')
 const opts = {
+    timezone: '+03:00',
     define: {
-        freezeTableName: true
+        freezeTableName: true,
     },
     //logging: false,
 }
@@ -12,17 +13,21 @@ const sequelize = new Sequelize('postgres://domovenok:domovenokPG@localhost:5432
 
 
 const FAQ = sequelize.define('faq', {
-        name: Sequelize.STRING,
-        pub_date: Sequelize.DATE,
-        question: Sequelize.TEXT,
-        answer: Sequelize.TEXT,
-        active: Sequelize.BOOLEAN,
-        mail: Sequelize.STRING,
-        title_meta: Sequelize.STRING,
-        description_meta: Sequelize.STRING,
-        keywords_meta: Sequelize.STRING,
-        h1_text: Sequelize.STRING,
-        note: Sequelize.TEXT,
+    name: Sequelize.STRING,
+    pub_date: {
+    type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW'),
+    },
+    question: Sequelize.TEXT,
+    answer: Sequelize.TEXT,
+    block_link: {type: Sequelize.TEXT, defaultValue: null},
+    active: Sequelize.BOOLEAN,
+    mail: Sequelize.STRING,
+    title_meta: Sequelize.STRING,
+    description_meta: Sequelize.STRING,
+    keywords_meta: Sequelize.STRING,
+    h1_text: Sequelize.STRING,
+    note: Sequelize.TEXT,
     }, {
         scopes: {active: {where: {active: true}}}
     }
@@ -82,6 +87,7 @@ const City = sequelize.define('cities', {
     title: Sequelize.STRING,
     domain: Sequelize.STRING,
     keyword: Sequelize.STRING,
+    phone: Sequelize.STRING,
     active: {type: Sequelize.BOOLEAN}
 });
 
@@ -228,7 +234,10 @@ const Visit = sequelize.define('visits', {
 
 const Review = sequelize.define('reviews', {
     name: Sequelize.STRING,
-    date: Sequelize.DATE,
+    date: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW'),
+    },
     age: Sequelize.STRING,
     job: Sequelize.STRING,
     mail: Sequelize.STRING,
@@ -237,12 +246,21 @@ const Review = sequelize.define('reviews', {
     answer: Sequelize.TEXT,
     active: Sequelize.BOOLEAN,
     send_on_save: Sequelize.BOOLEAN,
+    block_link: {type: Sequelize.TEXT, defaultValue: null},
     last_modified: Sequelize.DATE,
     note: Sequelize.TEXT,
     title_meta: Sequelize.STRING,
     description_meta: Sequelize.STRING,
     keywords_meta: Sequelize.STRING,
     isOld: Sequelize.BOOLEAN,
+    city_id: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: City,
+                key: 'id',
+                deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+            }
+    },
 }, {
     scopes: {active: {where: {active: true}}}
 })

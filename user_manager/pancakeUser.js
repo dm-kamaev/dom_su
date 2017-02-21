@@ -9,10 +9,23 @@ const {saveAndSend} = require('tickets')
 const {URL} = require('url')
 
 
-const USER_COOKIE_KEY = 'session_uid_dom'
+const USER_COOKIE_KEY = config.USER_COOKIE_KEY
 
 let banRefererString = '(:?\\w+)' + '\\\.' + config.serverPath.domain.withoutCity.replace(/\./g, "\\\.") + '$'
 let banRefererRegexp = new RegExp(banRefererString, 'g');
+
+let banIPAddress = [
+    '178.209.99.[2-6]{1}',
+	'194.135.223.26',
+	'194.135.223.27',
+	'194.135.223.28',
+	'194.135.223.29',
+	'194.135.223.30',
+	'217.173.79.102',
+	'84.52.72.197',
+	'95.165.187.222',
+	'79.137.213.[2-8]{1}'
+]
 
 class PancakeUser {
     constructor(ctx) {
@@ -25,7 +38,7 @@ class PancakeUser {
         this.visit_uuid = null
         this.request_event_uuid = null
         this.city = null;
-        this.track = {done: null, waiting: null, number: null}
+        this.track = {done: null, waiting: null, numbers: {}}
         this.google_id = null
     }
 
@@ -92,6 +105,7 @@ class PancakeUser {
             return false
         }
         let referer = new URL(this.ctx.headers.referer);
+        banRefererRegexp.lastIndex = 0;
         if (banRefererRegexp.exec(referer.hostname) !== null) {
             return false
         }
@@ -112,14 +126,14 @@ class PancakeUser {
     }
 
     async setTrackNumber() {
-        if (this.track.number !== null && this.track.number !== undefined) {
+        if (this.track.numbers && this.track.numbers[this.city.keyword]) {
             return
         }
         let phone = await Phone.findOne({where: {city_id: this.city.id, living: false, active: true}})
         if (phone !== null) {
-            this.track.number = phone.number
+            this.track.numbers[this.city.keyword] = phone.number
             this.queue.push(async function (previousResult, pancakeUser) {
-                pancakeUser.model.set('data.track.number', pancakeUser.track.number);
+                pancakeUser.model.set(`data.track.numbers.${pancakeUser.city.keyword}`, pancakeUser.track.numbers[pancakeUser.city.keyword]);
                 await pancakeUser.model.save()
                 phone.user_uuid = pancakeUser.uuid
                 await phone.save()

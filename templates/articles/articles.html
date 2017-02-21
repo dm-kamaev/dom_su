@@ -3,63 +3,52 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Статьи</title>
+  <title>{{#if Item}}{{#if Item.title_meta}}{{Item.title_meta}}{{else}}{{ Item.title }} - статьи домовенка{{/if}}{{else}}Статьи домовёнка{{/if}}</title>
+  <meta name="keywords" content="{{#if Item}}{{#if Item.keywords_meta}}{{Item.keywords_meta}}{{else}}статья, {{Item.title}}{{/if}}{{else}}Статьи по уборке{{/if}}"/>
+  <meta name="description" content="{{#if Item}}{{#if Item.description_meta}}{{Item.description_meta}}{{else}}На данной странице можно прочитать статью {{Item.title}}{{/if}}{{else}}Вы можете прочитать все статьи домовенка. Полезная информация об уборке дома{{/if}}"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui" />
   <meta name="format-detection" content="telephone=no">
-  <link rel="apple-touch-icon" sizes="57x57" href="/static/img/apple-touch-icon-57x57.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="60x60" href="/static/img/apple-touch-icon-60x60.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="72x72" href="/static/img/apple-touch-icon-72x72.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="76x76" href="/static/img/apple-touch-icon-76x76.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="114x114" href="/static/img/apple-touch-icon-114x114.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="120x120" href="/static/img/apple-touch-icon-120x120.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="144x144" href="/static/img/apple-touch-icon-144x144.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="152x152" href="/static/img/apple-touch-icon-152x152.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon-180x180.png?v=1.0">
-  <link rel="icon" type="image/png" href="/static/img/favicon-32x32.png?v=1.0" sizes="32x32">
-  <link rel="icon" type="image/png" href="/static/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
-  <link rel="icon" type="image/png" href="/static/img/favicon-16x16.png?v=1.0" sizes="16x16">
-  <link rel="manifest" href="/static/manifest.json?v=1.02">
-  <link rel="mask-icon" href="/static/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
+  {{#if noindex}} <meta name="robots" content="noindex,nofollow"> {{else}} <meta name="robots" content="index, follow"/> {{/if}}
+  {{#if canonical }}<link rel="canonical" href="{{canonicalPath}}"/>{{/if}}
+  <link rel="apple-touch-icon" sizes="57x57" href="/static/pancake/img/apple-touch-icon-57x57.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="60x60" href="/static/pancake/img/apple-touch-icon-60x60.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="72x72" href="/static/pancake/img/apple-touch-icon-72x72.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="76x76" href="/static/pancake/img/apple-touch-icon-76x76.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="114x114" href="/static/pancake/img/apple-touch-icon-114x114.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="120x120" href="/static/pancake/img/apple-touch-icon-120x120.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="144x144" href="/static/pancake/img/apple-touch-icon-144x144.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="152x152" href="/static/pancake/img/apple-touch-icon-152x152.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/pancake/img/apple-touch-icon-180x180.png?v=1.0">
+  <link rel="icon" type="image/png" href="/static/pancake/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
+  <link rel="icon" type="image/png" href="/static/pancake/img/favicon-16x16.png?v=1.01" sizes="16x16">
+  <link rel="icon" type="image/png" href="/static/pancake/img/favicon-32x32.png?v=1.01" sizes="32x32">
+  <link rel="icon" type="image/png" href="/static/pancake/img/favicon-48x48.png?v=1.0" sizes="48x48">
+  <link rel="manifest" href="/static/pancake/manifest.json?v=1.02">
+  <link rel="mask-icon" href="/static/pancake/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
   <meta name="apple-mobile-web-app-title" content="Domovenok">
   <meta name="application-name" content="Domovenok">
   <meta name="msapplication-TileColor" content="#fd8204">
-  <meta name="msapplication-TileImage" content="/static/img/mstile-144x144.png?v=1.0">
-  <meta name="msapplication-config" content="/static/browserconfig.xml?v=1.02">
+  <meta name="msapplication-TileImage" content="/static/pancake/img/mstile-144x144.png?v=1.0">
+  <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
-  <link rel="stylesheet" href="/static/css/style.css">
-  <script src="/static/js/vendor/vendor.js"></script>
+
+  <link rel="stylesheet" href="/static/pancake/css/style.css">
+  <script src="/static/pancake/js/vendor/vendor.min.js"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
   <script>
-    var domovenokClient = {
-      name: ''
-    };
-//    var generalPath = {
-//      schema: '',
-//      domain: '',
-//      url: ''
-//    };
-
-    var generalPath = {
-      schema: 'http',
-      domain: 'site.domovenok.corp:3004',
-      url: 'articles'
-    };
-
-    generalPath.buildUrl = function (additional) {
-      var build = this.schema + '://' + this.domain + '/' + this.url + '/';
-      if (additional)
-        build += additional;
-      return build;
-    };
-
-
     var itemList = {
       begin: {{Begin}},
       end: {{End}}
     };
 
-    var clientId = '';
+    var analyticConf = {
+      id: "{{general.analytics.GAUA}}",
+      userId: "{{general.analytics.userUuid}}",
+      phone: "{{general.analytics.phone}}",
+      phoneDimension: "{{general.analytics.phoneDimension}}"
+    };
+
   </script>
 </head>
 <body class="page  page--articles">
@@ -67,21 +56,22 @@
 <div class="page__wrap">
 
   <!-- Page Header -->
+  <!-- page-header.html -->
   <header class="page-header  page-header--scroll  page-header--contact">
-
+  
     <div class="page-header__top">
-      <a class="main-menu__btn  main-menu__btn--open" href>
+      <button class="main-menu__btn  main-menu__btn--open">
         <svg class="main-menu__image" width="31" height="23.9" viewBox="0 0 31 23.9">
           <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
           <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
           <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
         </svg>
-      </a>
-      <a class="page-header__logo" href="http://www.domovenok.su"><img height="38" width="152" src="/static/img/logo.svg" alt="Логотип"></a>
-
-      <a class="page-header__tel" href="tel: +74956680468"><span class="page-header__tel-brown">8 (495)</span> 668-04-68</a>
+      </button>
+      <a class="page-header__logo" href="http://www.domovenok.su"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Логотип"/></a>
+  
+      <a class="page-header__tel" href="tel:{{ general.phoneHref }}"><span class="page-header__tel-brown">{{ general.phoneCode }}</span> {{ general.phoneNumber }}</a>
     </div>
-
+  
     <div class="page-header__wrap">
       <a class="main-menu__icon-close  icon-close" href="#">
         <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
@@ -89,248 +79,283 @@
           <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
         </svg>
       </a>
-
-      <div class="change-town">
-
-        <p class="change-town__btn">Москва</p>
-
-        <ul class="change-town__list list">
-          <li class="change-town__item change-town__item--active item">
-            <a class="change-town__link link" href="http://www.domovenok.su/podderzhka">Москва</a>
-          </li>
-          <li class="change-town__item item">
-            <a class="change-town__link link" href="https://spb.domovenok.su/podderzhka">Санкт-Петербург</a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Main Menu -->
-      
+  
+      <!--Main Menu-->
       <nav class="page-header__main-menu  main-menu  scroll-container">
-      
+  
         <ul class="main-menu__list">
-      
-          <li class="main-menu__item main-menu__item--sub">
-            <a class="main-menu__link"  href="http://site.domovenok.corp/main.html">
-              Главная
-            </a>
-      
-            <!--Sub Menu-->
-            <ul class="main-menu__list  main-menu__list--sub">
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/about-us.html">
-                  О нас
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/news.html">
-                  Услуги
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/important.html">
-                  Важно знать
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/questions.html">
-                  Вопросы и ответы
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/news.html">
-                  Новости
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub  main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/articles.html">
-                  Статьи
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/gallery.html">
-                  Галерея
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/promotion.html">
-                  Специальные акции
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/career.html">
-                  Вакансии
-                </a>
-              </li>
-      
-            </ul>
-            <!--/Sub Menu-->
-      
-          </li>
-      
-          <li class="main-menu__item  main-menu__item--sub">
-            <a class="main-menu__link">
-              Физическим лицам
-            </a>
-      
-            <!--Sub Menu-->
-            <ul class="main-menu__list  main-menu__list--sub">
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/podderzhka.html">
-                  Поддерживающая уборка
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/domrabotnica.html">
-                  Домработница
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/generalnaya_uborka.html">
-                  Генеральная уборка
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/posle_remonta.html">
-                  Уборка после ремонта
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/uborka-kottedzhej.html">
-                  Уборка коттеджей
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub  main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/mite_okon.html">
-                  Мытье окон
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/himchistka.html">
-                  Химчистка
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/vizov_mastera_na_dom.html">
-                  Домашний мастер
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/obrabotka_poverhnostey.html">
-                  Обработка поверхностей
-                </a>
-              </li>
-      
-            </ul>
-            <!--/Sub Menu-->
-      
-          </li>
-      
-          <li class="main-menu__item  main-menu__item--sub">
-            <a class="main-menu__link">
-              Юридическим лицам
-            </a>
-      
-            <!--Sub Menu-->
-            <ul class="main-menu__list  main-menu__list--sub">
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/uborka_ofisov.html">
-                  Уборка офисов
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/uborka-proizvodstvennyh-pomewenij.html">
-                  Уборка производственных помещений
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/ofisnyy-master.html">
-                  Офисный мастер
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/mite_stekol">
-                  Мытье стекол
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/myte-fasadov">
-                  Мытье фасадов
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/promyshlennyj-alpinizm.html">
-                  Промышленный альпинизм
-                </a>
-              </li>
-      
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="http://site.domovenok.corp/obrabotka_poverhnostey.html">
-                  Обработка поверхностей
-                </a>
-              </li>
-      
-            </ul>
-            <!--/Sub Menu-->
-      
-          </li>
-      
+  
           <li class="main-menu__item">
-            <a class="main-menu__link"  href="http://site.domovenok.corp/private.html">
+            <a class="main-menu__link"  href="{{buildUrl general.city '/private/'}}">
               Личный кабинет
             </a>
           </li>
-      
-          <li class="main-menu__item">
-            <a class="main-menu__link"  href="http://site.domovenok.corp/contacts.html">
+  
+          <li class="main-menu__item main-menu__item--sub {{#if menu.main}}main-menu__item--active{{/if}}">
+            <a class="main-menu__link">
+              Главная
+            </a>
+  
+            <!--Sub Menu-->
+            <ul class="main-menu__list  main-menu__list--sub">
+  
+              <li class="main-menu__item-sub {{#if menu.main_page}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/'}}">
+                  Главная
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.about}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/about/'}}">
+                  О нас
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.uslugi}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/uslugi/'}}">
+                  Услуги
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.vazhno_znat}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/vazhno_znat/'}}">
+                  Важно знать
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.faq}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/faq/'}}">
+                  Вопросы и ответы
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.news}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/news/'}}">
+                  Новости
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.articles}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/articles/'}}">
+                  Статьи
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/gallery/'}}">
+                  Галерея
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.skidki_akcii}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/skidki_akcii/'}}">
+                  Специальные акции
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.vakansii}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/vakansii/'}}">
+                  Вакансии
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.davay_druzhit}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/davay_druzhit/'}}">
+                  Обслуживание по графику
+                </a>
+              </li>
+  
+            </ul>
+            <!--/Sub Menu-->
+  
+          </li>
+  
+          <li class="main-menu__item  main-menu__item--sub {{#if menu.physical}}main-menu__item--active{{/if}}">
+            <a class="main-menu__link">
+              Физическим лицам
+            </a>
+  
+            <!--Sub Menu-->
+            <ul class="main-menu__list  main-menu__list--sub">
+  
+              <li class="main-menu__item-sub {{#if menu.podderzhka}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/podderzhka'}}">
+                  Поддерживающая уборка
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.domrabotnica}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/domrabotnica'}}">
+                  Домработница
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.generalnaya_uborka}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/generalnaya_uborka'}}">
+                  Генеральная уборка
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.glazhka}}main-menu__item-sub--active{{/if}}" >
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/glazhka'}}">
+                  Глажка
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.posle_remonta}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/posle_remonta'}}">
+                  Уборка после ремонта
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.uborka_kottedzhej}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka-kottedzhej'}}">
+                  Уборка коттеджей
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.mite_okon}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/mite_okon'}}">
+                  Мытьё окон
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.himchistka}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/himchistka'}}">
+                  Химчистка
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.vizov_mastera_na_dom}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
+                  Домашний мастер
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.obrabotka_poverhnostey}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
+                  Обработка поверхностей
+                </a>
+              </li>
+  
+            </ul>
+            <!--/Sub Menu-->
+  
+          </li>
+  
+          <li class="main-menu__item  main-menu__item--sub {{#if menu.legal}}main-menu__item--active{{/if}}">
+            <a class="main-menu__link">
+              Юридическим лицам
+            </a>
+  
+            <!--Sub Menu-->
+            <ul class="main-menu__list  main-menu__list--sub">
+  
+              <li class="main-menu__item-sub {{#if menu.uborka_ofisov}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka_ofisov'}}">
+                  Уборка офисов
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.uborka_proizvodstvennyh_pomewenij}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka-proizvodstvennyh-pomewenij'}}">
+                  Уборка производственных помещений
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.ofisnyy_master}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/ofisnyy-master'}}">
+                  Офисный мастер
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.mite_stekol}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/mite_stekol'}}">
+                  Мытьё стекол
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.myte_fasadov}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/myte-fasadov'}}">
+                  Мытьё фасадов
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.promyshlennyj_alpinizm}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/promyshlennyj-alpinizm'}}">
+                  Промышленный альпинизм
+                </a>
+              </li>
+  
+              <li class="main-menu__item-sub {{#if menu.obrabotka_poverhnostey}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
+                  Обработка поверхностей
+                </a>
+              </li>
+  
+            </ul>
+            <!--/Sub Menu-->
+  
+          </li>
+  
+          <li class="main-menu__item {{#if menu.reviews}}main-menu__item--active{{/if}}">
+            <a class="main-menu__link" href="{{buildUrl general.city '/otzivi/'}}">
+              Отзывы
+            </a>
+          </li>
+  
+          <li class="main-menu__item {{#if menu.price}}main-menu__item--active{{/if}}">
+            <a class="main-menu__link" href="{{buildUrl general.city '/price/'}}">
+              Цены
+            </a>
+          </li>
+  
+          <li class="main-menu__item {{#if menu.contacts}}main-menu__item--active{{/if}}">
+            <a class="main-menu__link"  href="{{buildUrl general.city '/contacts/'}}">
               Контакты
             </a>
           </li>
-      
+  
         </ul>
-      
+  
       </nav>
-      <!-- /Main Menu -->
-
-      <!-- Contacts -->
-      <!-- //= components/contact/contact.html -->
-      <!-- /Contacts -->
-
+      <!--/Main Menu-->
+  
+      <!--
+      <div class="page-header__contact  contact">
+        <a class="contact__callback" href>Свяжитесь со мной</a>
+      </div>
+      -->
+  
+      <div class="change-town">
+  
+        <p class="change-town__btn">{{general.city.title}}</p>
+  
+        <ul class="change-town__list list">
+          <li class="change-town__item {{#ifCond general.city.keyword '==' 'moscow' }}change-town__item--active{{/ifCond}} item">
+            <a class="change-town__link link" href="{{buildUrl 'moscow' general.path}}">Москва</a>
+          </li>
+          <li class="change-town__item {{#ifCond general.city.keyword '==' 'spb' }}change-town__item--active{{/ifCond}} item">
+            <a class="change-town__link link" href="{{buildUrl 'spb' general.path}}">Санкт-Петербург</a>
+          </li>
+        </ul>
+      </div>
+  
     </div>
-
+  
   </header>
   <!-- /Page Header -->
 
   <!-- Main Content -->
   <main class="page__main-content  main-content">
-    <div class="left-side {{#HasRightSide}}left-side--mobile{{/HasRightSide}}">
+    <div class="left-side {{#if HasRightSide}}left-side--mobile{{/if}}">
 
       <div class="left-side__top">
+        {{#if HasRightSide}}
+        <p class="left-side__title  title">Статьи</p>
+        {{else}}
         <h1 class="left-side__title  title">Статьи</h1>
+        {{/if}}
       </div>
 
       <!-- Orders -->
@@ -338,17 +363,20 @@
         <div class="left-side__wrap scroll-container-unstable">
           <div class="left-side__list articles">
             {{#each ItemList}}
-            <article  class="left-side__item articles__item" data-id="{{url}}">
-              <div class="articles__row">
-                <div class="articles__column">
-                  <img class="articles__image" src="https://www.domovenok.su/media/{{ picture.pic }}">
+            <a class="left-side__item articles__item" href="/articles/{{url}}/" data-id="{{url}}">
+              
+                <div class="articles__row">
+                  {{#if picture}}
+                  <div class="articles__column">
+                    <img class="articles__image" src="https://www.domovenok.su/media/{{ picture.pic }}">
+                  </div>
+                  {{/if}}
+                  <div class="articles__column">
+                    <p class="articles__title title">{{ title }}</p>
+                    {{{ preview_text }}}
+                  </div>
                 </div>
-                <div class="articles__column">
-                  <h3 class="articles__title title">{{ title }}</h3>
-                  {{{ preview_text }}}
-                </div>
-              </div>
-            </article>
+            </a>
             {{/each}}
         </div>
       </div>
@@ -378,15 +406,20 @@
 
         <article  class="article">
           <div class="article__wrap">
-
+        
+            {{#if HasRightSide}}
             <h2>{{title}}</h2>
+            {{else}}
+            <h1>{{title}}</h1>
+            {{/if}}
             <time datetime="">{{formatDate pub_date}}</time>
-            <!--<p>Время чтения: <span>10 минут</span><a>Нет времени читать?</a></p>-->
+            {{#if picture}}
             <img srcset="https://www.domovenok.su/media/{{ picture.pic }}" alt="" width="300" height="200">
+            {{/if}}
             {{{full_text}}}
-
+        
           </div>
-
+        
           <footer class="article__footer">
             <form class="article__inner article-subscribe">
               <h3 class="article-subscribe__title title">Понравилась статья?</h3>
@@ -396,7 +429,7 @@
                 <button class="article-subscribe__button button" type="submit">Подписаться</button>
               </div>
             </form>
-
+        
             <div class="article__inner article-like">
               <h3 class="article-like__title title">Была ли Вам полезна статья?</h3>
               <div class="article-like__row">
@@ -404,26 +437,10 @@
                 <button class="article-like__button article-like__button--no button">Нет</button>
               </div>
             </div>
-
+        
             <div class="article__inner">
               <h3 class="right-side__heading title">Поделиться:</h3>
               <div class="article__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
-            </div>
-
-            <div class="linking-pages">
-              <h3 class="right-side__heading title">У нас Вы можете заказать:</h3>
-
-              <ul class="list">
-                <li class="item item--circle">
-                  <a class="link" href="">Мытье пластиковых окон</a>
-                </li>
-                <li class="item item--circle">
-                  <a class="link" href="">Поддерживающую уборку офисов в Москве</a>
-                </li>
-                <li class="item item--circle">
-                  <a class="link" href="">Уборку таунхауса после ремонта по подходящим ценам</a>
-                </li>
-              </ul>
             </div>
           </footer>
         </article>
@@ -434,122 +451,56 @@
   </main>
 
   <!-- Pop up -->
+  <!-- Pop up -->
   <div class="pop-up  pop-up--hide  scroll-container-unstable">
-
+  
     <div class="pop-up__wrap">
-
+  
       <button class="pop-up__btn-close  icon-close" type="button">
         <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
           <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
           <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
         </svg>
       </button>
-
-      <div class="pop-up__item pop-up__item--hide  application">
-        <div class="application__wrap">
-          <form class="application__form">
-            <h2 class="application__title  title">Форма заказа</h2>
-            <div class="application__row">
-              <label class="application__label  label">Площадь квартиры</label>
-              <input class="application__input  application__input--square  application__input--half  input" type="number" autofocus><span class="application__size">м<sup><small>2</small></sup></span>
+  
+      <div class="pop-up__item pop-up__item--hide  service-order">
+        <div class="service-order__wrap">
+          <form class="service-order__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "order"}' ya-reach="order_applic">
+            <h2 class="service-order__title  title">Оставить заявку</h2>
+            <div class="service-order__row">
+              <label class="service-order__label  label">ФИО</label>
+              <input class="service-order__input  input" type="text" autofocus>
             </div>
-            <div class="application__row">
-              <p class="application__label  label">Вид услуг</p>
-              <div class="application__selection selection">
-                <button class="application__selection-btn selection__btn" type="button">Поддерживающая уборка</button>
-                <ul class="application__list selection__list  scroll-container">
-                  <li class="application__option selection__option">Поддерживающая уборка</li>
-                  <li class="application__option selection__option">Генеральная уборка</li>
-                  <li class="application__option selection__option">Уборка после ремонта</li>
-                  <li class="application__option selection__option">Мытье окон</li>
-                  <li class="application__option selection__option">Домработница</li>
-                  <li class="application__option selection__option">Химчистка</li>
-                  <li class="application__option selection__option">Глажка/стирка</li>
-                  <li class="application__option selection__option">Уборка офисов</li>
-                  <li class="application__option selection__option">Обработка поверхностей</li>
-                  <li class="application__option selection__option">Промышленный альпинизм</li>
-                  <li class="application__option selection__option">Уборка коттеджей</li>
-                  <li class="application__option selection__option">Домашний мастер</li>
-                  <li class="application__option selection__option">Мытье фасадов</li>
-                  <li class="application__option selection__option">Чистка бассейнов</li>
-                  <li class="application__option selection__option">Офисный мастер</li>
-                </ul>
-              </div>
+  
+            <div class="service-order__row">
+              <label class="service-order__label  label">Номер телефона</label>
+              <input class="service-order__input  input" type="tel" autofocus>
             </div>
-
-            <div class="application__row">
-              <p class="application__label  label">Дополнительная информация</p>
-              <textarea  class="application__textarea  textarea"></textarea>
+  
+            <div class="service-order__row">
+              <p class="service-order__label  label">Дополнительная информация</p>
+              <textarea  class="service-order__textarea  textarea"></textarea>
             </div>
-            <div class="application__row">
+            <div class="service-order__row">
               <label class="label-checkbox">
                 <input type="checkbox" class="checkbox  checkbox--small" checked  required>
                 <span class="checkbox__indicator  checkbox__indicator--small  checkbox__indicator--light"></span>
                 <span class="label-text">Cогласен с обработкой моих персональных данных в соответствии с ФЗ РФ от 27.06.06 г. N°152-ФЗ «О персональных данных»</span>
               </label>
             </div>
-            <div class="application__row">
-              <button class="application__button  button" type="submit">Отправить</button>
+            <div class="service-order__row">
+              <div class="service-order__button">
+                <button class="button" type="submit">Отправить</button>
+              </div>
             </div>
           </form>
         </div>
       </div>
-
-      <!-- Post rating -->
-      <div class="pop-up__item pop-up__item--hide  post-rating">
-
-        <div class="post-rating__wrap">
-          <h2 class="post-rating__title  title">Спасибо за оказанное доверие. <br>Мы и впредь будем стараться!</h2>
-
-          <section class="post-rating__section">
-            <p class="post-rating__heading  text">Мы были бы Вам признательны, если Вы опубликуете отзыв о нас на порталах с отзывами:</p>
-            <div class="post-rating__social-links  social-links--btn">
-              <a href="http://otzovik.com/reviews/kliningovaya_kompaniya_domovenok_russia_moscow/" class="social-link social-link--otzovic social-link--btn"  target="_blank" data-ga='{"hitType": "event","eventCategory": "review_order", "eventAction": "share","eventLabel": "otzovik"}'>
-                <svg class="social-link__icon--otzovic" width="131" height="32.02" viewBox="0 0 131 32.02">
-                  <circle cx="17.55" cy="14.36" r="0.06" style="fill: #fd8204"/>
-                  <path d="M381.12,15.28a16,16,0,1,0,16,16A16,16,0,0,0,381.12,15.28Zm0,0.7A2.09,2.09,0,1,1,379,18.07,2.09,2.09,0,0,1,381.09,16Zm0.12,25.92a10.58,10.58,0,0,1-.87-21.12v5.64a4.86,4.86,0,1,0,1.39,0V20.75A10.58,10.58,0,0,1,381.21,41.89Z" transform="translate(-365.11 -15.28)" style="fill: #fd8204"/>
-                  <path d="M408.37,25h-5.7a3.5,3.5,0,0,0-3.49,3.49v5.7a3.5,3.5,0,0,0,3.49,3.49h5.7a3.5,3.5,0,0,0,3.49-3.49V28.5A3.5,3.5,0,0,0,408.37,25ZM409,33.79a1,1,0,0,1-1,1h-4.82a1,1,0,0,1-1-1V28.91a1,1,0,0,1,1-1h4.82a1,1,0,0,1,1,1v4.88Z" transform="translate(-365.11 -15.28)" style="fill: #fd8204"/>
-                  <path d="M450.21,25.07h-5.7A3.5,3.5,0,0,0,441,28.56v5.7a3.5,3.5,0,0,0,3.49,3.49h5.7a3.5,3.5,0,0,0,3.49-3.49v-5.7A3.5,3.5,0,0,0,450.21,25.07Zm0.61,8.78a1,1,0,0,1-1,1H445a1,1,0,0,1-1-1V29a1,1,0,0,1,1-1h4.82a1,1,0,0,1,1,1v4.88Z" transform="translate(-365.11 -15.28)" style="fill: #fd8204"/>
-                  <polygon points="60.62 9.76 48.03 9.76 48.03 12.58 52.92 12.58 52.92 22.32 55.74 22.32 55.74 12.58 60.62 12.58 60.62 9.76" style="fill: #fd8204"/>
-                  <polygon points="113.62 9.79 113.62 9.83 113.57 9.79 106.62 18.07 106.62 9.79 103.86 9.79 103.86 22.32 106.62 22.32 106.62 22.29 106.66 22.32 113.62 14.02 113.62 22.32 116.38 22.32 116.38 9.79 113.62 9.79" style="fill: #fd8204"/>
-                  <polygon points="127.57 22.34 131 22.33 125.73 16.03 130.97 9.79 127.43 9.77 123.34 14.65 120.6 14.65 120.6 9.76 117.81 9.76 117.81 22.32 120.6 22.32 120.6 17.46 123.48 17.46 127.57 22.34" style="fill: #fd8204"/>
-                  <path d="M439.66,28.87A3.82,3.82,0,0,0,436,25.05h-8.86v2.8H436a1,1,0,0,1,0,2l-3.79,0H432v2.83h0.16l3.79,0a1,1,0,0,1,0,2l-2.61,0H427.1v2.8H436a3.82,3.82,0,0,0,2.8-6.28A3.81,3.81,0,0,0,439.66,28.87Z" transform="translate(-365.11 -15.28)" style="fill: #fd8204"/>
-                  <path d="M467.55,28.88a3.82,3.82,0,0,0-3.68-3.82H455V37.62h8.84a3.82,3.82,0,0,0,2.8-6.28A3.81,3.81,0,0,0,467.55,28.88Zm-3.71,5.93-2.61,0h-3.44V32.74h2.27l3.79,0A1,1,0,0,1,463.84,34.81Zm0-4.92-3.79,0h-2.26v-2h6.08A1,1,0,0,1,463.84,29.89Z" transform="translate(-365.11 -15.28)" style="fill: #fd8204"/>
-                </svg>
-              </a>
-              <a href="http://www.yell.ru/moscow/com/domovenok_10838159/#reviewForm" class="social-link social-link--yell social-link--btn" target="_blank" data-ga='{"hitType": "event","eventCategory": "review_order", "eventAction": "share","eventLabel": "yell"}'>
-                <svg class="social-link__icon--yell" width="106" height="26.44" viewBox="0 0 106 26.44">
-                  <path d="M391.7,71.36s1.11,9,2.18,11.69a69.15,69.15,0,0,0,6.64-11.74,18.68,18.68,0,0,1,5.71.56A72,72,0,0,1,396,88.76l-1.44,8.58s-1.67.6-6.08,0.19l1.58-9a43.73,43.73,0,0,1-4.36-16.66A16,16,0,0,1,391.7,71.36Z" transform="translate(-385.72 -71.23)" style="fill: #fd8204"/>
-                  <path d="M407.25,71.64L402.7,97.48l14.94,0a15.31,15.31,0,0,0,1-5.2h-9.23l1-5.38,8.4-.51s1-1.16,1-5.2l-8.45.56,0.84-5.15h9.14a11.09,11.09,0,0,0,.88-5H407.25Z" transform="translate(-385.72 -71.23)" style="fill: #fd8204"/>
-                  <path d="M425.72,71.59l-4.36,25.8H435s0.74-1.07,1-5.06l-7.52-.46,3.67-20.37S428,70.85,425.72,71.59Z" transform="translate(-385.72 -71.23)" style="fill: #fd8204"/>
-                  <path d="M441.54,71.64l-4.36,25.8h13.69s0.74-1.07,1-5.06l-7.52-.46L448,71.54S443.81,70.89,441.54,71.64Z" transform="translate(-385.72 -71.23)" style="fill: #fd8204"/>
-                  <path d="M478.85,80.17l-2,12.13s-1.21,5.23,5.75,5.26,7.15-6.77,7.15-6.77l1.95-10.64a12,12,0,0,0-4.18,0l-1.83,11s-0.4,3.12-2.63,3.09-2.32-.87-1.95-3.31,1.79-10.67,1.79-10.67A7,7,0,0,0,478.85,80.17Z" transform="translate(-385.72 -71.23)" style="fill: #fd8204"/>
-                  <path d="M474.95,86.58c0.9-2.11.42-5.77-2.57-6.31a64.63,64.63,0,0,0-8.14-.12l-3,17.29a9.36,9.36,0,0,0,3.77-.06l1.24-6.4a8.18,8.18,0,0,0,2.07-.06,15.2,15.2,0,0,0,1.89,6.5,15,15,0,0,0,4.45,0s-2.35-4.45-2.44-7.33A9.91,9.91,0,0,0,474.95,86.58Zm-3.62-.9a2.58,2.58,0,0,1-1.89,1.86,15.94,15.94,0,0,1-2.47,0l0.59-3.93a22.38,22.38,0,0,1,2.75.06A1.42,1.42,0,0,1,471.33,85.68Z" transform="translate(-385.72 -71.23)" style="fill: #fd8204"/>
-                </svg>
-              </a>
-            </div>
-          </section>
-
-          <section class="post-rating__section">
-            <p class="post-rating__heading  text">Или же Вы можете оставить свой отзыв на нашем сайте:</p>
-            <button class="post-rating__button  button" data-ga='{"hitType": "event","eventCategory": "review_order", "eventAction": "share", "eventLabel": "site"}'>Опубликовать на сайте</button>
-          </section>
-
-          <section class="post-rating__section">
-            <p class="post-rating__heading  text">Также мы будем рады Вашим отзывам в социальных сетях:</p>
-
-            <div class="post-rating__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
-          </section>
-
-        </div>
-      </div>
-
-      <!-- /Pop up -->
-
+  
       <div class="pop-up__item  pop-up__item--sm  pop-up__item--hide  notification">
         <p class="notification__text  title">Текст</p>
       </div>
-
+  
       <div class="pop-up__item  pop-up__item--sm  pop-up__item--hide  general-question">
         <form class="general-question__form">
           <h2 class="general-question__title  title">Вы уверены?</h2>
@@ -557,51 +508,37 @@
           <button class="general-question__button  general-question__button--no  button" type="button">Нет</button>
         </form>
       </div>
-
-      <!-- Rating-form  -->
-      <div class="pop-up__item pop-up__item--hide  rating-form">
-
-        <form class="rating-form__wrap" method="get" data-ga='{"hitType": "event","eventCategory": "form","eventAction": "send","eventLabel": "review_order"}'>
-          <h2 class="rating-form__title  title">Оценка за заказ</h2>
-          <p class="rating-form__text  text">Оцените, пожалуйста, проведенную уборку. Все ли Вам понравилось? Если У Вас остались какие-то замечания или пожелания, то напишите, пожалуйста, ниже. Нам важно Ваше мнение!
-            Будем очень признательны, если Вы заполните анкету. Спасибо!</p>
-
-          <!-- rating-form  Sections-->
-          <div class="rating-form__sections">
-
-            <div class="rating-form__section">
-              <p class="rating-form__heading  heading">Качество оказанных услуг</p>
-
-              <div class="rating-form__stars stars">
-                <input class="stars__input  stars__input--quality" id="star-34" type="radio" name="Quality" value="5"/>
-                <label class="stars__label  stars__label--quality" title="Отлично" for="star-34"></label>
-
-                <input class="stars__input  stars__input--quality" id="star-33" type="radio" name="Quality" value="4"/>
-                <label class="stars__label  stars__label--quality" title="Хорошо" for="star-33"></label>
-
-                <input class="stars__input  stars__input--quality" id="star-32" type="radio" name="Quality" value="3"/>
-                <label class="stars__label  stars__label--quality" title="Неплохо" for="star-32"></label>
-
-                <input class="stars__input  stars__input--quality" id="star-31" type="radio" name="Quality" value="2"/>
-                <label class="stars__label  stars__label--quality" title="Плохо" for="star-31"></label>
-
-                <input class="stars__input  stars__input--quality" id="star-30" type="radio" name="Quality" value="1"/>
-                <label class="stars__label  stars__label--quality" title="Ужасно" for="star-30"></label>
+  
+      <div class="pop-up__item  pop-up__item--hide  get-document">
+        <div class="get-document__wrap">
+          <form class="get-document__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "getContract"}'  ya-reach="order_applic">
+            <h2 class="get-document__title  title">Получить экземпляр договора</h2>
+  
+            <div class="get-document__row">
+              <label class="get-document__label  label">Введите e-mail</label>
+              <input class="get-document__input  input" type="email" autofocus required>
+            </div>
+  
+            <div class="get-document__row">
+              <label class="label-checkbox">
+                <input type="checkbox" class="checkbox  checkbox--small" checked  required>
+                <span class="checkbox__indicator  checkbox__indicator--small  checkbox__indicator--light"></span>
+                <span class="label-text">Cогласен с обработкой моих персональных данных в соответствии с ФЗ РФ от 27.06.06 г. N°152-ФЗ «О персональных данных»</span>
+              </label>
+            </div>
+            <div class="get-document__row">
+              <div class="get-document__button">
+                <button class="button" type="submit">Отправить</button>
               </div>
             </div>
-            <!-- /rating-form  Sections-->
-
-            <p class="rating-form__heading  heading">Примечания</p>
-            <textarea class="rating-form__textarea  textarea"></textarea>
-            <button class="rating-form__button  button" type="submit">Оценить</button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-
-      <!-- /Rating-form  -->
+  
     </div>
-
+  
   </div>
+  <!-- /Pop up -->
   <!-- /Pop up -->
 
 
@@ -613,15 +550,18 @@
 <!-- Template Order -->
 <script id="left-side__item" type="text/html">
   {{{{raw}}}}
-    <div class="articles__row">
-      <div class="articles__column">
-        <img class="articles__image" src="https://www.domovenok.su/media/{{ pic }}">
+    
+      <div class="articles__row">
+        {{#if picture}}
+        <div class="articles__column">
+          <img class="articles__image" src="https://www.domovenok.su/media/{{ picture.pic }}">
+        </div>
+        {{/if}}
+        <div class="articles__column">
+          <p class="articles__title title">{{ title }}</p>
+          {{{ preview_text }}}
+        </div>
       </div>
-      <div class="articles__column">
-        <h3 class="articles__title title">{{ title }}</h3>
-        <p class="articles__text text">{{{ preview_text }}}</p>
-      </div>
-    </div>
   {{{{/raw}}}}
 </script>
 <!-- /Template Active Order -->
@@ -634,69 +574,76 @@
       <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
     </svg>
   </button>
+
+  <article  class="article">
+    <div class="article__wrap">
   
-    <article  class="article">
-      <div class="article__wrap">
-
-        <h2>{{title}}</h2>
-        <time datetime="">{{pub_date}}</time>
-        {{#picture}}
-        <img srcset="https://www.domovenok.su/media/{{ pic }}" alt="" width="300" height="200">
-        {{/picture}}
-        {{{full_text}}}
-
+      {{#if HasRightSide}}
+      <h2>{{title}}</h2>
+      {{else}}
+      <h1>{{title}}</h1>
+      {{/if}}
+      <time datetime="">{{formatDate pub_date}}</time>
+      {{#if picture}}
+      <img srcset="https://www.domovenok.su/media/{{ picture.pic }}" alt="" width="300" height="200">
+      {{/if}}
+      {{{full_text}}}
+  
+    </div>
+  
+    <footer class="article__footer">
+      <form class="article__inner article-subscribe">
+        <h3 class="article-subscribe__title title">Понравилась статья?</h3>
+        <p class="article-subscribe__text text">Подписывайтесь на нашу рассылку</p>
+        <div class="article-subscribe__row">
+          <input class="article-subscribe__input input" type="email" name="email" placeholder="Напишите e-mail" required>
+          <button class="article-subscribe__button button" type="submit">Подписаться</button>
+        </div>
+      </form>
+  
+      <div class="article__inner article-like">
+        <h3 class="article-like__title title">Была ли Вам полезна статья?</h3>
+        <div class="article-like__row">
+          <button class="article-like__button article-like__button--yes button">Да</button>
+          <button class="article-like__button article-like__button--no button">Нет</button>
+        </div>
       </div>
+  
+      <div class="article__inner">
+        <h3 class="right-side__heading title">Поделиться:</h3>
+        <div class="article__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
+      </div>
+    </footer>
+  </article>
 
-      <footer class="article__footer">
-        <form class="article__inner article-subscribe">
-          <h3 class="article-subscribe__title title">Понравилась статья?</h3>
-          <p class="article-subscribe__text text">Подписывайтесь на нашу рассылку</p>
-          <div class="article-subscribe__row">
-            <input class="article-subscribe__input input" type="email" name="email" id="subscription" placeholder="Напишите e-mail" required>
-            <button class="article-subscribe__button button" type="submit">Подписаться</button>
-          </div>
-        </form>
-
-        <div class="article__inner article-like">
-          <h3 class="article-like__title title">Была ли Вам полезна статья?</h3>
-          <div class="article-like__row article__row--sm">
-            <button class="article-like__button article-like__button--yes button">Да</button>
-            <button class="article-like__button article-like__button--no button">Нет</button>
-          </div>
-        </div>
-
-        <div class="article__inner">
-          <h3 class="right-side__heading title">Поделиться:</h3>
-          <div class="article__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
-        </div>
-
-        <div class="linking-pages">
-          <h3 class="right-side__heading title">У нас Вы можете заказать:</h3>
-
-          <ul class="list">
-            <li class="item item--circle">
-              <a class="link" href="">Мытье пластиковых окон</a>
-            </li>
-            <li class="item item--circle">
-              <a class="link" href="">Поддерживающую уборку офисов в Москве</a>
-            </li>
-            <li class="item item--circle">
-              <a class="link" href="">Уборку таунхауса после ремонта по подходящим ценам</a>
-            </li>
-          </ul>
-        </div>
-      </footer>
-    </article>
-
-
-
-  </section>
   {{{{/raw}}}}
 </script>
 <!-- /Template Active Order -->
 
-<script src="/static/js/bundle.js"></script>
+<script src="/static/pancake/js/bundle.js"></script>
 <!-- /Java Script -->
+
+{{#if general.production}}
+
+  <noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PHD7WW');</script>
+
+  {{else}}
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    var yaCounter803248 = {
+      reachGoal: function (param) {
+        console.log("яндекс аналитика", param);
+      }
+    }
+  </script>
+
+{{/if}}
 
 </body>
 </html>

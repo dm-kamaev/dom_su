@@ -1,11 +1,11 @@
 'use strict';
-const { models, ErrorCodes, ModelsError, scrollModel } = require('models')
+const { models, ErrorCodes, ModelsError, scrollModel, getLastId } = require('models')
 const { Review } = models;
 const ReviewActive = Review.scope('active')
 
 
 async function getReview(id) {
-    let attributes = ['id', 'name', 'date', 'rating', 'answer', 'review']
+    let attributes = ['id', 'name', 'date', 'rating', 'answer', 'review', 'title_meta', 'description_meta', 'keywords_meta', 'block_link']
 
     if (typeof additionalAttr == 'list'){
         attributes = attributes.concat(additionalAttr)
@@ -23,7 +23,13 @@ async function getReviewListScroll(opts) {
     return await scrollModel(ReviewActive, options);
 }
 
+async function saveReview(name, mail, review, rating) {
+     let lastId = await getLastId(Review)
+     await Review.create({id: lastId+1, name: name, mail: mail, review: review, rating:rating})
+}
+
 module.exports = {
     getReview: getReview,
     getReviewListScroll: getReviewListScroll,
+    saveReview,
 }

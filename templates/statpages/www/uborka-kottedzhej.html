@@ -3,34 +3,46 @@
 
   <head>
     <meta charset="UTF-8">
-    <title>Уборка коттеджей</title>
+    <title>Поддерживающая уборка квартиры и жилых помещений в Москве и Санкт-Петербурге - клининговая компания Домовёнок</title>
+    {{#if noindex}} <meta name="robots" content="noindex,nofollow"> {{else}} <meta name="robots" content="index, follow"/> {{/if}}
+    {{#if canonical }}<link rel="canonical" href="{{canonicalPath}}"/>{{/if}}
+
+    <meta name="description" content="Клининговая компания «Домовёнок» предлагает своим клиентам профессиональные услуги по генеральной уборке загородных коттеджей и частных домов в Москве и Санкт-Петербурге по низкой цене."/>
+    <meta name="keywords" content="уборка, коттедж, цена, генеральный, частный, загородный, дом, москва, домовенок, санкт-петербург"/>
+
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui" />
     <meta name="format-detection" content="telephone=no">
 
-    <link rel="apple-touch-icon" sizes="57x57" href="/static/general/img/apple-touch-icon-57x57.png?v=1.0">
-    <link rel="apple-touch-icon" sizes="60x60" href="/static/general/img/apple-touch-icon-60x60.png?v=1.0">
-    <link rel="apple-touch-icon" sizes="72x72" href="/static/general/img/apple-touch-icon-72x72.png?v=1.0">
-    <link rel="apple-touch-icon" sizes="76x76" href="/static/general/img/apple-touch-icon-76x76.png?v=1.0">
-    <link rel="apple-touch-icon" sizes="114x114" href="/static/general/img/apple-touch-icon-114x114.png?v=1.0">
-    <link rel="apple-touch-icon" sizes="120x120" href="/static/general/img/apple-touch-icon-120x120.png?v=1.0">
-    <link rel="apple-touch-icon" sizes="144x144" href="/static/general/img/apple-touch-icon-144x144.png?v=1.0">
-    <link rel="apple-touch-icon" sizes="152x152" href="/static/general/img/apple-touch-icon-152x152.png?v=1.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/general/img/apple-touch-icon-180x180.png?v=1.0">
-    <link rel="icon" type="image/png" href="/static/general/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
-    <link rel="icon" type="image/png" href="/static/general/img/favicon-16x16.png?v=1.01" sizes="16x16">
-    <link rel="icon" type="image/png" href="/static/general/img/favicon-32x32.png?v=1.01" sizes="32x32">
-    <link rel="icon" type="image/png" href="/static/general/img/favicon-48x48.png?v=1.0" sizes="48x48">
-    <link rel="manifest" href="/static/general/manifest.json?v=1.02">
-    <link rel="mask-icon" href="/static/general/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
+    <meta property="og:title" content="Клининговая компания Домовёнок."/>
+    <meta property="og:site" content="//www.domovenok.su/"/>
+    <meta property="og:description" content="Клининговая компания Домовёнок - верный помощник в решении бытовых вопросов и уборки дома."/>
+    <meta property="og:image" content="//www.domovenok.su/static/img/domovenok-banner.png"/>
+    <meta property="og:url" content="//www.domovenok.su/?utm_source=vk&utm_campaign=site_share"/>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/pancake/img/apple-touch-icon-57x57.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/pancake/img/apple-touch-icon-60x60.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/pancake/img/apple-touch-icon-72x72.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/pancake/img/apple-touch-icon-76x76.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/pancake/img/apple-touch-icon-114x114.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/pancake/img/apple-touch-icon-120x120.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/pancake/img/apple-touch-icon-144x144.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/pancake/img/apple-touch-icon-152x152.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/pancake/img/apple-touch-icon-180x180.png?v=1.0">
+    <link rel="icon" type="image/png" href="/static/pancake/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
+    <link rel="icon" type="image/png" href="/static/pancake/img/favicon-16x16.png?v=1.01" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/pancake/img/favicon-32x32.png?v=1.01" sizes="32x32">
+    <link rel="icon" type="image/png" href="/static/pancake/img/favicon-48x48.png?v=1.0" sizes="48x48">
+    <link rel="manifest" href="/static/pancake/manifest.json?v=1.02">
+    <link rel="mask-icon" href="/static/pancake/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
     <meta name="apple-mobile-web-app-title" content="Domovenok">
     <meta name="application-name" content="Domovenok">
     <meta name="msapplication-TileColor" content="#fd8204">
-    <meta name="msapplication-TileImage" content="/static/general/img/mstile-144x144.png?v=1.0">
-    <meta name="msapplication-config" content="/static/general/browserconfig.xml?v=1.02">
+    <meta name="msapplication-TileImage" content="/static/pancake/img/mstile-144x144.png?v=1.0">
+    <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
     <meta name="theme-color" content="#fd8204">
 
-    <link rel="stylesheet" href="/static/css/style.css?v01">
-    <script src="/static/js/vendor/vendor.min.js?v01"></script>
+    <link rel="stylesheet" href="/static/pancake/css/style.css?v01">
+    <script src="/static/pancake/js/vendor/vendor.min.js?v01"></script>
     <script src="//yastatic.net/share2/share.js" async></script>
     <base href="" >
     <script>
@@ -49,15 +61,6 @@
           build += additional;
         return build;
       };
-
-    /*  {{ #help }}
-      var helpList = [];
-
-      var popupIsAnswer =  false;
-      var popupAnswerResult = true;
-
-      {{ /help }}
-    */
 
       var departureList = {
         begin: true,
@@ -82,9 +85,9 @@
               <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
             </svg>
           </button>
-          <a class="page-header__logo" href="http://www.domovenok.su"><img height="38" width="152" src="/static/img/logo.svg" alt="Логотип"/></a>
+          <a class="page-header__logo" href="http://www.domovenok.su"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Логотип"/></a>
       
-          <a class="page-header__tel" href="tel: +74956680468"><span class="page-header__tel-brown">8 (495)</span> 668-04-68</a>
+          <a class="page-header__tel" href="tel:{{ general.phoneHref }}"><span class="page-header__tel-brown">{{ general.phoneCode }}</span> {{ general.phoneNumber }}</a>
         </div>
       
         <div class="page-header__wrap">
@@ -101,81 +104,81 @@
             <ul class="main-menu__list">
       
               <li class="main-menu__item">
-                <a class="main-menu__link"  href="http://site.domovenok.corp/private.html">
+                <a class="main-menu__link"  href="{{buildUrl general.city '/private/'}}">
                   Личный кабинет
                 </a>
               </li>
       
-              <li class="main-menu__item main-menu__item--sub">
-                <a class="main-menu__link"  href="http://site.domovenok.corp/main.html">
+              <li class="main-menu__item main-menu__item--sub {{#if menu.main}}main-menu__item--active{{/if}}">
+                <a class="main-menu__link">
                   Главная
                 </a>
       
                 <!--Sub Menu-->
                 <ul class="main-menu__list  main-menu__list--sub">
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/main.html">
+                  <li class="main-menu__item-sub {{#if menu.main_page}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/'}}">
                       Главная
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/about-us.html">
+                  <li class="main-menu__item-sub {{#if menu.about}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/about/'}}">
                       О нас
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/uslugi.html">
+                  <li class="main-menu__item-sub {{#if menu.uslugi}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/uslugi/'}}">
                       Услуги
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/important.html">
+                  <li class="main-menu__item-sub {{#if menu.vazhno_znat}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/vazhno_znat/'}}">
                       Важно знать
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/questions.html">
+                  <li class="main-menu__item-sub {{#if menu.faq}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/faq/'}}">
                       Вопросы и ответы
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/news.html">
+                  <li class="main-menu__item-sub {{#if menu.news}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/news/'}}">
                       Новости
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub  main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/articles.html">
+                  <li class="main-menu__item-sub {{#if menu.articles}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/articles/'}}">
                       Статьи
                     </a>
                   </li>
       
                   <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/gallery.html">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/gallery/'}}">
                       Галерея
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/promotion.html">
+                  <li class="main-menu__item-sub {{#if menu.skidki_akcii}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/skidki_akcii/'}}">
                       Специальные акции
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/career.html">
+                  <li class="main-menu__item-sub {{#if menu.vakansii}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/vakansii/'}}">
                       Вакансии
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/davay_druzhit.html">
+                  <li class="main-menu__item-sub {{#if menu.davay_druzhit}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/davay_druzhit/'}}">
                       Обслуживание по графику
                     </a>
                   </li>
@@ -185,7 +188,7 @@
       
               </li>
       
-              <li class="main-menu__item  main-menu__item--sub">
+              <li class="main-menu__item  main-menu__item--sub {{#if menu.physical}}main-menu__item--active{{/if}}">
                 <a class="main-menu__link">
                   Физическим лицам
                 </a>
@@ -193,56 +196,62 @@
                 <!--Sub Menu-->
                 <ul class="main-menu__list  main-menu__list--sub">
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/podderzhka.html">
+                  <li class="main-menu__item-sub {{#if menu.podderzhka}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/podderzhka'}}">
                       Поддерживающая уборка
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/domrabotnica.html">
+                  <li class="main-menu__item-sub {{#if menu.domrabotnica}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/domrabotnica'}}">
                       Домработница
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/generalnaya_uborka.html">
+                  <li class="main-menu__item-sub {{#if menu.generalnaya_uborka}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/generalnaya_uborka'}}">
                       Генеральная уборка
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/posle_remonta.html">
+                  <li class="main-menu__item-sub {{#if menu.glazhka}}main-menu__item-sub--active{{/if}}" >
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/glazhka'}}">
+                      Глажка
+                    </a>
+                  </li>
+      
+                  <li class="main-menu__item-sub {{#if menu.posle_remonta}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/posle_remonta'}}">
                       Уборка после ремонта
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/uborka-kottedzhej.html">
+                  <li class="main-menu__item-sub {{#if menu.uborka_kottedzhej}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka-kottedzhej'}}">
                       Уборка коттеджей
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub  main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/mite_okon.html">
+                  <li class="main-menu__item-sub {{#if menu.mite_okon}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/mite_okon'}}">
                       Мытьё окон
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/himchistka.html">
+                  <li class="main-menu__item-sub {{#if menu.himchistka}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/himchistka'}}">
                       Химчистка
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/vizov_mastera_na_dom.html">
+                  <li class="main-menu__item-sub {{#if menu.vizov_mastera_na_dom}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
                       Домашний мастер
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/obrabotka_poverhnostey.html">
+                  <li class="main-menu__item-sub {{#if menu.obrabotka_poverhnostey}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
                       Обработка поверхностей
                     </a>
                   </li>
@@ -252,7 +261,7 @@
       
               </li>
       
-              <li class="main-menu__item  main-menu__item--sub">
+              <li class="main-menu__item  main-menu__item--sub {{#if menu.legal}}main-menu__item--active{{/if}}">
                 <a class="main-menu__link">
                   Юридическим лицам
                 </a>
@@ -260,44 +269,44 @@
                 <!--Sub Menu-->
                 <ul class="main-menu__list  main-menu__list--sub">
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/uborka_ofisov.html">
+                  <li class="main-menu__item-sub {{#if menu.uborka_ofisov}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka_ofisov'}}">
                       Уборка офисов
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/uborka-proizvodstvennyh-pomewenij.html">
+                  <li class="main-menu__item-sub {{#if menu.uborka_proizvodstvennyh_pomewenij}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka-proizvodstvennyh-pomewenij'}}">
                       Уборка производственных помещений
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/ofisnyy-master.html">
+                  <li class="main-menu__item-sub {{#if menu.ofisnyy_master}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/ofisnyy-master'}}">
                       Офисный мастер
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/mite_stekol.html">
+                  <li class="main-menu__item-sub {{#if menu.mite_stekol}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/mite_stekol'}}">
                       Мытьё стекол
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/myte-fasadov.html">
+                  <li class="main-menu__item-sub {{#if menu.myte_fasadov}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/myte-fasadov'}}">
                       Мытьё фасадов
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/promyshlennyj-alpinizm.html">
+                  <li class="main-menu__item-sub {{#if menu.promyshlennyj_alpinizm}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/promyshlennyj-alpinizm'}}">
                       Промышленный альпинизм
                     </a>
                   </li>
       
-                  <li class="main-menu__item-sub">
-                    <a class="main-menu__link-sub" href="http://site.domovenok.corp/obrabotka_poverhnostey.html">
+                  <li class="main-menu__item-sub {{#if menu.obrabotka_poverhnostey}}main-menu__item-sub--active{{/if}}">
+                    <a class="main-menu__link-sub" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
                       Обработка поверхностей
                     </a>
                   </li>
@@ -307,20 +316,20 @@
       
               </li>
       
-              <li class="main-menu__item">
-                <a class="main-menu__link" href="http://site.domovenok.corp/review.html">
+              <li class="main-menu__item {{#if menu.reviews}}main-menu__item--active{{/if}}">
+                <a class="main-menu__link" href="{{buildUrl general.city '/otzivi/'}}">
                   Отзывы
                 </a>
               </li>
       
-              <li class="main-menu__item">
-                <a class="main-menu__link" href="http://site.domovenok.corp/price.html">
+              <li class="main-menu__item {{#if menu.price}}main-menu__item--active{{/if}}">
+                <a class="main-menu__link" href="{{buildUrl general.city '/price/'}}">
                   Цены
                 </a>
               </li>
       
-              <li class="main-menu__item">
-                <a class="main-menu__link"  href="http://site.domovenok.corp/contacts.html">
+              <li class="main-menu__item {{#if menu.contacts}}main-menu__item--active{{/if}}">
+                <a class="main-menu__link"  href="{{buildUrl general.city '/contacts/'}}">
                   Контакты
                 </a>
               </li>
@@ -338,14 +347,14 @@
       
           <div class="change-town">
       
-            <p class="change-town__btn">Москва</p>
+            <p class="change-town__btn">{{general.city.title}}</p>
       
             <ul class="change-town__list list">
-              <li class="change-town__item change-town__item--active item">
-                <a class="change-town__link link" href="http://www.domovenok.su/podderzhka">Москва</a>
+              <li class="change-town__item {{#ifCond general.city.keyword '==' 'moscow' }}change-town__item--active{{/ifCond}} item">
+                <a class="change-town__link link" href="{{buildUrl 'moscow' general.path}}">Москва</a>
               </li>
-              <li class="change-town__item item">
-                <a class="change-town__link link" href="https://spb.domovenok.su/podderzhka">Санкт-Петербург</a>
+              <li class="change-town__item {{#ifCond general.city.keyword '==' 'spb' }}change-town__item--active{{/ifCond}} item">
+                <a class="change-town__link link" href="{{buildUrl 'spb' general.path}}">Санкт-Петербург</a>
               </li>
             </ul>
           </div>
@@ -363,7 +372,7 @@
             <h1 class="section__title section__title--main title">Уборка коттеджей, частных и загородных домов</h1>
             <div class="section__description  description">
               <div class="description__block">
-                <img class="description__image" src="/static/img/cleaning-cottage-main.svg" width="auto" height="200">
+                <img class="description__image" src="/static/pancake/img/cleaning-cottage-main.svg" width="auto" height="200">
               </div>
               <div class="description__block">
                 <p class="description__text">Всегда приятно находиться в просторном доме, где чисто, уютно, для всякой вещи находится свое место, а
@@ -384,24 +393,24 @@
               <div class="service-condition__row service-condition__row--space-between">
                 <div class="service-condition__block">
 
-                  <img class="service-condition__image" height="70" width="70" src="/static/general/img/service-general-work.svg">
+                  <img class="service-condition__image" height="70" width="70" src="/static/pancake/img/service-general-work.svg">
 
                   <h3 class="service-condition__title title">Общие работы</h3>
-                  <p class="text text--center">Удаление пыли и сложных загрязнений со всех поверхностей на всю высоту помещения.</p>
+                  <p class="text text--center">Уборка пыли и удаление серьезных загрязнений с любых поверхностей на всю высоту.</p>
                 </div>
                 <div class="service-condition__block">
                   <div class="service-condition__image">
-                    <img height="70" width="70" src="/static/general/img/service-kitchen.svg">
+                    <img height="70" width="70" src="/static/pancake/img/service-kitchen.svg">
                   </div>
                   <h3 class="service-condition__title title">Кухня</h3>
-                  <p class="text text--center">Мытьё посуды и раковины, бытовой техники, холодильника и духовки внутри, удаление следов жира и масляных пятен со всех поверхностей.</p>
+                  <p class="text text--center">Мытьё грязной посуды и раковины, бытовых приборов, холодильника и духовки, устранение остатков жира и масляных пятен с различных поверхностей.</p>
                 </div>
                 <div class="service-condition__block">
                   <div class="service-condition__image">
-                    <img height="70" width="70" src="/static/general/img/service-bathroom.svg">
+                    <img height="70" width="70" src="/static/pancake/img/service-bathroom.svg">
                   </div>
                   <h3 class="service-condition__title title">Санузел</h3>
-                  <p class="text text--center">Очистка и дезинфекция сантехники, душевых кабин и ванн. Мытьё кафельной плитки и потолков, очистка швов на всю высоту помещения.</p>
+                  <p class="text text--center">Мытье и дезинфекция сантехнических приборов. Влажная уборка керамической плитки и потолков, очищение межплиточных швов на всю высоту комнаты.</p>
                 </div>
               </div>
             </div>
@@ -415,54 +424,52 @@
               <div class="service-condition__column  service-condition__column--two">
                 <h3 class="service-condition__title title">Общие работы во всех помещениях:</h3>
                 <ul class="service-condition__list list">
-                  <li class="service-condition__item  item  item--circle">вынос мусора, замена полиэтиленовых пакетов в мусорных корзина. Мытье мусорных корзин (снаружи и внутри) и мест хранения мусора</li>
-                  <li class="service-condition__item  item  item--circle ">удаление пыли с потолков и стен (удаление локальных загрязнений со стен, если позволяет покрытие или под ответственность Клиента)</li>
-                  <li class="service-condition__item  item  item--circle ">влажная уборка карнизов (не включая шторы, жалюзи)</li>
-                  <li class="service-condition__item  item  item--circle ">удаление пыли с кондиционеров, а также мытье внутренних фильтров</li>
-                  <li class="service-condition__item  item  item--circle ">удаление пыли с люстр, потолочных светильников и осветительных приборов (на всю высоту), кроме хрустальных</li>
-                  <li class="service-condition__item  item  item--circle ">влажная уборка внешних и внутренних поверхностей всех видов корпусной мебели (гардеробов, шкафов, тумбочек, комодов и т.д., если они освобождены от вещей)</li>
-                  <li class="service-condition__item  item  item--circle ">мытье зеркал и стеклянных поверхностей на всю высоту (перегородок, панелей и т.д.)</li>
-                  <li class="service-condition__item  item  item--circle ">удаление пыли с аксессуаров, предметов интерьера, элементов дизайна (вазы, рамы картин, фоторамок и т.д.) на всю высоту</li>
-                  <li class="service-condition__item  item  item--circle ">удаление пыли с бытовой техники</li>
-                  <li class="service-condition__item  item  item--circle ">влажная уборка подоконников, радиаторов и труб</li>
-                  <li class="service-condition__item  item  item--circle ">чистка пылесосом мягкой мебели внутри и снаружи (снимая подушки, уборка внутренних поверхностей и конструкций, также спальных матрасов, при наличии спального матраса у дивана</li>
-                  <li class="service-condition__item  item  item--circle ">уход за кожаной мебелью специализированными средствами</li>
-                  <li class="service-condition__item  item  item--circle ">замена постельного белья</li>
-                  <li class="service-condition__item  item  item--circle ">удаление пыли с дверных блоков</li>
-                  <li class="service-condition__item  item  item--circle ">мытьё дверных блоков, включая фурнитуру</li>
-                  <li class="service-condition__item  item  item--circle ">удаление загрязнений средней и сложной степени (известковый налет, ржавчина и т.д.)</li>
-                  <li class="service-condition__item  item  item--circle ">очистка труднодоступных мест парогенератором</li>
-                                <li class="service-condition__item  item  item--circle ">влажная уборка полов и плинтусов</li>
+                  <li class="service-condition__item  item  item--circle">вывоз мусора, замена одноразовых пакетов в корзинах;</li>
+                  <li class="service-condition__item  item  item--circle">мытьё внутренней и внешней поверхности мусорной корзины;</li>
+                  <li class="service-condition__item  item  item--circle">устранение пыли с поверхностей стен и потолков (возможно удаление различных загрязнений в зависимости от используемого покрытия);</li>
+                  <li class="service-condition__item  item  item--circle">мойка карнизов с использованием специализированных средств (без учета жалюзи и занавесок);</li>
+                  <li class="service-condition__item  item  item--circle">очищение кондиционеров от пыли, обработка внутренних фильтров климатического оборудования;</li>
+                  <li class="service-condition__item  item  item--circle">удаление пыли с поверхности различных осветительных приборов (за исключением хрустальных светильников);</li>
+                  <li class="service-condition__item  item  item--circle">мойка внутренних и внешних элементов корпусной мебели (для этого предварительно необходимо убрать вещи из шкафов и тумб);</li>
+                  <li class="service-condition__item  item  item--circle">мойка зеркал и предметов интерьера, выполненных из стекла;</li>
+                  <li class="service-condition__item  item  item--circle">уборка пыли с различных элементов декора и аксессуаров на полную высоту;</li>
+                  <li class="service-condition__item  item  item--circle">устранение загрязнений на бытовой технике;</li>
+                  <li class="service-condition__item  item  item--circle">очищение радиаторов, труб и подоконников;</li>
+                  <li class="service-condition__item  item  item--circle">обработка внутренней и внешней части мебели с помощью пылесоса; для этого «домовята» снимают подушки, также при необходимости они выполняют уборку матрасов и внутренних конструкций кроватей;</li>
+                  <li class="service-condition__item  item  item--circle">чистка кожаной мебели с применением специализированных составов;</li>
+                  <li class="service-condition__item  item  item--circle">замена постельного комплекта;</li>
+                  <li class="service-condition__item  item  item--circle">удаление пыли и мойка дверей (с учетом фурнитуры);</li>
+                  <li class="service-condition__item  item  item--circle">удаление любых серьезных загрязнений, включая известковый налет и ржавчину;</li>
+                  <li class="service-condition__item  item  item--circle">обработка труднодоступных мест с помощью парогенератора;</li>
+                  <li class="service-condition__item  item  item--circle">мойка плинтусов и напольных покрытий.</li>
                 </ul>
               </div>
               <div class="service-condition__column  service-condition__column--two">
                 <h3 class="service-condition__title title">Кухня:</h3>
                 <ul class="service-condition__list list">
-                  <li class="service-condition__item  item  item--circle ">мытьё фасадов кухонного гарнитура, удаление следов жира (на всю высоту)</li>
-                  <li class="service-condition__item  item  item--circle ">мытьё внутренних поверхностей шкафчиков, ящиков кухонного гарнитура (если они освобождены)</li>
-                  <li class="service-condition__item  item  item--circle ">мытьё грязной посуды в раковине</li>
-                  <li class="service-condition__item  item  item--circle ">очистка кухонных рабочих поверхностей (столешниц, барных стоек)</li>
-                  <li class="service-condition__item  item  item--circle ">мытьё стеновых панелей («фартука») кухонного гарнитура</li>
-                  <li class="service-condition__item  item  item--circle ">мытьё холодильника снаружи и внутри</li>
-                  <li class="service-condition__item  item  item--circle ">мытьё вытяжки снаружи и внутри, удаление следов жира (снятие фильтров)</li>
-                  <li class="service-condition__item  item  item--circle ">мытьё кухонной плиты снаружи и внутри, удаление следов жира</li>
-                  <li class="service-condition__item  item  item--circle ">мытьё микроволновой печи внутри и снаружи</li>
-                  <li class="service-condition__item  item  item--circle ">удаление пыли и следов жира с кухонной техники</li>
-                  <li class="service-condition__item  item  item--circle ">чистка и дезинфекция сантехники</li>
-                  <li class="service-condition__item  item  item--circle ">дезинфекция, влажная уборка места для хранения мусора</li>
-                  <li class="service-condition__item  item  item--circle ">удаление загрязнений средней и сложной степени (известковый налет, ржавчина и т.д.)</li>
-                  <li class="service-condition__item  item  item--circle ">очистка труднодоступных мест парогенератором</li>
+                  <li class="service-condition__item  item  item--circle">обработка фасадов мебели, удаление жирных пятен;</li>
+                  <li class="service-condition__item  item  item--circle">мойка внутренней поверхности ящиков и шкафов (их необходимо предварительно освободить от различных предметов);</li>
+                  <li class="service-condition__item  item  item--circle">мытье посуды и столовых приборов в раковине;</li>
+                  <li class="service-condition__item  item  item--circle">очищение барных стоек и столешниц от различного рода загрязнений;</li>
+                  <li class="service-condition__item  item  item--circle">мойка стеновых панелей;</li>
+                  <li class="service-condition__item  item  item--circle">мытьё внутренней и внешней части холодильника;</li>
+                  <li class="service-condition__item  item  item--circle">мытьё внешней и внутренней части вытяжки, устранение следов жира с обязательным снятием фильтров;</li>
+                  <li class="service-condition__item  item  item--circle">мытьё внутренней и внешней поверхности микроволновки;</li>
+                  <li class="service-condition__item  item  item--circle">очищение кухонной техники от пыли и жирных пятен;</li>
+                  <li class="service-condition__item  item  item--circle">обеззараживание и влажная уборка мусорного ведра;</li>
+                  <li class="service-condition__item  item  item--circle">удаление серьезных загрязнений, например, ржавчины и известкового налета;</li>
+                  <li class="service-condition__item  item  item--circle">уборка труднодоступных мест при помощи парогенератора.</li>
                 </ul>
                 <h3 class="service-condition__title title">Санузел:</h3>
                 <ul class="service-condition__list list">
-                  <li class="service-condition__item  item  item--circle ">мытьё потолка</li>
-                  <li class="service-condition__item  item  item--circle ">мытьё кафельной плитки от потолка до пола</li>
-                  <li class="service-condition__item  item  item--circle ">мытьё душевых кабин и ванн (снаружи и внутри)</li>
-                  <li class="service-condition__item  item  item--circle ">удаление пыли и загрязнений с бытовой техники</li>
-                  <li class="service-condition__item  item  item--circle ">удаление налёта, водного камня, ржавчины</li>
-                  <li class="service-condition__item  item  item--circle ">чистка и дезинфекция сантехники (смесители, раковины, унитазы, биде)</li>
-                  <li class="service-condition__item  item  item--circle ">очистка труднодоступных мест парогенератором</li>
-                  <li class="service-condition__item  item  item--circle ">очистка межплиточных швов от затирки (кроме двукомпонентной)</li>
+                  <li class="service-condition__item  item  item--circle">влажная уборка потолка;</li>
+                  <li class="service-condition__item  item  item--circle">влажная уборка кафельной плитки на полную высоту;</li>
+                  <li class="service-condition__item  item  item--circle">мытьё мытье внутренней и внешней части ванны и душевой кабины;</li>
+                  <li class="service-condition__item  item  item--circle">удаление грязи и пыли с поверхности бытовой техники;</li>
+                  <li class="service-condition__item  item  item--circle">устранение ржавчины, водного камня, известкового налета;</li>
+                  <li class="service-condition__item  item  item--circle">влажная уборка и дальнейшая дезинфекция сантехнических приборов;</li>
+                  <li class="service-condition__item  item  item--circle">устранение пыли с труднодоступных зон с помощью парогенератора;</li>
+                  <li class="service-condition__item  item  item--circle">очищение межплиточных швов от затирки (помимо двухкомпонентной).</li>
                 </ul>
               </div>
             </div>
@@ -474,20 +481,19 @@
           <div class="section__wrap">
             <h2 class="section__title  title">Цены на уборку коттеджей</h2>
 
-            <div class="service-calc ">
-
-
+            <div class="service-calc">
+              <p class="service-calc__heading text">Введите Вашу площадь помещения:</p>
               <div class="service-calc__row service-calc__row--square">
-                <p class="service-calc__heading text">Введите Вашу площадь помещения:</p>
-                <div class="service-calc__item">
-                  <input type="number" class="service-calc__input service-calc__input--half input">
+                <div class="service-calc__item service-calc__item--square service-calc__item--active" data-value="1">
+                  <input type="number" class="service-calc__input service-calc__input--half input" value="1" min="1" max="10000">
                   <span class="service-calc__unit">м<sup><small>2</small></sup></span>
                 </div>
-
-                <p class="service-calc__heading text">Стоимость уборки:</p>
-                <div class="service-calc__item service-calc__item--price">
+              </div>
+              <p class="service-calc__heading text">Стоимость уборки:</p>
+              <div class="service-calc__row">
+                <div class="service-calc__item service-calc__item--price" data-name="uborka_kottedzhej"  data-option="0x">
                   <div class="service-calc__output">
-                    3200<span>руб.</span>
+                    110 руб
                   </div>
                 </div>
 
@@ -512,12 +518,12 @@
                   <p class="service-implement__text text">Уборки коттеджа производит бригада из 2-х и более домовят, - количество домовят в бригаде варьируется от объёма и сложности работ. «Домовёнок» несёт ответственность только за людей одетых в фирменную спецодежду с логотипом компании.</p>
                 </li>
                 <li class="service-implement__item service-implement__item--important item">
-                  <p class="service-implement__text text">«Домовёнок» несет ответственность только за людей одетых в фирменную спецодежду с логотипом компании.</p>
+                  <p class="service-implement__text text">Помните, что «Домовёнок» берет на себя ответственность только за специалистов, которые носят униформу с логотипом клининговой компании.</p>
                 </li>
                 <li class="service-implement__item service-implement__item--money item">
-                  <p class="service-implement__text text">Выезд представителя «Домовёнка» на объект для оценки объёма и стоимости работ осуществляется бесплатно! Стоимость уборки коттеджа или загородного дома определяется индивидуально, после выезда нашего представителя на объект составляется калькуляция и коммерческое предложение, которые согласовываются с Клиентом.</p></li>
+                  <p class="service-implement__text text">Предварительных выезд домовят для определения сложности и стоимости работ производится абсолютно бесплатно! Стоимость уборки коттеджа или загородного дома определяется индивидуально, после выезда нашего представителя на объект составляется калькуляция и коммерческое предложение, которые согласовываются с Клиентом.</p></li>
                 <li class="service-implement__item service-implement__item--car item">
-                  <p class="service-implement__text text">На уборку коттеджей выезжает автомобиль, стоимость выезда в пределах МКАД включена в стоимость уборки, выезд за МКАД в Москве и за КАД в СПб добавляется к стоимости из расчета 30 рублей за 1 км. В зависимости от ситуации на дорогах города, фактическое время начала работ может отличаться от заранее запланированного и согласованного с Вами, но не более чем на 30 минут (в противном случае с Вами обязательно свяжется представитель Домовёнка).</p></li>
+                  <p class="service-implement__text text">Сотрудники компании «Домовёнок» приезжают на уборку коттеджей на автомобиле. Если объект располагается в пределах МКАД, клиенту не нужно будет дополнительно оплачивать выезд. Уборка коттеджей за МКАД предусматривает доплату за выезд из расчета 30 р. за 1 километр. «Домовята» стараются быть пунктуальными, поэтому реальное время начала клининга может отличаться от оговоренного с заказчиком не более чем на полчаса (в зависимости от дорожной ситуации в столице). При возникновении непредвиденных обстоятельств, не позволяющих специалисту явиться на объект вовремя, с вами непременно свяжется сотрудник компании.</p></li>
               </ul>
             </div>
           </div>
@@ -525,13 +531,13 @@
 
         <section class="page__section  section  section--bg-dark">
           <div class="section__wrap">
-            <h2 class="section__title  title">Отзывы клиентов</h2>
-            <p class="section__text text">«Мы заботимся о наших Клиентах и верим в свое дело!<br>Мы верим, что только так
+            <p class="section__title  title">Отзывы клиентов</p>
+            <p class="section__text section__text--left text">«Мы заботимся о наших Клиентах и верим в свое дело!<br>Мы верим, что только так
               можно построить что-то по-настоящему стоящее и надолго.»</p>
             <div class="review-section">
               <div class="review-section__row">
                 <article class="review-section__item review">
-                  <h3 class="review__title title">Шиве Василий</h3>
+                  <p class="review__title title">Шиве Василий</p>
                   <time class="review__time" datetime="">05.03.2015</time>
                   <p class="review__text text">21 марта 2015 у моих родителей по адресу Сиреневый бульвар дом 1 корпус 2 кв.91
                     проводили уборку Татьяна Жосан -бригадир и Дубонина Марина. Девочки просто молодцы. Огромное спасибо. Дома
@@ -546,7 +552,7 @@
                   </div>
                 </article>
                 <article class="review-section__item review">
-                  <h3 class="review__title title">Свистова Анастасия</h3>
+                  <p class="review__title title">Свистова Анастасия</p>
                   <time class="review__time" datetime="">05.03.2015</time>
                   <p class="review__text text">21 марта 2015 у моих родителей по адресу Сиреневый бульвар дом 1 корпус 2 кв.91
                     проводили уборку Татьяна Жосан -бригадир и Дубонина Марина. Девочки просто молодцы. Огромное спасибо. Дома
@@ -561,7 +567,7 @@
                   </div>
                 </article>
                 <article class="review-section__item review">
-                  <h3 class="review__title title">Кузнецова Татьяна</h3>
+                  <p class="review__title title">Кузнецова Татьяна</p>
                   <time class="review__time" datetime="">05.03.2015</time>
                   <p class="review__text text">21 марта 2015 у моих родителей по адресу Сиреневый бульвар дом 1 корпус 2 кв.91
                     проводили уборку Татьяна Жосан -бригадир и Дубонина Марина. Девочки просто молодцы. Огромное спасибо. Дома
@@ -577,65 +583,23 @@
                 </article>
               </div>
             </div>
-            <a class="section__button button" href="review.html">Другие отзывы</a>
+            <a class="section__button button" href="{{buildUrl general.city '/otzivi/'}}">Другие отзывы</a>
         
           </div>
         </section>
 
         <section class="page__section  section  section--bg-light">
           <div class="section__wrap">
-            <h2 class="section__title  title">Галерея</h2>
-            <div class="gallery-section">
-              <div class="gallery-section__row">
-                <div class="gallery-section__item" style="background-image: url(/static/img/dom.jpg)">
-                  <span class="gallery-section__number">70</span>
-                  <a></a>
-                  <p class="gallery-section__text">Кремль, уборка после ремонта в Арсенале, 1700 кв.м</p>
-                </div>
-                <div class="gallery-section__item" style="background-image: url(/static/img/utug.jpg)">
-                  <span class="gallery-section__number">9</span>
-                  <a></a>
-                  <p class="gallery-section__text">Мытьё фасада коттеджа в Горках</p>
-                </div>
-                <div class="gallery-section__item" style="background-image: url(/static/img/domove.jpg)">
-                  <span class="gallery-section__number">12</span>
-                  <a></a>
-                  <p class="gallery-section__text">Кремль, уборка после ремонта в Арсенале, 1700 кв.м</p>
-                </div>
-              </div>
-              <div class="gallery-section__row">
-                <div class="gallery-section__item" style="background-image: url(/static/img/domove.jpg)">
-                  <span class="gallery-section__number">12</span>
-                  <a></a>
-                  <p class="gallery-section__text">Кремль, уборка после ремонта в Арсенале, 1700 кв.м</p>
-                </div>
-                <div class="gallery-section__item" style="background-image: url(/static/img/dom.jpg)">
-                  <span class="gallery-section__number">12</span>
-                  <a></a>
-                  <p class="gallery-section__text">Кремль, уборка после ремонта в Арсенале, 1700 кв.м</p>
-                </div>
-                <div class="gallery-section__item" style="background-image: url(/static/img/utug.jpg)">
-                  <span class="gallery-section__number">12</span>
-                  <a></a>
-                  <p class="gallery-section__text">Кремль, уборка после ремонта в Арсенале, 1700 кв.м</p>
-                </div>
-              </div>
-            </div>
-            <a class="section__button button" href="gallery.html">Перейти в галерею</a>
-          </div>
-        </section>
-
-        <section class="page__section  section  section--bg-dark">
-          <div class="section__wrap">
-            <h2 class="section__title  title">Вопросы и ответы</h2>
+            <p class="section__title  title">Вопросы и ответы</p>
             <div class="question-section">
+        
               <div class="question-section__row">
                 <article class="question-section__item">
-                  <h3 class="question-section__title title">шалимова светлана</h3>
+                  <p class="question-section__title title">шалимова светлана</p>
                   <time class="question-section__time" datetime="">05.03.2015</time>
                   <p class="question-section__text text"><span class="question-section__heading">Вопроc: </span>Скажите пожалуйста,сколько будет стоить ген.уборка кухни 6.5кв.м?</p>
                   <a class="question-section__link">Открыть ответ</a>
-                  <article class="question-section__answer">
+                  <article class="question-section__answer question-section__answer--hide">
                     <p class="question-section__text  question-section__text--light text"><span class="question-section__heading">Ответ: </span>Компания Домовенок приносит Вам свои глубочайшие
                       извинения за невнимание, проявленное сотрудниками нашей компании по отношению к Вам. Подобный случай
                       абсолютно недопустим для нас, так как мы стремимся установить с клиентами длительные и доверительные
@@ -649,13 +613,13 @@
                   </article>
                 </article>
                 <article class="question-section__item">
-                  <h3 class="question-section__title title">Нина</h3>
+                  <p class="question-section__title title">Нина</p>
                   <time class="question-section__time" datetime="">05.03.2015</time>
                   <p class="question-section__text text"><span class="question-section__heading">Вопроc: </span> Здравствуйте!
                     Подскажите, пожалуйста, стоимость услуги мытья окон: трёхстворчатое окно, одностворчатое окно + балконная дверь, пятистворчатое остекление балкона?
                     Выезд в город Железнодорожный МО в выходные.</p>
                   <a class="question-section__link">Открыть ответ</a>
-                  <article class="question-section__answer">
+                  <article class="question-section__answer question-section__answer--hide">
                     <p class="question-section__text  question-section__text--light text"><span class="question-section__heading">Ответ: </span>Компания Домовенок приносит Вам свои глубочайшие
                       извинения за невнимание, проявленное сотрудниками нашей компании по отношению к Вам. Подобный случай
                       абсолютно недопустим для нас, так как мы стремимся установить с клиентами длительные и доверительные
@@ -669,11 +633,11 @@
                   </article>
                 </article>
                 <article class="question-section__item">
-                  <h3 class="question-section__title title">Глебова Любовь Федоровна</h3>
+                  <p class="question-section__title title">Глебова Любовь Федоровна</p>
                   <time class="question-section__time" datetime="">05.03.2015</time>
                   <p class="question-section__text text"><span class="question-section__heading">Вопроc: </span>Квартира 100 кв.м. Договор с домработницей 1 раз в неделю. Что она должна делать я прочитала. А как у вас с глажкой белья? Нужно еще бы и погладить. Есть ли такая услугу и сколько это стоит?</p>
                   <a class="question-section__link">Открыть ответ</a>
-                  <article class="question-section__answer">
+                  <article class="question-section__answer question-section__answer--hide">
                     <p class="question-section__text  question-section__text--light text"><span class="question-section__heading">Ответ: </span>Компания Домовенок приносит Вам свои глубочайшие
                       извинения за невнимание, проявленное сотрудниками нашей компании по отношению к Вам. Подобный случай
                       абсолютно недопустим для нас, так как мы стремимся установить с клиентами длительные и доверительные
@@ -689,32 +653,12 @@
               </div>
             </div>
         
-            <a class="section__button button" href="questions.html">Задать вопрос</a>
-            <!--
-                <div class="question-section__form">
-                  <div class="question-section__row">
-                    <div class="question-section__col">
-                      <label>ФИО</label>
-                      <input type="text" class="question-section__input input" placeholder="Введите ФИО">
-                    </div>
+            <a class="section__button button" href="{{buildUrl general.city '/faq/'}}">Другие вопросы</a>
+          </div>
         
-                    <div class="question-section__col">
-                      <label>Email</label>
-                      <input type="email" class="question-section__input input" placeholder="Введите e-mail">
-                    </div>
-        
-                  </div>
-                  <p>Вопрос</p>
-                  <textarea name="" id="" cols="30" rows="10" class="question-section__textarea textarea"  placeholder="Введите вопрос..."></textarea>
-                  <button class="question-section__button button">Отправить</button>
-                </div>
-                -->
-              </div>
-        
-        
-            </section>
+        </section>
 
-        <section class="page__section  section  section--bg-light">
+        <section class="page__section  section  section--bg-dark">
           <div class="section__wrap">
             <h2 class="section__title title">Что ещё мы можем убрать</h2>
             <div class="service-condition">
@@ -724,7 +668,7 @@
                   <div class="service-condition__column  service-condition__column--two">
                     <h3 class="service-condition__title title">Услуги уборки дома:</h3>
                     <ul class="service-condition__list list">
-                      <li class="service-condition__item  item  item--circle"><a class="link" href="mite_okon.html">Мойка окон</a>. Наши мастера по уборке
+                      <li class="service-condition__item  item  item--circle"><a class="link link--orange" href="{{buildUrl general.city '/mite_okon'}}">Мойка окон</a>. Наши мастера по уборке
                         частных домов помогут вернуть идеальную чистоту как стандартным по размерам окнам, так и
                         элементам панорамного остекления или витражей Вашего коттеджа.
                       </li>
@@ -740,7 +684,7 @@
                         грунта, опавшая листва, массы снега и наледи – «Домовёнок» поможет устранить все лишнее с
                         кровли во время уборки коттеджа.
                       </li>
-                      <li class="service-condition__item  item  item--circle "><a class="link" href="mite-fasadov.html">Мойка фасадов</a>. Наши мастера по уборке
+                      <li class="service-condition__item  item  item--circle "><a class="link link--orange" href="{{buildUrl general.city '/myte-fasadov'}}">Мойка фасадов</a>. Наши мастера по уборке
                         коттеджей смогут очистить любое влагостойкое облицовочное покрытие фасада Вашего дома: сайдинг, моющуюся штукатурку, краску.
                       </li>
                       <li class="service-condition__item  item  item--circle ">Чистка лестниц, перил. После уборки
@@ -751,11 +695,11 @@
                   <div class="service-condition__column  service-condition__column--two">
                     <h3 class="service-condition__title title">Уборка на прилегающей территории:</h3>
                     <ul class="service-condition__list list">
-                      <li class="service-condition__item  item  item--circle "><a class="link" href="uborka_territorii.html">Прилегающей территории</a>. Наши мастера уберут
+                      <li class="service-condition__item  item  item--circle "><a class="link link--orange" href="{{buildUrl general.city '/uborka_territorii'}}">Прилегающей территории</a>. Наши мастера уберут
                          опавшие листья и другой мусор с газонов и клумб, почистят дорожки, вернут былую красоту
                          ограждениям и воротам Вашего дома.
                       </li>
-                      <li class="service-condition__item  item  item--circle "><a class="link" href="chistka_basseynov">Бассейнов</a>. В нашей компании Вы можете
+                      <li class="service-condition__item  item  item--circle "><a class="link link--orange" href="{{buildUrl general.city '/chistka_basseynov'}}">Бассейнов</a>. В нашей компании Вы можете
                         заказать чистку облицовочного покрытия чаши бассейна, дезинфицирующую уборку.
                       </li>
                       <li class="service-condition__item  item  item--circle ">Бань, саун. «Домовёнок» владеет всеми
@@ -778,13 +722,13 @@
           </div>
         </section>
 
-        <section class="page__section  section  section--bg-dark  section--contact">
+        <section class="page__section  section  section--bg-light  section--contact">
           <div class="section__wrap">
             <h2 class="section__title  title">Свяжитесь со мной!</h2>
             <p class="section__text text text--center">Заполните форму заказа и наш менеджер свяжется с Вами в течение 10 минут.</p>
             <form class="contact-section__form">
-              <input class="contact-section__input input" type="text" placeholder="Имя">
-              <input class="contact-section__input input" type="text" placeholder="Телефон или e-mail">
+              <input class="contact-section__input input" type="text" name="name" placeholder="Имя">
+              <input class="contact-section__input input" type="email" name="email" placeholder="Телефон или e-mail">
               <button class="contact-section__button button" type="submit">Отправить</button>
             </form>
           </div>
@@ -803,88 +747,88 @@
         <!-- /Main Content -->
 
         <!-- Page Footer -->
-        <footer class="page-footer">
+        <footer class="page-footer page-footer--bg-dark">
           <nav class="page-footer__secondary-menu  secondary-menu">
             <ul class="secondary-menu__list list">
-              <li class="secondary-menu__item item"><a>Личный кабинет</a></li>
-              <li class="secondary-menu__item item"><a>О компании</a></li>
-              <li class="secondary-menu__item item"><a>Важно знать</a></li>
-              <li class="secondary-menu__item item"><a>Обслуживание по графику</a></li>
-              <li class="secondary-menu__item item"><a>Вопросы и ответы</a></li>
-              <li class="secondary-menu__item item"><a>Новости</a></li>
-              <li class="secondary-menu__item item"><a>Статьи</a></li>
-              <li class="secondary-menu__item item"><a>Галерея</a></li>
-              <li class="secondary-menu__item item"><a>Специальные акции</a></li>
-              <li class="secondary-menu__item item"><a>Вакансии</a></li>
-              <li class="secondary-menu__item item"><a>Контакты</a></li>
+              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/private'}}">Личный кабинет</a></li>
+              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/about/'}}">О компании</a></li>
+              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/vazhno_znat/'}}">Важно знать</a></li>
+              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/davay_druzhit/'}}">Обслуживание по графику</a></li>
+              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/faq/'}}">Вопросы и ответы</a></li>
+              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/news/'}}">Новости</a></li>
+              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/articles/'}}">Статьи</a></li>
+              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/gallery/'}}">Галерея</a></li>
+              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/skidki_akcii/'}}">Специальные акции</a></li>
+              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/vakansii/'}}">Вакансии</a></li>
+              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/contacts/'}}">Контакты</a></li>
             </ul>
         
             <ul class="secondary-menu__list list">
-              <li class="secondary-menu__item  item"><a>Физическим лицам</a>
+              <li class="secondary-menu__item  item"><a class="link" href="{{buildUrl general.city '/'}}">Физическим лицам</a>
                 <ul class="secondary-menu__list secondary-menu__list--sub list">
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Поддерживающая уборка</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/podderzhka'}}">Поддерживающая уборка</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Генеральная уборка</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/generalnaya_uborka'}}">Генеральная уборка</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Уборка после ремонта</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/posle_remonta'}}">Уборка после ремонта</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Уборка котеджей</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/uborka-kottedzhej'}}">Уборка котеджей</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Мытьё окон</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/mite_okon'}}">Мытьё окон</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Химчистка</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/himchistka'}}">Химчистка</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Домашний мастер</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">Домашний мастер</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Обработка поверхнистей</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">Обработка поверхностей</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="link" href="ezhednevnaya_uborka.html">Ежедневная уборка квартиры</a>
+                    <a class="link link--lg-brown" href="{{buildUrl general.city '/ezhednevnaya_uborka'}}">Ежедневная уборка квартиры</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="link" href="kompleksnaya_uborka.html">Комплексная уборка</a>
+                    <a class="link link--lg-brown" href="{{buildUrl general.city '/kompleksnaya_uborka'}}">Комплексная уборка</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="link" href="uborka_kvartir.html">Уборка квартир</a>
+                    <a class="link link--lg-brown" href="{{buildUrl general.city '/uborka_kvartir'}}">Уборка квартир</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="link" href="drugie_raboty.html">Дополнительные работы</a>
+                    <a class="link link--lg-brown" href="{{buildUrl general.city '/drugie_raboty'}}">Дополнительные работы</a>
                   </li>
                 </ul>
               </li>
             </ul>
         
             <ul class="secondary-menu__list list">
-              <li class="secondary-menu__item  item"><a>Юридическим лицам</a>
+              <li class="secondary-menu__item  item"><a class="link" href="{{buildUrl general.city '/b2b/'}}">Юридическим лицам</a>
                 <ul class="secondary-menu__list secondary-menu__list--sub list">
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Уборка офисов</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/uborka_ofisov'}}">Уборка офисов</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Уборка производственных помещений</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/uborka-proizvodstvennyh-pomewenij'}}">Уборка производственных помещений</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Офисный мастер</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/ofisnyy-master'}}">Офисный мастер</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Мытье стекол</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/mite_stekol'}}">Мытье стекол</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Мытье фасадов</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/myte-fasadov'}}">Мытье фасадов</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Промышленный альпинизм</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/promyshlennyj-alpinizm'}}">Промышленный альпинизм</a>
                   </li>
                   <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link">Обработка поверхностей</a>
+                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">Обработка поверхностей</a>
                   </li>
                 </ul>
               </li>
@@ -893,7 +837,9 @@
         
           <div class="page-footer__row">
             <div class="page-footer__column">
-              <p class="page-footer__copyright">2007-2016 © www.domovenok.su<br> Клининговая компания ООО «Комфорт-сервис «Домовёнок»<br> все права защищены</p>
+              <p class="page-footer__address"><b class="text text--bold text--lg-brown">Адрес:</b><a class="page-footer__link  link" href="{{buildUrl general.city '/contacts/'}}#mymap">Москва, ул. Матросская Тишина, 16Г</a></p>
+              <p class="page-footer__tel"><b class="text text--bold text--lg-brown">Телефон:</b><a class="page-footer__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
+              <p class="page-footer__copyright">© ООО «Комфорт-сервис «Домовёнок», 2017</p>
             </div>
             <div class="page-footer__column">
               <div class="page-footer__social-links  social-links">
@@ -929,10 +875,6 @@
                     <path d="M218.19-50.82a19.05,19.05,0,0,1,2.76,2.91,1.2,1.2,0,0,1,.23,1,0.57,0.57,0,0,1-.6.43l-3.44.15a2.66,2.66,0,0,1-1.77-.87A7.24,7.24,0,0,1,214-48.73a0.91,0.91,0,0,0-.76-0.41,0.61,0.61,0,0,0-.7.51l-0.1,1.33a0.88,0.88,0,0,1-.31.61,1,1,0,0,1-.44.23l-0.6.08a11.36,11.36,0,0,1-2.37-.13,4.74,4.74,0,0,1-1.85-.74,11.07,11.07,0,0,1-1.33-1q-0.49-.46-1.43-1.48a43.41,43.41,0,0,1-3.8-6.17,5.25,5.25,0,0,1-.52-1.73,1.3,1.3,0,0,1,.78-0.26,16.14,16.14,0,0,1,1.67,0l1.3,0a0.84,0.84,0,0,1,.83.56,22,22,0,0,0,2.55,4.44q0.83,0.77,1.09-.26a11.3,11.3,0,0,0,.1-2.5,1.78,1.78,0,0,0-1.3-2q0.31-.82,2.19-0.82,0.47,0,1.15.05l0.73,0.05q1.56,0,1.56,1.22,0,0.15-.05.74t-0.08,1.12q0,0.54,0,1.12a2.79,2.79,0,0,0,.16,1,0.81,0.81,0,0,0,.42.51l0.55-.38a2.33,2.33,0,0,0,.55-0.59l0.44-.61a7.26,7.26,0,0,0,.47-0.77,6.25,6.25,0,0,0,.36-0.71q0.05-.15.36-0.79l0.31-.64,0.08-.15a1.35,1.35,0,0,1,.34-0.54,1.64,1.64,0,0,1,.65-0.08h3.23a4.66,4.66,0,0,1,.68,0,0.87,0.87,0,0,1,.31.23q0.36,0.46-.65,2a20.75,20.75,0,0,1-2,2.55Q217.25-51.68,218.19-50.82Z" transform="translate(-199.75 58.47)" style="fill: #fff"/>
                   </svg>
                 </a>
-              </div>
-              <div class="page-footer__contact">
-                <p>+7 (495) 668-04-68</p>
-                <p>круглосуточно</p>
               </div>
             </div>
           </div>
@@ -987,6 +929,18 @@
             </div>
           </div>
       
+          <div class="pop-up__item  pop-up__item--sm  pop-up__item--hide  notification">
+            <p class="notification__text  title">Текст</p>
+          </div>
+      
+          <div class="pop-up__item  pop-up__item--sm  pop-up__item--hide  general-question">
+            <form class="general-question__form">
+              <h2 class="general-question__title  title">Вы уверены?</h2>
+              <button class="general-question__button  general-question__button--ok  button" data-ga='{"hitType": "event","eventCategory": "form","eventAction": "send","eventLabel": "canceled_order"}'>Да</button>
+              <button class="general-question__button  general-question__button--no  button" type="button">Нет</button>
+            </form>
+          </div>
+      
         </div>
       
       </div>
@@ -994,7 +948,7 @@
 
     </div>
 
-<script src="/static/js/bundle.js?v01"></script>
+<script src="/static/pancake/js/bundle.js?v01"></script>
 <!-- /Java Script -->
 
 </body>

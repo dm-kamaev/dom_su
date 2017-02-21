@@ -1,80 +1,44 @@
 'use strict';
 
 const Router = require('koa-router');
-const fs = require('fs-promise')
-const fsSync = require('fs')
-const Handlebars = require('handlebars');
 const { getArticle, getArticleListScroll } = require('./store')
 const logger = require('logger')(module)
-const moment = require('moment')
+const { getTemplate, loadTemplate } = require('utils')
 
 
+const articlesTemplateOpts = {
+    path: 'templates/articles/articles.html',
+    name: 'articles'
+}
 
-Handlebars.registerHelper('raw', function(options) {
-  return options.fn(this);
-});
+const menu = {
+    main: true,
+    articles: true
+}
 
-Handlebars.registerHelper('formatDate', function (date) {
-    return moment.parseZone(moment.utc(date).format()).format("DD.MM.YYYY")
-})
-
-Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
-
-    switch (operator) {
-        case '==':
-            return (v1 == v2) ? options.fn(this) : options.inverse(this);
-        case '===':
-            return (v1 === v2) ? options.fn(this) : options.inverse(this);
-        case '!=':
-            return (v1 != v2) ? options.fn(this) : options.inverse(this);
-        case '!==':
-            return (v1 !== v2) ? options.fn(this) : options.inverse(this);
-        case '<':
-            return (v1 < v2) ? options.fn(this) : options.inverse(this);
-        case '<=':
-            return (v1 <= v2) ? options.fn(this) : options.inverse(this);
-        case '>':
-            return (v1 > v2) ? options.fn(this) : options.inverse(this);
-        case '>=':
-            return (v1 >= v2) ? options.fn(this) : options.inverse(this);
-        case '&&':
-            return (v1 && v2) ? options.fn(this) : options.inverse(this);
-        case '||':
-            return (v1 || v2) ? options.fn(this) : options.inverse(this);
-        default:
-            return options.inverse(this);
-    }
-});
+loadTemplate(articlesTemplateOpts)
 
 const articlesRouter = new Router();
 
-const articlesRouterAjax = new Router({
-    prefix: '/m/articles'
-})
-
-// function readTemplate () {
-//     let html = fsSync.readFileSync('templates/articles/articles.html', 'utf-8')
-//     return Handlebars.compile(html)
-// }
-//
-// let template = readTemplate()
-
 articlesRouter.get('articlesList', /^\/articles\/$/, async function (ctx, next) {
+    console.log(ctx.request.query)
     const {modelList, begin, end} = await getArticleListScroll()
-    const html = await fs.readFile('templates/articles/articles.html', 'utf-8')
-    const template = Handlebars.compile(html)
-    ctx.body = template({ItemList: modelList, Begin: begin, End: end, HasRightSide: false})
+    const template = getTemplate(articlesTemplateOpts)
+    ctx.body = template(ctx.proc({ItemList: modelList, Begin: begin, End: end, HasRightSide: false, menu: menu}, ctx))
 })
 
 articlesRouter.get('articlesItem', /^\/articles\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
     const article = await getArticle(ctx.params[0], 'id')
+    if (article === null){
+        await next()
+        return
+    }
     const {modelList, begin, end}= await getArticleListScroll({direction: 0, keyValue: article.id})
-    const html = await fs.readFile('templates/articles/articles.html', 'utf-8')
-    const template = Handlebars.compile(html)
-    ctx.body = template({ItemList: modelList, Item: article, Begin: begin, End: end, HasRightSide: true})
+    const template = getTemplate(articlesTemplateOpts)
+    ctx.body = template(ctx.proc({ItemList: modelList, Item: article, Begin: begin, End: end, HasRightSide: true, menu: menu}))
 })
 
-articlesRouter.get('articlesListAjax', /^\/m\/articles\/$/, async function (ctx, next) {
+articlesRouter.get('articlesListAjax', /^\/m\/articles$/, async function (ctx, next) {
     try {
         const direction = ctx.query.direction;
         const article = await getArticle(ctx.query.key, 'id')
@@ -89,7 +53,7 @@ articlesRouter.get('articlesListAjax', /^\/m\/articles\/$/, async function (ctx,
     }
 })
 
-articlesRouter.get('articlesItemAjax', /^\/m\/articles\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
+articlesRouter.get('articlesItemAjax', /^\/m\/articles\/([0-9a-zA-Z_\-]+)$/, async function (ctx, next) {
     try {
         const article = await getArticle(ctx.params[0])
         let response = { Success: true, Data: { Item: article} }

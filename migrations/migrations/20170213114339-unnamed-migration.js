@@ -5,7 +5,7 @@ module.exports = {
     queryInterface.addColumn(
     'phones',
     'living',
-        {type: Sequelize.BOOLEAN, defaultValue: false}
+        {type: Sequelize.BOOLEAN}
   )
   },
 
