@@ -511,7 +511,7 @@
         <div class="section__wrap">
           <h2 class="section__title  title">Цены на Поддерживающую уборку</h2>
 
-          <div class="service-calc">
+          <div class="service-calc" data-name="podderzhka">
             <p class="service-calc__heading text"><span class="service-calc__heading service-calc__heading--tablet">Выберите или в</span><span class="service-calc__heading--mobile">В</span>ведите Вашу площадь помещения:</p>
 
             <div class="service-calc__row service-calc__row--square">
@@ -878,9 +878,9 @@
         <div class="section__wrap">
           <h2 class="section__title  title">Свяжитесь со мной!</h2>
           <p class="section__text text text--center">Заполните форму заказа и наш менеджер свяжется с Вами в течение 10 минут.</p>
-          <form class="contact-section__form">
-            <input class="contact-section__input input" type="text" name="name" placeholder="Имя">
-            <input class="contact-section__input input" type="email" name="email" placeholder="Телефон или e-mail">
+          <form class="contact-section__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "callback"}' ya-reach="callback">
+            <input class="contact-section__input input" type="text" name="name" placeholder="Имя" required="">
+            <input class="contact-section__input input" type="tel" name="tel" placeholder="Телефон" required="">
             <button class="contact-section__button button" type="submit">Отправить</button>
           </form>
         </div>
@@ -1047,7 +1047,7 @@
     
         <div class="pop-up__item pop-up__item--hide  service-order">
           <div class="service-order__wrap">
-            <form class="service-order__form">
+            <form class="service-order__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "order"}' ya-reach="order_applic">
               <h2 class="service-order__title  title">Оставить заявку</h2>
               <div class="service-order__row">
                 <label class="service-order__label  label">ФИО</label>
@@ -1089,6 +1089,32 @@
             <button class="general-question__button  general-question__button--ok  button" data-ga='{"hitType": "event","eventCategory": "form","eventAction": "send","eventLabel": "canceled_order"}'>Да</button>
             <button class="general-question__button  general-question__button--no  button" type="button">Нет</button>
           </form>
+        </div>
+    
+        <div class="pop-up__item  pop-up__item--hide  get-document">
+          <div class="get-document__wrap">
+            <form class="get-document__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "getContract"}'  ya-reach="order_applic">
+              <h2 class="get-document__title  title">Получить экземпляр договора</h2>
+    
+              <div class="get-document__row">
+                <label class="get-document__label  label">Введите e-mail</label>
+                <input class="get-document__input  input" type="email" autofocus required>
+              </div>
+    
+              <div class="get-document__row">
+                <label class="label-checkbox">
+                  <input type="checkbox" class="checkbox  checkbox--small" checked  required>
+                  <span class="checkbox__indicator  checkbox__indicator--small  checkbox__indicator--light"></span>
+                  <span class="label-text">Cогласен с обработкой моих персональных данных в соответствии с ФЗ РФ от 27.06.06 г. N°152-ФЗ «О персональных данных»</span>
+                </label>
+              </div>
+              <div class="get-document__row">
+                <div class="get-document__button">
+                  <button class="button" type="submit">Отправить</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
     
       </div>

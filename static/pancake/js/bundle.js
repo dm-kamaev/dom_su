@@ -2618,6 +2618,7 @@
 	    },
 	    sendSquireValue: function (itemClass) {
 	        try {
+	            console.log(itemClass, "itemClass");
 	            ga('send', {
 	                'hitType': 'event',
 	                'eventCategory': 'form',
@@ -18985,6 +18986,7 @@
 	 * Created by Lobova.A on 31.01.2017.
 	 */
 	var getPrice = __webpack_require__(163);
+	var analytic = __webpack_require__(34);
 	var CalcSquare = (function () {
 	    function CalcSquare(element) {
 	        this.element = element;
@@ -19015,20 +19017,20 @@
 	                if (this.activeSquire.dataset.value) {
 	                    getPrice(this.outputs, this.activeSquire.dataset.value);
 	                }
+	                analytic.sendSquireValue(this.element.dataset.name);
 	                return;
 	            }
 	            target = target.parentNode;
 	        }
 	    };
 	    CalcSquare.prototype.changeInput = function (e) {
-	        e.preventDefault;
+	        e.preventDefault();
 	        this.input.parentNode.dataset.value = this.input.value;
+	        analytic.sendSquireValue(this.element.dataset.name);
 	        if (this.activeSquire.dataset.value) {
-	            console.log('i m', this.activeSquire.dataset.value);
 	            getPrice(this.outputs, this.activeSquire.dataset.value);
 	        }
 	        else {
-	            console.log('i n', this.activeSquire.dataset.value);
 	            getPrice(this.outputs, '0');
 	        }
 	    };
@@ -20342,7 +20344,7 @@
 	        e.preventDefault();
 	        var formData = {
 	            type: 'CallBack',
-	            Param: {
+	            data: {
 	                "phone": this.phone.value,
 	                "name": this.name.value
 	            }
@@ -20350,7 +20352,7 @@
 	        function response(data) {
 	            if (data.Success === true) {
 	                this.button.disabled = false;
-	                this.email.value = '';
+	                this.phone.value = '';
 	                this.name.value = '';
 	                analytic.sendCallback(this.element);
 	                e.preventDefault();

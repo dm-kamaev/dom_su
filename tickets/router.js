@@ -3,6 +3,7 @@
 const Router = require('koa-router');
 const { saveAndSend } = require('./store')
 const { getServiceName } = require('statpages')
+const logger = require('logger')(module)
 
 const ticketRouter = new Router();
 
@@ -30,16 +31,20 @@ function validation(ticket) {
 ticketRouter.post('/ticket-handler', async function (ctx, next) {
     ctx.type = 'application/json'
     let response = { Success: false }
-    if (validation(ctx.request.body)){
-        let data = ctx.request.body.data
-        if (ctx.request.body.type == 'Order'){
-            let serviceName = getServiceName(ctx.state.pancakeUser.city, ctx.request.headers.referer)
-            if (serviceName){
-                data.serviceName = serviceName
+    try{
+        if (validation(ctx.request.body)){
+            let data = ctx.request.body.data
+            if (ctx.request.body.type == 'Order'){
+                let serviceName = getServiceName(ctx.state.pancakeUser.city, ctx.request.headers.referer)
+                if (serviceName){
+                    data.serviceName = serviceName
+                }
             }
+            ctx.state.pancakeUser.sendTicket(ctx.request.body.type, data)
+            response.Success = true
         }
-        ctx.state.pancakeUser.sendTicket(ctx.request.body.type, data)
-        response.Success = true
+    } catch (e) {
+        logger.error(e)
     }
     ctx.body = JSON.stringify(response)
 })
