@@ -5,10 +5,16 @@
         "develop": true,
         "production": false
     },
-    "db": {
+    "djangoDB": {
+        "host": "localhost",
         "user": "root",
         "password": "resu",
-        "database": "pancaketest",
+        "database": "pancaketest4"
+    },
+    "db": {
+        "user": "domovenok",
+        "password": "domovenokPG",
+        "database": "pancake",
         "host": "localhost"
     },
     "api1C": {

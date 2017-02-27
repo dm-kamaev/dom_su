@@ -159,7 +159,7 @@
 	    //         if (client.isMobile() && (ctx.state.delete == true)) {
 	    //
 	    //           // let order = rightSide.querySelector('.right-side__wrap');
-	    //           // console.log(order, "order")
+	    //
 	    //           // rightSide.removeChild(order);
 	    //           leftSide.classList.remove('left-side--hide');
 	    //           leftSide.classList.remove('left-side--mobile');
@@ -371,7 +371,6 @@
 	        return "";
 	    },
 	    init: function () {
-	        console.log('инициализация табсов');
 	        if (this.items.length) {
 	            for (var _i = 0, _a = this.items; _i < _a.length; _i++) {
 	                var tab = _a[_i];
@@ -392,7 +391,6 @@
 	        this.array = [];
 	    },
 	    add: function (variable, item, itemId, typeItem) {
-	        console.log(variable, item, itemId, typeItem, "жопа");
 	        if (this.length()) {
 	            this.array[this.length() - 1].item.classList.add('right-side__wrap--hide');
 	        }
@@ -519,8 +517,6 @@
 	        this.itemType = this.getItemType();
 	        this.update(this.address, this.addressValue, this.addressType);
 	        this.update(this.item, this.itemValue, this.itemType);
-	        console.log(this.address);
-	        console.log(this.item);
 	    };
 	    return Url;
 	}());
@@ -557,7 +553,6 @@
 	        if (additional) {
 	            build += additional;
 	        }
-	        console.log(build);
 	        return build;
 	    }
 	};
@@ -577,8 +572,6 @@
 	        xhr.open('GET', url, true);
 	        xhr.onerror = error;
 	        xhr.onload = function (e) {
-	            console.log(e);
-	            console.log(e.target.response);
 	            var data = JSON.parse(e.target.response);
 	            render(data);
 	        };
@@ -840,14 +833,15 @@
 	    pageInit.leftSide = new LeftSideChild();
 	    pageInit.leftSide.setActiveItem(urlThridColumn.item);
 	    if (RightSideList.length) {
-	        RightSideList.forEach(function (item) {
+	        for (var _b = 0, RightSideList_1 = RightSideList; _b < RightSideList_1.length; _b++) {
+	            var item = RightSideList_1[_b];
 	            if (!item.classList.contains('right-side__form')) {
 	                var rightSide_1 = new leftSideList.rightSide(item);
 	            }
 	            else {
 	                var rightSide_2 = new leftSideList.form(item);
 	            }
-	        });
+	        }
 	    }
 	}
 	if (changeTownElement) {
@@ -872,8 +866,8 @@
 	            document.dispatchEvent(event);
 	        });
 	    };
-	    for (var _b = 0, buttonApplicationElements_1 = buttonApplicationElements; _b < buttonApplicationElements_1.length; _b++) {
-	        var item = buttonApplicationElements_1[_b];
+	    for (var _c = 0, buttonApplicationElements_1 = buttonApplicationElements; _c < buttonApplicationElements_1.length; _c++) {
+	        var item = buttonApplicationElements_1[_c];
 	        _loop_1(item);
 	    }
 	}
@@ -892,8 +886,8 @@
 	            buttonToggle.innerText = 'Закрыть ответ';
 	        });
 	    };
-	    for (var _c = 0, questionElement_1 = questionElement; _c < questionElement_1.length; _c++) {
-	        var item = questionElement_1[_c];
+	    for (var _d = 0, questionElement_1 = questionElement; _d < questionElement_1.length; _d++) {
+	        var item = questionElement_1[_d];
 	        _loop_2(item);
 	    }
 	}
@@ -901,7 +895,6 @@
 	    var authorization = __webpack_require__(185);
 	    authorization();
 	}
-	console.log(pageInit);
 	module.exports = pageInit;
 
 
@@ -2576,20 +2569,18 @@
 
 /***/ },
 /* 34 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 25.11.2016.
 	 */
+	var request = __webpack_require__(7);
 	var analytic = {
 	    sendAnalyticId: function (e) {
 	        try {
-	            console.log('аналик ид');
-	            console.log(ga);
 	            ga('create', analyticConf.id, 'auto');
 	        }
 	        catch (e) {
-	            console.log('ошибка');
 	        }
 	    },
 	    sendPageview: function (e) {
@@ -2618,7 +2609,6 @@
 	    },
 	    sendSquireValue: function (itemClass) {
 	        try {
-	            console.log(itemClass, "itemClass");
 	            ga('send', {
 	                'hitType': 'event',
 	                'eventCategory': 'form',
@@ -2630,7 +2620,6 @@
 	    },
 	    sendButtonDocument: function (e) {
 	        try {
-	            console.log('получить документ');
 	            ga('send', {
 	                'hitType': 'event',
 	                'eventCategory': 'button',
@@ -2660,7 +2649,6 @@
 	        if (element.hasAttribute('ga-send')) {
 	            var ga_param = JSON.parse(element.getAttribute('ga-send'));
 	            try {
-	                console.log('ga_param', ga_param);
 	                ga('send', ga_param);
 	            }
 	            catch (e) { }
@@ -2668,7 +2656,6 @@
 	        if (element.hasAttribute('ya-reach')) {
 	            var reach_id = element.getAttribute('ya-reach');
 	            try {
-	                console.log('reach_id', reach_id);
 	                yaCounter803248.reachGoal(reach_id);
 	            }
 	            catch (e) { }
@@ -2678,7 +2665,6 @@
 	        if (element.hasAttribute('ga-send')) {
 	            var ga_param = JSON.parse(element.getAttribute('ga-send'));
 	            try {
-	                console.log('ga_param', ga_param);
 	                ga('send', ga_param);
 	            }
 	            catch (e) { }
@@ -2686,19 +2672,44 @@
 	        if (element.hasAttribute('ya-reach')) {
 	            var reach_id = element.getAttribute('ya-reach');
 	            try {
-	                console.log('reach_id', reach_id);
 	                yaCounter803248.reachGoal(reach_id);
 	            }
 	            catch (e) { }
 	        }
 	    },
+	    setLiving: function () {
+	        try {
+	            var google_id_1 = null;
+	            ga(function (tracker) {
+	                google_id_1 = tracker.get('clientId');
+	            });
+	            function sendId(google_id) {
+	                var data = {
+	                    google_id: ''
+	                };
+	                if (google_id) {
+	                    data.google_id = google_id;
+	                }
+	                function response() {
+	                }
+	                function error() { }
+	                var json = JSON.stringify(data);
+	                var requestUrl = "/living/";
+	                request.send(requestUrl, json, response, error);
+	                setTimeout(sendId, 30000, google_id);
+	            }
+	            sendId(google_id_1);
+	        }
+	        catch (e) {
+	        }
+	    },
 	    init: function () {
-	        console.log("анналитика");
 	        this.sendAnalyticId();
 	        this.sendPageview();
 	        this.setUserId();
 	        this.setPhone();
 	        this.setPhoneDimension();
+	        this.setLiving();
 	    }
 	};
 	module.exports = analytic;
@@ -2751,7 +2762,6 @@
 	        }
 	    };
 	    Selection.prototype.select = function (e) {
-	        console.log(e);
 	        e.preventDefault();
 	        this.element.classList.remove('selection--open');
 	        this.button.innerHTML = e.currentTarget.innerHTML;
@@ -2954,7 +2964,7 @@
 	        this.parentElement = parentElement;
 	        this.element = this.parentElement.querySelector('.notification');
 	        this.text = this.parentElement.querySelector('.notification__text');
-	        this.text.innerText = text;
+	        this.text.innerHTML = text;
 	    }
 	    Message.prototype.close = function () { };
 	    return Message;
@@ -2975,7 +2985,6 @@
 	var preventDefault = __webpack_require__(40);
 	var init = __webpack_require__(41);
 	var analytic = __webpack_require__(34);
-	console.log('init', init);
 	var ServiceOrder = (function () {
 	    function ServiceOrder(parent, parentElement) {
 	        this.parent = parent;
@@ -2986,11 +2995,13 @@
 	        this.inputTel = this.form.querySelector('input[type="tel"]');
 	        this.textarea = this.form.querySelector('.service-order__textarea');
 	        this.submitButton = this.form.querySelector('button[type="submit"]');
-	        console.log('init', init);
 	        this.submitForm = this.submitForm.bind(this);
 	        this.form.addEventListener('submit', this.submitForm);
 	    }
 	    ServiceOrder.prototype.close = function () {
+	        this.textarea.value = "";
+	        this.inputName.value = "";
+	        this.inputTel.value = "";
 	        this.form.removeEventListener('submit', this.submitForm);
 	    };
 	    ServiceOrder.prototype.submitForm = function (e) {
@@ -3019,7 +3030,7 @@
 	                event_1.initEvent('open-popup', true, true);
 	                event_1.detail = {
 	                    id: 'notification',
-	                    text: 'Спасибо за заявку'
+	                    text: 'Спасибо. Мы свяжемся с Вами в течение 5 минут'
 	                };
 	                document.dispatchEvent(event_1);
 	            }
@@ -3069,7 +3080,6 @@
 	// module.exports = function () {
 	//
 	//
-	//   console.log('здесь')
 	//   // document.location.href = "http://www.site.ru";
 	//
 	// };
@@ -18391,7 +18401,6 @@
 	            return "" + path.buildUrl(path.item) + url.objectType.url + "?direction=" + this.scrollDirection + "&key=" + this.getElementIdDirection(this.elementAttribute);
 	        };
 	        this.buttonForm = this.page.querySelector('.left-side__button');
-	        console.log(this.buttonForm);
 	        this.openForm = this.openForm.bind(this);
 	        this.addEvent();
 	    }
@@ -18661,7 +18670,8 @@
 	                return {
 	                    'title': data.title,
 	                    'picture': data.picture,
-	                    'text': data.text
+	                    'text': data.text,
+	                    'promo': data.promo
 	                };
 	            },
 	            createItem: function (data) {
@@ -18785,7 +18795,6 @@
 	 */
 	var Counter = (function () {
 	    function Counter(element) {
-	        console.log(element, 'element');
 	        this.element = element;
 	        this.buttonMinus = element.querySelector('.counter__btn--minus');
 	        this.buttonPlus = element.querySelector('.counter__btn--plus');
@@ -18815,7 +18824,6 @@
 	        }
 	    };
 	    Counter.prototype.changeValue = function (e) {
-	        console.log('change');
 	        if (Number(this.output.value) > Number(this.output.max)) {
 	            this.output.value = this.output.max;
 	        }
@@ -18866,11 +18874,9 @@
 	    }
 	    Card.prototype.init = function () {
 	        if (this.counterElement) {
-	            console.log(this.counterElement);
 	            this.counter = new Counter(this, this.counterElement);
 	        }
 	        if (this.selectElement) {
-	            console.log(this.selectElement);
 	            this.select = new Selection(this, this.selectElement);
 	        }
 	    };
@@ -18927,7 +18933,6 @@
 	        this.parent.change();
 	    };
 	    Counter.prototype.changeWidth = function () {
-	        console.log(this.lastValue);
 	        this.lastValue = this.currentValue();
 	        switch (this.lastValue) {
 	            case 1:
@@ -19025,6 +19030,9 @@
 	    };
 	    CalcSquare.prototype.changeInput = function (e) {
 	        e.preventDefault();
+	        if (Number(e.target.value) > Number(e.target.max)) {
+	            e.target.value = e.target.max;
+	        }
 	        this.input.parentNode.dataset.value = this.input.value;
 	        analytic.sendSquireValue(this.element.dataset.name);
 	        if (this.activeSquire.dataset.value) {
@@ -19056,7 +19064,6 @@
 	/**
 	 * Created by Lobova.A on 17.02.2017.
 	 */
-	'use strict';
 	var priceConf = __webpack_require__(164);
 	module.exports = function (elements, squire) {
 	    var i = squire;
@@ -19067,7 +19074,6 @@
 	        var output = element.querySelector('.service-calc__output');
 	        var formula = priceConf[("" + name_1)]['formula'];
 	        var itemsConfig = priceConf[("" + name_1)]['price'][option];
-	        var sum = formula(itemsConfig, squire) + 'руб';
 	        output.innerHTML = formula(itemsConfig, squire) + ' руб';
 	    }
 	};
@@ -19140,7 +19146,7 @@
 	            }
 	        }
 	    },
-	    generalnaya: {
+	    general: {
 	        price: {
 	            '0x': {
 	                '40': 6590,
@@ -19189,7 +19195,7 @@
 	            }
 	        }
 	    },
-	    posle_remonta: {
+	    posle: {
 	        price: {
 	            'without_furniture': {
 	                '40': 5600,
@@ -19261,21 +19267,22 @@
 	    uborka_ofisov: {
 	        price: {
 	            '0x': {
-	                '100': 16000,
-	                '250': 160,
-	                '500': 100,
+	                '0': 16000,
+	                '100': 160,
+	                '250': 100,
+	                '500': 85,
 	                '1000': 70
 	            }
 	        },
 	        formula: function (conf, squire) {
 	            if (Number(squire) <= 100) {
-	                return conf['100'];
+	                return conf['0'];
 	            }
 	            else if (Number(squire) <= 250) {
-	                return (Number(squire) * conf['250']).toFixed();
+	                return (Number(squire) * conf['100']).toFixed();
 	            }
 	            else if (Number(squire) <= 500) {
-	                return (Number(squire) * conf['500']).toFixed();
+	                return (Number(squire) * conf['250']).toFixed();
 	            }
 	            else if (Number(squire) <= 1000) {
 	                return (Number(squire) * conf['500']).toFixed();
@@ -19288,21 +19295,22 @@
 	    proizvodstvennyh_pomewenij: {
 	        price: {
 	            '0x': {
-	                '100': 16000,
-	                '250': 160,
-	                '500': 100,
+	                '0': 16000,
+	                '100': 160,
+	                '250': 100,
+	                '500': 85,
 	                '1000': 70
 	            }
 	        },
 	        formula: function (conf, squire) {
 	            if (Number(squire) <= 100) {
-	                return conf['100'];
+	                return conf['0'];
 	            }
 	            else if (Number(squire) <= 250) {
-	                return (Number(squire) * conf['250']).toFixed();
+	                return (Number(squire) * conf['100']).toFixed();
 	            }
 	            else if (Number(squire) <= 500) {
-	                return (Number(squire) * conf['500']).toFixed();
+	                return (Number(squire) * conf['250']).toFixed();
 	            }
 	            else if (Number(squire) <= 1000) {
 	                return (Number(squire) * conf['500']).toFixed();
@@ -19431,7 +19439,7 @@
 	            }
 	        }
 	    },
-	    generalnaya_spb: {
+	    general_spb: {
 	        price: {
 	            '0x': {
 	                '40': 5280,
@@ -19480,7 +19488,7 @@
 	            }
 	        }
 	    },
-	    posle_remonta_spb: {
+	    posle_spb: {
 	        price: {
 	            'without_furniture': {
 	                '40': 4450,
@@ -19553,22 +19561,26 @@
 	        price: {
 	            '0x': {
 	                '0': 16000,
-	                '250': 160,
-	                '500': 100,
+	                '100': 160,
+	                '250': 100,
+	                '500': 85,
 	                '1000': 70
 	            }
 	        },
 	        formula: function (conf, squire) {
-	            if (Number(squire) <= 250) {
+	            if (Number(squire) <= 100) {
 	                return conf['0'];
+	            }
+	            else if (Number(squire) <= 250) {
+	                return (Number(squire) * conf['100']).toFixed();
 	            }
 	            else if (Number(squire) <= 500) {
 	                return (Number(squire) * conf['250']).toFixed();
 	            }
-	            else if (Number(squire) >= 1000) {
+	            else if (Number(squire) <= 1000) {
 	                return (Number(squire) * conf['500']).toFixed();
 	            }
-	            else if (Number(squire) <= 1000) {
+	            else if (Number(squire) >= 1000) {
 	                return (Number(squire) * conf['1000']).toFixed();
 	            }
 	        }
@@ -19577,22 +19589,26 @@
 	        price: {
 	            '0x': {
 	                '0': 16000,
-	                '250': 160,
-	                '500': 100,
+	                '100': 160,
+	                '250': 100,
+	                '500': 85,
 	                '1000': 70
 	            }
 	        },
 	        formula: function (conf, squire) {
-	            if (Number(squire) <= 250) {
+	            if (Number(squire) <= 100) {
 	                return conf['0'];
+	            }
+	            else if (Number(squire) <= 250) {
+	                return (Number(squire) * conf['100']).toFixed();
 	            }
 	            else if (Number(squire) <= 500) {
 	                return (Number(squire) * conf['250']).toFixed();
 	            }
-	            else if (Number(squire) >= 1000) {
+	            else if (Number(squire) <= 1000) {
 	                return (Number(squire) * conf['500']).toFixed();
 	            }
-	            else if (Number(squire) <= 1000) {
+	            else if (Number(squire) >= 1000) {
 	                return (Number(squire) * conf['1000']).toFixed();
 	            }
 	        }
@@ -19830,9 +19846,6 @@
 	        setTimeout(function () {
 	            this.addEvent();
 	        }.bind(this), 0);
-	        //
-	        // console.log(this.scrollBegin);
-	        // console.log(this.scrollEnd);
 	    };
 	    Articles.prototype.openItem = function (e) {
 	        e.preventDefault();
@@ -20024,9 +20037,9 @@
 	        var email = this.subscribeForm.querySelector('input[name="email"]');
 	        var button = this.subscribeForm.querySelector('button[type="submit"]');
 	        var formData = {
-	            Method: '',
-	            Param: {
-	                "email": email.value
+	            type: 'mail_delivery',
+	            data: {
+	                "mail": email.value
 	            }
 	        };
 	        function response(data) {
@@ -20038,7 +20051,7 @@
 	                event_1.initEvent('open-popup', true, true);
 	                event_1.detail = {
 	                    id: 'notification',
-	                    text: 'Спасибо вы подписались на рассылку'
+	                    text: 'Спасибо вы подписались на рассылку.'
 	                };
 	                document.dispatchEvent(event_1);
 	            }
@@ -20056,7 +20069,6 @@
 	    };
 	    RightSide.prototype.sendArticleLike = function (e) {
 	        e.preventDefault();
-	        console.log(e.target, "button");
 	        var formData = {
 	            Method: '',
 	            Param: {
@@ -20070,7 +20082,7 @@
 	                event_2.initEvent('open-popup', true, true);
 	                event_2.detail = {
 	                    id: 'notification',
-	                    text: 'Спасибо за информацию'
+	                    text: 'Спасибо за информацию.'
 	                };
 	                document.dispatchEvent(event_2);
 	            }
@@ -20130,7 +20142,6 @@
 	        e.preventDefault();
 	        var email = this.element.querySelector('input[name="email"]');
 	        var title = this.element.querySelector('input[name="title"]');
-	        console.log(email, title, "нашла здесь");
 	        var formData = {
 	            name: title.value,
 	            mail: email.value
@@ -20168,7 +20179,7 @@
 	                    event_2.initEvent('open-popup', true, true);
 	                    event_2.detail = {
 	                        id: 'notification',
-	                        text: 'Спасибо за вопрос, мы ответим в ближайщее время'
+	                        text: 'Спасибо за вопрос!<br>Мы ответим в ближайшее время.'
 	                    };
 	                    document.dispatchEvent(event_2);
 	                }
@@ -20360,7 +20371,7 @@
 	                event_1.initEvent('open-popup', true, true);
 	                event_1.detail = {
 	                    id: 'notification',
-	                    text: 'Мы свяжемся с вами в течении 5 минут'
+	                    text: 'Спасибо. Мы свяжемся с Вами в течение 5 минут.'
 	                };
 	                document.dispatchEvent(event_1);
 	            }
@@ -20579,84 +20590,7 @@
 	/**
 	 * Created by Lobova.A on 29.11.2016.
 	 */
-	// // let PopUp = require('./../../../components/pop-up/pop-up');
-	// // let Selection = require('./../../../../base-components/selection/selection');
-	// // let SelectionMenu = require('./../../../../base-components/selection/selection-menu');
-	// // let Orders = require('./../../../components/orders/orders');
-	// // let Order = require('./../../../components/order/order');
-	// // let client = require('./../client-data/client-data');
-	// // let pageHeader = require('./../../../components/page-header/page-header');
-	// let authorization = require('./../../../components/authorization/authorization-form');
-	//
-	//
-	//
-	// //let page = document.querySelector('.page');
-	// let pageAuth = document.querySelector('.page--authorization');
-	// // let ordersElement = document.querySelector('orders');
-	// // let popUpElement = page.querySelector('.pop-up');
-	// // let mainContant = page.querySelector('.main-content');
-	// // let selectionList = mainContant.querySelectorAll('.selection');
-	// // let selectionMenu = mainContant.querySelector('.selection-menu');
-	// // let orderList = document.querySelectorAll('.right-side__wrap');
-	// // let scheduleButton = document.querySelector('.orders__schedule');
-	//
-	//
-	// function init() {
-	//   // let pageInit = {
-	//   //   orders : new Orders(),
-	//   //   menu: pageHeader.mainMenu,
-	//   //   popup: new PopUp(popUpElement);
-	//   // }
-	//
-	//   if (pageAuth) {
-	//     authorization();
-	//   }
-	//
-	//   // if (selectionList.length) {
-	//   //   selectionList.forEach(function(item) {
-	//   //     let selection = new Selection(item);
-	//   //   });
-	//   // }
-	//   //
-	//   // if (selectionMenu) {
-	//   //   let selection = new SelectionMenu(selectionMenu);
-	//   // }
-	//   //
-	//   // if (scheduleButton) {
-	//   //
-	//   // }
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//   // if (ordersElement) {
-	//   //   console.log('orders')
-	//   //   pageInit.orders = new Orders();
-	//   //   console.log(pageinit.orders, "-------------------------------------------");
-	//   // }
-	//
-	//   //
-	//   // if (!client.isMobile()) {
-	//   //   console.log(pageInit.tabs.init, "hhhhhhhhh")
-	//   //   pageInit.tabs.init();
-	//   //   console.log(pageInit.tabs.length());
-	//   // }
-	//
-	//   // if (orderList.length) {
-	//   //   orderList.forEach(function (item) {
-	//   //     let order = new Order(item);
-	//   //   })
-	//   // }
-	//   // console.log(pageInit);
-	//   //
-	//   // return pageInit;
-	//
-	// };
 	var initElements = __webpack_require__(10);
-	console.log(initElements, "Инициализация елементов и ресайза");
 
 
 /***/ },
@@ -20766,7 +20700,6 @@
 	            e.target.disabled = false;
 	        }
 	        e.target.disabled = true;
-	        console.log('отправить');
 	        request.send(path.buildUrl(path.code), json, response, error);
 	    }
 	};
@@ -20790,7 +20723,6 @@
 	var rightSide = document.querySelector('.right-side');
 	module.exports = function (data) {
 	    var receivedData = data.Data.Item;
-	    console.log(data);
 	    // общая часть можно вынести в отдельный модуль
 	    if (client.isMobile()) {
 	        var orders = rightSide.querySelectorAll('.right-side__wrap');
@@ -20820,15 +20752,8 @@
 	    var html = template(defineObject.rightSide.templateConf(receivedData));
 	    var element = defineObject.rightSide.createItem(receivedData);
 	    element.innerHTML = html;
-	    var element = document.createElement('div');
-	    element.classList.add('right-side__wrap');
-	    element.setAttribute('data-id', receivedData.url);
-	    element.innerHTML = html;
 	    //
 	    // if (!client.isMobile()) {
-	    //   console.log('dfhfdf')
-	    //   console.log(init.tabs);
-	    //   console.log(init.tabs.add);
 	    //   init.tabs.add(div, departureid, url.type.order);
 	    // }
 	    //
@@ -20887,9 +20812,6 @@
 	    element.innerHTML = html;
 	    //
 	    // if (!client.isMobile()) {
-	    //   console.log('dfhfdf')
-	    //   console.log(init.tabs);
-	    //   console.log(init.tabs.add);
 	    //   init.tabs.add(div, departureid, url.type.order);
 	    // }
 	    //
@@ -20958,17 +20880,13 @@
 	                }
 	            }
 	            if (client.oldWidth === client.desktop || client.oldWidth === client.tablet) {
-	                console.log("mob -- desc, tab");
-	                console.log(tabs.length());
 	                if (tabs.length()) {
-	                    console.log('есть правая часть');
 	                }
 	                initScroll();
 	            }
 	            break;
 	        case client.tablet:
 	            if (client.oldWidth === client.desktop) {
-	                console.log("tab -- desc");
 	                if ('popup' in init) {
 	                    if (init.popup.isOpen) {
 	                        if (!mainContent.classList.contains('main-content--hide')) {
@@ -20976,19 +20894,16 @@
 	                        }
 	                    }
 	                    if (init.menu.isOpen) {
-	                        console.log(init.menu.isOpen);
 	                        init.menu.close();
 	                    }
 	                }
 	            }
 	            if (client.oldWidth === client.mobile) {
-	                console.log("tab -- mob");
 	                initScroll();
 	            }
 	            break;
 	        case client.desktop:
 	            if (client.oldWidth === client.tablet || client.oldWidth === client.mobile) {
-	                console.log("des -- tab, mob");
 	                if ('popup' in init) {
 	                    if (init.popup.isOpen) {
 	                        if (mainContent.classList.contains('main-content--hide')) {
@@ -20996,7 +20911,6 @@
 	                        }
 	                    }
 	                    if (init.menu.isOpen) {
-	                        console.log(init.menu.isOpen);
 	                        init.menu.close();
 	                    }
 	                }

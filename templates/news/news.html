@@ -32,7 +32,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.css?v00">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v00">
   <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -40,6 +40,13 @@
     var itemList = {
       begin: {{Begin}},
       end: {{End}}
+    };
+
+    var analyticConf = {
+      id: "{{general.analytics.GAUA}}",
+      userId: "{{general.analytics.userUuid}}",
+      phone: "{{general.analytics.phone}}",
+      phoneDimension: "{{general.analytics.phoneDimension}}"
     };
   </script>
 </head>
@@ -358,7 +365,7 @@
                   <img class="news__image" src="https://www.domovenok.su/media/{{ picture.pic }}" width="120" height="120">
                 </div>
                 {{/if}}
-                <div class="news__column">
+                <div class="news__column news__column--load">
                   <h3 class="news__title title">{{ title }}</h3>
                   <p class="news__text text">{{{ preview_text }}}</p>
                 </div>
@@ -379,7 +386,7 @@
       </a>
 
     </div>
-    <div class="right-side  right-side--hide {{#HasRightSide}}right-side--mobile{{/HasRightSide}}">
+    <div class="right-side  right-side--hide {{#HasRightSide}}right-side--mobile{{/HasRightSide}} scroll-container-unstable">
       {{#with Item}}
       <div class="right-side__wrap"  data-id="{{url}}">
 
@@ -422,16 +429,16 @@
   
       <div class="pop-up__item pop-up__item--hide  service-order">
         <div class="service-order__wrap">
-          <form class="service-order__form">
+          <form class="service-order__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "order"}' ya-reach="order_applic">
             <h2 class="service-order__title  title">Оставить заявку</h2>
             <div class="service-order__row">
               <label class="service-order__label  label">ФИО</label>
-              <input class="service-order__input  input" type="text" autofocus>
+              <input class="service-order__input  input" type="text" autofocus required>
             </div>
   
             <div class="service-order__row">
               <label class="service-order__label  label">Номер телефона</label>
-              <input class="service-order__input  input" type="tel" autofocus>
+              <input class="service-order__input  input" type="tel" autofocus required>
             </div>
   
             <div class="service-order__row">
@@ -466,6 +473,32 @@
         </form>
       </div>
   
+      <div class="pop-up__item  pop-up__item--hide  get-document">
+        <div class="get-document__wrap">
+          <form class="get-document__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "getContract"}'  ya-reach="order_applic">
+            <h2 class="get-document__title  title">Получить экземпляр договора</h2>
+  
+            <div class="get-document__row">
+              <label class="get-document__label  label">Введите e-mail</label>
+              <input class="get-document__input  input" type="email" autofocus required>
+            </div>
+  
+            <div class="get-document__row">
+              <label class="label-checkbox">
+                <input type="checkbox" class="checkbox  checkbox--small" checked  required>
+                <span class="checkbox__indicator  checkbox__indicator--small  checkbox__indicator--light"></span>
+                <span class="label-text">Cогласен с обработкой моих персональных данных в соответствии с ФЗ РФ от 27.06.06 г. N°152-ФЗ «О персональных данных»</span>
+              </label>
+            </div>
+            <div class="get-document__row">
+              <div class="get-document__button">
+                <button class="button" type="submit">Отправить</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+  
     </div>
   
   </div>
@@ -486,7 +519,7 @@
         <img class="news__image" src="https://www.domovenok.su/media/{{ picture.pic }}" width="120" height="120">
       </div>
       {{/if}}
-      <div class="news__column">
+      <div class="news__column news__column--load">
         <h3 class="news__title title">{{ title }}</h3>
         <p class="news__text text">{{{ preview_text }}}</p>
       </div>
@@ -520,8 +553,28 @@
 </script>
 <!-- /Template Active Order -->
 
-<script src="/static/pancake/js/bundle.js?v00"></script>
+<script src="/static/pancake/js/bundle.min.js?v00"></script>
 <!-- /Java Script -->
+{{#if general.production}}
 
+  <noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PHD7WW');</script>
+
+  {{else}}
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    var yaCounter803248 = {
+      reachGoal: function (param) {
+        console.log("яндекс аналитика", param);
+      }
+    }
+  </script>
+
+{{/if}}
 </body>
 </html>

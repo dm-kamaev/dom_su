@@ -39,38 +39,23 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.css?v01">
-  <script src="/static/pancake/js/vendor/vendor.min.js?v01"></script>
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v00">
+  <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
   <script>
-      var domovenokClient = {
-          name: ''
-      };
-      var generalPath = {
-          schema: '',
-          domain: '',
-          url: ''
-      };
-
-      generalPath.buildUrl = function(additional) {
-          var build = this.schema + '://' + this.domain + '/' + this.url + '/';
-          if (additional)
-              build += additional;
-          return build;
-      };
-
-      var departureList = {
-          begin: true,
-          end: false
-      };
-      var clientId = '';
+    var analyticConf = {
+      id: "{{general.analytics.GAUA}}",
+      userId: "{{general.analytics.userUuid}}",
+      phone: "{{general.analytics.phone}}",
+      phoneDimension: "{{general.analytics.phoneDimension}}"
+    };
   </script>
 
 </head>
 
 <body class="page">
-<div class="page__wrap page__wrap--scroll">
+<div class="page__wrap">
 
   <!-- Page Header -->
   <!-- page-header.html -->
@@ -341,7 +326,7 @@
 
   <!-- Main Content -->
 
-  <main class="page__main-content  main-content main-content--vertical">
+  <main class="page__main-content  main-content main-content--vertical scroll-container-unstable">
 
     <section class="page__section  section  section--bg-light">
       <div class="section__wrap">
@@ -401,7 +386,7 @@
     <section class="page__section  section  section--bg-dark">
       <div class="section__wrap">
         <h2 class="section__title title" id="supportive">Поддерживающая уборка</h2>
-        <div class="service-calc">
+        <div class="service-calc" data-name="podderzhka">
           <p class="service-calc__heading text"><span class="service-calc__heading service-calc__heading--tablet">Выберите или в</span><span class="service-calc__heading--mobile">В</span>ведите Вашу площадь помещения:</p>
 
           <div class="service-calc__row  service-calc__row--square">
@@ -437,28 +422,28 @@
 
           <div class="service-calc__row">
 
-            <div class="service-calc__item service-calc__item--price" data-name="podderzhka_spb"  data-option="0x">
+            <div class="service-calc__item service-calc__item--price" data-name="podderzhka"  data-option="0x">
               <p class="service-calc__text text text-center">По обращению</p>
               <div class="service-calc__output">
                 1790 руб
               </div>
             </div>
 
-            <div class="service-calc__item service-calc__item--price" data-name="podderzhka_spb" data-option="1x">
+            <div class="service-calc__item service-calc__item--price" data-name="podderzhka" data-option="1x">
               <p class="service-calc__text text text-center">Pаз в неделю<span class="service-calc__sign">?<span class="service-card__note">* по графику</span></span></p>
               <div class="service-calc__output">
                 1490 руб
               </div>
             </div>
 
-            <div class="service-calc__item service-calc__item--price" data-name="podderzhka_spb"  data-option="2x">
+            <div class="service-calc__item service-calc__item--price" data-name="podderzhka"  data-option="2x">
               <p class="service-calc__text text text-center">2 раз в неделю<span class="service-calc__sign">?<span class="service-card__note">* по графику</span></span></span></p>
               <div class="service-calc__output">
                 1680 руб
               </div>
             </div>
 
-            <div class="service-calc__item service-calc__item--price" data-name="podderzhka_spb"  data-option="4x">
+            <div class="service-calc__item service-calc__item--price" data-name="podderzhka"  data-option="4x">
               <p class="service-calc__text text text-center">Pаз в месяц<span class="service-calc__sign">?<span class="service-card__note">* по графику</span></span></span></p>
               <div class="service-calc__output">
                 1610 руб
@@ -655,7 +640,7 @@
     <section class="page__section  section  section--bg-light">
       <div class="section__wrap">
         <h2 class="section__title title" id="clear-out">Генеральная уборка</h2>
-        <div class="service-calc">
+        <div class="service-calc" data-name="general_spb">
           <p class="service-calc__heading text"><span class="service-calc__heading service-calc__heading--tablet">Выберите или в</span><span class="service-calc__heading--mobile">В</span>ведите Вашу площадь помещения:</p>
 
           <div class="service-calc__row  service-calc__row--square">
@@ -681,7 +666,7 @@
             </div>
 
             <div class="service-calc__item service-calc__item--square" data-value="">
-              <input type="number" class="service-calc__input service-calc__input--half input" max="10000">
+              <input type="number" class="service-calc__input service-calc__input--half input" max="99999">
               <span class="service-calc__unit">м<sup><small>2</small></sup></span>
             </div>
 
@@ -691,14 +676,14 @@
 
           <div class="service-calc__row">
 
-            <div class="service-calc__item service-calc__item--price" data-name="generalnaya_spb"  data-option="0x">
+            <div class="service-calc__item service-calc__item--price" data-name="general_spb"  data-option="0x">
               <p class="service-calc__text text text-center">По обращению</p>
               <div class="service-calc__output">
                 5280 руб
               </div>
             </div>
 
-            <div class="service-calc__item service-calc__item--price" data-name="generalnaya_spb"  data-option="0x">
+            <div class="service-calc__item service-calc__item--price" data-name="general_spb"  data-option="0x">
               <p class="service-calc__text text text-center">По графику*, <b class="text text--orange text--bold">скидка 25%</b></p>
               <div class="service-calc__output">
                 4280 руб
@@ -709,17 +694,10 @@
           <div class="service-calc__row">
             <p class="service-calc__text service-calc__text--sm text">* Скидка предоставляется клиентам, обслуживающимся по графику. Подробнее про обслуживание по графику <a class="link link--orange" href="{{buildUrl general.city '/davay_druzhit/'}}">здесь</a>.</p>
           </div>
-          <div class="service-calc__row">
-            <button class="button button--application" type="button" data-name="service-order">Заказать уборку</button>
-          </div>
         </div>
         <ul class="service-implement list">
           <li class="service-implement__item service-implement__item--important item">
             <p class="service-implement__text text">Обращаем Ваше внимание, что при сложных случаях генеральной уборки предупреждать и обговаривать объём работ следует заранее в индивидуальном порядке, т.к. для каждой работы существует допустимый предел по времени.</p>
-          </li>
-          <li class="service-implement__item service-implement__item--percent item">
-            <p class="service-implement__text text">* Скидка предоставляется клиентам, обслуживающимся по графику. Подробнее про обслуживание по графику <a class="link link--orange" href="{{buildUrl general.city '/davay_druzhit/'}}">здесь</a>.</p><a class="link" href="{{buildUrl general.city '/davay_druzhit/'}}">здесь</a>
-            </p>
           </li>
         </ul>
       </div>
@@ -728,7 +706,7 @@
     <section class="page__section  section  section--bg-dark">
       <div class="section__wrap">
         <h2 class="section__title title" id="after-repair">Уборка после ремонта</h2>
-        <div class="service-calc">
+        <div class="service-calc" data-name="posle_spb">
           <p class="service-calc__heading text"><span class="service-calc__heading service-calc__heading--tablet">Выберите или в</span><span class="service-calc__heading--mobile">В</span>ведите Вашу площадь помещения:</p>
 
           <div class="service-calc__row  service-calc__row--square">
@@ -754,7 +732,7 @@
             </div>
 
             <div class="service-calc__item service-calc__item--square" data-value="">
-              <input type="number" class="service-calc__input service-calc__input--half input" max="10000">
+              <input type="number" class="service-calc__input service-calc__input--half input" max="99999">
               <span class="service-calc__unit">м<sup><small>2</small></sup></span>
             </div>
 
@@ -764,14 +742,14 @@
 
           <div class="service-calc__row">
 
-            <div class="service-calc__item service-calc__item--price" data-name="posle_remonta_spb"  data-option="without_furniture">
+            <div class="service-calc__item service-calc__item--price" data-name="posle_spb"  data-option="without_furniture">
               <p class="service-calc__text text text-center">Без мебели, <b class="text text--orange text--bold">скидка 15%</b></p>
               <div class="service-calc__output">
                 4450 руб
               </div>
             </div>
 
-            <div class="service-calc__item service-calc__item--price" data-name="posle_remonta_spb" data-option="furniture">
+            <div class="service-calc__item service-calc__item--price" data-name="posle_spb" data-option="furniture">
               <p class="service-calc__text text text-center">С мебелью</p>
               <div class="service-calc__output">
                 5240 руб
@@ -805,11 +783,11 @@
     <section class="page__section  section  section--bg-light">
       <div class="section__wrap">
         <h2 class="section__title title" id="clean-cottages">Уборка коттеджей</h2>
-        <div class="service-calc">
+        <div class="service-calc" data-name="uborka_kottedzhej_spb">
           <p class="service-calc__heading text">Введите Вашу площадь помещения:</p>
           <div class="service-calc__row service-calc__row--square">
             <div class="service-calc__item service-calc__item--square service-calc__item--active" data-value="1">
-              <input type="number" class="service-calc__input service-calc__input--half input" value="1" min="1" max="10000">
+              <input type="number" class="service-calc__input service-calc__input--half input" value="1" min="1" max="99999">
               <span class="service-calc__unit">м<sup><small>2</small></sup></span>
             </div>
           </div>
@@ -823,9 +801,6 @@
 
           </div>
 
-          <div class="service-calc__row">
-            <button class="button button--application" type="button" data-name="service-order">Заказать уборку</button>
-          </div>
         </div>
         <ul class="service-implement list">
           <li class="service-implement__item service-implement__item--money item">
@@ -1204,13 +1179,13 @@
     <section class="page__section  section  section--bg-light">
       <div class="section__wrap">
         <h2 class="section__title title" id="clean-office">Уборка офисов</h2>
-        <div class="service-calc">
+        <div class="service-calc" data-name="uborka_ofisov_spb">
           <p class="service-calc__heading text">Введите Вашу площадь помещения:</p>
 
           <div class="service-calc__row service-calc__row--square">
 
             <div class="service-calc__item service-calc__item--square service-calc__item--active" data-value="1">
-              <input type="number" class="service-calc__input service-calc__input--half input" value="1" min="1" max="10000">
+              <input type="number" class="service-calc__input service-calc__input--half input" value="1" min="1" max="99999">
               <span class="service-calc__unit">м<sup><small>2</small></sup></span>
             </div>
 
@@ -1239,13 +1214,13 @@
     <section class="page__section  section  section--bg-dark">
       <div class="section__wrap">
         <h2 class="section__title title" id="industrial">Уборка производственных помещений</h2>
-        <div class="service-calc">
+        <div class="service-calc" data-name="proizvodstvennyh_pomewenij_spb">
           <p class="service-calc__heading text"><span class="service-calc__heading service-calc__heading--tablet">Введите Вашу площадь помещения:</p>
 
           <div class="service-calc__row service-calc__row--square">
 
             <div class="service-calc__item service-calc__item--square service-calc__item--active" data-value="1">
-              <input type="number" class="service-calc__input service-calc__input--half input" value="1" min="1" max="10000">
+              <input type="number" class="service-calc__input service-calc__input--half input" value="1" min="1" max="99999">
               <span class="service-calc__unit">м<sup><small>2</small></sup></span>
             </div>
 
@@ -1280,13 +1255,13 @@
     <section class="page__section  section  section--bg-light">
       <div class="section__wrap">
         <h2 class="section__title title" id="wash-glass">Мытьё стёкол</h2>
-        <div class="service-calc">
+        <div class="service-calc" data-name="mite_stekol_spb" >
           <p class="service-calc__heading text"><span class="service-calc__heading service-calc__heading--tablet">Введите Вашу площадь помещения:</p>
 
           <div class="service-calc__row service-calc__row--square">
 
             <div class="service-calc__item service-calc__item--square service-calc__item--active" data-value="1">
-              <input type="number" class="service-calc__input service-calc__input--half input" value="1" min="1" max="10000">
+              <input type="number" class="service-calc__input service-calc__input--half input" value="1" min="1" max="99999">
               <span class="service-calc__unit">м<sup><small>2</small></sup></span>
             </div>
 
@@ -1367,9 +1342,9 @@
       <div class="section__wrap">
         <h2 class="section__title  title">Свяжитесь со мной!</h2>
         <p class="section__text text text--center">Заполните форму заказа и наш менеджер свяжется с Вами в течение 10 минут.</p>
-        <form class="contact-section__form">
+        <form class="contact-section__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "callback"}' ya-reach="callback">
           <input class="contact-section__input input" type="text" name="name" placeholder="Имя" required="">
-          <input class="contact-section__input input" type="email" name="email" placeholder="Телефон" required="">
+          <input class="contact-section__input input" type="tel" name="tel" placeholder="Телефон" required="">
           <button class="contact-section__button button" type="submit">Отправить</button>
         </form>
       </div>
@@ -1526,12 +1501,12 @@
             <h2 class="service-order__title  title">Оставить заявку</h2>
             <div class="service-order__row">
               <label class="service-order__label  label">ФИО</label>
-              <input class="service-order__input  input" type="text" autofocus>
+              <input class="service-order__input  input" type="text" autofocus required>
             </div>
   
             <div class="service-order__row">
               <label class="service-order__label  label">Номер телефона</label>
-              <input class="service-order__input  input" type="tel" autofocus>
+              <input class="service-order__input  input" type="tel" autofocus required>
             </div>
   
             <div class="service-order__row">
@@ -1600,9 +1575,29 @@
   </main>
 </div>
 
-<script src="/static/pancake/js/bundle.js?v01"></script>
+<script src="/static/pancake/js/bundle.min.js?v00"></script>
 <!-- /Java Script -->
+{{#if general.production}}
 
+  <noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PHD7WW');</script>
+
+  {{else}}
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    var yaCounter803248 = {
+      reachGoal: function (param) {
+        console.log("яндекс аналитика", param);
+      }
+    }
+  </script>
+
+{{/if}}
 </body>
 
 </html>

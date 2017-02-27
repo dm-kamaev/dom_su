@@ -32,8 +32,8 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.css">
-  <script src="/static/pancake/js/vendor/vendor.min.js"></script>
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v00">
+  <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
   <script>
@@ -371,7 +371,7 @@
                     <img class="articles__image" src="https://www.domovenok.su/media/{{ picture.pic }}">
                   </div>
                   {{/if}}
-                  <div class="articles__column">
+                  <div class="articles__column articles__column--load">
                     <p class="articles__title title">{{ title }}</p>
                     {{{ preview_text }}}
                   </div>
@@ -393,7 +393,7 @@
 
     </div>
 
-    <div class="right-side  right-side--hide {{#HasRightSide}}right-side--mobile{{/HasRightSide}}"  >
+    <div class="right-side  right-side--hide {{#HasRightSide}}right-side--mobile{{/HasRightSide}} scroll-container-unstable"  >
       {{#with Item}}
       <div class="right-side__wrap right-side-default" data-id="{{url}}">
 
@@ -469,12 +469,12 @@
             <h2 class="service-order__title  title">Оставить заявку</h2>
             <div class="service-order__row">
               <label class="service-order__label  label">ФИО</label>
-              <input class="service-order__input  input" type="text" autofocus>
+              <input class="service-order__input  input" type="text" autofocus required>
             </div>
   
             <div class="service-order__row">
               <label class="service-order__label  label">Номер телефона</label>
-              <input class="service-order__input  input" type="tel" autofocus>
+              <input class="service-order__input  input" type="tel" autofocus required>
             </div>
   
             <div class="service-order__row">
@@ -557,7 +557,7 @@
           <img class="articles__image" src="https://www.domovenok.su/media/{{ picture.pic }}">
         </div>
         {{/if}}
-        <div class="articles__column">
+        <div class="articles__column articles__column--load">
           <p class="articles__title title">{{ title }}</p>
           {{{ preview_text }}}
         </div>
@@ -620,7 +620,7 @@
 </script>
 <!-- /Template Active Order -->
 
-<script src="/static/pancake/js/bundle.js"></script>
+<script src="/static/pancake/js/bundle.min.js?v00"></script>
 <!-- /Java Script -->
 
 {{#if general.production}}

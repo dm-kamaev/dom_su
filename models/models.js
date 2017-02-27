@@ -1,6 +1,7 @@
 'use strict';
 const Sequelize = require('sequelize')
 const moment = require('moment')
+const config = require('config');
 const opts = {
     timezone: '+03:00',
     define: {
@@ -9,7 +10,7 @@ const opts = {
     //logging: false,
 }
 
-const sequelize = new Sequelize('postgres://domovenok:domovenokPG@localhost:5432/pancake', opts);
+const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, opts);
 
 
 const FAQ = sequelize.define('faq', {
@@ -296,7 +297,7 @@ const UTMS = sequelize.define('utms', {
     uuid: {type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV4},
     data: Sequelize.JSON,
     event_uuid: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.UUID,
         references: {
             model: Event,

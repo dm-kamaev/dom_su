@@ -7,6 +7,7 @@ const uuid4 = require('uuid/v4')
 const {taskEventCreate} = require('./task')
 const {saveAndSend} = require('tickets')
 const {URL} = require('url')
+const validateUUID = require('uuid-validate');
 
 
 const USER_COOKIE_KEY = config.USER_COOKIE_KEY
@@ -44,6 +45,7 @@ class PancakeUser {
 
     async sync() {
         let self = this
+        let uuidNext = null;
 
         let needCreateUser = this.ctx.cookies.get(USER_COOKIE_KEY) === undefined
 
@@ -57,11 +59,14 @@ class PancakeUser {
                 this.track = user.data.track
                 this.google_id = user.data.google_id
             } else {
+                if (validateUUID(this.ctx.cookies.get(USER_COOKIE_KEY), 4)){
+                    uuidNext = this.ctx.cookies.get(USER_COOKIE_KEY)
+                }
                 needCreateUser = true;
             }
         }
         if (needCreateUser) {
-            this.uuid = uuid4()
+            this.uuid = uuidNext || uuid4()
             this.isNew = true
             this.city = this.ctx.cities.default
 
@@ -138,6 +143,19 @@ class PancakeUser {
                 phone.user_uuid = pancakeUser.uuid
                 await phone.save()
                 return phone
+            })
+        }
+    }
+    setGoogleId(){
+        if (!this.ctx.request.body.google_id){
+            return
+        }
+        let google_id = this.ctx.request.body.google_id
+        if (this.google_id !== google_id){
+            this.queue.push(async function (previousResult, pancakeUser) {
+                    pancakeUser.model.set('data.google_id', google_id);
+                    await pancakeUser.model.save()
+                    return pancakeUser
             })
         }
     }

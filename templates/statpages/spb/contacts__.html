@@ -39,38 +39,23 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.css?v01">
-  <script src="/static/pancake/js/vendor/vendor.min.js?v01"></script>
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v00">
+  <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
   <script>
-    var domovenokClient = {
-      name: ''
+    var analyticConf = {
+      id: "{{general.analytics.GAUA}}",
+      userId: "{{general.analytics.userUuid}}",
+      phone: "{{general.analytics.phone}}",
+      phoneDimension: "{{general.analytics.phoneDimension}}"
     };
-    var generalPath = {
-      schema: '',
-      domain: '',
-      url: ''
-    };
-
-    generalPath.buildUrl = function (additional) {
-      var build = this.schema + '://' + this.domain + '/' + this.url + '/';
-      if (additional)
-        build += additional;
-      return build;
-    };
-
-    var departureList = {
-      begin: true,
-      end: false
-    };
-    var clientId = '';
   </script>
   <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 </head>
 <body class="page">
 <!-- Page wrapper -->
-<div class="page__wrap page__wrap--scroll">
+<div class="page__wrap">
 
   <!-- Page Header -->
 
@@ -342,7 +327,7 @@
   <!-- /Page Header -->
 
   <!-- Main Content -->
-  <main class="page__main-content  main-content  main-content--vertical scroll-container-unstable">
+  <main class="page__main-content  main-content  main-content--vertical scroll-container-unstable scroll-container-unstable">
     <section class="page__section  section  section--bg-light">
       <div class="section__wrap">
         <h1 class="section__title section__title--main title">Контакты</h1>
@@ -367,8 +352,8 @@
         <h2 class="section__title  title">Свяжитесь со мной!</h2>
         <p class="section__text text text--center">Заполните форму заказа и наш менеджер свяжется с Вами в течение 10 минут.</p>
         <form class="contact-section__form">
-          <input class="contact-section__input input" type="text" name="name" placeholder="Имя">
-          <input class="contact-section__input input" type="text" name="email" placeholder="Телефон или e-mail">
+          <input class="contact-section__input input" type="text" name="name" placeholder="Имя" required="">
+          <input class="contact-section__input input" type="tel" name="tel" placeholder="Телефон" required="">
           <button class="contact-section__button button" type="submit">Отправить</button>
         </form>
       </div>
@@ -517,8 +502,28 @@
 
 <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=RTP3P6GSQeH8exBFTsGA11gG2DOxq-Ee&amp;id=mymap&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;sourceType=constructor&amp;scroll=true"></script>
 
-<script src="/static/pancake/js/bundle.js?v01"></script>
+<script src="/static/pancake/js/bundle.min.js?v00"></script>
 <!-- /Java Script -->
+{{#if general.production}}
 
+  <noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PHD7WW');</script>
+
+  {{else}}
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    var yaCounter803248 = {
+      reachGoal: function (param) {
+        console.log("яндекс аналитика", param);
+      }
+    }
+  </script>
+
+{{/if}}
 </body>
 </html>

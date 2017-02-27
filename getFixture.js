@@ -1,30 +1,29 @@
 'use strict';
 
-//const { models } = require('models');
-const { Article, Picture, FAQ, Review, City, News, Phone } = require('./models/models.js');
+const validateUUID = require('uuid-validate');
+const { Article, Picture, FAQ, Review, City, News, Phone, User, UTMS } = require('./models/models.js');
+
 const moment = require('moment')
 
 const uuidV4 = require('uuid/v4')
 
 var Sequelize = require('sequelize')
 
-var sequelize = new Sequelize('postgres://domovenok:domovenokPG@localhost:5432/pancake', {logging: false, timezone: '+03:00',});
+
+const opts = {
+    timezone: '+03:00',
+    define: {
+        freezeTableName: true,
+    },
+    //logging: false,
+}
+const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, opts);
 
 var mysql = require('mysql');
 
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'resu',
-    database: 'pancaketest2'
-});
+var connection = mysql.createConnection(config.djangoDB);
 
-var connection2 = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'resu',
-    database: 'pancaketest2'
-});
+var connection2 = mysql.createConnection(config.djangoDB);
 
 
 connection.connect();
@@ -59,7 +58,6 @@ async function migrateArticle() {
 
 async function cleanArticles () {
     try {
-        let i = 0
         let all = await Article.findAll()
         let regUM = new RegExp(/{\s*%\s*load\s*urlmigrations\s*%\s*}\s*\n?/g)
         let regHref = new RegExp(/{%\s*true_url\s*\'(:?\/[^\']*)\'\s*%\s*}/)
@@ -162,6 +160,66 @@ function migrateCity() {
     });
 }
 
+async function getUtmUser() {
+    connection.query('SELECT * FROM client_id_manager_utmclienthistory ORDER BY id', async function (error, results, fields) {
+        if (error) console.log(error);
+        let user;
+        for (let i of results) {
+            try{
+                if (!validateUUID(i.uuid)){
+                    continue
+                }
+                user = await User.findOne({where: {uuid: i.uuid}})
+            if (user == null){
+                user = await User.create({
+                    uuid: i.uuid,
+                    data: {
+                        city: 'moscow',
+                        track: {done: null, waiting: null, numbers: {}},
+                        google_id: null,
+                    }
+                })
+            }
+            let company = JSON.parse(i.company)
+            let created = JSON.stringify(moment.parseZone(moment(company.created).utcOffset("-03:00").format('YYYY-MM-DDTHH:mm:ss'))).slice(1,-1)
+            delete company.created
+            await UTMS.create({user_uuid: user.uuid, data: company, createdAt: created})
+            console.log(i.id)
+            } catch (e){
+                throw e
+            }
+        }
+    })
+}
+
+async function getTrackedUser() {
+    connection.query('SELECT uuid FROM client_id_manager_sessionuid', async function (error, results, fields) {
+        if (error) console.log(error);
+        for (let i of results) {
+            try{
+                if (!validateUUID(i.uuid)){
+                    throw new Error()
+                }
+            let user = await User.create({
+                    uuid: i.uuid,
+                    data: {
+                        city: 'moscow',
+                        track: {done: true, waiting: false, numbers: {}},
+                        google_id: null,
+                    }
+            })
+            } catch (e){
+                console.log(`ERROR create user uuid ${i.uuid}`)
+            }
+        }
+    });
+}
+
+async function migrateUser() {
+    await getTrackedUser()
+    await getUtmUser()
+}
+
 function migrateNews() {
         connection.query('SELECT * FROM news_news ORDER BY id', function (error, results, fields) {
         if (error) console.log(error);
@@ -174,8 +232,8 @@ function migrateNews() {
 
 
 function addCity() {
-    City.create({id: 1, title: 'Москва', keyword: 'moscow', domain: 'www', active: true})
-    City.create({id: 2, title: 'Санкт-Петербург', keyword: 'spb', domain: 'spb', active: true})
+    City.create({id: 1, title: 'Москва', keyword: 'moscow', domain: 'www', active: true, phone: '74956680468'})
+    City.create({id: 2, title: 'Санкт-Петербург', keyword: 'spb', domain: 'spb', active: true, phone: '78123193903'})
 }
 
 // async function PhoneForTest() {
@@ -191,11 +249,14 @@ function addCity() {
 //     }
 // }
 
+
+//addCity()
+//migrateUser()
 //migratePicture()
 //migrateArticle()
 //migrateNews()
 //migrateReviews()
-migrateFAQ()
+//migrateFAQ()
 //cleanArticles()
 
 

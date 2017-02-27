@@ -39,20 +39,22 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.css?v01">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v00">
   <script src="/static/pancake/js/vendor/vendor.min.js?v01"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
   <script>
-    var departureList = {
-      begin: true,
-      end: false
+    var analyticConf = {
+      id: "{{general.analytics.GAUA}}",
+      userId: "{{general.analytics.userUuid}}",
+      phone: "{{general.analytics.phone}}",
+      phoneDimension: "{{general.analytics.phoneDimension}}"
     };
   </script>
 </head>
 <body class="page">
 <!-- Page wrapper -->
-<div class="page__wrap page__wrap--scroll">
+<div class="page__wrap">
 
   <!-- Page Header -->
   <!-- page-header.html -->
@@ -402,18 +404,18 @@
                 <h3 class="career__title title">Оставьте заявку</h3>
                 <div class="career__row">
                   <div class="career__column">
-                    <input class="career__input input" type="text" name="name" placeholder="ФИО" required>
+                    <input class="career__input input" type="text" name="name" placeholder="ФИО" autofocus required>
                   </div>
                   <div class="career__column">
-                    <input class="career__input input" type="text" name="citizenship" placeholder="Гражданство" required>
+                    <input class="career__input input" type="text" name="citizenship" placeholder="Гражданство" autofocus required>
                   </div>
                 </div>
                 <div class="career__row">
                   <div class="career__column">
-                    <input class="career__input input" type="number" name="birthdate" placeholder="Год Рождения" required>
+                    <input class="career__input input" type="number" name="birthdate" placeholder="Год Рождения" autofocus required>
                   </div>
                   <div class="career__column">
-                    <input class=" input" type="tel" name="contact" placeholder="Телефон" required>
+                    <input class=" input" type="tel" name="contact" placeholder="Телефон" autofocus required>
                   </div>
                 </div>
                 <button class="career__button  button" type="submit" >Отправить</button>
@@ -486,18 +488,18 @@
                 <h3 class="career__title title">Оставьте заявку</h3>
                 <div class="career__row">
                   <div class="career__column">
-                    <input class="career__input input" type="text" name="name" placeholder="ФИО" required>
+                    <input class="career__input input" type="text" name="name" placeholder="ФИО" autofocus required>
                   </div>
                   <div class="career__column">
-                    <input class="career__input input" type="text" name="citizenship" placeholder="Гражданство" required>
+                    <input class="career__input input" type="text" name="citizenship" placeholder="Гражданство" autofocus required>
                   </div>
                 </div>
                 <div class="career__row">
                   <div class="career__column">
-                    <input class="career__input input" type="number" name="birthdate" placeholder="Год Рождения" required>
+                    <input class="career__input input" type="number" name="birthdate" placeholder="Год Рождения" autofocus required>
                   </div>
                   <div class="career__column">
-                    <input class="career__input input" type="tel" name="contact" placeholder="Телефон" required>
+                    <input class="career__input input" type="tel" name="contact" placeholder="Телефон" autofocus required>
                   </div>
                 </div>
                 <button class="career__button  button" type="submit" >Отправить</button>
@@ -507,7 +509,7 @@
             <div class="careers__item {{#if uborkaTerritorii}}careers__item--active{{/if}}" data-id="uborka-territorii/">
               <span class="careers__title title">Уборщик прилегающих территорий</span>
               <span class="text">Заработная плата:</span>
-              <span>30 000 - 45 000 рублей.</span>
+              <span>26 000 - 32 000 рублей.</span>
               <a class="careers__tel" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>
             </div>
 
@@ -538,7 +540,7 @@
                   <p class="career__title title title--orange">От нас:</p>
                   <p class="career__text text">График работы 6/1, 2/2. Корпоративная одежда, компенсация мобильной связи. Возможность карьерного роста и профессионального развития.</p>
                   <p class="career__title title title--orange">Заработная плата:</p>
-                  <p class="career__text text">30000 - 45000 руб.</p>
+                  <p class="career__text text">26000 - 32000 руб.</p>
                   <p class="career__title title title--orange">Как устроиться на работу:</p>
                   <p class="career__text text">Вакансия по уборке квартир и других помещений открыта у нас постоянно. Количество
                     обслуживаемых нами объектов стабильно растет, поэтому мы регулярно нанимаем новых сотрудников. Должность
@@ -556,18 +558,18 @@
                 <h3 class="career__title title">Оставьте заявку</h3>
                 <div class="career__row">
                   <div class="career__column">
-                    <input class="career__input input" type="text" name="name" placeholder="ФИО" required>
+                    <input class="career__input input" type="text" name="name" placeholder="ФИО" autofocus required>
                   </div>
                   <div class="career__column">
-                    <input class="career__input input" type="text" name="citizenship" placeholder="Гражданство" required>
+                    <input class="career__input input" type="text" name="citizenship" placeholder="Гражданство" autofocus required>
                   </div>
                 </div>
                 <div class="career__row">
                   <div class="career__column">
-                    <input class="career__input input" type="number" name="birthdate" placeholder="Год Рождения" required>
+                    <input class="career__input input" type="number" name="birthdate" placeholder="Год Рождения" autofocus required>
                   </div>
                   <div class="career__column">
-                    <input class="career__input input" type="tel" name="contact" placeholder="Телефон" required>
+                    <input class="career__input input" type="tel" name="contact" placeholder="Телефон" autofocus required>
                   </div>
                 </div>
                 <button class="career__button  button" type="submit" >Отправить</button>
@@ -659,9 +661,9 @@
       <div class="section__wrap">
         <h2 class="section__title  title">Свяжитесь со мной!</h2>
         <p class="section__text text text--center">Заполните форму заказа и наш менеджер свяжется с Вами в течение 10 минут.</p>
-        <form class="contact-section__form">
-          <input class="contact-section__input input" type="text" name="name" placeholder="Имя">
-          <input class="contact-section__input input" type="email" name="email" placeholder="Телефон или e-mail">
+        <form class="contact-section__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "callback"}' ya-reach="callback">
+          <input class="contact-section__input input" type="text" name="name" placeholder="Имя" required="">
+          <input class="contact-section__input input" type="tel" name="tel" placeholder="Телефон" required="">
           <button class="contact-section__button button" type="submit">Отправить</button>
         </form>
       </div>
@@ -827,16 +829,16 @@
   
       <div class="pop-up__item pop-up__item--hide  service-order">
         <div class="service-order__wrap">
-          <form class="service-order__form">
+          <form class="service-order__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "order"}' ya-reach="order_applic">
             <h2 class="service-order__title  title">Оставить заявку</h2>
             <div class="service-order__row">
               <label class="service-order__label  label">ФИО</label>
-              <input class="service-order__input  input" type="text" autofocus>
+              <input class="service-order__input  input" type="text" autofocus required>
             </div>
   
             <div class="service-order__row">
               <label class="service-order__label  label">Номер телефона</label>
-              <input class="service-order__input  input" type="tel" autofocus>
+              <input class="service-order__input  input" type="tel" autofocus required>
             </div>
   
             <div class="service-order__row">
@@ -871,6 +873,32 @@
         </form>
       </div>
   
+      <div class="pop-up__item  pop-up__item--hide  get-document">
+        <div class="get-document__wrap">
+          <form class="get-document__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "getContract"}'  ya-reach="order_applic">
+            <h2 class="get-document__title  title">Получить экземпляр договора</h2>
+  
+            <div class="get-document__row">
+              <label class="get-document__label  label">Введите e-mail</label>
+              <input class="get-document__input  input" type="email" autofocus required>
+            </div>
+  
+            <div class="get-document__row">
+              <label class="label-checkbox">
+                <input type="checkbox" class="checkbox  checkbox--small" checked  required>
+                <span class="checkbox__indicator  checkbox__indicator--small  checkbox__indicator--light"></span>
+                <span class="label-text">Cогласен с обработкой моих персональных данных в соответствии с ФЗ РФ от 27.06.06 г. N°152-ФЗ «О персональных данных»</span>
+              </label>
+            </div>
+            <div class="get-document__row">
+              <div class="get-document__button">
+                <button class="button" type="submit">Отправить</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+  
     </div>
   
   </div>
@@ -881,8 +909,28 @@
 
 <!-- Java Script -->
 
-<script src="/static/pancake/js/bundle.js?v01"></script>
+<script src="/static/pancake/js/bundle.min.js?v00"></script>
 <!-- /Java Script -->
+{{#if general.production}}
 
+  <noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PHD7WW');</script>
+
+  {{else}}
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    var yaCounter803248 = {
+      reachGoal: function (param) {
+        console.log("яндекс аналитика", param);
+      }
+    }
+  </script>
+
+{{/if}}
 </body>
 </html>

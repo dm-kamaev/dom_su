@@ -39,37 +39,22 @@
     <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
     <meta name="theme-color" content="#fd8204">
 
-    <link rel="stylesheet" href="/static/pancake/css/style.css?v01">
-    <script src="/static/pancake/js/vendor/vendor.min.js?v01"></script>
+    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v00">
+    <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
     <script src="//yastatic.net/share2/share.js" async></script>
     <base href="" >
     <script>
-      var domovenokClient = {
-        name: ''
+      var analyticConf = {
+        id: "{{general.analytics.GAUA}}",
+        userId: "{{general.analytics.userUuid}}",
+        phone: "{{general.analytics.phone}}",
+        phoneDimension: "{{general.analytics.phoneDimension}}"
       };
-      var generalPath = {
-        schema: '',
-        domain: '',
-        url: ''
-      };
-
-      generalPath.buildUrl = function (additional) {
-        var build = this.schema + '://' + this.domain + '/' + this.url + '/';
-        if (additional)
-          build += additional;
-        return build;
-      };
-
-      var departureList = {
-        begin: true,
-        end: false
-      };
-      var clientId = '';
     </script>
 
   </head>
   <body class="page">
-    <div class="page__wrap page__wrap--scroll">
+    <div class="page__wrap">
 
       <!-- Page Header -->
       <!-- page-header.html -->
@@ -363,7 +348,7 @@
       <!-- /Page Header -->
 
       <!-- Main Content -->
-      <main class="page__main-content  main-content main-content--vertical">
+      <main class="page__main-content  main-content main-content--vertical scroll-container-unstable">
         <section class="page__section  section  section--bg-light">
           <div class="section__wrap">
             <h1 class="section__title section__title--main title">Уборка прилегающей к зданию территории</h1>
@@ -381,13 +366,13 @@
         <section class="page__section  section  section--bg-dark">
           <div class="section__wrap">
             <h2 class="section__title  title">Цены на уборку прилегающей территории</h2>
-            <div class="service-calc">
+            <div class="service-calc" data-name="uborka_territorii">
               <p class="service-calc__heading text"><span class="service-calc__heading service-calc__heading--tablet">Введите Вашу площадь помещения:</p>
 
               <div class="service-calc__row service-calc__row--square">
 
                 <div class="service-calc__item service-calc__item--square service-calc__item--active" data-value="1">
-                  <input type="number" class="service-calc__input service-calc__input--half input" value="1" min="1" max="10000">
+                  <input type="number" class="service-calc__input service-calc__input--half input" value="1" min="1" max="99999">
                   <span class="service-calc__unit">м<sup><small>2</small></sup></span>
                 </div>
 
@@ -443,9 +428,8 @@
                 использовать спецтехнику для сбора и вывоза мусора, очистки поверхностей и т. д.
             </p>
             <p class="section__paragraph text">Чтобы заказать услуги по уборке прилегающей территории звоните по телефону <a class="link link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>.</p>
+            <button class="button button--application" type="button" data-name="service-order">Заказать уборку</button>
           </div>
-        </section>
-        <section class="page__section  section  section--bg-light">
           <div class="section__wrap  section__wrap--toggle">
             <a class="section__link">Что входит в уборку<span class="section__sign">Открыть/закрыть</span></a>
             <div class="section__container">
@@ -481,7 +465,7 @@
           </div>
         </section>
 
-        <section class="page__section  section  section--bg-dark">
+        <section class="page__section  section  section--bg-light">
           <div class="section__wrap">
             <p class="section__title  title">Отзывы клиентов</p>
             <p class="section__text section__text--left text">«Мы заботимся о наших Клиентах и верим в свое дело!<br>Мы верим, что только так
@@ -489,49 +473,19 @@
             <div class="review-section">
               <div class="review-section__row">
                 <article class="review-section__item review">
-                  <p class="review__title title">Шиве Василий</p>
-                  <time class="review__time" datetime="">05.03.2015</time>
-                  <p class="review__text text">21 марта 2015 у моих родителей по адресу Сиреневый бульвар дом 1 корпус 2 кв.91
-                    проводили уборку Татьяна Жосан -бригадир и Дубонина Марина. Девочки просто молодцы. Огромное спасибо. Дома
-                    все блестит. Родители в восторге. Если возможно, выплатите премию. Знакомые увидели тоже хотят вызвать себе
-                    домовенка. </p>
-                  <div class="review__stars stars">
-                    <div class="stars__item stars__item--active " title="gorgeous">gorgeous</div>
-                    <div class="stars__item" title="good">good</div>
-                    <div class="stars__item" title="regular">regular</div>
-                    <div class="stars__item" title="poor">poor</div>
-                    <div class="stars__item" title="bad">bad</div>
-                  </div>
+                  <p class="review-section__title title">Анна</p>
+                  <time class="review-section__time" datetime="">21.11.2015</time>
+                  <iframe class="review__video" width="200" height="113" src="https://www.youtube.com/embed/iyu3vYg6yVs?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
                 </article>
                 <article class="review-section__item review">
-                  <p class="review__title title">Свистова Анастасия</p>
-                  <time class="review__time" datetime="">05.03.2015</time>
-                  <p class="review__text text">21 марта 2015 у моих родителей по адресу Сиреневый бульвар дом 1 корпус 2 кв.91
-                    проводили уборку Татьяна Жосан -бригадир и Дубонина Марина. Девочки просто молодцы. Огромное спасибо. Дома
-                    все блестит. Родители в восторге. Если возможно, выплатите премию. Знакомые увидели тоже хотят вызвать себе
-                    домовенка. </p>
-                  <div class="review__stars stars">
-                    <div class="stars__item  stars__item--active " title="gorgeous">gorgeous</div>
-                    <div class="stars__item" title="good">good</div>
-                    <div class="stars__item" title="regular">regular</div>
-                    <div class="stars__item" title="poor">poor</div>
-                    <div class="stars__item" title="bad">bad</div>
-                  </div>
+                  <p class="review-section__title title">Алина</p>
+                  <time class="review-section__time" datetime="">01.05.2015</time>
+                  <iframe  class="review__video" width="200" height="113" src="https://www.youtube.com/embed/X8hYBcuMqTY?rel=0&start=9" frameborder="0" allowfullscreen></iframe>
                 </article>
                 <article class="review-section__item review">
-                  <p class="review__title title">Кузнецова Татьяна</p>
-                  <time class="review__time" datetime="">05.03.2015</time>
-                  <p class="review__text text">21 марта 2015 у моих родителей по адресу Сиреневый бульвар дом 1 корпус 2 кв.91
-                    проводили уборку Татьяна Жосан -бригадир и Дубонина Марина. Девочки просто молодцы. Огромное спасибо. Дома
-                    все блестит. Родители в восторге. Если возможно, выплатите премию. Знакомые увидели тоже хотят вызвать себе
-                    домовенка.</p>
-                  <div class="review__stars stars">
-                    <div class="stars__item  stars__item--active " title="gorgeous">gorgeous</div>
-                    <div class="stars__item" title="good">good</div>
-                    <div class="stars__item" title="regular">regular</div>
-                    <div class="stars__item" title="poor">poor</div>
-                    <div class="stars__item" title="bad">bad</div>
-                  </div>
+                  <p class="review-section__title title">Никита</p>
+                  <time class="review-section__time" datetime="">05.11.2015</time>
+                  <iframe class="review__video" width="200" height="113" src="https://www.youtube.com/embed/Rdgh07XpMPc?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
                 </article>
               </div>
             </div>
@@ -540,83 +494,13 @@
           </div>
         </section>
 
-        <section class="page__section  section  section--bg-light">
-          <div class="section__wrap">
-            <p class="section__title  title">Вопросы и ответы</p>
-            <div class="question-section">
-        
-              <div class="question-section__row">
-                <article class="question-section__item">
-                  <p class="question-section__title title">шалимова светлана</p>
-                  <time class="question-section__time" datetime="">05.03.2015</time>
-                  <p class="question-section__text text"><span class="question-section__heading">Вопроc: </span>Скажите пожалуйста,сколько будет стоить ген.уборка кухни 6.5кв.м?</p>
-                  <a class="question-section__link">Открыть ответ</a>
-                  <article class="question-section__answer question-section__answer--hide">
-                    <p class="question-section__text  question-section__text--light text"><span class="question-section__heading">Ответ: </span>Компания Домовенок приносит Вам свои глубочайшие
-                      извинения за невнимание, проявленное сотрудниками нашей компании по отношению к Вам. Подобный случай
-                      абсолютно недопустим для нас, так как мы стремимся установить с клиентами длительные и доверительные
-                      отношения, основанные на качественном обслуживании.
-                      Мы просим Вас сохранить отношения с нашей компанией, и уверяем, что Вам больше не придётся столкнуться с
-                      подобным невнимательным отношением. Мы проведем тщательное расследование (разбирательство) по данной
-                      ситуации, и обязательно проинформируем Вас о принятых нами мерах.
-                      Мы очень надеемся на дальнейшее сотрудничество и в качестве компенсации мы предлагаем Вам бесплатную
-                      поддерживающую уборку.</p>
-                    <span class="question-section__sign">С уважением, Ваш Домовенок.</span>
-                  </article>
-                </article>
-                <article class="question-section__item">
-                  <p class="question-section__title title">Нина</p>
-                  <time class="question-section__time" datetime="">05.03.2015</time>
-                  <p class="question-section__text text"><span class="question-section__heading">Вопроc: </span> Здравствуйте!
-                    Подскажите, пожалуйста, стоимость услуги мытья окон: трёхстворчатое окно, одностворчатое окно + балконная дверь, пятистворчатое остекление балкона?
-                    Выезд в город Железнодорожный МО в выходные.</p>
-                  <a class="question-section__link">Открыть ответ</a>
-                  <article class="question-section__answer question-section__answer--hide">
-                    <p class="question-section__text  question-section__text--light text"><span class="question-section__heading">Ответ: </span>Компания Домовенок приносит Вам свои глубочайшие
-                      извинения за невнимание, проявленное сотрудниками нашей компании по отношению к Вам. Подобный случай
-                      абсолютно недопустим для нас, так как мы стремимся установить с клиентами длительные и доверительные
-                      отношения, основанные на качественном обслуживании.
-                      Мы просим Вас сохранить отношения с нашей компанией, и уверяем, что Вам больше не придётся столкнуться с
-                      подобным невнимательным отношением. Мы проведем тщательное расследование (разбирательство) по данной
-                      ситуации, и обязательно проинформируем Вас о принятых нами мерах.
-                      Мы очень надеемся на дальнейшее сотрудничество и в качестве компенсации мы предлагаем Вам бесплатную
-                      поддерживающую уборку.</p>
-                    <span class="question-section__sign">С уважением, Ваш Домовенок.</span>
-                  </article>
-                </article>
-                <article class="question-section__item">
-                  <p class="question-section__title title">Глебова Любовь Федоровна</p>
-                  <time class="question-section__time" datetime="">05.03.2015</time>
-                  <p class="question-section__text text"><span class="question-section__heading">Вопроc: </span>Квартира 100 кв.м. Договор с домработницей 1 раз в неделю. Что она должна делать я прочитала. А как у вас с глажкой белья? Нужно еще бы и погладить. Есть ли такая услугу и сколько это стоит?</p>
-                  <a class="question-section__link">Открыть ответ</a>
-                  <article class="question-section__answer question-section__answer--hide">
-                    <p class="question-section__text  question-section__text--light text"><span class="question-section__heading">Ответ: </span>Компания Домовенок приносит Вам свои глубочайшие
-                      извинения за невнимание, проявленное сотрудниками нашей компании по отношению к Вам. Подобный случай
-                      абсолютно недопустим для нас, так как мы стремимся установить с клиентами длительные и доверительные
-                      отношения, основанные на качественном обслуживании.
-                      Мы просим Вас сохранить отношения с нашей компанией, и уверяем, что Вам больше не придётся столкнуться с
-                      подобным невнимательным отношением. Мы проведем тщательное расследование (разбирательство) по данной
-                      ситуации, и обязательно проинформируем Вас о принятых нами мерах.
-                      Мы очень надеемся на дальнейшее сотрудничество и в качестве компенсации мы предлагаем Вам бесплатную
-                      поддерживающую уборку.</p>
-                    <span class="question-section__sign">С уважением, Ваш Домовенок.</span>
-                  </article>
-                </article>
-              </div>
-            </div>
-        
-            <a class="section__button button" href="{{buildUrl general.city '/faq/'}}">Другие вопросы</a>
-          </div>
-        
-        </section>
-
         <section class="page__section  section  section--bg-dark  section--contact">
           <div class="section__wrap">
             <h2 class="section__title  title">Свяжитесь со мной!</h2>
-            <p class="section__text text text--center">Заполните форму заказа и наш менеджер свяжется с Вами в течение 10 минут.</p>
+            <p class="section__text text text--center">Заполните форму заказа и наш менеджер свяжется с Вами в течение 5 минут.</p>
             <form class="contact-section__form">
-              <input class="contact-section__input input" type="text" name="name" placeholder="Имя">
-              <input class="contact-section__input input" type="text" name="email" placeholder="Телефон или e-mail">
+              <input class="contact-section__input input" type="text" name="name" placeholder="Имя" required="">
+              <input class="contact-section__input input" type="tel" name="tel" placeholder="Телефон" required="">
               <button class="contact-section__button button" type="submit">Отправить</button>
             </form>
           </div>
@@ -782,16 +666,16 @@
      
          <div class="pop-up__item pop-up__item--hide  service-order">
            <div class="service-order__wrap">
-             <form class="service-order__form">
+             <form class="service-order__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "order"}' ya-reach="order_applic">
                <h2 class="service-order__title  title">Оставить заявку</h2>
                <div class="service-order__row">
                  <label class="service-order__label  label">ФИО</label>
-                 <input class="service-order__input  input" type="text" autofocus>
+                 <input class="service-order__input  input" type="text" autofocus required>
                </div>
      
                <div class="service-order__row">
                  <label class="service-order__label  label">Номер телефона</label>
-                 <input class="service-order__input  input" type="tel" autofocus>
+                 <input class="service-order__input  input" type="tel" autofocus required>
                </div>
      
                <div class="service-order__row">
@@ -828,7 +712,7 @@
      
          <div class="pop-up__item  pop-up__item--hide  get-document">
            <div class="get-document__wrap">
-             <form class="get-document__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "getContract"}'>
+             <form class="get-document__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "getContract"}'  ya-reach="order_applic">
                <h2 class="get-document__title  title">Получить экземпляр договора</h2>
      
                <div class="get-document__row">
@@ -858,9 +742,29 @@
      <!-- /Pop up -->
     </div>
 
-<script src="/static/pancake/js/bundle.js?v01"></script>
+    <script src="/static/pancake/js/bundle.min.js?v00"></script>
 <!-- /Java Script -->
-
+    {{#if general.production}}
+    
+      <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      </noscript>
+    
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PHD7WW');</script>
+    
+      {{else}}
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+        var yaCounter803248 = {
+          reachGoal: function (param) {
+            console.log("яндекс аналитика", param);
+          }
+        }
+      </script>
+    
+    {{/if}}
 </body>
 
 </html>
