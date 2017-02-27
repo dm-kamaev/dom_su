@@ -1,7 +1,8 @@
 "use strict";
 
+const config = require('config');
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize('postgres://domovenok:domovenokPG@localhost:5432/pancake', {logging: false});
+const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`);
 const schedule = require('node-schedule');
 const logger = require('logger')(module)
 const { models, ErrorCodes, ModelsError, scrollModel } = require('models')
