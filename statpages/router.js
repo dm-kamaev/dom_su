@@ -191,6 +191,24 @@ async function getPage(templateDict, page, next) {
     }
 }
 
+statpagesRouter.get('/sitemap.xml', async function (ctx, next) {
+    let sitemap_file = {
+        'moscow': 'sitemap_moscow.xml',
+        'spb': 'sitemap_spb.xml'
+    }
+    ctx.type = 'application/xml'
+    ctx.body = await fs.readFile(`templates/file/${sitemap_file[ctx.state.pancakeUser.city.keyword]}`, 'utf-8')
+})
+
+statpagesRouter.get('/robots.txt', async function (ctx, next) {
+    let sitemap_file = {
+        'moscow': 'robots_moscow.txt',
+        'spb': 'robots_spb.txt'
+    }
+    ctx.type = 'text/plain'
+    ctx.body = await fs.readFile(`templates/file/${sitemap_file[ctx.state.pancakeUser.city.keyword]}`, 'utf-8')
+})
+
 statpagesRouter.get('/index.php', async function (ctx, next) {
     ctx.status = 301
     ctx.redirect('/')
@@ -199,11 +217,6 @@ statpagesRouter.get('/index.php', async function (ctx, next) {
 statpagesRouter.get('/client_id/life/:uuid/', async function (ctx, next) {
     ctx.type = 'application/json'
     ctx.body = JSON.stringify({ Success: false })
-})
-
-statpagesRouter.get('/robots.txt', async function (ctx, next) {
-    ctx.type = 'text/plain'
-    ctx.body = "User-agent: *\nDisallow: /\nUser-Agent: Sitereport\nAllow: /"
 })
 
 statpagesRouter.get('/', async function (ctx, next) {
