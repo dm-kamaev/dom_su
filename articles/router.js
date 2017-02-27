@@ -21,7 +21,6 @@ loadTemplate(articlesTemplateOpts)
 const articlesRouter = new Router();
 
 articlesRouter.get('articlesList', /^\/articles\/$/, async function (ctx, next) {
-    console.log(ctx.request.query)
     const {modelList, begin, end} = await getArticleListScroll()
     const template = getTemplate(articlesTemplateOpts)
     ctx.body = template(ctx.proc({ItemList: modelList, Begin: begin, End: end, HasRightSide: false, menu: menu}, ctx))

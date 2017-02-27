@@ -7,6 +7,7 @@ const {accessSectionCity, loadCities} = require('cities')
 const koaBody = require('koa-body');
 const {adminRouter} = require('admin')
 const schedule = require('schedule')
+const logger = require('logger')(module)
 
 
 schedule()
@@ -67,7 +68,7 @@ async function run() {
 
         app.listen(config.app.port)
     } catch (e){
-        console.log(e)
+        logger.error(e)
     }
 }
 

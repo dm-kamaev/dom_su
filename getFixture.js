@@ -2,7 +2,7 @@
 
 const validateUUID = require('uuid-validate');
 const { Article, Picture, FAQ, Review, City, News, Phone, User, UTMS } = require('./models/models.js');
-
+const config = require('config');
 const moment = require('moment')
 
 const uuidV4 = require('uuid/v4')
