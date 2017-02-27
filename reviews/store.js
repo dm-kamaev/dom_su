@@ -23,9 +23,9 @@ async function getReviewListScroll(opts) {
     return await scrollModel(ReviewActive, options);
 }
 
-async function saveReview(name, mail, review, rating) {
+async function saveReview(name, mail, review, rating, city_id) {
      let lastId = await getLastId(Review)
-     await Review.create({id: lastId+1, name: name, mail: mail, review: review, rating:rating})
+     await Review.create({id: lastId+1, name: name, mail: mail, review: review, rating:rating, city_id: city_id})
 }
 
 module.exports = {

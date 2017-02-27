@@ -29,7 +29,7 @@ reviewsRouter.post('reviewsFormHandler', /^\/otzivi\/form\/$/, async function (c
         if (typeof ctx.request.body.mail == 'string' && ctx.request.body.mail.length > 0)
         if (typeof ctx.request.body.review == 'string' && ctx.request.body.review.length > 0)
         if (isNaN(ctx.request.body.rating) == false && Number(ctx.request.body.rating) > 0 && Number(ctx.request.body.rating) <= 5){
-            await saveReview(ctx.request.body.name, ctx.request.body.mail, ctx.request.body.review, Number(ctx.request.body.rating))
+            await saveReview(ctx.request.body.name, ctx.request.body.mail, ctx.request.body.review, Number(ctx.request.body.rating), ctx.state.pancakeUser.city.id)
             response.Success = true
             ctx.state.pancakeUser.sendTicket("Review", {
                 rating: ctx.request.body.rating,
