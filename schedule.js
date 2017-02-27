@@ -2,7 +2,7 @@
 
 const config = require('config');
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`);
+const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, {logging: false});
 const schedule = require('node-schedule');
 const logger = require('logger')(module)
 const { models, ErrorCodes, ModelsError, scrollModel } = require('models')
