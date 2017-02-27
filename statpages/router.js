@@ -196,9 +196,9 @@ statpagesRouter.get('/index.php', async function (ctx, next) {
     ctx.redirect('/')
 })
 
-statpagesRouter.get('/list', async function (ctx, next) {
+statpagesRouter.get('/client_id/life/:uuid/', async function (ctx, next) {
     ctx.type = 'application/json'
-    ctx.body = {'MOSCOW': moscowTemplates, "SPB": spbTemplates}
+    ctx.body = JSON.stringify({ Success: false })
 })
 
 statpagesRouter.get('/robots.txt', async function (ctx, next) {
