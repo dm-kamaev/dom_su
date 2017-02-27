@@ -22,6 +22,7 @@ async function errorMiddleware(ctx, next) {
         try {
             await next()
         } catch (err) {
+            logger.error(ctx.path)
             logger.error(err)
             let errorHtml
             if (err.status === 404) {
