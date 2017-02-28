@@ -26,7 +26,6 @@ function sendTicket(ticket) {
                 response_json += chunk
             });
             res.on('end', () => {
-                log.debug('\n --- start response\n',response_json, '\n --- end response', '\nRequest Time -', Date.now()-startDateRequest, 'ms')
                 try {
                     reslove(JSON.parse(response_json))
                 } catch (e) {

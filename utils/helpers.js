@@ -9,6 +9,10 @@ Handlebars.registerHelper('buildUrl', function (cityKW, url) {
     if (typeof cityKW == 'object') {
         cityKW = cityKW.keyword
     }
+    // TODO for PA
+    if (url == '/private/auth'){
+        return CITIES.URL['moscow'] + url
+    }
     if (checkExistUrl(CITIES.DICT[cityKW], url)){
         return CITIES.URL[cityKW] + url
     } else {
