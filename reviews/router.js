@@ -50,12 +50,16 @@ reviewsRouter.get('reviewsList', /^\/otzivi\/$/, async function (ctx, next) {
 
 reviewsRouter.get('reviewItem', /^\/otzivi\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
     let review, RightForm;
+    let share = { name: '', content: ''}
     if (ctx.params[0] === 'form'){
         review = { id: null }
         RightForm = true
-        // if (ctx.query.share){
-        //     await shareReview(ctx.query.share)
-        // }
+        if (ctx.query.share){
+            let shareItem = await shareReview(ctx.query.share)
+            if (shareItem !== null){
+                share = shareItem
+            }
+        }
     } else {
         review = await getReview(ctx.params[0])
         RightForm = false
@@ -66,7 +70,7 @@ reviewsRouter.get('reviewItem', /^\/otzivi\/([0-9a-zA-Z_\-]+)\/$/, async functio
     }
     const {modelList, begin, end}= await getReviewListScroll({direction: 0, keyValue: review.id})
     const template = getTemplate(reviewsTemplateOpts)
-    ctx.body = template(ctx.proc({ItemList: modelList, Item: review, Begin: begin, End: end, RightForm: RightForm, HasRightSide: true, menu: menu}))
+    ctx.body = template(ctx.proc({ItemList: modelList, Item: review, Begin: begin, End: end, RightForm: RightForm, HasRightSide: true, menu: menu, formName: share.name, formRating: share.score, formReview: share.content}))
 })
 
 reviewsRouter.get('reviewListAjax', /^\/m\/otzivi$/, async function (ctx, next) {

@@ -73,7 +73,7 @@
       </button>
       <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Логотип"/></a>
   
-      <a class="page-header__tel" href="tel:telHref"><span class="page-header__tel-brown">{{ general.phoneCode }}</span> {{ general.phoneNumber }}</a>
+      <a class="page-header__tel" href="tel:{{ general.phoneHref }}"><span class="page-header__tel-brown">{{ general.phoneCode }}</span> {{ general.phoneNumber }}</a>
     </div>
   
     <div class="page-header__wrap">
@@ -335,7 +335,7 @@
 
         <p class="contact-page__text text">Телефон: <a class="contact-page__link link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
         <p class="contact-page__text text">Выполнение заказов: с 09:00 до 21:00  </p>
-        <p class="contact-page__text text">Веб-сайт: <a class="contact-page__link link">spb.domovenok.su</a></p>
+        <p class="contact-page__text text">Веб-сайт: <a class="contact-page__link link" href="{{buildUrl general.city '/'}}">{{buildUrl general.city '/'}}</a></p>
         <div class="contact-page__text  contact-page__row text">
           <p class="contact-page__text text">Почта: </p>
           <div class="contact-page__column">

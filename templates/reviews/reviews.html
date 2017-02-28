@@ -414,7 +414,7 @@
         <form class="review-form">
           <div class="review-form__row">
             <label class="review-form__label label">ФИО:</label>
-            <input type="text" class="review-form__input input" name="title" required>
+            <input type="text" class="review-form__input input" name="title" value="{{formName}}" required>
           </div>
 
           <div class="review-form__row">
@@ -426,26 +426,26 @@
             <p class="review-form__label label">Оценка:</p>
 
             <div class="review-form__stars stars">
-              <input class="stars__input  stars__input--quality" id="star-34" type="radio" name="Quality" value="5">
+              <input class="stars__input  stars__input--quality" id="star-34" type="radio" name="Quality" value="5" {{#ifCond formRating '==' 5}}checked{{/ifCond}}>
               <label class="stars__label  stars__label--md  stars__label--quality" title="gorgeous" for="star-34"></label>
 
-              <input class="stars__input  stars__input--quality" id="star-33" type="radio" name="Quality" value="4">
+              <input class="stars__input  stars__input--quality" id="star-33" type="radio" name="Quality" value="4" {{#ifCond formRating '==' 4}}checked{{/ifCond}}>
               <label class="stars__label  stars__label--md stars__label--quality" title="good" for="star-33"></label>
 
-              <input class="stars__input  stars__input--quality" id="star-32" type="radio" name="Quality" value="3">
+              <input class="stars__input  stars__input--quality" id="star-32" type="radio" name="Quality" value="3" {{#ifCond formRating '==' 3}}checked{{/ifCond}}>
               <label class="stars__label  stars__label--md  stars__label--quality" title="regular" for="star-32"></label>
 
-              <input class="stars__input  stars__input--quality" id="star-31" type="radio" name="Quality" value="2">
+              <input class="stars__input  stars__input--quality" id="star-31" type="radio" name="Quality" value="2" {{#ifCond formRating '==' 2}}checked{{/ifCond}}>
               <label class="stars__label  stars__label--md  stars__label--quality" title="poor" for="star-31"></label>
 
-              <input class="stars__input  stars__input--quality" id="star-30" type="radio" name="Quality" value="1">
+              <input class="stars__input  stars__input--quality" id="star-30" type="radio" name="Quality" value="1" {{#ifCond formRating '==' 1}}checked{{/ifCond}}>
               <label class="stars__label  stars__label--md  stars__label--quality" title="bad" for="star-30"></label>
             </div>
           </div>
 
           <div class="review-form__row">
             <label class="review-form__label label">Отзыв:</label>
-            <textarea class="review-form__textarea  textarea"></textarea>
+            <textarea class="review-form__textarea  textarea">{{formReview}}</textarea>
           </div>
 
           <div class="review-form__row">

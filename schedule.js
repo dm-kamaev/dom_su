@@ -31,7 +31,7 @@ function setVisitFinish() {
     )
         .spread(function(results, metadata) {
             if (results.length > 0){
-                logger.info(`schedule CLOSE visit ${JSON.stringify(results)}`)
+                //logger.info(`schedule CLOSE visit ${JSON.stringify(results)}`)
             }
         })
 }
@@ -55,7 +55,7 @@ function cleanPhoneNumber() {
             if (results.length > 0){
                 let user_uuid_list = []
                 for (let item of results){
-                    logger.info(`kill track session | uuid - ${item.user_uuid}`)
+                    //logger.info(`kill track session | uuid - ${item.user_uuid}`)
                     user_uuid_list.push(item.user_uuid)
                     let user = await User.findOne({where: {uuid: item.user_uuid}})
                     user.set('data.track.numbers', {})
