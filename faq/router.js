@@ -54,6 +54,10 @@ FAQRouter.get('FAQItem', /^\/faq\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, ne
         RightForm = true;
         faq = {id: null}
     } else {
+        if (isNaN(ctx.params[0])){
+            await next()
+            return
+        }
         faq = await getFAQ(ctx.params[0])
         RightForm = false;
         if (faq === null){

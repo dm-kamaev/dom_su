@@ -61,6 +61,10 @@ reviewsRouter.get('reviewItem', /^\/otzivi\/([0-9a-zA-Z_\-]+)\/$/, async functio
             }
         }
     } else {
+        if (isNaN(ctx.params[0])){
+            await next()
+            return
+        }
         review = await getReview(ctx.params[0])
         RightForm = false
         if (review === null){

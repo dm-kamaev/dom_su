@@ -34,7 +34,7 @@ class PancakeService {
         this.sendDataGA({'params': {
             'v': 1,
             'tid': this.ctx.analytics.google,
-            'cid': user.uuid,
+            'cid': user.data.google_id,
             't': 'event',
             'ec': 'call',
             'ea': 'incoming',
