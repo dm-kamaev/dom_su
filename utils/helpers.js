@@ -4,10 +4,17 @@ const { checkExistUrl } = require('statpages')
 const { CITIES } = require('cities')
 const moment = require('moment')
 
+const { checkPromotionUrl } = require('promotions')
+
+
+
 // Генерация ссылки для города
 Handlebars.registerHelper('buildUrl', function (cityKW, url) {
     if (typeof cityKW == 'object') {
         cityKW = cityKW.keyword
+    }
+    if (checkPromotionUrl(cityKW, url)){
+        return CITIES.URL[cityKW] + url
     }
     // TODO for PA
     if (url == '/private/auth'){

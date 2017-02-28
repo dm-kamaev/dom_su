@@ -16,7 +16,7 @@ const sectionListRegExp = [
     new RegExp('^/faq'),
     new RegExp('^/otzivi'),
     new RegExp('^/news'),
-    new RegExp('^/skidki_akcii'),
+    //new RegExp('^/skidki_akcii'),
     new RegExp('^/private'),
     new RegExp('^/gallery'),
 ]

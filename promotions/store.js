@@ -129,6 +129,22 @@ const STORE = {
     spb: STORE_SPB,
 }
 
+let promotionsRegExp = RegExp('^\/skidki_akcii\/((:?[\\w\\d_-]+)\/)?$', 'g')
+
+function checkPromotionUrl(cityKW, url) {
+    promotionsRegExp.lastIndex = 0
+    let match = (promotionsRegExp.exec(url))
+    if (match != null){
+        if (match[2] == undefined){
+            return true
+        }
+        if (STORE[cityKW] && STORE[cityKW][match[2]]){
+            return true
+        }
+    }
+    return false
+}
+
 function getPromotion(city, key) {
     return STORE[city.keyword][key]
 }
@@ -140,4 +156,5 @@ function getPromotionList(city) {
 module.exports = {
     getPromotion,
     getPromotionList,
+    checkPromotionUrl,
 }
