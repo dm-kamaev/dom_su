@@ -191,6 +191,11 @@ async function getPage(templateDict, page, next) {
     }
 }
 
+statpagesRouter.get('/manifest.json', async function (ctx, next) {
+    ctx.status = 302
+    ctx.redirect('/yandex/manifest.json')
+})
+
 statpagesRouter.get('/yandex/manifest.json', async function (ctx, next) {
     ctx.type = 'application/json'
     ctx.body = await fs.readFile(`templates/file/yandex_manifest.json`, 'utf-8')
