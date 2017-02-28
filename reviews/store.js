@@ -2,7 +2,24 @@
 const { models, ErrorCodes, ModelsError, scrollModel, getLastId } = require('models')
 const { Review } = models;
 const ReviewActive = Review.scope('active')
+const mongoClient = require('mongodb').MongoClient;
+const logger = require('logger')(module)
 
+
+async function shareReview(share) {
+    try{
+        let db = await mongoClient.connect('mongodb://localhost:27017/domovenok')
+        let reviews = db.collection('reviews')
+        let item = await reviews.findOne({uuid: share})
+        if (item === null)
+            throw new Error('Item is null')
+        return item
+    } catch (e){
+        logger.error('ERROR share reviews')
+        logger.error(e)
+        return {}
+    }
+}
 
 async function getReview(id) {
     let attributes = ['id', 'name', 'date', 'rating', 'answer', 'review', 'title_meta', 'description_meta', 'keywords_meta', 'block_link']
@@ -32,4 +49,5 @@ module.exports = {
     getReview: getReview,
     getReviewListScroll: getReviewListScroll,
     saveReview,
+    shareReview,
 }

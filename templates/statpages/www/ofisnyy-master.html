@@ -32,6 +32,7 @@
     <link rel="icon" type="image/png" href="/static/pancake/img/favicon-48x48.png?v=1.0" sizes="48x48">
     <link rel="manifest" href="/static/pancake/manifest.json?v=1.02">
     <link rel="mask-icon" href="/static/pancake/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
+    <link rel="yandex-tableau-widget" href="/yandex/manifest.json" />
     <meta name="apple-mobile-web-app-title" content="Domovenok">
     <meta name="application-name" content="Domovenok">
     <meta name="msapplication-TileColor" content="#fd8204">
@@ -68,7 +69,7 @@
               <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
             </svg>
           </button>
-          <a class="page-header__logo" href="http://www.domovenok.su"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Логотип"/></a>
+          <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Логотип"/></a>
       
           <a class="page-header__tel" href="tel:{{ general.phoneHref }}"><span class="page-header__tel-brown">{{ general.phoneCode }}</span> {{ general.phoneNumber }}</a>
         </div>
@@ -87,7 +88,7 @@
             <ul class="main-menu__list">
       
               <li class="main-menu__item">
-                <a class="main-menu__link"  href="{{buildUrl general.city '/private/'}}">
+                <a class="main-menu__link"  href="{{buildUrl general.city '/private/auth'}}">
                   Личный кабинет
                 </a>
               </li>
@@ -677,17 +678,18 @@
                   </svg>
                 </a>
                 <a  class="social-link  social-link--grey" href="https://instagram.com/cleaning.domovenok/">
-                  <svg class="social-link__icon  social-link__icon--instagram" width="18" height="12.68" viewBox="0 0 18 12.68">
-                    <path d="M624,316.23H610.91a2.44,2.44,0,0,0-2.44,2.44v7.8a2.44,2.44,0,0,0,2.44,2.44H624a2.44,2.44,0,0,0,2.44-2.44v-7.8A2.44,2.44,0,0,0,624,316.23Zm-6.12,7.51L615.76,325l0-2.5,0-2.5,2.18,1.23,2.18,1.23Z" transform="translate(-608.47 -316.23)" style="fill: #fff"/>
-                  </svg>
-                </a>
-                <a  class="social-link  social-link--grey" href="https://www.youtube.com/channel/UC3KMG4hKopFvk18-69tLsRQ">
-                  <svg class="social-link__icon  social-link__icon--youtube" width="20" height="19.81" viewBox="0 0 20 19.81">
+                  <svg class="social-link__icon  social-link__icon--instagram" width="20" height="19.81" viewBox="0 0 20 19.81">
                     <g>
                       <rect x="1" y="1" width="18" height="17.81" rx="4" ry="4" style="fill: none;stroke: #fff;stroke-miterlimit: 10;stroke-width: 2px"/>
                       <circle cx="10" cy="9.91" r="4.11" style="fill: none;stroke: #fff;stroke-miterlimit: 10;stroke-width: 2px"/>
                       <circle cx="15.18" cy="4.53" r="1.21" style="fill: #fff"/>
                     </g>
+                  </svg>
+                </a>
+                <a  class="social-link  social-link--grey" href="https://www.youtube.com/channel/UC3KMG4hKopFvk18-69tLsRQ">
+        
+                  <svg class="social-link__icon  social-link__icon--youtube" width="18" height="12.68" viewBox="0 0 18 12.68">
+                    <path d="M624,316.23H610.91a2.44,2.44,0,0,0-2.44,2.44v7.8a2.44,2.44,0,0,0,2.44,2.44H624a2.44,2.44,0,0,0,2.44-2.44v-7.8A2.44,2.44,0,0,0,624,316.23Zm-6.12,7.51L615.76,325l0-2.5,0-2.5,2.18,1.23,2.18,1.23Z" transform="translate(-608.47 -316.23)" style="fill: #fff"/>
                   </svg>
                 </a>
                 <a  class="social-link  social-link--grey" href="https://vk.com/club43423694">

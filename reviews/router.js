@@ -2,7 +2,7 @@
 
 const Router = require('koa-router');
 const router = new Router();
-const { getReview, getReviewListScroll, saveReview } = require('./store')
+const { getReview, getReviewListScroll, saveReview, shareReview } = require('./store')
 const logger = require('logger')(module)
 const { getTemplate, loadTemplate } = require('utils')
 
@@ -53,6 +53,9 @@ reviewsRouter.get('reviewItem', /^\/otzivi\/([0-9a-zA-Z_\-]+)\/$/, async functio
     if (ctx.params[0] === 'form'){
         review = { id: null }
         RightForm = true
+        // if (ctx.query.share){
+        //     await shareReview(ctx.query.share)
+        // }
     } else {
         review = await getReview(ctx.params[0])
         RightForm = false

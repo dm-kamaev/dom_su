@@ -1,0 +1,9 @@
+{
+    "version": "0.5",
+    "api_version": 1,
+    "layout": {
+        "logo": "https://www.domovenok.su/static/img/logo_for_ya.png",
+        "color": "#ffffff",
+        "show_title": false
+    }
+}

@@ -35,9 +35,9 @@ ticketRouter.post('/ticket-handler', async function (ctx, next) {
         if (validation(ctx.request.body)){
             let data = ctx.request.body.data
             if (ctx.request.body.type == 'Order'){
-                let serviceName = getServiceName(ctx.state.pancakeUser.city, ctx.request.headers.referer)
-                if (serviceName){
-                    data.serviceName = serviceName
+                let service = getServiceName(ctx.state.pancakeUser.city, ctx.request.headers.referer)
+                if (service){
+                    data.service = service
                 }
             }
             ctx.state.pancakeUser.sendTicket(ctx.request.body.type, data)

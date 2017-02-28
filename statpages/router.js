@@ -107,7 +107,7 @@ const spbTemplates = {
     'mite_stekol': {name: 'mite_stekol.html', ServiceName: 'Мытье стекол', data:{ menu:{legal: true, mite_stekol: true}}},
     'mite_okon': {name: 'mite_okon.html', ServiceName: 'Мойка окон', data:{ menu:{physical: true, mite_okon: true}}},
     'myte-fasadov': {name: 'myte-fasadov.html', ServiceName: 'Мытьё фасадов', data:{ menu:{legal: true, myte_fasadov: true}}},
-    'mite_potolkov': {name: 'mite_potolkov.html', ServiceName: 'Генеральная уборка', data:{ menu:{physical: true, generalnaya_uborka: true}}},
+    //'mite_potolkov': {name: 'mite_potolkov.html', ServiceName: 'Генеральная уборка', data:{ menu:{physical: true, generalnaya_uborka: true}}},
     'podderzhka': {name: 'podderzhka.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{physical: true, podderzhka: true}}},
     //'polirovka-polov': {name: 'polirovka-polov.html', ServiceName: 'Обработка поверхностей', data:{ menu:{legal: true, obrabotka_poverhnostey: true}}},
     'uborka_ofisov': {name: 'uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
@@ -190,6 +190,16 @@ async function getPage(templateDict, page, next) {
         return { template: null}
     }
 }
+
+statpagesRouter.get('/yandex/manifest.json', async function (ctx, next) {
+    ctx.type = 'application/json'
+    ctx.body = await fs.readFile(`templates/file/yandex_manifest.json`, 'utf-8')
+})
+
+statpagesRouter.get('/domovenok.xml', async function (ctx, next) {
+    ctx.type = 'application/xml'
+    ctx.body = await fs.readFile(`templates/file/domovenok.xml`, 'utf-8')
+})
 
 statpagesRouter.get('/sitemap.xml', async function (ctx, next) {
     let sitemap_file = {

@@ -33,6 +33,7 @@
   <link rel="icon" type="image/png" href="/static/pancake/img/favicon-48x48.png?v=1.0" sizes="48x48">
   <link rel="manifest" href="/static/pancake/manifest.json?v=1.02">
   <link rel="mask-icon" href="/static/pancake/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
+  <link rel="yandex-tableau-widget" href="/yandex/manifest.json" />
   <meta name="apple-mobile-web-app-title" content="Domovenok">
   <meta name="application-name" content="Domovenok">
   <meta name="msapplication-TileColor" content="#fd8204">
@@ -69,7 +70,7 @@
           <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
         </svg>
       </button>
-      <a class="page-header__logo" href="http://www.domovenok.su"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Логотип"/></a>
+      <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Логотип"/></a>
   
       <a class="page-header__tel" href="tel:telHref"><span class="page-header__tel-brown">{{ general.phoneCode }}</span> {{ general.phoneNumber }}</a>
     </div>
@@ -88,7 +89,7 @@
         <ul class="main-menu__list">
   
           <li class="main-menu__item">
-            <a class="main-menu__link"  href="{{buildUrl general.city '/private'}}">
+            <a class="main-menu__link"  href="{{buildUrl general.city '/private/auth'}}">
               Личный кабинет
             </a>
           </li>
