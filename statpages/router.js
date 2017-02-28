@@ -36,7 +36,7 @@ const moscowTemplates = {
     'akcii__glazhka': {name: 'akcii__glazhka.html'},
     'uborka-kottedzhej_posle_remonta': {name: 'uborka-kottedzhej_posle_remonta.html'},
     'search': {name: 'search.html'},
-    'kristallizatsiya-i-restavratsiya-mramornykh-polov': {name: 'kristallizatsiya-i-restavratsiya-mramornykh-polov.html'},
+    //'kristallizatsiya-i-restavratsiya-mramornykh-polov': {name: 'kristallizatsiya-i-restavratsiya-mramornykh-polov.html'},
     'shemi_okon__': {name: 'shemi_okon__.html'},
     // Exist
     'main': {name: 'main.html', data: {menu: {main: true, main_page: true}}},
