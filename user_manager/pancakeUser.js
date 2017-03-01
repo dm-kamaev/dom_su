@@ -8,6 +8,7 @@ const {taskEventCreate} = require('./task')
 const {saveAndSend} = require('tickets')
 const {URL} = require('url')
 const validateUUID = require('uuid-validate');
+const logger = require('logger')(module)
 
 
 const USER_COOKIE_KEY = config.USER_COOKIE_KEY
@@ -109,7 +110,12 @@ class PancakeUser {
         if (this.ctx.headers.referer === undefined) {
             return false
         }
-        let referer = new URL(this.ctx.headers.referer);
+        try{
+            let referer = new URL(this.ctx.headers.referer);
+        } catch (e){
+            logger.error(`ERROR parse referer url ${this.ctx.headers.referer}`)
+            return false
+        }
         banRefererRegexp.lastIndex = 0;
         if (banRefererRegexp.exec(referer.hostname) !== null) {
             return false
