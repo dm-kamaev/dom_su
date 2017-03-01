@@ -12,7 +12,7 @@ const { Phone, User, Visit, Event, Token } = models
 const { eventType } = require('user_manager')
 
 internalAPI.post('/modification', async function (ctx, next) {
-    const availableModels = {'Phone': Phone}
+    //const availableModels = {'Phone': PhonesTracking, 'UID': SessionUID}
 })
 
 internalAPI.post('/user', async function (ctx, next) {
