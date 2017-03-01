@@ -4,6 +4,7 @@ const {models, ErrorCodes, ModelsError} = require('models');
 const {User, UTMS, Phone} = models;
 const {saveAndSend} = require('tickets')
 const http = require('http');
+const config = require('config');
 
 class PancakeService {
     constructor(ctx){
@@ -33,7 +34,7 @@ class PancakeService {
         this.sendTicket('NewTrackingCall', ticket, user.uuid)
         this.sendDataGA({'params': {
             'v': 1,
-            'tid': this.ctx.analytics.google,
+            'tid': config.analytics.google,
             'cid': user.data.google_id,
             't': 'event',
             'ec': 'call',
