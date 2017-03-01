@@ -32,7 +32,7 @@ class PancakeService {
             throw new Error(`Post call tracking | User on Phone - ${data.phone} - not found`)
         }
         this.sendTicket('NewTrackingCall', ticket, user.uuid)
-        this.sendDataGA({'params': {
+        this.sendDataGA({
             'v': 1,
             'tid': config.analytics.google,
             'cid': user.data.google_id,
@@ -40,7 +40,7 @@ class PancakeService {
             'ec': 'call',
             'ea': 'incoming',
             'ds': 'call center'
-        }})
+        })
 
         // Clean Track Phone Number
         user.track = {done: true, waiting: false, number: null}
