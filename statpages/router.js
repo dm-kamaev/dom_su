@@ -32,7 +32,7 @@ const moscowTemplates = {
     'sitemap': {name: 'sitemap.html'},
     'strahovka__': {name: 'strahovka__.html'},
     'garantii__': {name: 'garantii__.html'},
-    'domrabotnica__perechen_rabot': {name: 'domrabotnica__perechen_rabot.html'},
+    //'domrabotnica__perechen_rabot': {name: 'domrabotnica__perechen_rabot.html'},
     'akcii__glazhka': {name: 'akcii__glazhka.html'},
     'uborka-kottedzhej_posle_remonta': {name: 'uborka-kottedzhej_posle_remonta.html'},
     'search': {name: 'search.html'},
