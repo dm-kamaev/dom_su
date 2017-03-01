@@ -110,12 +110,12 @@ class PancakeUser {
         if (this.ctx.headers.referer === undefined) {
             return false
         }
-        try{
+        // try{
             let referer = new URL(this.ctx.headers.referer);
-        } catch (e){
-            logger.error(`ERROR parse referer url ${this.ctx.headers.referer}`)
-            return false
-        }
+        // } catch (e){
+        //     logger.error(`ERROR parse referer url ${this.ctx.headers.referer}`)
+        //     return false
+        // }
         banRefererRegexp.lastIndex = 0;
         if (banRefererRegexp.exec(referer.hostname) !== null) {
             return false
