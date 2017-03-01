@@ -141,6 +141,7 @@ class PancakeUser {
                 pancakeUser.model.set(`data.track.numbers.${pancakeUser.city.keyword}`, pancakeUser.track.numbers[pancakeUser.city.keyword]);
                 await pancakeUser.model.save()
                 phone.user_uuid = pancakeUser.uuid
+                phone.living = true
                 await phone.save()
                 return phone
             })
