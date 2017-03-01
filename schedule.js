@@ -9,7 +9,7 @@ const { models, ErrorCodes, ModelsError, scrollModel } = require('models')
 const { User } = models
 
 const MAX_STAGNATION_VISIT_MINUTE = 15;
-const MAX_STAGNATION_TAKE_NUMBER_MINUTE = 5;
+const MAX_STAGNATION_TAKE_NUMBER_MINUTE = 10;
 const CRON_VISIT = 1;
 const CRON_NUMBER = 1;
 

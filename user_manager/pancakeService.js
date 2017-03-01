@@ -5,6 +5,7 @@ const {User, UTMS, Phone} = models;
 const {saveAndSend} = require('tickets')
 const http = require('http');
 const config = require('config');
+const querystring = require("querystring");
 
 class PancakeService {
     constructor(ctx){
@@ -63,7 +64,7 @@ class PancakeService {
                     "User-Agent": "AstDom"
                 }
             }
-            await pancakeService.sendRequest(connectParam, JSON.stringify(data), 20)
+            await pancakeService.sendRequest(connectParam, querystring.stringify(data), 20)
         })
     }
 
