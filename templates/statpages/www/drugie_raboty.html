@@ -40,7 +40,7 @@
     <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
     <meta name="theme-color" content="#fd8204">
 
-    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v01">
+    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v02">
     <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
     <script src="//yastatic.net/share2/share.js" async></script>
     <base href="" >
@@ -498,17 +498,14 @@
               <div class="review-section__row">
                 <article class="review-section__item review">
                   <p class="review-section__title title">Анна</p>
-                  <time class="review-section__time" datetime="">21.11.2015</time>
                   <iframe class="review__video" width="200" height="113" src="https://www.youtube.com/embed/iyu3vYg6yVs?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
                 </article>
                 <article class="review-section__item review">
                   <p class="review-section__title title">Алина</p>
-                  <time class="review-section__time" datetime="">01.05.2015</time>
                   <iframe  class="review__video" width="200" height="113" src="https://www.youtube.com/embed/X8hYBcuMqTY?rel=0&start=9" frameborder="0" allowfullscreen></iframe>
                 </article>
                 <article class="review-section__item review">
                   <p class="review-section__title title">Никита</p>
-                  <time class="review-section__time" datetime="">05.11.2015</time>
                   <iframe class="review__video" width="200" height="113" src="https://www.youtube.com/embed/Rdgh07XpMPc?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
                 </article>
               </div>
@@ -688,13 +685,13 @@
               <form class="service-order__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "order"}' ya-reach="order_applic">
                 <h2 class="service-order__title  title">Оставить заявку</h2>
                 <div class="service-order__row">
-                  <label class="service-order__label  label">ФИО</label>
-                  <input class="service-order__input  input" type="text" autofocus required>
+                  <label class="service-order__label  label">ФИО<span class="label__required">*</span></label>
+                  <input class="service-order__input  input" type="text" required>
                 </div>
       
                 <div class="service-order__row">
-                  <label class="service-order__label  label">Номер телефона</label>
-                  <input class="service-order__input  input" type="tel" autofocus required>
+                  <label class="service-order__label  label">Номер телефона<span class="label__required">*</span></label>
+                  <input class="service-order__input  input" type="tel" required>
                 </div>
       
                 <div class="service-order__row">
@@ -702,10 +699,10 @@
                   <textarea  class="service-order__textarea  textarea"></textarea>
                 </div>
                 <div class="service-order__row">
-                  <label class="label-checkbox">
-                    <input type="checkbox" class="checkbox  checkbox--small" checked  required>
+                  <label class="checkbox">
+                    <input type="checkbox" class="checkbox__input checkbox__input--small" checked required>
                     <span class="checkbox__indicator  checkbox__indicator--small  checkbox__indicator--light"></span>
-                    <span class="label-text">Cогласен с обработкой моих персональных данных в соответствии с ФЗ РФ от 27.06.06 г. N°152-ФЗ «О персональных данных»</span>
+                    <span class="checkbox__text">Cогласен с обработкой моих персональных данных в соответствии с ФЗ РФ от 27.06.06 г. N°152-ФЗ «О персональных данных»</span>
                   </label>
                 </div>
                 <div class="service-order__row">
@@ -762,7 +759,7 @@
 
     </div>
 
-    <script src="/static/pancake/js/bundle.min.js?v00"></script>
+    <script src="/static/pancake/js/bundle.min.js?v01"></script>
 <!-- /Java Script -->
     {{#if general.production}}
     
