@@ -8,7 +8,7 @@ const {reviewsRouter} = require('reviews')
 const {promotionsRouter} = require('promotions')
 const {adminRouter: adminRouter} = require('admin')
 const { ticketRouter } = require('tickets')
-const { internalAPI } = require('internal_api')
+const { internalAPI } = require('internalApi')
 
 module.exports = {applyRouters: applyRouters}
 

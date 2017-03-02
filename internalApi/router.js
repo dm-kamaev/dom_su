@@ -27,19 +27,34 @@ internalAPI.post('/modification', async function (ctx, next) {
         }
     ]
     */
-    const availableModels = {'Phone': PhonesTracking}
+    const availableModels = {'Phone': Phone}
     let successActionID = {'ActionID': []}
     let methods = ctx.request.body.filter((method)=>{if(Object.keys(availableModels).indexOf(method.Model) >= 0) {return true} else {return false}})
     for (let method of methods){
         try {
             let model = availableModels[method.Model]
             if (method.Action == 'GetAll'){
-                if (!successActionID[method.ActionID]){
-                    successActionID[method.ActionID] = []
+                if (!successActionID[method.Action]){
+                    successActionID[method.Action] = {}
                 }
-                let result = JSON.stringify(model.findAll({attributes: model.attributesInternalAPI(), include: model.includeInternalAPI()}))
-                successActionID[method.Action][method.Model] = result
+                let result = await model.findAll({attributes: model.attributesInternalAPI(), include: model.includeInternalAPI()})
+                let formatResult = model.formatResultIntenralAPI(result)
+                successActionID[method.Action][method.Model] = formatResult
                 successActionID.ActionID.push(method.ActionID)
+                continue
+            } if (method.Action == 'CreateOrUpdate'){
+                let where = {}
+                where[model.primaryKeyField] = method.Key
+                logger.info(where)
+                let item = await model.findOne({where:where})
+                //logger.info(item)
+                if (item == null){
+                    await model.createInternalAPI(method.Key, method.Data)
+                    successActionID.ActionID.push(method.ActionID)
+                } else {
+                    await item.updateInternalAPI(method.Data)
+                    successActionID.ActionID.push(method.ActionID)
+                }
             }
         } catch (e){
             logger.error(`Error execute method in Internal API ${JSON.stringify(method)}`)

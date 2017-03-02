@@ -208,7 +208,25 @@ const Phone = sequelize.define('phones', {
         }
     },
     active: {type: Sequelize.BOOLEAN}
+}, {
+    classMethods: {
+        attributesInternalAPI: function () {
+            return ['key', 'number', 'active']
+        },
+        includeInternalAPI: function () {
+            return [{model: City, attributes: ['keyword']}]
+        },
+        formatResultIntenralAPI: function (data) {
+          return data.map((item)=>{return {key: item.key, number: item.number, active: item.active, city: item.city.keyword}})
+        },
+        createInternalAPI: async function (key, data) {
+            let city = await City.findOne({where: {keyword: data.city}})
+            await Phone.create({key: key, city_id: city.id, number: data.number, living: false, user_uuid: null, active: data.active})
+        }
+    }
 });
+
+Phone.belongsTo(City, { foreignKey: 'city_id' })
 
 const Visit = sequelize.define('visits', {
     uuid: {type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV4},
