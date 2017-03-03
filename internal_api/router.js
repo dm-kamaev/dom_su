@@ -9,7 +9,7 @@ const Secret = "1Ac0uGgbLLA6eUpkV4gh"
 const { models, ErrorCodes, ModelsError } = require('models')
 const { Phone } = models
 
-internalAPI.post('/api/modification', async function (ctx, next) {
+internalAPI.post('/service/modification', async function (ctx, next) {
     /*
     [
         {

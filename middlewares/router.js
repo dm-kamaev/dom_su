@@ -6,7 +6,6 @@ const {newsRouter} = require('news')
 const {FAQRouter} = require('faq')
 const {reviewsRouter} = require('reviews')
 const {promotionsRouter} = require('promotions')
-const {adminRouter: adminRouter} = require('admin')
 const { ticketRouter } = require('tickets')
 
 module.exports = {applyRouters: applyRouters}
@@ -34,7 +33,8 @@ function applyRouters(app) {
     app.use(statpagesRouter.routes())
 
     // Admin
-    app.use(adminRouter.routes())
+    // const {adminRouter: adminRouter} = require('admin')
+    // app.use(adminRouter.routes())
 }
 
 

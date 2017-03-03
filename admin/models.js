@@ -4,15 +4,17 @@ const {AdminPanelError, ErrorCodes} = require('./errors')
 
 
 class AdminModel {
-    constructor(Model){
+    constructor(Model, opts){
         if (Model === undefined)
             throw new AdminPanelError(ErrorCodes.ModelIsEmpty)
 
+        opts = opts || {}
         this.name = Model.name
         this.pk = false;
         this.model = Model
         this.previewFields = false;
         this.refPreviewFields = false;
+        this.title = opts.title
 
         /* Get attr and type */
         this.attrs = [];

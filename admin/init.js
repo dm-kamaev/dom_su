@@ -11,8 +11,8 @@ const { AdminModel } = require('./models')
 
 const adminPanel = new AdminPanel()
 
-const AArticle = new AdminModel(Article, {preview:['id', 'title']})
-const APictures = new AdminModel(Picture)
+const AArticle = new AdminModel(Article, {preview:['id', 'title'], title: 'Статьи'})
+const APictures = new AdminModel(Picture, {title: 'Картинки'})
 
 AArticle.setPreviewField(['id','title', 'url'])
 APictures.setRefPreviewField(['title'])

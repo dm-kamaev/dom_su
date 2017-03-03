@@ -12,7 +12,7 @@ async function handlerTrackingCall(ctx, next) {
     ctx.body = ''
 }
 
-userManagerServiceRouter.post('/client_id/post_tracking_call/', handlerTrackingCall)
+userManagerServiceRouter.post('/service/calltracking', handlerTrackingCall)
 
 userManagerServiceRouter.post('/api/calltracking', handlerTrackingCall)
 

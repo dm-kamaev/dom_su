@@ -40,7 +40,11 @@ class AdminPanel {
           return 1;
          return 0;
         });
-        return modelNames
+        let result = []
+        for (let modelName of modelNames){
+            result.push({name: modelName, title: this.models[modelName].title})
+        }
+        return result
     }
 
     getModelItemList(modelName, options){

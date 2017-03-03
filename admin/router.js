@@ -71,9 +71,15 @@ function validationOffset(offset) {
     return 0
 }
 
+router.get('/admin/auth', async function (ctx, next) {
+    const source = await fs.readFile('admin/public/template/authorization.html', 'utf-8')
+    const template = Handlebars.compile(source)
+    ctx.body = template()
+})
+
 
 router.get('/admin', async function (ctx, next) {
-    const source = await fs.readFile('admin/template/index.html', 'utf-8')
+    const source = await fs.readFile('admin/public/template/index.html', 'utf-8')
     const template = Handlebars.compile(source)
     const models = adminPanel.getAllModel()
     ctx.body = template({models: models})
@@ -86,7 +92,7 @@ router.get('/admin/:model', async function (ctx, next) {
     const options = {limit: limit, offset: offset}
     /* end vlidation */
 
-    const source = await fs.readFile('admin/template/itemList.html', 'utf-8')
+    const source = await fs.readFile('admin/public/template/itemList.html', 'utf-8')
     const template = Handlebars.compile(source)
     const attrList = ['id', 'title']
     const {count, rows} = await adminPanel.getModelItemList(ctx.params.model, options)
@@ -94,7 +100,7 @@ router.get('/admin/:model', async function (ctx, next) {
 })
 
 router.get('/admin/:model/:id', async function (ctx, next) {
-    const source = await fs.readFile('admin/template/itemDetail.html', 'utf-8')
+    const source = await fs.readFile('admin/public/template/itemDetail.html', 'utf-8')
     const template = Handlebars.compile(source)
     const {item, attrs} = await adminPanel.getModelItem(ctx.params.model, ctx.params.id, {})
     ctx.body = template({item: item, attr: attrs})
