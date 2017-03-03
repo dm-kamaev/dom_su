@@ -14,8 +14,6 @@ async function handlerTrackingCall(ctx, next) {
 
 userManagerServiceRouter.post('/service/calltracking', handlerTrackingCall)
 
-userManagerServiceRouter.post('/api/calltracking', handlerTrackingCall)
-
 
 module.exports = {
     userManagerServiceRouter
