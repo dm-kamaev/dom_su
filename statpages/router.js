@@ -30,16 +30,16 @@ const moscowTemplates = {
     'key': 'moscow',
     'akcii__return': {name: 'akcii__return.html'},
     'sitemap': {name: 'sitemap.html'},
-    'strahovka__': {name: 'strahovka__.html'},
-    'garantii__': {name: 'garantii__.html'},
+
     //'domrabotnica__perechen_rabot': {name: 'domrabotnica__perechen_rabot.html'},
     'akcii__glazhka': {name: 'akcii__glazhka.html'},
     'uborka-kottedzhej_posle_remonta': {name: 'uborka-kottedzhej_posle_remonta.html'},
     'search': {name: 'search.html'},
     //'kristallizatsiya-i-restavratsiya-mramornykh-polov': {name: 'kristallizatsiya-i-restavratsiya-mramornykh-polov.html'},
-    'shemi_okon__': {name: 'shemi_okon__.html'},
     // Exist
     'main': {name: 'main.html', data: {menu: {physical: true}}},
+    'strahovka__': {name: 'strahovka__.html', data:{ menu:{physical: true }}},
+    'garantii__': {name: 'garantii__.html', data:{ menu:{physical: true }}},
     'ezhednevnaya_uborka_ofisov': {name: 'ezhednevnaya_uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
     'generalnaya_uborka_ofisov': {name: 'generalnaya_uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
     'vechernyaya_uborka_ofisov': {name: 'vechernyaya_uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{menu:{legal: true, uborka_ofisov: true}}},
@@ -90,11 +90,10 @@ const moscowTemplates = {
 
 const spbTemplates = {
     'search': {name: 'search.html'},
-    'strahovka__': {name: 'strahovka__.html', data: {noindex: true}},
-    'garantii__': {name: 'garantii__.html', data: {noindex: true}},
-    'shemi_okon__': {name: 'shemi_okon__.html', data: {noindex: true}},
     'dir': 'templates/statpages/spb/',
     'key': 'spb',
+    'strahovka__': {name: 'strahovka__.html', data: {noindex: true, menu:{physical: true}}},
+    'garantii__': {name: 'garantii__.html', data: {noindex: true, menu:{physical: true}}},
     'generalnaya_uborka_ofisov': {name: 'generalnaya_uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
     'ezhednevnaya_uborka_ofisov': {name: 'ezhednevnaya_uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
     'b2b__': {name: 'b2b__.html', ServiceName: 'B2B', data:{ menu:{physical: true}}},

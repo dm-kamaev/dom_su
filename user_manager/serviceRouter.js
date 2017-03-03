@@ -1,7 +1,7 @@
 "use strict";
 
 const Router = require('koa-router');
-const serviceRouter = new Router();
+const userManagerServiceRouter = new Router();
 
 
 async function handlerTrackingCall(ctx, next) {
@@ -12,9 +12,11 @@ async function handlerTrackingCall(ctx, next) {
     ctx.body = ''
 }
 
-serviceRouter.post('/client_id/post_tracking_call/', handlerTrackingCall)
+userManagerServiceRouter.post('/client_id/post_tracking_call/', handlerTrackingCall)
+
+userManagerServiceRouter.post('/api/calltracking', handlerTrackingCall)
 
 
 module.exports = {
-    serviceRouter
+    userManagerServiceRouter
 }

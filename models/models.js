@@ -201,6 +201,7 @@ const Phone = sequelize.define('phones', {
     },
     user_uuid: {
         type: Sequelize.UUID,
+        allowNull: false,
         references: {
             model: User,
             key: 'uuid',
@@ -221,7 +222,16 @@ const Phone = sequelize.define('phones', {
         },
         createInternalAPI: async function (key, data) {
             let city = await City.findOne({where: {keyword: data.city}})
-            await Phone.create({key: key, city_id: city.id, number: data.number, living: false, user_uuid: null, active: data.active})
+            await Phone.create({city_id: city.id, number: data.number, living: false, user_uuid: null, active: data.active})
+        },
+    },
+    instanceMethods: {
+        updateInternalAPI: async function (data){
+            this.number = data.number
+            this.active = data.active
+            let city = await City.findOne({where: {keyword: data.city}})
+            this.city_id = city.id
+            await this.save()
         }
     }
 });

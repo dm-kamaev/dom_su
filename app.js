@@ -1,8 +1,8 @@
 'use strict'
 const koa = require('koa');
 const config = require('config');
-const {errorMiddleware, throw404, accessLogger, applyRouters, checkSlashEnd} = require('middlewares')
-const {initPancakeUser, setUserVisit, createEventRequest, createEventLiving, UTMCollector, ctxProcessor, LUIDHandler, callTracking, definitionRequestType, onlyUser, onlyService, initPancakeService, serviceRouter} = require('user_manager')
+const {errorMiddleware, throw404, accessLogger, applyRouters, applyServiceRouters, checkSlashEnd} = require('middlewares')
+const {initPancakeUser, setUserVisit, createEventRequest, createEventLiving, UTMCollector, ctxProcessor, LUIDHandler, callTracking, definitionRequestType, onlyUser, onlyService, initPancakeService } = require('user_manager')
 const {accessSectionCity, loadCities} = require('cities')
 const koaBody = require('koa-body');
 const {adminRouter} = require('admin')
@@ -59,7 +59,8 @@ async function run() {
         // Only external service
         appService.use(initPancakeService)
         // Add router service
-        appService.use(serviceRouter.routes())
+        applyServiceRouters(appService)
+        //appService.use(serviceRouter.routes())
         // End Service
 
         // Throw 404

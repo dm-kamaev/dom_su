@@ -2,17 +2,14 @@
 
 const logger = require('logger')(module)
 const Router = require('koa-router');
-const internalAPI = new Router({
-    prefix: '/api'
-});
+const internalAPI = new Router();
 
 const Secret = "1Ac0uGgbLLA6eUpkV4gh"
 
 const { models, ErrorCodes, ModelsError } = require('models')
-const { Phone, User, Visit, Event, Token } = models
-const { eventType } = require('user_manager')
+const { Phone } = models
 
-internalAPI.post('/modification', async function (ctx, next) {
+internalAPI.post('/api/modification', async function (ctx, next) {
     /*
     [
         {
@@ -43,11 +40,12 @@ internalAPI.post('/modification', async function (ctx, next) {
                 successActionID.ActionID.push(method.ActionID)
                 continue
             } if (method.Action == 'CreateOrUpdate'){
-                let where = {}
-                where[model.primaryKeyField] = method.Key
-                logger.info(where)
-                let item = await model.findOne({where:where})
-                //logger.info(item)
+                let item = null;
+                if (method.Key !== false){
+                    let where = {}
+                    where[model.primaryKeyField] = method.Key
+                    item = await model.findOne({where:where})
+                }
                 if (item == null){
                     await model.createInternalAPI(method.Key, method.Data)
                     successActionID.ActionID.push(method.ActionID)
@@ -55,6 +53,12 @@ internalAPI.post('/modification', async function (ctx, next) {
                     await item.updateInternalAPI(method.Data)
                     successActionID.ActionID.push(method.ActionID)
                 }
+                continue
+            } if (method.Action == 'Delete'){
+                let where = {}
+                where[model.primaryKeyField] = method.Key
+                model.destroy({where:where})
+                successActionID.ActionID.push(method.ActionID)
             }
         } catch (e){
             logger.error(`Error execute method in Internal API ${JSON.stringify(method)}`)
