@@ -28,13 +28,13 @@ const moscowTemplates = {
     // END NGINX
     'dir': 'templates/statpages/www/',
     'key': 'moscow',
-    'akcii__return': {name: 'akcii__return.html'},
-    'sitemap': {name: 'sitemap.html'},
+    //'akcii__return': {name: 'akcii__return.html'},
+    //'sitemap': {name: 'sitemap.html'},
 
     //'domrabotnica__perechen_rabot': {name: 'domrabotnica__perechen_rabot.html'},
-    'akcii__glazhka': {name: 'akcii__glazhka.html'},
-    'uborka-kottedzhej_posle_remonta': {name: 'uborka-kottedzhej_posle_remonta.html'},
-    'search': {name: 'search.html'},
+    //'akcii__glazhka': {name: 'akcii__glazhka.html'},
+    //'uborka-kottedzhej_posle_remonta': {name: 'uborka-kottedzhej_posle_remonta.html'},
+    //'search': {name: 'search.html'},
     //'kristallizatsiya-i-restavratsiya-mramornykh-polov': {name: 'kristallizatsiya-i-restavratsiya-mramornykh-polov.html'},
     // Exist
     'main': {name: 'main.html', data: {menu: {physical: true}}},
@@ -89,7 +89,7 @@ const moscowTemplates = {
 }
 
 const spbTemplates = {
-    'search': {name: 'search.html'},
+    //'search': {name: 'search.html'},
     'dir': 'templates/statpages/spb/',
     'key': 'spb',
     'strahovka__': {name: 'strahovka__.html', data: {noindex: true, menu:{physical: true}}},

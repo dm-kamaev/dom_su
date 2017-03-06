@@ -47,7 +47,7 @@ internalAPI.post('/service/modification', async function (ctx, next) {
                     item = await model.findOne({where:where})
                 }
                 if (item == null){
-                    await model.createInternalAPI(method.Key, method.Data)
+                    await model.createInternalAPI(method.Data)
                     successActionID.ActionID.push(method.ActionID)
                 } else {
                     await item.updateInternalAPI(method.Data)

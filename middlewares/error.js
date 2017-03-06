@@ -23,7 +23,7 @@ async function errorMiddleware(ctx, next) {
         } catch (err) {
             let errorHtml
             if (err.status === 404) {
-                logger.error(`Error 404 Path ${ctx.request.href} ${(ctx.headers.referer) ? '| referer ' + ctx.headers.referer : '' } `)
+                logger.error(`404 Path ${ctx.request.href} ${(ctx.headers.referer) ? '| referer ' + ctx.headers.referer : '' } `)
                 ctx.type = 'text/html'
                 ctx.status = 404
                 errorHtml = getTemplate(template404Opt)
