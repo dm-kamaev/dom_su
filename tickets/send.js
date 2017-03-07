@@ -16,7 +16,6 @@ const connectParam = {
 }
 
     function sendTicket(ticket) {
-    log.info(ticket)
     connectParam.headers['Content-length'] = Buffer.from(ticket).length;
     let response_json= "";
     let promiseRequest = new Promise((reslove, reject) => {
