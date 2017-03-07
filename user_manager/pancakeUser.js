@@ -9,6 +9,7 @@ const {saveAndSend} = require('tickets')
 const {URL} = require('url')
 const validateUUID = require('uuid-validate');
 const logger = require('logger')(module)
+const moment = require('moment')
 
 
 const USER_COOKIE_KEY = config.USER_COOKIE_KEY
@@ -90,10 +91,17 @@ class PancakeUser {
 
     async getUtms() {
         if (this._utms === null) {
+            let utm_data_list = [];
             let utm_list = await UTMS.findAll({where: {user_uuid: this.uuid,}})
-            utm_list = utm_list || []
-            this._utms = utm_list
-            return utm_list
+            if (utm_list !== null){
+                let temp_list = JSON.parse(JSON.stringify(utm_list))
+                for (let utm of temp_list){
+                    utm.data.created = moment(utm.createdAt).toISOString()
+                    utm_data_list.push(utm.data)
+                }
+            }
+            this._utms = utm_data_list
+            return utm_data_list
         } else {
             return this._utms
         }
