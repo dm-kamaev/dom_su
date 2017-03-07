@@ -5,16 +5,15 @@ const {errorMiddleware, throw404, accessLogger, applyRouters, applyServiceRouter
 const {initPancakeUser, setUserVisit, createEventRequest, createEventLiving, UTMCollector, ctxProcessor, LUIDHandler, callTracking, definitionRequestType, onlyUser, onlyService, initPancakeService } = require('user_manager')
 const {accessSectionCity, loadCities} = require('cities')
 const koaBody = require('koa-body');
-const {adminRouter} = require('admin')
 const schedule = require('schedule')
 const logger = require('logger')(module)
 
 
-schedule()
 
 
 async function run() {
     try{
+        schedule()
         const app = new koa();
 
         // with HTTP headers X-Dom-Service

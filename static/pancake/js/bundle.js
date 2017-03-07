@@ -58,8 +58,8 @@
 	//var hideElement = require('./../components/orders-item/orders-item.js');
 	// var request = require('./../components/ajax-request/ajax-request.js');
 	__webpack_require__(2);
-	__webpack_require__(186);
-	var resize = __webpack_require__(191);
+	__webpack_require__(185);
+	var resize = __webpack_require__(190);
 	window.addEventListener('resize', resize);
 
 
@@ -129,9 +129,9 @@
 	var init = __webpack_require__(10);
 	// let renderOrder = require('./../../../components/order/render-order');
 	// let renderSchedule = require('./../../../components/order/render-schedule');
-	var renderItem = __webpack_require__(188);
-	var renderForm = __webpack_require__(189);
-	var message = __webpack_require__(190);
+	var renderItem = __webpack_require__(187);
+	var renderForm = __webpack_require__(188);
+	var message = __webpack_require__(189);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	var pageState = {
@@ -315,6 +315,9 @@
 	            urlThirdColumn.update(ctx.params.id);
 	            function render(data) {
 	                renderItem(data);
+	                if (!client.isMobile()) {
+	                    rightSide.scrollTop = 0;
+	                }
 	                init.leftSide.setActiveItem(urlThirdColumn.item);
 	            }
 	            request.get(urlThirdColumn.requestItem(), render.bind(this));
@@ -936,7 +939,7 @@
 	    }
 	}
 	if (pageAuth) {
-	    var authorization = __webpack_require__(187);
+	    var authorization = __webpack_require__(186);
 	    authorization();
 	}
 	module.exports = pageInit;
@@ -3165,6 +3168,20 @@
 	            }
 	        }
 	    },
+	    number: {
+	        check: function (element) {
+	            var valid = true;
+	            if (!element.value || !(Number(element.value) < 2000 && Number(element.value) > 1900)) {
+	                valid = false;
+	            }
+	            return valid;
+	        },
+	        remove: function (item) {
+	            if (item.classList.contains('input--invalid')) {
+	                item.classList.remove('input--invalid');
+	            }
+	        }
+	    },
 	    textarea: {
 	        check: function (element) {
 	            var valid = true;
@@ -3245,6 +3262,21 @@
 	        elements.forEach(function (item) {
 	            if (item.type === 'tel') {
 	                if (!this.tel.check(item)) {
+	                    if (!item.classList.contains('input--invalid')) {
+	                        item.classList.add('input--invalid');
+	                        item.addEventListener('input', validateActionTel);
+	                        function validateActionTel(e) {
+	                            if (e.currentTarget.classList.contains('input--invalid')) {
+	                                e.currentTarget.classList.remove('input--invalid');
+	                                button.disabled = false;
+	                            }
+	                        }
+	                    }
+	                    valid = false;
+	                }
+	            }
+	            if (item.type === 'number') {
+	                if (!this.number.check(item)) {
 	                    if (!item.classList.contains('input--invalid')) {
 	                        item.classList.add('input--invalid');
 	                        item.addEventListener('input', validateActionTel);
@@ -20534,13 +20566,16 @@
 	 */
 	var url = __webpack_require__(9);
 	var request = __webpack_require__(7);
+	var validate = __webpack_require__(42);
 	var Careers = (function () {
 	    function Careers(element) {
 	        this.element = element;
-	        this.items = element.querySelectorAll('.careers__item');
+	        this.items = Array.prototype.slice.call(element.querySelectorAll('.careers__item'));
 	        this.container = element.querySelector('.careers__list');
 	        this.activeItem = element.querySelector('.careers__item--active');
 	        this.activeDetail = element.querySelector('.careers__detail--active');
+	        this.requireInput = null;
+	        this.activeForm = null;
 	        this.toggle = this.toggle.bind(this);
 	        this.close = this.close.bind(this);
 	        this.formOpen = this.formOpen.bind(this);
@@ -20556,10 +20591,10 @@
 	            var buttonClose = item.querySelector('.career__btn');
 	            var buttonForm = item.querySelector('.career__button');
 	            buttonClose.addEventListener('click', this.close);
-	            buttonForm.addEventListener('click', this.formOpen);
+	            if (buttonForm) {
+	                buttonForm.addEventListener('click', this.formOpen);
+	            }
 	        }
-	    };
-	    Careers.prototype.removeEvent = function () {
 	    };
 	    Careers.prototype.toggle = function (e) {
 	        e.preventDefault();
@@ -20579,7 +20614,7 @@
 	        }
 	    };
 	    Careers.prototype.open = function (id) {
-	        var list = document.querySelectorAll('.careers__detail');
+	        var list = Array.prototype.slice.call(document.querySelectorAll('.careers__detail'));
 	        for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
 	            var item = list_1[_i];
 	            if (item.dataset.id === id + "/") {
@@ -20598,10 +20633,11 @@
 	    };
 	    Careers.prototype.formOpen = function (e) {
 	        e.preventDefault();
-	        var form = this.activeDetail.querySelector('.career__form');
+	        this.activeForm = this.activeDetail.querySelector('.career__form');
+	        this.requireInput = Array.prototype.slice.call(this.activeForm.querySelectorAll('input[required]'));
 	        e.target.parentNode.removeChild(e.target);
-	        form.classList.remove('career__form--hide');
-	        form.addEventListener('submit', this.sendForm);
+	        this.activeForm.classList.remove('career__form--hide');
+	        this.activeForm.addEventListener('submit', this.sendForm);
 	    };
 	    Careers.prototype.sendForm = function (e) {
 	        e.preventDefault();
@@ -20610,38 +20646,40 @@
 	        var citizenship = this.activeDetail.querySelector('input[name="citizenship"]');
 	        var birthdate = this.activeDetail.querySelector('input[name="birthdate"]');
 	        var button = this.activeDetail.querySelector('button[type="submit"]');
-	        var formData = {
-	            type: 'applicant_cleaner',
-	            data: {
-	                "contact": contact.value,
-	                "name": name.value,
-	                "citizenship": citizenship.value,
-	                "birthdate": birthdate.value,
+	        if (validate.make(this.requireInput, button)) {
+	            var formData = {
+	                type: 'applicant_cleaner',
+	                data: {
+	                    "contact": contact.value,
+	                    "name": name.value,
+	                    "citizenship": citizenship.value,
+	                    "birthdate": birthdate.value,
+	                }
+	            };
+	            function response(data) {
+	                if (data.Success === true) {
+	                    button.disabled = false;
+	                    var form = this.activeDetail.querySelector('.career__form');
+	                    var parent_1 = form.parentNode;
+	                    var p = document.createElement('p');
+	                    p.classList.add('career__answer');
+	                    p.classList.add('title');
+	                    p.innerText = "Спасибо за заявку";
+	                    parent_1.removeChild(form);
+	                    parent_1.appendChild(p);
+	                }
+	                else {
+	                    button.disabled = false;
+	                }
 	            }
-	        };
-	        function response(data) {
-	            if (data.Success === true) {
-	                button.disabled = false;
-	                var form = this.activeDetail.querySelector('.career__form');
-	                var parent_1 = form.parentNode;
-	                var p = document.createElement('p');
-	                p.classList.add('career__answer');
-	                p.classList.add('title');
-	                p.innerText = "Спасибо за заявку";
-	                parent_1.removeChild(form);
-	                parent_1.appendChild(p);
+	            function error() {
+	                this.button.disabled = false;
 	            }
-	            else {
-	                button.disabled = false;
-	            }
+	            var json = JSON.stringify(formData);
+	            var requestUrl = "/ticket-handler";
+	            button.disabled = true;
+	            request.send(requestUrl, json, response.bind(this), error.bind(this));
 	        }
-	        function error() {
-	            this.button.disabled = false;
-	        }
-	        var json = JSON.stringify(formData);
-	        var requestUrl = "/ticket-handler";
-	        button.disabled = true;
-	        request.send(requestUrl, json, response.bind(this), error.bind(this));
 	    };
 	    return Careers;
 	}());
@@ -20724,9 +20762,9 @@
 	 * Created by Lobova.A on 25.11.2016.
 	 */
 	var Menu = __webpack_require__(183);
-	var openApplication = __webpack_require__(185);
+	var openApplication = __webpack_require__(184);
 	//let callback = require('./../callback/callback');
-	var init = __webpack_require__(186);
+	var init = __webpack_require__(185);
 	var initElement = __webpack_require__(10);
 	var headerElement = document.querySelector('.page-header');
 	var menuElement = headerElement.querySelector('.main-menu');
@@ -20845,8 +20883,7 @@
 
 
 /***/ },
-/* 184 */,
-/* 185 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20911,7 +20948,7 @@
 
 
 /***/ },
-/* 186 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20921,7 +20958,7 @@
 
 
 /***/ },
-/* 187 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21033,7 +21070,7 @@
 
 
 /***/ },
-/* 188 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21042,7 +21079,7 @@
 	var client = __webpack_require__(8);
 	var moment = __webpack_require__(46);
 	var url = __webpack_require__(5);
-	var init = __webpack_require__(186);
+	var init = __webpack_require__(185);
 	var urlThridColumn = __webpack_require__(9);
 	var defineObject = __webpack_require__(155);
 	var RightSide = __webpack_require__(178);
@@ -21091,7 +21128,7 @@
 
 
 /***/ },
-/* 189 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21101,7 +21138,7 @@
 	var Mustache = __webpack_require__(45);
 	var moment = __webpack_require__(46);
 	var url = __webpack_require__(5);
-	var init = __webpack_require__(186);
+	var init = __webpack_require__(185);
 	var urlThridColumn = __webpack_require__(9);
 	var defineObject = __webpack_require__(155);
 	var Form = __webpack_require__(179);
@@ -21135,7 +21172,7 @@
 
 
 /***/ },
-/* 190 */
+/* 189 */
 /***/ function(module, exports) {
 
 	/**
@@ -21154,7 +21191,7 @@
 
 
 /***/ },
-/* 191 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**

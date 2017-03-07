@@ -6,12 +6,14 @@ const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.passwo
 const schedule = require('node-schedule');
 const logger = require('logger')(module)
 const { models, ErrorCodes, ModelsError, scrollModel } = require('models')
-const { User } = models
+const { User, Ticket, UTMS } = models
+const { sendTicket } = require('tickets')
 
 const MAX_STAGNATION_VISIT_MINUTE = 15;
 const MAX_STAGNATION_TAKE_NUMBER_MINUTE = 10;
 const CRON_VISIT = 1;
 const CRON_NUMBER = 1;
+const CRON_TICKET = 1;
 
 // TODO ERROR HANDLER
 
@@ -69,6 +71,32 @@ function cleanPhoneNumber() {
         })
 }
 
+async function sendForgottenTicket() {
+    let ticket;
+    try {
+        ticket = await Ticket.findOne({where: {isSend: false}, order: [['id', 'DESC']]})
+        if (ticket != null){
+            let user = null;
+            let utms = null;
+            if (ticket.data.user_id){
+                user = await User.findOne({uuid: ticket.data.user_id})
+            }
+            if (user !== null){
+                utms = await UTMS.findAll({where: {user_uuid: user.uuid,}})
+            }
+            let response = await sendTicket(ticket.buildMessage(utms))
+            if (response.result == 'ok'){
+                ticket.isSend = true
+                await ticket.save()
+            }
+        }
+    } catch (e){
+        logger.error(`ERROR Send Forgotten ticket ${JSON.stringify(ticket)}`)
+        logger.error(e)
+    }
+
+}
+
 module.exports = () => {
     logger.info('Schedule - CLOSE VISIT  - START')
     let taskVisit = schedule.scheduleJob(`*/${CRON_VISIT} * * * *`, function(){
@@ -78,6 +106,11 @@ module.exports = () => {
     logger.info('Schedule - CLEAN NUMBER - START')
     let taskPhoneNumber = schedule.scheduleJob(`*/${CRON_NUMBER} * * * *`, function () {
         cleanPhoneNumber()
+    })
+
+    logger.info('Schedule - SEND TICKET - START')
+    let taskTicket = schedule.scheduleJob(`*/${CRON_TICKET} * * * *`,async function () {
+        await sendForgottenTicket()
     })
 
 }

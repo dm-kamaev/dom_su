@@ -31,10 +31,6 @@ function applyRouters(app) {
 
     // Statpages
     app.use(statpagesRouter.routes())
-
-    // Admin
-    // const {adminRouter: adminRouter} = require('admin')
-    // app.use(adminRouter.routes())
 }
 
 

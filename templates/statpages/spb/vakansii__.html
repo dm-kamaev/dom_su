@@ -39,7 +39,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v04">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v05">
   <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
@@ -52,7 +52,7 @@
     };
   </script>
 </head>
-<body class="page">
+<body class="page page--career">
 <!-- Page wrapper -->
 <div class="page__wrap">
 
@@ -355,8 +355,8 @@
                 </button>
                 <div class="career__row">
                   <div class="career__column">
-                    <h3 class="career__title title">Вакансия домработницы в компании «Домовенок»</h3>
-                    <p class="career__text text">Компания «Комфорт-сервис «Домовенок» приглашает к сотрудничеству
+                    <h3 class="career__title title">Вакансия домработницы в компании «Домовёнок»</h3>
+                    <p class="career__text text">Компания «Комфорт-сервис «Домовёнок» приглашает к сотрудничеству
                       соискателей на вакансию домработницы. Мы заинтересованы в энергичных, творческих и перспективных
                       сотрудниках, желающих приносить чистоту и уют в дома! Наш коллектив – это одна большая и дружная
                       семья, сплоченная идеей помогать людям! Сотрудники нашей компании имеют постоянную возможность
@@ -386,7 +386,7 @@
                     </p>
                     <p class="career__title title title--orange">От нас:</p>
                     <p class="career__text text">График работы домработницы – 6/1 или 5/2. Полный рабочий день.
-                      Корпоративная сим-карта, также предоставляется корпоративная одежда и бесплатное обучение. Если Вы
+                      Предоставляется корпоративная одежда и бесплатное обучение. Если Вы
                       ищете работу домработницы в Санкт-Петербурге с возможностью карьерного роста и профессионального развития,
                       добро пожаловать в команду «Домовенка».</p>
                     <p class="career__title title title--orange">Заработная плата:</p>
@@ -403,7 +403,7 @@
                 <button class="career__button button">Оставить заявку</button>
               </div>
               <form class="career__form career__form--hide">
-                <h3 class="career__title title">Оставьте заявку</h3>
+                <h3 class="career__title   career__title--center  title">Оставьте заявку</h3>
                 <div class="career__row">
                   <div class="career__column">
                     <input class="career__input input" type="text" name="name" placeholder="ФИО" required>
@@ -487,9 +487,9 @@
                       клининговых работ.
                     </p>
                     <p class="career__title title title--orange">От нас:</p>
-                    <p class="career__text text">Возможны разные графики работы домработницы в Санкт-Петербурге – 6/1, 5/2 или 2/2
+                    <p class="career__text text">Возможны разные графики работы домработницы в Санкт-Петербурге – 6/1 или 5/2
                       (рабочий
-                      день полный). Компенсация проезда и сотовой связи. Мы предоставим корпоративную форму, а также
+                      день полный). Мы предоставим корпоративную форму, а также
                       бесплатное
                       обучение по эксплуатации оборудования и средств для уборки. У сотрудников всегда имеется
                       возможность
@@ -513,105 +513,7 @@
                 <button class="career__button button">Оставить заявку</button>
               </div>
               <form class="career__form career__form--hide">
-                <h3 class="career__title title">Оставьте заявку</h3>
-                <div class="career__row">
-                  <div class="career__column">
-                    <input class="career__input input" type="text" name="name" placeholder="ФИО" required>
-                  </div>
-                  <div class="career__column">
-                    <input class="career__input input" type="text" name="citizenship" placeholder="Гражданство"
-                           required>
-                  </div>
-                </div>
-                <div class="career__row">
-                  <div class="career__column">
-                    <input class="career__input input" type="number" name="birthdate" placeholder="Год Рождения"
-                           required>
-                  </div>
-                  <div class="career__column">
-                    <input class="career__input input" type="tel" name="contact" placeholder="Телефон" required>
-                  </div>
-                </div>
-                <button class="career__button  button" type="submit">Отправить</button>
-              </form>
-            </div>
-
-            <div class="careers__item {{#if uborkaTerritorii}}careers__item--active{{/if}}"
-                 data-id="uborka-territorii/">
-              <span class="careers__title title">Уборщик прилегающих территорий</span>
-              <span class="text">Заработная плата:</span>
-              <span>26 000 - 32 000 рублей.</span>
-              <a class="careers__tel" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>
-            </div>
-
-            <div class="careers__detail career {{#if uborkaTerritorii}}careers__detail--active{{/if}}"
-                 data-id="uborka-territorii/">
-              <div class="career__item">
-                <button class="career__btn  career__btn--close  icon-close">
-                  <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
-                    <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1"
-                          style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-                    <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1"
-                          style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-                  </svg>
-                </button>
-                <div class="career__row">
-                  <div class="career__column">
-                    <h3 class="career__title title">Вакансия уборщика прилегающих территорий</h3>
-                    <p class="career__text text">Эта профессия необходимая и незаменимая в деле поддержания чистоты на
-                      территориях города включает в себя множество трудовых функций.</p>
-                    <p class="career__text text">Уборщики прилегающих территорий востребованы повсеместно, и спрос на
-                      рынке труда на представителей данной профессии будет только возрастать. Такие работники необходимы
-                      на промышленных и торговых предприятиях, вокзалах и аэропортах, на прилегающих территориях
-                      учредительных заведений, автостоянках и т. д. Трудно себе представить здание без красивой
-                      ухоженной территории вокруг.</p>
-                    <p class="career__text text">Данная вакансия предполагает профессиональные знания в области уборки и
-                      ухода за прилегающими территориями и эксплуатации санитарно-технического оборудования. Мы в нашем
-                      учебном центре «Домовенок» обучаем молодых специалистов всем основам и особенностям данной
-                      профессии.</p>
-                    <p class="career__text text">Профессиональными качествами дворника можно считать трудолюбие,
-                      пунктуальность, ответственность. От них в большей степени зависит успешность работы. Такая
-                      вакансия подойдет людям, которые больше любят трудиться не в коллективе, а самостоятельно,
-                      индивидуально. Но коммуникабельность и доброжелательность не помешают человеку этой профессии,
-                      ведь он часто встречается с одними и теми же людьми, которые живут в этом доме или работают в том
-                      учреждении, которое обслуживается уборщиком прилегающих территорий.</p>
-                  </div>
-                  <div class="career__column">
-                    <h3 class="career__title title">Подробности о вакансии</h3>
-                    <p class="career__title title title--orange">Требования:</p>
-                    <p class="career__text text">Требуются мужчины трудолюбивые, энергичные, аккуратные, исполнительные,
-                      терпеливые, ответственные, выносливые. Готовые к разъездному характеру труда. Желательно с опытом
-                      работы. Вашим преимуществом будут знания в области уборки и ухода за прилегающими территориями и
-                      эксплуатации санитарно-технического оборудования. Также мы готовы рассматривать и кандидатов без
-                      опыта работы в данной области, но с огромным желанием работать и осваивать данную профессию.
-                    </p>
-                    <p class="career__title title title--orange">Обязанности:</p>
-                    <p class="career__text text">Уборка и уход за прилегающими территориями.
-                    </p>
-                    <p class="career__title title title--orange">От нас:</p>
-                    <p class="career__text text">График работы 6/1, 2/2. Корпоративная одежда, компенсация мобильной
-                      связи. Возможность карьерного роста и профессионального развития.</p>
-                    <p class="career__title title title--orange">Заработная плата:</p>
-                    <p class="career__text text">26000 - 32000 руб.</p>
-                    <p class="career__title title title--orange">Как устроиться на работу:</p>
-                    <p class="career__text text">Вакансия по уборке квартир и других помещений открыта у нас постоянно.
-                      Количество
-                      обслуживаемых нами объектов стабильно растет, поэтому мы регулярно нанимаем новых сотрудников.
-                      Должность
-                      домработницы предполагает карьерный рост и перспективы развития в компании. Если Вы хотите найти
-                      работу в
-                      Санкт-Петербурге уборщицей, совершенствоваться в данной области и Вам интересно наше предложение – ждем
-                      Ваших откликов
-                      и резюме на электронный адрес <a class="link link--orange" href="mailto:hr.spb@domovenok.su">hr.spb@domovenok.su</a>.
-                      Телефон нашего отдела кадров <a class="link link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
-
-                  </div>
-                </div>
-                <button class="career__button button">Оставить заявку</button>
-
-              </div>
-              <form class="career__form career__form--hide">
-                <h3 class="career__title title">Оставьте заявку</h3>
+                <h3 class="career__title   career__title--center title">Оставьте заявку</h3>
                 <div class="career__row">
                   <div class="career__column">
                     <input class="career__input input" type="text" name="name" placeholder="ФИО" required>
@@ -984,7 +886,7 @@
 
 <!-- Java Script -->
 
-<script src="/static/pancake/js/bundle.min.js?v02"></script>
+<script src="/static/pancake/js/bundle.min.js?v03"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 
