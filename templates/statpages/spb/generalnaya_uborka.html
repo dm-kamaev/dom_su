@@ -40,7 +40,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v07">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v08">
   <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
@@ -486,16 +486,14 @@
             </div>
 
             <div class="service-calc__item service-calc__item--price" data-name="general_spb"  data-option="1x">
-              <p class="service-calc__text text text-center">По графику*, <b class="text text--orange text--bold">скидка 25%</b></p>
+              <p class="service-calc__text text text-center">Для постоянных клиентов<span class="service-calc__sign  service-calc__sign-popup" data-name="notification">?<span class="service-card__note">Постоянные клиенты - те, кто пользуется услугами нашей компании по уборке своего дома не реже чем 1 раз в 2 недели.</span></span></p>
               <div class="service-calc__output">
                 4280 руб
               </div>
             </div>
 
           </div>
-          <div class="service-calc__row">
-            <p class="service-calc__text service-calc__text--sm text">* Скидка предоставляется клиентам, обслуживающимся по графику. Подробнее про обслуживание по графику <a class="link link--orange" href="{{buildUrl general.city '/davay_druzhit/'}}">здесь</a>.</p>
-          </div>
+          
           <div class="service-calc__row">
             <button class="button button--application" type="button" data-name="service-order">Заказать уборку</button>
           </div>
@@ -956,7 +954,7 @@
 
 <!-- Java Script -->
 
-<script src="/static/pancake/js/bundle.min.js?v05"></script>
+<script src="/static/pancake/js/bundle.min.js?v06"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 
