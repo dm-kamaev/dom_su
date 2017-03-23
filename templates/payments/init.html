@@ -3,13 +3,23 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>{{#if Item}}{{#if Item.title_meta}}{{Item.title_meta}}{{else}}{{ Item.title }} - новости домовенка{{/if}}{{else}}Новости{{/if}}</title>
-  <meta name="keywords" content="{{#if Item}}{{#if Item.keywords_meta}}{{Item.keywords_meta}}{{else}}новость, {{Item.title}}{{/if}}{{else}}клининговая компания, уборка квартир, мытье окон, химчистка ковров{{/if}}"/>
-  <meta name="description" content="{{#if Item}}{{#if Item.description_meta}}{{Item.description_meta}}{{else}}На данной странице можно прочитать новость {{Item.title}}{{/if}}{{else}}Клининговая компания домовенок оказывает услуги по уборке квартир, домов, коттеджей и офисов. Вы можете заказать химчистку ковра с вывозом и доставкой.{{/if}}"/>
+  <title>Клининговая компания Домовёнок</title>
+  {{#if noindex}} <meta name="robots" content="noindex,nofollow"> {{else}} <meta name="robots" content="index, follow"/> {{/if}}
+
+  {{#if canonical }}<link rel="canonical" href="{{canonicalPath}}"/>{{/if}}
+  <meta name="keywords"
+        content=""/>
+  <meta name="description"
+        content=""/>
+
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui" />
   <meta name="format-detection" content="telephone=no">
-  {{#if noindex}} <meta name="robots" content="noindex,nofollow"> {{else}} <meta name="robots" content="index, follow"/> {{/if}}
-  {{#if canonical }}<link rel="canonical" href="{{canonicalPath}}"/>{{/if}}
+  <meta property="og:title" content="Клининговая компания Домовёнок."/>
+  <meta property="og:site" content="//www.domovenok.su/"/>
+  <meta property="og:description" content="Клининговая компания Домовёнок - верный помощник в решении бытовых вопросов и уборки дома."/>
+  <meta property="og:image" content="//www.domovenok.su/static/img/domovenok-banner.png"/>
+  <meta property="og:url" content="//www.domovenok.su/?utm_source=vk&utm_campaign=site_share"/>
+
   <link rel="apple-touch-icon" sizes="57x57" href="/static/pancake/img/apple-touch-icon-57x57.png?v=1.0">
   <link rel="apple-touch-icon" sizes="60x60" href="/static/pancake/img/apple-touch-icon-60x60.png?v=1.0">
   <link rel="apple-touch-icon" sizes="72x72" href="/static/pancake/img/apple-touch-icon-72x72.png?v=1.0">
@@ -33,16 +43,12 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v09">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v08">
   <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
-  <script>
-    var itemList = {
-      begin: {{Begin}},
-      end: {{End}}
-    };
 
+  <script>
     var analyticConf = {
       id: "{{general.analytics.GAUA}}",
       userId: "{{general.analytics.userUuid}}",
@@ -51,7 +57,7 @@
     };
   </script>
 </head>
-<body class="page  page--news">
+<body class="page">
 <!-- Page wrapper -->
 <div class="page__wrap">
 
@@ -347,212 +353,39 @@
   <!-- /Page Header -->
 
   <!-- Main Content -->
-  <main class="page__main-content  main-content">
-    <div class="left-side {{#HasRightSide}}left-side--mobile{{/HasRightSide}}">
+  <main class="page__main-content  main-content  main-content--vertical scroll-container-unstable">
+    <section class="page__section  section">
+      <div class="section__wrap">
+        <div class="payment">
+          <form class="payment__form" data-send="{{autosend}}" data-url="{{redirect}}">
+            <h3 class="payment__heading  title">Оплатить счёт</h3>
+            <div class="payment__row">
+              <label class="payment__label  label">Номер счёта<span class="label__required">*</span></label>
+              <input class="payment__input  input" type="text" name="order-id" size="25" required="" {{#if order_id}} value="{{order_id}}" {{/if}}>
+            </div>
+            <div class="payment__row">
+              <label class="payment__label  label">Стоимость<span class="label__required">*</span></label>
+              <input class="payment__input  input" type="text" name="amount" required="" {{#if amount}} value="{{amount}}" {{/if}}>
+            </div>
+            <div class="payment__row">
+              <p class="payment__label  label">Дополнительная информация</p>
+              <textarea class="payment__textarea  textarea" name="description">{{#if description}} {{description}} {{/if}}</textarea>
+            </div>
+            <div class="payment__row">
+              <button class="payment__btn button">Оплатить</button>
+            </div>
+          </form>
 
-      <div class="left-side__top">
-        <h1 class="left-side__title  title">Новости</h1>
-      </div>
-
-      <!-- News -->
-      <div class="left-side__content">
-        <div class="left-side__wrap scroll-container-unstable">
-          <div class="left-side__list news">
-            {{#each ItemList}}
-            <a  class="left-side__item news__item" href="/articles/{{url}}/" data-id="{{url}}">
-              <div class="news__row">
-                {{#if picture}}
-                <div class="news__column">
-                  <img class="news__image" src="https://www.domovenok.su/media/{{ picture.pic }}" width="120" height="120">
-                </div>
-                {{/if}}
-                <div class="news__column news__column--load">
-                  <h3 class="news__title title">{{ title }}</h3>
-                  <p class="news__text text">{{{ preview_text }}}</p>
-                </div>
-              </div>
-            </a>
-            {{/each}}
         </div>
       </div>
-      </div>
-      <!-- /News Items -->
+    </section>
 
-      <a class="btn-top  btn-top--hide" href="#">
-        <div>
-          <svg width="22.21" height="23.47" viewBox="0 0 22.21 23.47">
-            <path d="M1894.82,519.56l-3.26-3.54-4.76-5.18a3.42,3.42,0,0,0-4.84,0L1877.2,516l-3.26,3.54c-1.59,1.73-.15,4.27,2.42,4.27h4.31v5.76a3.71,3.71,0,0,0,7.42,0v-5.76h4.31C1895,523.83,1896.42,521.29,1894.82,519.56Z" transform="translate(-1873.28 -509.83)" style="fill: #fff"/>
-          </svg>
-        </div>
-      </a>
-
-    </div>
-    <div class="right-side  right-side--hide {{#HasRightSide}}right-side--mobile{{/HasRightSide}} scroll-container-unstable">
-      {{#with Item}}
-      <div class="right-side__wrap"  data-id="{{url}}">
-
-        <button class="right-side__btn  right-side__btn--close  icon-close" type="button">
-          <svg class="icon-close__image" width="22.47" height="22.47" viewBox="0 0 22.47 22.47">
-            <rect class="icon-close__element" x="182.81" y="107.75" width="31" height="1.64" rx="0.82" ry="0.82" transform="translate(-205.73 74.73) rotate(-45)" fill="#fd8204"/>
-            <rect class="icon-close__element" x="182.74" y="107.68" width="31" height="1.64" rx="0.82" ry="0.82" transform="translate(-52.26 -205.7) rotate(45)" fill="#fd8204"/>
-          </svg>
-        </button>
-
-        <article  class="news-item">
-          <div class="news-item__wrap">
-            <h2>{{title}}</h2>
-            <time datetime="">05.03.2015</time>
-            {{#if picture}}
-            <img src="https://www.domovenok.su/media/{{ picture.pic }}" alt="" width="300" height="200">
-            {{/if}}
-            {{{full_text}}}
-          </div>
-        
-        </article>
-      </div>
-      {{/with}}
-    </div>
   </main>
   <!-- /Main Content -->
-
-  <!-- Pop up -->
-  <!-- Pop up -->
-  <div class="pop-up  pop-up--hide  scroll-container-unstable">
-  
-    <div class="pop-up__wrap">
-  
-      <button class="pop-up__btn-close  icon-close" type="button">
-        <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
-          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-        </svg>
-      </button>
-  
-      <div class="pop-up__item pop-up__item--hide  service-order">
-        <div class="service-order__wrap">
-          <form class="service-order__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "order"}' ya-reach="order_applic">
-            <h2 class="service-order__title  title">Оставить заявку</h2>
-            <div class="service-order__row">
-              <label class="service-order__label  label">ФИО<span class="label__required">*</span></label>
-              <input class="service-order__input  input" type="text" required>
-            </div>
-  
-            <div class="service-order__row">
-              <label class="service-order__label  label">Номер телефона<span class="label__required">*</span></label>
-              <input class="service-order__input  input" type="tel" required>
-            </div>
-  
-            <div class="service-order__row">
-              <p class="service-order__label  label">Дополнительная информация</p>
-              <textarea  class="service-order__textarea  textarea"></textarea>
-            </div>
-            <div class="service-order__row">
-              <label class="checkbox">
-                <input type="checkbox" class="checkbox__input checkbox__input--small" checked required>
-                <span class="checkbox__indicator  checkbox__indicator--small  checkbox__indicator--light"></span>
-                <span class="checkbox__text">Cогласен с обработкой моих персональных данных в соответствии с ФЗ РФ от 27.06.06 г. N°152-ФЗ «О персональных данных»</span>
-              </label>
-            </div>
-            <div class="service-order__row">
-              <div class="service-order__button">
-                <button class="button" type="submit">Отправить</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-  
-      <div class="pop-up__item  pop-up__item--sm  pop-up__item--hide  notification">
-        <p class="notification__text  title">Текст</p>
-      </div>
-  
-      <div class="pop-up__item  pop-up__item--sm  pop-up__item--hide  general-question">
-        <form class="general-question__form">
-          <h2 class="general-question__title  title">Вы уверены?</h2>
-          <button class="general-question__button  general-question__button--ok  button" data-ga='{"hitType": "event","eventCategory": "form","eventAction": "send","eventLabel": "canceled_order"}'>Да</button>
-          <button class="general-question__button  general-question__button--no  button" type="button">Нет</button>
-        </form>
-      </div>
-  
-      <div class="pop-up__item  pop-up__item--hide  get-document">
-        <div class="get-document__wrap">
-          <form class="get-document__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "getContract"}'  ya-reach="order_applic">
-            <h2 class="get-document__title  title">Получить экземпляр договора</h2>
-  
-            <div class="get-document__row">
-              <label class="get-document__label  label">Введите e-mail</label>
-              <input class="get-document__input  input" type="email" autofocus required>
-            </div>
-  
-            <div class="get-document__row">
-              <label class="checkbox">
-                <input type="checkbox" class="checkbox__input checkbox__input--small" checked required>
-                <span class="checkbox__indicator  checkbox__indicator--small  checkbox__indicator--light"></span>
-                <span class="checkbox__text">Cогласен с обработкой моих персональных данных в соответствии с ФЗ РФ от 27.06.06 г. N°152-ФЗ «О персональных данных»</span>
-              </label>
-            </div>
-            <div class="get-document__row">
-              <div class="get-document__button">
-                <button class="button" type="submit">Отправить</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-  
-    </div>
-  
-  </div>
-  <!-- /Pop up -->
-  <!-- /Pop up -->
-
 </div>
 <!-- /Page wrapper -->
 
 <!-- Java Script -->
-
-<!-- Template Order -->
-<script id="left-side__item" type="text/html">
-  {{{{raw}}}}
-    <div class="news__row">
-      {{#if picture}}
-      <div class="news__column">
-        <img class="news__image" src="https://www.domovenok.su/media/{{ picture.pic }}" width="120" height="120">
-      </div>
-      {{/if}}
-      <div class="news__column news__column--load">
-        <h3 class="news__title title">{{ title }}</h3>
-        <p class="news__text text">{{{ preview_text }}}</p>
-      </div>
-    </div>
-  {{{{/raw}}}}
-</script>
-<!-- /Template Active Order -->
-
-<script id="right-side__wrap" type="text/html">
-  {{{{raw}}}}
-    <button class="right-side__btn  right-side__btn--close  icon-close">
-      <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
-        <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-        <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-      </svg>
-    </button>
-
-    <article  class="news-item">
-      <div class="news-item__wrap">
-        <h2>{{title}}</h2>
-        <time datetime="">05.03.2015</time>
-        {{#if picture}}
-        <img src="https://www.domovenok.su/media/{{ picture.pic }}" alt="" width="300" height="200">
-        {{/if}}
-        {{{full_text}}}
-      </div>
-    
-    </article>
-
-  {{{{/raw}}}}
-</script>
-<!-- /Template Active Order -->
 
 <script src="/static/pancake/js/bundle.min.js?v06"></script>
 <!-- /Java Script -->
