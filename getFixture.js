@@ -1,7 +1,7 @@
 'use strict';
 
 const validateUUID = require('uuid-validate');
-const { Article, Picture, FAQ, Review, City, News, Phone, User, UTMS } = require('./models/models.js');
+const { Article, Payment, Picture, FAQ, Review, City, News, Phone, User, UTMS } = require('./models/models.js');
 const config = require('config');
 const moment = require('moment')
 
@@ -33,6 +33,14 @@ connection2.connect();
 //sequelize.sync()
 
 
+async function migratePayments() {
+    connection.query('SELECT * FROM payments_payments ORDER BY id', async function (error, results, fields) {
+        if (error) {console.log(error);}
+        for (let i of results){
+            await Payment.create(i)
+        }
+    })
+}
 
 
 async function migrateArticle() {
@@ -258,6 +266,8 @@ function addCity() {
 //migrateReviews()
 //migrateFAQ()
 //cleanArticles()
+
+migratePayments()
 
 
 connection.end();

@@ -40,7 +40,7 @@
     <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
     <meta name="theme-color" content="#fd8204">
 
-    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v09">
+    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v10">
     <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
     <script src="//yastatic.net/share2/share.js" async></script>
     <base href="" >
@@ -371,7 +371,6 @@
             <h2 class="section__heading heading">Почему стоит заказать уборку
               квартиры у «Домовёнка»
             </h2>
-
             <ul class="list">
               <li class="item item--circle section__paragraph text"><b class="text text--bold text--lg-brown">Мы профессионалы.</b> «Домовёнок» несет полную ответственность за качество уборки
                 квартир и квалификацию домовят. Они прошли профильное обучение и получают допуск к уборке
@@ -384,7 +383,14 @@
                 средств для уборки: перчатки, губки, салфетки (из микрофибры, вафельного полотна и микроспама),
                  а также чистящие средства. Мы предоставим швабру и два ведра для того, чтобы помыть полы.
               </li>
+              <li class="item item--circle section__paragraph text"><a class="link" href="{{buildUrl general.city '/uborka_kvartir__odnokomnatnaya'}}">Уборка однокомнатной квартиры</a></li>
+              <li class="item item--circle section__paragraph text"><a class="link" href="{{buildUrl general.city '/uborka_kvartir__dvuhkomnatnaya'}}">Уборка двухкомнатной квартиры</a></li>
+              <li class="item item--circle section__paragraph text"><a class="link" href="{{buildUrl general.city '/uborka_kvartir__trehkomnatnaya'}}">Уборка трёхкомнатной квартиры</a></li>
+              <li class="item item--circle section__paragraph text"><a class="link" href="{{buildUrl general.city '/uborka_kvartir__chetirehkomnatnaya'}}">Уборка четырёхкомнатной квартиры</a></li>
+              <li class="item item--circle section__paragraph text"><a class="link" href="{{buildUrl general.city '/uborka_kvartir__balconi'}}">Уборка на балконе</a></li>
+
             </ul>
+
           </div>
         </section>
         <section class="page__section  section  section--bg-light">
@@ -702,7 +708,7 @@
       <!-- /Pop up -->
     </div>
 
-    <script src="/static/pancake/js/bundle.min.js?v06"></script>
+    <script src="/static/pancake/js/bundle.min.js?v07"></script>
 <!-- /Java Script -->
     {{#if general.production}}
     

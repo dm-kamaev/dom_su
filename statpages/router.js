@@ -48,6 +48,13 @@ const moscowTemplates = {
     'mite_potolkov': {name: 'mite_potolkov.html', ServiceName: 'Генеральная уборка', data:{ menu:{physical: true, generalnaya_uborka: true}}},
     'uborka_territorii': {name: 'uborka_territorii.html', ServiceName: 'Уборка производственных помещений', data:{ menu:{legal: true, uborka_proizvodstvennyh_pomewenij: true}}},
     'uborka_kvartir': {name: 'uborka_kvartir.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{physical: true, podderzhka: true}}},
+
+    'uborka_kvartir__balconi': {name: 'uborka_kvartir__balconi.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{physical: true, podderzhka: true}}},
+    'uborka_kvartir__chetirehkomnatnaya': {name: 'uborka_kvartir__chetirehkomnatnaya.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{physical: true, podderzhka: true}}},
+    'uborka_kvartir__dvuhkomnatnaya': {name: 'uborka_kvartir__dvuhkomnatnaya.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{physical: true, podderzhka: true}}},
+    'uborka_kvartir__odnokomnatnaya': {name: 'uborka_kvartir__odnokomnatnaya.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{physical: true, podderzhka: true}}},
+    'uborka_kvartir__trehkomnatnaya': {name: 'uborka_kvartir__trehkomnatnaya.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{physical: true, podderzhka: true}}},
+
     'master_po_remontu_mebeli': {name: 'master_po_remontu_mebeli.html', ServiceName: 'Вызов мастера', data:{ menu:{physical: true, vizov_mastera_na_dom: true}}},
     'kompleksnaya_uborka': {name: 'kompleksnaya_uborka.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{physical: true, podderzhka: true}}},
     'ezhednevnaya_uborka': {name: 'ezhednevnaya_uborka.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{physical: true, podderzhka: true}}},
@@ -85,7 +92,7 @@ const moscowTemplates = {
     'vakansii__': {name: 'vakansii__.html', ServiceName: 'Вакансии', data:{ menu:{main: true, vakansii: true}}},
     'vakansii__domrabotnica__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Домработница', data: { domrabotnica: true, menu:{ main: true, vakansii: true}}},
     'vakansii__uborka-kvartir__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка квартир', data: { uborkaKvartir: true, menu:{ main: true, vakansii: true}}},
-    'vakansii__uborka-territorii__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка территории', data: { uborkaTerritorii: true, menu:{ main: true, vakansii: true}}},
+    'vakansii__uborka-territorii__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка территории', data: { uborkaTerritorii: true, menu:{ main: true, vakansii: true}}}
 }
 
 const spbTemplates = {

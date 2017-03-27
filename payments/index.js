@@ -1,3 +1,5 @@
-/**
- * Created by Руслан on 21.03.2017.
- */
+"use strict";
+
+const { paymentsRouter } = require('./router');
+
+module.exports = { paymentsRouter: paymentsRouter };

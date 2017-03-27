@@ -7,6 +7,7 @@ const {FAQRouter} = require('faq')
 const {reviewsRouter} = require('reviews')
 const {promotionsRouter} = require('promotions')
 const { ticketRouter } = require('tickets')
+const { paymentsRouter } = require('payments')
 
 module.exports = {applyRouters: applyRouters}
 
@@ -28,6 +29,9 @@ function applyRouters(app) {
 
     // Promotions
     app.use(promotionsRouter.routes())
+
+    // Payments
+    app.use(paymentsRouter.routes())
 
     // Statpages
     app.use(statpagesRouter.routes())

@@ -344,6 +344,45 @@ const UTMS = sequelize.define('utms', {
     },
 })
 
+
+const Payment = sequelize.define('payments', {
+    id: {
+        type: Sequelize.BIGINT,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    create_time: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW'),
+    },
+    OrderId: Sequelize.STRING,
+    PaymentId: Sequelize.STRING,
+    Amount: Sequelize.INTEGER,
+    IP: Sequelize.STRING,
+    Description: Sequelize.TEXT,
+    Token: Sequelize.STRING,
+    CustomerKey: Sequelize.STRING,
+    DATA: Sequelize.TEXT,
+    initial: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+    },
+    notification: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+    },
+    success: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+    },
+    redirectNewSite: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+    },
+    redirectPath: Sequelize.TEXT,
+    }
+)
+
 sequelize.sync()
 
 module.exports = {
@@ -361,5 +400,6 @@ module.exports = {
     FAQ: FAQ,
     Review: Review,
     News: News,
-    Ticket: Ticket
+    Ticket: Ticket,
+    Payment: Payment
 }

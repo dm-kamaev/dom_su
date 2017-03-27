@@ -40,10 +40,10 @@ async function checkSlashEnd(ctx) {
             }
         })
         req.setTimeout(1000 * 20, function () {
-            reject(new Error(`Request chackSlshEnd timeout error ${path_check}`))
+            reject(new Error(`Request checkSlashEnd timeout error ${path_check}`))
         })
         req.on('error', (e) => {
-            reject(new Error(`The request chackSlshEnd ended in failure ${path_check}`))
+            reject(new Error(`The request checkSlashEnd ended in failure ${path_check}`))
         })
         req.end()
     })

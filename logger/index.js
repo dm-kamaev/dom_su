@@ -3,11 +3,12 @@
 const winston = require('winston')
 const config = require('config');
 
-module.exports = module => {
-    return makeLogger(module)
+module.exports = (module, filename) => {
+    filename = filename || 'info.log'
+    return makeLogger(module, filename)
 }
 
-function makeLogger(module) {
+function makeLogger(module, filename) {
 
     const path = module.filename.split('/').slice(-2).join('/')
 
@@ -15,7 +16,7 @@ function makeLogger(module) {
 
         new winston.transports.File({
             timestamp: true,
-            filename: 'log/info.log',
+                    filename: 'log/' + filename,
             level: 'debug',
             label: path,
             json: false,
