@@ -231,7 +231,7 @@ paymentsRouter.post('/payments/take/', async function (ctx, next) {
         let create_payment = {'OrderId': ctx.request.body.order_id, 'Amount': Number(get_param['Amount']), 'Description': ctx.request.body.description, 'IP': get_param['IP'], 'redirectNewSite': false, 'redirectPath': '', id: Number(last_payment.id) + 1}
         if (ctx.request.body.redirect){
             create_payment['redirectNewSite'] = true
-            create_payment['redirectPath'] = ctx.request.body.redirect
+            create_payment['redirectPath'] = ctx.request.headers.referer
         }
         let payment = await Payment.create(create_payment)
         get_param['OrderId'] = payment.id
