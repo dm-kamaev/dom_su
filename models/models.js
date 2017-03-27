@@ -357,7 +357,7 @@ const Payment = sequelize.define('payments', {
     },
     OrderId: Sequelize.STRING,
     PaymentId: Sequelize.STRING,
-    Amount: Sequelize.INTEGER,
+    Amount: Sequelize.BIGINT,
     IP: Sequelize.STRING,
     Description: Sequelize.TEXT,
     Token: Sequelize.STRING,
