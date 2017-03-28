@@ -9,6 +9,7 @@ const querystring = require('querystring')
 const { getTemplate, loadTemplate } = require('utils')
 const https = require('https');
 const paymentsRouter = new Router();
+const moment = require('moment')
 
 let regExpAmount = new RegExp(/^(:?\d+)((\.|\,)(:?\d{1,2}))?$/, 'g')
 
@@ -95,6 +96,7 @@ paymentsRouter.get('/payments/success/', async function (ctx, next) {
                 data['Amount'] = payment.Amount
                 data['Description'] = payment.Description
                 data['id'] = payment.id
+                data['date'] = moment.parseZone(moment(payment.create_time).utcOffset("+03:00").format('YYYY-MM-DDTHH:mm:ss'))
                 data['PaymentId'] = payment.PaymentId
                 data['user_id'] = ctx.state.pancakeUser.uuid
                 // todo check ticket data
@@ -172,7 +174,6 @@ paymentsRouter.get('/payments/', async function (ctx, next) {
     if (ctx.query.redirect){
         context['redirect'] = ctx.request.headers.referer
     }
-    logger.info(JSON.stringify(context))
     const template = getTemplate({path: 'templates/payments/init.html', name: 'paymentsInit'})
     ctx.body = template(ctx.proc(context))
 })
