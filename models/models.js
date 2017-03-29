@@ -175,7 +175,9 @@ const Ticket = sequelize.define('tickets', {
         buildMessage: function (UTMS) {
             UTMS = UTMS || []
             let textTicket = {action: "NewOnlineObjects", param: [{utms: UTMS, type: this.type, data: this.data}]}
-            textTicket.param[0].data.date = moment(this.createdAt).toISOString()
+            if (!textTicket.param[0].data.date){
+                textTicket.param[0].data.date = moment(this.createdAt).toISOString()
+            }
             return JSON.stringify(textTicket)
         }
     }

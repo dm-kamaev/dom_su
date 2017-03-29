@@ -96,7 +96,7 @@ paymentsRouter.get('/payments/success/', async function (ctx, next) {
                 data['Amount'] = payment.Amount
                 data['Description'] = payment.Description
                 data['id'] = payment.id
-                data['date'] = moment.parseZone(moment(payment.create_time).utcOffset("+03:00").format('YYYY-MM-DDTHH:mm:ss'))
+                data['date'] = moment.parseZone(moment(payment.create_time).utcOffset("+03:00").format('YYYY-MM-DDTHH:mm:ssZ')).format('YYYY-MM-DDTHH:mm:ss') + 'Z'
                 data['PaymentId'] = payment.PaymentId
                 data['user_id'] = ctx.state.pancakeUser.uuid
                 // todo check ticket data
