@@ -23,7 +23,7 @@ const articlesRouter = new Router();
 articlesRouter.get('articlesList', /^\/articles\/$/, async function (ctx, next) {
     const {modelList, begin, end} = await getArticleListScroll()
     const template = getTemplate(articlesTemplateOpts)
-    ctx.body = template(ctx.proc({ItemList: modelList, Begin: begin, End: end, HasRightSide: false, menu: menu}, ctx))
+    ctx.body = template(ctx.proc({ItemList: modelList, Begin: begin, End: end, HasRightSide: false, menu: menu, noindex: ctx.state.pancakeUser.city.keyword != 'moscow'}, ctx))
 })
 
 articlesRouter.get('articlesItem', /^\/articles\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
@@ -34,7 +34,7 @@ articlesRouter.get('articlesItem', /^\/articles\/([0-9a-zA-Z_\-]+)\/$/, async fu
     }
     const {modelList, begin, end}= await getArticleListScroll({direction: 0, keyValue: article.id})
     const template = getTemplate(articlesTemplateOpts)
-    ctx.body = template(ctx.proc({ItemList: modelList, Item: article, Begin: begin, End: end, HasRightSide: true, menu: menu}))
+    ctx.body = template(ctx.proc({ItemList: modelList, Item: article, Begin: begin, End: end, HasRightSide: true, menu: menu, noindex: ctx.state.pancakeUser.city.keyword != 'moscow'}))
 })
 
 articlesRouter.get('articlesListAjax', /^\/m\/articles$/, async function (ctx, next) {

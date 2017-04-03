@@ -45,7 +45,7 @@ FAQRouter.post('FAQFormHandler', /^\/faq\/form\/$/, async function (ctx, next) {
 FAQRouter.get('FAQList', /^\/faq\/$/, async function (ctx, next) {
     const {modelList, begin, end} = await getFAQListScroll()
     const template = getTemplate(FAQTemplateOpts)
-    ctx.body = template(ctx.proc({ItemList: modelList, Begin: begin, End: end, RightForm: false, HasRightSide: false, menu: menu}))
+    ctx.body = template(ctx.proc({ItemList: modelList, Begin: begin, End: end, RightForm: false, HasRightSide: false, menu: menu, noindex: ctx.state.pancakeUser.city.keyword != 'moscow'}))
 })
 
 FAQRouter.get('FAQItem', /^\/faq\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
@@ -67,7 +67,7 @@ FAQRouter.get('FAQItem', /^\/faq\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, ne
     }
     const {modelList, begin, end}= await getFAQListScroll({direction: 0, keyValue: faq.id})
     const template = getTemplate(FAQTemplateOpts)
-    ctx.body = template(ctx.proc({ItemList: modelList, Item: faq, Begin: begin, End: end, RightForm: RightForm, HasRightSide: true, menu: menu}))
+    ctx.body = template(ctx.proc({ItemList: modelList, Item: faq, Begin: begin, End: end, RightForm: RightForm, HasRightSide: true, menu: menu, noindex: ctx.state.pancakeUser.city.keyword != 'moscow'}))
 })
 
 FAQRouter.get('FAQListAjax', /^\/m\/faq$/, async function (ctx, next) {

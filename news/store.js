@@ -8,7 +8,7 @@ News.belongsTo(Picture, { foreignKey: 'picture_id' })
 
 async function getNews(url, additionalAttr) {
     let attributes = ['title', 'pub_date', 'full_text', 'url', 'title_meta', 'description_meta', 'keywords_meta']
-    if (typeof additionalAttr == 'list'){
+    if (typeof additionalAttr == 'object'){
         attributes = attributes.concat(additionalAttr)
     } if (typeof additionalAttr == 'string')
         attributes.push(additionalAttr)
