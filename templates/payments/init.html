@@ -359,7 +359,7 @@
             <h3 class="payment__heading  title">Оплатить счёт</h3>
             <div class="payment__row">
               <label class="payment__label  label">Номер счёта<span class="label__required">*</span></label>
-              <input class="payment__input  input" type="text" name="order-id" size="25" required="" {{#if order_id}} value="{{amount}}" {{/if}}>
+              <input class="payment__input  input" type="text" name="order-id" size="25" required="" {{#if order_id}} value="{{order_id}}" {{/if}}>
             </div>
             <div class="payment__row">
               <label class="payment__label  label">Стоимость<span class="label__required">*</span></label>
@@ -367,7 +367,7 @@
             </div>
             <div class="payment__row">
               <p class="payment__label  label">Дополнительная информация</p>
-              <textarea class="payment__textarea  textarea" name="description">{{#if description}} value="{{amount}}" {{/if}}</textarea>
+              <textarea class="payment__textarea  textarea" name="description">{{#if description}} value="{{description}}" {{/if}}</textarea>
             </div>
             <div class="payment__row">
               <button class="payment__btn button">Оплатить</button>
