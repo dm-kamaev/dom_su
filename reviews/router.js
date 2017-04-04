@@ -12,7 +12,7 @@ const reviewsTemplateOpts = {
 }
 
 const menu = {
-    reviews: true
+    reviews: true, main: true
 }
 
 loadTemplate(reviewsTemplateOpts)
