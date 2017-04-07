@@ -299,4 +299,5 @@ module.exports = {
     statpagesRouter,
     getServiceName,
     buildUrl,
+    checkExistUrl,
 }
