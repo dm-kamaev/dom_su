@@ -6,8 +6,13 @@ const fs = require('fs-promise')
 const { getTemplate, loadTemplate } = require('utils')
 const logger = require('logger')(module)
 const {URL} = require('url')
+const { checkPromotionUrl } = require('promotions')
+const { CITIES } = require('cities')
 
 const re_slash = new RegExp('\/', 'g');
+
+
+
 
 const statpagesRouter = new Router();
 
@@ -37,7 +42,11 @@ const moscowTemplates = {
     //'search': {name: 'search.html'},
     //'kristallizatsiya-i-restavratsiya-mramornykh-polov': {name: 'kristallizatsiya-i-restavratsiya-mramornykh-polov.html'},
     // Exist
-    'main': {name: 'main.html', data: {menu: {main: true, index: true}}},
+
+    // AB test
+    'ab': {name: 'main_ab.html', data: {menu: {index: true}, generateCanonical: () => buildUrl('moscow', '/')}},
+
+    'main': {name: 'main.html', data: {menu: {index: true}}},
     'strahovka__': {name: 'strahovka__.html', data:{ menu:{physical: true }}},
     'garantii__': {name: 'garantii__.html', data:{ menu:{physical: true }}},
     'ezhednevnaya_uborka_ofisov': {name: 'ezhednevnaya_uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
@@ -96,7 +105,9 @@ const moscowTemplates = {
 }
 
 const spbTemplates = {
-    //'search': {name: 'search.html'},
+    // AB test
+    'ab': {name: 'main_ab.html', data: {menu: {index: true, generateCanonical: () => buildUrl('spb', '/')}}},
+
     'dir': 'templates/statpages/spb/',
     'key': 'spb',
     'strahovka__': {name: 'strahovka__.html', data: {noindex: true, menu:{physical: true}}},
@@ -128,7 +139,7 @@ const spbTemplates = {
     'about__': {name: 'about__.html', ServiceName: 'О компанни', data: {noindex: true, menu:{main: true, about: true}}},
     'uslugi__': {name: 'uslugi__.html', ServiceName: 'Услуги', data: { menu:{main: true, uslugi: true}}},
     'generalnaya_uborka': {name: 'generalnaya_uborka.html', ServiceName: 'Химчистка', data:{ menu:{ generalnaya_uborka: true}}},
-    'main': {name: 'main.html', ServiceName: 'Главная', data: {menu: {main: true, index: true}}},
+    'main': {name: 'main.html', ServiceName: 'Главная', data: {menu: {index: true}}},
     'contacts__': {name: 'contacts__.html', ServiceName: 'Контакты', data:{ menu:{contacts: true}}},
     'davay_druzhit__': {name: 'davay_druzhit__.html', ServiceName: 'Давай дружить', data: {noindex: true, menu:{main: true, davay_druzhit: true}}},
     'vazhno_znat__': {name: 'vazhno_znat__.html', ServiceName: 'Важно знать', data: {menu:{main: true, vazhno_znat: true}, noindex: true}},
@@ -138,9 +149,27 @@ const spbTemplates = {
     'vakansii__uborka-territorii__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка территории', data: {uborkaTerritorii: true, menu:{ main: true, vakansii: true}}},
 };
 
-let cityTemplate = {
+const cityTemplate = {
     'moscow': moscowTemplates,
     'spb': spbTemplates,
+}
+
+function buildUrl(cityKW, url) {
+    if (typeof cityKW == 'object') {
+        cityKW = cityKW.keyword
+    }
+    if (checkPromotionUrl(cityKW, url)){
+        return CITIES.URL[cityKW] + url
+    }
+    // TODO for PA
+    if (url == '/private/auth'){
+        return CITIES.URL['moscow'] + url
+    }
+    if (checkExistUrl(CITIES.DICT[cityKW], url)){
+        return CITIES.URL[cityKW] + url
+    } else {
+        return CITIES.URL[cityKW]
+    }
 }
 
 function checkExistUrl(city, path) {
@@ -160,6 +189,7 @@ function checkExistUrl(city, path) {
         return true
     }
 }
+
 
 function getServiceName(city, referer) {
     try{
@@ -265,4 +295,8 @@ statpagesRouter.get('/:level1/:level2', async function (ctx, next) {
     }
 })
 
-module.exports = { statpagesRouter, getServiceName, checkExistUrl }
+module.exports = {
+    statpagesRouter,
+    getServiceName,
+    buildUrl,
+}

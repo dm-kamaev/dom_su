@@ -1,5 +1,9 @@
 "use strict";
 
-const { statpagesRouter, getServiceName, checkExistUrl } = require('./router')
+const { statpagesRouter, getServiceName, buildUrl } = require('./router')
 
-module.exports = {statpagesRouter, getServiceName, checkExistUrl}
+module.exports = {
+    statpagesRouter,
+    getServiceName,
+    buildUrl,
+}
