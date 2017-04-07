@@ -39,7 +39,11 @@ function ctxProcessor(data) {
     if (config.app.develop) {
         data.noindex = true
     }
-    if (data.autoCanonical != false && Object.keys(this.request.query).length > 0){
+
+    if (data.generateCanonical){
+        data.canonical = true
+        data.canonicalPath = data.generateCanonical()
+    } else if (data.autoCanonical != false && Object.keys(this.request.query).length > 0){
         data.canonical = true
         data.canonicalPath = this.request.origin + this.request.path
     }
