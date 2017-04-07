@@ -106,7 +106,7 @@ const moscowTemplates = {
 
 const spbTemplates = {
     // AB test
-    'ab': {name: 'main_ab.html', data: {menu: {index: true, generateCanonical: () => buildUrl('spb', '/')}}},
+    'ab': {name: 'main_ab.html', data: {menu: {index: true}, generateCanonical: () => buildUrl('spb', '/')}},
 
     'dir': 'templates/statpages/spb/',
     'key': 'spb',
@@ -139,7 +139,7 @@ const spbTemplates = {
     'about__': {name: 'about__.html', ServiceName: 'О компанни', data: {noindex: true, menu:{main: true, about: true}}},
     'uslugi__': {name: 'uslugi__.html', ServiceName: 'Услуги', data: { menu:{main: true, uslugi: true}}},
     'generalnaya_uborka': {name: 'generalnaya_uborka.html', ServiceName: 'Химчистка', data:{ menu:{ generalnaya_uborka: true}}},
-    'main': {name: 'main.html', ServiceName: 'Главная', data: {menu: {index: true}, generateCanonical: () => buildUrl('spb', '/')}},
+    'main': {name: 'main.html', ServiceName: 'Главная', data: {menu: {index: true}}},
     'contacts__': {name: 'contacts__.html', ServiceName: 'Контакты', data:{ menu:{contacts: true}}},
     'davay_druzhit__': {name: 'davay_druzhit__.html', ServiceName: 'Давай дружить', data: {noindex: true, menu:{main: true, davay_druzhit: true}}},
     'vazhno_znat__': {name: 'vazhno_znat__.html', ServiceName: 'Важно знать', data: {menu:{main: true, vazhno_znat: true}, noindex: true}},
