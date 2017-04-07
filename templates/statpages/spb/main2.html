@@ -43,7 +43,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v11">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.10">
   <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -463,11 +463,11 @@
                 </div>
                 <div class="privilege__row">
                   <p class="privilege__company-name  text">Известная «платформа»</p>
-                  <div class="privilege__company-indicator"><img src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
+                  <div class="privilege__company-indicator"><img class="privilege__company-indicator  privilege__company-indicator--not" src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
                 </div>
                 <div class="privilege__row">
                   <p class="privilege__company-name  text">Частная уборщица</p>
-                  <div class="privilege__company-indicator"><img src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
+                  <div class="privilege__company-indicator"><img class="privilege__company-indicator  privilege__company-indicator--not" src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
                 </div>
               </div>
             </div>
@@ -483,11 +483,11 @@
                 </div>
                 <div class="privilege__row">
                   <p class="privilege__company-name  text">Известная платформа</p>
-                  <div class="privilege__company-indicator"><img src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
+                  <div class="privilege__company-indicator"><img class="privilege__company-indicator  privilege__company-indicator--not" src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
                 </div>
                 <div class="privilege__row">
                   <p class="privilege__company-name  text">Частная уборщица</p>
-                  <div class="privilege__company-indicator"><img src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
+                  <div class="privilege__company-indicator"><img class="privilege__company-indicator  privilege__company-indicator--not" src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
                 </div>
               </div>
             </div>
@@ -503,7 +503,7 @@
                 </div>
                 <div class="privilege__row">
                   <p class="privilege__company-name  text">Известная платформа</p>
-                  <div class="privilege__company-indicator"><img src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
+                  <div class="privilege__company-indicator"><img class="privilege__company-indicator  privilege__company-indicator--not" src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
                 </div>
                 <div class="privilege__row">
                   <p class="privilege__company-name  text">Частная уборщица</p>
@@ -527,7 +527,7 @@
                 </div>
                 <div class="privilege__row">
                   <p class="privilege__company-name  text">Частная уборщица</p>
-                  <div class="privilege__company-indicator"><img src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
+                  <div class="privilege__company-indicator"><img class="privilege__company-indicator  privilege__company-indicator--not" src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
                 </div>
               </div>
             </div>
@@ -547,7 +547,7 @@
                 </div>
                 <div class="privilege__row">
                   <p class="privilege__company-name  text">Частная уборщица</p>
-                  <div class="privilege__company-indicator"><img src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
+                  <div class="privilege__company-indicator"><img class="privilege__company-indicator  privilege__company-indicator--not" src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
                 </div>
               </div>
             </div>
@@ -563,11 +563,11 @@
                 </div>
                 <div class="privilege__row">
                   <p class="privilege__company-name  text">Известная платформа</p>
-                  <div class="privilege__company-indicator"><img src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
+                  <div class="privilege__company-indicator"><img class="privilege__company-indicator  privilege__company-indicator--not" src="/static/pancake/img/check-no.svg" width="30" height="30"></div>
                 </div>
                 <div class="privilege__row">
                   <p class="privilege__company-name  text">Частная уборщица</p>
-                  <div class="privilege__company-indicator"><img src="/static/pancake/img/check-yes.svg" width="30" height="30"></div>
+                  <div class="privilege__company-indicator"><img class="privilege__company-indicator  privilege__company-indicator--not" src="/static/pancake/img/check-yes.svg" width="30" height="30"></div>
                 </div>
               </div>
             </div>
@@ -911,7 +911,6 @@
       </div>
     </section>
 
-
     <section class="page__section  section  section--bg-light  section--contact">
       <div class="section__wrap">
         <h2 class="section__title  title">Свяжитесь со мной!</h2>
@@ -923,16 +922,6 @@
         </form>
       </div>
     </section>
-
-    <div class="contact-btn">
-      <button class="contact-btn__btn contact-btn__btn--main" type="button">Кнопка контакта</button>
-      <div class="contact-btn__list">
-        <button class="contact-btn__btn contact-btn__btn--left" type="button">T</button>
-        <button class="contact-btn__btn contact-btn__btn--center" type="button">E</button>
-        <button class="contact-btn__btn contact-btn__btn--right" type="button">C</button>
-      </div>
-      <div class="contact-btn__window"></div>
-    </div>
 
     <!-- Page Footer -->
     <footer class="page-footer page-footer--bg-dark">
@@ -1147,11 +1136,20 @@
   <!-- /Pop up -->
 
 </div>
+<div class="contact-btn">
+  <button class="contact-btn__btn contact-btn__btn--main" type="button">Кнопка контакта</button>
+  <div class="contact-btn__list">
+    <button class="contact-btn__btn contact-btn__btn--left" type="button">T</button>
+    <button class="contact-btn__btn contact-btn__btn--center" type="button">E</button>
+    <button class="contact-btn__btn contact-btn__btn--right" type="button">C</button>
+  </div>
+  <div class="contact-btn__window"></div>
+</div>
 <!-- /Page wrapper -->
 
 <!-- Java Script -->
 
-<script src="/static/pancake/js/bundle.min.js?v07"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.08"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 
