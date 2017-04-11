@@ -1,31 +1,22 @@
 "use strict";
 const Handlebars = require('handlebars');
-const { checkExistUrl } = require('statpages')
-const { CITIES } = require('cities')
 const moment = require('moment')
+const { staffUrl } = require('staff')
+const { buildUrl } = require('statpages')
 
-const { checkPromotionUrl } = require('promotions')
+
 
 
 
 // Генерация ссылки для города
-Handlebars.registerHelper('buildUrl', function (cityKW, url) {
-    if (typeof cityKW == 'object') {
-        cityKW = cityKW.keyword
-    }
-    if (checkPromotionUrl(cityKW, url)){
-        return CITIES.URL[cityKW] + url
-    }
-    // TODO for PA
-    if (url == '/private/auth'){
-        return CITIES.URL['moscow'] + url
-    }
-    if (checkExistUrl(CITIES.DICT[cityKW], url)){
-        return CITIES.URL[cityKW] + url
-    } else {
-        return CITIES.URL[cityKW]
-    }
+Handlebars.registerHelper('buildUrl', buildUrl)
+
+
+Handlebars.registerHelper('toMoney', function (amount) {
+    return amount.toFixed(2)
 })
+
+Handlebars.registerHelper('staffUrl', staffUrl)
 
 // Экранирование
 Handlebars.registerHelper('raw', function(options) {
@@ -37,6 +28,10 @@ const TIMEZONE = "+03:00"
 // Формат даты
 Handlebars.registerHelper('formatDate', function (date) {
     return moment.parseZone(moment.utc(date).utcOffset(TIMEZONE).format()).format("DD.MM.YYYY")
+})
+
+Handlebars.registerHelper('formatPartDate', function (date, format) {
+    return moment(date).format(format)
 })
 
 // Сравнение
@@ -62,6 +57,8 @@ Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
             return (v1 && v2) ? options.fn(this) : options.inverse(this);
         case '||':
             return (v1 || v2) ? options.fn(this) : options.inverse(this);
+        case 'in':
+            return (v2.indexOf(v1) >= 0) ? options.fn(this) : options.inverse(this);
         default:
             return options.inverse(this);
     }

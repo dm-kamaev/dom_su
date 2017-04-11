@@ -3,15 +3,11 @@ let http = require('http');
 let querystring = require('querystring');
 let log = require('logger')(module)
 let errors = require('./errors')
-var config = require('config')
+const config = require('config')
 const uap = require('node-uap');
 
 
-let server = {
-    ip: "192.168.1.243",
-    port: 80,
-    url: "/domovenok/hs/api/v2/"
-}
+let server = config.api1C
 
 
 class Method1C{
@@ -25,7 +21,8 @@ class Method1C{
 
 class Request1C {
 
-    constructor(token, ip, userAgent){
+    constructor(token, ip, userAgent, oldAPI){
+        oldAPI = oldAPI || false
         this.methods = [];
         this.response = null;
         this.token = token
@@ -46,7 +43,7 @@ class Request1C {
         this.connectParam = {
             hostname: server.ip,
             port: server.port,
-            path: server.url,
+            path: (oldAPI) ? server.oldAPI : server.url,
             method: 'POST',
             headers: {
                 'Content-type': "application/json",
@@ -111,4 +108,29 @@ class Request1C {
     }
 };
 
-module.exports = {Method1C: Method1C, Request1C: Request1C}
+class SingleRequest1C{
+
+    constructor (name, param, token, ip, userAgent){
+        token = token || null
+        ip = ip || null
+        userAgent = userAgent || null
+        this.request1C = new Request1C(token, ip, userAgent);
+        this.singleMethod = new Method1C(name, param);
+        this.request1C.add(this.singleMethod)
+    }
+
+    async do (){
+        await this.request1C.do()
+        if (this.singleMethod.error){
+            throw new Error('API 1C error')
+        }
+        return this.singleMethod.response
+    }
+
+}
+
+module.exports = {
+    Method1C,
+    Request1C,
+    SingleRequest1C
+}

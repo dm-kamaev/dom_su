@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="/static/js/custom_cookie.js?v=1.0"></script>
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-N3VS78"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N3VS78');</script>
+    <!-- End Google Tag Manager -->
+</head>
+<body class="">
+    <div data-role="page" class="jqm-demos ui-responsive-panel" id="main-page" data-title="Личный кабинет от Домовёнка">
+        <div data-role="header" data-position="fixed" data-tap-toggle="false">
+            <h1 style="overflow: visible">Заказ № {{GetDepartureData.OrderNumber}}</h1>
+            <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+        </div>
+        <div role="main" class="ui-content jqm-content jqm-fullwidth">
+        <script>$(document).unbind('scroll');</script>
+   <p><b>Клиент: </b><br/><span>{{ GetDepartureData.ClientTitle }}</span></p>
+    <p><b>Сумма: </b><br/><span>{{ toMoney GetDepartureData.TotalAmount}}</span> руб.</p>
+    {{#if GetDepartureData.IsCash }}
+            {{#if isSenior }}
+                <p><b>Оплата наличными</b></p>
+            {{/if}}
+    {{/if}}
+    <p><b>Дата и время: </b><br/><span>{{ formatPartDate currentDate "DD.MM.YYYY HH:MM" }}</span></p>
+    {{#if EarningsOrder }}
+        <p><b>Заработок с заказа:</b><br/><span style="color: green"><b>{{ toMoney EarningsOrder }}</b> руб.</span></p>
+    {{/if}}
+    {{#ifCond GetDepartureData.EnableChangeWorkCard 'and' isSenior }}<a href="{{staffUrl 'orderCard' departureId }}" style="color: red; margin-bottom: 5px; display: inline-block" data-ajax="false">Заполнить карту заказа</a>
+    {{ else }}
+        {{#if GetDepartureData.CardCompleted }}
+            <p style="color: green">Карта заказа заполнена</p>
+        {{ else }}
+            <p style="color: red">Карта заказа не заполнена</p>
+        {{/if}}
+    {{/ifCond}}
+
+    <div data-role="collapsible" data-inset="false">
+        <h2>Адрес</h2>
+        <p>{{ GetDepartureData.Address.Title }}</p>
+        {{#if GetDepartureData.lon }}<a class="ui-btn" href="http://maps.yandex.ru/?lon_to={{ lon }}1&lat_to={{ lat }}">Маршрут на Яндекс.Картах</a>{{/if}}
+        <p><b>Подъезд:</b><br><span>{{ GetDepartureData.Address.Porch }}</span></p>
+        <p><b>Домофон:</b><br><span>{{ GetDepartureData.Address.Intercom }}</span></p>
+        <p><b>Этаж:</b><br><span>{{ GetDepartureData.Address.Floor }}</span></p>
+        <p><b>Квартира:</b><br><span>{{ GetDepartureData.Address.Flat }}</span></p>
+        <p><b>Метро:</b><br><span>{{ GetDepartureData.Address.Metro }}</span></p>
+        <p><b>Как добраться:</b><br><span>{{ GetDepartureData.Address.Comment }}</span></p>
+    </div>
+    {{#if Note }}<p><b>Примечание к заказу: </b><br/><span>{{ Note }}</span></p>{{/if}}
+    {{#if PointNote }}<p><b>Место встречи: </b><br/><span>{{ PointNote }}</span></p>{{/if}}
+    {{#if isSenior }}
+        {{#if GetDepartureData.SeniorNote }}<p><b>Примечание для ответственного: </b><br/><span>{{ GetDepartureData.SeniorNote }}</span></p>{{/if}}
+    {{/if}}
+    {{#if GetDepartureData.Senior.EmployeeID }}
+    <p>
+        <b>Старший на выезде:</b><br/>
+        <a href="{{staffUrl 'employeeDetail' GetDepartureData.Senior.EmployeeID }}"><span style="font-weight: normal;">{{GetDepartureData.Senior.EmployeeTitle }}</span><br/></a> <a href="tel:{{ GetDepartureData.Senior.PhoneNumber }}">{{ GetDepartureData.Senior.PhoneNumber }}</a>
+    </p>
+    {{/if}}
+    <p><b>Сотрудники:</b></p>
+    <ul data-role="listview" data-inset="false">
+        {{#each GetDepartureData.Employees}}
+            <li>
+                <a href="{{staffUrl 'employeeDetail' EmployeeID }}?profile=true"><span style="font-weight: normal;">{{ EmployeeTitle }}</span></a>
+            </li>
+        {{/each}}
+    </ul>
+    <br/>
+
+    <p><b>Услуги:</b></p>
+        <div data-role="collapsibleset" data-inset="false">
+            {{#each GetDepartureData.Services as |css|}}
+                <div data-role="collapsible">
+                    <h2><span style="font-weight: normal;">{{ css.ServiceTitle }} {{#ifCond css.Discount '!=' 0 }}<br/><strike>{{ toMoney css.Amount }}</strike>{{/ifCond}} <b>{{ toMoney css.TotalAmount }}</b></span></h2>
+                        <ul data-role="listview">
+                        <div data-role="collapsibleset">
+                            {{#each css.ObjectClasses as |cssoc|}}
+                                <div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
+                                    <h4><li style="font-style: italic; text-align: right; font-weight: normal;">{{ cssoc.ObjectClassTitle}} {{#ifCond cssoc.Quantity '!=' 1 }}<b>{{ toMoney cssoc.Price }}</b>x{{ cssoc.Quantity }} ={{/ifCond}}<b>{{ toMoney cssoc.Amount }}</b></li></h4>
+                                    <ul data-role="listview">
+                                    {{#each cssoc.Employees as |employee|}}
+                                        <li style="text-align: right"><span style="font-weight: normal;">{{ employee.EmployeeTitle }}</span></li>
+                                    {{/each}}
+                                    </ul>
+                                </div>
+                            {{/each}}
+                        </div>
+                        </ul>
+                </div>
+            {{/each}}
+        </div>
+    <br/>
+            <div data-demo-html="#panel-responsive-page1"></div>
+        </div>
+            <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel">
+                <ul data-role="listview">
+                    <li data-icon="delete"><a href="#" data-rel="close">Закрыть Меню</a></li>
+                        <li><a href="{{staffUrl 'employeeDetail' selfId }}?profile=true">Профиль</a></li>
+                        <li><a href="{{staffUrl 'creditsCurrent' selfId }}">Заработано</a></li>
+                        <li><a href="{{staffUrl 'depositCurrent' selfId }}">Необходимо сдать</a></li>
+                        <li><a href="{{staffUrl 'employeeDetail' selfId }}?orders=true">Заказы</a></li>
+                        <li><a data-ajax="false" href="{{staffUrl 'rating' selfId }}">Рейтинг</a></li>
+                        <li><a href="{{staffUrl 'disciplinaryList' employeeId }}">Нарушения</a></li>
+                        <li><a href="{{staffUrl 'news' selfId}}" >Новости</a></li>
+                        <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li>
+                        <li><a data-ajax="false" href="{{staffUrl 'logout' }}">Выйти</a></li>
+                </ul>
+            </div>
+    </div>
+</body>
+</html>

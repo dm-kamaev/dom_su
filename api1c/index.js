@@ -1,5 +1,9 @@
 'use strict';
-var client = require('./client')
+const { Method1C, Request1C, SingleRequest1C } = require('./lib1C')
 
 
-module.exports = {client: client}
+module.exports = {
+    Method1C,
+    Request1C,
+    SingleRequest1C
+}

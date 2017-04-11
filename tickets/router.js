@@ -11,7 +11,7 @@ const POSSIBLE_TICKET_TYPES = {
     //'test': {name: 'string'},
     'mail_delivery': {mail: 'string'},
     'CallBack': { name: 'string', phone: 'string'},
-    'Order': { name: 'string', phone: 'string'},
+    'Order': { phone: 'string'},
     'applicant_cleaner': { citizenship: 'string', birthdate: 'string', contact: 'string', name: 'string'},
     'get_contract': {mail: 'string'}
 }

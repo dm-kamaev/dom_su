@@ -6,6 +6,7 @@ const {initPancakeUser, setUserVisit, createEventRequest, createEventLiving, UTM
 const {accessSectionCity, loadCities} = require('cities')
 const koaBody = require('koa-body');
 const schedule = require('schedule')
+const userAgent = require('koa-useragent');
 const logger = require('logger')(module)
 
 
@@ -15,7 +16,6 @@ async function run() {
     try{
         schedule()
         const app = new koa();
-
         // with HTTP headers X-Dom-Service
         let appService = {use: (middleware) => app.use(onlyService(middleware))}
         // all without HTTP headers X-Dom-Service
@@ -34,6 +34,7 @@ async function run() {
         }
         app.use(errorMiddleware)
         app.use(koaBody())
+        app.use(userAgent)
 
 
 

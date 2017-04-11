@@ -1,0 +1,210 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="robots" content="index, follow"/>
+    <link href="/static/css/staff_page.css?v=1" type="text/css" rel="stylesheet"/>
+    <link rel="icon" type="image/ico" href="/media/favicon.ico">
+    <title>Личный кабинет от Домовёнка</title>
+
+    <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700&subset=latin,cyrillic' rel='stylesheet'
+          type='text/css'/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script src="/static/js/jquery.mousewheel.js"></script>
+    <script src="/static/js/jquery.tools.min.js"></script>
+    <script src="/static/js/jcarousellite_1.0.1.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/js/jquery.maskedinput.min.js"></script>
+    <script src="/static/js/nich.js?v=1.026"></script>
+    <script src="/static/js/custom_cookie.js"></script>
+
+
+
+    <!--block head-->
+
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-N3VS78"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N3VS78');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body>
+
+<div id="wrapper-out">
+    <header class="main">
+
+        <div>
+        <!--{% if phone_device %} <a style="position: absolute;font-size: 21px;margin: 20px 0 0 300px;" onclick="mobile_view(true);" href="{{ this_url }}">На мобильную версию сайта</a>{% endif %}-->
+            <div class="user_info">
+                <span class="h_for_name"><a href="{{staffUrl 'news' employeeId}}">{{ GetEmployeeData.FullTitle }}</a></span>
+                <span class="job">{{ GetEmployeeData.Post }}</span>
+            <span class="money_phone">
+            {{#if itIsMe }}
+                <div class="user-credits-deposit">
+
+                    {{#ifCond GetEmployeeData.DepositCurrentSum '>' 0 }}
+                        <span>Необходимо сдать: <a href="{{staffUrl 'depositCurrent' employeeId }}" class="red-color" >{{ toMoney GetEmployeeData.DepositCurrentSum }}</a> руб.</span>
+                    {{ else }}
+                        <a style="min-width: 150px; display: inline-block" href="{{staffUrl 'depositList' employeeId }}">История сдач денег</a>
+                    {{/ifCond}}
+
+                    {{# ifCond GetEmployeeData.CreditsCurrentSum '!=' null }}
+                        <span style="min-width: 165px; display: inline-block">
+                            <a style="display: inline-block; min-width: 90px; text-align: right"  href="" onclick="showEarned(this); return false;">Заработано</a>
+                            <span id="earned" style="display: none; min-width: 100px; text-align: right"><a href="{{staffUrl 'creditsCurrent' employeeId }}" class="green-color">{{ toMoney GetEmployeeData.CreditsCurrentSum}} </a>руб.</span>
+                        </span>
+                    {{ else }}
+                        <a href="{{staffUrl 'creditsList' employeeId }}">История получения денег</a>
+                    {{/ifCond}}
+                </div>
+            {{ else }}
+                <span class="money_phone">
+                    <i>Рабочий телефон:</i>
+                    <b>{{ GetEmployeeData.PhoneNumber }}</b>
+                </span>
+            {{/if}}
+            <script>
+                function showEarned(elem) {
+                    document.getElementById('earned').style.display = 'inline-block';
+                    elem.style.display = 'none';
+                }
+            </script>
+            </div>
+            <div class="settings_logout">
+            <a style="margin-right: 15px" href="{{staffUrl 'disciplinaryList' employeeId }}">Нарушения</a>
+            <a style="margin-right: 15px" href="{{staffUrl 'employeeDetail' employeeId }}">Заказы</a>
+            <a style="margin-right: 15px" href="{{staffUrl 'testIndex' employeeId }}">Обучение</a>
+            <a style="margin-right: 15px" href="{{staffUrl 'rating' employeeId }}">Рейтинг</a>
+            <a style="margin-right: 15px" href="{{staffUrl 'errors' }}"><b>Нашли ошибку?</b></a>
+            <a class="settings" href="{{staffUrl 'changePassword' }}">Смена пароля</a>
+            <a class="logout" href="{{staffUrl 'logout' }}">Выйти</a>
+            {{#if GetEmployeeData.AllowedOnAllDepartures }}<br><a style="margin-right: 15px" href="{{staffUrl 'allOrders' employeeId }}">Списки заказов</a>{{/if }}
+            </div>
+            <img src="/static/img/logo_staff.png" class="logo_staff" alt="Domovenok"/>
+        </div>
+    </header>
+<!--.main-->
+<div id="middle">
+<section class="content">
+   <!-- MG -->
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.0/d3.min.js' charset='utf-8'></script>
+    <link href="/static/js/metrics-graphics-2.8.0/dist/metricsgraphics.css" type="text/css" rel="stylesheet"/>
+    <script src="/static/js/metrics-graphics-2.8.0/dist/metricsgraphics.js"></script>
+<!-- END MG -->
+    <script>
+function test (data, target) {
+
+    MG.data_graphic({
+        data: data,
+        width: 370,
+        color: '#FF9B58',
+        height: 200,
+        target: target,
+        x_accessor: 'date',
+        y_accessor: 'value',
+        x_axis: false,
+        y_axis: false,
+        point_size: 0,
+        show_rollover_text: false,
+
+    })
+};
+    </script>
+    <style>
+    div.progress {
+        width: 300px;
+        padding: 4px;
+        margin-bottom: 25px;
+        background: rgba(0, 0, 0, 0.08);
+        border-radius: 6px;
+        -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+    }
+    div.progress-bar {
+    linear-gradient( #5393c5 , #6facd5 );
+        background: #FF9B58;
+        font-family: 'sans-sefif';
+        font-size: 14px;
+        color: #FFF;
+        text-align: left;
+        text-indent: 6px;
+        position: relative;
+        height: 16px;
+        border-radius: 4px;
+        -webkit-transition: 0.4s linear;
+        -moz-transition: 0.4s linear;
+        -ms-transition: 0.4s linear;
+        -o-transition: 0.4s linear;
+        transition: 0.4s linear;
+        -webkit-transition-property: width, background-color;
+        -moz-transition-property: width, background-color;
+        -ms-transition-property: width, background-color;
+        -o-transition-property: width, background-color;
+        transition-property: width, background-color;
+        -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+    }
+    </style>
+    <h1>Рейтинг</h1>
+    {{#if GetSavingFundInfo }}
+        {{#ifCond GetSavingFundInfo.Norm '!=' 0 }}
+            <span style="margin-bottom: 0; padding-left: 8px;width: 170px; display: inline-block"><b>В накопительном фонде:</b></span><span class="orange-color"><b>{{ GetSavingFundInfo.Amount }}</b> руб.</span>
+            <br>
+            <br>
+            <span style="margin-bottom: 0; padding-left: 8px;width: 170px; display: inline-block"><b>Должно быть:</b> </span><span class="orange-color"><b>{{ GetSavingFundInfo.Norm }},00 </b>руб.</span>
+            <br><br><br>
+        {{/ifCond}}
+    {{/if}}
+    {{#if GetRatingInfo.Date}}<p style="margin-bottom: 0; padding-left: 8px;"><b>Рейтинг расчитан на: </b><span>{{ formatPartDate dep.Date "DD.MM.YYYY" }}</span></p>{{/if}}
+    <br/>
+    <a style="margin-bottom: 0; padding-left: 8px;" href="{{staffUrl 'ratingHistory' selfId }}" >История изменения</a>
+    <br/>
+    <br/>
+    {{#if GetRatingInfo.Details}}
+        {{#each GetRatingInfo.Details as |detail|}}
+            <section style="display: inline-block;
+                            width: 350px;
+                            background: rgba(153, 51, 0, 0.05);;
+                            border-radius: 15px;
+                            padding-left: 30px;
+                            margin: 20px;">
+                <h3 style="margin-top: 20px;{% if forloop.counter0 < 2 %}font-weight: bold{% endif %};"><span style="width: 150px; display: inline-block; color: #993300">{{ detail.Rating }}</span> {{{ detail.Value }}}</h3>
+                <div
+                        style="margin: -40px 0px -25px -50px; padding-bottom: 20px"
+                     id="detail{{@index }}"></div>
+                <script>
+                    var data = {{{ detail.DailyChanges }}};
+                    data = MG.convert.date(data, "date", "%Y-%m-%dT%H:%M:%SZ");
+                    test(data,"#detail{{@index }}");
+                </script>
+            </section>
+        {{/each}}
+    {{/if}}
+</section>
+<div class="clear"></div>
+</div>
+<!--#middle-->
+<div id="foot-empty"></div>
+</div>
+<!--#wrapper-out-->
+<footer class="main">
+    <div>
+        <div class="copy">
+            Если у Вас есть предложения и пожелания по работе личного кабинета пишите на почту <a href="mailto: develop@domovenok.su">develop@domovenok.su</a><br />
+            2007-2017 &copy; domovenok.su Клининговая компания ООО &laquo;Комфорт-сервис &laquo;Домовёнок&raquo;, все права защищены.
+        </div>
+    </div>
+</footer>
+<!--.main-->
+
+
+</body>
+</html>

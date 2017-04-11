@@ -58,8 +58,8 @@
 	//var hideElement = require('./../components/orders-item/orders-item.js');
 	// var request = require('./../components/ajax-request/ajax-request.js');
 	__webpack_require__(2);
-	__webpack_require__(194);
-	var resize = __webpack_require__(199);
+	__webpack_require__(195);
+	var resize = __webpack_require__(200);
 	window.addEventListener('resize', resize);
 
 
@@ -129,9 +129,9 @@
 	var init = __webpack_require__(10);
 	// let renderOrder = require('./../../../components/order/render-order');
 	// let renderSchedule = require('./../../../components/order/render-schedule');
-	var renderItem = __webpack_require__(196);
-	var renderForm = __webpack_require__(197);
-	var message = __webpack_require__(198);
+	var renderItem = __webpack_require__(197);
+	var renderForm = __webpack_require__(198);
+	var message = __webpack_require__(199);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	var pageState = {
@@ -775,12 +775,12 @@
 	var Counter = __webpack_require__(166);
 	var ServiceCard = __webpack_require__(167);
 	var ServiceCalc = __webpack_require__(170);
-	var Section = __webpack_require__(174);
-	var leftSideList = __webpack_require__(175);
-	var Careers = __webpack_require__(188);
-	var ContactForm = __webpack_require__(189);
-	var openSignPopup = __webpack_require__(190);
-	var pageHeader = __webpack_require__(191);
+	var Section = __webpack_require__(175);
+	var leftSideList = __webpack_require__(176);
+	var Careers = __webpack_require__(189);
+	var ContactForm = __webpack_require__(190);
+	var openSignPopup = __webpack_require__(191);
+	var pageHeader = __webpack_require__(192);
 	var pageElement = document.querySelector('.page');
 	var pageAuth = document.querySelector('.page--authorization');
 	var pagePrivate = document.querySelector('.page--orders');
@@ -861,7 +861,7 @@
 	if (serviceCalcElements.length) {
 	    for (var _i = 0, serviceCalcElements_1 = serviceCalcElements; _i < serviceCalcElements_1.length; _i++) {
 	        var item = serviceCalcElements_1[_i];
-	        pageInitial.serviceCalc = new ServiceCalc(item);
+	        pageInitial.calc.push(new ServiceCalc(item));
 	    }
 	}
 	if (selectionMenu) {
@@ -871,6 +871,7 @@
 	    contactBtnElement.addEventListener('click', function (e) {
 	        e.preventDefault();
 	        var button = e.currentTarget.querySelector('.contact-btn__btn');
+	        analytic.sendServiceOrder(button.parentNode);
 	        var event = document.createEvent('Event');
 	        event.initEvent('open-popup', true, true);
 	        event.detail = {
@@ -963,7 +964,7 @@
 	    }
 	}
 	if (pageAuth) {
-	    var authorization = __webpack_require__(195);
+	    var authorization = __webpack_require__(196);
 	    authorization();
 	}
 	module.exports = pageInit;
@@ -2724,6 +2725,13 @@
 	            }
 	            catch (e) { }
 	        }
+	        if (element.hasAttribute('data-ga')) {
+	            var ga_param = JSON.parse(element.dataset.ga);
+	            try {
+	                ga('send', ga_param);
+	            }
+	            catch (e) { }
+	        }
 	        if (element.hasAttribute('ya-reach')) {
 	            var reach_id = element.getAttribute('ya-reach');
 	            try {
@@ -2825,7 +2833,6 @@
 	            heightItem = 32;
 	        }
 	        var buttonTopCoordinate = this.button.getBoundingClientRect().top;
-	        console.log(typeof buttonTopCoordinate, this.list, this.list.length);
 	        var heightOfList = this.list.length * heightItem;
 	        var heightElement = buttonTopCoordinate + height + heightOfList; //к координате кнопки прибавляем высоту кнопки и высоту списка
 	        this.list.style.top = height + 'px';
@@ -2995,7 +3002,6 @@
 	        document.addEventListener('close-popup', this.close);
 	    }
 	    PopUp.prototype.open = function (e) {
-	        console.log(e.detail.id, e);
 	        if (this.isOpen) {
 	            this.close();
 	        }
@@ -3011,7 +3017,6 @@
 	        if (this.items.length) {
 	            for (var _i = 0, _a = this.items; _i < _a.length; _i++) {
 	                var item = _a[_i];
-	                console.log(e.detail.id);
 	                if (item.classList.contains(e.detail.id)) {
 	                    item.classList.remove('pop-up__item--hide');
 	                }
@@ -3031,7 +3036,7 @@
 	            //   this.item = new Question(this, this.element, e.detail.id);
 	            //   break;
 	            case 'notification':
-	                this.item = new Message(this, this.element, e.detail.text);
+	                this.item = new Message(this, this.element, e.detail.text, e.detail.ga);
 	                break;
 	            case 'get-document':
 	                this.item = new getDocument(this, this.element, e.detail.text);
@@ -3049,8 +3054,12 @@
 	        this.isOpen = true;
 	    };
 	    PopUp.prototype.close = function (e) {
+	        this.isOpen = false;
+	        var buttonEvent = false;
 	        if (e) {
+	            buttonEvent = true;
 	            e.preventDefault();
+	            e.currentTarget.blur();
 	        }
 	        this.buttonClose.removeEventListener('click', this.close);
 	        if (this.items.length) {
@@ -3062,12 +3071,11 @@
 	            }
 	        }
 	        this.element.classList.add('pop-up--hide');
-	        this.item.close();
 	        if (client.isMobile()) {
 	            mainContent.classList.remove('main-content--hide');
 	            window.scrollTo(0, this.previousScroll);
 	        }
-	        this.isOpen = false;
+	        this.item.close(buttonEvent);
 	    };
 	    return PopUp;
 	}());
@@ -3076,18 +3084,23 @@
 
 /***/ },
 /* 38 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 06.02.2017.
 	 */
+	var analytic = __webpack_require__(34);
 	var Message = (function () {
-	    function Message(parent, parentElement, text) {
+	    function Message(parent, parentElement, text, ga) {
 	        this.parent = parent;
 	        this.parentElement = parentElement;
 	        this.element = this.parentElement.querySelector('.notification');
 	        this.text = this.parentElement.querySelector('.notification__text');
 	        this.text.innerHTML = text;
+	        this.text.dataset.ga = ga;
+	        if (this.text.dataset.ga) {
+	            analytic.sendServiceOrder(this.text);
+	        }
 	        this.setTime = setTimeout(function () {
 	            this.parent.close();
 	        }.bind(this), 3000);
@@ -3120,7 +3133,7 @@
 	        this.uuid = '';
 	        this.activeStage = null;
 	        this.cart = init.cart;
-	        this.calc = init.serviceCalc;
+	        this.calc = this.getActiveCalc(init.calc);
 	        this.price = 0;
 	        this.service = "";
 	        this.params = {};
@@ -3131,7 +3144,7 @@
 	            this.cart.close();
 	            if (this.calc) {
 	                this.price = this.calc.activePrice.dataset.price;
-	                this.service = this.calc.activePrice.dataset.name;
+	                this.service = this.calc.activePrice.dataset.service;
 	                var serviceClass = [
 	                    {
 	                        element: this.calc.element.dataset.class,
@@ -3150,14 +3163,23 @@
 	        }
 	        this.activeStage = new ServiceOrderContact(this, item);
 	    };
+	    ServiceOrder.prototype.getActiveCalc = function (calc) {
+	        for (var _i = 0, calc_1 = calc; _i < calc_1.length; _i++) {
+	            var item = calc_1[_i];
+	            if (item.isActive) {
+	                return item;
+	            }
+	        }
+	    };
 	    ServiceOrder.prototype.openDate = function (date, timezone) {
 	        this.activeStage = new ServiceOrderDate(this, this.items[1], date, timezone);
 	    };
 	    ServiceOrder.prototype.openService = function (item) {
 	        this.activeStage = new ServiceOrderAddition(this, this.parent, item);
 	    };
-	    ServiceOrder.prototype.close = function () {
-	        this.activeStage.close();
+	    ServiceOrder.prototype.close = function (buttonEvent) {
+	        this.activeStage.close(buttonEvent);
+	        this.activeStage = null;
 	        if (this.cart) {
 	            this.cart.remove();
 	        }
@@ -3165,12 +3187,13 @@
 	            init.serviceCalc.cartIsOpen = false;
 	        }
 	    };
-	    ServiceOrder.prototype.showMessage = function (time) {
+	    ServiceOrder.prototype.showMessage = function (text) {
 	        var event = document.createEvent('Event');
 	        event.initEvent('open-popup', true, true);
 	        event.detail = {
 	            id: 'notification',
-	            text: "\u0421\u043F\u0430\u0441\u0438\u0431\u043E \u0437\u0430 \u0437\u0430\u043A\u0430\u0437. \u041C\u044B \u0441\u0432\u044F\u0436\u0435\u043C\u0441\u044F \u0441 \u0412\u0430\u043C\u0438 \u0432 \u0442\u0435\u0447\u0435\u043D\u0438\u0435 " + time + " \u043C\u0438\u043D\u0443\u0442."
+	            text: text,
+	            ga: '{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_4"}'
 	        };
 	        document.dispatchEvent(event);
 	    };
@@ -3189,6 +3212,7 @@
 	var validate = __webpack_require__(41);
 	var request = __webpack_require__(7);
 	var init = __webpack_require__(42);
+	var analytic = __webpack_require__(34);
 	var moment = __webpack_require__(43);
 	var ServiceOrderContact = (function () {
 	    function ServiceOrderContact(parent, element) {
@@ -3213,6 +3237,7 @@
 	        this.tel.value = '+7';
 	        this.name.focus();
 	        this.form.addEventListener('submit', this.send);
+	        analytic.sendServiceOrder(this.form);
 	    };
 	    ServiceOrderContact.prototype.send = function (e) {
 	        e.preventDefault();
@@ -3250,7 +3275,8 @@
 	                    else {
 	                        this.form.addEventListener('submit', this.send);
 	                        this.button.disabled = false;
-	                        this.parent.showMessage('5');
+	                        var textMessage = "Спасибо за заказ. Мы свяжемся с Вами в течение 5 минут.";
+	                        this.parent.showMessage(textMessage);
 	                    }
 	                }
 	                else {
@@ -3543,7 +3569,8 @@
 	 * Created by Lobova.A on 21.02.2017.
 	 */
 	module.exports = {
-	    cart: null
+	    cart: null,
+	    calc: []
 	};
 
 
@@ -17971,6 +17998,7 @@
 	var Calendar = __webpack_require__(151);
 	var Selection = __webpack_require__(152);
 	var request = __webpack_require__(7);
+	var analytic = __webpack_require__(34);
 	var ServiceOrderDate = (function () {
 	    function ServiceOrderDate(parent, element, date, timezone) {
 	        moment.locale('ru');
@@ -17992,6 +18020,7 @@
 	        this.send = this.send.bind(this);
 	        this.switchDate = this.switchDate.bind(this);
 	        this.form.addEventListener('submit', this.send);
+	        analytic.sendServiceOrder(this.form);
 	    }
 	    ServiceOrderDate.prototype.send = function (e) {
 	        e.preventDefault();
@@ -18028,7 +18057,11 @@
 	    ServiceOrderDate.prototype.switchDate = function (date) {
 	        this.month.innerText = date;
 	    };
-	    ServiceOrderDate.prototype.close = function () {
+	    ServiceOrderDate.prototype.close = function (buttonEvent) {
+	        if (buttonEvent) {
+	            var textMessage = "Спасибо за заказ. Мы свяжемся с Вами в течение 10 минут.";
+	            this.parent.showMessage(textMessage);
+	        }
 	        this.form.removeEventListener('submit', this.send);
 	        this.element.classList.remove('service-order__wrap--active');
 	        var calendar = this.form.querySelector('.calendar__list--days');
@@ -18054,7 +18087,6 @@
 	var moment = __webpack_require__(43);
 	var Calendar = (function () {
 	    function Calendar(parent, element, date) {
-	        console.log(date, moment(date), moment(date).date(), "проверка3");
 	        this.parent = parent;
 	        this.element = element;
 	        this.title = this.element.querySelector('calendar__title');
@@ -18076,7 +18108,7 @@
 	        var day = this.monday;
 	        var currentDay = day.date();
 	        var first = true;
-	        var beginTime = 8 * 60;
+	        var beginTime = 9 * 60;
 	        var endTime = 18 * 60;
 	        var periodTime = 4 * 60;
 	        var nowTime = this.currentDate.hour() * 60 + this.currentDate.minute();
@@ -18147,7 +18179,6 @@
 	                    }
 	                    target.classList.add('calendar__item--selected');
 	                    this.selected = target;
-	                    console.log(this.parent);
 	                    this.parent.switchDate(target.dataset.date);
 	                    if (this.selected.classList.contains('calendar__item--incomplete')) {
 	                        this.parent.select.disabled(this.currentDate.hour() + 4);
@@ -18208,8 +18239,6 @@
 	            if (item.dataset.option * 60 < hour * 60) {
 	                item.classList.add('selection__option--disabled');
 	            }
-	            console.log(item.dataset.option);
-	            console.log(hour);
 	            if (item.dataset.option == hour) {
 	                this.setOption(item, item.dataset.option);
 	            }
@@ -18239,6 +18268,7 @@
 	var request = __webpack_require__(7);
 	var init = __webpack_require__(42);
 	var priceFormat = __webpack_require__(154);
+	var analytic = __webpack_require__(34);
 	var ServiceOrderAddition = (function () {
 	    function ServiceOrderAddition(parent, popup, element) {
 	        this.popup = popup;
@@ -18261,8 +18291,8 @@
 	            var item = _a[_i];
 	            item.addEventListener('click', this.set);
 	        }
-	        console.log(this.container);
 	        this.form.addEventListener('submit', this.send);
+	        analytic.sendServiceOrder(this.form);
 	    }
 	    ServiceOrderAddition.prototype.set = function (e) {
 	        e.preventDefault();
@@ -18273,14 +18303,13 @@
 	        }
 	        else {
 	            target.classList.remove('service-card-sm--active');
-	            if (this.activeOptions) {
+	            if (this.activeOptions.length) {
 	                this.activeOptions.forEach(function (item, i) {
-	                    if (item === target) {
+	                    if (item === target.dataset.name) {
 	                        this.activeOptions.splice(i, 1);
 	                    }
-	                });
+	                }.bind(this));
 	            }
-	            this.activeOptions.push(target);
 	        }
 	    };
 	    ServiceOrderAddition.prototype.send = function (e) {
@@ -18297,11 +18326,9 @@
 	            if (data.Success) {
 	                this.form.addEventListener('submit', this.send);
 	                init.cart.remove();
-	                this.close();
 	                this.button.disabled = false;
-	                console.log(this.container, " яздесь0");
-	                this.parent.showMessage('10');
-	                console.log(this.container, " яздесь");
+	                var textMessage = "Спасибо за заказ. Мы свяжемся с Вами в течение 10 минут, уточнив доступно ли выбранное время заказа.";
+	                this.parent.showMessage(textMessage);
 	            }
 	            else {
 	                this.button.disabled = false;
@@ -18318,17 +18345,19 @@
 	        this.form.removeEventListener('submit', this.send);
 	        request.send(url, json, response.bind(this), error.bind(this));
 	    };
-	    ServiceOrderAddition.prototype.close = function () {
-	        console.log('акрыть');
-	        console.log(this.container);
+	    ServiceOrderAddition.prototype.close = function (buttonEvent) {
+	        if (buttonEvent) {
+	            var textMessage = "Спасибо за заказ. Мы свяжемся с Вами в течение 10 минут, уточнив доступно ли выбранное время заказа.";
+	            this.parent.showMessage(textMessage);
+	        }
 	        this.element.classList.remove('service-order__wrap--active');
 	        this.promocod.value = '';
-	        console.log(this.options);
-	        console.log(this.container, this.container.childNodes);
 	        for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
 	            var item = _a[_i];
-	            console.log(item.parentNode, item, this.options, "Родител");
+	            item.removeEventListener('click', this.set);
+	            item.parentNode.removeChild(item);
 	        }
+	        this.form.removeEventListener('submit', this.send);
 	    };
 	    return ServiceOrderAddition;
 	}());
@@ -18357,7 +18386,6 @@
 	 * Created by Lobova.A on 30.03.2017.
 	 */
 	module.exports = function getScheme(service, schedule, serviceClass) {
-	    console.log(serviceClass);
 	    var data = {
 	        "schedule": schedule,
 	        "service": service,
@@ -18372,7 +18400,7 @@
 	            item.array.forEach(function (item) {
 	                data.objectclass[0].features.push({
 	                    "feature": item.item,
-	                    "quantity": item.value
+	                    "quantity": isNaN(item.value) ? item.value : Number(item.value)
 	                });
 	            });
 	        }
@@ -19654,7 +19682,7 @@
 	var validation = __webpack_require__(41);
 	var request = __webpack_require__(7);
 	module.exports = function (form) {
-	    var inputRequired = form.querySelectorAll('input[required]');
+	    var inputRequired = Array.prototype.slice.call(form.querySelectorAll('input[required]'));
 	    var button = form.querySelector('.payment__btn');
 	    var inputPrice = form.querySelector('input[name="amount"]');
 	    var inputId = form.querySelector('input[name="order-id"]');
@@ -19934,6 +19962,8 @@
 	var Cart = __webpack_require__(173);
 	var priceConf = __webpack_require__(172);
 	var priceFormat = __webpack_require__(154);
+	var creatObject1C = __webpack_require__(155);
+	var throttle = __webpack_require__(174);
 	var CalcSquare = (function () {
 	    function CalcSquare(element) {
 	        this.element = element;
@@ -19945,6 +19975,9 @@
 	        this.activeSquire = this.element.querySelector('.service-calc__item--active');
 	        this.activePrice = this.element.querySelector('.service-calc__item--selected');
 	        this.cartIsOpen = false;
+	        this.previousInputValue = null;
+	        this.abilityChangeInput = true;
+	        this.isActive = false;
 	        this.info = {
 	            name: '',
 	            id: '',
@@ -19964,7 +19997,6 @@
 	        this.buttonsContainer.addEventListener('click', this.switchButton);
 	        this.outputContainer.addEventListener('click', this.switchOutput);
 	        this.input.addEventListener('input', this.changeInput);
-	        this.input.addEventListener('change', this.changeInput);
 	    };
 	    CalcSquare.prototype.removeEvent = function () {
 	        this.buttonsContainer.removeEventListener('click', this.switchButton);
@@ -19981,10 +20013,9 @@
 	                this.info.square = target.dataset.value;
 	                if (this.activePrice) {
 	                    this.info.price = priceFormat(this.activePrice.dataset.price);
-	                    console.log(this.info.price);
-	                }
-	                if (this.cartIsOpen) {
-	                    this.requestInfo();
+	                    if (init.cart) {
+	                        this.requestInfo();
+	                    }
 	                }
 	                analytic.sendSquireValue(this.element.dataset.name);
 	                return;
@@ -19997,24 +20028,25 @@
 	        var target = e.target;
 	        while (target != e.currentTarget) {
 	            if (target.classList.contains('service-calc__item--price')) {
+	                if (init.calc.length) {
+	                    init.calc.forEach(function (item) {
+	                        if (item.isActive) {
+	                            if (item !== this) {
+	                                item.deactivateOutput();
+	                                item.isActive = false;
+	                            }
+	                        }
+	                        else {
+	                            this.isActive = true;
+	                        }
+	                    }.bind(this));
+	                }
 	                this.setOutput(target);
 	                this.info.name = priceConf[target.dataset.name]['name'];
 	                this.info.id = target.dataset.name;
 	                this.info.price = priceFormat(target.dataset.price);
 	                this.info.periodicity = target.dataset.option !== '0x_week';
-	                if (!this.cartIsOpen) {
-	                    this.cartIsOpen = true;
-	                    this.requestInfo();
-	                }
-	                else {
-	                    this.requestInfo();
-	                    init.cart.change(this.info);
-	                }
-	                // удалить заглушка
-	                if (!init.cart) {
-	                    init.cart = new Cart(this.info);
-	                }
-	                return;
+	                this.requestInfo();
 	            }
 	            target = target.parentNode;
 	        }
@@ -20024,26 +20056,33 @@
 	        if (Number(e.target.value) > Number(e.target.max)) {
 	            e.target.value = e.target.max;
 	        }
-	        this.input.parentNode.dataset.value = this.input.value;
-	        analytic.sendSquireValue(this.element.dataset.name);
-	        if (this.activeSquire.dataset.value) {
-	            getPrice(this.outputs, this.activeSquire.dataset.value);
-	            if (this.activePrice) {
-	                this.info.square = this.activeSquire.dataset.value;
+	        if (Number(e.target.value) < Number(e.target.min)) {
+	            e.target.value = e.target.min;
+	        }
+	        this.input.parentNode.dataset.value = Number(this.input.value) > 40 ? this.input.value : '40';
+	        if (!this.previousInputValue && Number(this.input.value) > 40 || Number(e.target.value) < this.previousInputValue && this.previousInputValue > 40 || Number(this.input.value) > 40) {
+	            analytic.sendSquireValue(this.element.dataset.name);
+	            if (this.activeSquire.dataset.value) {
+	                getPrice(this.outputs, this.activeSquire.dataset.value);
 	                if (this.activePrice) {
-	                    console.log(this.activePrice.dataset.price);
+	                    this.info.square = this.activeSquire.dataset.value;
 	                    this.info.price = priceFormat(this.activePrice.dataset.price);
-	                }
-	                if (this.cartIsOpen) {
-	                    this.requestInfo();
-	                    // удалить
-	                    init.cart.change(this.info);
+	                    if (init.cart) {
+	                        if (this.abilityChangeInput) {
+	                            this.requestInfo();
+	                            this.abilityChangeInput = false;
+	                            setTimeout(function () {
+	                                this.abilityChangeInput = true;
+	                            }.bind(this), 300);
+	                        }
+	                    }
 	                }
 	            }
+	            else {
+	                getPrice(this.outputs, '40');
+	            }
 	        }
-	        else {
-	            getPrice(this.outputs, '0');
-	        }
+	        this.previousInputValue = e.target.value;
 	    };
 	    CalcSquare.prototype.setOutput = function (output) {
 	        for (var _i = 0, _a = this.outputs; _i < _a.length; _i++) {
@@ -20058,6 +20097,7 @@
 	    CalcSquare.prototype.deactivateOutput = function () {
 	        if (this.activePrice) {
 	            this.activePrice.classList.remove('service-calc__item--selected');
+	            this.isActive = false;
 	        }
 	    };
 	    CalcSquare.prototype.setButton = function (button) {
@@ -20068,27 +20108,41 @@
 	            }
 	        }
 	        button.classList.add('service-calc__item--active');
+	        this.previousInputValue = null;
 	        this.activeSquire = button;
 	    };
 	    CalcSquare.prototype.requestInfo = function () {
+	        var param = {};
+	        var price = this.activePrice.dataset.price;
+	        var service = this.activePrice.dataset.service;
+	        var serviceClass = [
+	            {
+	                element: this.element.dataset.class,
+	                array: []
+	            }
+	        ];
+	        if (this.activePrice.dataset.feature) {
+	            serviceClass[0].array.push({ item: this.activePrice.dataset.feature, value: this.activePrice.dataset.value });
+	        }
+	        if (this.activeSquire.dataset.feature) {
+	            serviceClass[0].array.push({ item: this.activeSquire.dataset.feature, value: this.activeSquire.dataset.value });
+	        }
+	        param = creatObject1C(service, this.activePrice.dataset.schedule, serviceClass);
 	        var data = {
 	            "Method": "Client.GetExecutionInfo",
-	            "Param": {
-	                "onschedule": this.info.periodicity,
-	                "service": this.info.id,
-	                "square": Number(this.info.square) !== 0 ? Number(this.info.square) : 40
-	            }
+	            "Param": param
 	        };
 	        function response(data) {
 	            if (data.Success === true) {
 	                this.info.hour = data.Data.hour;
 	                this.info.people = data.Data.people;
-	            }
-	            if (!this.cartIsOpen) {
-	                init.cart = new Cart(this.info);
-	            }
-	            else {
-	                init.cart.change(this.info);
+	                if (!init.cart) {
+	                    init.cart = new Cart(this.info);
+	                    this.cartIsOpen = true;
+	                }
+	                else {
+	                    init.cart.change(this.info);
+	                }
 	            }
 	        }
 	        function error() { }
@@ -20297,20 +20351,49 @@
 	        name: 'Уборка коттеджа',
 	        price: {
 	            '0x_week': {
-	                '0': 110,
-	                '300': 100,
-	                '600': 90
+	                '40': 6590,
+	                '50': 7190,
+	                '60': 7880,
+	                '70': 8650,
+	                '80': 9390,
+	                '90': 10490,
+	                '100': 10990,
+	                '110': 12100,
+	                '120': 13200,
+	                '130': 14300,
+	                '140': 15400,
+	                '150': 16500,
+	                'one': 110
+	            },
+	            '1x_week': {
+	                '40': 4280,
+	                '50': 4670,
+	                '60': 5120,
+	                '70': 5620,
+	                '80': 6100,
+	                '90': 6820,
+	                '100': 7140,
+	                '110': 7870,
+	                '120': 8580,
+	                '130': 9300,
+	                '140': 10010,
+	                '150': 10730,
+	                'one': 71.5
 	            }
 	        },
 	        formula: function (conf, squire) {
-	            if (Number(squire) <= 300) {
-	                return (Number(squire) * conf['0']).toFixed();
+	            var roundNumber = Math.ceil(Number(squire) / 10) * 10;
+	            var min = '40';
+	            if (roundNumber <= 150 && roundNumber >= 40) {
+	                if (roundNumber in conf) {
+	                    return conf[roundNumber];
+	                }
 	            }
-	            else if (Number(squire) <= 600) {
-	                return (Number(squire) * conf['300']).toFixed();
+	            else if (squire == 'one' || roundNumber >= 150) {
+	                return (Number(squire) * conf['one']).toFixed();
 	            }
-	            else if (Number(squire) >= 600) {
-	                return (Number(squire) * conf['600']).toFixed();
+	            else if (roundNumber <= 40) {
+	                return conf[min];
 	            }
 	        }
 	    },
@@ -20578,20 +20661,49 @@
 	        name: 'Уборка коттеджа',
 	        price: {
 	            '0x_week': {
-	                '0': 110,
-	                '300': 100,
-	                '600': 90
+	                '40': 6590,
+	                '50': 7190,
+	                '60': 7880,
+	                '70': 8650,
+	                '80': 9390,
+	                '90': 10490,
+	                '100': 10990,
+	                '110': 12100,
+	                '120': 13200,
+	                '130': 14300,
+	                '140': 15400,
+	                '150': 16500,
+	                'one': 110
+	            },
+	            '1x_week': {
+	                '40': 4280,
+	                '50': 4670,
+	                '60': 5120,
+	                '70': 5620,
+	                '80': 6100,
+	                '90': 6820,
+	                '100': 7140,
+	                '110': 7870,
+	                '120': 8580,
+	                '130': 9300,
+	                '140': 10010,
+	                '150': 10730,
+	                'one': 71.5
 	            }
 	        },
 	        formula: function (conf, squire) {
-	            if (Number(squire) <= 300) {
-	                return (Number(squire) * conf['0']).toFixed();
+	            var roundNumber = Math.ceil(Number(squire) / 10) * 10;
+	            var min = '40';
+	            if (roundNumber <= 150 && roundNumber >= 40) {
+	                if (roundNumber in conf) {
+	                    return conf[roundNumber];
+	                }
 	            }
-	            else if (Number(squire) <= 600) {
-	                return (Number(squire) * conf['300']).toFixed();
+	            else if (squire == 'one' || roundNumber >= 150) {
+	                return (Number(squire) * conf['one']).toFixed();
 	            }
-	            else if (Number(squire) >= 600) {
-	                return (Number(squire) * conf['600']).toFixed();
+	            else if (roundNumber <= 40) {
+	                return conf[min];
 	            }
 	        }
 	    },
@@ -20691,6 +20803,7 @@
 	    function Cart(data) {
 	        this.data = data;
 	        this.element = null;
+	        this.people = null;
 	        this.time = null;
 	        this.price = null;
 	        this.service = null;
@@ -20712,6 +20825,7 @@
 	        this.main.classList.add('main-content__wrap--service');
 	        this.element = document.querySelector('.service-cart');
 	        this.time = this.element.querySelector('.service-cart__text--time');
+	        this.people = this.element.querySelector('.service-cart__text--people');
 	        this.price = this.element.querySelector('.service-cart__text--price');
 	        this.service = this.element.querySelector('.service-cart__text--service');
 	        if (!client.isMobile()) {
@@ -20735,6 +20849,7 @@
 	        this.price.innerText = priceFormat(data.price) + ' руб';
 	        this.service.innerHTML = data.name + ' ' + data.square + ' м<sup><small>2</small></sup>';
 	        this.time.innerHTML = '~ ' + data.hour + ' час.';
+	        this.people.innerHTML = data.people + ' чел.';
 	    };
 	    Cart.prototype.remove = function () {
 	        init.cart = null;
@@ -20752,6 +20867,38 @@
 
 /***/ },
 /* 174 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Lobova.A on 10.04.2017.
+	 */
+	module.exports = function (performFunction, delay) {
+	    var isThrottled = false;
+	    var saveArguments = null;
+	    var saveThis = null;
+	    function wrapper() {
+	        if (isThrottled) {
+	            saveArguments = arguments;
+	            saveThis = this;
+	            return;
+	        }
+	        performFunction.apply(this, arguments);
+	        isThrottled = true;
+	        setTimeout(function () {
+	            isThrottled = false;
+	            if (saveArguments) {
+	                wrapper.apply(saveThis, saveArguments);
+	                saveArguments = null;
+	                saveThis = null;
+	            }
+	        }, delay);
+	    }
+	    return wrapper;
+	};
+
+
+/***/ },
+/* 175 */
 /***/ function(module, exports) {
 
 	/**
@@ -20774,7 +20921,7 @@
 
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20783,19 +20930,19 @@
 	var page = document.querySelector('.page');
 	// let Order = require('./../order/order');
 	// let Orders = require('./../orders/orders');
-	var Article = __webpack_require__(176);
-	var Articles = __webpack_require__(177);
-	var Question = __webpack_require__(178);
-	var Questions = __webpack_require__(179);
-	var Promotion = __webpack_require__(180);
-	var Promotions = __webpack_require__(181);
-	var Review = __webpack_require__(182);
-	var Reviews = __webpack_require__(183);
-	var News = __webpack_require__(184);
-	var NewsItem = __webpack_require__(185);
-	var RightSide = __webpack_require__(186);
+	var Article = __webpack_require__(177);
+	var Articles = __webpack_require__(178);
+	var Question = __webpack_require__(179);
+	var Questions = __webpack_require__(180);
+	var Promotion = __webpack_require__(181);
+	var Promotions = __webpack_require__(182);
+	var Review = __webpack_require__(183);
+	var Reviews = __webpack_require__(184);
+	var News = __webpack_require__(185);
+	var NewsItem = __webpack_require__(186);
+	var RightSide = __webpack_require__(187);
 	var LeftSide = __webpack_require__(160);
-	var Form = __webpack_require__(187);
+	var Form = __webpack_require__(188);
 	var LeftSideList = [
 	    {
 	        item: 'pageArticles',
@@ -20848,7 +20995,7 @@
 
 
 /***/ },
-/* 176 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20884,7 +21031,7 @@
 
 
 /***/ },
-/* 177 */
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -20986,15 +21133,6 @@
 
 
 /***/ },
-/* 178 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by Lobova.A on 03.02.2017.
-	 */
-
-
-/***/ },
 /* 179 */
 /***/ function(module, exports) {
 
@@ -21005,6 +21143,15 @@
 
 /***/ },
 /* 180 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Lobova.A on 03.02.2017.
+	 */
+
+
+/***/ },
+/* 181 */
 /***/ function(module, exports) {
 
 	/**
@@ -21019,7 +21166,7 @@
 
 
 /***/ },
-/* 181 */
+/* 182 */
 /***/ function(module, exports) {
 
 	/**
@@ -21034,7 +21181,7 @@
 
 
 /***/ },
-/* 182 */
+/* 183 */
 /***/ function(module, exports) {
 
 	/**
@@ -21049,7 +21196,7 @@
 
 
 /***/ },
-/* 183 */
+/* 184 */
 /***/ function(module, exports) {
 
 	/**
@@ -21064,7 +21211,7 @@
 
 
 /***/ },
-/* 184 */
+/* 185 */
 /***/ function(module, exports) {
 
 	/**
@@ -21079,7 +21226,7 @@
 
 
 /***/ },
-/* 185 */
+/* 186 */
 /***/ function(module, exports) {
 
 	/**
@@ -21094,7 +21241,7 @@
 
 
 /***/ },
-/* 186 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21224,7 +21371,7 @@
 
 
 /***/ },
-/* 187 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21341,7 +21488,7 @@
 
 
 /***/ },
-/* 188 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21470,7 +21617,7 @@
 
 
 /***/ },
-/* 189 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21538,7 +21685,7 @@
 
 
 /***/ },
-/* 190 */
+/* 191 */
 /***/ function(module, exports) {
 
 	/**
@@ -21559,16 +21706,16 @@
 
 
 /***/ },
-/* 191 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 25.11.2016.
 	 */
-	var Menu = __webpack_require__(192);
-	var openApplication = __webpack_require__(193);
+	var Menu = __webpack_require__(193);
+	var openApplication = __webpack_require__(194);
 	//let callback = require('./../callback/callback');
-	var init = __webpack_require__(194);
+	var init = __webpack_require__(195);
 	var initElement = __webpack_require__(10);
 	var headerElement = document.querySelector('.page-header');
 	var menuElement = headerElement.querySelector('.main-menu');
@@ -21601,7 +21748,7 @@
 
 
 /***/ },
-/* 192 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21687,7 +21834,7 @@
 
 
 /***/ },
-/* 193 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21752,7 +21899,7 @@
 
 
 /***/ },
-/* 194 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21762,7 +21909,7 @@
 
 
 /***/ },
-/* 195 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21874,7 +22021,7 @@
 
 
 /***/ },
-/* 196 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21883,10 +22030,10 @@
 	var client = __webpack_require__(8);
 	var moment = __webpack_require__(43);
 	var url = __webpack_require__(5);
-	var init = __webpack_require__(194);
+	var init = __webpack_require__(195);
 	var urlThridColumn = __webpack_require__(9);
 	var defineObject = __webpack_require__(162);
-	var RightSide = __webpack_require__(186);
+	var RightSide = __webpack_require__(187);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	module.exports = function (data) {
@@ -21932,7 +22079,7 @@
 
 
 /***/ },
-/* 197 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -21942,10 +22089,10 @@
 	var Mustache = __webpack_require__(159);
 	var moment = __webpack_require__(43);
 	var url = __webpack_require__(5);
-	var init = __webpack_require__(194);
+	var init = __webpack_require__(195);
 	var urlThridColumn = __webpack_require__(9);
 	var defineObject = __webpack_require__(162);
-	var Form = __webpack_require__(187);
+	var Form = __webpack_require__(188);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	module.exports = function () {
@@ -21976,7 +22123,7 @@
 
 
 /***/ },
-/* 198 */
+/* 199 */
 /***/ function(module, exports) {
 
 	/**
@@ -21995,7 +22142,7 @@
 
 
 /***/ },
-/* 199 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**

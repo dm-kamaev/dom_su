@@ -1,7 +1,7 @@
 "use strict";
 const {QueueAsync} = require('./queue')
 const {models, ErrorCodes, ModelsError} = require('models');
-const {User, UTMS, Visit, Phone} = models;
+const {User, UTMS, Visit, Phone, Token} = models;
 const config = require('config')
 const uuid4 = require('uuid/v4')
 const {taskEventCreate} = require('./task')
@@ -257,6 +257,11 @@ class PancakeUser {
 
     runAsyncTask() {
         this.queue.do()
+    }
+
+    async getToken(){
+        this.token = await Token.findOne({active: true, user_uuid: this.uuid})
+        return this.token
     }
 }
 

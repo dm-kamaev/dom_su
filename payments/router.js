@@ -25,7 +25,7 @@ const URL_TINKOFF = "securepay.tinkoff.ru"
 const TERMINAL_KEY = '1487066466356'
 const PASSWORD = 'f7ydxrgo3c42l9ub'
 
-// TEST IP Ipatova
+// TEST IP Ipatovagi
 // const TERMINAL_KEY = '1487066466356DEMO'
 // const PASSWORD = 'b85qudmm7bagosat'
 

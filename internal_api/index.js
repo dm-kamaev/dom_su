@@ -1,6 +1,10 @@
 "use strict";
 
-const { internalAPI } = require('./router')
+const { internalServiceAPI } = require('./serviceRouter')
+const { internalClientAPI } = require('./clientRouter')
 
-module.exports = { internalAPI }
+module.exports = {
+    internalServiceAPI,
+    internalClientAPI
+}
 

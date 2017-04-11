@@ -20,6 +20,7 @@
     "api1C": {
         "ip": "192.168.1.243",
         "url": "/domovenok/hs/api/v2/",
+        "oldAPI": "/domovenok/hs/api/",
         "port": 80,
         "ticket_url": "/domovenok/hs/rq"
     },

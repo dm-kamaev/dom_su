@@ -145,6 +145,7 @@ const Token = sequelize.define('tokens', {
     },
     employee_uuid: {
         type: Sequelize.UUID,
+        allowNull: true,
         references: {
             model: Employee,
             key: 'uuid',
@@ -153,6 +154,7 @@ const Token = sequelize.define('tokens', {
     },
     client_uuid: {
         type: Sequelize.UUID,
+        allowNull: true,
         references: {
             model: Client,
             key: 'uuid',
