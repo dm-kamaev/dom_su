@@ -1,0 +1,14 @@
+{
+  "apps" : [
+    {
+      "name"      : "pancake",
+      "script"    : "app.js",
+      "env": {
+        "NODE_PATH": "."
+      },
+      "env_production" : {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}
