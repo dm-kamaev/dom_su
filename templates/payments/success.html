@@ -358,8 +358,9 @@
         <div class="payment-answer">
           <div class="payment-answer__wrap">
             <h2 class="payment-answer__heading  payment-answer__icon  title">Оплата проведена успешно</h2>
+            {{#if sum}}
             <p class="payment-answer__note  text">
-              Сумма: 500 руб.
+              Сумма: {{sum}} руб.
             </p>
           </div>
         </div>
