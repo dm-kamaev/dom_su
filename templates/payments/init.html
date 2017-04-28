@@ -43,7 +43,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.13">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.14">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -147,9 +147,15 @@
                 </a>
               </li>
   
+              <li class="main-menu__item-sub {{#if menu.himchistka_odezhdy}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/himchistka_odezhdy'}}">
+                  Химчистка
+                </a>
+              </li>
+  
               <li class="main-menu__item-sub {{#if menu.himchistka}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/himchistka'}}">
-                  Химчистка
+                  Химчистка мебели
                 </a>
               </li>
   
@@ -391,7 +397,7 @@
 
 <!-- Java Script -->
 
-<script src="/static/pancake/js/bundle.min.js?v0.12"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.13"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 

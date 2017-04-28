@@ -58,8 +58,8 @@
 	//var hideElement = require('./../components/orders-item/orders-item.js');
 	// var request = require('./../components/ajax-request/ajax-request.js');
 	__webpack_require__(2);
-	__webpack_require__(187);
-	var resize = __webpack_require__(192);
+	__webpack_require__(188);
+	var resize = __webpack_require__(193);
 	window.addEventListener('resize', resize);
 
 
@@ -982,9 +982,9 @@
 	var init = __webpack_require__(11);
 	// let renderOrder = require('./../../../components/order/render-order');
 	// let renderSchedule = require('./../../../components/order/render-schedule');
-	var renderItem = __webpack_require__(189);
-	var renderForm = __webpack_require__(190);
-	var message = __webpack_require__(191);
+	var renderItem = __webpack_require__(190);
+	var renderForm = __webpack_require__(191);
+	var message = __webpack_require__(192);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	var pageState = {
@@ -1606,6 +1606,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Created by Lobova.A on 29.11.2016.
 	 */
@@ -1616,24 +1617,24 @@
 	var Selection = __webpack_require__(36);
 	var SelectionMenu = __webpack_require__(37);
 	var PopUp = __webpack_require__(38);
-	var LeftSide = __webpack_require__(160);
-	var LeftSideChild = __webpack_require__(162);
+	var LeftSide = __webpack_require__(161);
+	var LeftSideChild = __webpack_require__(163);
 	var tabs = __webpack_require__(5);
-	var handlebarsHelper = __webpack_require__(165);
+	var handlebarsHelper = __webpack_require__(166);
 	var getfriendDocument = __webpack_require__(158);
 	var pageInitial = __webpack_require__(43);
-	var paymentSendForm = __webpack_require__(166);
+	var paymentSendForm = __webpack_require__(167);
 	var client = __webpack_require__(9);
-	var ChangeTown = __webpack_require__(167);
-	var Counter = __webpack_require__(168);
-	var ServiceCard = __webpack_require__(169);
-	var ServiceCalc = __webpack_require__(172);
-	var Section = __webpack_require__(177);
-	var leftSideList = __webpack_require__(178);
-	var Careers = __webpack_require__(181);
-	var ContactForm = __webpack_require__(182);
-	var openSignPopup = __webpack_require__(183);
-	var pageHeader = __webpack_require__(184);
+	var ChangeTown = __webpack_require__(168);
+	var Counter = __webpack_require__(169);
+	var ServiceCard = __webpack_require__(170);
+	var ServiceCalc = __webpack_require__(173);
+	var Section = __webpack_require__(178);
+	var leftSideList = __webpack_require__(179);
+	var Careers = __webpack_require__(182);
+	var ContactForm = __webpack_require__(183);
+	var openSignPopup = __webpack_require__(184);
+	var pageHeader = __webpack_require__(185);
 	var pageElement = document.querySelector('.page');
 	var pageAuth = document.querySelector('.page--authorization');
 	var pagePrivate = document.querySelector('.page--orders');
@@ -1658,6 +1659,7 @@
 	var buttonFriendDocumentElement = pageElement.querySelector('.description__button--friend');
 	var signPopupElements = pageElement.querySelectorAll('.service-calc__sign-popup');
 	var paymentForm = pageElement.querySelector('.payment__form');
+	var buttonPriceListElements = pageElement.querySelectorAll('.menu-image__item[data-name="price-list"]');
 	window.onload = function () {
 	    var afterGA = function () {
 	        setTimeout(function () {
@@ -1688,6 +1690,24 @@
 	        document.dispatchEvent(event);
 	        analytic.sendButtonDocument();
 	    });
+	}
+	if (buttonPriceListElements.length) {
+	    var _loop_1 = function (i) {
+	        buttonPriceListElements[i].addEventListener('click', function (e) {
+	            e.preventDefault();
+	            var event = document.createEvent('Event');
+	            event.initEvent('open-popup', true, true);
+	            event.detail = {
+	                elem: buttonPriceListElements[i],
+	                id: buttonPriceListElements[i].dataset.name,
+	                itemId: buttonPriceListElements[i].dataset.id
+	            };
+	            document.dispatchEvent(event);
+	        });
+	    };
+	    for (var i = 0; i < buttonPriceListElements.length; i++) {
+	        _loop_1(i);
+	    }
 	}
 	if (menuElement) {
 	    pageInit.menu = pageHeader.mainMenu;
@@ -1779,7 +1799,7 @@
 	    pageInit.contactForm = new ContactForm(contactFormElement);
 	}
 	if (buttonApplicationElements) {
-	    var _loop_1 = function(item) {
+	    var _loop_2 = function (item) {
 	        item.addEventListener('click', function (e) {
 	            e.preventDefault();
 	            var event = document.createEvent('Event');
@@ -1793,12 +1813,12 @@
 	    };
 	    for (var _c = 0, buttonApplicationElements_1 = buttonApplicationElements; _c < buttonApplicationElements_1.length; _c++) {
 	        var item = buttonApplicationElements_1[_c];
-	        _loop_1(item);
+	        _loop_2(item);
 	    }
 	}
 	if (questionSectionElement) {
 	    var questionElement = questionSectionElement.querySelectorAll('.question-section__item');
-	    var _loop_2 = function(item) {
+	    var _loop_3 = function (item) {
 	        var buttonToggle = item.querySelector('.question-section__link');
 	        var answer = item.querySelector('.question-section__answer');
 	        buttonToggle.addEventListener('click', function () {
@@ -1813,11 +1833,11 @@
 	    };
 	    for (var _d = 0, questionElement_1 = questionElement; _d < questionElement_1.length; _d++) {
 	        var item = questionElement_1[_d];
-	        _loop_2(item);
+	        _loop_3(item);
 	    }
 	}
 	if (pageAuth) {
-	    var authorization = __webpack_require__(188);
+	    var authorization = __webpack_require__(189);
 	    authorization();
 	}
 	module.exports = pageInit;
@@ -3840,6 +3860,7 @@
 	var Message = __webpack_require__(39);
 	var ServiceOrder = __webpack_require__(40);
 	var getDocument = __webpack_require__(158);
+	var PriceList = __webpack_require__(160);
 	var mainContent = document.querySelector('.main-content');
 	var PopUp = (function () {
 	    function PopUp(element) {
@@ -3899,6 +3920,9 @@
 	                break;
 	            case 'get-document':
 	                this.item = new getDocument(this, this.element, e.detail.text);
+	                break;
+	            case 'price-list':
+	                this.item = new PriceList(this, this.element, e.detail.itemId);
 	                break;
 	        }
 	        if (client.isMobile()) {
@@ -4120,7 +4144,8 @@
 	                    "name": this.name.value,
 	                    "square": init.serviceCalc ? Number(init.serviceCalc.activeSquire.dataset.value) : null,
 	                    "phone": this.tel.value
-	                } };
+	                }
+	            };
 	            url = "/ticket-handler";
 	        }
 	        if (validate.make(this.requireInput, this.button)) {
@@ -23962,13 +23987,41 @@
 
 /***/ },
 /* 160 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by A.Belokuraya on 21.04.2017.
+	 */
+	var PriceList = (function () {
+	    function PriceList(parent, element, id) {
+	        this.element = element;
+	        this.containerElement = this.element.querySelector('.price-list');
+	        this.templateId = id;
+	        this.create();
+	    }
+	    PriceList.prototype.create = function () {
+	        var template = document.getElementById(this.templateId).innerHTML;
+	        var div = document.createElement('div');
+	        div.innerHTML = template;
+	        this.containerElement.appendChild(div);
+	    };
+	    PriceList.prototype.close = function () {
+	        this.containerElement.innerHTML = '';
+	    };
+	    return PriceList;
+	}());
+	module.exports = PriceList;
+
+
+/***/ },
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 13.12.2016.
 	 */
 	var client = __webpack_require__(9);
-	var Mustache = __webpack_require__(161);
+	var Mustache = __webpack_require__(162);
 	var moment = __webpack_require__(44);
 	var request = __webpack_require__(8);
 	//let url = require('./../../js/utility/state-address/state-address');
@@ -24150,7 +24203,7 @@
 
 
 /***/ },
-/* 161 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -24785,7 +24838,7 @@
 
 
 /***/ },
-/* 162 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24799,12 +24852,12 @@
 	var handlebars = __webpack_require__(153);
 	var page = __webpack_require__(3);
 	var client = __webpack_require__(9);
-	var createElement = __webpack_require__(163);
-	var defineObject = __webpack_require__(164);
+	var createElement = __webpack_require__(164);
+	var defineObject = __webpack_require__(165);
 	var request = __webpack_require__(8);
 	var path = __webpack_require__(7);
 	var url = __webpack_require__(10);
-	var LeftSideParent = __webpack_require__(160);
+	var LeftSideParent = __webpack_require__(161);
 	var LeftSide = (function (_super) {
 	    __extends(LeftSide, _super);
 	    function LeftSide() {
@@ -24901,7 +24954,7 @@
 
 
 /***/ },
-/* 163 */
+/* 164 */
 /***/ function(module, exports) {
 
 	/**
@@ -24917,7 +24970,7 @@
 
 
 /***/ },
-/* 164 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25110,7 +25163,7 @@
 
 
 /***/ },
-/* 165 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25150,7 +25203,7 @@
 
 
 /***/ },
-/* 166 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25196,7 +25249,7 @@
 
 
 /***/ },
-/* 167 */
+/* 168 */
 /***/ function(module, exports) {
 
 	/**
@@ -25229,7 +25282,7 @@
 
 
 /***/ },
-/* 168 */
+/* 169 */
 /***/ function(module, exports) {
 
 	/**
@@ -25282,14 +25335,14 @@
 
 
 /***/ },
-/* 169 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 22.12.2016.
 	 */
-	var Counter = __webpack_require__(170);
-	var Selection = __webpack_require__(171);
+	var Counter = __webpack_require__(171);
+	var Selection = __webpack_require__(172);
 	var Card = (function () {
 	    function Card(element) {
 	        this.element = element;
@@ -25338,7 +25391,7 @@
 
 
 /***/ },
-/* 170 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25349,7 +25402,7 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var BaseCounter = __webpack_require__(168);
+	var BaseCounter = __webpack_require__(169);
 	var Counter = (function (_super) {
 	    __extends(Counter, _super);
 	    function Counter(parent, element) {
@@ -25397,7 +25450,7 @@
 
 
 /***/ },
-/* 171 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25426,21 +25479,21 @@
 
 
 /***/ },
-/* 172 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 31.01.2017.
 	 */
-	var getPrice = __webpack_require__(173);
+	var getPrice = __webpack_require__(174);
 	var analytic = __webpack_require__(35);
 	var init = __webpack_require__(43);
 	var request = __webpack_require__(8);
-	var Cart = __webpack_require__(175);
-	var priceConf = __webpack_require__(174);
+	var Cart = __webpack_require__(176);
+	var priceConf = __webpack_require__(175);
 	var priceFormat = __webpack_require__(156);
 	var creatObject1C = __webpack_require__(157);
-	var throttle = __webpack_require__(176);
+	var throttle = __webpack_require__(177);
 	var CalcSquare = (function () {
 	    function CalcSquare(element) {
 	        this.element = element;
@@ -25664,13 +25717,13 @@
 
 
 /***/ },
-/* 173 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 17.02.2017.
 	 */
-	var priceConf = __webpack_require__(174);
+	var priceConf = __webpack_require__(175);
 	var priceFormat = __webpack_require__(156);
 	module.exports = function (elements, squire) {
 	    for (var _i = 0, elements_1 = elements; _i < elements_1.length; _i++) {
@@ -25688,7 +25741,7 @@
 
 
 /***/ },
-/* 174 */
+/* 175 */
 /***/ function(module, exports) {
 
 	/**
@@ -26298,7 +26351,7 @@
 
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26375,7 +26428,7 @@
 
 
 /***/ },
-/* 176 */
+/* 177 */
 /***/ function(module, exports) {
 
 	/**
@@ -26407,7 +26460,7 @@
 
 
 /***/ },
-/* 177 */
+/* 178 */
 /***/ function(module, exports) {
 
 	/**
@@ -26430,7 +26483,7 @@
 
 
 /***/ },
-/* 178 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26439,9 +26492,9 @@
 	var page = document.querySelector('.page');
 	// let Order = require('./../order/order');
 	// let Orders = require('./../orders/orders');
-	var RightSide = __webpack_require__(179);
-	var LeftSide = __webpack_require__(162);
-	var Form = __webpack_require__(180);
+	var RightSide = __webpack_require__(180);
+	var LeftSide = __webpack_require__(163);
+	var Form = __webpack_require__(181);
 	var LeftSideList = [
 	    {
 	        item: 'pageArticles',
@@ -26494,7 +26547,7 @@
 
 
 /***/ },
-/* 179 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26625,7 +26678,7 @@
 
 
 /***/ },
-/* 180 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26743,7 +26796,7 @@
 
 
 /***/ },
-/* 181 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26873,7 +26926,7 @@
 
 
 /***/ },
-/* 182 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26941,7 +26994,7 @@
 
 
 /***/ },
-/* 183 */
+/* 184 */
 /***/ function(module, exports) {
 
 	/**
@@ -26962,16 +27015,16 @@
 
 
 /***/ },
-/* 184 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 25.11.2016.
 	 */
-	var Menu = __webpack_require__(185);
-	var openApplication = __webpack_require__(186);
+	var Menu = __webpack_require__(186);
+	var openApplication = __webpack_require__(187);
 	//let callback = require('./../callback/callback');
-	var init = __webpack_require__(187);
+	var init = __webpack_require__(188);
 	var initElement = __webpack_require__(11);
 	var headerElement = document.querySelector('.page-header');
 	var menuElement = headerElement.querySelector('.main-menu');
@@ -27004,7 +27057,7 @@
 
 
 /***/ },
-/* 185 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27088,7 +27141,7 @@
 
 
 /***/ },
-/* 186 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27153,7 +27206,7 @@
 
 
 /***/ },
-/* 187 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27163,7 +27216,7 @@
 
 
 /***/ },
-/* 188 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27275,7 +27328,7 @@
 
 
 /***/ },
-/* 189 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27285,10 +27338,10 @@
 	var client = __webpack_require__(9);
 	var moment = __webpack_require__(44);
 	var url = __webpack_require__(6);
-	var init = __webpack_require__(187);
+	var init = __webpack_require__(188);
 	var urlThridColumn = __webpack_require__(10);
-	var defineObject = __webpack_require__(164);
-	var RightSide = __webpack_require__(179);
+	var defineObject = __webpack_require__(165);
+	var RightSide = __webpack_require__(180);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	module.exports = function (data) {
@@ -27334,20 +27387,20 @@
 
 
 /***/ },
-/* 190 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 06.02.2017.
 	 */
 	var client = __webpack_require__(9);
-	var Mustache = __webpack_require__(161);
+	var Mustache = __webpack_require__(162);
 	var moment = __webpack_require__(44);
 	var url = __webpack_require__(6);
-	var init = __webpack_require__(187);
+	var init = __webpack_require__(188);
 	var urlThridColumn = __webpack_require__(10);
-	var defineObject = __webpack_require__(164);
-	var Form = __webpack_require__(180);
+	var defineObject = __webpack_require__(165);
+	var Form = __webpack_require__(181);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	module.exports = function () {
@@ -27378,7 +27431,7 @@
 
 
 /***/ },
-/* 191 */
+/* 192 */
 /***/ function(module, exports) {
 
 	/**
@@ -27397,7 +27450,7 @@
 
 
 /***/ },
-/* 192 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**

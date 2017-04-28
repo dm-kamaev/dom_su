@@ -45,6 +45,7 @@ const moscowTemplates = {
 
     // AB test
     'ab': {name: 'main_ab.html', data: {menu: {index: true}, generateCanonical: () => buildUrl('moscow', '/')}},
+    'generalnaya_uborka_ab': {name: 'generalnaya_uborka_ab.html', ServiceName: 'Генеральная уборка', data:{ menu:{general: true}}},
 
     'main': {name: 'main.html', data: {menu: {index: true}}},
     'strahovka__': {name: 'strahovka__.html', data:{ menu:{physical: true }}},
@@ -76,6 +77,8 @@ const moscowTemplates = {
     'himchistka__chistka_mebeli': {name: 'himchistka__chistka_mebeli.html', ServiceName: 'Химчистка', data:{ menu:{physical: true, himchistka: true}}},
     'himchistka__chistka_matrasov': {name: 'himchistka__chistka_matrasov.html', ServiceName: 'Химчистка', data:{ menu:{physical: true, himchistka: true}}},
     'himchistka__chistka_kovrolina_i_kovrov': {name: 'himchistka__chistka_kovrolina_i_kovrov.html', ServiceName: 'Химчистка', data:{ menu:{physical: true, himchistka: true}}},
+    'himchistka_odezhdy': {name: 'himchistka_odezhdy.html', ServiceName: 'Химчистка одежды', data:{ menu:{physical: true, himchistka_odezhdy: true}}},
+    'price_himchistka_odezhdy': {name: 'price_himchistka_odezhdy.html', ServiceName: 'Прайс-лист Химчистка одежды', data:{ menu:{physical: true, himchistka_odezhdy: true}}},
     'promyshlennyj-alpinizm': {name: 'promyshlennyj-alpinizm.html', ServiceName: 'Промышленный альпинизм', data:{ menu:{legal: true, promyshlennyj_alpinizm: true}}},
     'promyshlennyj-alpinizm__mite_okon_na_visote__': {name: 'promyshlennyj-alpinizm__mite_okon_na_visote__.html', ServiceName: 'Промышленный альпинизм', data:{ menu:{legal: true, promyshlennyj_alpinizm: true}}},
     'davay_druzhit__': {name: 'davay_druzhit__.html', data: { menu:{main: true, davay_druzhit: true}}},
