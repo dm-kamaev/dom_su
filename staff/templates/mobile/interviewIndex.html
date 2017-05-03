@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="/static/js/custom_cookie.js"></script>
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-N3VS78"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N3VS78');</script>
+    <!-- End Google Tag Manager -->
+</head>
+<style>
+    .ui-mobile .ui-page {
+        min-height: 100px!important;
+    }
+    .wrap_answerblock {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+          }
+          .test_answerblock {
+            border: none!important;
+          }
+          .freetext {
+            display: block!important;
+          }
+          .hide {
+          }
+          .ui-radio {
+            margin: 0!important;
+          }
+</style>
+<body>
+    <div style="min-height: 0" data-role="page">
+
+        {{#if GetInterview.Completed }}
+            <h2>Опрос уже пройден</h2>
+        {{/if }}
+        <p>{{ GetInterview.InterviewDescription }}</p>
+        <form data-ajax="false" method="POST" id="form_interview" action="{{staffUrl 'interviewSet' selfId GetInterview.InterviewID}}" enctype="multipart/form-data">
+            {{#each GetInterview.Questions as |question|}}
+                <div  class="question">
+                    {{#ifCond question.Type '==' 'Radio' }}
+                        <div valid data-name="{{ question.InterviewQuestionID }}" name>
+                        <p style="font-weight: bold; margin-left: 5px">{{@index }}. {{ question.QuestionTitle }}</p>
+                          {{#each question.Answers as |answer|}}
+                          <div class="wrap_answerblock">
+                            <label class="test_answerblock" for="{{ question.InterviewQuestionID }}-text">
+                              {{ answer.AnswerTitle }}
+                              <input class="answer-input"
+                                     onclick="changeStateRadio(this)"
+                                     value="{{ answer.InterviewAnswerID }}"
+                                     name="{{ question.InterviewQuestionID }}"
+                                     {{#if answer.Selected }}checked{{/if}}
+                                     {{#if ../../GetInterview.Completed }}disabled{{/if }} type="radio">
+
+                            </label>
+                            {{#if answer.FreeText }}
+                            <textarea class="freetext hide" name="answer-{{ question.InterviewQuestionID }}-wall-{{ answer.InterviewAnswerID }}-text" disabled onclick="">{{ answer.Text }}</textarea>
+                            {{/if }}
+                          </div>
+                          {{/each}}
+                    {{/ifCond}}
+                    {{#ifCond question.Type '==' 'Text' }}
+                        <div valid data-name="{{ question.InterviewQuestionID }}-text" name>
+                        <p style="font-weight: bold; margin-left: 5px">{{@index }}. {{ question.QuestionTitle }}</p>
+                               <label class="test_answerblock" for="{{ question.InterviewQuestionID }}-text">
+                                    <textarea class="answer-input"
+                                              {{#if ../GetInterview.Completed }}disabled{{/if }}
+                                              name="{{ question.InterviewQuestionID }}-text">{{#if question.Text }}{{ question.Text }}{{/if }}</textarea>
+                               </label>
+                    {{/ifCond}}
+                    {{#ifCond question.Type '==' 'Multiselect' }}
+                        <div valid data-name="{{ question.InterviewQuestionID }}" name>
+                        <p style="font-weight: bold; margin-left: 5px">{{ @index }}. {{ question.QuestionTitle }}</p>
+                        {{#each question.Answers as |answer|}}
+                          <div class="wrap_answerblock">
+                            <label class="test_answerblock">
+                                <span>{{ answer.AnswerTitle }}</span>
+                              <input class="answer-input" value="{{ answer.InterviewAnswerID }}" type="checkbox"
+                                     name="{{ question.InterviewQuestionID }}"
+                                     onclick="changeStateMulti(this)"
+                                     {{#if answer.Selected }}checked{{/if }}
+                                     {{#if ../../GetInterview.Completed }}disabled{{/if }}
+                              >
+                            </label>
+                            {{#if answer.FreeText }}
+                              <textarea class="freetext hide" name="answer-{{ question.InterviewQuestionID }}-wall-{{ answer.InterviewAnswerID }}-text" disabled onclick="">{{ answer.Text }}</textarea>
+                            {{/if}}
+                            </div>
+                        {{/each }}
+                    {{/ifCond }}
+                    </div>
+                </div>
+            {{/each}}
+            {{#if GetInterview.Completed }}
+            {{else}}
+            <input class="test_start_button" type="submit" value="Отправить">
+            {{/if }}
+        <div class="your-clock"></div>
+        </form>
+        <script>
+          function changeStateRadio(elem) {
+              var divQuestion = elem.parentNode.parentNode.parentNode;
+              $('textarea', divQuestion).addClass( "hide" ).textinput( "disable" );
+              var divAnswer = elem.parentNode.parentNode;
+              $('textarea', divAnswer).removeClass( "hide" ).textinput( "enable" );
+            }
+          function changeStateMulti(elem) {
+            var divAnswer = elem.parentNode.parentNode;
+            if (elem.checked) {
+              $('textarea', divAnswer).removeClass( "hide" ).textinput( "enable" );
+            } else {
+              $('textarea', divAnswer).addClass( "hide" ).textinput( "disable" );
+            }
+            }
+
+
+    $(document).ready(function () {
+
+    //jump to element
+    (function($) {
+        $.fn.goTo = function() {
+            $('html, body').animate({
+                scrollTop: $(this).offset().top - 80 + 'px'
+            }, 'fast');
+            return this; // for chaining...
+        }
+    })(jQuery);
+
+    //find elem
+    $("form").submit(function () {
+        form = $(this);
+        result = [];
+
+        form.find("[name][valid]").each(function () {
+            elem = $(this);
+
+            var items = form.find("input[name='" + elem.attr("data-name") + "']");
+            valid = false;
+            if (items.length < 2){
+                var textarea = form.find("textarea[name='" + elem.attr("data-name") + "']");
+                for (var i = 0; i < textarea.length; i++) {
+                    valid = valid || (textarea[i].value !== '');
+                    if (!valid)
+                        result.push({elem: elem});
+                }
+            }
+            else{
+                for (var i = 0; i < items.length; i++)
+                    valid = valid || items[i].checked;
+                if (!valid)
+                    result.push({elem: elem});
+            }
+
+        });
+
+        for (i = 0; i < result.length; i++) {
+            elem = result[i].elem.data('visualizer') === undefined ? result[i].elem : result[i].elem.data('visualizer');
+            elem.css({"color": "rgb(255, 0, 0)"});
+        }
+        $(result[0].elem).goTo();
+        form.data("valid", result.length == 0);
+        return result.length == 0;
+    });
+    var do_white = function(){
+		$(this).css({ 'color' : '#000' });
+	};
+
+    //Убрать фон
+    var do_transparent = function(){
+		$(this).css({"color": "#000"});
+	};
+
+	$("input, textarea").keypress(do_white);
+
+    $("div[valid]").each(function () {
+        $(this).find("input[type='radio'], input[type='checkbox'], textarea").click(function (e) {
+            do_transparent.call($("div[valid][data-name='" + $(this).attr("name") + "']"));
+        });
+    });
+})
+    </script>
+</div>
+</body>

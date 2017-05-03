@@ -1,0 +1,7 @@
+{{#each GetDepositListForEmployee.List as |deposit|}}
+    <a class="table-item" href="{{staffUrl 'depositDetail' ../employeeId deposit.DepositID }}">
+      <p class="table-item__text  table-item__text--bold">{{#if deposit.Date }}{{ formatPartDate deposit.Date "DD.MM.YYYY" }}<span class="table-item__text  table-item__text--big">{{formatPartDate deposit.Date "HH:mm"}}</span>{{else}}-{{/if}}</p>
+      <p class="table-item__text">Сдача денег за заказ</p>
+      <p class="table-item__text  table-item__text--summa  table-item__text--bold">Сумма: {{ toMoney deposit.Sum }}</p>
+    </a>
+{{/each}}

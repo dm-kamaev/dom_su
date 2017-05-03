@@ -149,7 +149,7 @@
     </div>
     <div class="clear"></div>
     <p>
-        <i>Начало работ:</i> <span class="brown-color">{{ formatPartDate currentDate "HH:MM" }}</span>
+        <i>Начало работ:</i> <span class="brown-color">{{ formatPartDate currentDate "HH:mm" }}</span>
     </p>
     {{#if GetDepartureData.Senior.EmployeeID }}
     <p>
@@ -174,7 +174,7 @@
         <b style="display: block">Примечание для ответственного:</b> <span style="display: block; margin-bottom: 20px">{{ GetDepartureData.SeniorNote }}</span>
     {{/if}}
     {{/if}}
-    {{#ifCond GetDepartureData.EnableChangeWorkCard 'and' isSenior }}
+    {{#ifCond GetDepartureData.EnableChangeWorkCard '&&' isSenior }}
         <a href="{{staffUrl 'orderCard' departureId }}" class="a-btn">Заполнить карту заказа</a>
     {{ else }}
         {{#if GetDepartureData.CardCompleted }}
@@ -204,7 +204,7 @@
                 <td class="second{{#if @first}}{{else}} top-white{{/if}}"></td>
                 <td class="third{{#if @first}}{{else}} top-white{{/if}}"></td>
                 <td class="brown-color forth{{#if @first}}{{else}} top-white{{/if}}"><b>{{ toMoney css.Amount }}</b></td>
-                <td class="fifth{{#if @first}}{{else}} top-white{{/if}}">{{#ifCond css.Discount '!=' 0 }}{{ toMoney css.Discount }}%{{/ifCond}}</td>
+                <td class="fifth{{#if @first}}{{else}} top-white{{/if}}">{{#ifCond css.Discount '!=' 0 }}{{ toMoney css.Discount }}{{/ifCond}}</td>
                 <td class="orange-color sixth{{#if @first}}{{else}} top-white{{/if}}"><b>{{ toMoney css.TotalAmount }}</b></td>
                 {{#each ../GetDepartureData.Employees}}
                     <td class=" for_employee {{#if @../first}}{{else}} top-white{{/if}}" style="width: {{ ../../employeeColumnWidth }}px;"></td>
@@ -251,7 +251,7 @@
                 <td class="second{{#if @first}}{{else}} top-white{{/if}}"></td>
                 <td class="third{{#if @first}}{{else}} top-white{{/if}}"></td>
                 <td class="brown-color forth{{#if @first}}{{else}} top-white{{/if}}"><b>{{ toMoney css.Amount  }}</b></td>
-                <td class="fifth{{#if @first}}{{else}} top-white{{/if}}">{{#ifCond css.Discount '!=' 0 }}{{ toMoney css.Discount }}%{{/ifCond}}</td>
+                <td class="fifth{{#if @first}}{{else}} top-white{{/if}}">{{#ifCond css.Discount '!=' 0 }}{{ toMoney css.Discount }}{{/ifCond}}</td>
                 <td class="orange-color sixth{{#if @first}}{{else}} top-white{{/if}}"><b>{{ toMoney css.TotalAmount }}</b></td>
                 {{#each GetDepartureData.Employees}}
                     <td class=" for_employee transparent {{#if @../first}}{{else}} top-white{{/if}}" style="width: {{ ../../employeeColumnWidth }}px;"></td>

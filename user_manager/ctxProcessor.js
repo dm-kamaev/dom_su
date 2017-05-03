@@ -19,6 +19,8 @@ function ctxProcessor(data) {
     if (this.state.pancakeUser === undefined)
         return data
     data = data || {}
+
+    data.currentUrl = this.request.href
     // Phone number
     let number = (this.state.pancakeUser.track.numbers && this.state.pancakeUser.track.numbers[this.state.pancakeUser.city.keyword]) ? this.state.pancakeUser.track.numbers[this.state.pancakeUser.city.keyword] :  this.state.pancakeUser.city.phone
 

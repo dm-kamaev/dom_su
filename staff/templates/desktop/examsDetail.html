@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="robots" content="index, follow"/>
+    <link href="/static/css/test_page.css?v=1" type="text/css" rel="stylesheet"/>
+    <link rel="icon" type="image/ico" href="/media/favicon.ico">
+    <title>Личный кабинет от Домовёнка</title>
+
+    <!--[if IE]><script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700&subset=latin,cyrillic' rel='stylesheet'
+          type='text/css'/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script src="/static/js/jquery.mousewheel.js"></script>
+    <script src="/static/js/jquery.tools.min.js"></script>
+    <script src="/static/js/jcarousellite_1.0.1.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/js/jquery.maskedinput.min.js"></script>
+    <script src="/static/js/test_staff.js"></script>
+
+
+    <script src="/static/js/timer.js"></script>
+    <link href="/static/css/staff_test.css" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/staff_test_timer.css" type="text/css" rel="stylesheet"/>
+    </head>
+
+<body>
+<div id="wrapper-out">
+
+<!--.main-->
+
+<header style="position: fixed">
+    <div id="header_content">
+        <div id="countdown" style=" float: right"></div>
+        <span style="float: right; margin: 20px 10px 0 0; color: #993300;">Осталось (Минут): </span>
+        <h1>{{ GetTestForEmployee.CourseTitle }}</h1>
+        <p style="height: 54px">{{ GetTestForEmployee.CourseDescription }}</p>
+    </div>
+    <div id="line"></div>
+</header>
+<div id="middle">
+<section class="content">
+    {{#if GetTestForEmployee.text }}
+        <p>{{ GetTestForEmployee.text }}</p>
+    {{else }}
+
+    <form method="POST" enctype="multipart/form-data" id="form_question" action="{{staffUrl 'examsSend' employeeId CourseID }}">
+        {{#each GetTestForEmployee.Questions as |question| }}
+            <div class="question" id="{{inc @index }}" style="" data-name="{{ question.QuestionID }}" valid name><p style="font-weight: bold; margin-left: 5px">{{inc @index }}. {{ question.QuestionTitle }} ({{#if question.IsMultiAnswers }}выберите один или несколько вариантов{{else }}выберите один ответ{{/if }})</p>
+            {{#each question.Answers as |answer|}}
+                {{#if question.IsMultiAnswers }}
+                    <label class="test_answerblock" {{#if answer.Check }} style="background: #67A151" {{/if }} ><input style="height: 15px; width: 15px; margin: 2px 5px 0 -20px;" {{#if answer.Check }} checked {{/if}} type="checkbox" onclick="add_answer(this)" name="{{ question.QuestionID }}" value="{{ answer.AnswerID }}"><span>{{ answer.AnswerTitle }}</span></label>
+                {{else}}
+                    <label class="test_answerblock" {{#if answer.Check }} style="background: #67A151" {{/if }} ><input style="height: 15px; width: 15px; margin-left: -20px; margin-right: 5px;" {{#if answer.Check }} checked {{/if}} onclick="change_answer(this)" type="radio" name="{{ question.QuestionID }}" value="{{ answer.AnswerID }}"><span>{{ answer.AnswerTitle }}</span></label>
+                {{/if }}
+            {{/each }}
+            </div>
+        {{/each }}
+        <input class="test_start_button" style='margin-top: 40px' type="submit" value="Отправить">
+    </form>
+<script>
+    function dumpAnswers(answers){
+        return answers.join('_')
+    }
+
+    function addAnswerInCookie(name, value){
+        var oldCookie = getCookie(name)
+        if (oldCookie) {
+            var parseCookie = oldCookie.split('_')
+        } else {
+            var parseCookie = []
+        }
+        parseCookie.push(value)
+        setCookie(name, dumpAnswers(parseCookie), {expires: {{ GetTestForEmployee.TimeLeft }} })
+    }
+    function removeAnswerInCookie(name, value){
+        var oldCookie = getCookie(name)
+        if (oldCookie){
+            var parseCookie = oldCookie.split('_')
+            var index = parseCookie.indexOf(value);
+            if (index > -1) {
+                parseCookie.splice(index, 1);
+            }
+            setCookie(name, dumpAnswers(parseCookie), {expires: 60 * 60})}
+    }
+    function setCookie(name, value, options) {
+      name = 'question' + name
+      options = options || {};
+      options['path'] = '/'
+
+      var expires = options.expires;
+
+      if (typeof expires == "number" && expires) {
+        var d = new Date();
+        d.setTime(d.getTime() + expires * 1000);
+        expires = options.expires = d;
+      }
+      if (expires && expires.toUTCString) {
+        options.expires = expires.toUTCString();
+      }
+
+      value = encodeURIComponent(value);
+
+      var updatedCookie = name + "=" + value;
+
+      for (var propName in options) {
+        updatedCookie += "; " + propName;
+        var propValue = options[propName];
+        if (propValue !== true) {
+          updatedCookie += "=" + propValue;
+        }
+      }
+
+      document.cookie = updatedCookie;
+    }
+    function getCookie(name) {
+        name = 'question' + name
+      var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ));
+      return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+</script>
+<script>
+    $(function(){
+            var ts = (new Date()).getTime() + {{ GetTestForEmployee.TimeLeft }} * 1000;
+            $('#countdown').countdown({
+                    timestamp        : ts,
+                    callback        : function(days, hours, minutes, seconds){
+                    }
+            });
+        function send_test(){document.getElementById("form_question").submit();}
+
+        setTimeout(send_test, ({{ GetTestForEmployee.TimeLeft }}+1) * 1000)
+    });
+</script>
+<script>
+    function change_answer(elem){
+        elem.parentElement.style.background = '#67A151';
+        var answers =  document.getElementsByName(elem.name);
+        for (var i=0; i < answers.length; i++){
+            answers[i].parentElement.style.background = '#ffdcbb';
+        }
+        elem.parentElement.style.background = '#67A151';
+        setCookie(elem.parentElement.parentElement.getAttribute('data-name'), dumpAnswers([elem.value]), {expires: 60 * 60})
+}
+</script>
+<script>
+    function add_answer(elem){
+        if (elem.checked === true){
+            addAnswerInCookie(elem.parentElement.parentElement.getAttribute('data-name'), elem.value);
+            elem.parentElement.style.background = '#67A151';
+        } else {
+            removeAnswerInCookie(elem.parentElement.parentElement.getAttribute('data-name'), elem.value);
+            elem.parentElement.style.background = '#ffdcbb';
+        }
+    }
+</script>
+    {{/if }}
+</section>
+<div class="clear"></div>
+</div>
+<!--#middle-->
+<div id="foot-empty"></div>
+</div>
+<!--#wrapper-out-->
+<footer class="main">
+    <div>
+        <div class="copy">
+            Если у Вас есть предложения и пожелания по работе личного кабинета пишите на почту <a href="mailto: develop@domovenok.su">develop@domovenok.su</a><br />
+            2007-2017 &copy; domovenok.su Клининговая компания ООО &laquo;Комфорт-сервис &laquo;Домовёнок&raquo;, все права защищены.
+        </div>
+    </div>
+</footer>
+<!--.main-->
+</body>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">(function (d, w, c) {
+    (w[c] = w[c] || []).push(function () {
+        try {
+            w.yaCounter25392548 = new Ya.Metrika({id: 25392548, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true, ut: "noindex"});
+        } catch (e) {
+        }
+    });
+    var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () {
+        n.parentNode.insertBefore(s, n);
+    };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else {
+        f();
+    }
+})(document, window, "yandex_metrika_callbacks");</script>
+<noscript>
+    <div><img src="//mc.yandex.ru/watch/25392548?ut=noindex" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript>
+<!-- /Yandex.Metrika counter -->
+</html>

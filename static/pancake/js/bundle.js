@@ -58,8 +58,8 @@
 	//var hideElement = require('./../components/orders-item/orders-item.js');
 	// var request = require('./../components/ajax-request/ajax-request.js');
 	__webpack_require__(2);
-	__webpack_require__(188);
-	var resize = __webpack_require__(193);
+	__webpack_require__(203);
+	var resize = __webpack_require__(208);
 	window.addEventListener('resize', resize);
 
 
@@ -982,9 +982,9 @@
 	var init = __webpack_require__(11);
 	// let renderOrder = require('./../../../components/order/render-order');
 	// let renderSchedule = require('./../../../components/order/render-schedule');
-	var renderItem = __webpack_require__(190);
-	var renderForm = __webpack_require__(191);
-	var message = __webpack_require__(192);
+	var renderItem = __webpack_require__(205);
+	var renderForm = __webpack_require__(206);
+	var message = __webpack_require__(207);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	var pageState = {
@@ -1605,8 +1605,6 @@
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Created by Lobova.A on 29.11.2016.
 	 */
@@ -1617,24 +1615,27 @@
 	var Selection = __webpack_require__(36);
 	var SelectionMenu = __webpack_require__(37);
 	var PopUp = __webpack_require__(38);
-	var LeftSide = __webpack_require__(161);
-	var LeftSideChild = __webpack_require__(163);
+	var LeftSide = __webpack_require__(164);
+	var LeftSideChild = __webpack_require__(166);
 	var tabs = __webpack_require__(5);
-	var handlebarsHelper = __webpack_require__(166);
+	var handlebarsHelper = __webpack_require__(169);
 	var getfriendDocument = __webpack_require__(158);
 	var pageInitial = __webpack_require__(43);
-	var paymentSendForm = __webpack_require__(167);
+	var paymentSendForm = __webpack_require__(170);
 	var client = __webpack_require__(9);
-	var ChangeTown = __webpack_require__(168);
-	var Counter = __webpack_require__(169);
-	var ServiceCard = __webpack_require__(170);
-	var ServiceCalc = __webpack_require__(173);
-	var Section = __webpack_require__(178);
-	var leftSideList = __webpack_require__(179);
-	var Careers = __webpack_require__(182);
-	var ContactForm = __webpack_require__(183);
-	var openSignPopup = __webpack_require__(184);
-	var pageHeader = __webpack_require__(185);
+	var ChangeTown = __webpack_require__(171);
+	var Counter = __webpack_require__(172);
+	var ServiceCard = __webpack_require__(173);
+	var ServiceCalc = __webpack_require__(176);
+	var ServiceCalcNew = __webpack_require__(182);
+	var Section = __webpack_require__(191);
+	var SectionAb = __webpack_require__(192);
+	var leftSideList = __webpack_require__(193);
+	var Careers = __webpack_require__(196);
+	var ContactForm = __webpack_require__(197);
+	var openSignPopup = __webpack_require__(198);
+	var Carousel = __webpack_require__(199);
+	var pageHeader = __webpack_require__(200);
 	var pageElement = document.querySelector('.page');
 	var pageAuth = document.querySelector('.page--authorization');
 	var pagePrivate = document.querySelector('.page--orders');
@@ -1650,8 +1651,9 @@
 	var contactBtnElement = pageElement.querySelector('.contact-btn');
 	var RightSideList = document.querySelectorAll('.right-side__wrap');
 	var serviceCardElements = pageElement.querySelectorAll('.service-card');
-	var serviceCalcElements = pageElement.querySelectorAll('.service-calc');
+	var serviceCalcElements = Array.prototype.slice.call(pageElement.querySelectorAll('.service-calc'));
 	var sectionWrapElements = pageElement.querySelectorAll('.section__wrap--toggle');
+	var sectionAbWrapElements = pageElement.querySelectorAll('.section-ab__wrap--toggle');
 	var careersElement = pageElement.querySelector('.careers');
 	var contactFormElement = pageElement.querySelector('.contact-section__form');
 	var buttonApplicationElements = pageElement.querySelectorAll('.button--application');
@@ -1660,6 +1662,7 @@
 	var signPopupElements = pageElement.querySelectorAll('.service-calc__sign-popup');
 	var paymentForm = pageElement.querySelector('.payment__form');
 	var buttonPriceListElements = pageElement.querySelectorAll('.menu-image__item[data-name="price-list"]');
+	var reviewCarouselElement = pageElement.querySelector('.review-carousel');
 	window.onload = function () {
 	    var afterGA = function () {
 	        setTimeout(function () {
@@ -1732,10 +1735,13 @@
 	//   }
 	// }
 	if (serviceCalcElements.length) {
-	    for (var _i = 0, serviceCalcElements_1 = serviceCalcElements; _i < serviceCalcElements_1.length; _i++) {
-	        var item = serviceCalcElements_1[_i];
-	        pageInitial.calc.push(new ServiceCalc(item));
-	    }
+	    serviceCalcElements.forEach(function (item) {
+	        if (!item.classList.contains('service-calc--new')) {
+	            pageInitial.calc.push(new ServiceCalc(item));
+	            return;
+	        }
+	        pageInitial.calc.push(new ServiceCalcNew(item));
+	    });
 	}
 	if (selectionMenu) {
 	    pageInit.selectionMenu = new SelectionMenu(selectionMenu);
@@ -1758,9 +1764,15 @@
 	    });
 	}
 	if (sectionWrapElements) {
-	    for (var _a = 0, sectionWrapElements_1 = sectionWrapElements; _a < sectionWrapElements_1.length; _a++) {
-	        var item = sectionWrapElements_1[_a];
+	    for (var _i = 0, sectionWrapElements_1 = sectionWrapElements; _i < sectionWrapElements_1.length; _i++) {
+	        var item = sectionWrapElements_1[_i];
 	        pageInit.sectionWrap = new Section(item);
+	    }
+	}
+	if (sectionAbWrapElements) {
+	    for (var _a = 0, sectionAbWrapElements_1 = sectionAbWrapElements; _a < sectionAbWrapElements_1.length; _a++) {
+	        var item = sectionAbWrapElements_1[_a];
+	        pageInit.sectionWrap = new SectionAb(item);
 	    }
 	}
 	if (popUpElement) {
@@ -1836,8 +1848,11 @@
 	        _loop_3(item);
 	    }
 	}
+	if (reviewCarouselElement) {
+	    pageInit.carousel = new Carousel(reviewCarouselElement);
+	}
 	if (pageAuth) {
-	    var authorization = __webpack_require__(189);
+	    var authorization = __webpack_require__(204);
 	    authorization();
 	}
 	module.exports = pageInit;
@@ -3677,26 +3692,33 @@
 	var client = __webpack_require__(9);
 	var BaseSelection = (function () {
 	    function BaseSelection(element) {
+	        var _this = this;
+	        this.toggle = function (e) {
+	            e.preventDefault();
+	            if (_this.isOpen) {
+	                _this.close();
+	            }
+	            else {
+	                _this.open();
+	            }
+	        };
+	        this.click = function (e) {
+	            if (!e.target.classList.contains('selection__btn') && !e.target.classList.contains('selection') && !e.target.classList.contains('selection__option') && _this.isOpen) {
+	                _this.close();
+	            }
+	        };
 	        this.element = element;
 	        this.button = element.querySelector('.selection__btn');
 	        this.list = element.querySelector('.selection__list');
 	        this.options = Array.prototype.slice.call(element.querySelectorAll('.selection__option'));
 	        this.activeOption = null;
 	        this.isOpen = false;
-	        this.toggle = this.toggle.bind(this);
 	        this.select = this.select.bind(this);
-	        this.click = this.click.bind(this);
+	        this.init();
+	    }
+	    BaseSelection.prototype.init = function () {
 	        this.button.addEventListener('click', this.toggle);
 	        document.addEventListener('click', this.click);
-	    }
-	    BaseSelection.prototype.toggle = function (e) {
-	        e.preventDefault();
-	        if (this.isOpen) {
-	            this.close();
-	        }
-	        else {
-	            this.open();
-	        }
 	    };
 	    BaseSelection.prototype.open = function () {
 	        var height = 48;
@@ -3705,15 +3727,19 @@
 	            height = 34;
 	            heightItem = 32;
 	        }
+	        if (this.element.classList.contains('selection--lg')) {
+	            height = 49;
+	            heightItem = 40;
+	        }
+	        var heightList = this.options.length > 4 ? heightItem * 4 + 2 : heightItem * this.options.length + 2;
 	        var buttonTopCoordinate = this.button.getBoundingClientRect().top;
-	        var heightOfList = this.options.length * heightItem;
-	        var heightElement = buttonTopCoordinate + height + heightOfList; //к координате кнопки прибавляем высоту кнопки и высоту списка
+	        var heightElement = buttonTopCoordinate + height + heightList; //к координате кнопки прибавляем высоту кнопки и высоту списка
 	        this.list.style.top = height + 'px';
 	        if (this.element.classList.contains('selection--open-up')) {
 	            this.element.classList.remove('selection--open-up');
 	        }
 	        if (heightElement > client.height()) {
-	            this.list.style.top = -heightOfList + 'px';
+	            this.list.style.top = '-' + heightList + 'px';
 	            this.element.classList.add('selection--open-up');
 	        }
 	        if (!this.element.classList.contains('selection--open')) {
@@ -3736,6 +3762,9 @@
 	        if (this.element.classList.contains('selection--open')) {
 	            this.element.classList.remove('selection--open');
 	        }
+	        if (this.element.classList.contains('selection--open-up')) {
+	            this.element.classList.remove('selection--open-up');
+	        }
 	        if (this.options.length) {
 	            for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
 	                var item = _a[_i];
@@ -3751,16 +3780,12 @@
 	        if (!e.currentTarget.classList.contains('selection__option--disabled')) {
 	            this.close();
 	            this.button.innerHTML = e.currentTarget.innerHTML;
+	            this.activeOption = e.currentTarget;
 	        }
 	    };
-	    BaseSelection.prototype.setOption = function (element, value) {
+	    BaseSelection.prototype.setOption = function (element) {
 	        this.activeOption = element;
 	        this.button.innerHTML = element.innerText;
-	    };
-	    BaseSelection.prototype.click = function (e) {
-	        if (!e.target.classList.contains('selection__btn') && !e.target.classList.contains('selection') && !e.target.classList.contains('selection__option') && this.isOpen) {
-	            this.close();
-	        }
 	    };
 	    BaseSelection.prototype.remove = function () {
 	        this.button.removeEventListener('click', this.toggle);
@@ -3861,6 +3886,7 @@
 	var ServiceOrder = __webpack_require__(40);
 	var getDocument = __webpack_require__(158);
 	var PriceList = __webpack_require__(160);
+	var ElementCalendar = __webpack_require__(161);
 	var mainContent = document.querySelector('.main-content');
 	var PopUp = (function () {
 	    function PopUp(element) {
@@ -3923,6 +3949,9 @@
 	                break;
 	            case 'price-list':
 	                this.item = new PriceList(this, this.element, e.detail.itemId);
+	                break;
+	            case 'service-calc-calendar':
+	                this.item = new ElementCalendar(this, this.element, e.detail.elem, e.detail.parent);
 	                break;
 	        }
 	        if (client.isMobile()) {
@@ -4037,10 +4066,10 @@
 	                    }
 	                ];
 	                if (this.calc.activePrice.dataset.feature) {
-	                    serviceClass[0].array.push({ item: this.calc.activePrice.dataset.feature, value: this.calc.activePrice.dataset.value });
+	                    serviceClass[0].array.push({ item: this.calc.activePrice.dataset.feature, value: this.calc.activePrice.dataset.quantity });
 	                }
 	                if (this.calc.activeSquire.dataset.feature) {
-	                    serviceClass[0].array.push({ item: this.calc.activeSquire.dataset.feature, value: this.calc.activeSquire.dataset.value });
+	                    serviceClass[0].array.push({ item: this.calc.activeSquire.dataset.feature, value: this.calc.activeSquire.dataset.quantity });
 	                }
 	                this.params = creatObject1C(this.service, this.calc.activePrice.dataset.schedule, serviceClass);
 	                this.calc.deactivateOutput();
@@ -4101,6 +4130,31 @@
 	var moment = __webpack_require__(44);
 	var ServiceOrderContact = (function () {
 	    function ServiceOrderContact(parent, element) {
+	        var _this = this;
+	        this.response = function (data) {
+	            if (data.Success) {
+	                if (init.cart) {
+	                    _this.form.addEventListener('submit', _this.send);
+	                    _this.close();
+	                    _this.parent.openDate(data.Data.date, data.Data.timezone);
+	                    _this.parent.uuid = data.Data.uuid;
+	                    _this.button.disabled = false;
+	                }
+	                else {
+	                    _this.form.addEventListener('submit', _this.send);
+	                    _this.button.disabled = false;
+	                    var textMessage = "Спасибо за заказ. Мы свяжемся с Вами в течение 5 минут.";
+	                    if (init.calc[0].new) {
+	                        textMessage = "Спасибо за заказ. Мы свяжемся с Вами в течение 10 минут.";
+	                    }
+	                    _this.parent.showMessage(textMessage);
+	                }
+	            }
+	            else {
+	                _this.button.disabled = false;
+	                _this.form.addEventListener('submit', _this.send);
+	            }
+	        };
 	        this.parent = parent;
 	        this.element = element;
 	        this.form = this.element.querySelector('.service-order__form');
@@ -4126,49 +4180,32 @@
 	    };
 	    ServiceOrderContact.prototype.send = function (e) {
 	        e.preventDefault();
-	        var data = {};
-	        var url = '';
-	        if (init.cart) {
-	            this.parent.params.name = this.name.value;
-	            this.parent.params.phone = this.tel.value;
-	            data = {
-	                "Method": "Client.ServiceOrder.SendContactInfo",
-	                "Param": this.parent.params
-	            };
-	            url = "/internalapi";
-	        }
-	        else {
-	            data = {
-	                type: 'Order',
-	                data: {
-	                    "name": this.name.value,
-	                    "square": init.serviceCalc ? Number(init.serviceCalc.activeSquire.dataset.value) : null,
-	                    "phone": this.tel.value
-	                }
-	            };
-	            url = "/ticket-handler";
-	        }
 	        if (validate.make(this.requireInput, this.button)) {
-	            function response(data) {
-	                if (data.Success) {
-	                    if (init.cart) {
-	                        this.form.addEventListener('submit', this.send);
-	                        this.close();
-	                        this.parent.openDate(data.Data.date, data.Data.timezone);
-	                        this.parent.uuid = data.Data.uuid;
-	                        this.button.disabled = false;
+	            if (init.calc[0].new) {
+	                init.calc[0].request(init.calc[0].data, this.name.value, this.tel.value, this.response);
+	                return;
+	            }
+	            var data = {};
+	            var url = '';
+	            if (init.cart) {
+	                this.parent.params.name = this.name.value;
+	                this.parent.params.phone = this.tel.value;
+	                data = {
+	                    "Method": "Client.ServiceOrder.SendContactInfo",
+	                    "Param": this.parent.params
+	                };
+	                url = "/internalapi";
+	            }
+	            else {
+	                data = {
+	                    type: 'Order',
+	                    data: {
+	                        "name": this.name.value,
+	                        "square": init.serviceCalc ? Number(init.serviceCalc.activeSquire.dataset.value) : null,
+	                        "phone": this.tel.value
 	                    }
-	                    else {
-	                        this.form.addEventListener('submit', this.send);
-	                        this.button.disabled = false;
-	                        var textMessage = "Спасибо за заказ. Мы свяжемся с Вами в течение 5 минут.";
-	                        this.parent.showMessage(textMessage);
-	                    }
-	                }
-	                else {
-	                    this.button.disabled = false;
-	                    this.form.addEventListener('submit', this.send);
-	                }
+	                };
+	                url = "/ticket-handler";
 	            }
 	            function error() {
 	                this.button.disabled = false;
@@ -4177,7 +4214,7 @@
 	            var json = JSON.stringify(data);
 	            this.button.disabled = true;
 	            this.form.removeEventListener('submit', this.send);
-	            request.send(url, json, response.bind(this), error.bind(this));
+	            request.send(url, json, this.response, error.bind(this));
 	        }
 	    };
 	    ServiceOrderContact.prototype.close = function () {
@@ -23715,36 +23752,47 @@
 	/**
 	 * Created by Lobova.A on 14.03.2017.
 	 */
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var BaseSelection = __webpack_require__(36);
-	var Selection = (function (_super) {
-	    __extends(Selection, _super);
-	    function Selection(parent, element) {
-	        _super.call(this, element);
-	        this.parent = parent;
-	    }
-	    Selection.prototype.select = function (e) {
-	        _super.prototype.select.call(this, e);
-	        //this.element.setAttribute('data-cost', e.currentTarget.getAttribute('data-cost'));
-	        // this.parent.change();
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	    };
-	    Selection.prototype.disabled = function (hour) {
+	})();
+	var BaseSelection = __webpack_require__(36);
+	var SelectionTime = (function (_super) {
+	    __extends(SelectionTime, _super);
+	    function SelectionTime(parent, element) {
+	        var _this = _super.call(this, element) || this;
+	        _this.parent = parent;
+	        _this.isSelected = false;
+	        return _this;
+	    }
+	    SelectionTime.prototype.select = function (e) {
+	        _super.prototype.select.call(this, e);
+	        this.isSelected = true;
+	    };
+	    ;
+	    SelectionTime.prototype.disabled = function (hour) {
 	        for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
 	            var item = _a[_i];
 	            if (item.dataset.option * 60 < hour * 60) {
 	                item.classList.add('selection__option--disabled');
 	            }
-	            if (item.dataset.option == hour) {
-	                this.setOption(item, item.dataset.option);
+	            if (!this.isSelected || this.activeOption.classList.contains('selection__option--disabled')) {
+	                if (item.dataset.option == hour) {
+	                    this.setOption(item);
+	                }
 	            }
 	        }
 	    };
-	    Selection.prototype.unblock = function () {
-	        this.setOption(this.options[0], this.options[0].dataset.option);
+	    SelectionTime.prototype.unblock = function () {
+	        if (!this.isSelected) {
+	            this.setOption(this.options[0], this.options[0].dataset.option);
+	        }
 	        for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
 	            var item = _a[_i];
 	            if (item.classList.contains('selection__option--disabled')) {
@@ -23752,9 +23800,19 @@
 	            }
 	        }
 	    };
-	    return Selection;
+	    SelectionTime.prototype.getActiveOption = function () {
+	        var _this = this;
+	        this.options.forEach(function (item) {
+	            if (Number(item.dataset.option) === Number(_this.element.dataset.option)) {
+	                _this.activeOption = item;
+	            }
+	        });
+	    };
+	    SelectionTime.prototype.reset = function () {
+	    };
+	    return SelectionTime;
 	}(BaseSelection));
-	module.exports = Selection;
+	module.exports = SelectionTime;
 
 
 /***/ },
@@ -24018,10 +24076,178 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
+	 * Created by Lobova.A on 20.04.2017.
+	 */
+	var Calendar = __webpack_require__(162);
+	var moment = __webpack_require__(44);
+	var ElementCalendar = (function () {
+	    function ElementCalendar(parent, element, elementBtn, target) {
+	        this.parent = parent;
+	        this.element = element.querySelector('.service-calc-calendar');
+	        this.target = elementBtn;
+	        this.date = elementBtn.parentNode.dataset.time;
+	        this.currentDate = target.date;
+	        this.button = target;
+	        this.calendar = new Calendar(this, this.element, this.date, this.currentDate);
+	    }
+	    ElementCalendar.prototype.changeDate = function (date, count) {
+	        this.button.set(moment(date), count);
+	        this.parent.close();
+	    };
+	    ElementCalendar.prototype.close = function () {
+	        this.calendar.remove();
+	        this.calendar = null;
+	    };
+	    return ElementCalendar;
+	}());
+	module.exports = ElementCalendar;
+
+
+/***/ },
+/* 162 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 14.03.2017.
+	 */
+	var handlebars = __webpack_require__(153);
+	var workDay = __webpack_require__(163);
+	var moment = __webpack_require__(44);
+	var Calendar = (function () {
+	    function Calendar(parent, element, date, currentDate) {
+	        var _this = this;
+	        this.switchDays = function (e) {
+	            var target = e.target;
+	            var _loop_1 = function () {
+	                if (target.classList.contains('calendar__item--active')) {
+	                    if (!target.classList.contains('calendar__item--selected')) {
+	                        if (_this.selected) {
+	                            _this.selected.classList.remove('calendar__item--selected');
+	                        }
+	                        target.classList.add('calendar__item--selected');
+	                        var element = _this.element.querySelector('.calendar__list--days');
+	                        var elements = Array.prototype.slice.call(element.querySelectorAll('.calendar__item'));
+	                        var count_1 = 0;
+	                        var first_1 = true;
+	                        var index_1 = 0;
+	                        elements.forEach(function (item, i) {
+	                            if (item.classList.contains('calendar__item--active') && first_1) {
+	                                index_1 = i;
+	                                first_1 = false;
+	                            }
+	                            if (target === item) {
+	                                count_1 = i - index_1;
+	                            }
+	                        });
+	                        _this.selected = target;
+	                        _this.parent.changeDate(target.dataset.fulldate, count_1);
+	                    }
+	                    return { value: void 0 };
+	                }
+	                target = target.parentNode;
+	            };
+	            while (target != _this) {
+	                var state_1 = _loop_1();
+	                if (typeof state_1 === "object")
+	                    return state_1.value;
+	            }
+	        };
+	        this.parent = parent;
+	        this.element = element;
+	        this.currentDate = currentDate;
+	        this.monday = this.getMonday(moment(currentDate));
+	        this.date = moment(date);
+	        this.day = this.currentDate.date();
+	        this.daysElement = null;
+	        this.selected = null;
+	        this.templateElement = document.getElementById('calendar').innerHTML;
+	        this.numberDay = 28;
+	        this.create();
+	    }
+	    Calendar.prototype.create = function () {
+	        var template = handlebars.compile(this.templateElement);
+	        var data = {
+	            days: []
+	        };
+	        var day = this.monday;
+	        var currentDay = day.date();
+	        for (var i = 0; i < this.numberDay; i++) {
+	            var activeDay = false;
+	            var selectedDay = false;
+	            var inComplete = false;
+	            if (this.currentDate.date() <= day.date() && this.currentDate.month() === day.month() || this.currentDate.month() < day.month()) {
+	                activeDay = true;
+	                if (this.date.date() === day.date() && this.date.month() === day.month()) {
+	                    selectedDay = true;
+	                }
+	            }
+	            data.days.push({ day: day.date(), fulldate: day.format('YYYY-MM-DD'), date: day.format('LL'), active: activeDay, selected: selectedDay, inComplete: inComplete });
+	            day.add(1, 'days');
+	            currentDay = day.date();
+	        }
+	        var html = template(data);
+	        var element = document.createElement('div');
+	        element.classList.add('calendar__list');
+	        element.classList.add('calendar__list--days');
+	        element.innerHTML = html;
+	        var parent = this.element.querySelector('.calendar__table');
+	        parent.appendChild(element);
+	        this.daysElement = this.element.querySelector('.calendar__list--days');
+	        this.daysElement.addEventListener('click', this.switchDays);
+	        this.selected = this.daysElement.querySelector('.calendar__item--selected');
+	        var title = this.element.querySelector('.calendar__title');
+	        title.innerText = this.currentDate.format('MMMM');
+	    };
+	    Calendar.prototype.getMonday = function (date) {
+	        var monday = date;
+	        var day = monday.date() - monday.day() + (monday.day() == 0 ? -6 : 1);
+	        if (monday.date() < day) {
+	            monday.add(1, 'months');
+	        }
+	        monday.set('date', day);
+	        return monday;
+	    };
+	    Calendar.prototype.remove = function () {
+	        this.daysElement.removeEventListener('click', this.switchDays);
+	        var parent = this.element.querySelector('.calendar__table');
+	        var element = parent.querySelector('.calendar__list--days');
+	        parent.removeChild(element);
+	    };
+	    return Calendar;
+	}());
+	module.exports = Calendar;
+
+
+/***/ },
+/* 163 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 20.04.2017.
+	 */
+	var moment = __webpack_require__(44);
+	module.exports = function (currentDate) {
+	    var beginTime = 9 * 60;
+	    var endTime = 18 * 60;
+	    var periodTime = 4 * 60;
+	    var nowTime = currentDate.hour() * 60 + currentDate.minute();
+	    var workDay = currentDate;
+	    if (!((nowTime > beginTime && (nowTime + periodTime) <= endTime) || (nowTime <= beginTime))) {
+	        workDay.add(1, 'days');
+	    }
+	    return workDay;
+	};
+
+
+/***/ },
+/* 164 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
 	 * Created by Lobova.A on 13.12.2016.
 	 */
 	var client = __webpack_require__(9);
-	var Mustache = __webpack_require__(162);
+	var Mustache = __webpack_require__(165);
 	var moment = __webpack_require__(44);
 	var request = __webpack_require__(8);
 	//let url = require('./../../js/utility/state-address/state-address');
@@ -24203,7 +24429,7 @@
 
 
 /***/ },
-/* 162 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -24838,7 +25064,7 @@
 
 
 /***/ },
-/* 163 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24852,12 +25078,12 @@
 	var handlebars = __webpack_require__(153);
 	var page = __webpack_require__(3);
 	var client = __webpack_require__(9);
-	var createElement = __webpack_require__(164);
-	var defineObject = __webpack_require__(165);
+	var createElement = __webpack_require__(167);
+	var defineObject = __webpack_require__(168);
 	var request = __webpack_require__(8);
 	var path = __webpack_require__(7);
 	var url = __webpack_require__(10);
-	var LeftSideParent = __webpack_require__(161);
+	var LeftSideParent = __webpack_require__(164);
 	var LeftSide = (function (_super) {
 	    __extends(LeftSide, _super);
 	    function LeftSide() {
@@ -24954,7 +25180,7 @@
 
 
 /***/ },
-/* 164 */
+/* 167 */
 /***/ function(module, exports) {
 
 	/**
@@ -24970,7 +25196,7 @@
 
 
 /***/ },
-/* 165 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25163,7 +25389,7 @@
 
 
 /***/ },
-/* 166 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25203,7 +25429,7 @@
 
 
 /***/ },
-/* 167 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25249,7 +25475,7 @@
 
 
 /***/ },
-/* 168 */
+/* 171 */
 /***/ function(module, exports) {
 
 	/**
@@ -25282,7 +25508,7 @@
 
 
 /***/ },
-/* 169 */
+/* 172 */
 /***/ function(module, exports) {
 
 	/**
@@ -25335,14 +25561,14 @@
 
 
 /***/ },
-/* 170 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 22.12.2016.
 	 */
-	var Counter = __webpack_require__(171);
-	var Selection = __webpack_require__(172);
+	var Counter = __webpack_require__(174);
+	var Selection = __webpack_require__(175);
 	var Card = (function () {
 	    function Card(element) {
 	        this.element = element;
@@ -25391,23 +25617,29 @@
 
 
 /***/ },
-/* 171 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 23.12.2016.
 	 */
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var BaseCounter = __webpack_require__(169);
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	var BaseCounter = __webpack_require__(172);
 	var Counter = (function (_super) {
 	    __extends(Counter, _super);
 	    function Counter(parent, element) {
-	        _super.call(this, element);
-	        this.parent = parent;
+	        var _this = _super.call(this, element) || this;
+	        _this.parent = parent;
+	        return _this;
 	    }
 	    Counter.prototype.changeValue = function (e) {
 	        this.changeWidth();
@@ -25450,7 +25682,7 @@
 
 
 /***/ },
-/* 172 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25479,21 +25711,22 @@
 
 
 /***/ },
-/* 173 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 31.01.2017.
 	 */
-	var getPrice = __webpack_require__(174);
+	var utils = __webpack_require__(177);
+	var getPrice = __webpack_require__(178);
 	var analytic = __webpack_require__(35);
 	var init = __webpack_require__(43);
 	var request = __webpack_require__(8);
-	var Cart = __webpack_require__(176);
-	var priceConf = __webpack_require__(175);
+	var Cart = __webpack_require__(180);
+	var priceConf = __webpack_require__(179);
 	var priceFormat = __webpack_require__(156);
 	var creatObject1C = __webpack_require__(157);
-	var throttle = __webpack_require__(177);
+	var throttle = __webpack_require__(181);
 	var CalcSquare = (function () {
 	    function CalcSquare(element) {
 	        this.element = element;
@@ -25533,80 +25766,51 @@
 	    };
 	    CalcSquare.prototype.switchButton = function (e) {
 	        e.preventDefault();
-	        var target = e.target;
-	        while (target != e.currentTarget) {
-	            if (target.classList.contains('service-calc__item--square')) {
-	                this.setButton(target);
-	                if (this.activeSquire.dataset.value) {
-	                    getPrice(this.outputs, this.activeSquire.dataset.value);
-	                }
-	                if (target.children) {
-	                    var arr = Array.prototype.slice.call(target.children);
-	                    this.info.square = target.dataset.value;
-	                    arr.forEach(function (item) {
-	                        if (item.classList.contains('service-calc__input')) {
-	                            this.info.square = item.value;
-	                        }
-	                    }.bind(this));
-	                }
-	                if (this.activePrice) {
-	                    this.info.price = priceFormat(this.activePrice.dataset.price);
-	                    if (init.cart) {
-	                        this.requestInfo();
-	                    }
-	                }
-	                analytic.sendSquireValue(this.element.dataset.name);
-	                return;
+	        var item = utils._switchItem(e.currentTarget, e.target);
+	        if (item) {
+	            this.activeSquire = item;
+	            if (this.activeSquire.dataset.value) {
+	                getPrice(this.outputs, this.activeSquire.dataset.value);
 	            }
-	            target = target.parentNode;
+	            this.info.square = this.activeSquire.dataset.value;
+	            if (this.activePrice) {
+	                this.info.price = priceFormat(this.activePrice.dataset.price);
+	                if (init.cart) {
+	                    this.requestInfo();
+	                }
+	            }
+	            analytic.sendSquireValue(this.activeSquire.dataset.name);
 	        }
 	    };
 	    CalcSquare.prototype.switchOutput = function (e) {
 	        e.preventDefault();
-	        var target = e.target;
-	        while (target != e.currentTarget) {
-	            if (target.classList.contains('service-calc__item--price')) {
-	                if (init.calc.length) {
-	                    init.calc.forEach(function (item) {
-	                        if (item.isActive) {
-	                            if (item !== this) {
-	                                item.deactivateOutput();
-	                                item.isActive = false;
-	                            }
+	        var item = utils._switchItem(e.currentTarget, e.target);
+	        if (item) {
+	            this.activePrice = item;
+	            if (init.calc.length) {
+	                init.calc.forEach(function (item) {
+	                    if (item.isActive) {
+	                        if (item !== this) {
+	                            item.deactivateOutput();
+	                            item.isActive = false;
 	                        }
-	                        else {
-	                            this.isActive = true;
-	                        }
-	                    }.bind(this));
-	                }
-	                this.setOutput(target);
-	                this.info.name = priceConf[target.dataset.name]['name'];
-	                this.info.id = target.dataset.name;
-	                this.info.price = priceFormat(target.dataset.price);
-	                this.info.periodicity = target.dataset.option !== '0x_week';
-	                if (this.activeSquire.children) {
-	                    var arr = Array.prototype.slice.call(this.activeSquire.children);
-	                    this.info.square = this.activeSquire.dataset.value;
-	                    arr.forEach(function (item) {
-	                        if (item.classList.contains('service-calc__input')) {
-	                            this.info.square = item.value;
-	                        }
-	                    }.bind(this));
-	                }
-	                this.requestInfo();
+	                    }
+	                    else {
+	                        this.isActive = true;
+	                    }
+	                }.bind(this));
 	            }
-	            target = target.parentNode;
+	            this.info.name = priceConf[this.activePrice.dataset.name]['name'];
+	            this.info.id = this.activePrice.dataset.name;
+	            this.info.price = priceFormat(this.activePrice.dataset.price);
+	            this.info.periodicity = this.activePrice.dataset.option !== '0x_week';
+	            this.info.square = this.activeSquire.dataset.value;
+	            this.requestInfo();
 	        }
 	    };
 	    CalcSquare.prototype.changeInput = function (e) {
 	        e.preventDefault();
-	        if (Number(e.target.value) > Number(e.target.max)) {
-	            e.target.value = e.target.max;
-	        }
-	        if (Number(e.target.value) < 0) {
-	            e.target.value = e.target.min;
-	        }
-	        this.input.parentNode.dataset.value = Number(this.input.value) > 40 ? this.input.value : '40';
+	        utils._changeInput(e.target);
 	        if (!this.previousInputValue && Number(this.input.value) > 40 || Number(e.target.value) < this.previousInputValue && this.previousInputValue > 40 || Number(this.input.value) > 40) {
 	            analytic.sendSquireValue(this.element.dataset.name);
 	            if (this.activeSquire.dataset.value) {
@@ -25661,6 +25865,22 @@
 	            this.isActive = false;
 	        }
 	    };
+	    CalcSquare.prototype.setOutput = function (output) {
+	        for (var _i = 0, _a = this.outputs; _i < _a.length; _i++) {
+	            var item = _a[_i];
+	            if (item.classList.contains('service-calc__item--selected')) {
+	                item.classList.remove('service-calc__item--selected');
+	            }
+	        }
+	        output.classList.add('service-calc__item--selected');
+	        this.activePrice = output;
+	    };
+	    CalcSquare.prototype.deactivateOutput = function () {
+	        if (this.activePrice) {
+	            this.activePrice.classList.remove('service-calc__item--active');
+	            this.isActive = false;
+	        }
+	    };
 	    CalcSquare.prototype.setButton = function (button) {
 	        for (var _i = 0, _a = this.buttons; _i < _a.length; _i++) {
 	            var item = _a[_i];
@@ -25683,10 +25903,10 @@
 	            }
 	        ];
 	        if (this.activePrice.dataset.feature) {
-	            serviceClass[0].array.push({ item: this.activePrice.dataset.feature, value: this.activePrice.dataset.value });
+	            serviceClass[0].array.push({ item: this.activePrice.dataset.feature, value: this.activePrice.dataset.quantity });
 	        }
 	        if (this.activeSquire.dataset.feature) {
-	            serviceClass[0].array.push({ item: this.activeSquire.dataset.feature, value: this.activeSquire.dataset.value });
+	            serviceClass[0].array.push({ item: this.activeSquire.dataset.feature, value: this.activeSquire.dataset.quantity });
 	        }
 	        param = creatObject1C(service, this.activePrice.dataset.schedule, serviceClass);
 	        var data = {
@@ -25717,13 +25937,68 @@
 
 
 /***/ },
-/* 174 */
+/* 177 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Lobova.A on 13.04.2017.
+	 */
+	module.exports = {
+	    _switchItem: function (container, target) {
+	        while (target != container) {
+	            if (target.classList.contains('service-calc__item')) {
+	                this._setActive(container, target);
+	                return target;
+	            }
+	            target = target.parentNode;
+	        }
+	    },
+	    _changeInput: function (input) {
+	        if (Number(input.value) > Number(input.max)) {
+	            input.value = input.max;
+	        }
+	        if (Number(input.value) < 0) {
+	            input.value = input.min;
+	        }
+	        input.parentNode.dataset.value = input.value;
+	        input.parentNode.dataset.quantity = Number(input.value) > 40 ? input.parentNode.dataset.value : 40;
+	    },
+	    _setActive: function (container, item) {
+	        var previousItem = container.querySelector('.service-calc__item--active');
+	        if (previousItem) {
+	            previousItem.classList.remove('service-calc__item--active');
+	        }
+	        item.classList.add('service-calc__item--active');
+	    },
+	    _switchPrice: function () {
+	    },
+	    _selectItem: function (container, target) {
+	        while (target != container) {
+	            var select = true;
+	            if (target.classList.contains('service-calc__item')) {
+	                if (target.classList.contains('service-calc__item--active')) {
+	                    target.classList.remove('service-calc__item--active');
+	                    select = false;
+	                }
+	                else {
+	                    target.classList.add('service-calc__item--active');
+	                }
+	                return { elem: target, select: select };
+	            }
+	            target = target.parentNode;
+	        }
+	    }
+	};
+
+
+/***/ },
+/* 178 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 17.02.2017.
 	 */
-	var priceConf = __webpack_require__(175);
+	var priceConf = __webpack_require__(179);
 	var priceFormat = __webpack_require__(156);
 	module.exports = function (elements, squire) {
 	    for (var _i = 0, elements_1 = elements; _i < elements_1.length; _i++) {
@@ -25731,8 +26006,8 @@
 	        var name_1 = element.dataset.name;
 	        var option = element.dataset.option;
 	        var output = element.querySelector('.service-calc__output');
-	        var formula = priceConf[("" + name_1)]['formula'];
-	        var itemsConfig = priceConf[("" + name_1)]['price'][option];
+	        var formula = priceConf["" + name_1]['formula'];
+	        var itemsConfig = priceConf["" + name_1]['price'][option];
 	        var price = formula(itemsConfig, squire);
 	        output.innerHTML = priceFormat(price) + ' руб';
 	        element.dataset.price = price;
@@ -25741,7 +26016,7 @@
 
 
 /***/ },
-/* 175 */
+/* 179 */
 /***/ function(module, exports) {
 
 	/**
@@ -26351,7 +26626,7 @@
 
 
 /***/ },
-/* 176 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26428,7 +26703,7 @@
 
 
 /***/ },
-/* 177 */
+/* 181 */
 /***/ function(module, exports) {
 
 	/**
@@ -26460,7 +26735,878 @@
 
 
 /***/ },
-/* 178 */
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 31.01.2017.
+	 */
+	var init = __webpack_require__(43);
+	var request = __webpack_require__(8);
+	var Cart = __webpack_require__(180);
+	var createObject1c = __webpack_require__(183);
+	var moment = __webpack_require__(44);
+	var SectionDate = __webpack_require__(184);
+	var SectionService = __webpack_require__(187);
+	var SectionOutput = __webpack_require__(188);
+	var SectionSquare = __webpack_require__(190);
+	var SectionSchedule = __webpack_require__(190);
+	var CalcNew = (function () {
+	    function CalcNew(element) {
+	        var _this = this;
+	        this.nextStep = function (e) {
+	            e.preventDefault();
+	            _this.path[_this.activeStep - 1].classList.add('service-calc__path-item--passed');
+	            _this.path[_this.activeStep - 1].classList.remove('service-calc__path-item--active');
+	            if (_this.activeStep < _this.path.length) {
+	                _this.activeStep++;
+	                _this.path[_this.activeStep - 1].classList.add('service-calc__path-item--active');
+	                _this.openSection(_this.activeStep);
+	                if (_this.activeStep === _this.path.length) {
+	                    _this.buttonNext.querySelector('span').innerText = 'Заказать';
+	                }
+	                else {
+	                    _this.buttonNext.querySelector('span').innerText = 'Следующий шаг';
+	                }
+	            }
+	            else {
+	                var event_1 = document.createEvent('Event');
+	                event_1.initEvent('open-popup', true, true);
+	                event_1.detail = {
+	                    id: 'service-order'
+	                };
+	                document.dispatchEvent(event_1);
+	            }
+	        };
+	        this.previousStep = function (e) {
+	            e.preventDefault();
+	            if (_this.activeStep > 1) {
+	                _this.path[_this.activeStep - 1].classList.add('service-calc__path-item--passed');
+	                _this.path[_this.activeStep - 1].classList.remove('service-calc__path-item--active');
+	                _this.activeStep--;
+	                _this.path[_this.activeStep - 1].classList.add('service-calc__path-item--active');
+	                _this.openSection(_this.activeStep);
+	                if (_this.activeStep === _this.path.length) {
+	                    _this.buttonNext.querySelector('span').innerText = 'Заказать';
+	                }
+	                else {
+	                    _this.buttonNext.querySelector('span').innerText = 'Следующий шаг';
+	                }
+	            }
+	        };
+	        this.changeStep = function (e) {
+	            e.preventDefault();
+	            if (e.currentTarget.classList.contains('service-calc__path-item--passed')) {
+	                _this.path[_this.activeStep - 1].classList.add('service-calc__path-item--passed');
+	                _this.path[_this.activeStep - 1].classList.remove('service-calc__path-item--active');
+	                _this.activeStep = Number(e.currentTarget.dataset.value);
+	                _this.path[_this.activeStep - 1].classList.add('service-calc__path-item--active');
+	                _this.openSection(_this.activeStep);
+	            }
+	        };
+	        this.updateActiveSquare = function (item) {
+	            _this.data.square = item;
+	        };
+	        this.updateActiveSchedule = function (item) {
+	            _this.activeSquire = item;
+	        };
+	        this.updateDate = function (item) {
+	            _this.data.date = item;
+	        };
+	        this.updateServices = function (item) {
+	            _this.data.services = item;
+	        };
+	        this.element = element;
+	        this.new = true;
+	        this.activeStep = 1;
+	        this.buttonNext = this.element.querySelector('.service-calc__button--arrow');
+	        this.buttonPrevious = this.element.querySelector('.service-calc__button--arrow-previous');
+	        this.sections = Array.prototype.slice.call(this.element.querySelectorAll('.service-calc__section'));
+	        this.path = Array.prototype.slice.call(this.element.querySelectorAll('.service-calc__path-item'));
+	        this.activeService = [];
+	        this.activePrice = null;
+	        this.activeSchedule = null;
+	        this.activeSquire = null;
+	        this.activeSection = this.getActiveSection(this.activeStep);
+	        this.previousInputValue = null;
+	        this.abilityChangeInput = true;
+	        this.isActive = false;
+	        this.data = {
+	            element: this.element,
+	            date: this.sectionDate ? this.sectionDate.buttonData.selectedDate : null,
+	            timezone: this.sectionDate ? this.sectionDate.timeZone : null,
+	            services: [],
+	            square: null,
+	            schedule: null
+	        };
+	        this.sectionSquare = new SectionSquare(this.activeSection, this.updateActiveSquare);
+	        this.sectionDate = new SectionDate(this.element.querySelector('.service-calc__inner[data-section="date"]'), this.updateDate);
+	        this.buttonNext.addEventListener('click', this.nextStep);
+	        this.buttonPrevious.addEventListener('click', this.previousStep);
+	        this.path.forEach(function (item) { return item.addEventListener('click', _this.changeStep); });
+	    }
+	    CalcNew.prototype.getActiveSection = function (step) {
+	        return this.sections[step - 1];
+	    };
+	    CalcNew.prototype.openSection = function () {
+	        this.activeSection = this.getActiveSection(this.activeStep);
+	        switch (this.activeSection.dataset.section) {
+	            case 'square':
+	                if (!this.sectionSquare) {
+	                    this.sectionSquare = new SectionSquare(this.activeSection, this.updateActiveSquare);
+	                }
+	                break;
+	            case 'price':
+	                if (!this.sectionSchedule) {
+	                    this.sectionSchedule = new SectionSchedule(this.activeSection, this.updateActiveSchedule);
+	                }
+	                break;
+	            case 'date':
+	                break;
+	            case 'addition':
+	                if (!this.sectionService) {
+	                    this.sectionService = new SectionService(this.activeSection, this.updateServices);
+	                }
+	                break;
+	            case 'output':
+	                if (!this.sectionOutput) {
+	                    this.sectionOutput = new SectionOutput(this.activeSection, this.data);
+	                }
+	                else {
+	                    this.sectionOutput.update(this.data);
+	                }
+	                break;
+	        }
+	        this.sections.forEach(function (item) {
+	            if (item.classList.contains('service-calc__section--active')) {
+	                item.classList.remove('service-calc__section--active');
+	            }
+	        });
+	        this.activeSection.classList.add('service-calc__section--active');
+	    };
+	    CalcNew.prototype.addEvent = function () {
+	        //this.outputContainer.addEventListener('click', this.switchOutput);
+	    };
+	    CalcNew.prototype.removeEvent = function () {
+	        this.buttonsContainer.removeEventListener('click', this.switchButton);
+	    };
+	    CalcNew.prototype.deactivateOutput = function () {
+	        if (this.activePrice) {
+	            this.activePrice.classList.remove('service-calc__item--selected');
+	            this.isActive = false;
+	        }
+	    };
+	    CalcNew.prototype.requestInfo = function () {
+	        var param = {};
+	        var price = this.activePrice.dataset.price;
+	        var service = this.activePrice.dataset.service;
+	        var serviceClass = [
+	            {
+	                element: this.element.dataset.class,
+	                array: []
+	            }
+	        ];
+	        if (this.activePrice.dataset.feature) {
+	            serviceClass[0].array.push({ item: this.activePrice.dataset.feature, value: this.activePrice.dataset.value });
+	        }
+	        if (this.activeSquire.dataset.feature) {
+	            serviceClass[0].array.push({ item: this.activeSquire.dataset.feature, value: this.activeSquire.dataset.value });
+	        }
+	        param = createObject1c(service, this.activePrice.dataset.schedule, serviceClass);
+	        var data = {
+	            "Method": "Client.GetExecutionInfo",
+	            "Param": param
+	        };
+	        function response(data) {
+	            if (data.Success === true) {
+	                this.info.hour = data.Data.hour;
+	                this.info.people = data.Data.people;
+	                if (!init.cart) {
+	                    init.cart = new Cart(this.info);
+	                    this.cartIsOpen = true;
+	                }
+	                else {
+	                    init.cart.change(this.info);
+	                }
+	            }
+	        }
+	        function error() { }
+	        var json = JSON.stringify(data);
+	        var url = "/internalapi";
+	        request.send(url, json, response.bind(this), error.bind(this));
+	    };
+	    CalcNew.prototype.request = function (newData, name, tel, responses) {
+	        var param = {
+	            name: name,
+	            phone: tel,
+	            schedule: newData.element.dataset.schedule,
+	            date: newData.date.date.hour(Number(newData.date.hour.replace(/:00/g, ''))).minute(0).second(0).millisecond(0).toISOString(),
+	            timezone: newData.date.timezone,
+	            services: []
+	        };
+	        function getService(data) {
+	            var service = data.element.dataset.service;
+	            var serviceClass = [
+	                {
+	                    element: data.element.dataset.class,
+	                    array: []
+	                }
+	            ];
+	            if (data.schedule) {
+	                if (data.schedule.dataset.feature) {
+	                    serviceClass[0].array.push({
+	                        item: data.schedule.dataset.feature,
+	                        value: data.schedule.dataset.quantity
+	                    });
+	                }
+	            }
+	            if (data.square) {
+	                if (data.square.dataset.feature) {
+	                    serviceClass[0].array.push({
+	                        item: data.square.dataset.feature,
+	                        value: data.square.dataset.quantity
+	                    });
+	                }
+	            }
+	            return createObject1c(service, serviceClass);
+	        }
+	        function getAddService(element) {
+	            var service = element.dataset.service;
+	            var serviceClass = [
+	                {
+	                    element: element.dataset.class,
+	                    array: []
+	                }
+	            ];
+	            serviceClass[0].array.push({
+	                item: element.dataset.feature,
+	                value: element.dataset.quantity
+	            });
+	            return createObject1c(service, serviceClass);
+	        }
+	        param.services.push(getService(newData));
+	        newData.services.forEach(function (item) {
+	            param.services.push(getAddService(item));
+	        });
+	        var data = {
+	            "Method": "Client.ServiceOrder.SendAllInfo",
+	            "Param": param
+	        };
+	        function response(data) {
+	            responses(data);
+	            this.reset();
+	        }
+	        function error() {
+	        }
+	        var json = JSON.stringify(data);
+	        var url = "/internalapi";
+	        request.send(url, json, response.bind(this), error.bind(this));
+	    };
+	    CalcNew.prototype.reset = function () {
+	        this.path[this.activeStep - 1].classList.add('service-calc__path-item--passed');
+	        this.path.forEach(function (item) {
+	            if (item.classList.contains('service-calc__path-item--passed')) {
+	                item.classList.remove('service-calc__path-item--passed');
+	            }
+	            if (item.classList.contains('service-calc__path-item--active')) {
+	                item.classList.remove('service-calc__path-item--active');
+	            }
+	        });
+	        this.activeStep = 1;
+	        this.path[this.activeStep - 1].classList.add('service-calc__path-item--active');
+	        this.openSection(this.activeStep);
+	        if (this.sectionSquare) {
+	            this.sectionSquare.reset();
+	        }
+	        if (this.sectionService) {
+	            this.sectionService.reset();
+	        }
+	        if (this.sectionOutput) {
+	            this.sectionOutput.reset();
+	        }
+	        if (this.sectionDate) {
+	            this.sectionDate.init();
+	        }
+	    };
+	    return CalcNew;
+	}());
+	module.exports = CalcNew;
+
+
+/***/ },
+/* 183 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Lobova.A on 21.04.2017.
+	 */
+	module.exports = function getScheme(service, serviceClass) {
+	    var data = {
+	        "service": service,
+	        "objectclass": []
+	    };
+	    serviceClass.forEach(function (item) {
+	        data.objectclass.push({
+	            "class": item.element,
+	            "features": []
+	        });
+	        if (item.array) {
+	            item.array.forEach(function (item) {
+	                data.objectclass[0].features.push({
+	                    "feature": item.item,
+	                    "quantity": isNaN(item.value) ? item.value : Number(item.value)
+	                });
+	            });
+	        }
+	    });
+	    return data;
+	};
+
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 20.04.2017.
+	 */
+	var ButtonDate = __webpack_require__(185);
+	var Selection = __webpack_require__(186);
+	var workDay = __webpack_require__(163);
+	var request = __webpack_require__(8);
+	var moment = __webpack_require__(44);
+	var SectionData = (function () {
+	    function SectionData(element, update) {
+	        var _this = this;
+	        this.response = function (data) {
+	            if (data.Success === true) {
+	                moment.locale('ru');
+	                _this.timeZone = data.Data.timezone;
+	                _this.date = moment.utc(data.Data.date).utcOffset(_this.timeZone);
+	                _this.buttonDateElement.dataset.time = _this.date;
+	                _this.init();
+	            }
+	        };
+	        this.element = element;
+	        this.buttonDateElement = this.element.querySelector('.button-date');
+	        this.buttonDateElementBtn = this.element.querySelector('.button-date__btn');
+	        this.selectElement = this.element.querySelector('.selection');
+	        this.timeZone = '+03:00';
+	        this.date = moment.utc().utcOffset(this.timeZone);
+	        this.update = update;
+	        this.buttonDateElement.dataset.time = this.date;
+	        this.getDate();
+	    }
+	    SectionData.prototype.init = function () {
+	        moment.locale('ru');
+	        this.workDay = workDay(this.date.clone());
+	        this.selectedDate = this.workDay.clone();
+	        if (!this.selection && !this.buttonData) {
+	            this.selection = new Selection(this, this.selectElement);
+	            this.buttonData = new ButtonDate(this, this.buttonDateElement, this.selectedDate);
+	        }
+	        else {
+	            this.selection.isSelected = false;
+	            this.buttonData.reset(this.workDay.clone());
+	        }
+	        var data = {
+	            date: this.selectedDate,
+	            timezone: this.timeZone,
+	            hour: this.selection.button.innerHTML
+	        };
+	        this.update(data);
+	    };
+	    SectionData.prototype.getDate = function () {
+	        var data = {
+	            "Method": "Common.GetTimeInfo"
+	        };
+	        function error() { }
+	        var json = JSON.stringify(data);
+	        var url = "/internalapi";
+	        request.send(url, json, this.response, error.bind(this));
+	    };
+	    SectionData.prototype.changeDate = function (counter) {
+	        if (counter === 0) {
+	            this.selection.disabled(Number(this.date.format('hh')) + 4);
+	        }
+	        if (counter !== 0) {
+	            this.selection.unblock();
+	        }
+	    };
+	    SectionData.prototype.change = function () {
+	        var data = {
+	            date: moment(this.element.querySelector('.button-date').dataset.time),
+	            hour: this.selection.button.innerHTML,
+	            timezone: this.timeZone
+	        };
+	        this.update(data);
+	    };
+	    return SectionData;
+	}());
+	module.exports = SectionData;
+
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 20.04.2017.
+	 */
+	var moment = __webpack_require__(44);
+	var SwitchData = (function () {
+	    function SwitchData(parent, element, date) {
+	        var _this = this;
+	        this.openCalendar = function (e) {
+	            e.preventDefault();
+	            var event = document.createEvent('Event');
+	            event.initEvent('open-popup', true, true);
+	            event.detail = {
+	                elem: _this.output,
+	                id: _this.output.dataset.name,
+	                parent: _this
+	            };
+	            document.dispatchEvent(event);
+	        };
+	        this.add = function (e) {
+	            if (e)
+	                e.preventDefault();
+	            if (!_this.isMax) {
+	                _this.counter += 1;
+	                _this.selectedDate.add(1, 'days');
+	                _this.update();
+	            }
+	        };
+	        this.subtract = function (e) {
+	            if (e)
+	                e.preventDefault();
+	            if (!_this.isMin) {
+	                _this.counter -= 1;
+	                _this.selectedDate.subtract(1, 'days');
+	                _this.update();
+	            }
+	        };
+	        this.parent = parent;
+	        this.element = element;
+	        this.output = this.element.querySelector('.button-date__btn');
+	        this.buttonAdd = this.element.querySelector('.button-date__plus');
+	        this.buttonSubtract = this.element.querySelector('.button-date__minus');
+	        this.counter = 0;
+	        this.minValue = 1;
+	        this.maxValue = 30;
+	        this.isMin = true;
+	        this.isMax = false;
+	        this.disabledButton();
+	        moment.locale('ru');
+	        this.date = date;
+	        this.selectedDate = this.date.clone();
+	        this.set(this.selectedDate, this.counter);
+	        if (!this.buttonSubtract.classList.contains('button-date__minus--disabled')) {
+	            this.buttonSubtract.classList.add('button-date__minus--disabled');
+	        }
+	        this.buttonAdd.addEventListener('click', this.add);
+	        this.buttonSubtract.addEventListener('click', this.subtract);
+	        this.output.addEventListener('click', this.openCalendar);
+	    }
+	    SwitchData.prototype.update = function () {
+	        this.parent.changeDate(this.counter);
+	        this.disabledButton();
+	        this.element.dataset.time = this.selectedDate.format();
+	        this.output.innerText = this.selectedDate.format('LL');
+	        this.parent.change();
+	    };
+	    SwitchData.prototype.set = function (date, counter) {
+	        this.counter = counter;
+	        this.parent.changeDate(this.counter);
+	        this.disabledButton();
+	        this.selectedDate = date.clone();
+	        this.element.dataset.time = this.selectedDate.format();
+	        this.output.innerText = this.selectedDate.format('LL');
+	        this.parent.change();
+	    };
+	    SwitchData.prototype.remove = function () {
+	        this.buttonAdd.removeEventListener('click', this.add);
+	        this.buttonSubtract.removeEventListener('click', this.subtract);
+	    };
+	    SwitchData.prototype.disabledButton = function () {
+	        this.isMin = this.counter < this.minValue;
+	        this.isMax = this.counter > this.maxValue;
+	        if (this.isMin) {
+	            if (!this.buttonSubtract.classList.contains('button-date__minus--disabled')) {
+	                this.buttonSubtract.classList.add('button-date__minus--disabled');
+	            }
+	        }
+	        else {
+	            if (this.buttonSubtract.classList.contains('button-date__minus--disabled')) {
+	                this.buttonSubtract.classList.remove('button-date__minus--disabled');
+	            }
+	        }
+	        if (this.isMax) {
+	            if (!this.buttonAdd.classList.contains('button-date__plus--disabled')) {
+	                this.buttonAdd.classList.add('button-date__plus--disabled');
+	            }
+	        }
+	        else {
+	            if (this.buttonAdd.classList.contains('button-date__plus--disabled')) {
+	                this.buttonAdd.classList.remove('button-date__plus--disabled');
+	            }
+	        }
+	    };
+	    SwitchData.prototype.reset = function (date) {
+	        this.isMin = true;
+	        this.isMax = false;
+	        this.counter = 0;
+	        this.date = date;
+	        this.selectedDate = this.date.clone();
+	        this.set(this.selectedDate, this.counter);
+	        if (!this.buttonSubtract.classList.contains('button-date__minus--disabled')) {
+	            this.buttonSubtract.classList.add('button-date__minus--disabled');
+	        }
+	    };
+	    return SwitchData;
+	}());
+	module.exports = SwitchData;
+
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 14.03.2017.
+	 */
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	var BaseSelection = __webpack_require__(36);
+	var SelectionTimeCalc = (function (_super) {
+	    __extends(SelectionTimeCalc, _super);
+	    function SelectionTimeCalc(parent, element) {
+	        var _this = _super.call(this, element) || this;
+	        _this.parent = parent;
+	        _this.isSelected = false;
+	        _this.getActiveOption();
+	        return _this;
+	    }
+	    SelectionTimeCalc.prototype.select = function (e) {
+	        _super.prototype.select.call(this, e);
+	        this.parent.change();
+	        this.isSelected = true;
+	    };
+	    ;
+	    SelectionTimeCalc.prototype.disabled = function (hour) {
+	        for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
+	            var item = _a[_i];
+	            if (item.dataset.option * 60 < hour * 60) {
+	                item.classList.add('selection__option--disabled');
+	            }
+	            if (!this.isSelected || this.activeOption.classList.contains('selection__option--disabled')) {
+	                if (item.dataset.option == hour) {
+	                    this.setOption(item);
+	                }
+	            }
+	        }
+	    };
+	    SelectionTimeCalc.prototype.unblock = function () {
+	        if (!this.isSelected) {
+	            this.setOption(this.options[0], this.options[0].dataset.option);
+	        }
+	        for (var _i = 0, _a = this.options; _i < _a.length; _i++) {
+	            var item = _a[_i];
+	            if (item.classList.contains('selection__option--disabled')) {
+	                item.classList.remove('selection__option--disabled');
+	            }
+	        }
+	    };
+	    SelectionTimeCalc.prototype.getActiveOption = function () {
+	        var _this = this;
+	        this.options.forEach(function (item) {
+	            if (Number(item.dataset.option) === Number(_this.element.dataset.option)) {
+	                _this.activeOption = item;
+	            }
+	        });
+	    };
+	    SelectionTimeCalc.prototype.reset = function () {
+	    };
+	    return SelectionTimeCalc;
+	}(BaseSelection));
+	module.exports = SelectionTimeCalc;
+
+
+/***/ },
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 20.04.2017.
+	 */
+	var utils = __webpack_require__(177);
+	var SectionService = (function () {
+	    function SectionService(element, update) {
+	        var _this = this;
+	        this.switchService = function (e) {
+	            e.preventDefault();
+	            var item = utils._selectItem(e.currentTarget, e.target);
+	            if (item) {
+	                if (item.select) {
+	                    _this.activeService.push(item.elem);
+	                }
+	                else {
+	                    _this.activeService.forEach(function (el, i) {
+	                        if (item.elem === el) {
+	                            _this.activeService.splice(i, 1);
+	                        }
+	                    });
+	                }
+	            }
+	            _this.update(_this.activeService);
+	        };
+	        this.element = element;
+	        this.container = this.element.querySelector('.service-calc__row--service');
+	        this.activeService = [];
+	        this.update = update;
+	        this.container.addEventListener('click', this.switchService);
+	    }
+	    SectionService.prototype.init = function () {
+	        //снять выделение со всех элементов
+	    };
+	    SectionService.prototype.reset = function () {
+	        this.activeService.forEach(function (item) {
+	            item.classList.remove('service-calc__item--active');
+	        });
+	        this.activeService = [];
+	        this.update(this.activeService);
+	    };
+	    return SectionService;
+	}());
+	module.exports = SectionService;
+
+
+/***/ },
+/* 188 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 20.04.2017.
+	 */
+	var creatObject1c = __webpack_require__(183);
+	var request = __webpack_require__(8);
+	var getPrice = __webpack_require__(189);
+	var priceFormat = __webpack_require__(156);
+	var moment = __webpack_require__(44);
+	var SectionOutput = (function () {
+	    function SectionOutput(element, data) {
+	        var _this = this;
+	        this.changeSchedule = function (e) {
+	            var schedule = '0x_week';
+	            if (e.target.checked) {
+	                schedule = '1x_week';
+	            }
+	            _this.data.element.dataset.schedule = schedule;
+	            _this.recordPrice(_this.data);
+	        };
+	        this.data = data;
+	        this.element = element;
+	        this.checkbox = this.element.querySelector('.checkbox-right__input');
+	        this.fieldSquare = '';
+	        this.fieldService = '';
+	        this.output = '';
+	        this.init(this.data);
+	        this.checkbox.addEventListener('change', this.changeSchedule);
+	    }
+	    SectionOutput.prototype.init = function (data) {
+	        if (data.square) {
+	            this.recordSquare(data.square);
+	        }
+	        if (data.services.length) {
+	            this.recordService(data.services);
+	        }
+	        else {
+	            var field = this.element.querySelector('.service-calc-ab__data[data-field="service"]');
+	            if (!field.classList.contains('service-calc-ab__data--hide')) {
+	                field.classList.add('service-calc-ab__data--hide');
+	            }
+	        }
+	        if (data.date) {
+	            this.recordDate(data.date);
+	        }
+	        this.recordPrice(data);
+	    };
+	    SectionOutput.prototype.reset = function () {
+	        this.checkbox.checked = false;
+	        this.data.element.dataset.schedule = '0x_week';
+	    };
+	    SectionOutput.prototype.update = function (data) {
+	        if (data.square) {
+	            this.recordSquare(data.square);
+	        }
+	        if (data.date) {
+	            this.recordDate(data.date);
+	        }
+	        if (data.services.length) {
+	            this.recordService(data.services);
+	        }
+	        else {
+	            var field = this.element.querySelector('.service-calc-ab__data[data-field="service"]');
+	            var items = field.querySelector('.service-calc-ab__data-value');
+	            var itemsElements = Array.prototype.slice.call(items.querySelectorAll('.item'));
+	            if (!field.classList.contains('service-calc-ab__data--hide')) {
+	                field.classList.add('service-calc-ab__data--hide');
+	                itemsElements.forEach(function (el) {
+	                    el.parentNode.removeChild(el);
+	                });
+	            }
+	        }
+	        this.recordPrice(data);
+	    };
+	    SectionOutput.prototype.recordSquare = function (data) {
+	        var field = this.element.querySelector('.service-calc-ab__data[data-field="square"]');
+	        var item = field.querySelector('.service-calc-ab__data-value');
+	        item.innerHTML = data.dataset.value + " \u043C<sup><small>2</small></sup>";
+	    };
+	    SectionOutput.prototype.recordService = function (data) {
+	        var field = this.element.querySelector('.service-calc-ab__data[data-field="service"]');
+	        var items = field.querySelector('.service-calc-ab__data-value');
+	        var itemsElements = Array.prototype.slice.call(items.querySelectorAll('.item'));
+	        if (field.classList.contains('service-calc-ab__data--hide')) {
+	            field.classList.remove('service-calc-ab__data--hide');
+	        }
+	        if (!itemsElements.length) {
+	            data.forEach(function (el) {
+	                var item = document.createElement('li');
+	                item.classList.add('service-calc-ab__data-item');
+	                item.classList.add('item');
+	                item.dataset.name = el.dataset.name;
+	                item.innerHTML = "<p>" + el.querySelector('.service-card-light__text').innerHTML + "</p><span class=\"service-card-light__price\">" + el.dataset.price + "\u0440</span>";
+	                items.appendChild(item);
+	            });
+	        }
+	        else {
+	            itemsElements.forEach(function (el) {
+	                var exist = data.some(function (elem) {
+	                    return el.dataset.name === elem.dataset.name;
+	                });
+	                if (!exist) {
+	                    el.parentNode.removeChild(el);
+	                }
+	            });
+	            data.forEach(function (el) {
+	                var exist = itemsElements.some(function (elem) {
+	                    return el.dataset.name === elem.dataset.name;
+	                });
+	                if (!exist) {
+	                    var item = document.createElement('li');
+	                    item.classList.add('service-calc-ab__data-item');
+	                    item.classList.add('item');
+	                    item.dataset.name = el.dataset.name;
+	                    item.innerHTML = "<p>" + el.querySelector('.service-card-light__text').innerHTML + "</p><span class=\"service-card-light__price\">" + el.dataset.price + "\u0440</span>";
+	                    items.appendChild(item);
+	                }
+	            });
+	        }
+	    };
+	    SectionOutput.prototype.recordDate = function (data) {
+	        moment.locale('ru');
+	        var field = this.element.querySelector('.service-calc-ab__data[data-field="date"]');
+	        var item = field.querySelector('.service-calc-ab__data-value');
+	        item.innerHTML = data.date.format('D MMMM') + " \u0432 " + data.hour;
+	    };
+	    SectionOutput.prototype.recordPrice = function (data) {
+	        var field = this.element.querySelector('.service-calc-ab__data[data-field="price"]');
+	        var items = field.querySelector('.service-calc-ab__data-value');
+	        var price = getPrice(data.element, data.square.dataset.value);
+	        if (data.services.length) {
+	            data.services.forEach(function (el) {
+	                price += Number(el.dataset.price);
+	            });
+	        }
+	        items.innerHTML = priceFormat(price) + "\u0440";
+	    };
+	    return SectionOutput;
+	}());
+	module.exports = SectionOutput;
+
+
+/***/ },
+/* 189 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 27.04.2017.
+	 */
+	var priceConf = __webpack_require__(179);
+	module.exports = function (element, squire) {
+	    var name = element.dataset.name;
+	    var option = element.dataset.schedule;
+	    var formula = priceConf["" + name]['formula'];
+	    var itemsConfig = priceConf["" + name]['price'][option];
+	    var price = formula(itemsConfig, squire);
+	    return Number(price);
+	};
+
+
+/***/ },
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by Lobova.A on 20.04.2017.
+	 */
+	var analytic = __webpack_require__(35);
+	var utils = __webpack_require__(177);
+	var SectionSquare = (function () {
+	    function SectionSquare(element, update) {
+	        var _this = this;
+	        this.switchButton = function (e) {
+	            e.preventDefault();
+	            var item = utils._switchItem(e.currentTarget, e.target);
+	            if (item) {
+	                _this.activeItem = item;
+	                _this.update(_this.activeItem);
+	                analytic.sendSquireValue(_this.activeItem.dataset.value);
+	            }
+	        };
+	        this.changeInput = function (e) {
+	            e.preventDefault();
+	            utils._changeInput(e.target);
+	        };
+	        this.element = element;
+	        this.container = this.element.querySelector('.service-calc__row--square');
+	        this.activeItem = this.container.querySelector('.service-calc__item--active');
+	        this.input = this.container.querySelector('.input');
+	        this.update = update;
+	        this.update(this.activeItem);
+	        this.container.addEventListener('click', this.switchButton);
+	        this.input.addEventListener('input', this.changeInput);
+	    }
+	    SectionSquare.prototype.init = function () {
+	        // сделать активной первую кнопку
+	    };
+	    SectionSquare.prototype.reset = function () {
+	        if (this.input.parentNode === this.activeItem) {
+	            this.activeItem.dataset.value = '';
+	            this.input.value = '';
+	        }
+	        this.activeItem.classList.remove('service-calc__item--active');
+	        var elements = this.container.querySelectorAll('.service-calc__item');
+	        elements[0].classList.add('service-calc__item--active');
+	        this.activeItem = elements[0];
+	        this.update(this.activeItem);
+	    };
+	    return SectionSquare;
+	}());
+	module.exports = SectionSquare;
+
+
+/***/ },
+/* 191 */
 /***/ function(module, exports) {
 
 	/**
@@ -26483,7 +27629,30 @@
 
 
 /***/ },
-/* 179 */
+/* 192 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by Lobova.A on 17.01.2017.
+	 */
+	var SectionAb = (function () {
+	    function SectionAb(element) {
+	        this.element = element;
+	        this.link = element.querySelector('.section-ab__link');
+	        this.toggle = this.toggle.bind(this);
+	        this.link.addEventListener('click', this.toggle);
+	    }
+	    SectionAb.prototype.toggle = function (e) {
+	        e.preventDefault();
+	        this.element.classList.toggle('section-ab__wrap--open');
+	    };
+	    return SectionAb;
+	}());
+	module.exports = SectionAb;
+
+
+/***/ },
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26492,9 +27661,9 @@
 	var page = document.querySelector('.page');
 	// let Order = require('./../order/order');
 	// let Orders = require('./../orders/orders');
-	var RightSide = __webpack_require__(180);
-	var LeftSide = __webpack_require__(163);
-	var Form = __webpack_require__(181);
+	var RightSide = __webpack_require__(194);
+	var LeftSide = __webpack_require__(166);
+	var Form = __webpack_require__(195);
 	var LeftSideList = [
 	    {
 	        item: 'pageArticles',
@@ -26547,7 +27716,7 @@
 
 
 /***/ },
-/* 180 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26678,7 +27847,7 @@
 
 
 /***/ },
-/* 181 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26796,7 +27965,7 @@
 
 
 /***/ },
-/* 182 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26926,7 +28095,7 @@
 
 
 /***/ },
-/* 183 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26994,7 +28163,7 @@
 
 
 /***/ },
-/* 184 */
+/* 198 */
 /***/ function(module, exports) {
 
 	/**
@@ -27015,16 +28184,86 @@
 
 
 /***/ },
-/* 185 */
+/* 199 */
+/***/ function(module, exports) {
+
+	/**
+	 * Created by A.Belokuraya on 19.04.2017.
+	 */
+	var Carousel = (function () {
+	    function Carousel(element) {
+	        var _this = this;
+	        this.activeCarousel = function (e) {
+	            e.preventDefault();
+	            if (_this.inProcess) {
+	                if (_this.timer) {
+	                    clearInterval(_this.timer);
+	                    _this.inProcess = false;
+	                }
+	            }
+	            _this.inProcess = true;
+	            var start = Date.now();
+	            if (_this.scrollWidth <= _this.container.scrollLeft) {
+	                _this.backward(start);
+	            }
+	            else {
+	                _this.forward(start);
+	            }
+	        };
+	        this.element = element;
+	        this.button = element.querySelector('.review-carousel__button');
+	        this.container = element.querySelector('.review-carousel__wrap');
+	        this.inner = this.container.querySelector('.review-carousel__inner');
+	        this.firstItem = this.inner.querySelector('.review-carousel__item');
+	        this.scrollWidth = this.inner.scrollWidth - this.container.clientWidth;
+	        this.step = this.firstItem.clientWidth + 35;
+	        this.shift = 0;
+	        this.inProcess = false;
+	        this.timer = null;
+	        this.button.addEventListener('click', this.activeCarousel);
+	    }
+	    Carousel.prototype.backward = function (start) {
+	        var _this = this;
+	        this.timer = setInterval(function () {
+	            var timePassed = Date.now() - start;
+	            _this.container.scrollLeft -= 5;
+	            if (_this.container.scrollLeft === 0) {
+	                clearInterval(_this.timer);
+	                _this.inProcess = false;
+	            }
+	            _this.shift = 0;
+	        }, 8);
+	    };
+	    ;
+	    Carousel.prototype.forward = function (start) {
+	        var _this = this;
+	        this.timer = setInterval(function () {
+	            var timePassed = Date.now() - start;
+	            _this.container.scrollLeft += 5;
+	            if (_this.container.scrollLeft === _this.shift) {
+	                clearInterval(_this.timer);
+	                _this.inProcess = false;
+	            }
+	        }, 7);
+	        this.shift += this.step;
+	    };
+	    ;
+	    return Carousel;
+	}());
+	module.exports = Carousel;
+
+
+/***/ },
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 25.11.2016.
 	 */
-	var Menu = __webpack_require__(186);
-	var openApplication = __webpack_require__(187);
+	var Menu = __webpack_require__(201);
+	var openApplication = __webpack_require__(202);
 	//let callback = require('./../callback/callback');
-	var init = __webpack_require__(188);
+	var init = __webpack_require__(203);
 	var initElement = __webpack_require__(11);
 	var headerElement = document.querySelector('.page-header');
 	var menuElement = headerElement.querySelector('.main-menu');
@@ -27057,7 +28296,7 @@
 
 
 /***/ },
-/* 186 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27141,7 +28380,7 @@
 
 
 /***/ },
-/* 187 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27206,7 +28445,7 @@
 
 
 /***/ },
-/* 188 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27216,7 +28455,7 @@
 
 
 /***/ },
-/* 189 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27328,7 +28567,7 @@
 
 
 /***/ },
-/* 190 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27338,10 +28577,10 @@
 	var client = __webpack_require__(9);
 	var moment = __webpack_require__(44);
 	var url = __webpack_require__(6);
-	var init = __webpack_require__(188);
+	var init = __webpack_require__(203);
 	var urlThridColumn = __webpack_require__(10);
-	var defineObject = __webpack_require__(165);
-	var RightSide = __webpack_require__(180);
+	var defineObject = __webpack_require__(168);
+	var RightSide = __webpack_require__(194);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	module.exports = function (data) {
@@ -27356,6 +28595,7 @@
 	        }
 	        leftSide.classList.add('left-side--hide');
 	        rightSide.classList.remove('right-side--hide');
+	        //scrollContainer().scrollTop = 0;
 	    }
 	    // ------
 	    // for (let i = 0; i < data.Services.length; i++) {
@@ -27387,20 +28627,20 @@
 
 
 /***/ },
-/* 191 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 06.02.2017.
 	 */
 	var client = __webpack_require__(9);
-	var Mustache = __webpack_require__(162);
+	var Mustache = __webpack_require__(165);
 	var moment = __webpack_require__(44);
 	var url = __webpack_require__(6);
-	var init = __webpack_require__(188);
+	var init = __webpack_require__(203);
 	var urlThridColumn = __webpack_require__(10);
-	var defineObject = __webpack_require__(165);
-	var Form = __webpack_require__(181);
+	var defineObject = __webpack_require__(168);
+	var Form = __webpack_require__(195);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	module.exports = function () {
@@ -27431,7 +28671,7 @@
 
 
 /***/ },
-/* 192 */
+/* 207 */
 /***/ function(module, exports) {
 
 	/**
@@ -27450,7 +28690,7 @@
 
 
 /***/ },
-/* 193 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**

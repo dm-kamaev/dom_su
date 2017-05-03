@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script src="/static/js/jquery.mousewheel.js"></script>
+    <script src="/static/js/jquery.tools.min.js"></script>
+    <script src="/static/js/jcarousellite_1.0.1.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/js/jquery.maskedinput.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+
+
+
+    <script src="/static/js/timer.js"></script>
+    <link href="/static/css/staff_test.css" type="text/css" rel="stylesheet"/>
+    <link href="/static/css/staff_test_timer.css" type="text/css" rel="stylesheet"/>
+
+    <style>
+
+         .wrap_answerblock {
+             border: 1px solid #ccc;
+             margin-bottom: 10px;
+             background-color: #ffdcbb;
+             padding: 0 30px 0 30px;
+         }
+
+         .answer-selected {
+            background-color: rgb(103, 161, 81);
+        }
+        .test_answerblock {
+            background-color: transparent;
+            border: none!important;
+            margin: 0;
+            padding: 20px 5px;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .freetext {
+            display: block!important;
+            width: 100%;
+            margin-bottom: 20px;
+            height: 70px;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+        .hide {
+        }
+        .ui-radio {
+            margin: 0!important;
+        }
+    </style>
+
+    {{#if GetInterview.Completed }}
+        <h2>Опрос уже пройден</h2>
+    {{/if }}
+    <p>{{ GetInterview.InterviewDescription }}</p>
+    <form method="POST" id="form_interview" action="{{staffUrl 'interviewSet' selfId GetInterview.InterviewID}}" enctype="multipart/form-data">
+        {{#each GetInterview.Questions as |question|}}
+            {{#ifCond question.Type '==' 'Radio' }}
+                <div class="question" valid data-name="{{ question.InterviewQuestionID }}" name>
+                <p style="font-weight: bold; margin-left: 5px">{{inc @index }}. {{ question.QuestionTitle }}</p>
+                {{#each question.Answers as |answer|}}
+                    <div class="wrap_answerblock {{#if answer.Selected }}answer-selected{{/if}}">
+                    <label class="test_answerblock">
+                        <span>{{ answer.AnswerTitle }}</span>
+                        <input class="answer-input" onclick="changeStateRadio(this)" value="{{ answer.InterviewAnswerID }}"
+                               style="float: left; height: 15px; width: 15px; margin: 2px 5px 0 -20px;"
+                               {{#if answer.Selected }}checked{{/if}}
+                               {{#if ../../GetInterview.Completed }}disabled{{/if }}
+                               name="{{ question.InterviewQuestionID }}" type="radio">
+                    </label>
+                    {{#if answer.FreeText }}
+                        <textarea class="freetext hide" name="answer-{{ question.InterviewQuestionID }}-wall-{{ answer.InterviewAnswerID }}-text" disabled onclick="">{{#if answer.Text }}{{ answer.Text }}{{/if}}</textarea>
+                    {{/if }}
+                    </div>
+                {{/each}}
+            {{/ifCond}}
+            {{#ifCond question.Type '==' 'Text' }}
+                <div class="question" data-name="{{ question.InterviewAnswerID }}-text">
+                <p style="font-weight: bold; margin-left: 5px">{{inc @index }}. {{ question.QuestionTitle }}</p>
+                <label class="test_answerblock">
+                    <textarea required placeholder="Предложите свой вариант ответа" class="answer-textarea"
+                              name="{{ question.InterviewQuestionID }}-text"
+                              {{#if ../GetInterview.Completed }}disabled{{/if }}
+                              style="resize: none; border-radius: 5px; margin: 3px 0 0px 0; width: 795px; height: 50px; padding: 5px; border: none">{{#if question.Text }}{{ question.Text }}{{/if }}</textarea>
+                </label>
+            {{/ifCond}}
+            {{#ifCond question.Type '==' 'Multiselect' }}
+                <div class="question" valid data-name="{{ question.InterviewQuestionID }}" name>
+                <p style="font-weight: bold; margin-left: 5px">{{inc @index }}. {{ question.QuestionTitle }}</p>
+                {{#each question.Answers as |answer|}}
+                    <div class="wrap_answerblock {{#if answer.Selected }}answer-selected{{/if }}">
+                    <label class="test_answerblock">
+                        <span>{{ answer.AnswerTitle }}</span>
+                        <input class="answer-input" onclick="changeStateMulti(this)"  value="{{ answer.InterviewAnswerID }}"
+                               style="float: left; height: 15px; width: 15px; margin: 2px 5px 0 -20px;" type="checkbox"
+                               {{#if ../../GetInterview.Completed }}disabled{{/if }}
+                               {{#if answer.Selected }}checked{{/if }}
+                               name="{{ question.InterviewQuestionID }}">
+                    </label>
+                    {{#if answer.FreeText }}
+                        <textarea class="freetext hide" name="answer-{{ question.InterviewQuestionID }}-wall-{{ answer.InterviewAnswerID }}-text" disabled onclick="">{{#if answer.Text }}{{ answer.Text }}{{/if }}</textarea>
+                    {{/if}}
+                    </div>
+                {{/each }}
+            {{/ifCond }}
+        </div>
+        {{/each}}
+        {{#if GetInterview.Completed }}
+        {{else}}
+            <input class="test_start_button" style='margin-top: 40px' type="submit" value="Отправить">
+        {{/if }}
+    </form>
+    <script>
+        function change_answer(elem) {
+            console.log(elem)
+            $('.wrap_answerblock', elem.parentElement.parentElement.parentElement).each(function(i, item){
+                item.style.backgroundColor = '#ffdcbb';
+            })
+            elem.parentElement.parentElement.style.backgroundColor =  '#67A151';
+        }
+    </script>
+    <script>
+        function add_answer(elem) {
+            $('.wrap_answerblock', elem.parentElement.parentElement.parentElement).each(function(i, item){
+                console.log(item)
+                $('input', item).each(function(index, multi){
+                    if (multi.checked === true) {
+                        item.style.backgroundColor = '#67A151';
+                    }
+                    else {
+                        item.style.backgroundColor = '#ffdcbb';
+                    }
+                })
+            })
+
+        }
+    </script>
+    <script>
+        function changeStateRadio(elem) {
+            var divQuestion = elem.parentNode.parentNode.parentNode;
+            $('textarea', divQuestion).addClass( "hide" ).prop("disabled",true);
+            var divAnswer = elem.parentNode.parentNode;
+            $('textarea', divAnswer).removeClass( "hide" ).prop("disabled",false);
+            change_answer(elem)
+        }
+        function changeStateMulti(elem) {
+            var divAnswer = elem.parentNode.parentNode;
+            if (elem.checked) {
+                $('textarea', divAnswer).removeClass("hide").prop("disabled",false);
+            } else {
+                $('textarea', divAnswer).addClass("hide").prop("disabled",true);
+            }
+            add_answer(elem)
+        }
+        $(document).ready(function () {
+
+            //jump to element
+            (function ($) {
+                $.fn.goTo = function () {
+                    $('html, body').animate({
+                        scrollTop: $(this).offset().top - 80 + 'px'
+                    }, 'fast');
+                    return this; // for chaining...
+                }
+            })(jQuery);
+
+            //find elem
+            $("form").submit(function () {
+                form = $(this);
+                result = [];
+
+                form.find("[name][valid]").each(function () {
+                    elem = $(this);
+
+                    var items = form.find("input[name='" + elem.attr("data-name") + "']");
+                    var valid = false;
+                    if (items.length < 2) {
+                        var textarea = form.find("textarea[name='" + elem.attr("data-name") + "']");
+                        for (var i = 0; i < textarea.length; i++) {
+                            valid = valid || (textarea[i].value !== '');
+                            if (!valid) {
+                                result.push({elem: elem});
+                            }
+                        }
+                    }
+                    else {
+                        for (var i = 0; i < items.length; i++)
+                            valid = valid || items[i].checked
+                        if (!valid)
+                                result.push({elem: elem});
+                    }
+
+                });
+                for (i = 0; i < result.length; i++) {
+                    elem = result[i].elem.data('visualizer') === undefined ? result[i].elem : result[i].elem.data('visualizer');
+                    $('.wrap_answerblock', elem).each(function(i, item){
+                        item.style.backgroundColor = "rgb(255, 136, 136)"
+                    })
+                    //elem.css({"background-color": "rgb(255, 136, 136)"});
+                }
+                if (result.length != 0) $(result[0].elem).goTo();
+                form.data("valid", result.length == 0);
+                return result.length == 0;
+            });
+            var do_white = function () {
+                $(this).css({'background-color': '#fff'});
+            };
+
+            //Убрать фон
+            var do_transparent = function () {
+                $(this).css({'background-color': 'transparent'});
+            };
+
+            $("input, textarea").keypress(do_white);
+
+            $("div[valid]").each(function () {
+                $(this).find("input[type='radio'], input[type='checkbox'], textarea").click(function (e) {
+                    do_transparent.call($("div[valid][data-name='" + $(this).attr("name") + "']"));
+                });
+            });
+        })
+    </script>
+</body>
+</html>

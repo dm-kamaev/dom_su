@@ -41,7 +41,7 @@
     <header class="main">
 
         <div>
-        <!--{% if phone_device %} <a style="position: absolute;font-size: 21px;margin: 20px 0 0 300px;" onclick="mobile_view(true);" href="{{ this_url }}">На мобильную версию сайта</a>{% endif %}-->
+        {{#if mobileDevice }} <a style="position: absolute;font-size: 21px;margin: 20px 0 0 300px;" onclick="mobile_view(true);" href="{{ currentUrl }}">На мобильную версию сайта</a>{{/if}}
             <div class="user_info">
                 <span class="h_for_name"><a href="{{staffUrl 'news' employeeId}}">{{ GetEmployeeData.FullTitle }}</a></span>
                 <span class="job">{{ GetEmployeeData.Post }}</span>
@@ -138,7 +138,7 @@
                    href="{{staffUrl 'orderDetail' departure.DepartureID}}">
                     <div class="simple_row{{#if @last}} last_row{{/if}}" {{#if departure.CardCompleted }}{{else}}style="background: pink"{{/if}}>
                         <div class="first_column">
-                            <b>{{ formatPartDate departure.Date "DD.MM.YYYY" }}</b> {{ formatPartDate Date "HH:MM" }}</div>
+                            <b>{{ formatPartDate departure.Date "DD.MM.YYYY" }}</b> {{ formatPartDate Date "HH:mm" }}</div>
                         <div class="second_column brown-color">{{ departure.ServiceName }}
                         </div>
                         <div class="third_column">{{ departure.AddressTitle }}

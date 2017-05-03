@@ -13,6 +13,13 @@ const opts = {
 const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, opts);
 
 
+const EmployeeNews = sequelize.define('employee_news', {
+    title: Sequelize.STRING,
+    text: Sequelize.TEXT,
+    text_m: Sequelize.TEXT,
+    active: Sequelize.BOOLEAN
+})
+
 const FAQ = sequelize.define('faq', {
     name: Sequelize.STRING,
     pub_date: {
@@ -405,5 +412,6 @@ module.exports = {
     Review: Review,
     News: News,
     Ticket: Ticket,
-    Payment: Payment
+    Payment: Payment,
+    EmployeeNews: EmployeeNews
 }

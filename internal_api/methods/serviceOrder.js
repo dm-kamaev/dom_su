@@ -19,6 +19,14 @@ async function SendAdditionInfo(ctx) {
     ctx.body = { 'Success': true }
 }
 
+async function Create(ctx) {
+    let param = ctx.request.body.Param
+    param.city = ctx.state.pancakeUser.city.keyword
+    let singleRequest = new SingleRequest1C('Client.ServiceOrder.Create', param)
+    let response1C = await singleRequest.do()
+    ctx.body = { 'Success': true }
+}
+
 async function SendContactInfo(ctx) {
     let param = ctx.request.body.Param
     const serviceOrderUUID = uuid4()
@@ -39,5 +47,6 @@ async function SendContactInfo(ctx) {
 module.exports = {
     SendTimeInfo,
     SendContactInfo,
-    SendAdditionInfo
+    SendAdditionInfo,
+    Create,
 }

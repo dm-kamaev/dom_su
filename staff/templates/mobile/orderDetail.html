@@ -31,7 +31,7 @@
                 <p><b>Оплата наличными</b></p>
             {{/if}}
     {{/if}}
-    <p><b>Дата и время: </b><br/><span>{{ formatPartDate currentDate "DD.MM.YYYY HH:MM" }}</span></p>
+    <p><b>Дата и время: </b><br/><span>{{ formatPartDate currentDate "DD.MM.YYYY HH:mm" }}</span></p>
     {{#if EarningsOrder }}
         <p><b>Заработок с заказа:</b><br/><span style="color: green"><b>{{ toMoney EarningsOrder }}</b> руб.</span></p>
     {{/if}}

@@ -41,7 +41,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.13">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.15">
   <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
@@ -144,9 +144,15 @@
                 </a>
               </li>
   
+              <li class="main-menu__item-sub {{#if menu.himchistka_odezhdy}}main-menu__item-sub--active{{/if}}">
+                <a class="main-menu__link-sub" href="{{buildUrl general.city '/himchistka_odezhdy'}}">
+                  Химчистка
+                </a>
+              </li>
+  
               <li class="main-menu__item-sub {{#if menu.himchistka}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/himchistka'}}">
-                  Химчистка
+                  Химчистка мебели
                 </a>
               </li>
   
@@ -401,7 +407,7 @@
       <section class="page__section  section-ab  section-ab--bg-dark">
         <div class="section-ab__wrap  section-ab__wrap--toggle">
           <div class="section-ab__control">
-            <p class="section-ab__control-text  text-ab  text-ab--small">Генеральная уборка длится от 6 до 8 часов и содержит более 20 видов работ.</p>
+            <p class="section-ab__control-text  text-ab  text-ab--small">Генеральная уборка длится от 6 до 8 часов и содержит более 25 видов работ.</p>
             <button class="section-ab__link  button  button--square" type="button">Подробный перечень работ</button>
           </div>
           <div class="section-ab__container">
@@ -532,7 +538,7 @@
         <div class="section-ab__wrap">
           <h2 class="section-ab__title  title">Расчёт стоимости уборки</h2>
 
-          <div class="service-calc  service-calc--new" data-name="general" data-service="general" data-class="space" data-schedule="1x_week">
+          <div class="service-calc  service-calc--new" data-name="general" data-service="general" data-class="space" data-schedule="0x_week">
 
             <div class="service-calc__inner">
                 <ul class="service-calc__path list">
@@ -574,7 +580,7 @@
               </div>
 
               <div class="service-calc__inner  service-calc__section" data-section="date">
-                <p class="section-ab__heading text">Выберите дату и время уборки:</p>
+                <p class="section-ab__heading text-ab">Выберите дату и время уборки:</p>
                 <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_2"}'>
 
                   <div class="service-calc-ab__row service-calc-ab__row--mobile">
@@ -586,7 +592,7 @@
                       </div>
                     </div>
                     <div class="service-calc__info">
-                      <div class="service-calc__selection  selection  selection--lg">
+                      <div class="service-calc__selection  selection  selection--lg" data-option="9">
                         <button class="selection__btn  service-calc__selection-btn" type="button">09:00</button>
                         <ul class="service-calc__list  selection__list  scroll-container">
                           <li class="service-calc__option  selection__option" data-option="9">09:00</li>
@@ -607,7 +613,7 @@
               </div>
 
               <div class="service-calc__inner  service-calc__section" data-section="addition">
-                <p class="section-ab__heading text">Какие дополнительные работы необходимо выполнить?</p>
+                <p class="section-ab__heading text-ab">Какие дополнительные работы необходимо выполнить?</p>
 
                 <div class="service-calc__row  service-calc__row--service">
 
@@ -616,7 +622,7 @@
                       <img class="service-card-light__image" src="/static/pancake/img/service-ironing.svg" width="50" height="50">
                       <div class="service-card-light__column">
                         <p class="service-card-light__text text-ab  text-ab--small">Глажка белья</p>
-                        <p class="service-card-light__mark  text-ab">650 р / час</p>
+                        <p class="service-card-light__mark  text-ab">500 р / час</p>
                       </div>
                     </div>
                   </div>
@@ -626,7 +632,7 @@
                       <img class="service-card-light__image" src="/static/pancake/img/service-washing-machine.svg" width="50" height="50">
                       <div class="service-card-light__column">
                         <p class="service-card-light__text  text-ab  text-ab--small">Стирка белья</p>
-                        <p class="service-card-light__mark  text-ab">650 р / час</p>
+                        <p class="service-card-light__mark  text-ab">200 р / час</p>
                       </div>
                     </div>
                   </div>
@@ -646,7 +652,7 @@
               </div>
 
               <div class="service-calc__inner  service-calc__section" data-section="output">
-                <p class="section-ab__heading text">Информация о Вашем заказе:</p>
+                <p class="section-ab__heading text-ab">Информация о Вашем заказе:</p>
 
                 <div class="service-calc-ab__column">
                   <div class="service-calc-ab__data service-calc-ab__row" data-field="square">
@@ -665,8 +671,16 @@
                     </ul>
                   </div>
                 </div>
+                <div class="service-calc-ab__data">
+                  <label class="checkbox-right">
+                    <span class="checkbox-right__text  service-calc-ab__data-title  service-calc-ab__data-title--checkbox">Постоянный клиент:</span>
+                    <input type="checkbox" class="checkbox-right__input  checkbox-right__input--small">
+                    <span class="checkbox-right__indicator checkbox-right__indicator--small"></span>
+                  </label>
+                </div>
 
                 <div class="service-calc-ab__column">
+
                   <div class="service-calc-ab__data  service-calc-ab__row" data-field="price">
                     <p class="service-calc-ab__data-title">Стоимость:</p>
                     <p class="service-calc-ab__data-value">2 640р</p>
@@ -903,7 +917,7 @@
                 </svg>
               </a>
             </div>
-            <p class="page-footer-ab__copyright">© ООО «Комфорт-сервис «Домовёнок», 2017<br>ИП Ипатова Екатерина Владимировна</p>
+            <p class="page-footer-ab__copyright">© <a class="page-footer-ab__link page-footer-ab__link--light link" href="{{buildUrl general.city '/'}}">Клининговая компания ООО «Домовёнок», 2017</a><br>ИП Ипатова Екатерина Владимировна</p>
           </div>
         </div>
       </footer>
@@ -918,9 +932,9 @@
   </main>
 
   <!-- Pop up -->
-  <div class="pop-up  pop-up--hide  scroll-container-unstable">
+  <div class="pop-up  pop-up--hide">
   
-    <div class="pop-up__wrap">
+    <div class="pop-up__wrap  scroll-container-unstable">
   
       <button class="pop-up__btn-close  icon-close" type="button">
         <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
@@ -1059,6 +1073,9 @@
         </div>
       </div>
   
+  
+      <div class="pop-up__item  pop-up__item--hide  price-list"></div>
+  
       <div class="pop-up__item pop-up__item--hide  service-calc-calendar">
           <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_2"}'>
   
@@ -1077,6 +1094,7 @@
               </div>
             </div>
           </form>
+  
       </div>
   
     </div>
@@ -1158,7 +1176,7 @@
 
 <!-- Java Script -->
 
-<script src="/static/pancake/js/bundle.min.js?v0.12"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.14"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 

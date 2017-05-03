@@ -30,8 +30,17 @@ Handlebars.registerHelper('formatDate', function (date) {
     return moment.parseZone(moment.utc(date).utcOffset(TIMEZONE).format()).format("DD.MM.YYYY")
 })
 
+Handlebars.registerHelper("inc", function(value, options) {
+    return parseInt(value) + 1;
+});
+
+Handlebars.registerHelper('render', function (html, context) {
+    let template = Handlebars.compile(html)
+    return new Handlebars.SafeString(template(context))
+})
+
 Handlebars.registerHelper('formatPartDate', function (date, format) {
-    return moment(date).format(format)
+    return moment.utc(date).format(format)
 })
 
 // Сравнение

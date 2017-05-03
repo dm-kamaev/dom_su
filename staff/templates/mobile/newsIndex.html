@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="/static/js/custom_cookie.js?v=1.0"></script>
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-N3VS78"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N3VS78');</script>
+    <!-- End Google Tag Manager -->
+</head>
+<body class="">
+    <div data-role="page" class="jqm-demos ui-responsive-panel" id="main-page" data-title="Личный кабинет от Домовёнка">
+        <div data-role="header" data-position="fixed" data-tap-toggle="false">
+            <h1 style="overflow: visible">Новости</h1>
+            <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+        </div>
+        <div role="main" class="ui-content jqm-content jqm-fullwidth">
+        <script>$(document).unbind('scroll');</script>
+
+
+    <style>
+        body {
+
+        }
+        h1 {
+            font-size: 24px;
+            text-align: center;
+        }
+        .news {
+            margin: 0 auto;
+            margin-top: 30px;
+            width: 280px;
+        }
+        .news__item {
+            border: 1px solid black;
+            padding: 20px;
+            margin-bottom: 30px;
+            font-family: Calibri;
+        }
+        .news__title {
+            font-size: 18px;
+            color: #ff8300;
+            margin: 0;
+            font-style: normal;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .news__heading {
+            font-size: 18px;
+            color: #993300;
+            margin: 0;
+            margin: 10px;
+        }
+        .news__data {
+            font-size: 12px;
+            font-weight: lighter;
+            color: #ff8300;
+            text-align: center;
+            margin: 0;
+            margin-bottom: 15px;
+        }
+        .news__image {
+            width: 100%;
+            height: auto;
+            margin: 0 auto 15px;
+        }
+        .news__image img {
+            width: 100%;
+            height: auto;
+        }
+        .news__text {
+            margin: 0;
+            font-size: 14px;
+            color: black;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .news__text img {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .news__author {
+            position: relative;
+            font-size: 12px;
+            font-style: italic;
+            color: #993300;
+            text-align: center;
+            margin: 0;
+            padding-left: 50px;
+        }
+
+        .news__author::before {
+                content: "";
+                position: absolute;
+                display: block;
+                right: 140px;
+                bottom: -9px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50px;
+                background-image: url(/static/news/MishaZhilin.jpg);
+                background-color: #f0eae0;
+        }
+    </style>
+    <div class="news">
+        {{#each news as |new|}}
+            {{#if new.text_m }}
+                <div class="news__item">
+                    {{render new.text_m ../this}}
+                </div>
+            {{/if}}
+        {{/each}}
+    </div>
+    {{#if limit }}
+        <a href="?all=true">Все новости</a>
+    {{/if}}
+            <div data-demo-html="#panel-responsive-page1"></div>
+        </div>
+            <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel">
+                <ul data-role="listview">
+                    <li data-icon="delete"><a href="#" data-rel="close">Закрыть Меню</a></li>
+                        <li><a href="{{staffUrl 'employeeDetail' selfId }}?profile=true">Профиль</a></li>
+                        <li><a href="{{staffUrl 'creditsCurrent' selfId }}">Заработано</a></li>
+                        <li><a href="{{staffUrl 'depositCurrent' selfId }}">Необходимо сдать</a></li>
+                        <li><a href="{{staffUrl 'employeeDetail' selfId }}?orders=true">Заказы</a></li>
+                        <li><a data-ajax="false" href="{{staffUrl 'rating' selfId }}">Рейтинг</a></li>
+                        <li><a href="{{staffUrl 'disciplinaryList' employeeId }}">Нарушения</a></li>
+                        <li><a href="{{staffUrl 'news' selfId}}" class="ui-btn ui-btn-active">Новости</a></li>
+                        <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li>
+                        <li><a data-ajax="false" href="{{staffUrl 'logout' }}">Выйти</a></li>
+                </ul>
+            </div>
+    </div>
+</body>
+</html>

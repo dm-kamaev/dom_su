@@ -41,7 +41,7 @@
     <header class="main">
 
         <div>
-        <!--{% if phone_device %} <a style="position: absolute;font-size: 21px;margin: 20px 0 0 300px;" onclick="mobile_view(true);" href="{{ this_url }}">На мобильную версию сайта</a>{% endif %}-->
+        {{#if mobileDevice }} <a style="position: absolute;font-size: 21px;margin: 20px 0 0 300px;" onclick="mobile_view(true);" href="{{ currentUrl }}">На мобильную версию сайта</a>{{/if}}
             <div class="user_info">
                 <span class="h_for_name"><a href="{{staffUrl 'news' employeeId}}">{{ GetEmployeeData.FullTitle }}</a></span>
                 <span class="job">{{ GetEmployeeData.Post }}</span>
@@ -83,7 +83,7 @@
             <a style="margin-right: 15px" href="{{staffUrl 'testIndex' employeeId }}">Обучение</a>
             <a style="margin-right: 15px" href="{{staffUrl 'rating' employeeId }}">Рейтинг</a>
             <a style="margin-right: 15px" href="{{staffUrl 'errors' }}"><b>Нашли ошибку?</b></a>
-            <a class="settings" href="{{staffUrl 'changePassword' }}">Смена пароля</a>
+            <!-- <a class="settings" href="{{staffUrl 'changePassword' }}">Смена пароля</a> -->
             <a class="logout" href="{{staffUrl 'logout' }}">Выйти</a>
             {{#if GetEmployeeData.AllowedOnAllDepartures }}<br><a style="margin-right: 15px" href="{{staffUrl 'allOrders' employeeId }}">Списки заказов</a>{{/if }}
             </div>

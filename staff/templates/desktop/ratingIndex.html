@@ -41,7 +41,7 @@
     <header class="main">
 
         <div>
-        <!--{% if phone_device %} <a style="position: absolute;font-size: 21px;margin: 20px 0 0 300px;" onclick="mobile_view(true);" href="{{ this_url }}">На мобильную версию сайта</a>{% endif %}-->
+        {{#if mobileDevice }} <a style="position: absolute;font-size: 21px;margin: 20px 0 0 300px;" onclick="mobile_view(true);" href="{{ currentUrl }}">На мобильную версию сайта</a>{{/if}}
             <div class="user_info">
                 <span class="h_for_name"><a href="{{staffUrl 'news' employeeId}}">{{ GetEmployeeData.FullTitle }}</a></span>
                 <span class="job">{{ GetEmployeeData.Post }}</span>
@@ -176,7 +176,7 @@ function test (data, target) {
                             border-radius: 15px;
                             padding-left: 30px;
                             margin: 20px;">
-                <h3 style="margin-top: 20px;{% if forloop.counter0 < 2 %}font-weight: bold{% endif %};"><span style="width: 150px; display: inline-block; color: #993300">{{ detail.Rating }}</span> {{{ detail.Value }}}</h3>
+                <h3 style="margin-top: 20px;"><span style="width: 150px; display: inline-block; color: #993300">{{ detail.Rating }}</span> {{{ detail.Value }}}</h3>
                 <div
                         style="margin: -40px 0px -25px -50px; padding-bottom: 20px"
                      id="detail{{@index }}"></div>

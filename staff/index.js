@@ -1,7 +1,7 @@
 "use strict";
 
 const { staffRouter } = require('./router')
-const { staffUrl } = require('./urls')
+const { staffUrl } = require('./utils')
 
 module.exports = {
     staffRouter,
