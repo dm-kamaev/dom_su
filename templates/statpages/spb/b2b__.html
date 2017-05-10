@@ -42,14 +42,18 @@
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
+
   <script>
     var analyticConf = {
       id: "{{general.analytics.GAUA}}",
       userId: "{{general.analytics.userUuid}}",
       phone: "{{general.analytics.phone}}",
-      phoneDimension: "{{general.analytics.phoneDimension}}"
+      phoneDimension: "{{general.analytics.phoneDimension}}",
+      ABTestId: {{#if general.analytics.ABTestID}}"{{general.analytics.ABTestID}}"{{else}}null{{/if}},
+      ABTestValue: {{#if general.analytics.ABTestVariant}}"{{general.analytics.ABTestVariant}}"{{else}}null{{/if}}
     };
   </script>
+
 </head>
 <body class="page">
 <!-- Page wrapper -->
@@ -1034,7 +1038,7 @@
 </div>
 <!-- /Page wrapper -->
 <!-- Java Script -->
-<script src="/static/pancake/js/bundle.min.js?v0.14"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.15"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 

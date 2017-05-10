@@ -60,6 +60,7 @@ class PancakeUser {
                 this.city = this.ctx.cities[user.data.city]
                 this.track = user.data.track
                 this.google_id = user.data.google_id
+                this.ab_test = user.data.ab_test || {}
             } else {
                 if (validateUUID(this.ctx.cookies.get(USER_COOKIE_KEY), 4)){
                     uuidNext = this.ctx.cookies.get(USER_COOKIE_KEY)
@@ -81,6 +82,7 @@ class PancakeUser {
                         city: self.ctx.cities.default.keyword,
                         track: self.track,
                         google_id: null,
+                        ab_test : {},
                     }
                 })
                 pancakeUser.model = user
@@ -208,9 +210,34 @@ class PancakeUser {
         }
     }
 
+
+
     createEvent(eventData) {
         let task = taskEventCreate(eventData)
         this.queue.push(task)
+    }
+
+    getABTest(ABTest){
+        if (this.ab_test){
+            return this.ab_test[ABTest.key]
+        }
+        return null
+    }
+
+    setABTest(ABTestKey, ABTestVariant){
+        if (this.ab_test === undefined){
+            this.ab_test = {}
+        }
+        this.ab_test[ABTestKey] = {page: ABTestVariant.page, name: ABTestVariant.name}
+        this.queue.push(async function   (previousResult, pancakeUser) {
+            logger.info('SET' + ABTestKey)
+            logger.info({page: ABTestVariant.page, name: ABTestVariant.name})
+            //pancakeUser.model.data.ab_test = pancakeUser.ab_test
+            pancakeUser.model.set(`data.ab_test.${ABTestKey}`, {});
+            //await pancakeUser.model.save()
+            pancakeUser.model.set(`data.ab_test.${ABTestKey}`, {page: ABTestVariant.page, name: ABTestVariant.name});
+            await pancakeUser.model.save()
+        })
     }
 
     changeCity(city) {

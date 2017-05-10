@@ -44,14 +44,18 @@
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
+
   <script>
     var analyticConf = {
       id: "{{general.analytics.GAUA}}",
       userId: "{{general.analytics.userUuid}}",
       phone: "{{general.analytics.phone}}",
-      phoneDimension: "{{general.analytics.phoneDimension}}"
+      phoneDimension: "{{general.analytics.phoneDimension}}",
+      ABTestId: {{#if general.analytics.ABTestID}}"{{general.analytics.ABTestID}}"{{else}}null{{/if}},
+      ABTestValue: {{#if general.analytics.ABTestVariant}}"{{general.analytics.ABTestVariant}}"{{else}}null{{/if}}
     };
   </script>
+
   <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 </head>
 <body class="page">
@@ -736,7 +740,7 @@
 
 <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=ObatHc0d8Njl16pHhU7-gfsHBuHLC6og&amp;id=mymap&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;sourceType=constructor&amp;scroll=true"></script>
 
-<script src="/static/pancake/js/bundle.min.js?v0.14"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.15"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 

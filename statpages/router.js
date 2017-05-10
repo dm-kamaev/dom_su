@@ -152,6 +152,15 @@ const spbTemplates = {
     'vakansii__uborka-territorii__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка территории', data: {uborkaTerritorii: true, menu:{ main: true, vakansii: true}}},
 };
 
+const ABTestContainer = {
+    'moscow': {
+        'generalnaya_uborka': { name: "Первое тестирование генералки Москва", key: "general_first", variations: [
+            {name: "control", page: 'generalnaya_uborka', ratio: 50, description: "Основная"},
+            {name: "variation", page: 'generalnaya_uborka_ab', ratio: 50, description: "Пробуем новый дизайн"}
+        ]},
+    }
+}
+
 const cityTemplate = {
     'moscow': moscowTemplates,
     'spb': spbTemplates,
@@ -217,10 +226,51 @@ async function loadStatPages(templateDict) {
     }
 }
 
+function choiceTest(variations) {
+    let maxNumber = variations.reduce((perValue, item) => {
+        return perValue + item.ratio
+    }, 0)
+    logger.info(maxNumber)
+    let choiceNumber = Math.round(Math.random()*maxNumber)
+    logger.info(choiceNumber)
+    let index = 0
+    for (let variation of variations){
+        index += variation.ratio
+        if (index >= choiceNumber){
+            return variation
+        }
+    }
+    return variations[0]
+}
+
+async function getPageWithABTest(ctx, page) {
+    let city = ctx.state.pancakeUser.city.keyword
+    if (ABTestContainer[city] && ABTestContainer[city][page]){
+        let ABTest = ABTestContainer[city][page]
+        let testData = ctx.state.pancakeUser.getABTest(ABTest)
+        if (!testData) {
+            let ABTestVariant = choiceTest(ABTest.variations)
+            testData = {page: ABTestVariant.page, name: ABTestVariant.name}
+            ctx.state.pancakeUser.setABTest(ABTest.key , testData)
+        }
+        let pageData = await getPage(cityTemplate[city], testData.page)
+        if (pageData && pageData.template){
+            if (pageData.data){
+                pageData.data.ABTest = {key: ABTest.key, variant: testData.name}
+            } else {
+                pageData.data = {ABTest : {key: ABTest.key, variant: testData.name}}
+            }
+            return pageData
+        }
+    }
+    return await getPage(cityTemplate[city], page)
+}
+
 loadStatPages(moscowTemplates)
 loadStatPages(spbTemplates)
 
-async function getPage(templateDict, page, next) {
+
+async function getPage(templateDict, page) {
     if (templateDict[page] !== undefined){
         let template = getTemplate({name: `${templateDict.key+templateDict[page].name}`, path: `${templateDict.dir + templateDict[page].name}`})
         let data = templateDict[page].data
@@ -280,7 +330,7 @@ statpagesRouter.get('/', async function (ctx, next) {
 
 statpagesRouter.get('/:level1', async function (ctx, next) {
     const end_slash = (ctx.path.substr(ctx.path.length - 1) == '/') ? '__' : ''
-    const { template, data } = await getPage(cityTemplate[ctx.state.pancakeUser.city.keyword], ctx.params.level1+end_slash, next)
+    const { template, data } = await getPageWithABTest(ctx, ctx.params.level1+end_slash)
     if (template === null){
         await next()
     } else {
@@ -290,7 +340,7 @@ statpagesRouter.get('/:level1', async function (ctx, next) {
 
 statpagesRouter.get('/:level1/:level2', async function (ctx, next) {
     const end_slash = (ctx.path.substr(ctx.path.length - 1) == '/') ? '__' : ''
-    const { template, data } = await getPage(cityTemplate[ctx.state.pancakeUser.city.keyword], ctx.params.level1+'__'+ctx.params.level2+end_slash, next)
+    const { template, data } = await getPageWithABTest(ctx, ctx.params.level1+'__'+ctx.params.level2+end_slash, next)
     if (template === null){
         await next()
     } else {

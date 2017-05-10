@@ -31,10 +31,24 @@ function ctxProcessor(data) {
     data.general.production = config.app.production
 
     // Analytics
+
+    // AB  Test
+
+    let ABTestID, ABTestVariant;
+    if (data.ABTest){
+        ABTestID = data.ABTest.key || null
+        ABTestVariant = data.ABTest.variant || null
+    } else {
+        ABTestID = null
+        ABTestVariant = null
+    }
+
     data.general.analytics = {
         GAUA: config.analytics.google,
         phone: data.general.phoneHref,
-        phoneDimension: phoneDimensionDict[this.state.pancakeUser.city.keyword]
+        phoneDimension: phoneDimensionDict[this.state.pancakeUser.city.keyword],
+        ABTestID : ABTestID,
+        ABTestVariant : ABTestVariant,
     }
 
 
