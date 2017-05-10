@@ -154,7 +154,7 @@ const spbTemplates = {
 
 const ABTestContainer = {
     'moscow': {
-        'generalnaya_uborka': { name: "Первое тестирование генералки Москва", key: "general_first", variations: [
+        'generalnaya_uborka1': { name: "Первое тестирование генералки Москва", key: "general_first", variations: [
             {name: "control", page: 'generalnaya_uborka', ratio: 50, description: "Основная"},
             {name: "variation", page: 'generalnaya_uborka_ab', ratio: 50, description: "Пробуем новый дизайн"}
         ]},
