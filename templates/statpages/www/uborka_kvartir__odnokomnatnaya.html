@@ -40,7 +40,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.15">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.16">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -58,7 +58,7 @@
 
 </head>
 <body class="page">
-<div class="page__wrap">
+<div class="page__wrap page__wrap--scroll">
 
   <!-- Page Header -->
   <!-- page-header.html -->
@@ -74,7 +74,7 @@
       </button>
       <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Логотип"/></a>
   
-      <a class="page-header__tel" href="tel:{{ general.phoneHref }}"><span class="page-header__tel-brown">{{ general.phoneCode }}</span> {{ general.phoneNumber }}</a>
+      <a class="page-header__tel" href="tel:{{ general.phoneHref }}"><span>{{ general.phoneCode }}</span> {{ general.phoneNumber }}</a>
     </div>
   
     <div class="page-header__wrap">
@@ -357,7 +357,7 @@
 
   <!-- Main Content -->
   <main class="page__main-content  main-content main-content--vertical">
-    <div class="main-content__wrap  scroll-container-unstable">
+    <div class="main-content__wrap">
       <section class="page__section  section  section--bg-light">
         <div class="section__wrap">
           <h1 class="section__title section__title--main title">Уборка 1-комнатной квартиры в Москве</h1>
@@ -561,8 +561,8 @@
       
         <div class="page-footer-ab__row">
           <div class="page-footer-ab__column">
-            <p class="page-footer-ab__address"><b class="text-ab text-ab--bold text-ab--lg-brown">Адрес:</b><a class="page-footer-ab__link  link" href="{{buildUrl general.city '/contacts/'}}#mymap">Москва, ул. Матросская Тишина, 16Г</a></p>
-            <p class="page-footer-ab__tel"><b class="text-ab text-ab--bold text-ab--lg-brown">Телефон:</b><a class="page-footer-ab__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
+            <p class="page-footer__address"><b class="text text--bold text--lg-brown">Адрес:</b><a class="page-footer__link  link" href="{{buildUrl general.city '/contacts/'}}#mymap">Москва, ул. Матросская Тишина, 16Г</a></p>
+            <p class="page-footer__tel"><b class="text text--bold text--lg-brown">Телефон:</b><a class="page-footer__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
             <div class="page-footer-ab__social-links  social-links">
               <a  class="social-link-ab  social-link-ab--grey" href="https://www.facebook.com/uborka.domovenok">
                 <svg  class="social-link-ab__icon  social-link-ab__icon--facebook" width="9.28" height="19.76" viewBox="0 0 9.28 19.76">
@@ -784,7 +784,7 @@
   <!-- /Pop up -->
 </div>
 
-<script src="/static/pancake/js/bundle.min.js?v0.15"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.16"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 

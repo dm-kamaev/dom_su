@@ -40,7 +40,7 @@
     <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
     <meta name="theme-color" content="#fd8204">
 
-    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.15">
+    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.16">
 
     <script src="//yastatic.net/share2/share.js" async></script>
     <base href="" >
@@ -58,7 +58,7 @@
 
   </head>
   <body class="page">
-    <div class="page__wrap">
+    <div class="page__wrap page__wrap--scroll">
 
       <!-- Page Header -->
       <!-- page-header.html -->
@@ -74,7 +74,7 @@
           </button>
           <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Логотип"/></a>
       
-          <a class="page-header__tel" href="tel:{{ general.phoneHref }}"><span class="page-header__tel-brown">{{ general.phoneCode }}</span> {{ general.phoneNumber }}</a>
+          <a class="page-header__tel" href="tel:{{ general.phoneHref }}"><span>{{ general.phoneCode }}</span> {{ general.phoneNumber }}</a>
         </div>
       
         <div class="page-header__wrap">
@@ -357,7 +357,7 @@
 
       <!-- Main Content -->
       <main class="page__main-content  main-content main-content--vertical">
-        <div class="main-content__wrap  scroll-container-unstable">
+        <div class="main-content__wrap">
           <section class="page__section  section  section--bg-light">
             <div class="section__wrap">
               <h1 class="section__title section__title--main title">Профессиональная уборка квартир</h1>
@@ -781,7 +781,7 @@
       <!-- /Pop up -->
     </div>
 
-    <script src="/static/pancake/js/bundle.min.js?v0.15"></script>
+    <script src="/static/pancake/js/bundle.min.js?v0.16"></script>
 <!-- /Java Script -->
     {{#if general.production}}
     
