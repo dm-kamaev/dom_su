@@ -36,7 +36,7 @@
 	<meta name="msapplication-TileImage" content="/static/pancake/img/mstile-144x144.png?v=1.0">
 	<meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
 	<meta name="theme-color" content="#fd8204">
-	<link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.16">
+	<link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.17">
 
 	<script src="//yastatic.net/share2/share.js" async></script>
 	<base href="">
@@ -58,7 +58,6 @@
 	<!-- Page Header -->
 	<!-- page-header.html -->
 	<header class="page-header  page-header--scroll  page-header--contact">
-	
 	  <div class="page-header__top">
 	    <button class="main-menu__btn  main-menu__btn--open">
 	      <svg class="main-menu__image" width="31" height="23.9" viewBox="0 0 31 23.9">
@@ -71,7 +70,6 @@
 	
 	    <a class="page-header__tel" href="tel:{{ general.phoneHref }}"><span>{{ general.phoneCode }}</span> {{ general.phoneNumber }}</a>
 	  </div>
-	
 	  <div class="page-header__wrap">
 	    <a class="main-menu__icon-close  icon-close" href="#">
 	      <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
@@ -79,262 +77,211 @@
 	        <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
 	      </svg>
 	    </a>
-	
 	    <!--Main Menu-->
 	    <nav class="page-header__main-menu  main-menu  scroll-container">
-	
 	      <ul class="main-menu__list">
-	
 	        <li class="main-menu__item">
 	          <a class="main-menu__link"  href="{{buildUrl general.city '/private/auth'}}">
 	            Личный кабинет
 	          </a>
 	        </li>
-	
 	        <li class="main-menu__item {{#if menu.podderzhka}}main-menu__item--active{{/if}}">
 	          <a class="main-menu__link"  href="{{buildUrl general.city '/podderzhka'}}">
 	            Поддерживающая уборка
 	          </a>
 	        </li>
-	
 	        <li class="main-menu__item {{#if menu.generalnaya_uborka}}main-menu__item--active{{/if}}">
 	          <a class="main-menu__link"  href="{{buildUrl general.city '/generalnaya_uborka'}}">
 	            Генеральная уборка
 	          </a>
 	        </li>
-	
 	        <li class="main-menu__item {{#if menu.mite_okon}}main-menu__item--active{{/if}}">
 	          <a class="main-menu__link"  href="{{buildUrl general.city '/mite_okon'}}">
 	            Мытьё окон
 	          </a>
 	        </li>
-	
 	        <li class="main-menu__item  main-menu__item--sub {{#if menu.physical}}main-menu__item--active{{/if}}">
 	          <a class="main-menu__link">
 	            Физическим лицам
 	          </a>
-	
 	          <!--Sub Menu-->
 	          <ul class="main-menu__list  main-menu__list--sub">
-	
 	            <li class="main-menu__item-sub {{#if menu.domrabotnica}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/domrabotnica'}}">
 	                Домработница
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.glazhka}}main-menu__item-sub--active{{/if}}" >
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/glazhka'}}">
 	                Глажка
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.posle_remonta}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/posle_remonta'}}">
 	                Уборка после ремонта
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.uborka_kottedzhej}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka-kottedzhej'}}">
 	                Уборка коттеджей
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.himchistka_odezhdy}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/himchistka_odezhdy'}}">
 	                Химчистка
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.himchistka}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/himchistka'}}">
 	                Химчистка мебели
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.vizov_mastera_na_dom}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
 	                Домашний мастер
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.obrabotka_poverhnostey}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
 	                Обработка поверхностей
 	              </a>
 	            </li>
-	
 	          </ul>
 	          <!--/Sub Menu-->
 	        </li>
-	
 	        <li class="main-menu__item  main-menu__item--sub {{#if menu.legal}}main-menu__item--active{{/if}}">
 	          <a class="main-menu__link">
 	            Юридическим лицам
 	          </a>
-	
 	          <!--Sub Menu-->
 	          <ul class="main-menu__list  main-menu__list--sub">
-	
 	            <li class="main-menu__item-sub {{#if menu.uborka_ofisov}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka_ofisov'}}">
 	                Уборка офисов
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.uborka_proizvodstvennyh_pomewenij}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka-proizvodstvennyh-pomewenij'}}">
 	                Уборка производственных помещений
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.ofisnyy_master}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/ofisnyy-master'}}">
 	                Офисный мастер
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.mite_stekol}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/mite_stekol'}}">
 	                Мытьё стекол
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.myte_fasadov}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/myte-fasadov'}}">
 	                Мытьё фасадов
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.promyshlennyj_alpinizm}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/promyshlennyj-alpinizm'}}">
 	                Промышленный альпинизм
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.obrabotka_poverhnostey}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
 	                Обработка поверхностей
 	              </a>
 	            </li>
-	
 	          </ul>
 	          <!--/Sub Menu-->
-	
 	        </li>
-	
 	        <li class="main-menu__item main-menu__item--sub {{#if menu.main}}main-menu__item--active{{/if}}">
 	          <a class="main-menu__link">
 	            О нас
 	          </a>
-	
 	          <!--Sub Menu-->
 	          <ul class="main-menu__list  main-menu__list--sub">
-	
 	            <li class="main-menu__item-sub {{#if menu.index}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/'}}">
 	                Главная
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.about}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/about/'}}">
 	                О компании
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.uslugi}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/uslugi/'}}">
 	                Услуги
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.price}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/price/'}}">
 	                Цены
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.vazhno_znat}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/vazhno_znat/'}}">
 	                Важно знать
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.faq}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/faq/'}}">
 	                Вопросы и ответы
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.reviews}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/otzivi/'}}">
 	                Отзывы
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.news}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/news/'}}">
 	                Новости
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.articles}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/articles/'}}">
 	                Статьи
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/gallery/'}}">
 	                Галерея
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.skidki_akcii}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/skidki_akcii/'}}">
 	                Специальные акции
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.vakansii}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/vakansii/'}}">
 	                Вакансии
 	              </a>
 	            </li>
-	
 	            <li class="main-menu__item-sub {{#if menu.davay_druzhit}}main-menu__item-sub--active{{/if}}">
 	              <a class="main-menu__link-sub" href="{{buildUrl general.city '/davay_druzhit/'}}">
 	                Обслуживание по графику
 	              </a>
 	            </li>
-	
 	          </ul>
 	          <!--/Sub Menu-->
 	        </li>
-	
 	        <li class="main-menu__item {{#if menu.contacts}}main-menu__item--active{{/if}}">
 	          <a class="main-menu__link"  href="{{buildUrl general.city '/contacts/'}}">
 	            Контакты
 	          </a>
 	        </li>
-	
 	      </ul>
-	
 	    </nav>
 	    <!--/Main Menu-->
-	
 	    <!--
 	    <div class="page-header__contact  contact">
 	      <a class="contact__callback" href>Свяжитесь со мной</a>
 	    </div>
 	    -->
-	
 	    <div class="change-town">
-	
 	      <p class="change-town__btn">{{general.city.title}}</p>
-	
 	      <ul class="change-town__list list">
 	        <li class="change-town__item {{#ifCond general.city.keyword '==' 'moscow' }}change-town__item--active{{/ifCond}} item">
 	          <a class="change-town__link link" href="{{buildUrl 'moscow' general.path}}">Москва</a>
@@ -344,9 +291,7 @@
 	        </li>
 	      </ul>
 	    </div>
-	
 	  </div>
-	
 	</header>
 	<!-- /Page Header -->
 	<!-- Main Content -->
@@ -360,8 +305,7 @@
 							<img class="description__image" src="/static/pancake/img/cleaning-window-main.svg" width="auto" height="200">
 						</div>
 						<div class="description__block">
-							<p class="description__text">Глаза – зеркало души. По аналогии с этим можно сказать, что окна – это зеркало и даже «лицо» дома. Если окна грязные, даже ежедневная уборка не сделает квартиру чистой, опрятной. При дневном свете будут заметны все недостатки на стеклах, рамах и витражах. «Домовёнок» считает, что если Вы задумали уборку, то в первую очередь направьте свои усилия на мойку окон.
-							</p>
+							<p class="description__text">Окна – это лицо дома. Если окна грязные, даже ежедневная уборка не сделает квартиру опрятной. «Домовёнок» считает, что хорошую уборку нужно начинать с мойки окон.</p>
 							<button class="description__button button button--application" type="button" data-name="service-order">Заказать услугу</button>
 						</div>
 					</div>
@@ -376,7 +320,7 @@
 								<div class="service-condition__image">
 									<img height="70" width="70" src="/static/pancake/img/service-inventory.svg">
 								</div>
-								<p class="text text--center">Домовёнок привозит с собой весь необходимый инвентарь для мытья окон, кроме ведра и стремянки.</p>
+								<p class="text text--center">Домовёнок привозит весь необходимый инвентарь, кроме ведра и стремянки.</p>
 							</div>
 							<div class="service-condition__block">
 								<div class="service-condition__image">
@@ -469,22 +413,13 @@
 					<div class="section__container">
 						<ul class="service-implement list">
 							<li class="service-implement__item service-implement__item--funds item">
-								<p class="service-implement__text text">При заказе только мытья окон в квартире или офисе минимальная сумма заказа - 1000 руб. Возможно увеличение стоимости при наличии сложных загрязнений: цемент, краска, скотч или трудноотделяемая пленка.</p>
+								<p class="service-implement__text text">При заказе только мытья окон в квартире или офисе минимальная сумма заказа - 1000 руб.</p>
 							</li>
 							<li class="service-implement__item service-implement__item--man item">
-								<p class="service-implement__text text">Услуга осуществляется одним или двумя домовятами (мужчинами), в зависимости от объема работ. «Домовёнок» несет ответственность только за людей одетых в фирменную спецодежду с логотипом компании.</p>
+								<p class="service-implement__text text">«Домовёнок» отвечает только за людей в спецодежде с логотипом компании.</p>
 							</li>
 							<li class="service-implement__item service-implement__item--time item">
-								<p class="service-implement__text text">Мойка окон в помещениях площадью от 40 м<sup><small>2</small></sup> до 100 м<sup><small>2</small></sup> занимает от 1-го часа до 4-х часов, в зависимости от объёма работ и сложности остекления.</p>
-							</li>
-							<li class="service-implement__item service-implement__item--funds item">
-								<p class="service-implement__text text">«Домовёнок» предоставляет все необходимое (ручной инвентарь и протирочные материалы, средства для мытья окон, различные расходные материалы) от Вас желательно предоставить ведро и стремянку (табурет).</p>
-							</li>
-							<li class="service-implement__item service-implement__item--important item">
-								<p class="service-implement__text text">Мытьё окон относится к опасным работам, с повышенным риском для жизни и здоровья человека! Мытьё окон выполняется специально обученными и подготовленными людьми, с обязательным применением профессионального оборудования. Наличие страховочных поясов и телескопических штанг <b class="text text--bold text--lg-brown">ОБЯЗАТЕЛЬНО</b>! Клиент, который допускает домовёнка к работе без этих инструментов несет ответственность за последствия, т.к. работы проводятся на его территории (объекте).</p>
-							</li>
-							<li class="service-implement__item service-implement__item--important item">
-								<p class="service-implement__text text">«Домовёнок» всегда обеспечивает домовят этими и другими необходимыми инструментами, но не все домовята строго соблюдают инструкции по технике безопасности. Если домовёнок пришел к Вам проводить работы неподготовленным – сообщите, пожалуйста, об этом, в таком случае работы будут перенесены и проведены для Вас абсолютно <b class="text text--bold text--lg-brown">БЕСПЛАТНО</b>!</p>
+								<p class="service-implement__text text">Мытьё окон относится к опасным работам, с повышенным риском для жизни и здоровья человека! Мытьё окон обязательно выполняется с применением страховочных поясов и телескопических штанг. Если домовёнок пришел без них – сообщите об этом, и мы проведем мытье окон БЕСПЛАТНО!</p>
 							</li>
 						</ul>
 					</div>
@@ -588,23 +523,23 @@
 					<h2 class="section__title  title  title--big  title--center">Профессиональная мойка окон в квартире и офисе</h2>
 					<p class="section__paragraph text"><b class="text text--bold text--lg-brown">Не стоит экономить</b> на уборке своего дома. Даже самый дорогой, модный интерьер не будет выглядеть привлекательно, если фасад и окна здания покрыты пылью. Услуга «мойка окон в Москве» оказывается квалифицированными специалистами с гарантированно высоким результатом в удобное для заказчика время.
 					</p>
-					<p class="section__paragraph text">Клиентам, которых интересует регулярная <a class="link link--orange" href="{{buildUrl general.city '/davay_druzhit/'}}">уборка по графику</a>, предлагаются выгодные <a class="link link--orange" href="{{buildUrl general.city '/skidki_akcii/'}}">скидки</a> на услугу мойки окон.
+					<p class="section__paragraph text">Клиентам, которых интересует регулярная <a class="link link--orange" href="{{buildUrl general.city '/davay_druzhit/'}}">уборка по графику</a>, предлагаются выгодные <a class="link link--orange" href="{{buildUrl general.city '/skidki_akcii/'}}">скидки</a> <noindex>на услугу мойки окон</noindex>.
 					</p>
 					<p class="section__paragraph text">Профессиональные услуги и разумная стоимость – визитная карточка компании «Домовёнок». После приезда наших специалистов стекла в Вашей квартире или офисе преобразятся, и Вы в буквальном смысле увидите жизнь в новом свете!
 					</p>
 					<p class="section__paragraph text">Мойка окон в офисе или квартире – это работа, для выполнения которой нужны специальные знания по очистке стеклянных и других поверхностей. С этим видом уборки не справиться без физических усилий и специальных навыков.
 					</p>
-					<p class="section__paragraph text">Мытье окон в Москве требует особой тщательности. В крупных городах смог и пыль постоянно оседают на них, снижая количество солнечного света, попадающего в квартиры. Поэтому «Домовёнок» предлагает услугу мытья оконных конструкций профессиональными работниками по разумным ценам.
+					<p class="section__paragraph text">Мытье окон в Москве требует особой тщательности. В крупных городах смог и пыль постоянно оседают на них, снижая количество солнечного света, попадающего в квартиры. <noindex>Поэтому «Домовёнок» предлагает услугу мытья оконных конструкций профессиональными работниками по разумным ценам</noindex>.
 					</p>
 					<p class="section__paragraph text">Очень востребованное направление деятельности компании «Домовёнок» – профессиональное мытьё окон в квартирах и офисах. Мы готовы работать с любыми загрязнениями на любой высоте. Помимо очистки стёкол в наши услуги входит устранение пыли и грязи с рам, откосов, карнизов.
 					</p>
 					<p class="section__paragraph text">Популярные сегодня пластиковые окна необходимо мыть чаще, чем деревянные – это продлевает срок их службы. Регулярное мытье пластиковых окон в квартире или офисе – залог того, что на пластике и стекле не образуется несмываемый слой пыли, который въедается в рамы.
 					</p>
-					<p class="section__paragraph text">Мойка рам, деревянных и пластиковых окон осуществляется с использованием специальных инструментов: телескопических штанг, стяжек, салфеток с разной пропиткой и т.д. Далеко не в каждой квартире или офисном комплексе есть все эти приспособления. Наши специалисты используют для работы свой набор инструментов, что делает мытьё оконных стекол и рам быстрым, эффективным.
+					<p class="section__paragraph text">Мойка рам, деревянных и пластиковых окон осуществляется с использованием специальных инструментов: телескопических штанг, стяжек, салфеток с разной пропиткой и т.д. Далеко не в каждой квартире или офисном комплексе есть все эти приспособления. <noindex>Наши специалисты используют для работы свой набор инструментов, что делает мытьё оконных стекол и рам быстрым, эффективным</noindex>.
 					</p>
 					<p class="section__paragraph text">Удалить пыль со стеклянной поверхности – это одно. А вот придать ей сияющий вид, убрать разводы и подтеки – это задача для профессионалов с опытом применения химических моющих веществ. Если для Вас мытье окон – трудо- и времязатратная неприятная процедура, то специалисты «Домовёнка» проведут ее быстро и с блестящим результатом!
 					</p>
-					<p class="section__paragraph text">Почему эта услуга должна проводиться профессионалами? Потому что эта работа – одна из самых травмоопасных. Позаботьтесь о своей безопасности и доверьте мытье окон на высоте специалистам. «Домовёнок» не допускает никаких компромиссов с грязными окнами. Задача наших специалистов – полное устранение пыли. Организации и частные лица, обратившиеся к нам за услугой мытья оконных конструкций, часто становятся постоянными клиентами, потому что к чистоте, как и ко всему хорошему, быстро привыкаешь.
+					<p class="section__paragraph text">Почему эта услуга должна проводиться профессионалами? Потому что эта работа – одна из самых травмоопасных. Позаботьтесь о своей безопасности и доверьте мытье окон на высоте специалистам. «Домовёнок» не допускает никаких компромиссов с грязными окнами. Задача наших специалистов – полное устранение пыли. Организации и частные лица, обратившиеся к нам за услугой <noindex>мытья оконных конструкций</noindex>, часто становятся постоянными клиентами, потому что к чистоте, как и ко всему хорошему, быстро привыкаешь.
 					</p>
 					<p class="section__paragraph text">Xотите узнать сколько стоит помыть окна снаружи и внутри в Вашей квартире или офисе? Получите дополнительную информацию об услугах мойки по телефону в Москве <a class="link link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>. Также Вы можете оставить заявку на нашем сайте.
 					</p>
@@ -623,7 +558,6 @@
 			</section>
 			<!-- Page Footer -->
 			<footer class="page-footer  page-footer--bg-dark">
-			
 			  <div class="page-footer__connection  section  connection">
 			    <h2 class="section__title  title">Вы можете написать нам здесь</h2>
 			    <div class="connection__wrap">
@@ -645,7 +579,6 @@
 			      </a>
 			    </div>
 			  </div>
-			
 			  <nav class="page-footer__secondary-menu  secondary-menu">
 			    <ul class="secondary-menu__list list">
 			      <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/private/auth'}}">Личный кабинет</a></li>
@@ -660,7 +593,6 @@
 			      <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/vakansii/'}}">Вакансии</a></li>
 			      <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/contacts/'}}">Контакты</a></li>
 			    </ul>
-			
 			    <ul class="secondary-menu__list list">
 			      <li class="secondary-menu__item  item"><a class="link" href="{{buildUrl general.city '/'}}">Физическим лицам</a>
 			        <ul class="secondary-menu__list secondary-menu__list--sub list">
@@ -703,7 +635,6 @@
 			        </ul>
 			      </li>
 			    </ul>
-			
 			    <ul class="secondary-menu__list list">
 			      <li class="secondary-menu__item  item"><a class="link" href="{{buildUrl general.city '/b2b/'}}">Юридическим лицам</a>
 			        <ul class="secondary-menu__list secondary-menu__list--sub list">
@@ -732,7 +663,6 @@
 			      </li>
 			    </ul>
 			  </nav>
-			
 			  <div class="page-footer-ab__row">
 			    <div class="page-footer-ab__column">
 			      <p class="page-footer__address"><b class="text text--bold text--lg-brown">Адрес:</b><a class="page-footer__link  link" href="{{buildUrl general.city '/contacts/'}}#mymap">Москва, ул. Матросская Тишина, 16Г</a></p>
@@ -752,7 +682,6 @@
 			          </svg>
 			        </a>
 			        <a  class="social-link-ab  social-link-ab--grey" href="https://instagram.com/cleaning.domovenok/">
-			
 			          <svg class="social-link-ab__icon social-link-ab__icon--instagram" width="20" height="19.81" viewBox="0 0 20 19.81">
 			            <g>
 			              <rect x="1" y="1" width="18" height="17.81" rx="4" ry="4" style="fill: none;stroke: #fff;stroke-miterlimit: 10;stroke-width: 2px"/>
@@ -927,7 +856,6 @@
 	      </div>
 	    </div>
 	
-	
 	    <div class="pop-up__item  pop-up__item--hide  price-list"></div>
 	
 	    <div class="pop-up__item pop-up__item--hide  service-calc-calendar">
@@ -956,7 +884,7 @@
 	</div>
 	<!-- /Pop up -->
 </div>
-<script src="/static/pancake/js/bundle.min.js?v0.16"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.17"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 
