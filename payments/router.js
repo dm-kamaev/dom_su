@@ -25,6 +25,9 @@ const PASSWORD = '1AOJ.Di8b8EwGt,X'
 // const TERMINAL_KEY = '1487066466356'
 // const PASSWORD = 'f7ydxrgo3c42l9ub'
 
+const TEMP_TERMINAL_KEY = '1487066466356'
+const TEMP_PASSWORD = 'f7ydxrgo3c42l9ub'
+
 // TEST IP Ipatovagi
 // const TERMINAL_KEY = '1487066466356DEMO'
 // const PASSWORD = 'b85qudmm7bagosat'
@@ -34,10 +37,20 @@ loadTemplate({path: 'templates/payments/init.html', name: 'paymentsInit'})
 loadTemplate({path: 'templates/payments/success.html', name: 'paymentsSuccess'})
 loadTemplate({path: 'templates/payments/failure.html', name: 'paymentsFailure'})
 
+function getTerminalData(paymentID) {
+    if (paymentID && paymentID.toString() == '2390959'){
+        return {'TERMINAL_KEY': TEMP_TERMINAL_KEY,'PASSWORD': TEMP_PASSWORD}
+    } else {
+        return {'TERMINAL_KEY': TERMINAL_KEY,'PASSWORD': PASSWORD}
+    }
+}
 
 
 async function getState(paymentId) {
-    let getParam = {'TerminalKey': TERMINAL_KEY, 'PaymentId': paymentId}
+    let getParam = {'PaymentId': paymentId}
+    let terminalData = getTerminalData(paymentId)
+    getParam['TerminalKey'] = terminalData.TERMINAL_KEY
+    getParam['Password'] = terminalData.PASSWORD
     getParam['Token'] = get_token(getParam)
     let response = ''
     let body = querystring.stringify(getParam)
@@ -140,7 +153,6 @@ function get_token(get_param) {
     for (let param of Object.keys(get_param)){
         mas.push([param, get_param[param]])
     }
-    mas.push(['Password', PASSWORD])
     mas.sort((a, b)=>a[0] > b[0])
     let token_str = ''
     for (let item of mas){
@@ -187,13 +199,14 @@ paymentsRouter.get('/payments/failure/', async function (ctx, next) {
 paymentsRouter.post('/payments/notification/', async function (ctx, next) {
     const paymentId = ctx.request.body['PaymentId']
     const payment = await Payment.findOne({where: {PaymentId: paymentId}})
-    if (payment.id == ctx.request.body['OrderId'] && payment.Amount == ctx.request.body['Amount'] && TERMINAL_KEY == ctx.request.body['TerminalKey']){
+    let terminalData = getTerminalData(paymentId)
+    if (payment.id == ctx.request.body['OrderId'] && payment.Amount == ctx.request.body['Amount'] && terminalData.TERMINAL_KEY == ctx.request.body['TerminalKey']){
         logger.info(`Notification Success OrderId - ${payment.OrderId} | Id - ${payment.id}`)
         payment.notification = true
         await payment.save()
         ctx.body = 'OK'
     } else {
-        logger.error(`Notification Failure OrderId - ${ctx.request.body['OrderId']} | Id - ${payment.id} | Amount - ${ctx.request.body['Amount']} | TerminalKey - ${TERMINAL_KEY}`)
+        logger.error(`Notification Failure OrderId - ${ctx.request.body['OrderId']} | Id - ${payment.id} | Amount - ${ctx.request.body['Amount']} | TerminalKey - ${terminalData.TERMINAL_KEY}`)
     }
 })
 
@@ -201,7 +214,7 @@ paymentsRouter.post('/payments/notification/', async function (ctx, next) {
 paymentsRouter.post('/payments/take/', async function (ctx, next) {
     try{
         logger.info(`Take payment Amount - ${ctx.request.body.amount} | OrderId - ${ctx.request.body.order_id} | Descr - ${ctx.request.body.description} | IP - ${'1111'}`)
-        let get_param = {'TerminalKey': TERMINAL_KEY}
+        let get_param = {}
         let form_amount = ctx.request.body.amount
         let amount
         if (form_amount){
@@ -236,6 +249,12 @@ paymentsRouter.post('/payments/take/', async function (ctx, next) {
         }
         let payment = await Payment.create(create_payment)
         get_param['OrderId'] = payment.id
+
+        // Get Terminal data
+        let terminalData = getTerminalData()
+        get_param['TerminalKey'] = terminalData.TERMINAL_KEY
+        get_param['Password'] = terminalData.PASSWORD
+
         get_param['Token'] = get_token(get_param)
         payment.Token = get_param['Token']
         await payment.save()
@@ -275,7 +294,7 @@ paymentsRouter.post('/payments/take/', async function (ctx, next) {
         }
         logger.error(`Init Failure OrderId - ${ctx.request.body.order_id} | ErrorCode - ${parseResponse['ErrorCode']} | Details - ${parseResponse['Details']}`)
         if (payment.redirectPath) {
-            ctx.body = {"Success": False, "ErrorCode": -1}
+            ctx.body = {"Success": false, "ErrorCode": -1}
             ctx.response.set("Access-Control-Allow-Origin", "www.domovenok.su")
             return
         }
