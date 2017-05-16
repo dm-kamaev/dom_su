@@ -44,8 +44,8 @@ const moscowTemplates = {
     // Exist
 
     // AB test
-    'ab': {name: 'main_ab.html', data: {menu: {index: true}, generateCanonical: () => buildUrl('moscow', '/')}},
-    'generalnaya_uborka_ab': {name: 'generalnaya_uborka_ab.html', ServiceName: 'Генеральная уборка', data:{ menu:{general: true}}},
+    'ab': {hide: true, name: 'main_ab.html', data: {menu: {index: true}, generateCanonical: () => buildUrl('moscow', '/')}},
+    'generalnaya_uborka_ab': {hide: true, name: 'generalnaya_uborka_ab.html', ServiceName: 'Генеральная уборка', data:{ menu:{general: true}}},
 
     'main': {name: 'main.html', data: {menu: {index: true}}},
     'strahovka__': {name: 'strahovka__.html', data:{ menu:{physical: true }}},
@@ -245,7 +245,7 @@ function choiceTest(variations) {
 
 async function getPageWithABTest(ctx, page) {
     let city = ctx.state.pancakeUser.city.keyword
-    if (ABTestContainer[city] && ABTestContainer[city][page]){
+    if (ABTestContainer[city] && ABTestContainer[city][page] ){
         let ABTest = ABTestContainer[city][page]
         let testData = ctx.state.pancakeUser.getABTest(ABTest)
         if (!testData) {
@@ -271,7 +271,7 @@ loadStatPages(spbTemplates)
 
 
 async function getPage(templateDict, page) {
-    if (templateDict[page] !== undefined){
+    if (templateDict[page] !== undefined && !templateDict[page].hide ){
         let template = getTemplate({name: `${templateDict.key+templateDict[page].name}`, path: `${templateDict.dir + templateDict[page].name}`})
         let data = templateDict[page].data
         return { template, data }
