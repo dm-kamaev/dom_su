@@ -81,8 +81,6 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
     for (let emp of GetDepartureData.response.Employees){
         if (emp.EmployeeID == ctx.state.pancakeUser.token.employee_uuid){
             templateCtx.EarningsOrder = emp.EarnedMoney
-            logger.info(templateCtx.EarningsOrder )
-            logger.info(emp.EarnedMoney)
             break
         }
     }
@@ -213,12 +211,9 @@ staffRouter.post(staffUrl('orderCard', ':DepartureID'), parseFormMultipart, logi
         general.EmployeesParam.push(employees[employee])
     }
 
-    let SetWorkingCard = new Method1C('SetWorkingCard', general)
+    let SetWorkingCard = new Method1C('Employee.SetWorkingCard', general)
     request1C.add(SetWorkingCard)
-    //await request1C.do()
-
-    ctx.body = general
-    return
+    await request1C.do()
 
     if (SetWorkingCard.error && SetWorkingCard.error.code == 42){
         ctx.status = 302
