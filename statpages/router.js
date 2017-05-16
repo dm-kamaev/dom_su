@@ -45,7 +45,7 @@ const moscowTemplates = {
 
     // AB test
     'ab': {hide: true, name: 'main_ab.html', data: {menu: {index: true}, generateCanonical: () => buildUrl('moscow', '/')}},
-    'generalnaya_uborka_ab': {name: 'generalnaya_uborka_ab.html', ServiceName: 'Генеральная уборка', data:{ menu:{general: true}}},
+    'generalnaya_uborka_ab': {hide: true, name: 'generalnaya_uborka_ab.html', ServiceName: 'Генеральная уборка', data:{ menu:{general: true}}},
 
     'main': {name: 'main.html', data: {menu: {index: true}}},
     'strahovka__': {name: 'strahovka__.html', data:{ menu:{physical: true }}},
@@ -263,7 +263,10 @@ async function getPageWithABTest(ctx, page) {
             return pageData
         }
     }
-    return await getPage(cityTemplate[city], page)
+    if (cityTemplate[city] && cityTemplate[city][page] && !cityTemplate[city][page].hide){
+        return await getPage(cityTemplate[city], page)
+    }
+    return { template: null}
 }
 
 loadStatPages(moscowTemplates)
@@ -271,7 +274,7 @@ loadStatPages(spbTemplates)
 
 
 async function getPage(templateDict, page) {
-    if (templateDict[page] !== undefined && !templateDict[page].hide ){
+    if (templateDict[page] !== undefined){
         let template = getTemplate({name: `${templateDict.key+templateDict[page].name}`, path: `${templateDict.dir + templateDict[page].name}`})
         let data = templateDict[page].data
         return { template, data }
