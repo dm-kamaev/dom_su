@@ -40,9 +40,7 @@ function applyRouters(app) {
     app.use(internalClientAPI.routes())
 
     // staff
-    if (config.app.debug) {
-        app.use(staffRouter.routes())
-    }
+    app.use(staffRouter.routes())
 
     // Statpages
     app.use(statpagesRouter.routes())
