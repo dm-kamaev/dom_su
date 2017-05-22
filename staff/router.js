@@ -654,7 +654,7 @@ staffRouter.get('/staff/ajax/depositList', moneyStaff.ajaxDepositList)
 // Staff
 staffRouter.get('/staff/', loginRequired(async function (ctx, next) {
     ctx.status = 302
-    ctx.redirect(staffUrl('employeeDetail', ctx.state.pancakeUser.auth1C.employee_uuid))
+    ctx.redirect(staffUrl('news', ctx.state.pancakeUser.auth1C.employee_uuid))
 }))
 
 module.exports = {
