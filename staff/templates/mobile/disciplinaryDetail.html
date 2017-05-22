@@ -84,7 +84,7 @@ div.messages-container form input {
     <p><b>Статус: </b><br/><span style="color:{{#ifCond GetDisciplinaryInfo.Status '==' 1 }}red{{/ifCond}}{{#ifCond GetDisciplinaryInfo.Status '==' 2 }}#ff6600{{/ifCond}}{{#ifCond GetDisciplinaryInfo.Status '==' 3 }}green{{/ifCond}};">{{ GetDisciplinaryInfo.StatusTitle }}</span></p>
     <p><b>Дата: </b><br/><span>{{ formatPartDate GetDisciplinaryInfo.Date "DD.MM.YYYY" }}</span></p>
     <p><b>Описание: </b><br/><span>{{{ GetDisciplinaryInfo.Description }}}</span></p>
-    <p><b>Штрафные баллы: </b><br/><span style="color: red">{ GetDisciplinaryInfo.Weight }}</span></p>
+    <p><b>Штрафные баллы: </b><br/><span style="color: red">{{ GetDisciplinaryInfo.Weight }}</span></p>
     <p><b>Срок вступления в силу: </b><br/><span>{{ formatPartDate GetDisciplinaryInfo.DateStart "DD.MM.YYYY" }}</span></p>
     {{#if GetDisciplinaryInfo.Note }}<p><b>Примечание: </b><br/><span>{{{ GetDisciplinaryInfo.Note }}}</span></p>{{/if}}
         <div class="messages-container">
@@ -118,7 +118,7 @@ div.messages-container form input {
                         <li><a href="{{staffUrl 'employeeDetail' selfId }}?profile=true">Профиль</a></li>
                         <li><a href="{{staffUrl 'creditsCurrent' selfId }}" >Заработано</a></li>
                         <li><a href="{{staffUrl 'depositCurrent' selfId }}">Необходимо сдать</a></li>
-                        <li><a href="{{staffUrl 'employeeDetail' selfId }}?orders=true">Заказы</a></li>
+                        <li><a data-ajax="false" href="{{staffUrl 'employeeDetail' selfId }}?orders=true">Заказы</a></li>
                         <li><a data-ajax="false" href="{{staffUrl 'rating' selfId }}">Рейтинг</a></li>
                         <li><a href="{{staffUrl 'disciplinaryList' employeeId }}" class="ui-btn ui-btn-active">Нарушения</a></li>
                         <li><a href="{{staffUrl 'news' selfId}}" >Новости</a></li>
