@@ -286,6 +286,7 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
     templateCtx.today = []
     templateCtx.old = []
     templateCtx.noOrders = (moment().hour() < 19) ? true : false
+    templateCtx.orderCount = GetEmployeeDepartures.response.DeparturesList.length
     if (GetEmployeeDepartures.error && GetEmployeeDepartures.error.code == 2){
         if (isMobileVersion(ctx)){
             template = getTemplate(staffTemplate.mobile.userIndex)
