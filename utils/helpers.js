@@ -1,8 +1,9 @@
 "use strict";
 const Handlebars = require('handlebars');
 const moment = require('moment')
-const { staffUrl } = require('staff')
+const { staffUrl, staffTemplate } = require('staff')
 const { buildUrl } = require('statpages')
+const { getTemplate } = require('./templates')
 
 
 
@@ -13,7 +14,11 @@ Handlebars.registerHelper('buildUrl', buildUrl)
 
 
 Handlebars.registerHelper('toMoney', function (amount) {
-    return amount.toFixed(2)
+    if (amount || amount == 0){
+        return amount.toFixed(2)
+    } else {
+        return ''
+    }
 })
 
 Handlebars.registerHelper('staffUrl', staffUrl)
@@ -36,6 +41,12 @@ Handlebars.registerHelper("inc", function(value, options) {
 
 Handlebars.registerHelper('render', function (html, context) {
     let template = Handlebars.compile(html)
+    return new Handlebars.SafeString(template(context))
+})
+
+
+Handlebars.registerHelper('employeeHeader', (context) => {
+    let template = getTemplate(staffTemplate.desktop.header)
     return new Handlebars.SafeString(template(context))
 })
 

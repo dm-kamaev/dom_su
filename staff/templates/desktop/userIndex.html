@@ -38,59 +38,7 @@
 <body>
 
 <div id="wrapper-out">
-    <header class="main">
-
-        <div>
-        {{#if mobileDevice }} <a style="position: absolute;font-size: 21px;margin: 20px 0 0 300px;" onclick="mobile_view(true);" href="{{ currentUrl }}">На мобильную версию сайта</a>{{/if}}
-            <div class="user_info">
-                <span class="h_for_name"><a href="{{staffUrl 'news' employeeId}}">{{ GetEmployeeData.FullTitle }}</a></span>
-                <span class="job">{{ GetEmployeeData.Post }}</span>
-            {{#if itIsMe }}
-                <div class="user-credits-deposit">
-
-                    {{#ifCond GetEmployeeData.DepositCurrentSum '>' 0 }}
-                        <span>Необходимо сдать: <a href="{{staffUrl 'depositCurrent' employeeId }}" class="red-color" >{{ toMoney GetEmployeeData.DepositCurrentSum }}</a> руб.</span>
-                    {{ else }}
-                        <a style="min-width: 150px; display: inline-block" href="{{staffUrl 'depositList' employeeId }}">История сдач денег</a>
-                    {{/ifCond}}
-                    {{#ifCond GetEmployeeData.CreditsCurrentSum '!=' null }}
-                        <span style="min-width: 165px; display: inline-block">
-                            <a style="display: inline-block; min-width: 90px; text-align: right"  href="" onclick="showEarned(this); return false;">Заработано</a>
-                            <span id="earned" style="display: none; min-width: 100px; text-align: right"><a href="{{staffUrl 'creditsCurrent' employeeId }}" class="green-color">{{ toMoney GetEmployeeData.CreditsCurrentSum}} </a>руб.</span>
-                        </span>
-                    {{ else }}
-                        <a href="{{staffUrl 'creditsList' employeeId }}">История получения денег</a>
-                    {{/ifCond}}
-                </div>
-                <span style="min-width: 165px; padding-top: 3px; display: inline-block">
-                    Лимит на средства и материалы: <span style="color: #993300">{{GetEmployeeData.MatLimit}}</span> руб.
-                </span>
-            {{ else }}
-                <span class="money_phone">
-                    <i>Рабочий телефон:</i>
-                    <b>{{ GetEmployeeData.PhoneNumber }}</b>
-                </span>
-            {{/if}}
-            <script>
-                function showEarned(elem) {
-                    document.getElementById('earned').style.display = 'inline-block';
-                    elem.style.display = 'none';
-                }
-            </script>
-            </div>
-            <div class="settings_logout">
-            <a style="margin-right: 15px" href="{{staffUrl 'disciplinaryList' employeeId }}">Нарушения</a>
-            <a style="margin-right: 15px" href="{{staffUrl 'employeeDetail' employeeId }}">Заказы</a>
-            <a style="margin-right: 15px" href="{{staffUrl 'testIndex' employeeId }}">Обучение</a>
-            <a style="margin-right: 15px" href="{{staffUrl 'rating' employeeId }}">Рейтинг</a>
-            <a style="margin-right: 15px" href="{{staffUrl 'errors' }}"><b>Нашли ошибку?</b></a>
-            <a class="settings" href="{{staffUrl 'changePassword' }}">Смена пароля</a>
-            <a class="logout" href="{{staffUrl 'logout' }}">Выйти</a>
-            {{#if GetEmployeeData.AllowedOnAllDepartures }}<br><a style="margin-right: 15px" href="{{staffUrl 'allOrders' employeeId }}">Списки заказов</a>{{/if }}
-            </div>
-            <img src="/static/img/logo_staff.png" class="logo_staff" alt="Domovenok"/>
-        </div>
-    </header>
+    {{employeeHeader this}}
 <!--.main-->
 <div id="middle">
 <section class="content">

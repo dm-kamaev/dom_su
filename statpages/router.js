@@ -230,9 +230,7 @@ function choiceTest(variations) {
     let maxNumber = variations.reduce((perValue, item) => {
         return perValue + item.ratio
     }, 0)
-    logger.info(maxNumber)
     let choiceNumber = Math.round(Math.random()*maxNumber)
-    logger.info(choiceNumber)
     let index = 0
     for (let variation of variations){
         index += variation.ratio

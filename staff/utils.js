@@ -83,6 +83,9 @@ const staffDesktopTemplateOpts = {
     depositList: {
         path: 'staff/templates/desktop/depositList.html', name: 'staffDesktopDepositList'
     },
+    header: {
+        path: 'staff/templates/desktop/header.html', name: 'staffDesktopHeader'
+    },
 
 }
 const staffMobileTemplateOpts = {
@@ -153,7 +156,7 @@ const staffTemplate = {
 function staffUrl(name) {
     switch (name) {
         case 'login':
-            return '/staff/login/'
+            return '/private/auth'
         case 'employeeDetail':
             return `/staff/${arguments[1]}/`
         case 'employeeOrders':
@@ -208,6 +211,8 @@ function staffUrl(name) {
             return `/staff/all_orders`
         case 'createMessage':
             return `/staff/message_handler/${arguments[1]}`
+        case 'clientPA':
+            return `/private/`
         default:
             return `${name}, ${this.arguments}`
     }

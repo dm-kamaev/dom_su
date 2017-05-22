@@ -3,7 +3,7 @@
 const { loginRequired, getEmployeeHeader } = require('./decorators')
 const { staffTemplate } = require('./utils')
 const { Method1C } = require('api1c')
-const logger = require('logger')(module)
+const logger = require('logger')(module, 'staff.log')
 const { getTemplate } = require('utils')
 const moment = require('moment')
 
@@ -48,7 +48,6 @@ let examsDetail = loginRequired(getEmployeeHeader(async function (ctx, next, req
     templateCtx.GetTestForEmployee.TimeLeft = Math.round(templateCtx.GetTestForEmployee['TestTime']*60 - (now.hour(now.hour()+3) - moment(templateCtx.GetTestForEmployee['TimeStart']))/1000) - TIME_WAIT
 
 
-    logger.info(templateCtx.GetTestForEmployee.TimeLeft)
     for (let question of templateCtx.GetTestForEmployee.Questions){
         if (ctx.cookies.get('question' + question['QuestionID'])){
             let cookieAnswers = ctx.cookies.get('question' + question['QuestionID'])
@@ -75,7 +74,6 @@ let examsStart = loginRequired(getEmployeeHeader(async function (ctx, next, requ
 }))
 
 let examsSend = loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx){
-    logger.info(ctx.request.body)
     let TestAnswers = []
     for (let answer in ctx.request.body.fields){
         let answerList

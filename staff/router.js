@@ -1,9 +1,10 @@
 "use strict";
 
 const { models } = require('models')
-const { EmployeeNews } = models
+const { EmployeeNews, Token, PendingToken } = models
 const Router = require('koa-router');
-const logger = require('logger')(module)
+const logger = require('logger')(module, 'staff.log')
+const config = require('config')
 const { Method1C, Request1C } = require('api1c')
 const { getTemplate } = require('utils')
 const { staffUrl, isMobileVersion, toMoscowISO, staffTemplate } = require('./utils')
@@ -17,13 +18,56 @@ const examsStaff = require('./exams')
 
 const staffRouter = new Router();
 
+
 const regCardService = new RegExp('^service_.*')
 const regCardAdditional = new RegExp('^additional_.*')
 const regCardScore = new RegExp('^score_.*')
+const regQuestionAnswerCookie = new RegExp('(?:^|;)*(:?question[^;=]*)', "g")
 
 
-staffRouter.get('/staff/login/', async function (ctx, next) {
+
+staffRouter.get(staffUrl('login'), async function (ctx, next) {
     ctx.body = 'login page'
+})
+
+staffRouter.get(staffUrl('logout'), async function (ctx, next) {
+    let header = ctx.headers["cookie"]
+    let questionAnswers = header.match(regQuestionAnswerCookie)
+    if (questionAnswers){
+        for (let cookieName of questionAnswers){
+            ctx.cookies.set(cookieName, null, {maxAge: 0, httpOnly: false})
+        }
+    }
+    // TODO else
+    // deactivate pancake common token
+    let token = await Token.findOne({where: {active: true, user_uuid: ctx.state.pancakeUser.uuid}})
+
+    if (token){
+        token.active = false
+        await token.save()
+
+        // for event token
+        ctx.state.pancakeUser.auth1C.token = token.token
+        ctx.state.pancakeUser.auth1C.uuid = token.uuid
+        ctx.state.pancakeUser.auth1C.client_uuid = token.client_uuid
+        ctx.state.pancakeUser.auth1C.employee_uuid = token.employee_uuid
+    }
+
+    // clean pending token
+    if (ctx.cookies.get(config.PENDING_TOKEN_USER_KEY)) {
+        let pendingToken = await PendingToken.findOne({where: {key: ctx.cookies.get(config.PENDING_TOKEN_USER_KEY)}})
+        if (pendingToken){
+            await pendingToken.destroy()
+        }
+        ctx.state.pancakeUser.cleanPendingCookie()
+    }
+
+    // clean clientPA cookie
+    if (ctx.cookies.get(config.cookie.clientPA)){
+        ctx.cookies.set(config.cookie.clientPA, null, {maxAge: 0, httpOnly: false})
+    }
+    ctx.status = 302
+    ctx.redirect('/private/auth')
 })
 
 staffRouter.get(staffUrl('errors'), loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx){
@@ -79,12 +123,12 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
         }
     }
     for (let emp of GetDepartureData.response.Employees){
-        if (emp.EmployeeID == ctx.state.pancakeUser.token.employee_uuid){
+        if (emp.EmployeeID == ctx.state.pancakeUser.auth1C.employee_uuid){
             templateCtx.EarningsOrder = emp.EarnedMoney
             break
         }
     }
-    templateCtx.isSenior = (GetDepartureData.response.Senior.EmployeeID == ctx.state.pancakeUser.token.employee_uuid) ? true : false
+    templateCtx.isSenior = (GetDepartureData.response.Senior.EmployeeID == ctx.state.pancakeUser.auth1C.employee_uuid) ? true : false
     templateCtx.departureId = ctx.params.DepartureID
     templateCtx.GetDepartureData = GetDepartureData.response
     if (isMobileVersion(ctx)){
@@ -191,7 +235,6 @@ staffRouter.post(staffUrl('orderCard', ':DepartureID'), parseFormMultipart, logi
     }
 
     let general = {'EmployeesParam': [], 'DepartureID': ctx.params.DepartureID}
-    logger.info(ctx.request.body.fields)
     general.CleanTechnique = JSON.parse(ctx.request.body.fields['clean_technique'])
     general.EquipmentRepair = JSON.parse(ctx.request.body.fields['equipment_repair'])
     general.FullInventory = JSON.parse(ctx.request.body.fields['full_inventory'])
@@ -554,8 +597,8 @@ staffRouter.post('/staff/message_handler/:EmployeeID', parseFormMultipart, async
     let salt = uuid4()
     let token = ctx.request.body.fields.token
     if (!token){
-        let tokenObj = await ctx.state.pancakeUser.getToken()
-        token = tokenObj.token
+        let auth1C = await ctx.state.pancakeUser.getAuth1C()
+        token = auth1C.token
     }
     const request1C = new Request1C(token, '', '', true);
     let SendMessage = new Method1C('SendMessage', {
@@ -593,7 +636,7 @@ staffRouter.get('/staff/ajax/get_rating_history', loginRequired(async function (
     let from_item = Number(ctx.request.query.item_count)
     let count = Number(ctx.request.query.get_item_count)
     let GetRatingHistory = new Method1C('GetRatingHistory', {'EmployeeID': employeeId, 'From': from_item, 'Count': count})
-    const request1C = new Request1C(ctx.state.pancakeUser.token.token, '', '', true);
+    const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '', true);
     request1C.add(GetRatingHistory)
     await request1C.do()
     let templateCtx = {}
@@ -611,7 +654,7 @@ staffRouter.get('/staff/ajax/depositList', moneyStaff.ajaxDepositList)
 // Staff
 staffRouter.get('/staff/', loginRequired(async function (ctx, next) {
     ctx.status = 302
-    ctx.redirect(staffUrl('employeeDetail', ctx.state.pancakeUser.token.employee_uuid))
+    ctx.redirect(staffUrl('employeeDetail', ctx.state.pancakeUser.auth1C.employee_uuid))
 }))
 
 module.exports = {

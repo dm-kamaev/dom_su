@@ -79,7 +79,7 @@ async function sendForgottenTicket() {
             let user = null;
             let utms = null;
             if (ticket.data.user_id){
-                user = await User.findOne({uuid: ticket.data.user_id})
+                user = await User.findOne({where: {uuid: ticket.data.user_id}})
             }
             if (user !== null){
                 utms = await UTMS.findAll({where: {user_uuid: user.uuid,}})

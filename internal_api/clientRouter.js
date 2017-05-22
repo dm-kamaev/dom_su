@@ -7,6 +7,7 @@ const serviceOrder = require('./methods/serviceOrder')
 const serviceCalc = require('./methods/serviceCalc')
 
 const { GetExecutionInfo } = require('./methods/getExecutionInfo')
+const { CalculateOrder } = require('./methods/calculateOrder')
 
 
 function validateRequest(body) {
@@ -17,6 +18,8 @@ internalClientAPI.post('/internalapi', async function (ctx, next) {
     try {
         if (validateRequest(ctx.request.body)){
             switch (ctx.request.body.Method) {
+                case 'Client.CalculateOrder':
+                    return await Client.CalculateOrder(ctx)
                 case 'Client.GetExecutionInfo':
                     return await Client.GetExecutionInfo(ctx)
                 case 'Common.GetTimeInfo':
@@ -52,6 +55,7 @@ module.exports = {
 
 
 const Client = {
+    CalculateOrder: CalculateOrder,
     GetExecutionInfo: GetExecutionInfo,
     ServiceOrder: serviceOrder,
     ServiceCalc: serviceCalc,

@@ -1,7 +1,7 @@
 'use strict';
 let http = require('http');
 let querystring = require('querystring');
-let log = require('logger')(module)
+let log = require('logger')(module, 'staff.log')
 let errors = require('./errors')
 const config = require('config')
 const uap = require('node-uap');

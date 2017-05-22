@@ -172,8 +172,8 @@ let ajaxDepositList = loginRequired(async function (ctx, next){
     let templateCtx = {};
     let countItem = 5
     let fromItem = Number(ctx.query.item_count)
-    const request1C = new Request1C(ctx.state.pancakeUser.token.token, '', '', true);
-    let GetDepositListForEmployee = new Method1C('GetDepositListForEmployee', {'EmployeeID': ctx.state.pancakeUser.token.employee_uuid, 'From': fromItem + 1, 'To': fromItem + countItem})
+    const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '', true);
+    let GetDepositListForEmployee = new Method1C('GetDepositListForEmployee', {'EmployeeID': ctx.state.pancakeUser.auth1C.employee_uuid, 'From': fromItem + 1, 'To': fromItem + countItem})
     request1C.add(GetDepositListForEmployee)
     await request1C.do()
     templateCtx.GetDepositListForEmployee = GetDepositListForEmployee.response
@@ -185,8 +185,8 @@ let ajaxCreditsList = loginRequired(async function (ctx, next){
     let templateCtx = {};
     let countItem = 5
     let fromItem = Number(ctx.query.item_count)
-    const request1C = new Request1C(ctx.state.pancakeUser.token.token, '', '', true);
-    let GetCreditsListForEmployee = new Method1C('GetCreditsListForEmployee', {'EmployeeID': ctx.state.pancakeUser.token.employee_uuid, 'From': fromItem + 1, 'To': fromItem + countItem})
+    const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '', true);
+    let GetCreditsListForEmployee = new Method1C('GetCreditsListForEmployee', {'EmployeeID': ctx.state.pancakeUser.auth1C.employee_uuid, 'From': fromItem + 1, 'To': fromItem + countItem})
     request1C.add(GetCreditsListForEmployee)
     await request1C.do()
     templateCtx.GetCreditsListForEmployee = GetCreditsListForEmployee.response

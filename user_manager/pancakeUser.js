@@ -1,7 +1,7 @@
 "use strict";
 const {QueueAsync} = require('./queue')
 const {models, ErrorCodes, ModelsError} = require('models');
-const {User, UTMS, Visit, Phone, Token} = models;
+const {User, UTMS, Visit, Phone, Token, PendingToken, Employee, Client} = models;
 const config = require('config')
 const uuid4 = require('uuid/v4')
 const {taskEventCreate} = require('./task')
@@ -13,6 +13,7 @@ const moment = require('moment')
 
 
 const USER_COOKIE_KEY = config.USER_COOKIE_KEY
+const PENDING_TOKEN_KEY = config.PENDING_TOKEN_USER_KEY
 
 let banRefererString = '(:?\\w+)' + '\\\.' + config.serverPath.domain.withoutCity.replace(/\./g, "\\\.") + '$'
 let banRefererRegexp = new RegExp(banRefererString, 'g');
@@ -37,7 +38,7 @@ class PancakeUser {
         this.queue = new QueueAsync(self)
         this._utms = null;
         this.model = null
-        this.token_uuid = null
+        this.auth1C = {token: null, employee_uuid: null, client_uuid: null, uuid: null, model: null}
         this.visit_uuid = null
         this.request_event_uuid = null
         this.city = null;
@@ -230,11 +231,7 @@ class PancakeUser {
         }
         this.ab_test[ABTestKey] = {page: ABTestVariant.page, name: ABTestVariant.name}
         this.queue.push(async function   (previousResult, pancakeUser) {
-            logger.info('SET' + ABTestKey)
-            logger.info({page: ABTestVariant.page, name: ABTestVariant.name})
-            //pancakeUser.model.data.ab_test = pancakeUser.ab_test
             pancakeUser.model.set(`data.ab_test.${ABTestKey}`, {});
-            //await pancakeUser.model.save()
             pancakeUser.model.set(`data.ab_test.${ABTestKey}`, {page: ABTestVariant.page, name: ABTestVariant.name});
             await pancakeUser.model.save()
         })
@@ -286,9 +283,104 @@ class PancakeUser {
         this.queue.do()
     }
 
-    async getToken(){
-        this.token = await Token.findOne({active: true, user_uuid: this.uuid})
-        return this.token
+    async getPendingAuth1C(){
+        if (this.ctx.cookies.get(PENDING_TOKEN_KEY)){
+            let pendingToken = await PendingToken.findOne({where: {key: this.ctx.cookies.get(PENDING_TOKEN_KEY)}})
+            if (pendingToken){
+                let token
+                if (pendingToken.init == false){
+                    pendingToken.init = true
+                    await pendingToken.save()
+                    token = this.createAuth1C(pendingToken)
+                } else {
+                    token = {token: pendingToken.token, client_uuid: pendingToken.client_uuid, employee_uuid: pendingToken.employee_uuid, uuid: null}
+                }
+                return token
+            }
+        }
+        return null
+    }
+
+    cleanPendingCookie(){
+        if (this.ctx.cookies.get(PENDING_TOKEN_KEY)){
+            this.ctx.cookies.set(PENDING_TOKEN_KEY, null, {domain: config.cookie.domain, maxAge: 0, path: '/', httpOnly: false})
+        }
+    }
+
+    createAuth1C(pendingToken){
+        this.queue.push(async function (previousResult, pancakeUser) {
+            if (pendingToken.employee_uuid) {
+                await Employee.findOrCreate({
+                    where: {uuid: pendingToken.employee_uuid}, defaults: {
+                        uuid: pendingToken.employee_uuid,
+                        data: {},
+                    }
+                })
+            }
+
+            if (pendingToken.client_uuid) {
+                await Client.findOrCreate({
+                    where: {uuid: pendingToken.client_uuid}, defaults: {
+                        uuid: pendingToken.client_uuid,
+                        data: {},
+                    }
+                })
+            }
+            await Token.create({
+                token: pendingToken.token,
+                user_uuid: pancakeUser.uuid,
+                employee_uuid: pendingToken.employee_uuid,
+                client_uuid: pendingToken.client_uuid,
+                active: true,
+            })
+            await pendingToken.destroy()
+        })
+        return {token: pendingToken.token, client_uuid: pendingToken.client_uuid, employee_uuid: pendingToken.employee_uuid, uuid: null}
+    }
+
+    async getAuth1C(){
+        // Already received token
+        if (this.auth1C.token !== null){
+            return this.auth1C
+        }
+        // Get common auth1C
+        let tokenModel = await Token.findOne({where: {active: true, user_uuid: this.uuid}})
+        if (tokenModel) {
+            this.auth1C = {
+                uuid: tokenModel.uuid,
+                token: tokenModel.token,
+                client_uuid: tokenModel.client_uuid,
+                employee_uuid: tokenModel.employee_uuid,
+            }
+        }
+        // Get pending auth1C
+        if (this.auth1C.token === null){
+            let pendingAuth1C = await this.getPendingAuth1C()
+            if (pendingAuth1C){
+                this.auth1C = pendingAuth1C
+            }
+        } else {
+            this.cleanPendingCookie()
+        }
+        return this.auth1C
+    }
+
+    async getAuth1CTask(){
+        this.queue.push(async function (previousResult, pancakeUser) {
+            if (pancakeUser.auth1C.uuid !== null){
+                return pancakeUser.auth1C
+            }
+            let tokenModel = await Token.findOne({where: {active: true, user_uuid: pancakeUser.uuid}})
+
+            if (tokenModel) {
+                pancakeUser.auth1C = {
+                    uuid: tokenModel.uuid,
+                    token: tokenModel.token,
+                    client_uuid: tokenModel.client_uuid,
+                    employee_uuid: tokenModel.employee_uuid
+                }
+            }
+        })
     }
 }
 

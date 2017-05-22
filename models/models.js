@@ -169,8 +169,28 @@ const Token = sequelize.define('tokens', {
         }
     },
     active: {type: Sequelize.BOOLEAN, allowNull: false},
-
 });
+
+const PendingToken = sequelize.define('pending_tokens', {
+    key: {
+        defaultValue: Sequelize.UUIDV4,
+        primaryKey: true,
+        type: Sequelize.UUID,
+        allowNull: false
+    },
+    token: {
+        type: Sequelize.UUID,
+        allowNull: false
+    },
+    init: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
+    employee_uuid: {
+        type: Sequelize.UUID,
+    },
+    client_uuid: {
+        type: Sequelize.UUID,
+        allowNull: true,
+    },
+})
 
 const Ticket = sequelize.define('tickets', {
     data: Sequelize.JSON,
@@ -402,6 +422,7 @@ module.exports = {
     Picture: Picture,
     Client: Client,
     Token: Token,
+    PendingToken: PendingToken,
     UTMS: UTMS,
     Employee: Employee,
     City: City,

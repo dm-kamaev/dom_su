@@ -10,7 +10,7 @@ async function shareReview(share) {
     try{
         let db = await mongoClient.connect('mongodb://localhost:27017/domovenok')
         let reviews = db.collection('reviews')
-        let item = await reviews.findOne({uuid: share})
+        let item = await reviews.findOne({where: {uuid: share}})
         if (item === null)
             throw new Error('Item is null')
         return item
