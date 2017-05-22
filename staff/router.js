@@ -488,13 +488,15 @@ staffRouter.get('/staff/:EmployeeID/rating', loginRequired(getEmployeeHeader(asy
     templateCtx.GetSavingFundInfo = GetSavingFundInfo.response
     templateCtx.GetEmployeeData = GetEmployeeData.response
 
-    for (let detail of templateCtx.GetRatingInfo.Details){
-        if (detail.Rating == 'Оценка'){
-            detail.Value = (detail.Value/20).toFixed(1)
-        } else {
-            detail.Value = detail.Value.toString() + ' %'
+    if (templateCtx.GetRatingInfo.Details){
+        for (let detail of templateCtx.GetRatingInfo.Details){
+            if (detail.Rating == 'Оценка'){
+                detail.Value = (detail.Value/20).toFixed(1)
+            } else {
+                detail.Value = detail.Value.toString() + ' %'
+            }
+            detail.DailyChanges = JSON.stringify(detail.DailyChanges)
         }
-        detail.DailyChanges = JSON.stringify(detail.DailyChanges)
     }
     if (isMobileVersion(ctx)){
         template = getTemplate(staffTemplate.mobile.ratingIndex)
