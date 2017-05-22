@@ -136,6 +136,13 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
     templateCtx.departureId = ctx.params.DepartureID
     templateCtx.GetDepartureData = GetDepartureData.response
     if (isMobileVersion(ctx)){
+        try {
+            [templateCtx.lon, templateCtx.lat] = JSON.parse(GetDepartureData.response['Address']['AddressJson'])['GeoObject']['Point']['pos'].split(' ')
+        } catch (e){
+            logger.info(e)
+            templateCtx.lat = null
+            templateCtx.lon = null
+        }
         template = getTemplate(staffTemplate.mobile.orderDetail)
     } else {
         template = getTemplate(staffTemplate.desktop.orderDetail)
