@@ -285,7 +285,7 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
     templateCtx.tomorrow = []
     templateCtx.today = []
     templateCtx.old = []
-    templateCtx.noOrders = (moment().hour() <= 19) ? true : false
+    templateCtx.noOrders = (moment().hour() < 19) ? true : false
     if (GetEmployeeDepartures.error && GetEmployeeDepartures.error.code == 2){
         if (isMobileVersion(ctx)){
             template = getTemplate(staffTemplate.mobile.userIndex)
@@ -298,7 +298,7 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
     for (let departure of GetEmployeeDepartures.response.DeparturesList){
         if (moment(departure.Date).startOf('day') < todayFilter){
             templateCtx.old.push(departure)
-        } else if (moment(departure.Date).startOf('day') == todayFilter) {
+        } else if (todayFilter.isSame(moment(departure.Date).startOf('day'))) {
             templateCtx.today.push(departure)
         } else {
             templateCtx.tomorrow.push(departure)
