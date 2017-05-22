@@ -275,7 +275,7 @@ staffRouter.post(staffUrl('orderCard', ':DepartureID'), parseFormMultipart, logi
 staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
     let template
     let dateFrom = moment().subtract(7, "days")
-    let dateTo = (moment().hour() <= 19) ? moment().startOf('day') : moment().add(1, 'days');
+    let dateTo = (moment().hour() < 19) ? moment().startOf('day') : moment().add(1, 'days').startOf('day');
     let GetEmployeeDepartures = new Method1C('GetEmployeeDepartures', {'Filter': {'DateFrom': toMoscowISO(dateFrom), 'DateTo': toMoscowISO(dateTo)}, 'EmployeeID': ctx.params.EmployeeID})
     request1C.add(GetEmployeeDepartures)
     await request1C.do()
