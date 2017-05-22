@@ -4,6 +4,7 @@ const { models } = require('models')
 const { EmployeeNews, Token, PendingToken } = models
 const Router = require('koa-router');
 const logger = require('logger')(module, 'staff.log')
+const loggerProblems = require('logger')(module, 'problems.log')
 const config = require('config')
 const { Method1C, Request1C } = require('api1c')
 const { getTemplate } = require('utils')
@@ -77,8 +78,11 @@ staffRouter.get(staffUrl('errors'), loginRequired(getEmployeeHeader(async functi
     ctx.body = template(ctx.proc(templateCtx, ctx))
 })))
 
-staffRouter.post(staffUrl('errors'), loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx){
+staffRouter.post(staffUrl('errors'), parseFormMultipart, loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx){
     await request1C.do()
+    let body = ctx.request.body
+    body.info = GetEmployeeData.response
+    loggerProblems.info(JSON.stringify(body))
     templateCtx.GetEmployeeData = GetEmployeeData.response
     templateCtx.message = 'Спасибо за Вашу помощь!'
     let template = getTemplate(staffTemplate.desktop.errors)
