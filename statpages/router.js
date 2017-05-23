@@ -45,7 +45,7 @@ const moscowTemplates = {
 
     // AB test
     'ab': {hide: true, name: 'main_ab.html', data: {menu: {index: true}, generateCanonical: () => buildUrl('moscow', '/')}},
-    'generalnaya_uborka_ab': {hide: true, name: 'generalnaya_uborka_ab.html', ServiceName: 'Генеральная уборка', data:{ menu:{general: true}}},
+    // 'generalnaya_uborka_ab': {hide: true, name: 'generalnaya_uborka_ab.html', ServiceName: 'Генеральная уборка', data:{ menu:{general: true}}},
 
     'main': {name: 'main.html', data: {menu: {index: true}}},
     'strahovka__': {name: 'strahovka__.html', data:{ menu:{physical: true }}},
@@ -154,10 +154,10 @@ const spbTemplates = {
 
 const ABTestContainer = {
     'moscow': {
-        'generalnaya_uborka': { name: "Первое тестирование генералки Москва", key: "general_first", variations: [
-            {name: "control", page: 'generalnaya_uborka', ratio: 50, description: "Основная"},
-            {name: "variation", page: 'generalnaya_uborka_ab', ratio: 50, description: "Пробуем новый дизайн"}
-        ]},
+        // 'generalnaya_uborka': { name: "Первое тестирование генералки Москва", key: "general_first", variations: [
+        //     {name: "control", page: 'generalnaya_uborka', ratio: 50, description: "Основная"},
+        //     {name: "variation", page: 'generalnaya_uborka_ab', ratio: 50, description: "Пробуем новый дизайн"}
+        // ]},
     }
 }
 
