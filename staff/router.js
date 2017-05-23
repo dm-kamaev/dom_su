@@ -292,7 +292,11 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
     templateCtx.today = []
     templateCtx.old = []
     templateCtx.noOrders = (moment().hour() < 19) ? false: true
-    templateCtx.orderCount = GetEmployeeDepartures.response.DeparturesList.length
+    if (GetEmployeeDepartures.response && GetEmployeeDepartures.response.DeparturesList){
+        templateCtx.orderCount = GetEmployeeDepartures.response.DeparturesList.length
+    } else {
+        templateCtx.orderCount = 0
+    }
     if (GetEmployeeDepartures.error && GetEmployeeDepartures.error.code == 2){
         if (isMobileVersion(ctx)){
             template = getTemplate(staffTemplate.mobile.userIndex)
