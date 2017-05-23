@@ -665,6 +665,30 @@ staffRouter.get('/staff/ajax/get_rating_history', loginRequired(async function (
 // Credits List Ajax
 staffRouter.get('/staff/ajax/creditsList', moneyStaff.ajaxCreditsList)
 
+staffRouter.get('/staff/ajax/orderList', loginRequired(async function (ctx, next) {
+    try{
+        let templateCtx = {}
+        let employeeId = ctx.request.query.employee_id
+        let order_count = Number(ctx.request.query.order_count)
+        let order_from = order_count + 1
+        let order_to = order_from + 4
+        let GetEmployeeDepartures = new Method1C('GetEmployeeDepartures', {'Filter': {'OrderFrom': order_from, 'OrderTo': order_to}, 'EmployeeID': employeeId})
+        const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '', true);
+        request1C.add(GetEmployeeDepartures)
+        await request1C.do()
+        templateCtx.GetEmployeeDepartures = GetEmployeeDepartures.response
+        if (templateCtx.GetEmployeeDepartures.DeparturesList.length){
+            let template = getTemplate(staffTemplate.ajax.orderList)
+            ctx.body = template(ctx.proc(templateCtx, ctx))
+        } else {
+            ctx.body = ''
+        }
+    } catch (e){
+        logger.info(e)
+        ctx.body = ''
+    }
+}))
+
 // Deposit List Ajax
 staffRouter.get('/staff/ajax/depositList', moneyStaff.ajaxDepositList)
 

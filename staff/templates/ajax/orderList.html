@@ -1,0 +1,7 @@
+{{#each GetEmployeeDepartures.DeparturesList}}
+    <a class="ui-btn" href="{{staffUrl 'orderDetail' DepartureID}}" {{#if CardCompleted }}{{else}}style="background: pink"{{/if }}>
+      <div class="ui-block-a"><div class="ui-body ui-body-d">{{ formatPartDate Date "DD.MM.YYYY HH:mm" }}</div></div><div class="ui-block-d"><div class="ui-body ui-body-d">{{ ClientTitle }} {{ toMoney TotalAmount }}</div></div>
+      <div class="ui-block-b"><div class="ui-body ui-body-d"><span style="font-weight: normal">{{ ServiceName }}</span></div></div>
+      <div class="ui-block-c"><div class="ui-body ui-body-d"><span style="font-weight: normal">{{ AddressTitle }}</span></div></div>
+    </a>
+{{/each }}

@@ -38,7 +38,7 @@
                     order_ended = true;
                     $.ajax({
                       type: "GET",
-                      url: "/mstaff/get_orders/",
+                      url: "/staff/ajax/orderList",
                       data: ({'employee_id': employee_id, 'order_count': order_count}),
                       cache: false,
                       dataType: "text",

@@ -148,6 +148,9 @@ const staffAjaxTemplateOpts = {
     depositList: {
         path: 'staff/templates/ajax/depositList.html', name: 'staffAjaxDepositList'
     },
+    orderList: {
+        path: 'staff/templates/ajax/orderList.html', name: 'staffAjaxOrderList'
+    },
 }
 const staffTemplate = {
     'oneC': staff1CTemplateOpts,
