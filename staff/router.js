@@ -139,7 +139,6 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
         try {
             [templateCtx.lon, templateCtx.lat] = JSON.parse(GetDepartureData.response['Address']['AddressJson'])['GeoObject']['Point']['pos'].split(' ')
         } catch (e){
-            logger.info(e)
             templateCtx.lat = null
             templateCtx.lon = null
         }
@@ -292,7 +291,7 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
     templateCtx.tomorrow = []
     templateCtx.today = []
     templateCtx.old = []
-    templateCtx.noOrders = (moment().hour() < 19) ? true : false
+    templateCtx.noOrders = (moment().hour() < 19) ? false: true
     templateCtx.orderCount = GetEmployeeDepartures.response.DeparturesList.length
     if (GetEmployeeDepartures.error && GetEmployeeDepartures.error.code == 2){
         if (isMobileVersion(ctx)){
