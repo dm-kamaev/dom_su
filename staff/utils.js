@@ -104,6 +104,9 @@ const staffMobileTemplateOpts = {
     orderDetail: {
         path: 'staff/templates/mobile/orderDetail.html', name: 'staffMobileOrderDetail'
     },
+    orderCard: {
+        path: 'staff/templates/mobile/orderCard.html', name: 'staffMobileOrderCard'
+    },
     ratingIndex: {
         path: 'staff/templates/mobile/ratingIndex.html', name: 'staffMobileRatingIndex'
     },
