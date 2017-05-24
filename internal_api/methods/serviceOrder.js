@@ -21,7 +21,9 @@ async function SendAdditionInfo(ctx) {
 
 async function Create(ctx) {
     let param = ctx.request.body.Param
-    param.city = ctx.state.pancakeUser.city.keyword
+    if (!ctx.request.body.Param.city){
+        param.city = ctx.state.pancakeUser.city.keyword
+    }
     let singleRequest = new SingleRequest1C('Client.ServiceOrder.Create', param)
     let response1C = await singleRequest.do()
     ctx.body = { 'Success': true }

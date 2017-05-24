@@ -42,7 +42,7 @@
     <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
     <meta name="theme-color" content="#fd8204">
 
-    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.19">
+    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.20">
 
     <script src="//yastatic.net/share2/share.js" async></script>
     <base href="" >
@@ -64,7 +64,7 @@
 
       <!-- Page Header -->
       <!-- page-header.html -->
-      <header class="page-header  page-header--scroll  page-header--contact">
+      <header class="page-header  page-header--contact">
         <div class="page-header__top">
           <button class="main-menu__btn  main-menu__btn--open">
             <svg class="main-menu__image" width="31" height="23.9" viewBox="0 0 31 23.9">
@@ -762,7 +762,7 @@
       
           <div class="pop-up__item  pop-up__item--sm  pop-up__item--hide  general-question">
             <form class="general-question__form">
-              <h2 class="general-question__title  title">Вы уверены?</h2>
+              <p class="general-question__title  title">Вы уверены?</p>
               <button class="general-question__button  general-question__button--ok  button" data-ga='{"hitType": "event","eventCategory": "form","eventAction": "send","eventLabel": "canceled_order"}'>Да</button>
               <button class="general-question__button  general-question__button--no  button" type="button">Нет</button>
             </form>
@@ -771,7 +771,7 @@
           <div class="pop-up__item  pop-up__item--hide  get-document">
             <div class="get-document__wrap">
               <form class="get-document__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "getContract"}'  ya-reach="order_applic">
-                <h2 class="get-document__title  title">Получить экземпляр договора</h2>
+                <p class="get-document__title  title">Получить экземпляр договора</p>
       
                 <div class="get-document__row">
                   <label class="get-document__label  label">Введите e-mail</label>
@@ -797,7 +797,7 @@
           <div class="pop-up__item pop-up__item--hide  service-order">
             <div class="service-order__wrap">
               <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_1"}'>
-                <h2 class="service-order__title  title">Оформить заказ</h2>
+                <p class="service-order__title  title">Оформить заказ</p>
                 <div class="service-order__row">
                   <label class="service-order__label  label">
                     Как к Вам обращаться?
@@ -815,7 +815,7 @@
             </div>
       
             <div class="service-order__wrap">
-              <h2 class="service-order__title  title">Выберите дату и время</h2>
+              <p class="service-order__title  title">Выберите дату и время</p>
               <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_2"}'>
       
                 <div class="service-order__calendar  calendar">
@@ -990,7 +990,7 @@
     </script>
 
     <!-- Java Script -->
-    <script src="/static/pancake/js/bundle.min.js?v0.20"></script>
+    <script src="/static/pancake/js/bundle.min.js?v0.21"></script>
 <!-- /Java Script -->
     {{#if general.production}}
     
