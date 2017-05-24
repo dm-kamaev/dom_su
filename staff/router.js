@@ -503,7 +503,7 @@ staffRouter.get('/staff/:EmployeeID/rating', loginRequired(getEmployeeHeader(asy
     templateCtx.GetSavingFundInfo = GetSavingFundInfo.response
     templateCtx.GetEmployeeData = GetEmployeeData.response
 
-    if (templateCtx.GetRatingInfo.Details){
+    if (templateCtx.GetRatingInfo && templateCtx.GetRatingInfo.Details){
         for (let detail of templateCtx.GetRatingInfo.Details){
             if (detail.Rating == 'Оценка'){
                 detail.Value = (detail.Value/20).toFixed(1)
