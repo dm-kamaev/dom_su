@@ -55,8 +55,8 @@
         <p><b>Метро:</b><br><span>{{ GetDepartureData.Address.Metro }}</span></p>
         <p><b>Как добраться:</b><br><span>{{ GetDepartureData.Address.Comment }}</span></p>
     </div>
-    {{#if Note }}<p><b>Примечание к заказу: </b><br/><span>{{ Note }}</span></p>{{/if}}
-    {{#if PointNote }}<p><b>Место встречи: </b><br/><span>{{ PointNote }}</span></p>{{/if}}
+    {{#if GetDepartureData.Note }}<p><b>Примечание к заказу: </b><br/><span>{{ GetDepartureData.Note }}</span></p>{{/if}}
+    {{#if GetDepartureData.PointNote }}<p><b>Место встречи: </b><br/><span>{{ GetDepartureData.PointNote }}</span></p>{{/if}}
     {{#if isSenior }}
         {{#if GetDepartureData.SeniorNote }}<p><b>Примечание для ответственного: </b><br/><span>{{ GetDepartureData.SeniorNote }}</span></p>{{/if}}
     {{/if}}
