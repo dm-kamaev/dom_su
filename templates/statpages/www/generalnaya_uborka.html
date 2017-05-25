@@ -41,7 +41,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.21">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.22">
   <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
@@ -569,30 +569,21 @@
                   <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="glazhka" data-service="glazhka" data-class="linen_glazhaka" data-feature="hour" data-quantity="1" data-price="500">
                     <div class="service-card-light__wrap">
                       <img class="service-card-light__image" src="/static/pancake/img/service-ironing.svg" width="50" height="50">
-                      <div class="service-card-light__column">
-                        <p class="service-card-light__text text-ab  text-ab--small">Глажка белья</p>
-                        <p class="service-card-light__mark  text-ab">500 р / час</p>
-                      </div>
+                      <p class="service-card-light__text text-ab  text-ab--small">Глажка белья</p>
                     </div>
                   </div>
 
                   <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="linen_wash" data-service="individual_work" data-class="linen_wash" data-feature="load_washer" data-quantity="1" data-price="200">
                     <div class="service-card-light__wrap">
                       <img class="service-card-light__image" src="/static/pancake/img/service-washing-machine.svg" width="50" height="50">
-                      <div class="service-card-light__column">
-                        <p class="service-card-light__text  text-ab  text-ab--small">Стирка белья</p>
-                        <p class="service-card-light__mark  text-ab">200 р / час</p>
-                      </div>
+                      <p class="service-card-light__text  text-ab  text-ab--small">Стирка белья</p>
                     </div>
                   </div>
 
                   <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="individual_work" data-service="individual_work" data-class="hourly" data-feature="hour" data-quantity="1" data-price="650">
                       <div class="service-card-light__wrap">
                         <img class="service-card-light__image" src="/static/pancake/img/service-hour-work.svg" width="50" height="50">
-                        <div class="service-card-light__column">
-                          <p class="service-card-light__text  text-ab  text-ab--small">Почасовая работа</p>
-                          <p class="service-card-light__mark  text-ab">650 р / час</p>
-                        </div>
+                        <p class="service-card-light__text  text-ab  text-ab--small">Почасовая работа</p>
                       </div>
                     </div>
 
@@ -620,10 +611,10 @@
                     </ul>
                   </div>
                 </div>
-                <div class="service-calc-ab__data">
+                <div class="service-calc-ab__data" data-field="schedule">
                   <label class="checkbox-right">
                     <span class="checkbox-right__text  service-calc-ab__data-title  service-calc-ab__data-title--checkbox">Постоянный клиент:</span>
-                    <input type="checkbox" class="checkbox-right__input  checkbox-right__input--small">
+                    <input type="checkbox" class="checkbox-right__input  checkbox-right__input--small" data-schedule="1x_week">
                     <span class="checkbox-right__indicator checkbox-right__indicator--small"></span>
                   </label>
                 </div>
@@ -1124,7 +1115,7 @@
 
 <!-- Java Script -->
 
-<script src="/static/pancake/js/bundle.min.js?v0.22"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.23"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 
