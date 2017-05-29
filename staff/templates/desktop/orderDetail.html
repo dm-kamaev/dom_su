@@ -143,6 +143,7 @@
             <td class="third bot-shadow">Кол-во</td>
             <td class="forth bot-shadow">Сумма</td>
             <td class="fifth bot-shadow">Скидка</td>
+            <td class="fifth bot-shadow">Спецификация</td>
             <td class="sixth bot-shadow">Стоимость</td>
             {{#each GetDepartureData.Employees}}
                 <td class="for_employee bot-shadow" style="width: {{ ../employeeColumnWidth }}px">{{#if IsIntern}}<span style="color:red">Стажёр</span>{{/if}} {{ EmployeeTitle }} </td>
@@ -155,6 +156,7 @@
                 <td class="third{{#if @first}}{{else}} top-white{{/if}}"></td>
                 <td class="brown-color forth{{#if @first}}{{else}} top-white{{/if}}"><b>{{ toMoney css.Amount }}</b></td>
                 <td class="fifth{{#if @first}}{{else}} top-white{{/if}}">{{#ifCond css.Discount '!=' 0 }}{{ toMoney css.Discount }}{{/ifCond}}</td>
+                <td class="fifth{{#if @first}}{{else}} top-white{{/if}}">{{ toMoney css.SpecAmount }}</td>
                 <td class="orange-color sixth{{#if @first}}{{else}} top-white{{/if}}"><b>{{ toMoney css.TotalAmount }}</b></td>
                 {{#each ../GetDepartureData.Employees}}
                     <td class=" for_employee {{#if @../first}}{{else}} top-white{{/if}}" style="width: {{ ../../employeeColumnWidth }}px;"></td>
@@ -166,6 +168,7 @@
                     <td class="second{{#if @first}} top-white{{/if}}{{#if @last}} bot-shadow{{/if}}">{{ toMoney cssoc.Price }}</td>
                     <td class="third{{#if @first}} top-white{{/if}}{{#if @last}} bot-shadow{{/if}}">{{ toMoney cssoc.Quantity }}</td>
                     <td class="forth{{#if @first}} top-white{{/if}}{{#if @last}} bot-shadow{{/if}}">{{ toMoney cssoc.Amount  }}</td>
+                    <td class="fifth{{#if @first}} top-white{{/if}}{{#if @last}} bot-shadow{{/if}}"></td>
                     <td class="fifth{{#if @first}} top-white{{/if}}{{#if @last}} bot-shadow{{/if}}"></td>
                     <td class="sixth{{#if @first}} top-white{{/if}}{{#if @last}} bot-shadow{{/if}}"></td>
                     {{#each ../../GetDepartureData.Employees as |emp|}}
@@ -190,6 +193,7 @@
             <td class="third bot-shadow">Кол-во</td>
             <td class="forth bot-shadow">Сумма</td>
             <td class="fifth bot-shadow">Скидка</td>
+            <td class="fifth bot-shadow">Спецификация</td>
             <td class="sixth bot-shadow">Стоимость</td>
             {{#each GetDepartureData.Employees}}
                 <td class="for_employee bot-shadow transparent" style="width: {{ ../employeeColumnWidth }}px">{{#if IsIntern}}<span style="color:red">Стажёр</span>{{/if}} {{ EmployeeTitle }}</td>
@@ -202,6 +206,7 @@
                 <td class="third{{#if @first}}{{else}} top-white{{/if}}"></td>
                 <td class="brown-color forth{{#if @first}}{{else}} top-white{{/if}}"><b>{{ toMoney css.Amount  }}</b></td>
                 <td class="fifth{{#if @first}}{{else}} top-white{{/if}}">{{#ifCond css.Discount '!=' 0 }}{{ toMoney css.Discount }}{{/ifCond}}</td>
+                <td class="fifth{{#if @first}}{{else}} top-white{{/if}}">{{ toMoney css.SpecAmount }}</td>
                 <td class="orange-color sixth{{#if @first}}{{else}} top-white{{/if}}"><b>{{ toMoney css.TotalAmount }}</b></td>
                 {{#each GetDepartureData.Employees}}
                     <td class=" for_employee transparent {{#if @../first}}{{else}} top-white{{/if}}" style="width: {{ ../../employeeColumnWidth }}px;"></td>
@@ -213,6 +218,7 @@
                     <td class="second{{#if @first}} top-white{{/if}}{{#if @last}} bot-shadow{{/if}}">{{ toMoney cssoc.Price  }}</td>
                     <td class="third{{#if @first}} top-white{{/if}}{{#if @last}} bot-shadow{{/if}}">{{ toMoney cssoc.Quantity }}</td>
                     <td class="forth{{#if @first}} top-white{{/if}}{{#if @last}} bot-shadow{{/if}}">{{ toMoney cssoc.Amount }}</td>
+                    <td class="fifth{{#if @first}} top-white{{/if}}{{#if @last}} bot-shadow{{/if}}"></td>
                     <td class="fifth{{#if @first}} top-white{{/if}}{{#if @last}} bot-shadow{{/if}}"></td>
                     <td class="sixth{{#if @first}} top-white{{/if}}{{#if @last}} bot-shadow{{/if}}"></td>
                     {{#each GetDepartureData.Employees}}
