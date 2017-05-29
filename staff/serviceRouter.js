@@ -4,8 +4,27 @@ const { PendingToken, Token } = models
 const Router = require('koa-router');
 const SECRET = '03wBqD195DzQ1a5dp6qM'
 const logger = require('logger')(module, 'staff.log')
+const { Method1C, Request1C } = require('api1c')
 
 const staffServiceRouter = new Router();
+
+
+staffServiceRouter.get('/staff/check_service', async function (ctx, next) {
+    const request1C = new Request1C(null, '', '', true);
+    let CheckAPI = new Method1C('CheckAPI', {})
+    request1C.add(CheckAPI)
+    await request1C.do()
+    try{
+        if (CheckAPI.response.Result != true){
+        ctx.body = {'work': false}
+        return
+        }
+        ctx.body = {'work': true}
+        return
+    } catch (e){
+        ctx.body = {'work': false}
+    }
+})
 
 staffServiceRouter.post('/staff/deactivate_token', async function (ctx, next) {
     let body = ctx.request.body

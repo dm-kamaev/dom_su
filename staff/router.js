@@ -26,24 +26,6 @@ const regCardScore = new RegExp('^score_.*')
 const regQuestionAnswerCookie = new RegExp('(?:^|;)*(:?question[^;=]*)', "g")
 
 
-staffRouter.get('/checkAPI/9c42fc9a-6585-11e4-943b-002590306b4e/', async function (ctx, next) {
-    const request1C = new Request1C(null, '', '', true);
-    let CheckAPI = new Method1C('CheckAPI', {})
-    request1C.add(CheckAPI)
-    await request1C.do()
-    try{
-        if (CheckAPI.response.Result != true){
-        ctx.body = {'work': false}
-        return
-        }
-        ctx.body = {'work': true}
-        return
-    } catch (e){
-        ctx.body = {'work': false}
-    }
-})
-
-
 staffRouter.get(staffUrl('logout'), async function (ctx, next) {
     let header = ctx.headers["cookie"]
     let questionAnswers = header.match(regQuestionAnswerCookie)
