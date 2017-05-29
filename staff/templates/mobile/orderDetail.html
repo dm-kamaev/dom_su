@@ -70,7 +70,7 @@
     <ul data-role="listview" data-inset="false">
         {{#each GetDepartureData.Employees}}
             <li>
-                <a href="{{staffUrl 'employeeDetail' EmployeeID }}?profile=true"><span style="font-weight: normal;">{{ EmployeeTitle }}</span></a>
+                <a href="{{staffUrl 'employeeDetail' EmployeeID }}?profile=true"><span style="font-weight: normal;">{{#if IsIntern}}<span style="color:red">Стажёр</span>{{/if}} {{ EmployeeTitle }}</span></a>
             </li>
         {{/each}}
     </ul>

@@ -195,7 +195,7 @@
                 <tr class="heading">
                     <td class="first bot-shadow">Услуга</td>
                     {{#each GetDepartureData.Employees as |employee|}}
-                        <td class="for_employee bot-shadow" style="width: 100px;">{{ employee.EmployeeTitle }}</td>
+                        <td class="for_employee bot-shadow" style="width: 100px;">{{#if employee.IsIntern}}<span style="color:red">Стажёр</span>{{/if}} {{ employee.EmployeeTitle }}</td>
                     {{/each }}
                 </tr>
                 {{#each GetDepartureData.Services as |css|}}
@@ -233,7 +233,7 @@
                     {{#each GetDepartureData.Employees  as |employee|}}
 
                         {{#ifCond employee.EmployeeID '!==' ../GetDepartureData.Senior.EmployeeID }}
-                            <td class="for_employee bot-shadow" style="width: 100px;">{{ employee.EmployeeTitle }}</td>
+                            <td class="for_employee bot-shadow" style="width: 100px;">{{#if employee.IsIntern}}<span style="color:red">Стажёр</span>{{/if}} {{ employee.EmployeeTitle }}</td>
                         {{/ifCond }}
                     {{/each }}
                 </tr>

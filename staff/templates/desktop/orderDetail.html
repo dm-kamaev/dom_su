@@ -145,7 +145,7 @@
             <td class="fifth bot-shadow">Скидка</td>
             <td class="sixth bot-shadow">Стоимость</td>
             {{#each GetDepartureData.Employees}}
-                <td class="for_employee bot-shadow" style="width: {{ ../employeeColumnWidth }}px">{{ EmployeeTitle }}</td>
+                <td class="for_employee bot-shadow" style="width: {{ ../employeeColumnWidth }}px">{{#if IsIntern}}<span style="color:red">Стажёр</span>{{/if}} {{ EmployeeTitle }} </td>
             {{/each}}
         </tr>
         {{#each GetDepartureData.Services as |css|}}
@@ -192,7 +192,7 @@
             <td class="fifth bot-shadow">Скидка</td>
             <td class="sixth bot-shadow">Стоимость</td>
             {{#each GetDepartureData.Employees}}
-                <td class="for_employee bot-shadow transparent" style="width: {{ ../employeeColumnWidth }}px">{{ EmployeeTitle }}</td>
+                <td class="for_employee bot-shadow transparent" style="width: {{ ../employeeColumnWidth }}px">{{#if IsIntern}}<span style="color:red">Стажёр</span>{{/if}} {{ EmployeeTitle }}</td>
             {{/each}}
         </tr>
         {{#each GetDepartureData.Services as |css|}}

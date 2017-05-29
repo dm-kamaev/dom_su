@@ -45,7 +45,7 @@
                                     {{#each ../../GetDepartureData.Employees as |employee|}}
                                         <li>
                                             <fieldset data-role="controlgroup" data-type="horizontal">
-                                                <legend>{{ employee.EmployeeTitle }}</legend>
+                                                <legend>{{#if employee.IsIntern}}<span style="color:red">Стажёр</span>{{/if}} {{ employee.EmployeeTitle }}</legend>
                                                 <input class="radio-validate" type="radio"
                                                        name="service_{{ css.ServiceID }}_{{ cssoc.ObjectClassID }}_{{ employee.EmployeeID }}"
                                                        id="service_{{ css.ServiceID }}_{{ cssoc.ObjectClassID }}_{{ employee.EmployeeID }}-yes"
@@ -77,7 +77,7 @@
                                 {{#ifCond employee.EmployeeID '!==' ../../GetDepartureData.Senior.EmployeeID }}
                                     <li>
                                         <fieldset data-role="controlgroup" data-type="horizontal">
-                                            <legend>{{ employee.EmployeeTitle }}</legend>
+                                            <legend>{{#if employee.IsIntern}}<span style="color:red">Стажёр</span>{{/if}} {{ employee.EmployeeTitle }}</legend>
                                             <input type="radio" class="radio-validate"
                                                    name="additional_{{ service.Value }}_{{ employee.EmployeeID }}"
                                                    id="additional_{{ service.Value }}_{{ employee.EmployeeID }}-yes"
@@ -101,7 +101,7 @@
                         {{#each GetDepartureData.Employees as |employee| }}
                             {{#ifCond employee.EmployeeID '!==' ../GetDepartureData.Senior.EmployeeID }}
                                 <li>
-                                    <legend>{{ employee.EmployeeTitle }}</legend>
+                                    <legend>{{#if employee.IsIntern}}<span style="color:red">Стажёр</span>{{/if}} {{ employee.EmployeeTitle }}</legend>
                                     <select  data-icon="false" class="select-validate" name="score_{{ employee.EmployeeID }}">
                                         <option disabled selected value>-</option>
                                         {{#each ../scoreRange  as |i|}}
