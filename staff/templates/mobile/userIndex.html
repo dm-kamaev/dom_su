@@ -28,6 +28,7 @@
             <h3>{{ GetEmployeeData.Post }}</h3>
             <h3><a href="tel:{{ GetEmployeeData.PhoneNumber }}">{{ GetEmployeeData.PhoneNumber }}</a></h3>
             {{#if itIsMe }}
+                <span>Лимит на средства и материалы: <span style="font-weight: bold">{{GetEmployeeData.MatLimit}}</span> руб.</span><br/>
                 <a data-ajax="false" href="{{staffUrl 'employeeDetail' selfId }}">Заказы</a>
             {{/if}}
             <div data-demo-html="#panel-responsive-page1"></div>
