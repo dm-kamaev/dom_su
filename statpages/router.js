@@ -11,6 +11,7 @@ const { CITIES } = require('cities')
 
 const re_slash = new RegExp('\/', 'g');
 
+const yaBotsRegExp = new RegExp('yandex.com/bots')
 
 
 
@@ -243,7 +244,8 @@ function choiceTest(variations) {
 
 async function getPageWithABTest(ctx, page) {
     let city = ctx.state.pancakeUser.city.keyword
-    if (ABTestContainer[city] && ABTestContainer[city][page] ){
+    if (ABTestContainer[city] && ABTestContainer[city][page] && !yaBotsRegExp.test(ctx.request.headers['user-agent']) ){
+
         let ABTest = ABTestContainer[city][page]
         let testData = ctx.state.pancakeUser.getABTest(ABTest)
         if (!testData) {
