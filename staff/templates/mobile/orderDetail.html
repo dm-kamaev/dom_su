@@ -88,7 +88,7 @@
                                     <h4><li style="font-style: italic; text-align: right; font-weight: normal;">{{ cssoc.ObjectClassTitle}} {{#ifCond cssoc.Quantity '!=' 1 }}<b>{{ toMoney cssoc.Price }}</b>x{{ cssoc.Quantity }} ={{/ifCond}}<b>{{ toMoney cssoc.Amount }}</b></li></h4>
                                     <ul data-role="listview">
                                     {{#each cssoc.Employees as |employee|}}
-                                        <li style="text-align: right"><span style="font-weight: normal;">{{ employee.EmployeeTitle }}</span></li>
+                                        <li style="text-align: right"><span style="font-weight: normal;">{{#if IsIntern}}<span style="color:red">Стажёр</span>{{/if}} {{ employee.EmployeeTitle }}</span></li>
                                     {{/each}}
                                     </ul>
                                 </div>
