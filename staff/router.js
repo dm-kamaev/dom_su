@@ -479,10 +479,9 @@ staffRouter.post('/staff/interview/:EmployeeID/:InterviewID/', parseFormMultipar
 
     let SetInterview = new Method1C('SetInterview', {'InterviewAnswers': interviewQuestionAnswers, 'InterviewID': ctx.params.InterviewID})
     request1C.add(SetInterview)
-    //await request1C.do()
-    //ctx.status = 302
-    //ctx.redirect(ctx.headers.referer)
-    ctx.body = interviewQuestionAnswers
+    await request1C.do()
+    ctx.status = 302
+    ctx.redirect(ctx.headers.referer)
 })))
 
 
