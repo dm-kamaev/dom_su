@@ -280,14 +280,14 @@ async function getPageWithABTest(ctx, page) {
             testData = {page: ABTestVariant.page, name: ABTestVariant.name}
             ctx.state.pancakeUser.setABTest(ABTest.key , testData)
         }
-        let pageData = await getPage(cityTemplate[city], testData.page)
-        if (pageData && pageData.template){
-            if (pageData.data){
-                pageData.data.ABTest = {key: ABTest.key, variant: testData.name}
+        let {template, data} = await getPage(cityTemplate[city], testData.page)
+        if (template){
+            if (data){
+                data.ABTest = {key: ABTest.key, variant: testData.name}
             } else {
-                pageData.data = {ABTest : {key: ABTest.key, variant: testData.name}}
+                data = {ABTest : {key: ABTest.key, variant: testData.name}}
             }
-            return pageData
+            return {template, data}
         }
     }
     if (cityTemplate[city] && cityTemplate[city][page] && !cityTemplate[city][page].hide){
@@ -303,7 +303,7 @@ loadStatPages(spbTemplates)
 async function getPage(templateDict, page) {
     if (templateDict[page] !== undefined){
         let template = getTemplate({name: `${templateDict.key+templateDict[page].name}`, path: `${templateDict.dir + templateDict[page].name}`})
-        let data = templateDict[page].data
+        let data = JSON.parse(JSON.stringify(templateDict[page].data))
         return { template, data }
     } else {
         return { template: null}
