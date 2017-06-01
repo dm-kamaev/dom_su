@@ -44,9 +44,11 @@ const moscowTemplates = {
     //'kristallizatsiya-i-restavratsiya-mramornykh-polov': {name: 'kristallizatsiya-i-restavratsiya-mramornykh-polov.html'},
     // Exist
 
-    // AB test
-    'ab': {hide: true, name: 'main_ab.html', data: {menu: {index: true}, generateCanonical: () => buildUrl('moscow', '/')}},
+    // AB test page
+    'main_ab': {hide: true, name: 'main_ab.html', data: {menu: {index: true}}},
+    'podderzhka_ab': {hide: true,name: 'podderzhka_ab.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
     // 'generalnaya_uborka_ab': {hide: true, name: 'generalnaya_uborka_ab.html', ServiceName: 'Генеральная уборка', data:{ menu:{general: true}}},
+    'posle_remonta_ab': {hide: true, name: 'posle_remonta_ab.html', ServiceName: 'Уборка после ремонта', data:{ menu:{physical: true, posle_remonta: true}}},
 
     'main': {name: 'main.html', data: {menu: {index: true}}},
     'strahovka__': {name: 'strahovka__.html', data:{ menu:{physical: true }}},
@@ -155,10 +157,22 @@ const spbTemplates = {
 
 const ABTestContainer = {
     'moscow': {
-        // 'generalnaya_uborka': { name: "Первое тестирование генералки Москва", key: "general_first", variations: [
+        // 'generalnaya_uborka': { name: "Первое тестирование генералки Москва", key: "general_first", forNewUser: true, variations: [
         //     {name: "control", page: 'generalnaya_uborka', ratio: 50, description: "Основная"},
-        //     {name: "variation", page: 'generalnaya_uborka_ab', ratio: 50, description: "Пробуем новый дизайн"}
+        //     {name: "variation", page: 'garantii__', ratio: 50, description: "Пробуем новый дизайн"}
         // ]},
+        'podderzhka': { name: "", key: "podderzhka_1_new_design", forNewUser: true, variations: [
+            {name: "control", page: 'podderzhka', ratio: 50, description: "Основная"},
+            {name: "variation", page: 'podderzhka_ab', ratio: 50, description: "Пробуем новый дизайн"}
+        ]},
+        'posle_remonta': { name: "", key: "posle_remonta_1_new_design", forNewUser: true, variations: [
+            {name: "control", page: 'posle_remonta', ratio: 50, description: "Основная"},
+            {name: "variation", page: 'posle_remonta_ab', ratio: 50, description: "Пробуем новый дизайн"}
+        ]},
+        'main': { name: "", key: "main_1_new_design", forNewUser: true, variations: [
+            {name: "control", page: 'main', ratio: 50, description: "Основная"},
+            {name: "variation", page: 'main_ab', ratio: 50, description: "Пробуем новый дизайн"}
+        ]},
     }
 }
 
@@ -242,10 +256,23 @@ function choiceTest(variations) {
     return variations[0]
 }
 
+async function checkForOnlyFirstVisit(ctx, abTest) {
+    if (!abTest.forNewUser){
+        return true
+    }
+    if (ctx.state.pancakeUser.getABTest(abTest)){
+        return true
+    }
+    let isFirstVisit = await ctx.state.pancakeUser.isFirstVisit()
+    return isFirstVisit
+}
+
 async function getPageWithABTest(ctx, page) {
     let city = ctx.state.pancakeUser.city.keyword
-    if (ABTestContainer[city] && ABTestContainer[city][page] && !yaBotsRegExp.test(ctx.request.headers['user-agent']) ){
-
+    if (ABTestContainer[city] && ABTestContainer[city][page]
+        && !yaBotsRegExp.test(ctx.request.headers['user-agent'])
+        && await checkForOnlyFirstVisit(ctx, ABTestContainer[city][page])
+    ){
         let ABTest = ABTestContainer[city][page]
         let testData = ctx.state.pancakeUser.getABTest(ABTest)
         if (!testData) {
@@ -327,7 +354,7 @@ statpagesRouter.get('/client_id/life/:uuid/', async function (ctx, next) {
 })
 
 statpagesRouter.get('/', async function (ctx, next) {
-    const { template, data } = await getPage(cityTemplate[ctx.state.pancakeUser.city.keyword], 'main', next)
+    const { template, data } = await getPageWithABTest(ctx, 'main')
     ctx.body = template(ctx.proc(data))
 })
 

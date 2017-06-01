@@ -365,6 +365,18 @@ class PancakeUser {
         return this.auth1C
     }
 
+    async isFirstVisit(){
+        if (this.isNew){
+            return true
+        } else {
+            let visits = await Visit.findAndCountAll({'where': {'user_uuid': this.uuid}})
+            if (visits && visits.count > 1){
+                return false
+            }
+            return true
+        }
+    }
+
     async getAuth1CTask(){
         this.queue.push(async function (previousResult, pancakeUser) {
             if (pancakeUser.auth1C.uuid !== null){

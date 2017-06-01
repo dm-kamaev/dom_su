@@ -42,7 +42,7 @@
   <meta name="theme-color" content="#fd8204">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.24">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.25">
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
 
@@ -55,6 +55,12 @@
       ABTestId: {{#if general.analytics.ABTestID}}"{{general.analytics.ABTestID}}"{{else}}null{{/if}},
       ABTestValue: {{#if general.analytics.ABTestVariant}}"{{general.analytics.ABTestVariant}}"{{else}}null{{/if}}
     };
+  
+    {{#if general.analytics.ABTestID}}
+      var yaParams = {
+        "{{general.analytics.ABTestID}}": "{{general.analytics.ABTestVariant}}"
+      };
+    {{/if}}
   </script>
 
 </head>
@@ -313,30 +319,29 @@
           <p class="section-ab__paragraph  section-ab__paragraph--main  text-ab">Генеральная уборка нужна, чтобы даже в углу за батареей было чисто.</p>
 
           <div class="service-condition-ab">
-            
-              <div class="service-condition-ab__block">
-                <div class="service-condition-ab__image">
-                  <img height="70" width="70" src="/static/pancake/img/service-general-work.svg">
-                </div>
-
-                <div class="service-condition-ab__description">
-                  <p class="service-condition-ab__title title">Комнаты и коридоры</p>
-                  <p class="service-condition-ab__text text-ab">Удаление пыли и сложных загрязнений со всех поверхностей на всю высоту помещения.</p>
-                </div>
+            <div class="service-condition-ab__block">
+              <div class="service-condition-ab__image">
+                <img height="70" width="70" src="/static/pancake/img/service-general-work.svg">
               </div>
 
-              <div class="service-condition-ab__block">
-                <div class="service-condition-ab__image">
-                  <img height="70" width="70" src="/static/pancake/img/service-kitchen.svg">
-                </div>
+              <div class="service-condition-ab__description">
+                <p class="service-condition-ab__title title">Комнаты и коридоры</p>
+                <p class="service-condition-ab__text text-ab">Удаление пыли и сложных загрязнений со всех поверхностей на всю высоту помещения.</p>
+              </div>
+            </div>
 
-                <div class="service-condition-ab__description">
-                  <p class="service-condition-ab__title title">Кухня</p>
-                  <p class="service-condition-ab__text text-ab">Мытьё посуды и раковины, бытовой техники, холодильника и духовки внутри, удаление следов жира и масляных пятен со всех поверхностей.</p>
-                </div>
+            <div class="service-condition-ab__block">
+              <div class="service-condition-ab__image">
+                <img height="70" width="70" src="/static/pancake/img/service-kitchen.svg">
               </div>
 
-              <div class="service-condition-ab__block">
+              <div class="service-condition-ab__description">
+                <p class="service-condition-ab__title title">Кухня</p>
+                <p class="service-condition-ab__text text-ab">Мытьё посуды и раковины, бытовой техники, холодильника и духовки внутри, удаление следов жира и масляных пятен со всех поверхностей.</p>
+              </div>
+            </div>
+
+            <div class="service-condition-ab__block">
                 <div class="service-condition-ab__image">
                   <img height="70" width="70" src="/static/pancake/img/service-bathroom.svg">
                 </div>
@@ -348,7 +353,6 @@
 
                 </div>
               </div>
-            
           </div>
         </div>
       </section>
@@ -487,7 +491,7 @@
         <div class="section-ab__wrap">
           <h2 class="section-ab__title  title">Расчёт стоимости уборки</h2>
 
-          <div class="service-calc  service-calc--new" data-name="general" data-service="general" data-class="space" data-schedule="0x_week">
+          <div class="service-calc  service-calc--new" data-name="general" data-service="general" data-schedule="0x_week">
 
             <div class="service-calc__inner">
                 <ul class="service-calc__path list">
@@ -504,23 +508,23 @@
                 <p class="section-ab__heading text-ab">Какая площадь Вашей квартиры?</p>
 
                 <div class="service-calc__row  service-calc__row--square">
-                  <div class="service-calc__item service-calc__item--oval  service-calc__item--active"  data-feature="square" data-quantity="40" data-value="40">
+                  <div class="service-calc__item service-calc__item--oval  service-calc__item--active"  data-class="space" data-feature="square" data-quantity="40" data-value="40">
                     <button type="button" class="service-calc__radio  service-calc__radio--oval">40 м<sup><small>2</small></sup></button>
                   </div>
 
-                  <div class="service-calc__item service-calc__item--oval" data-feature="square" data-quantity="50" data-value="50">
+                  <div class="service-calc__item service-calc__item--oval" data-feature="square" data-class="space" data-quantity="50" data-value="50">
                     <button type="button" class="service-calc__radio  service-calc__radio--oval">50 м<sup><small>2</small></sup></button>
                   </div>
 
-                  <div class="service-calc__item service-calc__item--oval" data-feature="square" data-quantity="60" data-value="60">
+                  <div class="service-calc__item service-calc__item--oval" data-feature="square" data-class="space" data-quantity="60" data-value="60">
                     <button type="button" class="service-calc__radio  service-calc__radio--oval">60 м<sup><small>2</small></sup></button>
                   </div>
 
-                  <div class="service-calc__item service-calc__item--oval" data-feature="square" data-quantity="70" data-value="70">
+                  <div class="service-calc__item service-calc__item--oval" data-feature="square" data-class="space" data-quantity="70" data-value="70">
                     <button type="button" class="service-calc__radio  service-calc__radio--oval">70 м<sup><small>2</small></sup></button>
                   </div>
 
-                  <div class="service-calc__item service-calc__item--oval" data-feature="square" data-quantity="40" data-value="">
+                  <div class="service-calc__item service-calc__item--oval" data-feature="square" data-class="space" data-quantity="40" data-value="">
                     <span class="service-calc__input-label">Укажите:</span>
                     <input type="number" class="service-calc__input  service-calc__input--oval  service-calc__input--oval-half  input" max="200">
                     <span class="service-calc__unit  service-calc__unit--for-oval">м<sup><small>2</small></sup></span>
@@ -614,7 +618,7 @@
                 <div class="service-calc-ab__data" data-field="schedule">
                   <label class="checkbox-right">
                     <span class="checkbox-right__text  service-calc-ab__data-title  service-calc-ab__data-title--checkbox">Постоянный клиент:<span class="service-calc__sign  service-calc__sign-popup" data-name="notification">?<span class="service-card__note">Постоянные клиенты - те, кто пользуется услугами нашей компании по уборке своего дома не реже чем 1 раз в 2 недели.</span></span></span>
-                    <input type="checkbox" class="checkbox-right__input  checkbox-right__input--small" data-schedule="1x_week">
+                    <input type="checkbox" class="checkbox-right__input  checkbox-right__input--small"  data-name="general" data-service="general" data-schedule="1x_week">
                     <span class="checkbox-right__indicator checkbox-right__indicator--small"></span>
                   </label>
                 </div>
@@ -623,7 +627,7 @@
 
                   <div class="service-calc-ab__data  service-calc-ab__row" data-field="price">
                     <p class="service-calc-ab__data-title">Стоимость:</p>
-                    <p class="service-calc-ab__data-value">2 640р</p>
+                    <p class="service-calc-ab__data-value">6 590р</p>
                   </div>
                 </div>
 
@@ -1115,7 +1119,7 @@
 
 <!-- Java Script -->
 
-<script src="/static/pancake/js/bundle.min.js?v0.25"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.26"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 

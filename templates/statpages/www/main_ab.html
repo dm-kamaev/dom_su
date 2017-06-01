@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Клининговая компания Домовёнок: профессиональная уборка квартир, офисов, служебных помещений в Москве и Санкт-Петербурге. Цены на клининговые услуги.</title>
+  <title>Клининговая компания Домовёнок: профессиональная уборка квартир и офисов в Москве. Цены на клининговые услуги.</title>
   {{#if noindex}} <meta name="robots" content="noindex,nofollow"> {{else}} <meta name="robots" content="index, follow"/> {{/if}}
   {{#if canonical }}<link rel="canonical" href="{{canonicalPath}}"/>{{/if}}
   <meta name="keywords"
@@ -38,26 +38,35 @@
   <meta name="msapplication-TileImage" content="/static/pancake/img/mstile-144x144.png?v=1.0">
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.15">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.25">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
+
   <script>
     var analyticConf = {
       id: "{{general.analytics.GAUA}}",
       userId: "{{general.analytics.userUuid}}",
       phone: "{{general.analytics.phone}}",
-      phoneDimension: "{{general.analytics.phoneDimension}}"
+      phoneDimension: "{{general.analytics.phoneDimension}}",
+      ABTestId: {{#if general.analytics.ABTestID}}"{{general.analytics.ABTestID}}"{{else}}null{{/if}},
+      ABTestValue: {{#if general.analytics.ABTestVariant}}"{{general.analytics.ABTestVariant}}"{{else}}null{{/if}}
     };
+  
+    {{#if general.analytics.ABTestID}}
+      var yaParams = {
+        "{{general.analytics.ABTestID}}": "{{general.analytics.ABTestVariant}}"
+      };
+    {{/if}}
   </script>
+
 </head>
 <body class="page">
 <!-- Page wrapper -->
-<div class="page__wrap">
+<div class="page__wrap page__wrap--scroll">
   <!-- Page Header -->
   <!-- page-header.html -->
-  <header class="page-header  page-header--scroll  page-header--contact">
-  
+  <header class="page-header  page-header--contact">
     <div class="page-header__top">
       <button class="main-menu__btn  main-menu__btn--open">
         <svg class="main-menu__image" width="31" height="23.9" viewBox="0 0 31 23.9">
@@ -68,9 +77,8 @@
       </button>
       <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Логотип"/></a>
   
-      <a class="page-header__tel" href="tel:{{ general.phoneHref }}"><span class="page-header__tel-brown">{{ general.phoneCode }}</span> {{ general.phoneNumber }}</a>
+      <a class="page-header__tel" href="tel:{{ general.phoneHref }}"><span>{{ general.phoneCode }}</span> {{ general.phoneNumber }}</a>
     </div>
-  
     <div class="page-header__wrap">
       <a class="main-menu__icon-close  icon-close" href="#">
         <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
@@ -78,262 +86,211 @@
           <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
         </svg>
       </a>
-  
       <!--Main Menu-->
       <nav class="page-header__main-menu  main-menu  scroll-container">
-  
         <ul class="main-menu__list">
-  
           <li class="main-menu__item">
             <a class="main-menu__link"  href="{{buildUrl general.city '/private/auth'}}">
               Личный кабинет
             </a>
           </li>
-  
           <li class="main-menu__item {{#if menu.podderzhka}}main-menu__item--active{{/if}}">
             <a class="main-menu__link"  href="{{buildUrl general.city '/podderzhka'}}">
               Поддерживающая уборка
             </a>
           </li>
-  
           <li class="main-menu__item {{#if menu.generalnaya_uborka}}main-menu__item--active{{/if}}">
             <a class="main-menu__link"  href="{{buildUrl general.city '/generalnaya_uborka'}}">
               Генеральная уборка
             </a>
           </li>
-  
           <li class="main-menu__item {{#if menu.mite_okon}}main-menu__item--active{{/if}}">
             <a class="main-menu__link"  href="{{buildUrl general.city '/mite_okon'}}">
               Мытьё окон
             </a>
           </li>
-  
           <li class="main-menu__item  main-menu__item--sub {{#if menu.physical}}main-menu__item--active{{/if}}">
             <a class="main-menu__link">
               Физическим лицам
             </a>
-  
             <!--Sub Menu-->
             <ul class="main-menu__list  main-menu__list--sub">
-  
               <li class="main-menu__item-sub {{#if menu.domrabotnica}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/domrabotnica'}}">
                   Домработница
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.glazhka}}main-menu__item-sub--active{{/if}}" >
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/glazhka'}}">
                   Глажка
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.posle_remonta}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/posle_remonta'}}">
                   Уборка после ремонта
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.uborka_kottedzhej}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka-kottedzhej'}}">
                   Уборка коттеджей
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.himchistka_odezhdy}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/himchistka_odezhdy'}}">
                   Химчистка
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.himchistka}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/himchistka'}}">
                   Химчистка мебели
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.vizov_mastera_na_dom}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
                   Домашний мастер
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.obrabotka_poverhnostey}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
                   Обработка поверхностей
                 </a>
               </li>
-  
             </ul>
             <!--/Sub Menu-->
           </li>
-  
           <li class="main-menu__item  main-menu__item--sub {{#if menu.legal}}main-menu__item--active{{/if}}">
             <a class="main-menu__link">
               Юридическим лицам
             </a>
-  
             <!--Sub Menu-->
             <ul class="main-menu__list  main-menu__list--sub">
-  
               <li class="main-menu__item-sub {{#if menu.uborka_ofisov}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka_ofisov'}}">
                   Уборка офисов
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.uborka_proizvodstvennyh_pomewenij}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka-proizvodstvennyh-pomewenij'}}">
                   Уборка производственных помещений
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.ofisnyy_master}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/ofisnyy-master'}}">
                   Офисный мастер
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.mite_stekol}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/mite_stekol'}}">
                   Мытьё стекол
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.myte_fasadov}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/myte-fasadov'}}">
                   Мытьё фасадов
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.promyshlennyj_alpinizm}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/promyshlennyj-alpinizm'}}">
                   Промышленный альпинизм
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.obrabotka_poverhnostey}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
                   Обработка поверхностей
                 </a>
               </li>
-  
             </ul>
             <!--/Sub Menu-->
-  
           </li>
-  
           <li class="main-menu__item main-menu__item--sub {{#if menu.main}}main-menu__item--active{{/if}}">
             <a class="main-menu__link">
               О нас
             </a>
-  
             <!--Sub Menu-->
             <ul class="main-menu__list  main-menu__list--sub">
-  
               <li class="main-menu__item-sub {{#if menu.index}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/'}}">
                   Главная
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.about}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/about/'}}">
                   О компании
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.uslugi}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/uslugi/'}}">
                   Услуги
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.price}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/price/'}}">
                   Цены
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.vazhno_znat}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/vazhno_znat/'}}">
                   Важно знать
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.faq}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/faq/'}}">
                   Вопросы и ответы
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.reviews}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/otzivi/'}}">
                   Отзывы
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.news}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/news/'}}">
                   Новости
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.articles}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/articles/'}}">
                   Статьи
                 </a>
               </li>
-  
               <li class="main-menu__item-sub">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/gallery/'}}">
                   Галерея
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.skidki_akcii}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/skidki_akcii/'}}">
                   Специальные акции
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.vakansii}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/vakansii/'}}">
                   Вакансии
                 </a>
               </li>
-  
               <li class="main-menu__item-sub {{#if menu.davay_druzhit}}main-menu__item-sub--active{{/if}}">
                 <a class="main-menu__link-sub" href="{{buildUrl general.city '/davay_druzhit/'}}">
                   Обслуживание по графику
                 </a>
               </li>
-  
             </ul>
             <!--/Sub Menu-->
           </li>
-  
           <li class="main-menu__item {{#if menu.contacts}}main-menu__item--active{{/if}}">
             <a class="main-menu__link"  href="{{buildUrl general.city '/contacts/'}}">
               Контакты
             </a>
           </li>
-  
         </ul>
-  
       </nav>
       <!--/Main Menu-->
-  
       <!--
       <div class="page-header__contact  contact">
         <a class="contact__callback" href>Свяжитесь со мной</a>
       </div>
       -->
-  
       <div class="change-town">
-  
         <p class="change-town__btn">{{general.city.title}}</p>
-  
         <ul class="change-town__list list">
           <li class="change-town__item {{#ifCond general.city.keyword '==' 'moscow' }}change-town__item--active{{/ifCond}} item">
             <a class="change-town__link link" href="{{buildUrl 'moscow' general.path}}">Москва</a>
@@ -343,25 +300,24 @@
           </li>
         </ul>
       </div>
-  
     </div>
-  
   </header>
   <!-- /Page Header -->
   <!-- Main Content -->
   <main class="page__main-content  main-content  main-content--vertical ">
-    <div class="main-content__wrap scroll-container-unstable">
+    <div class="main-content__wrap">
       <section class="page__section  section  section--bg-light">
         <div class="section__wrap">
           <div class="start-block">
             <div class="start-block__inner">
-              <h2 class="start-block__title  title">Мы заботимся о Вас <span class="start-block__title-orange"><br class="text text--mobile">и Вашем Доме!</span></h2>
+              <h1 class="start-block__title  title">Клининговая компания «Домовёнок»</h1>
               <p class="start-block__text text">Профессиональные услуги уборки!</p>
             </div>
             <div class="start-block__image">
               <img width="280" height="auto" src="/static/pancake/img/family.svg">
             </div>
           </div>
+
           <ul class="advantages list">
             <li class="advantages__item item">
               <div class="advantages__image">
@@ -387,7 +343,7 @@
       </section>
       <section class="page__section  section  section--bg-dark">
         <div class="section__wrap">
-          <p class="section__title  title">Услуги</p>
+          <p class="section__title  title">Клининговые услуги</p>
           <ul class="menu-image list">
             <li class="menu-image__item item">
               <a href="{{buildUrl general.city '/podderzhka'}}">
@@ -846,8 +802,6 @@
       </section>
       <section class="page__section  section  section--bg-light">
         <div class="section__wrap">
-          <h1 class="section__title  title">Клининговая компания «Домовёнок»</h1>
-          <p class="section__paragraph text"><b class="text text--bold text--lg-brown">«Домовёнок» сделает Ваш быт легче!</b> Поможет Вам освободить себя от рутины, бытовых и хозяйственных хлопот, направить силы и ресурсы на более полезные и важные дела в жизни. «Домовёнок» внимательно относится к проблемам и нуждам Клиентов, мы ценим каждого Клиента и наши взаимоотношения с ним. Стараемся быть достойными и честными, завоевать доверие людей и оправдывать его в дальнейшем. Мы верим, что только так можно построить что-то по-настоящему стоящее и надолго. Мы заботимся о наших Клиентах и верим в свое дело!</p>
           <h2 class="section__title  title">Какие чудеса чистоты и порядка совершает «Домовёнок»</h2>
           <div class="service-condition__paragraph">
             <h3 class="service-condition__heading title">Профессиональная уборка квартир, домов и коттеджей</h3>
@@ -909,7 +863,6 @@
       </section>
       <!-- Page Footer -->
       <footer class="page-footer  page-footer--bg-dark">
-      
         <div class="page-footer__connection  section  connection">
           <h2 class="section__title  title">Вы можете написать нам здесь</h2>
           <div class="connection__wrap">
@@ -931,7 +884,6 @@
             </a>
           </div>
         </div>
-      
         <nav class="page-footer__secondary-menu  secondary-menu">
           <ul class="secondary-menu__list list">
             <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/private/auth'}}">Личный кабинет</a></li>
@@ -946,7 +898,6 @@
             <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/vakansii/'}}">Вакансии</a></li>
             <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/contacts/'}}">Контакты</a></li>
           </ul>
-      
           <ul class="secondary-menu__list list">
             <li class="secondary-menu__item  item"><a class="link" href="{{buildUrl general.city '/'}}">Физическим лицам</a>
               <ul class="secondary-menu__list secondary-menu__list--sub list">
@@ -989,7 +940,6 @@
               </ul>
             </li>
           </ul>
-      
           <ul class="secondary-menu__list list">
             <li class="secondary-menu__item  item"><a class="link" href="{{buildUrl general.city '/b2b/'}}">Юридическим лицам</a>
               <ul class="secondary-menu__list secondary-menu__list--sub list">
@@ -1018,11 +968,10 @@
             </li>
           </ul>
         </nav>
-      
         <div class="page-footer-ab__row">
           <div class="page-footer-ab__column">
-            <p class="page-footer-ab__address"><b class="text-ab text-ab--bold text-ab--lg-brown">Адрес:</b><a class="page-footer-ab__link  link" href="{{buildUrl general.city '/contacts/'}}#mymap">Москва, ул. Матросская Тишина, 16Г</a></p>
-            <p class="page-footer-ab__tel"><b class="text-ab text-ab--bold text-ab--lg-brown">Телефон:</b><a class="page-footer-ab__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
+            <p class="page-footer__address"><b class="text text--bold text--lg-brown">Адрес:</b><a class="page-footer__link  link" href="{{buildUrl general.city '/contacts/'}}#mymap">Москва, ул. Матросская Тишина, 16Г</a></p>
+            <p class="page-footer__tel"><b class="text text--bold text--lg-brown">Телефон:</b><a class="page-footer__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
             <div class="page-footer-ab__social-links  social-links">
               <a  class="social-link-ab  social-link-ab--grey" href="https://www.facebook.com/uborka.domovenok">
                 <svg  class="social-link-ab__icon  social-link-ab__icon--facebook" width="9.28" height="19.76" viewBox="0 0 9.28 19.76">
@@ -1038,7 +987,6 @@
                 </svg>
               </a>
               <a  class="social-link-ab  social-link-ab--grey" href="https://instagram.com/cleaning.domovenok/">
-      
                 <svg class="social-link-ab__icon social-link-ab__icon--instagram" width="20" height="19.81" viewBox="0 0 20 19.81">
                   <g>
                     <rect x="1" y="1" width="18" height="17.81" rx="4" ry="4" style="fill: none;stroke: #fff;stroke-miterlimit: 10;stroke-width: 2px"/>
@@ -1058,7 +1006,7 @@
                 </svg>
               </a>
             </div>
-            <p class="page-footer-ab__copyright">© ООО «Комфорт-сервис «Домовёнок», 2017<br>ИП Ипатова Екатерина Владимировна</p>
+            <p class="page-footer-ab__copyright">© <a class="page-footer-ab__link page-footer-ab__link--light link" href="{{buildUrl general.city '/'}}">Клининговая компания ООО «Домовёнок», 2017</a><br>ИП Ипатова Екатерина Владимировна</p>
           </div>
         </div>
       </footer>
@@ -1089,7 +1037,7 @@
   
       <div class="pop-up__item  pop-up__item--sm  pop-up__item--hide  general-question">
         <form class="general-question__form">
-          <h2 class="general-question__title  title">Вы уверены?</h2>
+          <p class="general-question__title  title">Вы уверены?</p>
           <button class="general-question__button  general-question__button--ok  button" data-ga='{"hitType": "event","eventCategory": "form","eventAction": "send","eventLabel": "canceled_order"}'>Да</button>
           <button class="general-question__button  general-question__button--no  button" type="button">Нет</button>
         </form>
@@ -1098,7 +1046,7 @@
       <div class="pop-up__item  pop-up__item--hide  get-document">
         <div class="get-document__wrap">
           <form class="get-document__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "getContract"}'  ya-reach="order_applic">
-            <h2 class="get-document__title  title">Получить экземпляр договора</h2>
+            <p class="get-document__title  title">Получить экземпляр договора</p>
   
             <div class="get-document__row">
               <label class="get-document__label  label">Введите e-mail</label>
@@ -1124,7 +1072,7 @@
       <div class="pop-up__item pop-up__item--hide  service-order">
         <div class="service-order__wrap">
           <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_1"}'>
-            <h2 class="service-order__title  title">Оформить заказ</h2>
+            <p class="service-order__title  title">Оформить заказ</p>
             <div class="service-order__row">
               <label class="service-order__label  label">
                 Как к Вам обращаться?
@@ -1142,7 +1090,7 @@
         </div>
   
         <div class="service-order__wrap">
-          <h2 class="service-order__title  title">Выберите дату и время</h2>
+          <p class="service-order__title  title">Выберите дату и время</p>
           <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_2"}'>
   
             <div class="service-order__calendar  calendar">
@@ -1213,7 +1161,6 @@
         </div>
       </div>
   
-  
       <div class="pop-up__item  pop-up__item--hide  price-list"></div>
   
       <div class="pop-up__item pop-up__item--hide  service-calc-calendar">
@@ -1245,7 +1192,7 @@
 
 <!-- /Page wrapper -->
 <!-- Java Script -->
-<script src="/static/pancake/js/bundle.min.js?v0.14"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.26"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 
