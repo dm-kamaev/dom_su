@@ -2205,7 +2205,6 @@
 	 * Created by Lobova.A on 16.05.2017.
 	 */
 	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	var square_1 = __webpack_require__(14);
 	var price_1 = __webpack_require__(21);
 	var info_1 = __webpack_require__(24);
@@ -2277,6 +2276,7 @@
 	    };
 	    return WindowForm;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = WindowForm;
 
 
@@ -2285,13 +2285,13 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Created by Lobova.A on 17.05.2017.
 	 */
 	var Selection = __webpack_require__(15);
 	var switch_square_1 = __webpack_require__(16);
 	var createObject1c = __webpack_require__(20);
+	var analytic = __webpack_require__(19);
 	var Square = (function () {
 	    function Square(element, save) {
 	        var _this = this;
@@ -2318,6 +2318,7 @@
 	        };
 	        this.save = function (e) {
 	            e.preventDefault();
+	            analytic.sendServiceOrder(_this.element);
 	            _this.parentSave(_this.formatService());
 	        };
 	        this.element = element;
@@ -2336,6 +2337,7 @@
 	    };
 	    return Square;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Square;
 
 
@@ -2479,31 +2481,25 @@
 	 * Created by Lobova.A on 18.05.2017.
 	 */
 	"use strict";
-	var __extends = (this && this.__extends) || (function () {
-	    var extendStatics = Object.setPrototypeOf ||
-	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-	    return function (d, b) {
-	        extendStatics(d, b);
-	        function __() { this.constructor = d; }
-	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	    };
-	})();
-	Object.defineProperty(exports, "__esModule", { value: true });
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
 	var utils_1 = __webpack_require__(17);
 	var switch_1 = __webpack_require__(18);
 	var SwitchSquare = (function (_super) {
 	    __extends(SwitchSquare, _super);
 	    function SwitchSquare(element) {
-	        var _this = _super.call(this, element) || this;
-	        _this.changeInput = function (e) {
+	        var _this = this;
+	        _super.call(this, element);
+	        this.changeInput = function (e) {
 	            e.preventDefault();
 	            utils_1.default._changeInput(e.target);
 	            _this.createChangeEvent();
 	        };
-	        _this.input = _this.element.querySelector("." + _this.className + "__input");
-	        _this.input.addEventListener('input', _this.changeInput);
-	        return _this;
+	        this.input = this.element.querySelector("." + this.className + "__input");
+	        this.input.addEventListener('input', this.changeInput);
 	    }
 	    SwitchSquare.prototype.reset = function () {
 	        if (this.input.parentNode === this.active) {
@@ -2518,6 +2514,7 @@
 	    };
 	    return SwitchSquare;
 	}(switch_1.default));
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = SwitchSquare;
 
 
@@ -2529,7 +2526,6 @@
 	 * Created by Lobova.A on 13.04.2017.
 	 */
 	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils = {
 	    _switchItem: function (container, target) {
 	        while (target != container) {
@@ -2576,6 +2572,7 @@
 	        }
 	    }
 	};
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = utils;
 
 
@@ -2587,7 +2584,6 @@
 	 * Created by Lobova.A on 17.05.2017.
 	 */
 	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(17);
 	var analytic = __webpack_require__(19);
 	var Switch = (function () {
@@ -2630,6 +2626,7 @@
 	    };
 	    return Switch;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Switch;
 
 
@@ -2839,10 +2836,10 @@
 	 * Created by Lobova.A on 17.05.2017.
 	 */
 	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	var request = __webpack_require__(8);
 	var priceFormat = __webpack_require__(22);
 	var reset_1 = __webpack_require__(23);
+	var analytic = __webpack_require__(19);
 	var Price = (function () {
 	    function Price(element, save, param) {
 	        var _this = this;
@@ -2855,6 +2852,7 @@
 	            if (_this.promo.value) {
 	                data.promocode = _this.promo.value;
 	            }
+	            analytic.sendServiceOrder(_this.element);
 	            _this.parentSave(data);
 	        };
 	        this.getPrice = function (e) {
@@ -2901,6 +2899,7 @@
 	    };
 	    return Price;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Price;
 
 
@@ -2926,13 +2925,13 @@
 	 * Created by Lobova.A on 22.05.2017.
 	 */
 	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	function inputReset(container) {
 	    var elements = Array.prototype.slice.call(container.querySelectorAll('input'));
 	    elements.forEach(function (item) {
 	        item.value = '';
 	    });
 	}
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = inputReset;
 
 
@@ -2947,6 +2946,7 @@
 	var Selection = __webpack_require__(15);
 	var request = __webpack_require__(8);
 	var validate = __webpack_require__(25);
+	var analytic = __webpack_require__(19);
 	var changing_time_1 = __webpack_require__(26);
 	var reset_1 = __webpack_require__(23);
 	var Info = (function () {
@@ -3000,6 +3000,7 @@
 	            };
 	            function response(data) {
 	                if (data.Success) {
+	                    analytic.sendServiceOrder(this.element);
 	                    var textMessage = "Спасибо за заказ. Мы свяжемся с Вами в течение 10 минут, уточнив доступно ли выбранное время заказа.";
 	                    this.showMessage(textMessage);
 	                    this.parentSave();
@@ -3013,13 +3014,15 @@
 	        }
 	    };
 	    Info.prototype.showMessage = function (text) {
-	        var event = document.createEvent('Event');
-	        event.initEvent('open-popup', true, true);
-	        event.detail = {
-	            id: 'notification',
-	            text: text,
-	            ga: '{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_4"}'
-	        };
+	        var event = new CustomEvent('open-popup', {
+	            'bubbles': true,
+	            'detail': {
+	                id: 'notification',
+	                text: text,
+	                hash: 'success',
+	                ga: '{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_4"}'
+	            }
+	        });
 	        document.dispatchEvent(event);
 	    };
 	    Info.prototype.remove = function () {
@@ -3293,7 +3296,6 @@
 	 * Created by Lobova.A on 20.04.2017.
 	 */
 	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	var button_date_1 = __webpack_require__(27);
 	var selection_1 = __webpack_require__(146);
 	var moment = __webpack_require__(28);
@@ -3384,6 +3386,7 @@
 	    };
 	    return ChangingTime;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ChangingTime;
 
 
@@ -3395,7 +3398,6 @@
 	 * Created by Lobova.A on 20.04.2017.
 	 */
 	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	var moment = __webpack_require__(28);
 	__webpack_require__(114);
 	var client = __webpack_require__(9);
@@ -3539,6 +3541,7 @@
 	    };
 	    return ButtonDate;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ButtonDate;
 
 
@@ -19366,24 +19369,17 @@
 	 * Created by Lobova.A on 14.03.2017.
 	 */
 	"use strict";
-	var __extends = (this && this.__extends) || (function () {
-	    var extendStatics = Object.setPrototypeOf ||
-	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-	    return function (d, b) {
-	        extendStatics(d, b);
-	        function __() { this.constructor = d; }
-	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	    };
-	})();
-	Object.defineProperty(exports, "__esModule", { value: true });
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
 	var BaseSelection = __webpack_require__(15);
 	var Timing = (function (_super) {
 	    __extends(Timing, _super);
 	    function Timing(element) {
-	        var _this = _super.call(this, element) || this;
-	        _this.isSelected = false;
-	        return _this;
+	        _super.call(this, element);
+	        this.isSelected = false;
 	    }
 	    Timing.prototype.select = function (e) {
 	        _super.prototype.select.call(this, e);
@@ -19418,6 +19414,7 @@
 	    };
 	    return Timing;
 	}(BaseSelection));
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Timing;
 
 
@@ -21249,10 +21246,10 @@
 	            //   break;
 	            case 'notification':
 	                if (e.detail.ga) {
-	                    this.item = new Message(this, this.element, e.detail.text, e.detail.ga);
+	                    this.item = new Message(this, this.element, e.detail.text, e.detail.ga, e.detail.hash);
 	                }
 	                else {
-	                    this.item = new Message(this, this.element, e.detail.text);
+	                    this.item = new Message(this, this.element, e.detail.text, e.detail.hash);
 	                }
 	                break;
 	            case 'get-document':
@@ -21314,12 +21311,18 @@
 	 */
 	var analytic = __webpack_require__(19);
 	var Message = (function () {
-	    function Message(parent, parentElement, text, ga) {
+	    function Message(parent, parentElement, text, ga, hash) {
 	        this.parent = parent;
 	        this.parentElement = parentElement;
 	        this.element = this.parentElement.querySelector('.notification');
 	        this.text = this.parentElement.querySelector('.notification__text');
+	        this.hash = hash;
 	        this.text.innerHTML = text;
+	        if (this.hash) {
+	            if (location.hash !== "#" + this.hash) {
+	                location.hash = "#" + this.hash;
+	            }
+	        }
 	        if (ga) {
 	            this.text.dataset.ga = ga;
 	        }
@@ -21331,6 +21334,10 @@
 	        }.bind(this), 3000);
 	    }
 	    Message.prototype.close = function () {
+	        if (location.hash === "#" + this.hash) {
+	            location.hash = '';
+	            history.pushState('', document.title, window.location.pathname);
+	        }
 	        clearTimeout(this.setTime);
 	    };
 	    return Message;
@@ -21413,13 +21420,15 @@
 	        }
 	    };
 	    ServiceOrder.prototype.showMessage = function (text) {
-	        var event = document.createEvent('Event');
-	        event.initEvent('open-popup', true, true);
-	        event.detail = {
-	            id: 'notification',
-	            text: text,
-	            ga: '{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_4"}'
-	        };
+	        var event = new CustomEvent('open-popup', {
+	            'bubbles': true,
+	            'detail': {
+	                id: 'notification',
+	                text: text,
+	                hash: 'success',
+	                ga: '{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_4"}'
+	            }
+	        });
 	        document.dispatchEvent(event);
 	    };
 	    return ServiceOrder;
@@ -21494,12 +21503,12 @@
 	    ServiceOrderContact.prototype.send = function (e) {
 	        e.preventDefault();
 	        if (validate.make(this.requireInput, this.button)) {
-	            if (init.calc.length != 0) {
+	            if (init.calc.length != 0 && init.calc[0].isActivate) {
 	                if (init.calc[0].new) {
 	                    if (init.calc[0].isActivate) {
 	                        init.calc[0].request(init.calc[0].data, this.name.value, this.tel.value, this.response);
+	                        return;
 	                    }
-	                    return;
 	                }
 	            }
 	            var data = {};
@@ -29713,20 +29722,30 @@
 	        var _this = this;
 	        this.changeSchedule = function (e) {
 	            var schedule = '0x_week';
-	            if (e.target.checked) {
-	                schedule = '1x_week';
-	            }
+	            _this.checkboxs.forEach(function (item) {
+	                if (item.checked) {
+	                    if (item !== e.target) {
+	                        item.checked = false;
+	                    }
+	                    else {
+	                        schedule = item.dataset.schedule;
+	                    }
+	                }
+	            });
 	            _this.data.element.dataset.schedule = schedule;
 	            _this.recordPrice(_this.data);
 	        };
 	        this.data = data;
 	        this.element = element;
-	        this.checkbox = this.element.querySelector('.checkbox-right__input');
 	        this.fieldSquare = '';
 	        this.fieldService = '';
 	        this.output = '';
+	        this.fieldSchedule = this.element.querySelector('.service-calc-ab__data[data-field="schedule"]');
+	        this.checkboxs = this.fieldSchedule ? Array.prototype.slice.call(this.fieldSchedule.querySelectorAll('input')) : null;
+	        if (this.fieldSchedule) {
+	            this.addCheckboxEvent();
+	        }
 	        this.init(this.data);
-	        this.checkbox.addEventListener('change', this.changeSchedule);
 	    }
 	    SectionOutput.prototype.init = function (data) {
 	        if (data.square) {
@@ -29745,6 +29764,14 @@
 	            this.recordDate(data);
 	        }
 	        this.recordPrice(data);
+	    };
+	    SectionOutput.prototype.addCheckboxEvent = function () {
+	        var _this = this;
+	        if (this.checkboxs.length > 0) {
+	            this.checkboxs.forEach(function (item) {
+	                item.addEventListener('change', _this.changeSchedule);
+	            });
+	        }
 	    };
 	    SectionOutput.prototype.reset = function () {
 	        this.checkbox.checked = false;
@@ -30571,6 +30598,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Created by A.Belokuraya on 19.04.2017.
 	 */
@@ -30701,7 +30729,6 @@
 	    ;
 	    return Carousel;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Carousel;
 
 
@@ -30817,6 +30844,7 @@
 	 * Created by A.Belokuraya on 24.05.2017.
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	function toggleLogoMobile() {
 	    var logo = document.querySelector('.page-header__logo');
 	    var tel = document.querySelector('.page-header__tel');
@@ -30829,7 +30857,6 @@
 	        tel.classList.add('page-header__tel--hide-mobile');
 	    }
 	}
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = toggleLogoMobile;
 
 
@@ -30885,7 +30912,6 @@
 	* Created by Lobova.A on 23.11.2016.
 	*/
 	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	var pageInit = __webpack_require__(176);
 	var Menu = (function () {
 	    function Menu() {
@@ -30962,6 +30988,7 @@
 	    };
 	    return Menu;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Menu;
 
 
