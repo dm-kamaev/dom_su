@@ -127,12 +127,14 @@ function test (data, target) {
                             border-radius: 15px;
                             padding-left: 30px;
                             margin: 20px;">
-                <h3 style="margin-top: 20px;"><span style="width: 150px; display: inline-block; color: #993300">{{ detail.Rating }}</span> {{{ detail.Value }}}</h3>
-                <div
-                        style="margin: -40px 0px -25px -50px; padding-bottom: 20px"
-                     id="detail{{@index }}"></div>
+                <h3 style="margin-top: 20px;"><span style="width: 150px; display: inline-block; color: #993300">{{ detail.Rating }}</span> {{{ detail.Value }}}</h3><br/>
+                {{#each detail.DailyChanges as |daily|}}
+                    {{#if @first}}{{#if daily.date}}<span style="font-size: 17px; color: #993300">C <span style="color: #ff6600">{{ formatPartDate daily.date "DD.MM.YYYY" }}</span></span>{{/if}}{{/if}}
+                    {{#if @last}}{{#if daily.date}}<span style="font-size: 17px; color: #993300""> по <span style="color: #ff6600">{{ formatPartDate daily.date "DD.MM.YYYY" }}</span></span>{{/if}}{{/if}}
+                {{/each}}
+                <div style="margin: -40px 0px -25px -50px; padding-bottom: 20px" id="detail{{@index }}"></div>
                 <script>
-                    var data = {{{ detail.DailyChanges }}};
+                    var data = {{{ detail.DailyChangesJSON }}};
                     data = MG.convert.date(data, "date", "%Y-%m-%dT%H:%M:%SZ");
                     test(data,"#detail{{@index }}");
                 </script>

@@ -107,12 +107,18 @@
         {{#each GetRatingInfo.Details as |detail|}}
             <div class="ui-bar ui-bar-a" style="background: none; margin-top: 15px">
             <p><b><span style="margin-left: 30px; margin-top: 25px">{{ detail.Rating }}</span></b><span style="float: right"> {{ detail.Value }}</span></p>
+                {{#each detail.DailyChanges as |daily|}}
+                    {{#if @first}}{{#if daily.date}}<span style="font-size: 17px;">C <span style="color: #5393c5">{{ formatPartDate daily.date "DD.MM.YYYY" }}</span></span>{{/if}}{{/if}}
+                    {{#if @last}}{{#if daily.date}}<span style="font-size: 17px;""> по <span style="color: #5393c5">{{ formatPartDate daily.date "DD.MM.YYYY" }}</span></span>{{/if}}{{/if}}
+                {{/each}}
+
+
             <div class="ui-grid-a">
                 <div style="margin: -40px 0px -25px -50px;" id="detail{{@index }}">
 
                 </div>
                 <script>
-                    var data = {{{ detail.DailyChanges }}};
+                    var data = {{{ detail.DailyChangesJSON }}};
                     data = MG.convert.date(data, "date", "%Y-%m-%dT%H:%M:%SZ");
                     test(data,"#detail{{@index }}");
                 </script>

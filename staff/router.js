@@ -504,7 +504,7 @@ staffRouter.get('/staff/:EmployeeID/rating', loginRequired(getEmployeeHeader(asy
             } else {
                 detail.Value = detail.Value.toString() + ' %'
             }
-            detail.DailyChanges = JSON.stringify(detail.DailyChanges)
+            detail.DailyChangesJSON = JSON.stringify(detail.DailyChanges)
         }
     }
     if (isMobileVersion(ctx)){
