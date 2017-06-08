@@ -40,7 +40,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.25">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.26">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
@@ -345,78 +345,51 @@
 
       <section class="page__section  section  section--bg-dark">
         <div class="section__wrap">
+          <h2 class="section__title  title">Услуги</h2>
 
-          <!--card services-->
-          <h2 class="section__title  title">Цены на услуги Домашнего мастера</h2>
+          <ul class="menu-image list">
+            <li class="menu-image__item item" data-name="price-list" data-id="onHour">
+              <div class="menu-image__image">
+                <img height="60" width="60" src="/static/pancake/img/service-master.svg" alt="Инструменты">
+              </div>
+              <p class="text text--center">Мастер на час</p>
+            </li>
 
-          <div class="service-cards">
+            <li class="menu-image__item item" data-name="price-list" data-id="equipment">
+              <div class="menu-image__image">
+                <img height="60" width="60" src="/static/pancake/img/service-equipment-master.svg" alt="Техника">
+              </div>
+              <p class="text text--center">Установка крупной бытовой техники</p>
+            </li>
 
-            <ul class="service-cards__list  list">
+            <li class="menu-image__item item" data-name="price-list" data-id="painter">
+              <div class="menu-image__image">
+                <img height="60" width="60" src="/static/pancake/img/service-painter.svg" alt="Валик">
+              </div>
+              <p class="text text--center">Малярные работы</p>
+            </li>
 
-              <li class="service-card service-cards__item item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Домашний мастер<span class="service-card__sign">?<span class="service-card__note">* каждый следующий час 750 руб</span></span>
-                  </p>
-                  <img class="service-card__image" src="/static/pancake/img/service-master.svg" width="80" height="80">
-                </div>
+            <li class="menu-image__item item" data-name="price-list" data-id="electric">
+              <div class="menu-image__image">
+                <img height="60" width="60" src="/static/pancake/img/service-socket.svg" alt="Розетка">
+              </div>
+              <p class="text text--center">Электрика</p>
+            </li>
 
-                <div class="service-card__wrap">
-                  <span class="service-card__mark">Первый час</span>
-                </div>
+            <li class="menu-image__item item" data-name="price-list" data-id="plumbing">
+              <div class="menu-image__image">
+                <img height="60" width="60" src="/static/pancake/img/service-plumbing.svg" alt="Раковина">
+              </div>
+              <p class="text text--center">Сантехника</p>
+            </li>
 
-                <div class="service-card__btn-wrap  service-card__btn-wrap--active">
-                  <span class="service-card__price">1450</span> руб
-                </div>
-              </li>
-
-              <li class="service-card service-cards__item item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Закупка материалов</p>
-                  <img class="service-card__image" src="/static/pancake/img/service-buy-materials.svg" width="80" height="80">
-                </div>
-                <div class="service-card__wrap">
-                  <span class="service-card__mark">1 час</span>
-                </div>
-                <div class="service-card__btn-wrap">
-                  <span class="service-card__price">500</span> руб
-                </div>
-              </li>
-
-              <li class="service-cards__item service-card item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Выезд мастера на осмотр</p>
-                  <img class="service-card__image" src="/static/pancake/img/service-exit-master.svg" width="80" height="80">
-                </div>
-
-                <div class="service-card__btn-wrap">
-                  <span class="service-card__price">700</span> руб
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="section__wrap section__wrap--toggle">
-          <a class="section__link heading">Как будет проходить работа:<span class="section__sign">Открыть/закрыть</span></a>
-          <div class="section__container">
-            <ul class="service-implement list">
-              <li class="service-implement__item service-implement__item--money item">
-                <p class="service-implement__text text">Вызов мастера на дом для осмотра и оценки работ оплачивается только в том случае, если не было произведено никаких работ.</p>
-              </li>
-              <li class="service-implement__item service-implement__item--note item">
-                <p class="service-implement__text text">Если Вы не уверены в выборе материалов для ремонта, домашний мастер сам купит и доставит их Вам. В таком случае желательно сообщить, где находится ближайший строительный или хозяйственный магазин и приготовить деньги. Услуги по закупке материалов оплачиваются отдельно.</p>
-              </li>
-              <li class="service-implement__item service-implement__item--funds item">
-                <p class="service-implement__text text">Чтобы избежать дополнительных расходов, старайтесь заранее спланировать необходимые домашние дела и работы, подготовить материалы и сообщить мастеру, чтобы он взял нужные инструменты (все инструменты мастер привозит сам).</p>
-              </li>
-              <li class="service-implement__item service-implement__item--man item">
-                <p class="service-implement__text text">При вызове одного или нескольких домашних мастеров цена работ по косметическому или бытовому ремонту, которые потребуют более одного дня, обговаривается индивидуально: перед проведением работ составляется калькуляция, которая согласовывается с Клиентом.</p>
-              </li>
-              <li class="service-implement__item service-implement__item--important item">
-                <p class="service-implement__text text">При вызове домашнего мастера в Москве обратите внимание, что «Домовёнок» несет ответственность только за людей одетых в фирменную спецодежду с логотипом компании.</p>
-              </li>
-            </ul>
-          </div>
-
+            <li class="menu-image__item item" data-name="price-list" data-id="doNotDo">
+              <div class="menu-image__image">
+                <img height="60" width="60" src="/static/pancake/img/service-donotdo.svg" alt="Шпатель зачеркнутый">
+              </div>
+              <p class="text text--center">Работы, которые не выполняем</p>
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -828,7 +801,176 @@
 
 </div>
 
-<script src="/static/pancake/js/bundle.min.js?v0.28"></script>
+<script id="onHour" type="text/html">
+  <h2 class="section__title  title">Мастер на час</h2>
+  <div class="table">
+    <div class="table__row">
+      <div class="table__column  table__column--big">Мастер на час<span class="table__sign">?<span class="table__sign-note  text">"Мастер на час" выполнит любые работы не затрачивающие много времени, например сборка мебели, перенос, перестановка мебели, установка керамических мыльниц, полочек, крючков, бумагодержателей, картин, установка жалюзи и другие работы.</span></span></div>
+      <div class="table__column  table__column--small  table__column--center">1 450 руб</div>
+      <div class="table__column  table__column--small  table__column--center">первый час</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big"></div>
+      <div class="table__column  table__column--small  table__column--center">800 руб</div>
+      <div class="table__column  table__column--small  table__column--center">последующие часы</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Закупка материала для заказчика</div>
+      <div class="table__column  table__column--small  table__column--center">800 руб</div>
+      <div class="table__column  table__column--small  table__column--center">1 час</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Вынос мусора<span class="table__sign">?<span class="table__sign-note  text">Мастер бесплатно уберёт мелкий мусор после проведённых работ.</span></span></div>
+    </div>
+  </div>
+</script>
+
+<script id="equipment" type="text/html">
+  <h2 class="section__title  title">Установка крупной бытовой техники</h2>
+  <div class="table">
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка крупной бытовой техники<span class="table__sign">?<span class="table__sign-note  text">В услугу входит: Установка стиральных и посудомоечных машин, водонагревателей, кухонных вытяжек.</span></span></div>
+      <div class="table__column  table__column--small  table__column--center">2 250 руб</div>
+    </div>
+  </div>
+</script>
+
+<script id="painter" type="text/html">
+  <h2 class="section__title  title">Малярные работы</h2>
+  <div class="table">
+    <div class="table__row">
+      <div class="table__column  table__column--big">Составление сметы<span class="table__sign">?<span class="table__sign-note  text">Вы оплачиваете услугу, только в том случае, если после составлении сметы не воспользовались нашими услугами. Если работы были проведены, составление сметы бесплатно.</span></span></div>
+      <div class="table__column  table__column--small  table__column--center">950 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Малярные работы<span class="table__sign">?<span class="table__sign-note  text">Цена договорная</span></span></div>
+    </div>
+  </div>
+</script>
+
+<script id="electric" type="text/html">
+  <h2 class="section__title  title">Электрика</h2>
+  <div class="table">
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка розетки</div>
+      <div class="table__column  table__column--small  table__column--center">400 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка выключателя</div>
+      <div class="table__column  table__column--small  table__column--center">400 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка люстры и подключение</div>
+      <div class="table__column  table__column--small  table__column--center">400 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка бра (светильник настенный)</div>
+      <div class="table__column  table__column--small  table__column--center">400 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Сборка люстры (простой/сложной)</div>
+      <div class="table__column  table__column--small  table__column--center">1 450 руб</div>
+    </div>
+  </div>
+</script>
+
+<script id="plumbing" type="text/html">
+  <h2 class="section__title  title">Сантехника</h2>
+  <div class="table">
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка биде напольного (без смесителя)</div>
+      <div class="table__column  table__column--small  table__column--center">2 250 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Демонтаж биде</div>
+      <div class="table__column  table__column--small  table__column--center">800 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка унитаза напольного (в сборе)</div>
+      <div class="table__column  table__column--small  table__column--center">3 850 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Демонтаж унитаза</div>
+      <div class="table__column  table__column--small  table__column--center">800 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Замена бачка унитаза</div>
+      <div class="table__column  table__column--small  table__column--center">1 450 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Замена запорной арматуры бачка унитаза</div>
+      <div class="table__column  table__column--small  table__column--center">400 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Замена гофры бачка унитаза</div>
+      <div class="table__column  table__column--small  table__column--center">400 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка раковины на кронштейнах (без смесителя)</div>
+      <div class="table__column  table__column--small  table__column--center">1 850 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка кухонной мойки (без смесителя)</div>
+      <div class="table__column  table__column--small  table__column--center">1 450 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Демонтаж кухонной мойки</div>
+      <div class="table__column  table__column--small  table__column--center">400 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка раковины "мойдодыр" (Раковина с тумбой под ней)</div>
+      <div class="table__column  table__column--small  table__column--center">3 050 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка смесителя на раковину</div>
+      <div class="table__column  table__column--small  table__column--center">1 450 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Замена гибкого шланга душа</div>
+      <div class="table__column  table__column--small  table__column--center">400 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка фильтра питьевого</div>
+      <div class="table__column  table__column--small  table__column--center">1 450 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Замена картриджей фильтров питьевого</div>
+      <div class="table__column  table__column--small  table__column--center">400 руб</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Прочистка труб от засоров</div>
+      <div class="table__column  table__column--small  table__column--center">400 руб</div>
+    </div>
+  </div>
+</script>
+<script id="doNotDo" type="text/html">
+  <h2 class="section__title  title">Работы, которые не выполняем</h2>
+  <div class="table">
+    <div class="table__row">
+      <div class="table__column  table__column--big">Общестроительные работы (большой ремонт)</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка паркета, ламината</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Поклейка обоев</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Укладка плитки</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка дверей</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Установка и ремонт систем отопления</div>
+    </div>
+    <div class="table__row">
+      <div class="table__column  table__column--big">Штукатурные работы</div>
+    </div>
+  </div>
+</script>
+
+<script src="/static/pancake/js/bundle.min.js?v0.29"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 
