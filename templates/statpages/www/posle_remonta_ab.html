@@ -41,7 +41,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.26">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.27">
   <script src="/static/pancake/js/vendor/vendor.min.js?v00"></script>
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
@@ -318,7 +318,7 @@
             <div class="service-condition-ab">
               <div class="service-condition-ab__block">
                 <div class="service-condition-ab__image">
-                  <img height="70" width="70" src="/static/pancake/img/service-general-work.svg">
+                  <img height="70" width="70" src="/static/pancake/img/service-general-work.svg" alt="Комната">
                 </div>
 
                 <div class="service-condition-ab__description">
@@ -329,7 +329,7 @@
 
               <div class="service-condition-ab__block">
                 <div class="service-condition-ab__image">
-                  <img height="70" width="70" src="/static/pancake/img/service-kitchen.svg">
+                  <img height="70" width="70" src="/static/pancake/img/service-kitchen.svg" alt="Кухня">
                 </div>
 
                 <div class="service-condition-ab__description">
@@ -340,7 +340,7 @@
 
               <div class="service-condition-ab__block">
                 <div class="service-condition-ab__image">
-                  <img height="70" width="70" src="/static/pancake/img/service-bathroom.svg">
+                  <img height="70" width="70" src="/static/pancake/img/service-bathroom.svg" alt="Ванная">
                 </div>
 
                 <div class="service-condition-ab__description">
@@ -561,12 +561,6 @@
                     <div class="service-calc-ab__data service-calc-ab__row" data-field="date">
                       <p class="service-calc-ab__data-title">Дата:</p>
                       <p class="service-calc-ab__data-value">25 апреля</p>
-                    </div>
-
-                    <div class="service-calc-ab__data service-calc-ab__row service-calc-ab__row--mobile"  data-field="service">
-                      <p class="service-calc-ab__data-title">Доп. работы:</p>
-                      <ul class="service-calc-ab__data-value service-calc-ab__data-list list">
-                      </ul>
                     </div>
                   </div>
                     <div class="service-calc-ab__data" data-field="schedule">
@@ -983,6 +977,27 @@
         </div>
       </div>
   
+      <div class="pop-up__item pop-up__item--hide  constant-client">
+        <div class="constant-client__wrap">
+          <form class="constant-client__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_1"}'>
+            <p class="constant-client__title  title">Оформить заказ</p>
+            <div class="constant-client__row">
+              <label class="constant-client__label  label">
+                Как к Вам обращаться?
+                <input class="constant-client__input  input" type="text" name="name">
+              </label>
+            </div>
+            <div class="constant-client__row">
+              <label class="constant-client__label  label">
+                Номер телефона<span class="label__required">*</span>
+                <input class="constant-client__input  input" type="tel"  name="tel" required>
+              </label>
+            </div>
+            <button class="constant-client__button button" type="submit">Отправить</button>
+          </form>
+        </div>
+      </div>
+  
       <div class="pop-up__item  pop-up__item--hide  price-list"></div>
   
       <div class="pop-up__item pop-up__item--hide  service-calc-calendar">
@@ -1087,7 +1102,7 @@
   </script>
 
   <!-- Java Script -->
-  <script src="/static/pancake/js/bundle.min.js?v0.29"></script>
+  <script src="/static/pancake/js/bundle.min.js?v0.3"></script>
   <!-- /Java Script -->
   {{#if general.production}}
   

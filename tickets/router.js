@@ -13,7 +13,8 @@ const POSSIBLE_TICKET_TYPES = {
     'CallBack': { name: 'string', phone: 'string'},
     'Order': { phone: 'string'},
     'applicant_cleaner': { citizenship: 'string', birthdate: 'string', contact: 'string', name: 'string'},
-    'get_contract': {mail: 'string'}
+    'get_contract': {mail: 'string'},
+    'get_contract_contact_info': {name: 'string', phone: 'string'}
 }
 
 function validation(ticket) {

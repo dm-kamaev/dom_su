@@ -42,7 +42,7 @@
   <meta name="theme-color" content="#fd8204">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.26">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.27">
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
 
@@ -321,7 +321,7 @@
           <div class="service-condition-ab">
             <div class="service-condition-ab__block">
               <div class="service-condition-ab__image">
-                <img height="70" width="70" src="/static/pancake/img/service-general-work.svg">
+                <img height="70" width="70" src="/static/pancake/img/service-general-work.svg" alt="Комнаты">
               </div>
 
               <div class="service-condition-ab__description">
@@ -332,7 +332,7 @@
 
             <div class="service-condition-ab__block">
               <div class="service-condition-ab__image">
-                <img height="70" width="70" src="/static/pancake/img/service-kitchen.svg">
+                <img height="70" width="70" src="/static/pancake/img/service-kitchen.svg" alt="Кухня">
               </div>
 
               <div class="service-condition-ab__description">
@@ -343,7 +343,7 @@
 
             <div class="service-condition-ab__block">
                 <div class="service-condition-ab__image">
-                  <img height="70" width="70" src="/static/pancake/img/service-bathroom.svg">
+                  <img height="70" width="70" src="/static/pancake/img/service-bathroom.svg" alt="Ванная">
                 </div>
 
                 <div class="service-condition-ab__description">
@@ -433,28 +433,28 @@
 
               <li class="service-cards-ab__item service-card-light item" data-name="glazhka">
                 <div class="service-card-light__wrap">
-                  <img class="service-card-light__image" src="/static/pancake/img/service-ironing.svg" width="50" height="50">
+                  <img class="service-card-light__image" src="/static/pancake/img/service-ironing.svg" width="50" height="50" alt="Утюг">
                   <p class="service-card-light__text  text-ab  text-ab--small">Глажка</p>
                 </div>
               </li>
 
               <li class="service-cards-ab__item service-card-light item" data-name="stirka">
                 <div class="service-card-light__wrap">
-                  <img class="service-card-light__image" src="/static/pancake/img/service-washing-machine.svg" width="50" height="50">
+                  <img class="service-card-light__image" src="/static/pancake/img/service-washing-machine.svg" width="50" height="50" alt="Стиральная машина">
                   <p class="service-card-light__text  text-ab  text-ab--small">Стирка белья</p>
                 </div>
               </li>
 
               <li class="service-cards-ab__item service-card-light item" data-name="lustra">
                 <div class="service-card-light__wrap">
-                  <img class="service-card-light__image" src="/static/pancake/img/service-lamp.svg" width="50" height="50">
+                  <img class="service-card-light__image" src="/static/pancake/img/service-lamp.svg" width="50" height="50" alt="Люстра">
                   <p class="service-card-light__text  text-ab  text-ab--small">Мытьё люстр</p>
                 </div>
               </li>
 
               <li class="service-card-light service-cards-ab__item item">
                 <div class="service-card-light__wrap">
-                  <img class="service-card-light__image" src="/static/pancake/img/service-hour-work.svg" width="50" height="50">
+                  <img class="service-card-light__image" src="/static/pancake/img/service-hour-work.svg" width="50" height="50" alt="Швабра">
                   <p class="service-card-light__text  text-ab  text-ab--small">Почасовая работа</p>
                 </div>
               </li>
@@ -478,7 +478,7 @@
                 <p class="service-implement-ab__text text-ab">При сложных случаях генеральной уборки обговаривать объём работ следует заранее, чтобы мы могли привезти требуемое оборудование и средства.</p>
               </li>
               <li class="service-implement-ab__item  item  item-ab--circle">
-                <p class="service-implement-ab__text text-ab">Выезд за пределы МКАД добавляется к стоимости из расчета 30 рублей за 1 км. Бригада может прибыть раньше или позже согласованного срока, но не более чем на 30 минут. Генеральная уборка у постоянных клиентов проводится без выезда транспорта.</p>
+                <p class="service-implement-ab__text text-ab">Выезд за пределы МКАД добавляется к стоимости из расчета 40 рублей за 1 км. Бригада может прибыть раньше или позже согласованного срока, но не более чем на 30 минут. Генеральная уборка у постоянных клиентов проводится без выезда транспорта.</p>
               </li>
               <li class="service-implement-ab__item  item  item-ab--circle">
                 <p class="service-implement-ab__text text-ab">При проведении Ген. уборки Вы можете находиться дома или оставить домовят одних. Вам нужно узнать примерное время окончания уборки и подъехать заранее, чтобы принять работы. Закрывать людей в помещении строго запрещается по технике безопасности.</p>
@@ -570,27 +570,59 @@
 
                 <div class="service-calc__row  service-calc__row--service">
 
-                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="glazhka" data-service="glazhka" data-class="linen_glazhaka" data-feature="hour" data-quantity="1" data-price="500">
+                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="glazhka" data-service="glazhka" data-class="linen_glazhaka" data-classid="linen_glazhaka" data-feature="hour" data-quantity="1" data-price="500">
                     <div class="service-card-light__wrap">
-                      <img class="service-card-light__image" src="/static/pancake/img/service-ironing.svg" width="50" height="50">
+                      <img class="service-card-light__image" src="/static/pancake/img/service-ironing.svg" width="50" height="50" alt="Утюг">
                       <p class="service-card-light__text text-ab  text-ab--small">Глажка белья</p>
                     </div>
+                    <div class="service-counter" data-value="1">
+                      <p class="service-counter__text">Глажка белья</p>
+                      <div class="service-counter__control">
+                        <button class="service-counter__btn  service-counter__btn--minus"></button>
+                        <label class="service-counter__label">
+                          <input class="service-counter__output" min="1" max="99" name="counter" type="number" value="1">
+                        </label>
+                        <button class="service-counter__btn  service-counter__btn--plus"></button>
+                      </div>
+                      <p class="service-counter__text">1 час</p>
+                    </div>
                   </div>
 
-                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="linen_wash" data-service="individual_work" data-class="linen_wash" data-feature="load_washer" data-quantity="1" data-price="200">
+                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="linen_wash" data-service="individual_work" data-class="linen_wash" data-sum="1" data-classid="linen_wash" data-feature="load_washer" data-quantity="1" data-price="200">
                     <div class="service-card-light__wrap">
-                      <img class="service-card-light__image" src="/static/pancake/img/service-washing-machine.svg" width="50" height="50">
+                      <img class="service-card-light__image" src="/static/pancake/img/service-washing-machine.svg" width="50" height="50" alt="Стиральная машина">
                       <p class="service-card-light__text  text-ab  text-ab--small">Стирка белья</p>
                     </div>
+                    <div class="service-counter" data-value="1">
+                      <p class="service-counter__text">Стирка белья</p>
+                      <div class="service-counter__control">
+                        <button class="service-counter__btn  service-counter__btn--minus"></button>
+                        <label class="service-counter__label">
+                          <input class="service-counter__output" min="1" max="99" name="counter" type="number" value="1">
+                        </label>
+                        <button class="service-counter__btn  service-counter__btn--plus"></button>
+                      </div>
+                      <p class="service-counter__text">1 стиральная машина</p>
+                    </div>
                   </div>
 
-                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="individual_work" data-service="individual_work" data-class="hourly" data-feature="hour" data-quantity="1" data-price="650">
+                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="individual_work" data-service="individual_work" data-class="hourly" data-classid="hourly" data-feature="hour" data-quantity="1" data-price="650">
                       <div class="service-card-light__wrap">
-                        <img class="service-card-light__image" src="/static/pancake/img/service-hour-work.svg" width="50" height="50">
+                        <img class="service-card-light__image" src="/static/pancake/img/service-hour-work.svg" width="50" height="50" alt="Швабра">
                         <p class="service-card-light__text  text-ab  text-ab--small">Почасовая работа</p>
                       </div>
+                      <div class="service-counter" data-value="1">
+                        <p class="service-counter__text">Почасовая работа</p>
+                        <div class="service-counter__control">
+                          <button class="service-counter__btn  service-counter__btn--minus"></button>
+                          <label class="service-counter__label">
+                            <input class="service-counter__output" min="1" max="99" name="counter" type="number" value="1">
+                          </label>
+                          <button class="service-counter__btn  service-counter__btn--plus"></button>
+                        </div>
+                        <p class="service-counter__text">1 ч</p>
+                      </div>
                     </div>
-
                 </div>
 
               </div>
@@ -1017,6 +1049,27 @@
         </div>
       </div>
   
+      <div class="pop-up__item pop-up__item--hide  constant-client">
+        <div class="constant-client__wrap">
+          <form class="constant-client__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_1"}'>
+            <p class="constant-client__title  title">Оформить заказ</p>
+            <div class="constant-client__row">
+              <label class="constant-client__label  label">
+                Как к Вам обращаться?
+                <input class="constant-client__input  input" type="text" name="name">
+              </label>
+            </div>
+            <div class="constant-client__row">
+              <label class="constant-client__label  label">
+                Номер телефона<span class="label__required">*</span>
+                <input class="constant-client__input  input" type="tel"  name="tel" required>
+              </label>
+            </div>
+            <button class="constant-client__button button" type="submit">Отправить</button>
+          </form>
+        </div>
+      </div>
+  
       <div class="pop-up__item  pop-up__item--hide  price-list"></div>
   
       <div class="pop-up__item pop-up__item--hide  service-calc-calendar">
@@ -1119,7 +1172,7 @@
 
 <!-- Java Script -->
 
-<script src="/static/pancake/js/bundle.min.js?v0.29"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.3"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 

@@ -40,7 +40,7 @@
     <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
     <meta name="theme-color" content="#fd8204">
 
-    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.26">
+    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.27">
 
     <script src="//yastatic.net/share2/share.js" async></script>
     <base href="" >
@@ -705,6 +705,27 @@
             </div>
           </div>
       
+          <div class="pop-up__item pop-up__item--hide  constant-client">
+            <div class="constant-client__wrap">
+              <form class="constant-client__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_1"}'>
+                <p class="constant-client__title  title">Оформить заказ</p>
+                <div class="constant-client__row">
+                  <label class="constant-client__label  label">
+                    Как к Вам обращаться?
+                    <input class="constant-client__input  input" type="text" name="name">
+                  </label>
+                </div>
+                <div class="constant-client__row">
+                  <label class="constant-client__label  label">
+                    Номер телефона<span class="label__required">*</span>
+                    <input class="constant-client__input  input" type="tel"  name="tel" required>
+                  </label>
+                </div>
+                <button class="constant-client__button button" type="submit">Отправить</button>
+              </form>
+            </div>
+          </div>
+      
           <div class="pop-up__item  pop-up__item--hide  price-list"></div>
       
           <div class="pop-up__item pop-up__item--hide  service-calc-calendar">
@@ -734,7 +755,7 @@
       <!-- /Pop up -->
     </div>
 
-    <script src="/static/pancake/js/bundle.min.js?v0.29"></script>
+    <script src="/static/pancake/js/bundle.min.js?v0.3"></script>
 <!-- /Java Script -->
     {{#if general.production}}
     
