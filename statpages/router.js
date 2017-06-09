@@ -170,10 +170,10 @@ const ABTestContainer = {
             {name: "control", page: 'posle_remonta', ratio: 50, description: "Основная"},
             {name: "variation", page: 'posle_remonta_ab', ratio: 50, description: "Пробуем новый дизайн"}
         ]},
-        // 'mite_okon': { name: "", key: "mite_okon_1_new_design", forNewUser: true, variations: [
-        //     {name: "control", page: 'mite_okon', ratio: 50, description: "Основная"},
-        //     {name: "variation", page: 'mite_okon_ab', ratio: 50, description: "Пробуем новый дизайн"}
-        // ]},
+        'mite_okon': { name: "", key: "mite_okon_1_new_design", forNewUser: true, variations: [
+            {name: "control", page: 'mite_okon', ratio: 50, description: "Основная"},
+            {name: "variation", page: 'mite_okon_ab', ratio: 50, description: "Пробуем новый дизайн"}
+        ]},
         // 'main': { name: "", key: "main_1_new_design", forNewUser: true, variations: [
         //     {name: "control", page: 'main', ratio: 50, description: "Основная"},
         //     {name: "variation", page: 'main_ab', ratio: 50, description: "Пробуем новый дизайн"}
