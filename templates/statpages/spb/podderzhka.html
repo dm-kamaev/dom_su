@@ -1,72 +1,64 @@
 <!DOCTYPE html>
 <html lang="ru">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Поддерживающая уборка квартир и помещений в СПб, низкие цены.</title>
-  {{#if noindex}} <meta name="robots" content="noindex, nofollow"> {{else}} <meta name="robots" content="index, follow"/> {{/if}}
-  {{#if canonical }}<link rel="canonical" href="{{canonicalPath}}"/>{{/if}}
-  <meta name="keywords" content="поддерживающая уборка квартиры, поддерживающая уборка помещений"/>
-  <meta name="description" content="Поддерживающая уборка помещений - отличный вариант для тех, кто ценит своё время. Она направлена на поддержание чистоты в Вашем доме."/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui"/>
-  <meta name="format-detection" content="telephone=no">
-  <meta property="og:title" content="Клининговая компания Домовёнок."/>
-  <meta property="og:site" content="//www.domovenok.su/"/>
-  <meta property="og:description" content="Клининговая компания Домовёнок - верный помощник в решении бытовых вопросов и уборки дома."/>
-  <meta property="og:image" content="//www.domovenok.su/static/img/domovenok-banner.png"/>
-  <meta property="og:url" content="//www.domovenok.su/?utm_source=vk&utm_campaign=site_share"/>
-
-  <link rel="apple-touch-icon" sizes="57x57" href="/static/pancake/img/apple-touch-icon-57x57.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="60x60" href="/static/pancake/img/apple-touch-icon-60x60.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="72x72" href="/static/pancake/img/apple-touch-icon-72x72.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="76x76" href="/static/pancake/img/apple-touch-icon-76x76.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="114x114" href="/static/pancake/img/apple-touch-icon-114x114.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="120x120" href="/static/pancake/img/apple-touch-icon-120x120.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="144x144" href="/static/pancake/img/apple-touch-icon-144x144.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="152x152" href="/static/pancake/img/apple-touch-icon-152x152.png?v=1.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/static/pancake/img/apple-touch-icon-180x180.png?v=1.0">
-  <link rel="icon" type="image/png" href="/static/pancake/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
-  <link rel="icon" type="image/png" href="/static/pancake/img/favicon-16x16.png?v=1.01" sizes="16x16">
-  <link rel="icon" type="image/png" href="/static/pancake/img/favicon-32x32.png?v=1.01" sizes="32x32">
-  <link rel="icon" type="image/png" href="/static/pancake/img/favicon-48x48.png?v=1.0" sizes="48x48">
-  <link rel="manifest" href="/static/pancake/manifest.json?v=1.02">
-  <link rel="mask-icon" href="/static/pancake/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
-  <link rel="yandex-tableau-widget" href="/yandex/manifest.json" />
-  <meta name="apple-mobile-web-app-title" content="Domovenok">
-  <meta name="application-name" content="Domovenok">
-  <meta name="msapplication-TileColor" content="#fd8204">
-  <meta name="msapplication-TileImage" content="/static/pancake/img/mstile-144x144.png?v=1.0">
-  <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
-  <meta name="theme-color" content="#fd8204">
-
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.29">
-
-  <script src="//yastatic.net/share2/share.js" async></script>
-  <base href="">
-
-  <script>
-    var analyticConf = {
-      id: "{{general.analytics.GAUA}}",
-      userId: "{{general.analytics.userUuid}}",
-      phone: "{{general.analytics.phone}}",
-      phoneDimension: "{{general.analytics.phoneDimension}}",
-      ABTestId: {{#if general.analytics.ABTestID}}"{{general.analytics.ABTestID}}"{{else}}null{{/if}},
-      ABTestValue: {{#if general.analytics.ABTestVariant}}"{{general.analytics.ABTestVariant}}"{{else}}null{{/if}}
-    };
-  
-    {{#if general.analytics.ABTestID}}
-      var yaParams = {
-        "{{general.analytics.ABTestID}}": "{{general.analytics.ABTestVariant}}"
+  <head>
+    <meta charset="UTF-8">
+    <title>Поддерживающая уборка квартир и помещений в СПб, низкие цены.</title>
+    {{#if noindex}} <meta name="robots" content="noindex, nofollow"> {{else}} <meta name="robots" content="index, follow"/> {{/if}}
+    {{#if canonical }}<link rel="canonical" href="{{canonicalPath}}"/>{{/if}}
+    <meta name="keywords" content="поддерживающая уборка квартиры, поддерживающая уборка помещений"/>
+    <meta name="description" content="Поддерживающая уборка помещений - отличный вариант для тех, кто ценит своё время. Она направлена на поддержание чистоты в Вашем доме."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta property="og:title" content="Клининговая компания Домовёнок."/>
+    <meta property="og:site" content="//www.domovenok.su/"/>
+    <meta property="og:description" content="Клининговая компания Домовёнок - верный помощник в решении бытовых вопросов и уборки дома."/>
+    <meta property="og:image" content="//www.domovenok.su/static/img/domovenok-banner.png"/>
+    <meta property="og:url" content="//www.domovenok.su/?utm_source=vk&utm_campaign=site_share"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/pancake/img/apple-touch-icon-57x57.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/pancake/img/apple-touch-icon-60x60.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/pancake/img/apple-touch-icon-72x72.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/pancake/img/apple-touch-icon-76x76.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/pancake/img/apple-touch-icon-114x114.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/pancake/img/apple-touch-icon-120x120.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/pancake/img/apple-touch-icon-144x144.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/pancake/img/apple-touch-icon-152x152.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/pancake/img/apple-touch-icon-180x180.png?v=1.0">
+    <link rel="icon" type="image/png" href="/static/pancake/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
+    <link rel="icon" type="image/png" href="/static/pancake/img/favicon-16x16.png?v=1.01" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/pancake/img/favicon-32x32.png?v=1.01" sizes="32x32">
+    <link rel="icon" type="image/png" href="/static/pancake/img/favicon-48x48.png?v=1.0" sizes="48x48">
+    <link rel="manifest" href="/static/pancake/manifest.json?v=1.02">
+    <link rel="mask-icon" href="/static/pancake/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
+    <link rel="yandex-tableau-widget" href="/yandex/manifest.json" />
+    <meta name="apple-mobile-web-app-title" content="Domovenok">
+    <meta name="application-name" content="Domovenok">
+    <meta name="msapplication-TileColor" content="#fd8204">
+    <meta name="msapplication-TileImage" content="/static/pancake/img/mstile-144x144.png?v=1.0">
+    <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
+    <meta name="theme-color" content="#fd8204">
+    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.29">
+    <script src="//yastatic.net/share2/share.js" async></script>
+    <base href="">
+    <script>
+      var analyticConf = {
+        id: "{{general.analytics.GAUA}}",
+        userId: "{{general.analytics.userUuid}}",
+        phone: "{{general.analytics.phone}}",
+        phoneDimension: "{{general.analytics.phoneDimension}}",
+        ABTestId: {{#if general.analytics.ABTestID}}"{{general.analytics.ABTestID}}"{{else}}null{{/if}},
+        ABTestValue: {{#if general.analytics.ABTestVariant}}"{{general.analytics.ABTestVariant}}"{{else}}null{{/if}}
       };
-    {{/if}}
-  </script>
-
-</head>
-
-<body class="page">
+    
+      {{#if general.analytics.ABTestID}}
+        var yaParams = {
+          "{{general.analytics.ABTestID}}": "{{general.analytics.ABTestVariant}}"
+        };
+      {{/if}}
+    </script>
+  </head>
+  <body class="page  page--ab">
   <!-- Page wrapper -->
   <div class="page__wrap page__wrap--scroll">
-
     <!-- Page Header -->
     <!-- page-header.html -->
     <header class="page-header  page-header--contact">
@@ -281,459 +273,460 @@
       </div>
     </header>
     <!-- /Page Header -->
-
     <!-- Main Content -->
     <main class="page__main-content  main-content  main-content--vertical">
       <div class="main-content__wrap">
-        <section class="page__section  section  section--bg-light">
-          <div class="section__wrap">
-            <h1 class="section__title section__title--main title">Поддерживающая уборка квартир и помещений</h1>
-            <div class="section__description  description">
-              <div class="description__block">
-                <img class="description__image" src="/static/pancake/img/maintenance-cleaning-main.svg" width="auto" height="200">
+        <section class="page__section  section-ab  section-ab--bg-light">
+          <div class="section-ab__wrap">
+            <h1 class="section-ab__title  section-ab__title--main  title">Поддерживающая уборка квартир и помещений</h1>
+            <p class="section-ab__paragraph  section-ab__paragraph--main  text-ab">Поддерживающая уборка нужна для поддержания чистоты и порядка в доме. Для помещений, которые не убирались длительное время, воспользуйтесь <a class="link" href="{{buildUrl general.city '/generalnaya_uborka'}}">Генеральной уборкой</a>.</p>
+            <div class="service-condition-ab">
+              <div class="service-condition-ab__block">
+                <div class="service-condition-ab__image">
+                  <img height="70" width="70" src="/static/pancake/img/service-general-work.svg">
+                </div>
+                <div class="service-condition-ab__description">
+                  <p class="service-condition-ab__title title">Комнаты и коридоры</p>
+                  <p class="service-condition-ab__text text-ab">Удаление пыли и лёгких загрязнений со всех поверхностей на высоту до 2-х метров.</p>
+                </div>
               </div>
-              <div class="description__block">
-                <p class="description__text">Поддерживающая уборка квартиры. Это спокойствие и уверенность: "Да, в моём доме всегда чистота и порядок". Не нужно думать об этом. Можно направить эту энергию на Ваши цели, увлечения, на близких людей, на жизнь во всех её проявлениях.
-                  Как приятно, когда можно сказать: "Что-то домашних дел поднакопилось... Хорошо, что завтра по плану поддерживающая уборка от «Домовёнка»!
-                </p>
-                <button class="description__button button button--application" type="button" data-name="service-order">Заказать уборку</button>
+              <div class="service-condition-ab__block">
+                <div class="service-condition-ab__image">
+                  <img height="70" width="70" src="/static/pancake/img/service-kitchen.svg">
+                </div>
+                <div class="service-condition-ab__description">
+                  <p class="service-condition-ab__title title">Кухня</p>
+                  <p class="service-condition-ab__text text-ab">Мытьё посуды и раковины, бытовой техники, удаление следов жира и масляных пятен с поверхностей.</p>
+                </div>
+              </div>
+              <div class="service-condition-ab__block">
+                <div class="service-condition-ab__image">
+                  <img height="70" width="70" src="/static/pancake/img/service-bathroom.svg">
+                </div>
+                <div class="service-condition-ab__description">
+                  <p class="service-condition-ab__title title">Ванная комната</p>
+                  <p class="service-condition-ab__text text-ab">Очистка и дезинфекция сантехники, душевых кабин и ванн.</p>
+                </div>
               </div>
             </div>
           </div>
         </section>
-
-        <section class="page__section  section  section--bg-dark">
-          <div class="section__wrap">
-            <h2 class="section__title title">Что входит в уборку</h2>
-            <div class="service-condition">
-              <div class="service-condition__row service-condition__row--space-between">
-                <div class="service-condition__block">
-
-                  <img class="service-condition__image" height="70" width="70" src="/static/pancake/img/service-general-work.svg">
-
-                  <h3 class="service-condition__title title">Общие работы</h3>
-                  <p class="text text--center">Удаление пыли и лёгких загрязнений со всех поверхностей на высоту до 2-х метров.</p>
+        <section class="page__section  section-ab  section-ab--bg-dark">
+          <div class="section-ab__wrap  section-ab__wrap--toggle">
+            <div class="section-ab__control">
+              <p class="section-ab__control-text  text-ab  text-ab--small">Поддерживающая уборка длится от 2 до 5 часов и содержит более 20 видов работ.</p>
+              <button class="section-ab__link  button  button--square" type="button">Подробный перечень работ</button>
+            </div>
+            <div class="section-ab__container">
+              <div class="service-condition-detail">
+                <div class="service-condition-detail__column  service-condition-detail__column--two">
+                  <h3 class="service-condition-detail__title title">Комнаты и коридоры:</h3>
+                  <ul class="service-condition-detail__list list">
+                    <li class="service-condition-detail__item  item  item--circle">сухая и влажная уборка полов и плинтусов;</li>
+                    <li class="service-condition-detail__item  item  item--circle">поверхностная сухая уборка пылесосом мягкой мебели, диванов и кресел (спинки и сиденья, не снимая подушек);</li>
+                    <li class="service-condition-detail__item  item  item--circle">удаление пыли с осветительных приборов (не выше 2 м);</li>
+                    <li class="service-condition-detail__item  item  item--circle">влажная уборка подоконников, радиаторов и труб;</li>
+                    <li class="service-condition-detail__item  item  item--circle">удаление пыли с дверных блоков;</li>
+                    <li class="service-condition-detail__item  item  item--circle">мытьё зеркал на всю высоту и стеклянных поверхностей (перегородки, панели и т.д.);</li>
+                    <li class="service-condition-detail__item  item  item--circle">удаление пыли с аксессуаров, предметов интерьера, элементов дизайна (вазы, рамы картин, фоторамки и т.д., не выше 2 м);</li>
+                    <li class="service-condition-detail__item  item  item--circle">влажная уборка всех видов корпусной мебели (крышек столов, полок, шкафов, тумбочек, внешних фасадов мебели и прочих поверхностей, не выше 2 м);</li>
+                    <li class="service-condition-detail__item  item  item--circle">удаление пыли с бытовой техники;</li>
+                    <li class="service-condition-detail__item  item  item--circle">замена постельного белья;</li>
+                    <li class="service-condition-detail__item  item  item--circle">вынос мусора, замена полиэтиленовых пакетов в мусорных корзинах;</li>
+                    <li class="service-condition-detail__item  item  item--circle">мытьё мусорных корзин и мест для хранения мусора.</li>
+                  </ul>
                 </div>
-                <div class="service-condition__block">
-                  <div class="service-condition__image">
-                    <img height="70" width="70" src="/static/pancake/img/service-kitchen.svg">
-                  </div>
-                  <h3 class="service-condition__title title">Кухня</h3>
-                  <p class="text text--center">Мытьё посуды и раковины, бытовой техники, удаление следов жира и масляных пятен с поверхностей.</p>
+                <div class="service-condition-detail__column  service-condition-detail__column--two">
+                  <h3 class="service-condition-detail__title title">Кухня:</h3>
+                  <ul class="service-condition-detail__list list">
+                    <li class="service-condition-detail__item  item  item--circle">мытьё грязной посуды в раковине (10 минут);</li>
+                    <li class="service-condition-detail__item  item  item--circle">мытьё кухонной плиты, удаление следов жира;</li>
+                    <li class="service-condition-detail__item  item  item--circle">мытьё холодильника, духовой печи снаружи;</li>
+                    <li class="service-condition-detail__item  item  item--circle">мытьё микроволновой печи внутри и снаружи;</li>
+                    <li class="service-condition-detail__item  item  item--circle">очистка столешницы и панели (фартука) кухонного гарнитура, мытьё внешних фасадов на всю высоту;</li>
+                    <li class="service-condition-detail__item  item  item--circle">удаление следов жира и масляных пятен (высотой не более 2 м);</li>
+                    <li class="service-condition-detail__item  item  item--circle">удаление пыли и загрязнений с кухонной техники;</li>
+                    <li class="service-condition-detail__item  item  item--circle">чистка и дезинфекция сантехники;</li>
+                    <li class="service-condition-detail__item  item  item--circle">дезинфекция, влажная уборка места для хранения мусора.</li>
+                  </ul>
+                  <h3 class="service-condition-detail__title title">Ванная комната:</h3>
+                  <ul class="service-condition-detail__list list">
+                    <li class="service-condition-detail__item  item  item--circle">чистка и дезинфекция сантехники (смесители, раковины, унитазы, биде);</li>
+                    <li class="service-condition-detail__item  item  item--circle">мытьё кафельной плитки локально (где имеются загрязнения);</li>
+                    <li class="service-condition-detail__item  item  item--circle">мытьё душевых кабин и ванн.</li>
+                  </ul>
                 </div>
-                <div class="service-condition__block">
-                  <div class="service-condition__image">
-                    <img height="70" width="70" src="/static/pancake/img/service-bathroom.svg">
-                  </div>
-                  <h3 class="service-condition__title title">Санузел</h3>
-                  <p class="text text--center">Очистка и дезинфекция сантехники, душевых кабин и ванн.</p>
-                </div>
               </div>
             </div>
-          </div>
-          <div class="section__wrap  section__wrap--toggle">
-            <a class="section__link">Посмотреть подробно все работы<span class="section__sign">Открыть/закрыть</span></a>
-            <div  class="section__container">
-              <div class="service-condition__row">
-              <div class="service-condition__column  service-condition__column--two">
-                <h3 class="service-condition__title title">Общие работы во всех помещениях:</h3>
-                <ul class="service-condition__list list">
-                  <li class="service-condition__item  item  item--circle">сухая и влажная уборка полов и плинтусов</li>
-                  <li class="service-condition__item  item  item--circle">поверхностная сухая уборка пылесосом мягкой мебели, диванов и кресел (спинки и сиденья, не снимая подушек)</li>
-                  <li class="service-condition__item  item  item--circle">удаление пыли с осветительных приборов (не выше 2 м)</li>
-                  <li class="service-condition__item  item  item--circle">влажная уборка подоконников, радиаторов и труб</li>
-                  <li class="service-condition__item  item  item--circle">удаление пыли с дверных блоков</li>
-                  <li class="service-condition__item  item  item--circle">мытьё зеркал на всю высоту и стеклянных поверхностей (перегородки, панели и т.д.)</li>
-                  <li class="service-condition__item  item  item--circle">удаление пыли с аксессуаров, предметов интерьера, элементов дизайна (вазы, рамы картин, фоторамки и т.д., не выше 2 м)</li>
-                  <li class="service-condition__item  item  item--circle">влажная уборка всех видов корпусной мебели (крышек столов, полок, шкафов, тумбочек, внешних фасадов мебели и прочих поверхностей, не выше 2 м)</li>
-                  <li class="service-condition__item  item  item--circle">удаление пыли с бытовой техники</li>
-                  <li class="service-condition__item  item  item--circle">замена постельного белья</li>
-                  <li class="service-condition__item  item  item--circle">вынос мусора, замена полиэтиленовых пакетов в мусорных корзинах</li>
-                  <li class="service-condition__item  item  item--circle">мытьё мусорных корзин и мест для хранения мусора</li>
-                </ul>
-              </div>
-              <div class="service-condition__column  service-condition__column--two">
-                <h3 class="service-condition__title title">Кухня:</h3>
-                <ul class="service-condition__list list">
-                  <li class="service-condition__item  item  item--circle">мытьё грязной посуды в раковине (10 минут)</li>
-                  <li class="service-condition__item  item  item--circle">мытьё кухонной плиты, удаление следов жира</li>
-                  <li class="service-condition__item  item  item--circle">мытьё холодильника, духовой печи снаружи</li>
-                  <li class="service-condition__item  item  item--circle">мытьё микроволновой печи внутри и снаружи</li>
-                  <li class="service-condition__item  item  item--circle">очистка столешницы и панели (фартука) кухонного гарнитура, мытьё внешних фасадов на всю высоту</li>
-                  <li class="service-condition__item  item  item--circle">удаление следов жира и масляных пятен (высотой не более 2 м)</li>
-                  <li class="service-condition__item  item  item--circle">удаление пыли и загрязнений с кухонной техники</li>
-                  <li class="service-condition__item  item  item--circle">чистка и дезинфекция сантехники</li>
-                  <li class="service-condition__item  item  item--circle">дезинфекция, влажная уборка места для хранения мусора</li>
-                </ul>
-
-                <h3 class="service-condition__title title">Санузел:</h3>
-                <ul class="service-condition__list list">
-                  <li class="service-condition__item  item  item--circle">чистка и дезинфекция сантехники (смесители, раковины, унитазы, биде)</li>
-                  <li class="service-condition__item  item  item--circle">мытьё кафельной плитки локально (где имеются загрязнения)</li>
-                  <li class="service-condition__item  item  item--circle">мытьё душевых кабин и ванн</li>
-                </ul>
-              </div>
-            </div>
-            </div>
-
-          </div>
-          <div class="section__wrap  section__wrap--toggle">
-            <a class="section__link">А чем отличается Генеральная уборка?<span class="section__sign">Открыть/закрыть</span></a>
-            <div  class="section__container">
-              <div class="service-condition__row">
-              <div class="service-condition__column  service-condition__column--two">
-                <h3 class="service-condition__title title">Общие работы во всех помещениях:</h3>
-                <ul class="service-condition__list list">
-                  <li class="service-condition__item  item  item--circle">удаление пыли с потолков и стен (удаление локальных загрязнений со стен, если позволяет покрытие или под ответственность Клиента)</li>
-                  <li class="service-condition__item  item  item--circle">влажная уборка карнизов (не включая шторы, жалюзи)</li>
-                  <li class="service-condition__item  item  item--circle">удаление пыли с кондиционеров, а также мытье внутренних фильтров</li>
-                  <li class="service-condition__item  item  item--circle">удаление пыли с люстр, потолочных светильников и осветительных приборов (на всю высоту), кроме хрустальных</li>
-                  <li class="service-condition__item  item  item--circle">влажная уборка внешних и внутренних поверхностей всех видов корпусной мебели (гардеробов, шкафов, тумбочек, комодов и т.д., если они освобождены от вещей)</li>
-                  <li class="service-condition__item  item  item--circle">удаление пыли с аксессуаров, предметов интерьера, элементов дизайна (вазы, рамы картин, фоторамок и т.д.) на всю высоту</li>
-                  <li class="service-condition__item  item  item--circle">чистка пылесосом мягкой мебели внутри и снаружи (снимая подушки, уборка внутренних поверхностей и конструкций, также спальных матрасов, при наличии спального матраса у дивана</li>
-                  <li class="service-condition__item  item  item--circle">уход за кожаной мебелью специализированными средствами</li>
-                  <li class="service-condition__item  item  item--circle">мытьё дверных блоков, включая фурнитуру</li>
-                  <li class="service-condition__item  item  item--circle">удаление загрязнений средней и сложной степени (известковый налет, ржавчина и т.д.)</li>
-                  <li class="service-condition__item  item  item--circle">очистка труднодоступных мест парогенератором</li>
-                </ul>
-              </div>
-              <div class="service-condition__column  service-condition__column--two">
-                <h3 class="service-condition__title title">Кухня:</h3>
-                <ul class="service-condition__list list">
-                  <li class="service-condition__item  item  item--circle">мытьё внутренних поверхностей шкафчиков, ящиков кухонного гарнитура (если они освобождены)</li>
-                  <li class="service-condition__item  item  item--circle">мытьё грязной посуды в раковине</li>
-                  <li class="service-condition__item  item  item--circle">мытьё холодильника снаружи и внутри</li>
-                  <li class="service-condition__item  item  item--circle">мытьё духового шкафа снаружи и внутри, удаление следов жира</li>
-                  <li class="service-condition__item  item  item--circle">удаление загрязнений средней и сложной степени (известковый налет, ржавчина и т.д.)</li>
-                  <li class="service-condition__item  item  item--circle">очистка труднодоступных мест парогенератором</li>
-                </ul>
-
-                <h3 class="service-condition__title title">Санузел:</h3>
-                <ul class="service-condition__list list">
-                  <li class="service-condition__item  item  item--circle">мытьё потолка</li>
-                  <li class="service-condition__item  item  item--circle">мытьё кафельной плитки от потолка до пола</li>
-                  <li class="service-condition__item  item  item--circle">удаление налёта, водного камня, ржавчины</li>
-                  <li class="service-condition__item  item  item--circle">очистка труднодоступных мест парогенератором</li>
-                  <li class="service-condition__item  item  item--circle">очистка межплиточных швов</li>
-                </ul>
-              </div>
-            </div>
-            <a class="section__button button" href="{{buildUrl general.city '/generalnaya_uborka'}}">Подробнее о Генеральной уборке!</a>
-            </div>
-
           </div>
         </section>
-
-        <section class="page__section  section  section--bg-light">
-          <div class="section__wrap">
-            <h2 class="section__title  title">Цены на Поддерживающую уборку</h2>
-
-            <div class="service-calc" data-name="podderzhka_spb" data-service="podderzhka" data-class="space">
-              <p class="service-calc__heading text"><span class="service-calc__heading service-calc__heading--tablet">Выберите или в</span><span class="service-calc__heading--mobile">В</span>ведите Вашу площадь помещения:</p>
-
-              <div class="service-calc__row  service-calc__row--center  service-calc__row--square">
-
-                <div class="service-calc__item service-calc__item--square service-calc__item--active" data-feature="square" data-quantity="40" data-value="40">
-                  <button type="button" class="service-calc__radio">40 м<sup><small>2</small></sup></button>
-                </div>
-
-                <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="50" data-value="50">
-                  <button type="button" class="service-calc__radio">50 м<sup><small>2</small></sup></button>
-                </div>
-
-                <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="60" data-value="60">
-                  <button type="button" class="service-calc__radio">60 м<sup><small>2</small></sup></button>
-                </div>
-
-                <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="70" data-value="70">
-                  <button type="button" class="service-calc__radio">70 м<sup><small>2</small></sup></button>
-                </div>
-
-                <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="80" data-value="80">
-                  <button type="button" class="service-calc__radio">80 м<sup><small>2</small></sup></button>
-                </div>
-
-
-                <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="40" data-value="40">
-                  <input type="number" class="service-calc__input service-calc__input--half input" max="200">
-                  <span class="service-calc__unit">м<sup><small>2</small></sup></span>
-                </div>
-
-              </div>
-
-              <p class="service-calc__heading text">Выберите желаемый график:</p>
-
-              <div class="service-calc__row  service-calc__row--center  service-calc__row--price">
-
-                <div class="service-calc__item service-calc__item--price" data-name="podderzhka_spb" data-service="podderzhka" data-price="1990" data-option="0x_week" data-schedule="0x_week">
-                  <p class="service-calc__text text text-center">По обращению</p>
-                  <div class="service-calc__output">
-                    1 990 руб
+        <section class="page__section  section-ab  section-ab--bg-light">
+          <div class="section-ab__wrap">
+            <h2 class="section-ab__title title">Дополнительные работы</h2>
+            <p class="section-ab__text text-ab text-ab--small">Добавьте к поддерживающей уборке, если нужно</p>
+            <div class="service-cards-ab">
+              <ul class="service-cards-ab__list list">
+                <li class="service-card-light service-cards-ab__item item">
+                  <div class="service-card-light__wrap">
+                    <img class="service-card-light__image" src="/static/pancake/img/service-hour-work.svg" width="50" height="50">
+                    <p class="service-card-light__text  text-ab  text-ab--small">Почасовая работа</p>
                   </div>
-                </div>
-
-                <div class="service-calc__item service-calc__item--price" data-name="podderzhka_spb" data-service="podderzhka" data-price="1490" data-option="1x_week" data-schedule="1x_week">
-                  <p class="service-calc__text text text-center">Pаз в неделю<span class="service-calc__sign">?<span class="service-card__note">* по графику</span></span></p>
-                  <div class="service-calc__output">
-                    1 490 руб
-                  </div>
-                </div>
-
-                <div class="service-calc__item service-calc__item--price" data-name="podderzhka_spb" data-service="podderzhka" data-price="1680" data-option="2x_week" data-schedule="2x_week">
-                  <p class="service-calc__text text text-center">Раз в 2 недели<span class="service-calc__sign">?<span class="service-card__note">* по графику</span></span></span></p>
-                  <div class="service-calc__output">
-                    1 680 руб
-                  </div>
-                </div>
-
-                <div class="service-calc__item service-calc__item--price" data-name="podderzhka_spb" data-service="podderzhka" data-price="1790" data-option="4x_week" data-schedule="4x_week">
-                  <p class="service-calc__text text text-center">Pаз в месяц<span class="service-calc__sign">?<span class="service-card__note">* по графику</span></span></span></p>
-                  <div class="service-calc__output">
-                    1 790 руб
-                  </div>
-                </div>
-
-              </div>
-
-              <p class="service-calc__text service-calc__text--sm text">С увеличением площади более 100 м<sup><small>2</small></sup>, цена на Уборку по Обращению составляет 33 рубля за 1 м<sup><small>2</small></sup> для Уборки по Графику 1 раз/2 недели составляет 27,5 рублей, а для Уборки по Графику 1 раз/1 неделя составляет 25,3 рубля за 1 м<sup><small>2</small></sup></p>
-            </div>
-            <button class="section__button button button--application" type="button" data-name="service-order">Заказать уборку</button>
-          </div>
-          <div class="section__wrap section__wrap--toggle">
-            <a class="section__link heading">Как будет выполняться Поддерживающая уборка:<span class="section__sign">Открыть/закрыть</span></a>
-            <div class="section__container">
-              <ul class="service-implement list">
-                <li class="service-implement__item service-implement__item--funds item">
-                  <p class="service-implement__text text">Вам нужно предоставить швабру, ведро и пылесос для поддерживающей уборки. Домовёнок привезёт с собой всё остальное.</p>
                 </li>
-                <li class="service-implement__item service-implement__item--man item">
-                  <p class="service-implement__text text">«Домовёнок» отвечает только за людей одетых в фирменную форму.</p>
+                <li class="service-cards-ab__item service-card-light item" data-name="lustra">
+                  <div class="service-card-light__wrap">
+                    <img class="service-card-light__image" src="/static/pancake/img/service-lamp.svg" width="50" height="50">
+                    <p class="service-card-light__text  text-ab  text-ab--small">Мытьё люстр</p>
+                  </div>
                 </li>
-                <li class="service-implement__item service-implement__item--time item">
-                  <p class="service-implement__text text">Время выполнения Поддерживающей уборки занимает до 2-х часов для 40 м<small><sup>2</sup></small>, до 5-и часов для 100 м<small><sup>2</sup></small></p>
+                <li class="service-cards-ab__item service-card-light item" data-name="wash-the-oven">
+                  <div class="service-card-light__wrap">
+                    <img class="service-card-light__image" src="/static/pancake/img/service-cleaning-oven.svg" width="50" height="50">
+                    <p class="service-card-light__text  text-ab  text-ab--small">Мытьё духового шкафа внутри</p>
+                  </div>
+                </li>
+                <li class="service-cards-ab__item service-card-light item" data-name="wash-the-fridge">
+                  <div class="service-card-light__wrap">
+                    <img class="service-card-light__image" src="/static/pancake/img/service-refrigerator.svg" width="50" height="50">
+                    <p class="service-card-light__text  text-ab  text-ab--small">Мытьё холодильника внутри</p>
+                  </div>
+                </li>
+                <li class="service-cards-ab__item service-card-light item" data-name="wash-the-kitchen-cabinets">
+                  <div class="service-card-light__wrap">
+                    <img class="service-card-light__image" src="/static/pancake/img/service-kitchen-shelves.svg" width="50" height="50">
+                    <p class="service-card-light__text  text-ab  text-ab--small">Мытьё кухонных шкафчиков внутри</p>
+                  </div>
+                </li>
+                <li class="service-cards-ab__item service-card-light item" data-name="glazhka">
+                  <div class="service-card-light__wrap">
+                    <img class="service-card-light__image" src="/static/pancake/img/service-ironing.svg" width="50" height="50">
+                    <p class="service-card-light__text  text-ab  text-ab--small">Глажка</p>
+                  </div>
+                </li>
+                <li class="service-cards-ab__item service-card-light item" data-name="stirka">
+                  <div class="service-card-light__wrap">
+                    <img class="service-card-light__image" src="/static/pancake/img/service-washing-machine.svg" width="50" height="50">
+                    <p class="service-card-light__text  text-ab  text-ab--small">Стирка белья</p>
+                  </div>
+                </li>
+                <li class="service-card-light service-cards-ab__item item">
+                  <div class="service-card-light__wrap">
+                    <img class="service-card-light__image" src="/static/pancake/img/service-top-surface.svg" width="50" height="50">
+                    <p class="service-card-light__text  text-ab  text-ab--small">Влажная уборка верхних поверхностей</p>
+                  </div>
                 </li>
               </ul>
             </div>
           </div>
         </section>
+        <section class="page__section  section-ab  section-ab--bg-dark">
+          <div class="section-ab__wrap">
+            <h2 class="section-ab__title  title">Как будет выполняться Поддерживающая уборка</h2>
+            <ul class="service-implement-ab list">
+              <li class="service-implement-ab__item  item  item-ab--circle">
+                <p class="service-implement-ab__text text-ab">Вам нужно предоставить швабру, ведро и пылесос для поддерживающей уборки. Домовёнок привезёт с собой всё остальное.</p>
+              </li>
+              <li class="service-implement-ab__item  item  item-ab--circle">
+                <p class="service-implement-ab__text text-ab">«Домовёнок» отвечает только за людей одетых в фирменную форму.</p>
+              </li>
+              <li class="service-implement-ab__item  item  item-ab--circle">
+                <p class="service-implement-ab__text text-ab">При проведении Поддерживающей уборки Вы можете находиться дома или оставить домовят одних. Вам нужно узнать примерное время окончания уборки и подъехать заранее, чтобы принять работы. Закрывать людей в помещении строго запрещается по технике безопасности.</p>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section class="page__section  section-ab  section-ab--bg-light">
+          <div class="section-ab__wrap">
+            <h2 class="section-ab__title  title">Расчёт стоимости уборки</h2>
 
-        <section class="page__section  section  section--bg-dark">
-          <div class="section__wrap">
+            <div class="service-calc  service-calc--new" data-name="podderzhka" data-service="podderzhka"  data-schedule="0x_week">
 
-            <h2 class="section__title title">Дополнительные работы</h2>
-            <p class="section__text text">Ниже представлены работы, оплата которых
-              производится отдельно.<br>
-              Поддерживающая уборка квартиры не включает эти операции.</p>
-            <div class="service-cards">
-              <ul class="service-cards__list list">
+              <div class="service-calc__inner">
+                <ul class="service-calc__path list">
+                  <li class="service-calc__path-item  service-calc__path-item--arrow  service-calc__path-item--active  item" data-value="1">Шаг 1</li>
+                  <li class="service-calc__path-item  service-calc__path-item--arrow  item" data-value="2">Шаг 2</li>
+                  <li class="service-calc__path-item  service-calc__path-item--arrow  item" data-value="3">Шаг 3</li>
+                  <li class="service-calc__path-item  item" data-value="4">Готово!</li>
+                </ul>
+              </div>
 
-                <li class="service-card service-cards__item item">
-                  <div class="service-card__wrap">
-                    <p class="service-card__text  text text--center">Почасовая работа сотрудника</p>
-                    <img class="service-card__image" src="/static/pancake/img/service-hour-work.svg" width="80" height="80">
+              <div class="service-calc__container">
+
+                <div class="service-calc__inner  service-calc__section  service-calc__section--active" data-section="square">
+                  <p class="section-ab__heading text-ab">Какая площадь Вашей квартиры?</p>
+
+                  <div class="service-calc__row  service-calc__row--square">
+                    <div class="service-calc__item service-calc__item--oval  service-calc__item--active"  data-class="space" data-feature="square" data-quantity="40" data-value="40">
+                      <button type="button" class="service-calc__radio  service-calc__radio--oval">40 м<sup><small>2</small></sup></button>
+                    </div>
+
+                    <div class="service-calc__item service-calc__item--oval" data-class="space" data-feature="square" data-quantity="50" data-value="50">
+                      <button type="button" class="service-calc__radio  service-calc__radio--oval">50 м<sup><small>2</small></sup></button>
+                    </div>
+
+                    <div class="service-calc__item service-calc__item--oval" data-class="space" data-feature="square" data-quantity="60" data-value="60">
+                      <button type="button" class="service-calc__radio  service-calc__radio--oval">60 м<sup><small>2</small></sup></button>
+                    </div>
+
+                    <div class="service-calc__item service-calc__item--oval" data-class="space" data-feature="square" data-quantity="70" data-value="70">
+                      <button type="button" class="service-calc__radio  service-calc__radio--oval">70 м<sup><small>2</small></sup></button>
+                    </div>
+
+                    <div class="service-calc__item service-calc__item--oval" data-class="space" data-feature="square" data-quantity="40" data-value="">
+                      <span class="service-calc__input-label">Укажите:</span>
+                      <input type="number" class="service-calc__input  service-calc__input--oval  service-calc__input--oval-half  input" max="200">
+                      <span class="service-calc__unit  service-calc__unit--for-oval">м<sup><small>2</small></sup></span>
+                    </div>
                   </div>
-                  <div class="service-card__wrap">
-                    <span class="service-card__mark">1 час</span>
+                </div>
+
+                <div class="service-calc__inner  service-calc__section" data-section="date">
+                  <p class="section-ab__heading text-ab">Выберите дату и время уборки:</p>
+                  <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_2"}'>
+
+                    <div class="service-calc-ab__row">
+                      <div class="service-calc__time button-date">
+                        <button class="button-date__btn" data-name="service-calc-calendar">27 апреля 2017 г.</button>
+                        <div class="button-date__switch">
+                          <span class="button-date__plus">Следующая</span>
+                          <span class="button-date__minus">Предыдущая</span>
+                        </div>
+                      </div>
+                      <div class="service-calc__info">
+                        <div class="service-calc__selection  selection  selection--lg selection--squire selection--grey" data-option="9">
+                          <button class="selection__btn  service-calc__selection-btn" type="button">09:00</button>
+                          <ul class="service-calc__list  selection__list  scroll-container">
+                            <li class="service-calc__option  selection__option" data-option="9">09:00</li>
+                            <li class="service-calc__option  selection__option" data-option="10">10:00</li>
+                            <li class="service-calc__option  selection__option" data-option="11">11:00</li>
+                            <li class="service-calc__option  selection__option" data-option="12">12:00</li>
+                            <li class="service-calc__option  selection__option" data-option="13">13:00</li>
+                            <li class="service-calc__option  selection__option" data-option="14">14:00</li>
+                            <li class="service-calc__option  selection__option" data-option="15">15:00</li>
+                            <li class="service-calc__option  selection__option" data-option="16">16:00</li>
+                            <li class="service-calc__option  selection__option" data-option="17">17:00</li>
+                            <li class="service-calc__option  selection__option" data-option="18">18:00</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="service-calc__inner  service-calc__section" data-section="addition">
+                  <p class="section-ab__heading text-ab">Какие дополнительные работы необходимо выполнить?</p>
+
+                  <div class="service-calc__row  service-calc__row--service">
+
+                    <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="glazhka" data-service="glazhka" data-class="linen_glazhaka" data-classid="linen_glazhaka" data-feature="hour" data-quantity="1" data-price="500">
+                      <div class="service-card-light__wrap">
+                        <img class="service-card-light__image" src="/static/pancake/img/service-ironing.svg" width="50" height="50" alt="Утюг">
+                        <p class="service-card-light__text text-ab  text-ab--small">Глажка белья</p>
+                      </div>
+                      <div class="service-counter" data-value="1">
+                        <p class="service-counter__text">Глажка белья</p>
+                        <div class="service-counter__control">
+                          <button class="service-counter__btn  service-counter__btn--minus"></button>
+                          <label class="service-counter__label">
+                            <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                          </label>
+                          <button class="service-counter__btn  service-counter__btn--plus"></button>
+                        </div>
+                        <p class="service-counter__text">1 час</p>
+                      </div>
+                    </div>
+
+                    <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="wash_oven" data-service="individual_work" data-class="wash_oven" data-sum="1" data-classid="wash_oven" data-feature="" data-quantity="" data-price="350">
+                      <div class="service-card-light__wrap">
+                        <img class="service-card-light__image" src="/static/pancake/img/service-cleaning-oven.svg" width="50" height="50" alt="Плита">
+                        <p class="service-card-light__text  text-ab  text-ab--small">Мытье духового шкафа внутри</p>
+                      </div>
+                      <div class="service-counter" data-value="1">
+                        <p class="service-counter__text">Мытье духового шкафа внутри</p>
+                        <div class="service-counter__control">
+                          <button class="service-counter__btn  service-counter__btn--minus"></button>
+                          <label class="service-counter__label">
+                            <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                          </label>
+                          <button class="service-counter__btn  service-counter__btn--plus"></button>
+                        </div>
+                        <p class="service-counter__text">шт</p>
+                      </div>
+                    </div>
+
+                    <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="individual_work" data-service="individual_work" data-class="hourly" data-classid="hourly" data-feature="hour" data-quantity="1" data-price="650">
+                      <div class="service-card-light__wrap">
+                        <img class="service-card-light__image" src="/static/pancake/img/service-hour-work.svg" width="50" height="50" alt="Швабра">
+                        <p class="service-card-light__text  text-ab  text-ab--small">Почасовая работа</p>
+                      </div>
+                      <div class="service-counter" data-value="1">
+                        <p class="service-counter__text">Почасовая работа</p>
+                        <div class="service-counter__control">
+                          <button class="service-counter__btn  service-counter__btn--minus"></button>
+                          <label class="service-counter__label">
+                            <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                          </label>
+                          <button class="service-counter__btn  service-counter__btn--plus"></button>
+                        </div>
+                        <p class="service-counter__text">1 час</p>
+                      </div>
+                    </div>
+
                   </div>
 
-                  <div class="service-card__btn-wrap">
-                    <span class="service-card__price">650</span> руб
-                  </div>
-                </li>
+                </div>
 
-                <li class="service-card service-cards__item item">
-                  <div class="service-card__wrap">
-                    <p class="service-card__text  text text--center">Мытьё посуды</p>
-                    <img class="service-card__image" src="/static/pancake/img/service-washing-dishes.svg" width="80" height="80">
-                  </div>
+                <div class="service-calc__inner  service-calc__section" data-section="output">
+                  <p class="section-ab__heading text-ab">Информация о Вашем заказе:</p>
 
-                  <div class="service-card__wrap">
-                    <span class="service-card__mark">10 мин</span>
-                  </div>
+                  <div class="service-calc-ab__column">
+                    <div class="service-calc-ab__data service-calc-ab__row" data-field="square">
+                      <p class="service-calc-ab__data-title">Площадь:</p>
+                      <p class="service-calc-ab__data-value">45 м<small><sup>2</sup></small></p>
+                    </div>
 
-                  <div class="service-card__btn-wrap">
-                    <span class="service-card__price">100</span> руб
-                  </div>
-                </li>
+                    <div class="service-calc-ab__data service-calc-ab__row" data-field="date">
+                      <p class="service-calc-ab__data-title">Дата:</p>
+                      <p class="service-calc-ab__data-value">25 апреля</p>
+                    </div>
 
-                <li class="service-card service-cards__item item">
-                  <div class="service-card__wrap">
-                    <p class="service-card__text  text text--center">Мытьё духового шкафа внутри</p>
-                    <img class="service-card__image" src="/static/pancake/img/service-cleaning-oven.svg" width="80" height="80">
+                    <div class="service-calc-ab__data service-calc-ab__row service-calc-ab__row--mobile"  data-field="service">
+                      <p class="service-calc-ab__data-title">Доп. работы:</p>
+                      <ul class="service-calc-ab__data-value service-calc-ab__data-list list">
+                      </ul>
+                    </div>
                   </div>
+                  <div class="service-calc-ab__data" data-field="schedule">
+                    <p class="service-calc-ab__data-title service-calc-ab__row">По графику:</p>
+                    <label class="window-form__checkbox service-calc-ab__row checkbox checkbox--lg checkbox--light-grey">
+                      <input type="checkbox" class="checkbox__input  checkbox__input" data-name="podderzhka" data-service="podderzhka" data-class="space" data-schedule="1x_week">
+                      <span class="checkbox__indicator checkbox__indicator"></span>
+                      <span class="checkbox__text">раз в неделю</span>
+                    </label>
 
-                  <div class="service-card__btn-wrap">
-                    <span class="service-card__price">350</span> руб
-                  </div>
-                </li>
-
-                <li class="service-card service-cards__item item">
-                  <div class="service-card__wrap">
-                    <p class="service-card__text  text text--center">Мытьё холодильника внутри</p>
-                    <img class="service-card__image" src="/static/pancake/img/service-refrigerator.svg" width="80" height="80">
-                  </div>
-
-                  <div class="service-card__btn-wrap  service-card__btn-wrap--active">
-                    <span class="service-card__price">350</span> руб
-                  </div>
-                </li>
-
-                <li class="service-card service-cards__item item">
-                  <div class="service-card__wrap">
-                    <p class="service-card__text  text text--center">Мытьё кухонных шкафчиков внутри<span class="service-card__sign">?<span class="service-card__note">* за всю кухню</span></span></p>
-                    <img class="service-card__image" src="/static/pancake/img/service-kitchen-shelves.svg" width="80" height="80">
+                    <label class="window-form__checkbox service-calc-ab__row checkbox checkbox--lg checkbox--light-grey">
+                      <input type="checkbox" class="checkbox__input  checkbox__input" data-name="podderzhka" data-service="podderzhka" data-class="space" data-schedule="2x_week">
+                      <span class="checkbox__indicator checkbox__indicator"></span>
+                      <span class="checkbox__text">раз в 2 недели</span>
+                    </label>
                   </div>
 
-                  <div class="service-card__wrap">
-                    <span class="service-card__mark">За всю кухню</span>
+                  <div class="service-calc-ab__column">
+
+                    <div class="service-calc-ab__data  service-calc-ab__row" data-field="price">
+                      <p class="service-calc-ab__data-title">Стоимость:</p>
+                      <p class="service-calc-ab__data-value">1 990р</p>
+                    </div>
                   </div>
 
-                  <div class="service-card__btn-wrap">
-                    <span class="service-card__price">500</span> руб
-                  </div>
-                </li>
+                </div>
 
-                <li class="service-cards__item service-card item">
-                  <div class="service-card__wrap">
-                    <p class="service-card__text  text text--center"><a class="link link--orange" href="{{buildUrl general.city '/glazhka'}}">Глажка</a><span class="service-card__sign">?<span class="service-card__note">* Просим предоставить утюг и гладильную доску</span></span></p>
-                    <img class="service-card__image" src="/static/pancake/img/service-ironing.svg" width="80" height="80">
-                  </div>
+              </div>
 
-                  <div class="service-card__wrap">
-                    <span class="service-card__mark">1 час</span>
-                  </div>
+              <div class="service-calc__inner  service-calc__control">
 
-                  <div class="service-card__btn-wrap">
-                    <span class="service-card__price">500</span> руб
-                  </div>
-                </li>
-
-                <li class="service-cards__item service-card item">
-                  <div class="service-card__wrap">
-                    <p class="service-card__text  text text--center">Стирка белья<span class="service-card__sign">?<span class="service-card__note">* загрузка, выгрузка, развесить.</span></span></p>
-                    <img class="service-card__image" src="/static/pancake/img/service-washing-machine.svg" width="80" height="80">
-                  </div>
-
-                  <div class="service-card__wrap">
-                    <span class="service-card__mark">Одна стиральная машина</span>
-                  </div>
-
-                  <div class="service-card__btn-wrap">
-                    <span class="service-card__price">200</span> руб
-                  </div>
-                </li>
-
-                <li class="service-cards__item service-card item">
-                  <div class="service-card__wrap">
-                    <p class="service-card__text  text text--center">Влажная уборка верхних поверхностей</p>
-                    <img class="service-card__image" src="/static/pancake/img/service-top-surface.svg" width="80" height="80">
-                  </div>
-
-                  <div class="service-card__wrap">
-                    <span class="service-card__mark">40 м<sup><small>2</small></sup></span>
-                  </div>
-
-                  <div class="service-card__btn-wrap">
-                    <span class="service-card__price">350</span> руб
-                  </div>
-                </li>
-              </ul>
-            </div>
-
+                <button class="service-calc__calc-btn  button  button--square  button--application" type="button" data-name="service-order">Рассчитать по телефону</button>
+                <div class="service-calc__buttons">
+                  <button class="service-calc__button  service-calc__button--arrow-previous  button  button--square" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                      <g>
+                        <polyline points="2.5 18.91 9.79 10 2.5 1.09" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><polyline points="10.21 18.91 17.5 10 10.21 1.09" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><rect width="20" height="20" fill="none"/>
+                      </g>
+                    </svg>
+                  </button>
+                  <button class="service-calc__button  service-calc__button--arrow  button  button--square" type="button">
+                    <span>Следующий шаг</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                      <g>
+                        <polyline points="2.5 18.91 9.79 10 2.5 1.09" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><polyline points="10.21 18.91 17.5 10 10.21 1.09" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><rect width="20" height="20" fill="none"/>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>     <!-- /Service-calc Wrap -->
           </div>
         </section>
 
-        <section class="page__section  section  section--bg-light">
-          <div class="section__wrap">
-            <p class="section__title  title">Отзывы клиентов</p>
-            <p class="section__text section__text--left text">Мы заботимся о наших Клиентах и верим в свое дело!</p>
+
+        <section class="page__section  section-ab  section-ab--bg-dark">
+          <div class="section-ab__wrap">
+            <p class="section-ab__title  title">Отзывы клиентов</p>
+            <p class="section-ab__text  text-ab">Мы заботимся о наших Клиентах и верим в свое дело!</p>
             <div class="review-section">
-              <div class="review-section__row">
-                <article class="review-section__item review">
-                  <p class="review-section__title title">Анна</p>
-                  <iframe class="review__video" width="200" height="113" src="https://www.youtube.com/embed/iyu3vYg6yVs?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
-                </article>
-                <article class="review-section__item review">
-                  <p class="review-section__title title">Алина</p>
-                  <iframe  class="review__video" width="200" height="113" src="https://www.youtube.com/embed/X8hYBcuMqTY?rel=0&start=9" frameborder="0" allowfullscreen></iframe>
-                </article>
-                <article class="review-section__item review">
-                  <p class="review-section__title title">Никита</p>
-                  <iframe class="review__video" width="200" height="113" src="https://www.youtube.com/embed/Rdgh07XpMPc?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
-                </article>
+              <div class="review-section__row  review-section__row--justify  review-carousel">
+                <div class="review-carousel__wrap">
+                  <div class="review-carousel__inner">
+                    <article class="review-ab  review-carousel__item">
+                      <iframe class="review-ab__video" width="200" height="113" src="https://www.youtube.com/embed/iyu3vYg6yVs?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
+                    </article
+                    ><article class="review-ab  review-carousel__item">
+                      <iframe  class="review-ab__video" width="200" height="113" src="https://www.youtube.com/embed/X8hYBcuMqTY?rel=0&start=9" frameborder="0" allowfullscreen></iframe>
+                    </article
+                    ><article class="review-ab  review-carousel__item">
+                    <iframe class="review-ab__video" width="200" height="113" src="https://www.youtube.com/embed/Rdgh07XpMPc?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
+                  </article>
+                  </div>
+                </div>
+                <button class="review-carousel__button  button" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" stroke="#d3cbbe"><polyline points="2.5 18.91 9.79 10 2.5 1.09" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><polyline points="10.21 18.91 17.5 10 10.21 1.09" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/></svg></button>
               </div>
-            </div>
-            <a class="section__button button" href="{{buildUrl general.city '/otzivi/'}}">Другие отзывы</a>
         
+            </div>
           </div>
         </section>
-
-        <section class="page__section  section  section--bg-dark">
-          <div class="section__wrap">
-            <p class="section__paragraph text">20 минут уборки квартиры сжигают 100 килокалорий.<br>
+        <section class="page__section  section-ab  section-ab--bg-light">
+          <div class="section-ab__wrap">
+            <p class="section-ab__paragraph text-ab">Поддерживающая уборка квартиры. Это спокойствие и уверенность: "Да, в моём доме всегда чистота и порядок". Не нужно думать об этом. Можно направить эту энергию на Ваши цели, увлечения, на близких людей, на жизнь во всех её проявлениях.
+              Как приятно, когда можно сказать: "Что-то домашних дел поднакопилось... Хорошо, что завтра по плану поддерживающая уборка от «Домовёнка»!</p>
+            <p class="section-ab__paragraph text-ab">20 минут уборки квартиры сжигают 100 килокалорий.<br>
               За 20 минут танцев в клубе или 30 минут шопинга с подругами Вы сожжёте ровно столько же — и при этом получите массу удовольствия!
             </p>
-            <p class="section__paragraph text">А вернувшись домой, можете смело чувствовать себя идеальной хозяйкой: в квартире проведена тщательная сухая и влажная уборка, сантехника и кухонная плита сверкают, кровать застелена свежим бельём.</p>
-            <p class="section__paragraph text">Возможно, Вы не очень-то любите клубы и шопинг. Но наши услуги по уборке квартиры подходят буквально всем!</p>
-            <div class="service-condition__paragraph">
-              <h3 class="service-condition__heading title">Для влюблённых</h3>
-              <p class="service-condition__text text">Чистота и порядок в доме — проблема, из-за которой ссорится 63% пар. Доверьте уборку домовятам, чтобы любовная лодка не разбилась о быт!</p>
+            <p class="section-ab__paragraph text-ab">А вернувшись домой, можете смело чувствовать себя идеальной хозяйкой: в квартире проведена тщательная сухая и влажная уборка, сантехника и кухонная плита сверкают, кровать застелена свежим бельём.</p>
+            <p class="section-ab__paragraph text-ab">Возможно, Вы не очень-то любите клубы и шопинг. Но наши услуги по уборке квартиры подходят буквально всем!</p>
+            <div class="service-condition-ab__paragraph">
+              <h3 class="service-condition-ab__heading title">Для влюблённых</h3>
+              <p class="service-condition-ab__text text-ab">Чистота и порядок в доме — проблема, из-за которой ссорится 63% пар. Доверьте уборку домовятам, чтобы любовная лодка не разбилась о быт!</p>
             </div>
-            <div class="service-condition__paragraph">
-              <h3 class="service-condition__heading title">Для молодых родителей</h3>
-              <p class="service-condition__text text">Вы и так слишком мало спите, слишком много волнуетесь и слишком редко уделяете время самим себе. Такая услуга, как поддерживающая уборка от «Домовёнка», станет для Вас живительным глотком воздуха!</p>
+            <div class="service-condition-ab__paragraph">
+              <h3 class="service-condition-ab__heading title">Для молодых родителей</h3>
+              <p class="service-condition-ab__text text-ab">Вы и так слишком мало спите, слишком много волнуетесь и слишком редко уделяете время самим себе. Такая услуга, как поддерживающая уборка от «Домовёнка», станет для Вас живительным глотком воздуха!</p>
             </div>
-            <div class="service-condition__paragraph">
-              <h3 class="service-condition__heading title">Для покорителей вершин</h3>
-              <p class="service-condition__text text">У Вас есть цели и амбиции, карьера, саморазвитие.. Когда Вы захвачены любимым делом, мелочи вроде уборки в доме вас только раздражают. Домовята помогут создать «надёжный тыл», пока вы сражаетесь за воплощение своей мечты.</p>
+            <div class="service-condition-ab__paragraph">
+              <h3 class="service-condition-ab__heading title">Для покорителей вершин</h3>
+              <p class="service-condition-ab__text text-ab">У Вас есть цели и амбиции, карьера, саморазвитие.. Когда Вы захвачены любимым делом, мелочи вроде уборки в доме вас только раздражают. Домовята помогут создать «надёжный тыл», пока вы сражаетесь за воплощение своей мечты.</p>
             </div>
-            <div class="service-condition__paragraph">
-              <h3 class="service-condition__heading title">Для тех, кто ценит здоровье</h3>
-              <p class="service-condition__text text">Если в Вашей семье есть маленькие дети или люди, страдающие от аллергий, астмы, повышенной чувствительности к ингредиентам бытовой химии — мы рады предложить Вам экологичную поддерживающую уборку. По Вашему требованию домовята приедут с целым набором экологически чистых средств, безопасность которых подтверждена международным экосертификатом ICEA.</p>
+            <div class="service-condition-ab__paragraph">
+              <h3 class="service-condition-ab__heading title">Для тех, кто ценит здоровье</h3>
+              <p class="service-condition-ab__text text-ab">Если в Вашей семье есть маленькие дети или люди, страдающие от аллергий, астмы, повышенной чувствительности к ингредиентам бытовой химии — мы рады предложить Вам экологичную поддерживающую уборку. По Вашему требованию домовята приедут с целым набором экологически чистых средств, безопасность которых подтверждена международным экосертификатом ICEA.</p>
             </div>
-            <div class="service-condition__paragraph">
-              <h3 class="service-condition__heading title">Для тех, кто экономит</h3>
-              <p class="service-condition__text text">Скажем без преувеличения: это доступно. Услуга «Поддерживающая уборка дома» — это демократичная цена абсолютно для всех и длинный список работ, которые Вы получаете за эту стоимость.</p>
+            <div class="service-condition-ab__paragraph">
+              <h3 class="service-condition-ab__heading title">Для тех, кто экономит</h3>
+              <p class="service-condition-ab__text text-ab">Скажем без преувеличения: это доступно. Услуга «Поддерживающая уборка дома» — это демократичная цена абсолютно для всех и длинный список работ, которые Вы получаете за эту стоимость.</p>
             </div>
-            <div class="service-condition__paragraph">
-              <h3 class="service-condition__heading title">Для тех, кому за...</h3>
-              <p class="service-condition__text text">С возрастом любовь к чистоте, как правило, только усиливается, а вот сил на уборку, увы, отнюдь не прибавляется. Не беда! Наша клининговая компания работает с многими клиентами почтенного возраста: мы знаем, как их порадовать.</p>
+            <div class="service-condition-ab__paragraph">
+              <h3 class="service-condition-ab__heading title">Для тех, кому за...</h3>
+              <p class="service-condition-ab__text text-ab">С возрастом любовь к чистоте, как правило, только усиливается, а вот сил на уборку, увы, отнюдь не прибавляется. Не беда! Наша клининговая компания работает с многими клиентами почтенного возраста: мы знаем, как их порадовать.</p>
             </div>
           </div>
         </section>
-        <section class="page__section  section  section--bg-light">
-          <div class="section__wrap">
-            <h2 class="section__title  title">Напрашивается вопрос: что входит в поддерживающую уборку?</h2>
-            <p class="section__paragraph text">Рассказываем. К Вам приедет один домовёнок в форменной одежде. У него всё с собой: от Вас потребуется только пара вёдер, швабра и пылесос. Наш опытный сотрудник почистит пылесосом полы и мягкую мебель, вытрет повсюду пыль, вымоет полы, плинтуса, зеркала, вынесет мусор, заменит постельное бельё. Чистотой засверкают сантехника, плитка, посуда, плита, вся кухонная техника. Словом, хозяйке толком и заняться-то будет нечем! Многие люди такую уборку назвали бы «генеральной»!</p>
-
-            <h2 class="section__title  title">Поддерживающая уборка в Санкт-Петербурге: три финальных аргумента</h2>
-            <ul class="service-condition__list list">
-                <li class="service-condition__item item item--circle">Только прекрасно обученные, отлично мотивированные сотрудники, прошедшие комплексное обучение в нашем собственном центре.</li>
-                <li class="service-condition__item item item--circle">Вам доступна поддерживающая уборка помещений любого размера, от маленькой студии — до огромного загородного коттеджа.</li>
-                <li class="service-condition__item item item--circle">Качество гарантировано. Ваш комфорт и хорошее настроение действительно очень важны для нас. Поэтому поддерживающая уборка помещений выполняется под 100% материальную ответственность. Если Вы выявили недостатки в течение 24 часов после проведения работ — мы их исправим бесплатно!</li>
+        <section class="page__section  section-ab  section-ab--bg-dark">
+          <div class="section-ab__wrap">
+            <h2 class="service-condition-ab__title  title">Напрашивается вопрос: что входит в поддерживающую уборку?</h2>
+            <p class="section-ab__paragraph text-ab">Рассказываем. К Вам приедет один домовёнок в форменной одежде. У него всё с собой: от Вас потребуется только пара вёдер, швабра и пылесос. Наш опытный сотрудник почистит пылесосом полы и мягкую мебель, вытрет повсюду пыль, вымоет полы, плинтуса, зеркала, вынесет мусор, заменит постельное бельё. Чистотой засверкают сантехника, плитка, посуда, плита, вся кухонная техника. Словом, хозяйке толком и заняться-то будет нечем! Многие люди такую уборку назвали бы «генеральной»!</p>
+            <h2 class="service-condition-ab__title  title">Поддерживающая уборка в Санкт-Петербурге: три финальных аргумента</h2>
+            <ul class="service-implement-ab  list">
+              <li class="service-implement-ab__item  item-ab  item-ab--circle"><p class="service-implement-ab__text text-ab">Только прекрасно обученные, отлично мотивированные сотрудники, прошедшие комплексное обучение в нашем собственном центре.</p></li>
+              <li class="service-implement-ab__item  item-ab  item-ab--circle"><p class="service-implement-ab__text text-ab">Вам доступна поддерживающая уборка помещений любого размера, от маленькой студии — до огромного загородного коттеджа.</p></li>
+              <li class="service-implement-ab__item  item-ab  item-ab--circle"><p class="service-implement-ab__text text-ab">Качество гарантировано. Ваш комфорт и хорошее настроение действительно очень важны для нас. Поэтому поддерживающая уборка помещений выполняется под 100% материальную ответственность. Если Вы выявили недостатки в течение 24 часов после проведения работ — мы их исправим бесплатно!</p></li>
             </ul>
-            <p class="section__paragraph text">Связаться по возникшим вопросам Вы можете по телефону <a class="link link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>.</p>
+            <p class="section-ab__paragraph text-ab">Связаться по возникшим вопросам Вы можете по телефону <a class="link link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>.</p>
           </div>
         </section>
-
-        <section class="page__section  section  section--bg-dark  section--contact">
-          <div class="section__wrap">
-            <h2 class="section__title  title">Свяжитесь со мной!</h2>
-            <p class="section__text text text--center">Заполните форму заказа и наш менеджер свяжется с Вами в течение 10 минут.</p>
-            <form class="contact-section__form">
-              <input class="contact-section__input input" type="text" name="name" placeholder="Имя" required="">
-              <input class="contact-section__input input" type="tel" name="tel" placeholder="Телефон" required="">
-              <button class="contact-section__button button" type="submit">Отправить</button>
-            </form>
-          </div>
-        </section>
-
         <!-- Page Footer -->
-        <footer class="page-footer">
+        <footer class="page-footer-ab">
         
-          <div class="page-footer__connection  section  connection">
-            <h2 class="section__title  title">Вы можете написать нам здесь</h2>
-            <div class="connection__wrap">
+          <div class="page-footer-ab__connection  section-ab  connection-ab">
+            <p class="section-ab__title  title">Вы можете написать нам здесь</p>
+            <div class="connection-ab__wrap">
               <a class="connection-ab__item  connection-ab__item--messenger" href="https://m.me/196022577253018" rel="nofollow">
                 <svg class="connection-ab__img" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"><g><g><rect width="21" height="21" fill="none"/><path d="M10.5.41C5,.41.5,4.57.5,9.7a9,9,0,0,0,3.71,7.22c0,1.8,0,3.68,0,3.68s2.2-1.34,3.39-2a10.71,10.71,0,0,0,2.93.4c5.52,0,10-4.16,10-9.29S16,.41,10.5.41Zm1.15,12.36L8.85,9.94,4.34,12.47,9.41,6.88l2.8,2.78L17,6.88Z" fill="#fff"/></g></g></svg>
                 <span class="connection-ab__name">Messenger</span>
@@ -753,82 +746,84 @@
             </div>
           </div>
         
-          <nav class="page-footer__secondary-menu  secondary-menu">
-            <ul class="secondary-menu__list list">
-              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/private/auth'}}">Личный кабинет</a></li>
-              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/about/'}}">О компании</a></li>
-              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/vazhno_znat/'}}">Важно знать</a></li>
-              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/davay_druzhit/'}}">Обслуживание по графику</a></li>
-              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/faq/'}}">Вопросы и ответы</a></li>
-              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/news/'}}">Новости</a></li>
-              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/articles/'}}">Статьи</a></li>
-              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/gallery/'}}">Галерея</a></li>
-              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/skidki_akcii/'}}">Специальные акции</a></li>
-              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/vakansii/'}}">Вакансии</a></li>
-              <li class="secondary-menu__item item"><a class="link" href="{{buildUrl general.city '/contacts/'}}">Контакты</a></li>
+          <nav class="page-footer-ab__secondary-menu  secondary-menu-ab">
+        
+            <ul class="secondary-menu-ab__list list">
+              <li class="secondary-menu-ab__item item"><a class="secondary-menu-ab__link  link" href="{{buildUrl general.city '/private/auth'}}">Личный кабинет</a></li>
+              <li class="secondary-menu-ab__item item"><a class="secondary-menu-ab__link  link" href="{{buildUrl general.city '/about/'}}">О компании</a></li>
+              <li class="secondary-menu-ab__item item"><a class="secondary-menu-ab__link  link" href="{{buildUrl general.city '/vazhno_znat/'}}">Важно знать</a></li>
+              <li class="secondary-menu-ab__item item"><a class="secondary-menu-ab__link  link" href="{{buildUrl general.city '/davay_druzhit/'}}">Обслуживание по графику</a></li>
+              <li class="secondary-menu-ab__item item"><a class="secondary-menu-ab__link  link" href="{{buildUrl general.city '/faq/'}}">Вопросы и ответы</a></li>
+              <li class="secondary-menu-ab__item item"><a class="secondary-menu-ab__link  link" href="{{buildUrl general.city '/news/'}}">Новости</a></li>
+              <li class="secondary-menu-ab__item item"><a class="secondary-menu-ab__link  link" href="{{buildUrl general.city '/articles/'}}">Статьи</a></li>
+              <li class="secondary-menu-ab__item item"><a class="secondary-menu-ab__link  link" href="{{buildUrl general.city '/gallery/'}}">Галерея</a></li>
+              <li class="secondary-menu-ab__item item"><a class="secondary-menu-ab__link  link" href="{{buildUrl general.city '/skidki_akcii/'}}">Специальные акции</a></li>
+              <li class="secondary-menu-ab__item item"><a class="secondary-menu-ab__link  link" href="{{buildUrl general.city '/vakansii/'}}">Вакансии</a></li>
+              <li class="secondary-menu-ab__item item"><a class="secondary-menu-ab__link  link" href="{{buildUrl general.city '/contacts/'}}">Контакты</a></li>
             </ul>
         
-            <ul class="secondary-menu__list list">
-              <li class="secondary-menu__item  item"><a class="link" href="{{buildUrl general.city '/'}}">Физическим лицам</a>
-                <ul class="secondary-menu__list secondary-menu__list--sub list">
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/podderzhka'}}">Поддерживающая уборка</a>
+            <ul class="secondary-menu-ab__list list">
+              <li class="secondary-menu-ab__item  item"><a class="secondary-menu-ab__link  link" href="{{buildUrl general.city '/'}}">Физическим лицам</a>
+                <ul class="secondary-menu-ab__list secondary-menu-ab__list--sub list">
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/podderzhka'}}">Поддерживающая уборка</a>
                   </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/generalnaya_uborka'}}">Генеральная уборка</a>
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/generalnaya_uborka'}}">Генеральная уборка</a>
                   </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/posle_remonta'}}">Уборка после ремонта</a>
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/posle_remonta'}}">Уборка после ремонта</a>
                   </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/uborka-kottedzhej'}}">Уборка коттеджей</a>
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/uborka-kottedzhej'}}">Уборка коттеджей</a>
                   </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/mite_okon'}}">Мытьё окон</a>
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/mite_okon'}}">Мытьё окон</a>
                   </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/himchistka'}}">Химчистка</a>
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/himchistka'}}">Химчистка</a>
                   </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">Домашний мастер</a>
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">Домашний мастер</a>
                   </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="link link--lg-brown" href="{{buildUrl general.city '/ezhednevnaya_uborka'}}">Ежедневная уборка квартиры</a>
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/ezhednevnaya_uborka'}}">Ежедневная уборка квартиры</a>
                   </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="link link--lg-brown" href="{{buildUrl general.city '/uborka_kvartir'}}">Уборка квартир</a>
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/uborka_kvartir'}}">Уборка квартир</a>
                   </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="link link--lg-brown" href="{{buildUrl general.city '/drugie_raboty'}}">Дополнительные работы</a>
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/drugie_raboty'}}">Дополнительные работы</a>
                   </li>
                 </ul>
               </li>
             </ul>
         
-            <ul class="secondary-menu__list list">
-              <li class="secondary-menu__item  item"><a class="link" href="{{buildUrl general.city '/b2b/'}}">Юридическим лицам</a>
-                <ul class="secondary-menu__list secondary-menu__list--sub list">
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/uborka_ofisov'}}">Уборка офисов</a>
+            <ul class="secondary-menu-ab__list list">
+              <li class="secondary-menu-ab__item  item"><a class="secondary-menu-ab__link  link" href="{{buildUrl general.city '/b2b/'}}">Юридическим лицам</a>
+                <ul class="secondary-menu-ab__list secondary-menu-ab__list--sub list">
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/uborka_ofisov'}}">Уборка офисов</a>
                   </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/uborka-proizvodstvennyh-pomewenij'}}">Уборка производственных помещений</a>
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/uborka-proizvodstvennyh-pomewenij'}}">Уборка производственных помещений</a>
                   </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/mite_stekol'}}">Мытье стекол</a>
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/mite_stekol'}}">Мытье стекол</a>
                   </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/myte-fasadov'}}">Мытье фасадов</a>
+                  <li class="secondary-menu-ab__item  secondary-menu-ab__item--sub  item">
+                    <a class="secondary-menu-ab__link  secondary-menu-ab__link--sub  link" href="{{buildUrl general.city '/myte-fasadov'}}">Мытье фасадов</a>
                   </li>
                 </ul>
               </li>
             </ul>
           </nav>
+        
           <div class="page-footer-ab__row">
             <div class="page-footer-ab__column">
-              <p class="page-footer__address"><b class="text text--bold text--lg-brown">Адрес:</b><a class="page-footer__link  link" href="{{buildUrl general.city '/contacts/'}}#mymap">Санкт-Петербург, Московский
+              <p class="page-footer-ab__address"><b class="text-ab text-ab--bold text-ab--lg-brown">Адрес:</b><a class="page-footer-ab__link  link" href="{{buildUrl general.city '/contacts/'}}#mymap">Санкт-Петербург, Московский
                 проспект 22, БЦ Адмиралтейский, подъезд 3</a></p>
-              <p class="page-footer__tel"><b class="text text--bold text--lg-brown">Телефон:</b><a class="page-footer__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
+              <p class="page-footer-ab__tel"><b class="text-ab text-ab--bold text-ab--lg-brown">Телефон:</b><a class="page-footer-ab__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
               <div class="page-footer-ab__social-links  social-links">
                 <a  class="social-link-ab  social-link-ab--grey" href="https://www.facebook.com/uborka.domovenok">
                   <svg  class="social-link-ab__icon  social-link-ab__icon--facebook" width="9.28" height="19.76" viewBox="0 0 9.28 19.76">
@@ -870,7 +865,6 @@
         </footer>
         <!-- /Page Footer -->
       </div>
-
       
       <div class="contact-btn" data-ga='{"hitType": "click", "eventCategory": "button", "eventAction": "send", "eventLabel": "orderButton"}'>
         <button class="contact-btn__btn contact-btn__btn--main" type="button" data-name="service-order">
@@ -878,7 +872,6 @@
         </button>
       </div>
     </main>
-
     <!-- Pop up -->
     <div class="pop-up  pop-up--hide">
     
@@ -1069,10 +1062,8 @@
     
     </div>
     <!-- /Pop up -->
-
   </div>
   <!-- /Page wrapper -->
-
   <script id="calendar" type="text/html">
     {{{{raw}}}}
     {{#each days}}
@@ -1084,37 +1075,6 @@
     </a>
     {{/each}}
     {{{{/raw}}}}
-  </script>
-
-  <script id="order-service" type="text/html">
-    <div class="service-card-sm" data-name="mite_posudi">
-      <p class="service-card-sm__text">Мытьё посуды<span class="service-card-sm__sign">?<span class="service-card-sm__note">* 10 минут</span></span></p>
-      <div class="service-card-sm__wrap">
-        <img class="service-card-sm__image" src="/static/pancake/img/service-washing-dishes.svg" width="50" height="50" alt="Посуда">
-        <div class="service-card-sm__btn-wrap">
-          <span class="service-card-sm__price">100</span> руб
-        </div>
-      </div>
-    </div>
-    <div class="service-card-sm" data-name="uborka_vlazhnaya">
-      <p class="service-card-sm__text">Влажная уборка выше 2 м<span class="service-card-sm__sign">?<span class="service-card-sm__note">* за 40 м<small><sup>2</sup></small></span></span></p>
-      <div class="service-card-sm__wrap">
-        <img class="service-card-sm__image" src="/static/pancake/img/service-top-surface.svg" width="50" height="50" alt="Шкаф">
-        <div class="service-card-sm__btn-wrap">
-          <span class="service-card-sm__price">350</span> руб
-        </div>
-      </div>
-    </div>
-    <div class="service-card-sm" data-name="glazhka">
-      <p class="service-card-sm__text">Глажка<span class="service-card-sm__sign">?<span class="service-card-sm__note">* 1 час</span></span></p>
-      <div class="service-card-sm__wrap">
-        <img class="service-card-sm__image" src="/static/pancake/img/service-ironing.svg" width="50" height="50" alt="Утюг">
-        <div class="service-card-sm__btn-wrap">
-          <span class="service-card-sm__price">500</span> руб
-        </div>
-      </div>
-    </div>
-
   </script>
 
   
@@ -1142,11 +1102,9 @@
   
     {{{{/raw}}}}
   </script>
-
   <!-- Java Script -->
-
   <script src="/static/pancake/js/bundle.min.js?v0.34"></script>
-<!-- /Java Script -->
+  <!-- /Java Script -->
   {{#if general.production}}
   
     <noscript>
@@ -1168,5 +1126,5 @@
     </script>
   
   {{/if}}
-</body>
+  </body>
 </html>
