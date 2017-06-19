@@ -40,7 +40,9 @@ async function SendContactInfo(ctx) {
         'Data': {
             'date': response1C.date,
             'timezone': response1C.timezone,
+            'amountwithdiscount': response1C.amountwithdiscount,
             'uuid': serviceOrderUUID,
+
         },
         'Success': true
     }
