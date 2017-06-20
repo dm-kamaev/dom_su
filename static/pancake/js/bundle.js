@@ -5493,8 +5493,7 @@
 	                        "name": this.name.value,
 	                        "square": init.serviceCalc ? Number(init.serviceCalc.activeSquire.dataset.value) : null,
 	                        "phone": this.tel.value
-	                    }
-	                };
+	                    } };
 	                url = "/ticket-handler";
 	            }
 	            function error() {
@@ -28671,34 +28670,34 @@
 	        name: 'Уборка после ремонта',
 	        price: {
 	            'without_furniture': {
-	                '40': 5600,
-	                '50': 6100,
-	                '60': 6700,
-	                '70': 7350,
-	                '80': 7980,
-	                '90': 8900,
-	                '100': 9350,
-	                '110': 10290,
-	                '120': 11220,
-	                '130': 12160,
-	                '140': 13090,
-	                '150': 14030,
-	                'one': 93.5
+	                '40': 5990,
+	                '50': 6490,
+	                '60': 7450,
+	                '70': 7950,
+	                '80': 8450,
+	                '90': 9450,
+	                '100': 9900,
+	                '110': 10990,
+	                '120': 11990,
+	                '130': 12990,
+	                '140': 13990,
+	                '150': 14990,
+	                'one': 100
 	            },
 	            'furniture': {
-	                '40': 6590,
-	                '50': 7190,
-	                '60': 7880,
-	                '70': 8650,
-	                '80': 9390,
-	                '90': 10490,
-	                '100': 10990,
-	                '110': 12100,
-	                '120': 13200,
-	                '130': 14300,
-	                '140': 15400,
-	                '150': 16500,
-	                'one': 110
+	                '40': 6990,
+	                '50': 7450,
+	                '60': 8490,
+	                '70': 8990,
+	                '80': 9790,
+	                '90': 10990,
+	                '100': 11990,
+	                '110': 12990,
+	                '120': 13990,
+	                '130': 14990,
+	                '140': 16450,
+	                '150': 17890,
+	                'one': 120
 	            }
 	        },
 	        formula: function (conf, squire) {
@@ -29411,7 +29410,9 @@
 	        });
 	        this.activeSection.classList.add('service-calc__section--active');
 	        var top = this.activeSection.offsetTop - 100;
-	        window.scrollTo(0, top);
+	        if (client.isMobile()) {
+	            window.scrollTo(0, top);
+	        }
 	    };
 	    CalcNew.prototype.initSection = function () {
 	        this.activeSection = this.getActiveSection(this.activeStep);
@@ -29533,7 +29534,7 @@
 	            });
 	        }
 	        if (newData.mainServices.length) {
-	            newData.services.forEach(function (item) {
+	            newData.mainServices.forEach(function (item) {
 	                createObject1c(param.services, item, item);
 	            });
 	        }
@@ -30148,8 +30149,10 @@
 	        }
 	        else {
 	            var field = this.element.querySelector('.service-calc-ab__data[data-field="service"]');
-	            if (!field.classList.contains('service-calc-ab__data--hide')) {
-	                field.classList.add('service-calc-ab__data--hide');
+	            if (field) {
+	                if (!field.classList.contains('service-calc-ab__data--hide')) {
+	                    field.classList.add('service-calc-ab__data--hide');
+	                }
 	            }
 	        }
 	        if (data.date) {
