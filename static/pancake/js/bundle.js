@@ -58,8 +58,8 @@
 	//var hideElement = require('./../components/orders-item/orders-item.js');
 	// var request = require('./../components/ajax-request/ajax-request.js');
 	__webpack_require__(2);
-	__webpack_require__(227);
-	var resize = __webpack_require__(232);
+	__webpack_require__(226);
+	var resize = __webpack_require__(231);
 	window.addEventListener('resize', resize);
 
 
@@ -1248,9 +1248,9 @@
 	var init = __webpack_require__(11);
 	// let renderOrder = require('./../../../components/order/render-order');
 	// let renderSchedule = require('./../../../components/order/render-schedule');
-	var renderItem = __webpack_require__(229);
-	var renderForm = __webpack_require__(230);
-	var message = __webpack_require__(231);
+	var renderItem = __webpack_require__(228);
+	var renderForm = __webpack_require__(229);
+	var message = __webpack_require__(230);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	var pageState = {
@@ -1871,6 +1871,7 @@
 	 * Created by Lobova.A on 29.11.2016.
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var custom_event_1 = __webpack_require__(12);
 	var window_form_1 = __webpack_require__(13);
 	//let url = require('./../state-address/state-address');
@@ -1904,8 +1905,7 @@
 	var service_menu_carousel_1 = __webpack_require__(220);
 	var service_menu_open_1 = __webpack_require__(221);
 	var review_open_1 = __webpack_require__(222);
-	var toggle_logo_1 = __webpack_require__(223);
-	var pageHeader = __webpack_require__(224);
+	var pageHeader = __webpack_require__(223);
 	var pageElement = document.querySelector('.page');
 	var pageAuth = document.querySelector('.page--authorization');
 	var pagePrivate = document.querySelector('.page--orders');
@@ -1940,7 +1940,6 @@
 	var serviceMenuButton = pageElement.querySelector('.service-menu__button');
 	var reviewButtons = pageElement.querySelectorAll('.review__button');
 	var counterElements = pageElement.querySelectorAll('.service-counter');
-	var buttonMoveTo = pageElement.querySelector('a[data-move]');
 	var buttonConstantClient = pageElement.querySelector('.button--constant-client');
 	custom_event_1.default();
 	window.onload = function () {
@@ -1961,24 +1960,30 @@
 	if (!pageAuth) {
 	    urlThridColumn.init();
 	}
-	if (buttonMoveTo) {
-	    buttonMoveTo.addEventListener('click', function (e) {
-	        e.preventDefault();
-	        var shift = 10;
-	        var toBlock = document.querySelector("#" + buttonMoveTo.dataset['move']);
-	        var timerId = setInterval(function () {
-	            if (toBlock.offsetTop > shift) {
-	                window.scrollBy(0, shift);
-	                shift += 10;
-	            }
-	            if (toBlock.offsetTop <= window.pageYOffset) {
-	                shift = window.pageYOffset - toBlock.offsetTop;
-	                window.scrollBy(0, -shift);
-	                clearInterval(timerId);
-	            }
-	        }, 25);
-	    });
-	}
+	// if (buttonMoveTo) {
+	//   buttonMoveTo.addEventListener('click', function (e) {
+	//   	e.preventDefault();
+	//   	var shift = 10;
+	// 	  var toBlock = document.querySelector(`#${buttonMoveTo.dataset['move']}`);
+	//
+	// 	  var timerId = setInterval(function() {
+	//
+	//
+	// 		  if (toBlock.offsetTop > shift) {
+	// 			  window.scrollBy(0, shift);
+	// 			  shift += 10;
+	// 		  }
+	//
+	// 		  if (toBlock.offsetTop <= window.pageYOffset) {
+	// 			  shift = window.pageYOffset - toBlock.offsetTop;
+	// 			  window.scrollBy(0, -shift);
+	// 			  clearInterval(timerId);
+	// 		  }
+	//
+	// 	  }, 25);
+	//
+	//   });
+	// }
 	if (buttonFriendDocumentElement) {
 	    buttonFriendDocumentElement.addEventListener('click', function (e) {
 	        e.preventDefault();
@@ -1993,7 +1998,7 @@
 	    });
 	}
 	if (buttonPriceListElements.length) {
-	    var _loop_1 = function(i) {
+	    var _loop_1 = function (i) {
 	        buttonPriceListElements[i].addEventListener('click', function (e) {
 	            e.preventDefault();
 	            var event = document.createEvent('Event');
@@ -2114,7 +2119,7 @@
 	    pageInit.contactForm = new ContactForm(contactFormElement);
 	}
 	if (buttonApplicationElements) {
-	    var _loop_2 = function(item) {
+	    var _loop_2 = function (item) {
 	        item.addEventListener('click', function (e) {
 	            e.preventDefault();
 	            var event = document.createEvent('Event');
@@ -2133,7 +2138,7 @@
 	}
 	if (questionSectionElement) {
 	    var questionElement = questionSectionElement.querySelectorAll('.question-section__item');
-	    var _loop_3 = function(item) {
+	    var _loop_3 = function (item) {
 	        var buttonToggle = item.querySelector('.question-section__link');
 	        var answer = item.querySelector('.question-section__answer');
 	        buttonToggle.addEventListener('click', function () {
@@ -2178,11 +2183,8 @@
 	        pageInit.serviceCarousel = new service_menu_carousel_1.default(item);
 	    }
 	}
-	if (client.isMobile()) {
-	    window.addEventListener('scroll', toggle_logo_1.default);
-	}
 	if (pageAuth) {
-	    var authorization = __webpack_require__(228);
+	    var authorization = __webpack_require__(227);
 	    authorization();
 	}
 	if (windowFormElement) {
@@ -2199,6 +2201,7 @@
 	 * Created by Lobova.A on 15.05.2017.
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	function polyfillCustomEvent() {
 	    try {
 	        new CustomEvent("IE has CustomEvent, but doesn't support constructor");
@@ -2218,7 +2221,6 @@
 	        CustomEvent.prototype = Object.create(window.Event.prototype);
 	    }
 	}
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = polyfillCustomEvent;
 
 
@@ -2232,7 +2234,7 @@
 	"use strict";
 	var square_1 = __webpack_require__(14);
 	var price_1 = __webpack_require__(21);
-	var info_1 = __webpack_require__(24);
+	var info_1 = __webpack_require__(23);
 	var WindowForm = (function () {
 	    function WindowForm(element) {
 	        var _this = this;
@@ -2275,8 +2277,14 @@
 	                    _this.param.services = data;
 	                    break;
 	                case 3:
-	                    _this.param.promocode = data.promocode;
-	                    _this.param.wannaschedule = data.wannaschedule;
+	                    _this.param.services = data.services;
+	                    _this.param.schedule = data.schedule;
+	                    break;
+	                case 4:
+	                    _this.param.services = data.services;
+	                    if (data.schedule) {
+	                        _this.param.schedule = data.schedule;
+	                    }
 	                    break;
 	            }
 	            _this.openSection();
@@ -2766,6 +2774,14 @@
 	            catch (e) { }
 	        }
 	    },
+	    sendAttr: function (ga_param) {
+	        if (ga_param) {
+	            try {
+	                ga('send', ga_param);
+	            }
+	            catch (e) { }
+	        }
+	    },
 	    setLiving: function () {
 	        try {
 	            var google_id_1 = null;
@@ -2897,23 +2913,41 @@
 	"use strict";
 	var request = __webpack_require__(8);
 	var priceFormat = __webpack_require__(22);
-	var reset_1 = __webpack_require__(23);
 	var analytic = __webpack_require__(19);
 	var createObject1c = __webpack_require__(20);
 	var Price = (function () {
 	    function Price(element, save, param, serviceName) {
 	        var _this = this;
 	        this.changeSchedule = function (e) {
-	            _this.wannaschedule = e.target.checked;
+	            if (_this.checkboxContainers) {
+	                var checked_1 = false;
+	                _this.checkboxContainers.forEach(function (item) {
+	                    var input = item.querySelector('input');
+	                    if (input !== e.currentTarget) {
+	                        input.checked = false;
+	                    }
+	                    if (input.checked) {
+	                        checked_1 = true;
+	                        _this.param = JSON.parse(JSON.stringify(_this.defaultParam));
+	                        createObject1c(_this.param.services, input, input);
+	                        if (input.dataset.schedule) {
+	                            _this.param.schedule = input.dataset.schedule;
+	                        }
+	                        _this.getPrice();
+	                    }
+	                });
+	                if (!checked_1) {
+	                    _this.param = _this.defaultParam;
+	                    _this.getPrice();
+	                }
+	            }
 	        };
 	        this.save = function (e) {
 	            e.preventDefault();
 	            var data = {};
-	            if (_this.wannaschedule) {
-	                data.wannaschedule = true;
-	            }
-	            if (_this.promo.value) {
-	                data.promocode = _this.promo.value;
+	            data.services = _this.param.services;
+	            if (_this.param.schedule) {
+	                data.schedule = _this.param.schedule;
 	            }
 	            analytic.sendServiceOrder(_this.element);
 	            _this.parentSave(data);
@@ -2930,9 +2964,6 @@
 	        this.getPrice = function (e) {
 	            if (e)
 	                e.preventDefault();
-	            if (_this.promo) {
-	                _this.param.promocode = _this.promo.value;
-	            }
 	            var data = {
 	                "Method": "Client.CalculateOrder",
 	                "Param": _this.param
@@ -2950,55 +2981,61 @@
 	        };
 	        this.element = element;
 	        this.parentSave = save;
-	        this.param = param;
-	        this.promoBtn = this.element.querySelector('.window-form__promocode-btn');
-	        this.promo = this.element.querySelector('.window-form__promocode');
+	        this.defaultParam = param;
+	        this.param = JSON.parse(JSON.stringify(this.defaultParam));
+	        this.checkboxs = Array.prototype.slice.call(this.element.querySelectorAll('.checkbox__input'));
 	        this.button = this.element.querySelector('.window-form__button');
 	        this.price = this.element.querySelector('.window-form__price-value');
 	        this.service = serviceName;
-	        this.wannaschedule = false;
+	        this.checkboxContainers = [];
 	        this.init(serviceName.dataset.service);
 	        this.getPrice();
 	        this.button.addEventListener('click', this.save);
-	        this.promoBtn.addEventListener('click', this.getPrice);
 	    }
 	    Price.prototype.init = function (serviceName) {
+	        var _this = this;
 	        switch (serviceName) {
 	            case 'podderzhka':
 	                this.title = this.element.querySelector(".window__promo-text[data-name=\"general\"]");
 	                if (this.title.classList.contains('window__promo-text--hide')) {
 	                    this.title.classList.remove('window__promo-text--hide');
 	                }
-	                this.checkboxContainer = this.element.querySelector(".window-form__checkbox[data-name=\"general\"]");
-	                if (this.checkboxContainer.classList.contains('window-form__checkbox--hide')) {
-	                    this.checkboxContainer.classList.remove('window-form__checkbox--hide');
-	                }
-	                this.checkboxClient = this.checkboxContainer.querySelector(".checkbox__input");
-	                this.checkboxClient.addEventListener('change', this.changeSchedule);
+	                this.checkboxContainers = Array.prototype.slice.call(this.element.querySelectorAll(".window-form__checkbox[data-name=\"podderzhka\"]"));
+	                this.checkboxContainers.forEach(function (item) {
+	                    if (item.classList.contains('window-form__checkbox--hide')) {
+	                        item.classList.remove('window-form__checkbox--hide');
+	                    }
+	                    var input = item.querySelector('input');
+	                    input.addEventListener('click', _this.changeSchedule);
+	                });
 	                break;
 	            case 'general':
 	                this.title = this.element.querySelector(".window__promo-text[data-name=\"general\"]");
 	                if (this.title.classList.contains('window__promo-text--hide')) {
 	                    this.title.classList.remove('window__promo-text--hide');
 	                }
-	                this.checkboxContainer = this.element.querySelector(".window-form__checkbox[data-name=\"general\"]");
-	                if (this.checkboxContainer.classList.contains('window-form__checkbox--hide')) {
-	                    this.checkboxContainer.classList.remove('window-form__checkbox--hide');
-	                }
-	                this.checkboxClient = this.checkboxContainer.querySelector(".checkbox__input");
-	                this.checkboxClient.addEventListener('change', this.changeSchedule);
+	                this.checkboxContainers = Array.prototype.slice.call(this.element.querySelectorAll(".window-form__checkbox[data-name=\"general\"]"));
+	                this.checkboxContainers.forEach(function (item) {
+	                    if (item.classList.contains('window-form__checkbox--hide')) {
+	                        item.classList.remove('window-form__checkbox--hide');
+	                    }
+	                    var input = item.querySelector('input');
+	                    input.addEventListener('click', _this.changeSchedule);
+	                });
 	                break;
 	            case 'posle':
 	                this.title = this.element.querySelector(".window__promo-text[data-name=\"posle\"]");
 	                if (this.title.classList.contains('window__promo-text--hide')) {
 	                    this.title.classList.remove('window__promo-text--hide');
 	                }
-	                this.checkboxContainer = this.element.querySelector(".window-form__checkbox[data-name=\"posle\"]");
-	                if (this.checkboxContainer.classList.contains('window-form__checkbox--hide')) {
-	                    this.checkboxContainer.classList.remove('window-form__checkbox--hide');
-	                }
-	                this.checkboxService = this.checkboxContainer.querySelector(".checkbox__input");
-	                this.checkboxService.addEventListener('change', this.changeService);
+	                this.checkboxContainers = Array.prototype.slice.call(this.element.querySelectorAll(".window-form__checkbox[data-name=\"posle\"]"));
+	                this.checkboxContainers.forEach(function (item) {
+	                    if (item.classList.contains('window-form__checkbox--hide')) {
+	                        item.classList.remove('window-form__checkbox--hide');
+	                    }
+	                    var input = item.querySelector('input');
+	                    input.addEventListener('click', _this.changeSchedule);
+	                });
 	                break;
 	        }
 	    };
@@ -3006,14 +3043,16 @@
 	        this.price.innerHTML = priceFormat(price) + " \u0440\u0443\u0431";
 	    };
 	    Price.prototype.remove = function () {
-	        if (this.checkboxClient) {
-	            this.checkboxClient.checked = false;
-	            this.checkboxClient.removeEventListener('click', this.changeSchedule);
-	        }
-	        if (this.checkboxService) {
-	            this.checkboxService.checked = false;
-	            this.checkboxService.removeEventListener('click', this.changeService);
-	        }
+	        var _this = this;
+	        this.checkboxContainers = Array.prototype.slice.call(this.element.querySelectorAll(".window-form__checkbox[data-name=\"podderzhka\"]"));
+	        this.checkboxContainers.forEach(function (item) {
+	            if (!item.classList.contains('window-form__checkbox--hide')) {
+	                item.classList.add('window-form__checkbox--hide');
+	            }
+	            var input = item.querySelector('input');
+	            input.checked = false;
+	            input.removeEventListener('click', _this.changeSchedule);
+	        });
 	        var titles = Array.prototype.slice.call(this.element.querySelectorAll(".window__promo-text"));
 	        if (titles.length) {
 	            titles.forEach(function (item) {
@@ -3022,17 +3061,7 @@
 	                }
 	            });
 	        }
-	        var checkboxContainers = Array.prototype.slice.call(this.element.querySelectorAll(".window-form__checkbox"));
-	        if (checkboxContainers.length) {
-	            checkboxContainers.forEach(function (item) {
-	                if (!item.classList.contains('window-form__checkbox--hide')) {
-	                    item.classList.add('window-form__checkbox--hide');
-	                }
-	            });
-	        }
-	        reset_1.default(this.element);
 	        this.button.removeEventListener('click', this.save);
-	        this.promoBtn.removeEventListener('click', this.getPrice);
 	    };
 	    return Price;
 	}());
@@ -3056,24 +3085,6 @@
 
 /***/ }),
 /* 23 */
-/***/ (function(module, exports) {
-
-	/**
-	 * Created by Lobova.A on 22.05.2017.
-	 */
-	"use strict";
-	function inputReset(container) {
-	    var elements = Array.prototype.slice.call(container.querySelectorAll('input'));
-	    elements.forEach(function (item) {
-	        item.value = '';
-	    });
-	}
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = inputReset;
-
-
-/***/ }),
-/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -3081,9 +3092,9 @@
 	 */
 	"use strict";
 	var request = __webpack_require__(8);
-	var validate = __webpack_require__(25);
+	var validate = __webpack_require__(24);
 	var analytic = __webpack_require__(19);
-	var reset_1 = __webpack_require__(23);
+	var reset_1 = __webpack_require__(25);
 	var Info = (function () {
 	    function Info(element, save, param) {
 	        var _this = this;
@@ -3148,7 +3159,7 @@
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports) {
 
 	/**
@@ -3397,6 +3408,24 @@
 	        }.bind(this));
 	    }
 	};
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+	/**
+	 * Created by Lobova.A on 22.05.2017.
+	 */
+	"use strict";
+	function inputReset(container) {
+	    var elements = Array.prototype.slice.call(container.querySelectorAll('input'));
+	    elements.forEach(function (item) {
+	        item.value = '';
+	    });
+	}
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = inputReset;
 
 
 /***/ }),
@@ -5407,7 +5436,7 @@
 	/**
 	 * Created by Lobova.A on 23.03.2017.
 	 */
-	var validate = __webpack_require__(25);
+	var validate = __webpack_require__(24);
 	var request = __webpack_require__(8);
 	var init = __webpack_require__(54);
 	var analytic = __webpack_require__(19);
@@ -26399,7 +26428,7 @@
 	/**
 	 * Created by Lobova.A on 23.03.2017.
 	 */
-	var validate = __webpack_require__(25);
+	var validate = __webpack_require__(24);
 	var request = __webpack_require__(8);
 	var analytic = __webpack_require__(19);
 	var ConstantClient = (function () {
@@ -26449,7 +26478,8 @@
 	                data: {
 	                    'name': this.name.value,
 	                    'phone': this.tel.value
-	                } };
+	                }
+	            };
 	            var url = "/ticket-handler";
 	            function error() {
 	                this.button.disabled = false;
@@ -27942,7 +27972,7 @@
 	/**
 	 * Created by A.Belokuraya on 21.03.2017.
 	 */
-	var validation = __webpack_require__(25);
+	var validation = __webpack_require__(24);
 	var request = __webpack_require__(8);
 	module.exports = function (form) {
 	    var inputRequired = Array.prototype.slice.call(form.querySelectorAll('input[required]'));
@@ -28023,6 +28053,7 @@
 	 * Edited by Belokuraya.A on 01.06.2017
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var Counter = (function () {
 	    function Counter(element) {
 	        this.element = element;
@@ -28089,7 +28120,6 @@
 	    };
 	    return Counter;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Counter;
 
 
@@ -29278,6 +29308,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Created by Lobova.A on 31.01.2017.
 	 */
@@ -29288,6 +29319,7 @@
 	var createObject1c = __webpack_require__(20);
 	var moment = __webpack_require__(55);
 	var client = __webpack_require__(9);
+	var analitic = __webpack_require__(19);
 	var SectionService = __webpack_require__(207);
 	var SectionOutput = __webpack_require__(208);
 	var SectionSquare = __webpack_require__(209);
@@ -29421,6 +29453,8 @@
 	                if (!this.sectionSquare) {
 	                    this.sectionSquare = new SectionSquare(this.activeSection, this.updateActiveSquare);
 	                }
+	                var attr = { "hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "orderStep_1" };
+	                analitic.sendAttr(attr);
 	                break;
 	            case 'price':
 	                if (!this.sectionSchedule) {
@@ -29432,16 +29466,22 @@
 	                this.data.timezone = this.sectionDate ? this.sectionDate.timeZone : null;
 	                this.data.hour = this.sectionDate ? this.sectionDate.selection.activeOption.innerHTML : null;
 	                this.updateDate();
+	                var attr = { "hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "orderStep_2" };
+	                analitic.sendAttr(attr);
 	                break;
 	            case 'service':
 	                if (!this.sectionMainService) {
 	                    this.sectionMainService = new SectionService(this.activeSection, this.updateMainServices);
 	                }
+	                var attr = { "hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "orderStep_1" };
+	                analitic.sendAttr(attr);
 	                break;
 	            case 'addition':
 	                if (!this.sectionService) {
 	                    this.sectionService = new SectionService(this.activeSection, this.updateServices);
 	                }
+	                var attr = { "hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "orderStep_3" };
+	                analitic.sendAttr(attr);
 	                break;
 	            case 'output':
 	                if (!this.sectionOutput) {
@@ -29450,6 +29490,8 @@
 	                else {
 	                    this.sectionOutput.update(this.data);
 	                }
+	                var attr = { "hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "orderStep_4" };
+	                analitic.sendAttr(attr);
 	                break;
 	        }
 	    };
@@ -29910,6 +29952,7 @@
 	 * Created by Lobova.A on 20.04.2017.
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils = __webpack_require__(198);
 	var counter_1 = __webpack_require__(193);
 	var SectionService = (function () {
@@ -29974,6 +30017,7 @@
 	                else {
 	                    e.currentTarget.dataset.quantity = 1;
 	                }
+	                //this.deselect(e.target);
 	            }
 	        };
 	        this.element = element;
@@ -30472,7 +30516,7 @@
 	var tabs = __webpack_require__(5);
 	var request = __webpack_require__(8);
 	var path = __webpack_require__(7);
-	var validate = __webpack_require__(25);
+	var validate = __webpack_require__(24);
 	var RightSide = (function () {
 	    function RightSide(element) {
 	        this.element = element;
@@ -30603,7 +30647,7 @@
 	var tabs = __webpack_require__(5);
 	var request = __webpack_require__(8);
 	var path = __webpack_require__(7);
-	var validate = __webpack_require__(25);
+	var validate = __webpack_require__(24);
 	var Form = (function () {
 	    function Form(element) {
 	        this.element = element;
@@ -30719,7 +30763,7 @@
 	var page = __webpack_require__(3);
 	var url = __webpack_require__(10);
 	var request = __webpack_require__(8);
-	var validate = __webpack_require__(25);
+	var validate = __webpack_require__(24);
 	var Careers = (function () {
 	    function Careers(element) {
 	        this.element = element;
@@ -30849,7 +30893,7 @@
 	var url = __webpack_require__(10);
 	var request = __webpack_require__(8);
 	var analytic = __webpack_require__(19);
-	var validate = __webpack_require__(25);
+	var validate = __webpack_require__(24);
 	var Form = (function () {
 	    function Form(element) {
 	        this.element = element;
@@ -31003,6 +31047,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Created by A.Belokuraya on 19.04.2017.
 	 */
@@ -31133,7 +31178,6 @@
 	    ;
 	    return Carousel;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Carousel;
 
 
@@ -31145,17 +31189,23 @@
 	 * Created by A.Belokuraya on 18.05.2017.
 	 */
 	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var client = __webpack_require__(9);
 	var carousel_two_1 = __webpack_require__(219);
 	var ServiceMenuCarousel = (function (_super) {
 	    __extends(ServiceMenuCarousel, _super);
 	    function ServiceMenuCarousel(element) {
-	        _super.call(this, element);
+	        return _super.call(this, element) || this;
 	    }
 	    ServiceMenuCarousel.prototype.init = function () {
 	        if (!client.isMobile()) {
@@ -31164,7 +31214,6 @@
 	    };
 	    return ServiceMenuCarousel;
 	}(carousel_two_1.default));
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ServiceMenuCarousel;
 
 
@@ -31176,6 +31225,7 @@
 	 * Created by A.Belokuraya on 18.05.2017.
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	function openServiceList(e) {
 	    e.preventDefault();
 	    var timer = 0;
@@ -31183,7 +31233,7 @@
 	    if (this.classList.contains('service-menu__button--open')) {
 	        var serviceItems_1 = document.querySelectorAll('.service-menu__item');
 	        this.classList.remove('service-menu__button--open');
-	        var _loop_1 = function(i) {
+	        var _loop_1 = function (i) {
 	            setTimeout(function () {
 	                page.scrollTop -= 81;
 	                serviceItems_1[i].classList.add('service-menu__item--hide');
@@ -31197,7 +31247,7 @@
 	    else {
 	        this.classList.add('service-menu__button--open');
 	        var serviceItems = document.querySelectorAll('.service-menu__item--hide');
-	        var _loop_2 = function(item) {
+	        var _loop_2 = function (item) {
 	            setTimeout(function () {
 	                item.classList.remove('service-menu__item--hide');
 	            }, timer);
@@ -31209,7 +31259,6 @@
 	        }
 	    }
 	}
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = openServiceList;
 
 
@@ -31221,6 +31270,7 @@
 	 * Created by A.Belokuraya on 22.05.2017.
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	function openReview(e) {
 	    e.preventDefault();
 	    var reviewDescription = this.parentElement.parentElement.querySelector('.review__description');
@@ -31232,46 +31282,21 @@
 	    var closeReviewDescription = reviewDescription.querySelector('.review__btn-close');
 	    closeReviewDescription.addEventListener('click', closeReview);
 	}
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = openReview;
 
 
 /***/ }),
 /* 223 */
-/***/ (function(module, exports) {
-
-	/**
-	 * Created by A.Belokuraya on 24.05.2017.
-	 */
-	"use strict";
-	function toggleLogoMobile() {
-	    var logo = document.querySelector('.page-header__logo');
-	    var tel = document.querySelector('.page-header__tel');
-	    if (this.innerHeight <= this.scrollY) {
-	        logo.classList.add('page-header__logo--hide-mobile');
-	        tel.classList.remove('page-header__tel--hide-mobile');
-	    }
-	    else {
-	        logo.classList.remove('page-header__logo--hide-mobile');
-	        tel.classList.add('page-header__tel--hide-mobile');
-	    }
-	}
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = toggleLogoMobile;
-
-
-/***/ }),
-/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 25.11.2016.
 	 */
 	"use strict";
-	var main_menu_1 = __webpack_require__(225);
-	var openApplication = __webpack_require__(226);
+	var main_menu_1 = __webpack_require__(224);
+	var openApplication = __webpack_require__(225);
 	//let callback = require('./../callback/callback');
-	var init = __webpack_require__(227);
+	var init = __webpack_require__(226);
 	var initElement = __webpack_require__(11);
 	var headerElement = document.querySelector('.page-header');
 	var menuElement = headerElement.querySelector('.main-menu');
@@ -31304,7 +31329,7 @@
 
 
 /***/ }),
-/* 225 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -31392,7 +31417,7 @@
 
 
 /***/ }),
-/* 226 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -31457,7 +31482,7 @@
 
 
 /***/ }),
-/* 227 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -31467,7 +31492,7 @@
 
 
 /***/ }),
-/* 228 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -31579,7 +31604,7 @@
 
 
 /***/ }),
-/* 229 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -31589,7 +31614,7 @@
 	var client = __webpack_require__(9);
 	var moment = __webpack_require__(55);
 	var url = __webpack_require__(6);
-	var init = __webpack_require__(227);
+	var init = __webpack_require__(226);
 	var urlThridColumn = __webpack_require__(10);
 	var defineObject = __webpack_require__(189);
 	var RightSide = __webpack_require__(213);
@@ -31639,7 +31664,7 @@
 
 
 /***/ }),
-/* 230 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -31649,7 +31674,7 @@
 	var Mustache = __webpack_require__(186);
 	var moment = __webpack_require__(55);
 	var url = __webpack_require__(6);
-	var init = __webpack_require__(227);
+	var init = __webpack_require__(226);
 	var urlThridColumn = __webpack_require__(10);
 	var defineObject = __webpack_require__(189);
 	var Form = __webpack_require__(214);
@@ -31683,7 +31708,7 @@
 
 
 /***/ }),
-/* 231 */
+/* 230 */
 /***/ (function(module, exports) {
 
 	/**
@@ -31702,7 +31727,7 @@
 
 
 /***/ }),
-/* 232 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
