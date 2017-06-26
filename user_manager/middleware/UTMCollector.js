@@ -9,6 +9,12 @@ async function UTMCollector(ctx, next) {
         UTM['utm_medium'] = 'cpc'
         UTM['utm_source'] = 'google'
         UTM['utm_campaign'] = ctx.query.campaignid
+        if (ctx.query['utm_term']){
+            UTM['utm_term'] = ctx.query['utm_term']
+        }
+        if (ctx.query['utm_content']){
+            UTM['utm_content'] = ctx.query['utm_content']
+        }
     } else {
         for (let name of UTMS_NAME){
             if (ctx.query[name]){
