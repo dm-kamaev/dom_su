@@ -45,6 +45,59 @@ function getTerminalData(paymentID) {
     }
 }
 
+async function confirm(payment) {
+    let getParam = {'PaymentId': payment.PaymentId}
+    let terminalData = getTerminalData(payment.PaymentId)
+    getParam['TerminalKey'] = terminalData.TERMINAL_KEY
+    getParam['Password'] = terminalData.PASSWORD
+    getParam['Token'] = get_token(getParam)
+    getParam['Amount'] = payment.Amount
+    getParam['IP'] = payment.IP
+    let body = querystring.stringify(getParam)
+    let response = ''
+    let connectParam = {
+        hostname: URL_TINKOFF,
+        port: 443,
+        path: "/rest/Confirm",
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }
+    if (connectParam.method == 'POST'){
+        connectParam.headers['Content-length'] = Buffer.from(body).length;
+    }
+    let responseTinkoff = await new Promise((reslove, reject) => {
+        let req = https.request(connectParam, (res) => {
+            res.setEncoding('utf8')
+            res.on('data', (chunk) => {
+                response += chunk
+            });
+            res.on('end', () => {
+                reslove(response);
+            });
+        })
+        req.setTimeout(1000 * 20, function () {
+            reject(new Error(`Request timeout error - ${connectParam}`))
+        })
+        req.on('error', (e) => {
+            reject(new Error(`The request ended in failure - ${connectParam}`))
+        })
+        if (connectParam.method == 'POST'){
+            req.write(body)
+        }
+        req.end()
+    })
+    let parseResponseTinkoff = JSON.parse(responseTinkoff)
+    logger.info(parseResponseTinkoff)
+    if (parseResponseTinkoff.Success){
+        return parseResponseTinkoff.Status
+    } else {
+        logger.error('Check payment state failure')
+        logger.error(`${responseTinkoff}`)
+    }
+    return false
+}
 
 async function getState(paymentId) {
     let getParam = {'PaymentId': paymentId}
@@ -100,6 +153,9 @@ async function getState(paymentId) {
 paymentsRouter.get('/payments/success/', async function (ctx, next) {
     try{
         let payment = await Payment.findOne({where: {id: ctx.query.OrderId}})
+        if (payment && payment.PaymentId.toString() == '2603727'){
+            await confirm(payment)
+        }
         let paymentState = await getState(payment.PaymentId)
         if (['CONFIRMING', 'CONFIRMED'].indexOf(paymentState) > 0){
             logger.info(`Bank Check State - Success | Status - ${paymentState} | OrderId - ${payment.id} `)
