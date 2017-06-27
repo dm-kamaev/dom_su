@@ -50,9 +50,9 @@ async function confirm(payment) {
     let terminalData = getTerminalData(payment.PaymentId)
     getParam['TerminalKey'] = terminalData.TERMINAL_KEY
     getParam['Password'] = terminalData.PASSWORD
-    getParam['Token'] = get_token(getParam)
     getParam['Amount'] = payment.Amount
     getParam['IP'] = payment.IP
+    getParam['Token'] = get_token(getParam)
     let body = querystring.stringify(getParam)
     let response = ''
     let connectParam = {
