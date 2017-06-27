@@ -38,7 +38,7 @@ loadTemplate({path: 'templates/payments/success.html', name: 'paymentsSuccess'})
 loadTemplate({path: 'templates/payments/failure.html', name: 'paymentsFailure'})
 
 function getTerminalData(paymentID) {
-    if (paymentID && paymentID.toString() == '2390959'){
+    if (paymentID && paymentID.toString() == '2603727'){
         return {'TERMINAL_KEY': TEMP_TERMINAL_KEY,'PASSWORD': TEMP_PASSWORD}
     } else {
         return {'TERMINAL_KEY': TERMINAL_KEY,'PASSWORD': PASSWORD}
