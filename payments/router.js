@@ -20,17 +20,17 @@ const PaymentOrgType = {
     'tinkoff_ksd': {
         'NAME': 'tinkoff_ksd',
         'TERMINAL_KEY': 'domovenok3DS',
-        //'PASSWORD': '1AOJ.Di8b8EwGt,X'
+        'PASSWORD': '1AOJ.Di8b8EwGt,X'
         // TEST KSD
-        'PASSWORD': 'q6YYOi^^jsTo@l1S'
+        //'PASSWORD': 'q6YYOi^^jsTo@l1S'
     },
     'tinkoff_ipatova': {
         'NAME': 'tinkoff_ipatova',
-        // 'TERMINAL_KEY': '1487066466356',
-        // 'PASSWORD': 'f7ydxrgo3c42l9ub'
+        'TERMINAL_KEY': '1487066466356',
+        'PASSWORD': 'f7ydxrgo3c42l9ub'
         // TEST Ipatova
-        'TERMINAL_KEY': '1487066466356DEMO',
-        'PASSWORD': 'b85qudmm7bagosat',
+        //'TERMINAL_KEY': '1487066466356DEMO',
+        //'PASSWORD': 'b85qudmm7bagosat',
     }
 }
 
