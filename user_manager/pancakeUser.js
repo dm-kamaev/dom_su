@@ -31,6 +31,12 @@ let banIPAddress = [
 	'79.137.213.[2-8]{1}'
 ]
 
+let banIPAddressListRegExp = []
+
+for (let ip of banIPAddress){
+    banIPAddressListRegExp.push(new RegExp(ip, 'g'))
+}
+
 class PancakeUser {
     constructor(ctx) {
         let self = this
@@ -132,8 +138,14 @@ class PancakeUser {
         if (banRefererRegexp.exec(referer.hostname) !== null) {
             return false
         }
+
+        // Check IP
+        for (let filterIP of banIPAddressListRegExp){
+            if (filterIP.test(this.ctx.request.header['x-real-ip'])){
+                return false
+            }
+        }
         return true
-        // TODO IP filter
     }
 
     setTrackWaiting(waiting) {

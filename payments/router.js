@@ -304,7 +304,7 @@ paymentsRouter.post('/payments/notification/', async function (ctx, next) {
 
 paymentsRouter.post('/payments/take/', async function (ctx, next) {
     try{
-        logger.info(`Take payment Amount - ${ctx.request.body.amount} | OrderId - ${ctx.request.body.order_id} | Descr - ${ctx.request.body.description} | IP - ${ctx.request.ip}`)
+        logger.info(`Take payment Amount - ${ctx.request.body.amount} | OrderId - ${ctx.request.body.order_id} | Descr - ${ctx.request.body.description} | IP - ${ctx.request.header['x-real-ip']}`)
         let get_param = {}
         let form_amount = ctx.request.body.amount
         let amount
@@ -331,7 +331,7 @@ paymentsRouter.post('/payments/take/', async function (ctx, next) {
             }
         }
         get_param['Amount'] = amount
-        get_param['IP'] = ctx.request.ip
+        get_param['IP'] = ctx.request.header['x-real-ip']
         let terminalData = await getTerminalData(null, ctx.request.body.order_id)
         let last_payment = await Payment.findOne({order: [['id', 'DESC']]})
         let create_payment = {'OrderId': ctx.request.body.order_id, 'Amount': Number(get_param['Amount']), 'Description': ctx.request.body.description, 'IP': get_param['IP'], 'redirectNewSite': false, 'redirectPath': '', id: Number(last_payment.id) + 1, 'payment_org_type': terminalData['NAME']}
