@@ -394,6 +394,7 @@ const Payment = sequelize.define('payments', {
     Token: Sequelize.STRING,
     CustomerKey: Sequelize.STRING,
     DATA: Sequelize.TEXT,
+    payment_org_type: Sequelize.STRING,
     initial: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,

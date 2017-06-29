@@ -10,10 +10,29 @@ const { getTemplate, loadTemplate } = require('utils')
 const https = require('https');
 const paymentsRouter = new Router();
 const moment = require('moment')
+const { SingleRequest1C } = require('api1c')
 
 let regExpAmount = new RegExp(/^(:?\d+)((\.|\,)(:?\d{1,2}))?$/, 'g')
 
 const URL_TINKOFF = "securepay.tinkoff.ru"
+const DEFAULT_PAYMENT_ORG_TYPE = 'tinkoff_ksd'
+const PaymentOrgType = {
+    'tinkoff_ksd': {
+        'NAME': 'tinkoff_ksd',
+        'TERMINAL_KEY': 'domovenok3DS',
+        //'PASSWORD': '1AOJ.Di8b8EwGt,X'
+        // TEST KSD
+        'PASSWORD': 'q6YYOi^^jsTo@l1S'
+    },
+    'tinkoff_ipatova': {
+        'NAME': 'tinkoff_ipatova',
+        // 'TERMINAL_KEY': '1487066466356',
+        // 'PASSWORD': 'f7ydxrgo3c42l9ub'
+        // TEST Ipatova
+        'TERMINAL_KEY': '1487066466356DEMO',
+        'PASSWORD': 'b85qudmm7bagosat',
+    }
+}
 
 // KSD
 const TERMINAL_KEY = 'domovenok3DS'
@@ -37,17 +56,32 @@ loadTemplate({path: 'templates/payments/init.html', name: 'paymentsInit'})
 loadTemplate({path: 'templates/payments/success.html', name: 'paymentsSuccess'})
 loadTemplate({path: 'templates/payments/failure.html', name: 'paymentsFailure'})
 
-function getTerminalData(paymentID) {
-    if (paymentID && paymentID.toString() == '2603727'){
-        return {'TERMINAL_KEY': TEMP_TERMINAL_KEY,'PASSWORD': TEMP_PASSWORD}
-    } else {
-        return {'TERMINAL_KEY': TERMINAL_KEY,'PASSWORD': PASSWORD}
+async function getTerminalData(paymentId, orderId) {
+    if (paymentId) {
+        let payment = await Payment.findOne({where: {PaymentId: paymentId}})
+        if (payment && payment.payment_org_type){
+            return PaymentOrgType[payment.payment_org_type]
+        }
     }
+    try{
+        if (orderId){
+            let singleRequest = new SingleRequest1C('Client.GetPaymentOrgType', {"OrderID": orderId})
+            let response = await singleRequest.do()
+            if (PaymentOrgType[response.PaymentOrgType]){
+                return PaymentOrgType[response.PaymentOrgType]
+            }
+            logger.error(`PaymentOrgType error ${response}, OrderID - ${orderId}`)
+        }
+    } catch (e){
+        logger.error('Error Get Payment Org Type')
+        logger.error(e)
+    }
+    return PaymentOrgType[DEFAULT_PAYMENT_ORG_TYPE]
 }
 
 async function confirm(payment) {
     let getParam = {'PaymentId': payment.PaymentId}
-    let terminalData = getTerminalData(payment.PaymentId)
+    let terminalData = await getTerminalData(payment.PaymentId)
     getParam['TerminalKey'] = terminalData.TERMINAL_KEY
     getParam['Password'] = terminalData.PASSWORD
     getParam['Amount'] = payment.Amount
@@ -101,7 +135,7 @@ async function confirm(payment) {
 
 async function getState(paymentId) {
     let getParam = {'PaymentId': paymentId}
-    let terminalData = getTerminalData(paymentId)
+    let terminalData = await getTerminalData(paymentId)
     getParam['TerminalKey'] = terminalData.TERMINAL_KEY
     getParam['Password'] = terminalData.PASSWORD
     getParam['Token'] = get_token(getParam)
@@ -164,6 +198,7 @@ paymentsRouter.get('/payments/success/', async function (ctx, next) {
                 data['OrderId'] = payment.OrderId
                 data['Amount'] = payment.Amount
                 data['Description'] = payment.Description
+                data['PaymentOrgType'] = payment.payment_org_type
                 data['id'] = payment.id
                 data['date'] = moment.parseZone(moment(payment.create_time).utcOffset("+03:00").format('YYYY-MM-DDTHH:mm:ssZ')).format('YYYY-MM-DDTHH:mm:ss') + 'Z'
                 data['PaymentId'] = payment.PaymentId
@@ -255,7 +290,7 @@ paymentsRouter.get('/payments/failure/', async function (ctx, next) {
 paymentsRouter.post('/payments/notification/', async function (ctx, next) {
     const paymentId = ctx.request.body['PaymentId']
     const payment = await Payment.findOne({where: {PaymentId: paymentId}})
-    let terminalData = getTerminalData(paymentId)
+    let terminalData = await getTerminalData(paymentId)
     if (payment.id == ctx.request.body['OrderId'] && payment.Amount == ctx.request.body['Amount'] && terminalData.TERMINAL_KEY == ctx.request.body['TerminalKey']){
         logger.info(`Notification Success OrderId - ${payment.OrderId} | Id - ${payment.id}`)
         payment.notification = true
@@ -269,7 +304,7 @@ paymentsRouter.post('/payments/notification/', async function (ctx, next) {
 
 paymentsRouter.post('/payments/take/', async function (ctx, next) {
     try{
-        logger.info(`Take payment Amount - ${ctx.request.body.amount} | OrderId - ${ctx.request.body.order_id} | Descr - ${ctx.request.body.description} | IP - ${'1111'}`)
+        logger.info(`Take payment Amount - ${ctx.request.body.amount} | OrderId - ${ctx.request.body.order_id} | Descr - ${ctx.request.body.description} | IP - ${ctx.request.ip}`)
         let get_param = {}
         let form_amount = ctx.request.body.amount
         let amount
@@ -297,8 +332,9 @@ paymentsRouter.post('/payments/take/', async function (ctx, next) {
         }
         get_param['Amount'] = amount
         get_param['IP'] = ctx.request.ip
+        let terminalData = await getTerminalData(null, ctx.request.body.order_id)
         let last_payment = await Payment.findOne({order: [['id', 'DESC']]})
-        let create_payment = {'OrderId': ctx.request.body.order_id, 'Amount': Number(get_param['Amount']), 'Description': ctx.request.body.description, 'IP': get_param['IP'], 'redirectNewSite': false, 'redirectPath': '', id: Number(last_payment.id) + 1}
+        let create_payment = {'OrderId': ctx.request.body.order_id, 'Amount': Number(get_param['Amount']), 'Description': ctx.request.body.description, 'IP': get_param['IP'], 'redirectNewSite': false, 'redirectPath': '', id: Number(last_payment.id) + 1, 'payment_org_type': terminalData['NAME']}
         if (ctx.request.body.redirect){
             create_payment['redirectNewSite'] = true
             create_payment['redirectPath'] = ctx.request.headers.referer
@@ -307,7 +343,7 @@ paymentsRouter.post('/payments/take/', async function (ctx, next) {
         get_param['OrderId'] = payment.id
 
         // Get Terminal data
-        let terminalData = getTerminalData()
+
         get_param['TerminalKey'] = terminalData.TERMINAL_KEY
         get_param['Password'] = terminalData.PASSWORD
 
