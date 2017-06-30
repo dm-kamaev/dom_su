@@ -11,10 +11,14 @@ const { ticketRouter }      = require('tickets')
 const { paymentsRouter }    = require('payments')
 const { internalClientAPI } = require('internal_api')
 const { staffRouter }       = require('staff')
+const { clientShortUrlRouter } = require('short_urls')
 
 module.exports = {applyRouters: applyRouters}
 
 function applyRouters(app) {
+    // Short Urls
+    app.use(clientShortUrlRouter.routes())
+
     // Articles
     app.use(articlesRouter.routes())
 

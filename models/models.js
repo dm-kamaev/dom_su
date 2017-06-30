@@ -375,6 +375,22 @@ const UTMS = sequelize.define('utms', {
     },
 })
 
+const ShortUrl = sequelize.define('short_url', {
+    id: {
+        type: Sequelize.BIGINT,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    key: {
+        type: Sequelize.STRING
+    },
+    url: {
+        type: Sequelize.TEXT
+    },
+    data: {
+        type: Sequelize.TEXT
+    }
+})
 
 const Payment = sequelize.define('payments', {
     id: {
@@ -435,5 +451,6 @@ module.exports = {
     News: News,
     Ticket: Ticket,
     Payment: Payment,
-    EmployeeNews: EmployeeNews
+    EmployeeNews: EmployeeNews,
+    ShortUrl: ShortUrl
 }
