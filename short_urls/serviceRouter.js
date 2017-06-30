@@ -54,7 +54,6 @@ serviceShortUrlRouter.post('/short_urls/rest/generate', async function (ctx, nex
                 searchFreeKey = false
             }
         }
-        logger.info({url: ctx.request.body.Url.toString(), key: key.toString(), data: JSON.stringify(ctx.request.body.Data)})
         let shortUrl = await ShortUrl.create({url: ctx.request.body.Url, key: key, data: JSON.stringify(ctx.request.body.Data)})
         ctx.body = {Result: true, Key: key, ShortUrl: `https://${config.serverPath.domain.default}/s/${key}`}
     } catch (e){
