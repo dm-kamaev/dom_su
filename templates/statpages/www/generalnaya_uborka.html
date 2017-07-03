@@ -42,7 +42,7 @@
   <meta name="theme-color" content="#fd8204">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.32">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.33">
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
 
@@ -106,10 +106,10 @@
           </li>
           <li class="change-town__item {{#ifCond general.city.keyword '==' 'spb' }}change-town__item--active{{/ifCond}} item">
             <a class="change-town__link link" href="{{buildUrl 'spb' general.path}}">Санкт-Петербург</a>
-          </li> <!--
+          </li>
           <li class="change-town__item {{#ifCond general.city.keyword '==' 'nn' }}change-town__item--active{{/ifCond}} item">
             <a class="change-town__link link" href="{{buildUrl 'nn' general.path}}">Нижний Новгород</a>
-          </li>-->
+          </li>
         </ul>
       </div>
     </div>
@@ -888,7 +888,7 @@
 
 <!-- Java Script -->
 
-<script src="/static/pancake/js/bundle.min.js?v0.37"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.38"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 

@@ -36,7 +36,7 @@
   <meta name="msapplication-TileImage" content="/static/pancake/img/mstile-144x144.png?v=1.0">
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.32">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.33">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
@@ -99,10 +99,10 @@
           </li>
           <li class="change-town__item {{#ifCond general.city.keyword '==' 'spb' }}change-town__item--active{{/ifCond}} item">
             <a class="change-town__link link" href="{{buildUrl 'spb' general.path}}">Санкт-Петербург</a>
-          </li><!--
+          </li>
           <li class="change-town__item {{#ifCond general.city.keyword '==' 'nn' }}change-town__item--active{{/ifCond}} item">
             <a class="change-town__link link" href="{{buildUrl 'nn' general.path}}">Нижний Новгород</a>
-          </li>-->
+          </li>
         </ul>
       </div>
     </div>
@@ -762,7 +762,7 @@
 
   {{{{/raw}}}}
 </script>
-<script src="/static/pancake/js/bundle.min.js?v0.37"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.38"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 
