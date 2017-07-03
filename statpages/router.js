@@ -363,7 +363,8 @@ statpagesRouter.get('/sitemap.xml', async function (ctx, next) {
 statpagesRouter.get('/robots.txt', async function (ctx, next) {
     let sitemap_file = {
         'moscow': 'robots_moscow.txt',
-        'spb': 'robots_spb.txt'
+        'spb': 'robots_spb.txt',
+        'nn': 'robots_nn.txt'
     }
     ctx.type = 'text/plain'
     ctx.body = await fs.readFile(`templates/file/${sitemap_file[ctx.state.pancakeUser.city.keyword]}`, 'utf-8')
