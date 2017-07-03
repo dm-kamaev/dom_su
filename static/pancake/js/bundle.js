@@ -2232,6 +2232,7 @@
 	 * Created by Lobova.A on 16.05.2017.
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var square_1 = __webpack_require__(14);
 	var price_1 = __webpack_require__(21);
 	var info_1 = __webpack_require__(23);
@@ -2310,7 +2311,6 @@
 	    };
 	    return WindowForm;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = WindowForm;
 
 
@@ -3091,6 +3091,7 @@
 	 * Created by Lobova.A on 16.05.2017.
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var request = __webpack_require__(8);
 	var validate = __webpack_require__(24);
 	var analytic = __webpack_require__(19);
@@ -3154,7 +3155,6 @@
 	    };
 	    return Info;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Info;
 
 
@@ -3418,13 +3418,13 @@
 	 * Created by Lobova.A on 22.05.2017.
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	function inputReset(container) {
 	    var elements = Array.prototype.slice.call(container.querySelectorAll('input'));
 	    elements.forEach(function (item) {
 	        item.value = '';
 	    });
 	}
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = inputReset;
 
 

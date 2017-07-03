@@ -4,6 +4,7 @@ const moment = require('moment')
 const { staffUrl, staffTemplate } = require('staff')
 const { buildUrl } = require('statpages')
 const { getTemplate } = require('./templates')
+const logger = require('logger')(module)
 
 
 
@@ -45,10 +46,18 @@ Handlebars.registerHelper('render', function (html, context) {
 })
 
 
+// Template tags
 Handlebars.registerHelper('employeeHeader', (context) => {
     let template = getTemplate(staffTemplate.desktop.header)
     return new Handlebars.SafeString(template(context))
 })
+
+Handlebars.registerHelper('templateTag', (context, path) => {
+    let template = getTemplate({path: `templates/templatetags/${context.general.city.domain}/${path}`, name: `templates/templatetags/${context.general.city.domain}/${path}`})
+    return new Handlebars.SafeString(template(context))
+})
+// End template tags
+
 
 Handlebars.registerHelper('formatPartDate', function (date, format) {
     return moment.utc(date).format(format)

@@ -111,6 +111,26 @@ const moscowTemplates = {
     'vakansii__uborka-territorii__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка территории', data: { uborkaTerritorii: true, menu:{ main: true, vakansii: true}}}
 }
 
+const nnTemplates = {
+    'dir': 'templates/statpages/nn/',
+    'key': 'nn',
+    'compare_service': {name: 'compare_service.html', ServiceName: 'Сравнение услуг', data:{ menu:{physical: true}}},
+    'main': {name: 'main.html', ServiceName: 'Главная', data:{ menu:{index: true}}},
+    'uborka_ofisov': {name: 'uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
+    'podderzhka': {name: 'podderzhka.html', ServiceName: 'Поддержка', data:{ menu:{podderzhka: true}}},
+    'mite_okon': {name: 'mite_okon.html', ServiceName: 'Мытьё окон', data:{ menu:{physical: true, mite_okon: true}}},
+    'lite': {name: 'lite.html', ServiceName: 'Лайт', data:{ menu:{lite: true}}},
+    'generalnaya_uborka': {name: 'generalnaya_uborka.html', ServiceName: 'Генеральная', data:{ menu:{generalnaya_uborka: true}}},
+    'domrabotnica': {name: 'domrabotnica.html', ServiceName: 'Домработница', data:{ menu:{physical: true, domrabotnica: true}}},
+    'about__': {name: 'about__.html', ServiceName: 'О нас', data:{ menu:{main: true, about: true}}},
+    'contacts__': {name: 'contacts__.html', ServiceName: 'Контакты', data:{ menu:{contacts: true}}},
+    'davay_druzhit__': {name: 'davay_druzhit__.html', ServiceName: 'Давай дружить', data:{ menu:{main: true, davay_druzhit: true}}},
+    'uslugi__': {name: 'uslugi__.html', ServiceName: 'Услуги', data:{ menu:{main: true,  uslugi: true}}},
+    'vazhno_znat__': {name: 'vazhno_znat__.html', ServiceName: 'Важно знать', data:{ menu:{ main: true, vazhno_znat: true}}},
+    'strahovka__': {name: 'strahovka__.html', ServiceName: 'Страховка', data:{ menu:{main: true, about: true}}},
+    'garantii__': {name: 'garantii__.html', ServiceName: 'Гарантии', data:{ menu:{main: true, about: true}}},
+}
+
 const spbTemplates = {
     // AB test
     'ab': {name: 'main_ab.html', data: {menu: {index: true}, generateCanonical: () => buildUrl('spb', '/')}},
@@ -184,6 +204,7 @@ const ABTestContainer = {
 const cityTemplate = {
     'moscow': moscowTemplates,
     'spb': spbTemplates,
+    'nn': nnTemplates,
 }
 
 function buildUrl(cityKW, url) {
