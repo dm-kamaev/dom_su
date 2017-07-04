@@ -62,6 +62,12 @@
             Статьи
           </a>
         </li>
+
+        <li class="main-menu__item-sub {{#if menu.news}}main-menu__item-sub--active{{/if}}">
+          <a class="main-menu__link-sub" href="{{buildUrl general.city '/news/'}}">
+            Новости
+          </a>
+        </li>
         <li class="main-menu__item-sub {{#if menu.davay_druzhit}}main-menu__item-sub--active{{/if}}">
           <a class="main-menu__link-sub" href="{{buildUrl general.city '/davay_druzhit/'}}">
             Обслуживание по графику
