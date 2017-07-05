@@ -50,6 +50,8 @@ class PancakeUser {
         this.city = null;
         this.track = {done: null, waiting: null, numbers: {}}
         this.google_id = null
+        // For fast working AB test
+        this.firstVisit = true
     }
 
     async sync() {
@@ -68,6 +70,7 @@ class PancakeUser {
                 this.track = user.data.track
                 this.google_id = user.data.google_id
                 this.ab_test = user.data.ab_test || {}
+                this.firstVisit = user.data.first_visit || false
             } else {
                 if (validateUUID(this.ctx.cookies.get(USER_COOKIE_KEY), 4)){
                     uuidNext = this.ctx.cookies.get(USER_COOKIE_KEY)
@@ -90,6 +93,7 @@ class PancakeUser {
                         track: self.track,
                         google_id: null,
                         ab_test : {},
+                        first_visit: self.firstVisit,
                     }
                 })
                 pancakeUser.model = user
@@ -131,7 +135,6 @@ class PancakeUser {
         try{
             referer = new URL(this.ctx.headers.referer);
         } catch (e){
-            logger.error(`ERROR parse referer url ${this.ctx.headers.referer}`)
             return false
         }
         banRefererRegexp.lastIndex = 0;

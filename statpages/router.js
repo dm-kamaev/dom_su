@@ -28,10 +28,6 @@ const sectionListRegExp = [
 ]
 
 const moscowTemplates = {
-    // NGINX DJANGO
-    //'contract__active__': {name: 'contract__active__.html'},
-    //'contract__deactive__': {name: 'contract__deactive__.html'},
-    // END NGINX
     'dir': 'templates/statpages/www/',
     'key': 'moscow',
     //'akcii__return': {name: 'akcii__return.html'},
@@ -286,8 +282,7 @@ async function checkForOnlyFirstVisit(ctx, abTest) {
     if (ctx.state.pancakeUser.getABTest(abTest)){
         return true
     }
-    let isFirstVisit = await ctx.state.pancakeUser.isFirstVisit()
-    return isFirstVisit
+    return ctx.state.pancakeUser.firstVisit
 }
 
 async function getPageWithABTest(ctx, page) {
