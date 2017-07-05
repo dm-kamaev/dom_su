@@ -169,7 +169,7 @@
         <article  class="news-item">
           <div class="news-item__wrap">
             <h2>{{title}}</h2>
-            <time datetime="">05.03.2015</time>
+            <time datetime="">{{formatDate pub_date}}</time>
             {{#if picture}}
             <img src="https://www.domovenok.su/media/{{ picture.pic }}" alt="" width="300" height="200">
             {{/if}}
@@ -417,7 +417,7 @@
     <article  class="news-item">
       <div class="news-item__wrap">
         <h2>{{title}}</h2>
-        <time datetime="">05.03.2015</time>
+        <time datetime="">{{formatDate pub_date}}</time>
         {{#if picture}}
         <img src="https://www.domovenok.su/media/{{ picture.pic }}" alt="" width="300" height="200">
         {{/if}}

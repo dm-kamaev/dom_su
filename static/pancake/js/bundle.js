@@ -54,9 +54,6 @@
 	/**
 	 * Created by Lobova.A on 14.02.2017.
 	 */
-	//require("./../../../node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.js");
-	//var hideElement = require('./../components/orders-item/orders-item.js');
-	// var request = require('./../components/ajax-request/ajax-request.js');
 	__webpack_require__(2);
 	__webpack_require__(226);
 	var resize = __webpack_require__(231);
@@ -2319,6 +2316,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Created by Lobova.A on 17.05.2017.
 	 */
@@ -2355,7 +2353,6 @@
 	    };
 	    return Square;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Square;
 
 
@@ -2499,25 +2496,31 @@
 	 * Created by Lobova.A on 18.05.2017.
 	 */
 	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(17);
 	var switch_1 = __webpack_require__(18);
 	var SwitchSquare = (function (_super) {
 	    __extends(SwitchSquare, _super);
 	    function SwitchSquare(element) {
-	        var _this = this;
-	        _super.call(this, element);
-	        this.changeInput = function (e) {
+	        var _this = _super.call(this, element) || this;
+	        _this.changeInput = function (e) {
 	            e.preventDefault();
 	            utils_1.default._changeInput(e.target);
 	            _this.createChangeEvent();
 	        };
-	        this.input = this.element.querySelector("." + this.className + "__input");
-	        this.input.addEventListener('input', this.changeInput);
+	        _this.input = _this.element.querySelector("." + _this.className + "__input");
+	        _this.input.addEventListener('input', _this.changeInput);
+	        return _this;
 	    }
 	    SwitchSquare.prototype.reset = function () {
 	        if (this.input.parentNode === this.active) {
@@ -2532,7 +2535,6 @@
 	    };
 	    return SwitchSquare;
 	}(switch_1.default));
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = SwitchSquare;
 
 
@@ -2544,6 +2546,7 @@
 	 * Created by Lobova.A on 13.04.2017.
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils = {
 	    _switchItem: function (container, target) {
 	        while (target != container) {
@@ -2590,7 +2593,6 @@
 	        }
 	    }
 	};
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = utils;
 
 
@@ -2602,6 +2604,7 @@
 	 * Created by Lobova.A on 17.05.2017.
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(17);
 	var analytic = __webpack_require__(19);
 	var Switch = (function () {
@@ -2644,7 +2647,6 @@
 	    };
 	    return Switch;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Switch;
 
 
@@ -5182,7 +5184,7 @@
 	var Message = __webpack_require__(51);
 	var ServiceOrder = __webpack_require__(52);
 	var ConstantClient = __webpack_require__(179);
-	var getDocument = __webpack_require__(180);
+	var GetDocument = __webpack_require__(180);
 	var PriceList = __webpack_require__(182);
 	var Calendar = __webpack_require__(183);
 	var mainContent = document.querySelector('.main-content');
@@ -5222,18 +5224,9 @@
 	            }
 	        }
 	        switch (e.detail.id) {
-	            // case 'application':
-	            //   this.item = new Application(this, this.element);
-	            //   break;
 	            case 'service-order':
 	                this.item = new ServiceOrder(this, this.element);
 	                break;
-	            // case 'rating-form':
-	            //   this.item = new Rating(this, this.element);
-	            //   break;
-	            // case 'general-question':
-	            //   this.item = new Question(this, this.element, e.detail.id);
-	            //   break;
 	            case 'notification':
 	                if (e.detail.ga) {
 	                    this.item = new Message(this, this.element, e.detail.text, e.detail.ga, e.detail.hash);
@@ -5243,7 +5236,7 @@
 	                }
 	                break;
 	            case 'get-document':
-	                this.item = new getDocument(this, this.element, e.detail.text);
+	                this.item = new GetDocument(this, this.element, e.detail.text);
 	                break;
 	            case 'price-list':
 	                this.item = new PriceList(this, this.element, e.detail.itemId);
@@ -26478,8 +26471,7 @@
 	                data: {
 	                    'name': this.name.value,
 	                    'phone': this.tel.value
-	                }
-	            };
+	                } };
 	            var url = "/ticket-handler";
 	            function error() {
 	                this.button.disabled = false;
@@ -27768,7 +27760,7 @@
 	                    'title': data.title,
 	                    'picture': data.picture,
 	                    'full_text': data.full_text,
-	                    'pub_date': data.date
+	                    'pub_date': data.pub_date
 	                };
 	            },
 	            createItem: function (data) {
@@ -27805,7 +27797,7 @@
 	                    'title': data.title,
 	                    'picture': data.picture,
 	                    'full_text': data.full_text,
-	                    'pub_date': moment(data.pub_date).format('DD.MM.YYYY')
+	                    'pub_date': data.pub_date
 	                };
 	            },
 	            createItem: function (data) {
@@ -27918,6 +27910,7 @@
 	    for (var _i = 0, objectList_1 = objectList; _i < objectList_1.length; _i++) {
 	        var item = objectList_1[_i];
 	        if (page.classList.contains(item.itemClass)) {
+	            console.log(item);
 	            return item;
 	        }
 	    }
@@ -27929,22 +27922,28 @@
 /* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 17.02.2017.
 	 */
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var moment = __webpack_require__(55);
+	__webpack_require__(141);
 	var handlebars = __webpack_require__(175);
 	handlebars.registerHelper('formatDate', function (date) {
-	    return moment.parseZone(moment.utc(date).format()).format("DD.MM.YYYY");
+	    console.log(date, "date");
+	    moment.locale('ru');
+	    var timeZone = "+03:00";
+	    return moment.utc(date).utcOffset(timeZone).format("DD.MM.YYYY");
 	});
 	handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
 	    switch (operator) {
 	        case '==':
-	            return (v1 == v2) ? options.fn(this) : options.inverse(this);
+	            return (v1 === v2) ? options.fn(this) : options.inverse(this);
 	        case '===':
 	            return (v1 === v2) ? options.fn(this) : options.inverse(this);
 	        case '!=':
-	            return (v1 != v2) ? options.fn(this) : options.inverse(this);
+	            return (v1 !== v2) ? options.fn(this) : options.inverse(this);
 	        case '!==':
 	            return (v1 !== v2) ? options.fn(this) : options.inverse(this);
 	        case '<':
@@ -28053,7 +28052,6 @@
 	 * Edited by Belokuraya.A on 01.06.2017
 	 */
 	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	var Counter = (function () {
 	    function Counter(element) {
 	        this.element = element;
@@ -28120,6 +28118,7 @@
 	    };
 	    return Counter;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Counter;
 
 
@@ -29637,6 +29636,7 @@
 	 * Created by Lobova.A on 20.04.2017.
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var button_date_1 = __webpack_require__(205);
 	var selection_1 = __webpack_require__(206);
 	var moment = __webpack_require__(55);
@@ -29728,7 +29728,6 @@
 	    };
 	    return ChangingTime;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ChangingTime;
 
 
@@ -29740,6 +29739,7 @@
 	 * Created by Lobova.A on 20.04.2017.
 	 */
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var moment = __webpack_require__(55);
 	__webpack_require__(141);
 	var client = __webpack_require__(9);
@@ -29883,7 +29883,6 @@
 	    };
 	    return ButtonDate;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ButtonDate;
 
 
@@ -29895,17 +29894,24 @@
 	 * Created by Lobova.A on 14.03.2017.
 	 */
 	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var BaseSelection = __webpack_require__(15);
 	var Timing = (function (_super) {
 	    __extends(Timing, _super);
 	    function Timing(element) {
-	        _super.call(this, element);
-	        this.isSelected = false;
+	        var _this = _super.call(this, element) || this;
+	        _this.isSelected = false;
+	        return _this;
 	    }
 	    Timing.prototype.select = function (e) {
 	        _super.prototype.select.call(this, e);
@@ -29940,7 +29946,6 @@
 	    };
 	    return Timing;
 	}(BaseSelection));
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Timing;
 
 
@@ -31047,7 +31052,6 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Created by A.Belokuraya on 19.04.2017.
 	 */
@@ -31178,6 +31182,7 @@
 	    ;
 	    return Carousel;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Carousel;
 
 
@@ -31270,7 +31275,6 @@
 	 * Created by A.Belokuraya on 22.05.2017.
 	 */
 	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	function openReview(e) {
 	    e.preventDefault();
 	    var reviewDescription = this.parentElement.parentElement.querySelector('.review__description');
@@ -31282,6 +31286,7 @@
 	    var closeReviewDescription = reviewDescription.querySelector('.review__btn-close');
 	    closeReviewDescription.addEventListener('click', closeReview);
 	}
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = openReview;
 
 
@@ -31525,7 +31530,7 @@
 	            }
 	        });
 	        function response(data) {
-	            if (data.Success == true) {
+	            if (data.Success) {
 	                var noteOld = document.querySelector('.authorization__note');
 	                if (noteOld) {
 	                    formTel.removeChild(noteOld);
@@ -31544,7 +31549,7 @@
 	                        }
 	                    });
 	                    function response(data) {
-	                        if (data.Success == true) {
+	                        if (data.Success) {
 	                            window.location.replace(data.Data.redirect);
 	                        }
 	                        else {
@@ -31625,7 +31630,7 @@
 	    // общая часть можно вынести в отдельный модуль
 	    if (client.isMobile()) {
 	        var orders = rightSide.querySelectorAll('.right-side__wrap');
-	        if (orders.length != 0) {
+	        if (orders.length !== 0) {
 	            for (var i = 0; orders.length > i; i++) {
 	                rightSide.removeChild(orders[i]);
 	            }
