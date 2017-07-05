@@ -33,7 +33,6 @@ function setVisitFinish() {
     )
         .spread(async function(results, metadata) {
             if (results.length > 0){
-                logger.info(`schedule CLOSE visit ${JSON.stringify(results)}`)
                 for (let user_data of results){
                     let user = await User.findOne({where:{uuid: user_data.user_uuid}})
                     user.set('data.first_visit', false)
