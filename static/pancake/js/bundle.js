@@ -1551,7 +1551,7 @@
 	        return false;
 	    },
 	    canDelete: function (itemId) {
-	        return (this.length() > 1) && this.array[this.length() - 2].id == itemId;
+	        return (this.length() > 1) && this.array[this.length() - 2].id === itemId;
 	    }
 	};
 	module.exports = tabs;
@@ -1568,7 +1568,7 @@
 	var Url = (function () {
 	    function Url() {
 	        this.address = {
-	            id: '',
+	            i: '',
 	            uuid: '',
 	            type: '',
 	            url: ''
@@ -1600,14 +1600,10 @@
 	                props.id = value.substring(3);
 	                break;
 	            case 32:
-	                if (!type)
-	                    console.error('Not Type', arguments);
 	                props.url = type + value;
 	                props.id = value;
 	                break;
 	            case 36:
-	                if (!type)
-	                    console.error('Not Type', arguments);
 	                props.id = value.replace(/-/g, '');
 	                props.url = type + props.id;
 	                break;
@@ -1702,6 +1698,9 @@
 /* 8 */
 /***/ (function(module, exports) {
 
+	/**
+	 * Created by Lobova.A on 05.07.2017.
+	 */
 	/**
 	 * Created by Lobova.A on 23.11.2016.
 	 */
@@ -1864,10 +1863,10 @@
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 29.11.2016.
 	 */
-	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var custom_event_1 = __webpack_require__(12);
 	var window_form_1 = __webpack_require__(13);
@@ -2098,10 +2097,10 @@
 	        for (var _b = 0, RightSideList_1 = RightSideList; _b < RightSideList_1.length; _b++) {
 	            var item = RightSideList_1[_b];
 	            if (!item.classList.contains('right-side__form')) {
-	                var rightSide_1 = new leftSideList.rightSide(item);
+	                var rightSide_1 = new leftSideList.RightSide(item);
 	            }
 	            else {
-	                var rightSide_2 = new leftSideList.form(item);
+	                var rightSide_2 = new leftSideList.Form(item);
 	            }
 	        }
 	    }
@@ -2194,10 +2193,10 @@
 /* 12 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 15.05.2017.
 	 */
-	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	function polyfillCustomEvent() {
 	    try {
@@ -2807,8 +2806,7 @@
 	            }
 	            sendId(google_id_1);
 	        }
-	        catch (e) {
-	        }
+	        catch (e) { }
 	    },
 	    init: function () {
 	        this.sendAnalyticId();
@@ -5133,6 +5131,7 @@
 	        this.button.addEventListener('click', this.toggle);
 	    }
 	    SelectionMenu.prototype.toggle = function (e) {
+	        var _this = this;
 	        e.preventDefault();
 	        var top = this.button.getBoundingClientRect().top; //координаты кнопки
 	        var widthOfList = this.list.length * 47; // получаем высоту листа
@@ -5152,8 +5151,8 @@
 	                link.onclick = function (e) {
 	                    e.preventDefault();
 	                };
-	                item.addEventListener('click', this.select);
-	            }.bind(this));
+	                item.addEventListener('click', _this.select);
+	            });
 	        }
 	    };
 	    SelectionMenu.prototype.select = function (e) {
@@ -26260,7 +26259,7 @@
 	                item.classList.add('selection__option--disabled');
 	            }
 	            if (!this.isSelected || this.activeOption.classList.contains('selection__option--disabled')) {
-	                if (item.dataset.option == hour) {
+	                if (item.dataset.option === hour) {
 	                    this.setOption(item);
 	                }
 	            }
@@ -26959,7 +26958,7 @@
 	    LeftSide.prototype.openItem = function (e) {
 	        e.preventDefault();
 	        var target = e.target;
-	        while (target != this) {
+	        while (target !== this) {
 	            if (target.classList.contains('left-side__item')) {
 	                return;
 	            }
@@ -27614,11 +27613,16 @@
 	/**
 	 * Created by Lobova.A on 03.02.2017.
 	 */
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
 	var handlebars = __webpack_require__(175);
 	var page = __webpack_require__(3);
 	var client = __webpack_require__(9);
@@ -27631,14 +27635,15 @@
 	var LeftSide = (function (_super) {
 	    __extends(LeftSide, _super);
 	    function LeftSide() {
-	        _super.call(this);
-	        this.elementAttribute = 'data-id';
-	        this.requestUrl = function () {
+	        var _this = _super.call(this) || this;
+	        _this.elementAttribute = 'data-id';
+	        _this.requestUrl = function () {
 	            return "" + path.buildUrl(path.item) + url.objectType.url + "?direction=" + this.scrollDirection + "&key=" + this.getElementIdDirection(this.elementAttribute);
 	        };
-	        this.buttonForm = this.page.querySelector('.left-side__button');
-	        this.openForm = this.openForm.bind(this);
-	        this.addEvent();
+	        _this.buttonForm = _this.page.querySelector('.left-side__button');
+	        _this.openForm = _this.openForm.bind(_this);
+	        _this.addEvent();
+	        return _this;
 	    }
 	    LeftSide.prototype.addEvent = function () {
 	        _super.prototype.addEvent.call(this);
@@ -27651,7 +27656,7 @@
 	    };
 	    LeftSide.prototype.render = function (response) {
 	        _super.prototype.render.call(this, response);
-	        if (this.scrollDirection == 1) {
+	        if (this.scrollDirection === 1) {
 	            response.ItemList = response.Data.ItemList.reverse();
 	        }
 	        if (response.Data.Begin) {
@@ -27694,7 +27699,7 @@
 	    LeftSide.prototype.openItem = function (e) {
 	        e.preventDefault();
 	        var target = e.target;
-	        while (target != this) {
+	        while (target !== this) {
 	            if (target.classList.contains('left-side__item')) {
 	                var departureid = target.getAttribute('data-id');
 	                if (departureid) {
@@ -27925,7 +27930,6 @@
 	    for (var _i = 0, objectList_1 = objectList; _i < objectList_1.length; _i++) {
 	        var item = objectList_1[_i];
 	        if (page.classList.contains(item.itemClass)) {
-	            console.log(item);
 	            return item;
 	        }
 	    }
@@ -27946,7 +27950,6 @@
 	__webpack_require__(141);
 	var handlebars = __webpack_require__(175);
 	handlebars.registerHelper('formatDate', function (date) {
-	    console.log(date, "date");
 	    moment.locale('ru');
 	    var timeZone = "+03:00";
 	    return moment.utc(date).utcOffset(timeZone).format("DD.MM.YYYY");
@@ -28062,11 +28065,12 @@
 /* 193 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 22.12.2016.
 	 * Edited by Belokuraya.A on 01.06.2017
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var Counter = (function () {
 	    function Counter(element) {
 	        this.element = element;
@@ -28133,7 +28137,6 @@
 	    };
 	    return Counter;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Counter;
 
 
@@ -28522,7 +28525,7 @@
 	 */
 	module.exports = {
 	    _switchItem: function (container, target) {
-	        while (target != container) {
+	        while (target !== container) {
 	            if (target.classList.contains('service-calc__item')) {
 	                this._setActive(container, target);
 	                return target;
@@ -28550,7 +28553,7 @@
 	    _switchPrice: function () {
 	    },
 	    _selectItem: function (container, target) {
-	        while (target != container) {
+	        while (target !== container) {
 	            var select = true;
 	            if (target.classList.contains('service-calc__item')) {
 	                if (target.classList.contains('service-calc__item--active')) {
@@ -28583,8 +28586,8 @@
 	        var name_1 = element.dataset.name;
 	        var option = element.dataset.option;
 	        var output = element.querySelector('.service-calc__output');
-	        var formula = priceConf[("" + name_1)]['formula'];
-	        var itemsConfig = priceConf[("" + name_1)]['price'][option];
+	        var formula = priceConf["" + name_1]['formula'];
+	        var itemsConfig = priceConf["" + name_1]['price'][option];
 	        var price = formula(itemsConfig, squire);
 	        output.innerHTML = priceFormat(price) + ' руб';
 	        element.dataset.price = price;
@@ -28652,7 +28655,7 @@
 	                    return conf[roundNumber];
 	                }
 	            }
-	            else if (squire == 'one' || roundNumber >= 100) {
+	            else if (squire === 'one' || roundNumber >= 100) {
 	                return (Number(squire) * conf['one']).toFixed();
 	            }
 	            else if (roundNumber <= 40) {
@@ -28702,7 +28705,7 @@
 	                    return conf[roundNumber];
 	                }
 	            }
-	            else if (squire == 'one' || roundNumber >= 150) {
+	            else if (squire === 'one' || roundNumber >= 150) {
 	                return (Number(squire) * conf['one']).toFixed();
 	            }
 	            else if (roundNumber <= 40) {
@@ -28752,7 +28755,7 @@
 	                    return conf[roundNumber];
 	                }
 	            }
-	            else if (squire == 'one' || roundNumber >= 150) {
+	            else if (squire === 'one' || roundNumber >= 150) {
 	                return (Number(squire) * conf['one']).toFixed();
 	            }
 	            else if (roundNumber <= 40) {
@@ -28802,7 +28805,7 @@
 	                    return conf[roundNumber];
 	                }
 	            }
-	            else if (squire == 'one' || roundNumber >= 150) {
+	            else if (squire === 'one' || roundNumber >= 150) {
 	                return (Number(squire) * conf['one']).toFixed();
 	            }
 	            else if (roundNumber <= 40) {
@@ -28962,7 +28965,7 @@
 	                    return conf[roundNumber];
 	                }
 	            }
-	            else if (squire == 'one' || roundNumber >= 100) {
+	            else if (squire === 'one' || roundNumber >= 100) {
 	                return (Number(squire) * conf['one']).toFixed();
 	            }
 	            else if (roundNumber <= 40) {
@@ -29012,7 +29015,7 @@
 	                    return conf[roundNumber];
 	                }
 	            }
-	            else if (squire == 'one' || roundNumber >= 150) {
+	            else if (squire === 'one' || roundNumber >= 150) {
 	                return (Number(squire) * conf['one']).toFixed();
 	            }
 	            else if (roundNumber <= 40) {
@@ -29062,7 +29065,7 @@
 	                    return conf[roundNumber];
 	                }
 	            }
-	            else if (squire == 'one' || roundNumber >= 150) {
+	            else if (squire === 'one' || roundNumber >= 150) {
 	                return (Number(squire) * conf['one']).toFixed();
 	            }
 	            else if (roundNumber <= 40) {
@@ -29112,7 +29115,7 @@
 	                    return conf[roundNumber];
 	                }
 	            }
-	            else if (squire == 'one' || roundNumber >= 150) {
+	            else if (squire === 'one' || roundNumber >= 150) {
 	                return (Number(squire) * conf['one']).toFixed();
 	            }
 	            else if (roundNumber <= 40) {
@@ -31069,6 +31072,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Created by A.Belokuraya on 19.04.2017.
 	 */
@@ -31199,7 +31203,6 @@
 	    ;
 	    return Carousel;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Carousel;
 
 
@@ -31207,10 +31210,10 @@
 /* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by A.Belokuraya on 18.05.2017.
 	 */
-	"use strict";
 	var __extends = (this && this.__extends) || (function () {
 	    var extendStatics = Object.setPrototypeOf ||
 	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -31243,10 +31246,10 @@
 /* 221 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by A.Belokuraya on 18.05.2017.
 	 */
-	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	function openServiceList(e) {
 	    e.preventDefault();
@@ -31288,10 +31291,11 @@
 /* 222 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by A.Belokuraya on 22.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	function openReview(e) {
 	    e.preventDefault();
 	    var reviewDescription = this.parentElement.parentElement.querySelector('.review__description');
@@ -31303,7 +31307,6 @@
 	    var closeReviewDescription = reviewDescription.querySelector('.review__btn-close');
 	    closeReviewDescription.addEventListener('click', closeReview);
 	}
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = openReview;
 
 
