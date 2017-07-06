@@ -36,7 +36,7 @@
     <meta name="msapplication-TileImage" content="/static/pancake/img/mstile-144x144.png?v=1.0">
     <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
     <meta name="theme-color" content="#fd8204">
-    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.34">
+    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.36">
     <script src="//yastatic.net/share2/share.js" async></script>
     <base href="">
     <script>
@@ -480,8 +480,98 @@
           </div>
         </section>
 
-
         <section class="page__section  section-ab  section-ab--bg-dark">
+          <div class="section-ab__wrap">
+            <h2 class="section-ab__title title">Основные отличия уборок</h2>
+            <div class="privilege  scroll-container">
+              <div class="privilege__table">
+                <div class="privilege__column"></div>
+                <div class="privilege__column  privilege__column--big-width">
+                  <div class="privilege__header  text">
+                    Высота работ
+                  </div>
+                  <div class="privilege__value">
+                    <div class="privilege__row  privilege__row--without-indicator">
+                      <p class="privilege__company-name  privilege__company-name--without-indicator  text-ab">Поддерживающая: Работы до 2-х метров от пола </p>
+                    </div>
+                    <div class="privilege__row  privilege__row--without-indicator">
+                      <p class="privilege__company-name  privilege__company-name--without-indicator  text-ab">Генеральная: Работы на всю высоту</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="privilege__column  privilege__column--big-width">
+                  <div class="privilege__header  text-ab">
+                    Удаляемые загрязнения
+                  </div>
+                  <div class="privilege__value">
+                    <div class="privilege__row  privilege__row--without-indicator">
+                      <p class="privilege__company-name  privilege__company-name--without-indicator  text-ab">П: Удаляются лёгкие загрязнения</p>
+                    </div>
+                    <div class="privilege__row  privilege__row--without-indicator">
+                      <p class="privilege__company-name  privilege__company-name--without-indicator  text-ab">Г: Удаляются любые загрязнения</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="privilege__column  privilege__column--big-width">
+                  <div class="privilege__header  text-ab">
+                    Очищаемые поверхности
+                  </div>
+                  <div class="privilege__value">
+                    <div class="privilege__row  privilege__row--without-indicator">
+                      <p class="privilege__company-name  privilege__company-name--without-indicator  text-ab">П: Все внешние поверхности</p>
+                    </div>
+                    <div class="privilege__row  privilege__row--without-indicator">
+                      <p class="privilege__company-name  privilege__company-name--without-indicator  text-ab">Г: Все поверхности</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="privilege-desktop  privilege-desktop--stretch">
+              <div class="privilege-desktop__card  privilege-desktop__card--bg-white">
+                <div class="privilege-desktop__card-wrap">
+                  <div class="privilege-desktop__header  text-ab">Поддерживающая <br>уборка</div>
+
+                  <div class="privilege-desktop__value">
+                    <div class="privilege-desktop__row">
+                      <p class="privilege-desktop__text  text-ab"><b>Высота работ:</b> работы до 2-х метров от пола</p>
+                    </div>
+                    <div class="privilege-desktop__row">
+                      <p class="privilege-desktop__text  text-ab"><b>Удаляемые загрязнения:</b> удаляются лёгкие загрязнения</p>
+                    </div>
+                    <div class="privilege-desktop__row">
+                      <p class="privilege-desktop__text  text-ab"><b>Очищаемые поверхности:</b> все внешние поверхности</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="privilege-desktop__card  privilege-desktop__card--bg-white">
+                <div class="privilege-desktop__card-wrap">
+                  <div class="privilege-desktop__header  text-ab">Генеральная<br>уборка</div>
+
+                  <div class="privilege-desktop__value">
+                    <div class="privilege-desktop__row">
+                      <p class="privilege-desktop__text  text-ab"><b>Высота работ:</b> работы на всю высоту</p>
+                    </div>
+                    <div class="privilege-desktop__row">
+                      <p class="privilege-desktop__text  text-ab"><b>Удаляемые загрязнения:</b> удаляются любые загрязнения</p>
+                    </div>
+                    <div class="privilege-desktop__row">
+                      <p class="privilege-desktop__text  text-ab"><b>Очищаемые поверхности:</b> все поверхности</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a href="{{buildUrl general.city '/compare_service'}}" class="link  link--bottom">Подробное сравнение списка работ</a>
+          </div>
+        </section>
+
+
+        <section class="page__section  section-ab  section-ab--bg-light">
           <div class="section-ab__wrap">
             <p class="section-ab__title  title">Отзывы клиентов</p>
             <p class="section-ab__text  text-ab">Мы заботимся о наших Клиентах и верим в свое дело!</p>
@@ -506,7 +596,8 @@
             </div>
           </div>
         </section>
-        <section class="page__section  section-ab  section-ab--bg-light">
+
+        <section class="page__section  section-ab  section-ab--bg-dark">
           <div class="section-ab__wrap">
             <p class="section-ab__paragraph text-ab">Поддерживающая уборка квартиры. Это спокойствие и уверенность: "Да, в моём доме всегда чистота и порядок". Не нужно думать об этом. Можно направить эту энергию на Ваши цели, увлечения, на близких людей, на жизнь во всех её проявлениях.
               Как приятно, когда можно сказать: "Что-то домашних дел поднакопилось... Хорошо, что завтра по плану поддерживающая уборка от «Домовёнка»!</p>
@@ -541,7 +632,8 @@
             </div>
           </div>
         </section>
-        <section class="page__section  section-ab  section-ab--bg-dark">
+
+        <section class="page__section  section-ab  section-ab--bg-light">
           <div class="section-ab__wrap">
             <h2 class="service-condition-ab__title  title">Напрашивается вопрос: что входит в поддерживающую уборку?</h2>
             <p class="section-ab__paragraph text-ab">Рассказываем. К Вам приедет один домовёнок в форменной одежде. У него всё с собой: от Вас потребуется только пара вёдер, швабра и пылесос. Наш опытный сотрудник почистит пылесосом полы и мягкую мебель, вытрет повсюду пыль, вымоет полы, плинтуса, зеркала, вынесет мусор, заменит постельное бельё. Чистотой засверкают сантехника, плитка, посуда, плита, вся кухонная техника. Словом, хозяйке толком и заняться-то будет нечем! Многие люди такую уборку назвали бы «генеральной»!</p>
@@ -555,7 +647,7 @@
           </div>
         </section>
         <!-- Page Footer -->
-        <footer class="page-footer-ab">
+        <footer class="page-footer-ab page-footer-ab--bg-dark">
         
           <div class="page-footer-ab__connection  section-ab  connection-ab">
             <p class="section-ab__title  title">Вы можете написать нам здесь</p>
@@ -865,7 +957,7 @@
     {{{{/raw}}}}
   </script>
   <!-- Java Script -->
-  <script src="/static/pancake/js/bundle.min.js?v0.40"></script>
+  <script src="/static/pancake/js/bundle.min.js?v0.42"></script>
   <!-- /Java Script -->
   {{#if general.production}}
   

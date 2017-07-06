@@ -36,7 +36,7 @@
   <meta name="msapplication-TileImage" content="/static/pancake/img/mstile-144x144.png?v=1.0">
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.34">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.36">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -127,6 +127,83 @@
       </section>
       <section class="page__section  section  section--bg-dark">
         <div class="section__wrap">
+          <h2 class="section__title  title">Стоимость услуг на Ежедневную уборку</h2>
+
+          <div class="service-calc" data-name="podderzhka" data-service="podderzhka" data-class="space">
+            <p class="service-calc__heading text"><span class="service-calc__heading service-calc__heading--tablet">Выберите или в</span><span class="service-calc__heading--mobile">В</span>ведите Вашу площадь помещения:</p>
+
+            <div class="service-calc__row  service-calc__row--center  service-calc__row--square">
+
+              <div class="service-calc__item service-calc__item--square service-calc__item--active" data-feature="square" data-quantity="40" data-value="40">
+                <button type="button" class="service-calc__radio">40 м<sup><small>2</small></sup></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="50" data-value="50">
+                <button type="button" class="service-calc__radio">50 м<sup><small>2</small></sup></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="60" data-value="60">
+                <button type="button" class="service-calc__radio">60 м<sup><small>2</small></sup></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="70" data-value="70">
+                <button type="button" class="service-calc__radio">70 м<sup><small>2</small></sup></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="80" data-value="80">
+                <button type="button" class="service-calc__radio">80 м<sup><small>2</small></sup></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="40" data-value="">
+                <input type="number" class="service-calc__input service-calc__input--half input" max="200">
+
+                <span class="service-calc__unit">м<sup><small>2</small></sup></span>
+              </div>
+
+            </div>
+
+            <p class="service-calc__heading text">Выберите желаемый график:</p>
+
+            <div class="service-calc__row  service-calc__row--center  service-calc__row--price">
+
+              <div class="service-calc__item service-calc__item--price" data-name="podderzhka" data-service="podderzhka" data-price="1990" data-option="0x_week" data-schedule="0x_week">
+                <p class="service-calc__text text text-center">По обращению</p>
+                <div class="service-calc__output">
+                  1 990 руб
+                </div>
+              </div>
+
+              <div class="service-calc__item service-calc__item--price" data-name="podderzhka" data-service="podderzhka" data-price="1490" data-option="1x_week" data-schedule="1x_week">
+                <p class="service-calc__text text text-center">Pаз в неделю<span class="service-calc__sign">?<span class="service-card__note">* по графику</span></span></p>
+                <div class="service-calc__output">
+                  1 490 руб
+                </div>
+              </div>
+
+              <div class="service-calc__item service-calc__item--price" data-name="podderzhka" data-service="podderzhka" data-price="1680" data-option="2x_week" data-schedule="2x_week">
+                <p class="service-calc__text text text-center">Раз в 2 недели<span class="service-calc__sign">?<span class="service-card__note">* по графику</span></span></span></p>
+                <div class="service-calc__output">
+                  1 680 руб
+                </div>
+              </div>
+
+              <div class="service-calc__item service-calc__item--price" data-name="podderzhka" data-service="podderzhka" data-price="1790" data-option="4x_week" data-schedule="4x_week">
+                <p class="service-calc__text text text-center">Pаз в месяц<span class="service-calc__sign">?<span class="service-card__note">* по графику</span></span></span></p>
+                <div class="service-calc__output">
+                  1 790 руб
+                </div>
+              </div>
+
+            </div>
+
+            <div class="service-calc__row  service-calc__row--center">
+              <button class="description__button button button--application" type="button" data-name="service-order">Заказать услугу</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="page__section  section  section--bg-light">
+        <div class="section__wrap">
           <h3 class="service-condition__title title">Что делают наши домовята?</h3>
           <ul class="service-condition__list list">
             <li class="service-condition__item  item  item--circle">cухую и влажную уборку полов во всех помещениях</li>
@@ -138,21 +215,12 @@
             <li class="service-condition__item  item  item--circle">мытьё посуды</li>
             <li class="service-condition__item  item  item--circle">вынос мусора (1 мусорный пакет)</li>
           </ul>
-          <ul class="service-implement list">
-            <li class="service-implement__item service-implement__item--money item">
-              <p class="service-implement__text text">
-                Стоимость рассчитывается в зависимости от площади. Наши сотрудники приезжают к Вам и называют сумму на месте.
-              </p>
-            </li>
-            <li class="service-implement__item service-implement__item--note item">
-              <p class="service-implement__text text">
-                Все работы выполняются высотой не более 2 м.
-              </p>
-            </li>
-          </ul>
+
+          <p class="section__paragraph text">*Все работы выполняются высотой не более 2 м.</p>
+
         </div>
       </section>
-      <section class="page__section  section  section--bg-light">
+      <section class="page__section  section  section--bg-dark">
         <div class="section__wrap">
           <h2 class="section__title  title">Почему стоит доверить
             ежедневную уборку квартир «Домовёнку»?
@@ -179,7 +247,7 @@
           </p>
         </div>
       </section>
-      <section class="page__section  section  section--bg-dark">
+      <section class="page__section  section  section--bg-light">
         <div class="section__wrap">
           <p class="section__title  title">Отзывы клиентов</p>
           <p class="section__text section__text--left text">Мы заботимся о наших Клиентах и верим в свое дело!</p>
@@ -203,11 +271,11 @@
       
         </div>
       </section>
-      <section class="page__section  section  section--bg-light  section--contact">
+      <section class="page__section  section  section--bg-dark  section--contact">
         <div class="section__wrap">
           <h2 class="section__title  title">Свяжитесь со мной!</h2>
           <p class="section__text text text--center">Заполните форму заказа и наш менеджер свяжется с Вами в течение 10 минут.</p>
-          <form class="contact-section__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "callback"}' ya-reach="callback">
+          <form class="contact-section__form">
             <input class="contact-section__input input" type="text" name="name" placeholder="Имя" required="">
             <input class="contact-section__input input" type="tel" name="tel" placeholder="Телефон" required="">
             <button class="contact-section__button button" type="submit">Отправить</button>
@@ -215,7 +283,8 @@
         </div>
       </section>
       <!-- Page Footer -->
-      <footer class="page-footer  page-footer--bg-dark">
+      <footer class="page-footer">
+      
         <div class="page-footer__connection  section  connection">
           <h2 class="section__title  title">Вы можете написать нам здесь</h2>
           <div class="connection__wrap">
@@ -259,6 +328,7 @@
                 </svg>
               </a>
               <a  class="social-link-ab  social-link-ab--grey" href="https://instagram.com/cleaning.domovenok/">
+      
                 <svg class="social-link-ab__icon social-link-ab__icon--instagram" width="20" height="19.81" viewBox="0 0 20 19.81">
                   <g>
                     <rect x="1" y="1" width="18" height="17.81" rx="4" ry="4" style="fill: none;stroke: #fff;stroke-miterlimit: 10;stroke-width: 2px"/>
@@ -482,7 +552,77 @@
   </div>
   <!-- /Pop up -->
 </div>
-<script src="/static/pancake/js/bundle.min.js?v0.40"></script>
+<script id="calendar" type="text/html">
+  {{{{raw}}}}
+  {{#each days}}
+  <a class="calendar__item {{#if active}}calendar__item--active{{/if}} {{#if selected}}calendar__item--selected{{/if}} {{#if inComplete}}calendar__item--incomplete{{/if}}" data-date="{{date}}" data-fulldate="{{fulldate}}">
+    <svg class="calendar__image" width="34" height="34" viewBox="0 0 34 34">
+      <circle class="calendar__circle" cx="17" cy="17" r="15" stroke-width="1"/>
+      <text class="calendar__day" font-size="14" fill="white" font-family="Helvetica Neue" text-anchor="middle" x="17" y="22">{{day}}</text>
+    </svg>
+  </a>
+  {{/each}}
+  {{{{/raw}}}}
+</script>
+
+<script id="order-service" type="text/html">
+  <div class="service-card-sm" data-name="mite_posudi">
+    <p class="service-card-sm__text">Мытьё посуды<span class="service-card-sm__sign">?<span class="service-card-sm__note">* 10 минут</span></span></p>
+    <div class="service-card-sm__wrap">
+      <img class="service-card-sm__image" src="/static/pancake/img/service-washing-dishes.svg" width="50" height="50" alt="Посуда">
+      <div class="service-card-sm__btn-wrap">
+        <span class="service-card-sm__price">100</span> руб
+      </div>
+    </div>
+  </div>
+  <div class="service-card-sm" data-name="uborka_vlazhnaya">
+    <p class="service-card-sm__text">Влажная уборка выше 2 м<span class="service-card-sm__sign">?<span class="service-card-sm__note">* за 40 м<small><sup>2</sup></small></span></span></p>
+    <div class="service-card-sm__wrap">
+      <img class="service-card-sm__image" src="/static/pancake/img/service-top-surface.svg" width="50" height="50" alt="Шкаф">
+      <div class="service-card-sm__btn-wrap">
+        <span class="service-card-sm__price">350</span> руб
+      </div>
+    </div>
+  </div>
+  <div class="service-card-sm" data-name="glazhka">
+    <p class="service-card-sm__text">Глажка<span class="service-card-sm__sign">?<span class="service-card-sm__note">* 1 час</span></span></p>
+    <div class="service-card-sm__wrap">
+      <img class="service-card-sm__image" src="/static/pancake/img/service-ironing.svg" width="50" height="50" alt="Утюг">
+      <div class="service-card-sm__btn-wrap">
+        <span class="service-card-sm__price">500</span> руб
+      </div>
+    </div>
+  </div>
+</script>
+
+
+<script id="service-cart" type="text/html">
+  {{{{raw}}}}
+
+      <div class="service-cart__col">
+        <p class="service-cart__text service-cart__text--service text">{{name}} {{square}} м<sup><small>2</small></sup></p>
+      </div>
+
+      <div class="service-cart__col  service-cart__col--mobile">
+        <p class="service-cart__text service-cart__text--image service-cart__text--time text">
+          ~ {{hour}} час.
+        </p>
+        <p class="service-cart__text service-cart__text--image service-cart__text--people text">
+          {{people}} чел.
+        </p>
+      </div>
+
+      <div class="service-cart__col">
+        <p class="service-cart__text service-cart__text--bold text">
+          Стоимость: <span class="service-cart__text service-cart__text--price service-cart__text--bold service-cart__text--orange text">{{price}} руб</span>
+        </p>
+      </div>
+
+  {{{{/raw}}}}
+</script>
+
+<!-- Java Script -->
+<script src="/static/pancake/js/bundle.min.js?v0.42"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 
