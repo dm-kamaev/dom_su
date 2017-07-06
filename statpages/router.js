@@ -58,6 +58,7 @@ const moscowTemplates = {
     'mite_potolkov': {name: 'mite_potolkov.html', ServiceName: 'Генеральная уборка', data:{ menu:{ generalnaya_uborka: true}}},
     'uborka_territorii': {name: 'uborka_territorii.html', ServiceName: 'Уборка производственных помещений', data:{ menu:{legal: true, uborka_proizvodstvennyh_pomewenij: true}}},
     'uborka_kvartir': {name: 'uborka_kvartir.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{podderzhka: true}}},
+    'compare_service': {name: 'compare_service.html', ServiceName: '', data:{ }},
 
     'uborka_kvartir__balconi': {name: 'uborka_kvartir__balconi.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{podderzhka: true}}},
     'uborka_kvartir__chetirehkomnatnaya': {name: 'uborka_kvartir__chetirehkomnatnaya.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
@@ -143,6 +144,7 @@ const spbTemplates = {
     'melkii-remont': {name: 'melkii-remont.html', ServiceName: 'Вызов мастера', data:{ menu:{physical: true, vizov_mastera_na_dom: true}}},
     'mite_stekol': {name: 'mite_stekol.html', ServiceName: 'Мытье стекол', data:{ menu:{legal: true, mite_stekol: true}}},
     'mite_okon': {name: 'mite_okon.html', ServiceName: 'Мойка окон', data:{ menu:{ mite_okon: true}}},
+    'compare_service': {name: 'compare_service.html', ServiceName: '', data:{ }},
     'myte-fasadov': {name: 'myte-fasadov.html', ServiceName: 'Мытьё фасадов', data:{ menu:{legal: true, myte_fasadov: true}}},
     //'mite_potolkov': {name: 'mite_potolkov.html', ServiceName: 'Генеральная уборка', data:{ menu:{ generalnaya_uborka: true}}},
     'podderzhka': {name: 'podderzhka.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
