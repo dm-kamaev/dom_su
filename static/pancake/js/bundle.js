@@ -3141,6 +3141,12 @@
 	                if (data.Success) {
 	                    analytic.sendServiceOrder(this.element);
 	                    var textMessage = "Спасибо за заказ. Мы свяжемся с Вами в течение 10 минут, уточнив доступно ли выбранное время заказа.";
+	                    var date = new Date();
+	                    var finishDayHour = 21;
+	                    var beginDayHour = 9;
+	                    if (date.getHours() > finishDayHour && date.getHours() < beginDayHour) {
+	                        textMessage = "Спасибо за заказ. До 9-00 утра мы набираемся сил, чтобы быть Вам еще полезнее. Мы свяжемся с Вами после 9-00 утра. Спасибо за понимание.";
+	                    }
 	                    this.showMessage(textMessage);
 	                    this.parentSave();
 	                }
@@ -5464,10 +5470,16 @@
 	                    _this.form.addEventListener('submit', _this.send);
 	                    _this.button.disabled = false;
 	                    var textMessage = "Спасибо за заказ. Мы свяжемся с Вами в течение 5 минут.";
-	                    if (init.calc.length != 0) {
+	                    if (init.calc.length !== 0) {
 	                        if (init.calc[0].new) {
 	                            textMessage = "Спасибо за заказ. Мы свяжемся с Вами в течение 10 минут.";
 	                        }
+	                    }
+	                    var date = new Date();
+	                    var finishDayHour = 21;
+	                    var beginDayHour = 9;
+	                    if (date.getHours() > finishDayHour && date.getHours() < beginDayHour) {
+	                        textMessage = "Спасибо за заказ. До 9-00 утра мы набираемся сил, чтобы быть Вам еще полезнее. Мы свяжемся с Вами после 9-00 утра. Спасибо за понимание.";
 	                    }
 	                    _this.parent.showMessage(textMessage);
 	                }
@@ -5503,7 +5515,7 @@
 	    ServiceOrderContact.prototype.send = function (e) {
 	        e.preventDefault();
 	        if (validate.make(this.requireInput, this.button)) {
-	            if (init.calc.length != 0 && init.calc[0].isActivate) {
+	            if (init.calc.length !== 0 && init.calc[0].isActivate) {
 	                if (init.calc[0].new) {
 	                    if (init.calc[0].isActivate) {
 	                        init.calc[0].request(init.calc[0].data, this.name.value, this.tel.value, this.response);
@@ -5529,7 +5541,8 @@
 	                        "name": this.name.value,
 	                        "square": init.serviceCalc ? Number(init.serviceCalc.activeSquire.dataset.value) : null,
 	                        "phone": this.tel.value
-	                    } };
+	                    }
+	                };
 	                url = "/ticket-handler";
 	            }
 	            function error() {
@@ -21459,6 +21472,12 @@
 	    ServiceOrderDate.prototype.close = function (buttonEvent) {
 	        if (buttonEvent) {
 	            var textMessage = "Спасибо за заказ. Мы свяжемся с Вами в течение 10 минут.";
+	            var date = new Date();
+	            var finishDayHour = 21;
+	            var beginDayHour = 9;
+	            if (date.getHours() > finishDayHour && date.getHours() < beginDayHour) {
+	                textMessage = "Спасибо за заказ. До 9-00 утра мы набираемся сил, чтобы быть Вам еще полезнее. Мы свяжемся с Вами после 9-00 утра. Спасибо за понимание.";
+	            }
 	            this.parent.showMessage(textMessage);
 	        }
 	        this.form.removeEventListener('submit', this.send);
@@ -26361,6 +26380,12 @@
 	                init.cart.remove();
 	                this.button.disabled = false;
 	                var textMessage = "Спасибо за заказ. Мы свяжемся с Вами в течение 10 минут, уточнив доступно ли выбранное время заказа.";
+	                var date = new Date();
+	                var finishDayHour = 21;
+	                var beginDayHour = 9;
+	                if (date.getHours() > finishDayHour && date.getHours() < beginDayHour) {
+	                    textMessage = "Спасибо за заказ. До 9-00 утра мы набираемся сил, чтобы быть Вам еще полезнее. Мы свяжемся с Вами после 9-00 утра. Спасибо за понимание.";
+	                }
 	                this.parent.showMessage(textMessage);
 	            }
 	            else {
