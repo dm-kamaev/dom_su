@@ -2225,10 +2225,10 @@
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 16.05.2017.
 	 */
-	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var square_1 = __webpack_require__(14);
 	var price_1 = __webpack_require__(21);
@@ -2492,10 +2492,10 @@
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 18.05.2017.
 	 */
-	"use strict";
 	var __extends = (this && this.__extends) || (function () {
 	    var extendStatics = Object.setPrototypeOf ||
 	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -2542,14 +2542,14 @@
 /* 17 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 13.04.2017.
 	 */
-	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils = {
 	    _switchItem: function (container, target) {
-	        while (target != container) {
+	        while (target !== container) {
 	            if (target.classList.contains('switch__item')) {
 	                this._setActive(container, target);
 	                return target;
@@ -2577,7 +2577,7 @@
 	    _switchPrice: function () {
 	    },
 	    _selectItem: function (container, target) {
-	        while (target != container) {
+	        while (target !== container) {
 	            var select = true;
 	            if (target.classList.contains('switch__item')) {
 	                if (target.classList.contains('switch__item--active')) {
@@ -2600,10 +2600,10 @@
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 17.05.2017.
 	 */
-	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(17);
 	var analytic = __webpack_require__(19);
@@ -2909,10 +2909,11 @@
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 17.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var request = __webpack_require__(8);
 	var priceFormat = __webpack_require__(22);
 	var analytic = __webpack_require__(19);
@@ -2964,8 +2965,9 @@
 	            _this.getPrice();
 	        };
 	        this.getPrice = function (e) {
-	            if (e)
+	            if (e) {
 	                e.preventDefault();
+	            }
 	            var data = {
 	                "Method": "Client.CalculateOrder",
 	                "Param": _this.param
@@ -3003,6 +3005,20 @@
 	                    this.title.classList.remove('window__promo-text--hide');
 	                }
 	                this.checkboxContainers = Array.prototype.slice.call(this.element.querySelectorAll(".window-form__checkbox[data-name=\"podderzhka\"]"));
+	                this.checkboxContainers.forEach(function (item) {
+	                    if (item.classList.contains('window-form__checkbox--hide')) {
+	                        item.classList.remove('window-form__checkbox--hide');
+	                    }
+	                    var input = item.querySelector('input');
+	                    input.addEventListener('click', _this.changeSchedule);
+	                });
+	                break;
+	            case 'light':
+	                this.title = this.element.querySelector(".window__promo-text[data-name=\"general\"]");
+	                if (this.title.classList.contains('window__promo-text--hide')) {
+	                    this.title.classList.remove('window__promo-text--hide');
+	                }
+	                this.checkboxContainers = Array.prototype.slice.call(this.element.querySelectorAll(".window-form__checkbox[data-name=\"light\"]"));
 	                this.checkboxContainers.forEach(function (item) {
 	                    if (item.classList.contains('window-form__checkbox--hide')) {
 	                        item.classList.remove('window-form__checkbox--hide');
@@ -3067,7 +3083,6 @@
 	    };
 	    return Price;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Price;
 
 
@@ -3089,10 +3104,10 @@
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 16.05.2017.
 	 */
-	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var request = __webpack_require__(8);
 	var validate = __webpack_require__(24);
@@ -3416,10 +3431,10 @@
 /* 25 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 22.05.2017.
 	 */
-	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	function inputReset(container) {
 	    var elements = Array.prototype.slice.call(container.querySelectorAll('input'));
@@ -29632,10 +29647,10 @@
 /* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 20.04.2017.
 	 */
-	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var button_date_1 = __webpack_require__(205);
 	var selection_1 = __webpack_require__(206);
@@ -29735,10 +29750,10 @@
 /* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 20.04.2017.
 	 */
-	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var moment = __webpack_require__(55);
 	__webpack_require__(141);
@@ -29769,8 +29784,9 @@
 	            document.dispatchEvent(event);
 	        };
 	        this.add = function (e) {
-	            if (e)
+	            if (e) {
 	                e.preventDefault();
+	            }
 	            if (!_this.isMax) {
 	                _this.counter += 1;
 	                _this.selectedDate.add(1, 'days');
@@ -29778,8 +29794,9 @@
 	            }
 	        };
 	        this.subtract = function (e) {
-	            if (e)
+	            if (e) {
 	                e.preventDefault();
+	            }
 	            if (!_this.isMin) {
 	                _this.counter -= 1;
 	                _this.selectedDate.subtract(1, 'days');
@@ -29890,10 +29907,10 @@
 /* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 14.03.2017.
 	 */
-	"use strict";
 	var __extends = (this && this.__extends) || (function () {
 	    var extendStatics = Object.setPrototypeOf ||
 	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -29925,7 +29942,7 @@
 	                item.classList.add('selection__option--disabled');
 	            }
 	            if (!this.isSelected || this.activeOption.classList.contains('selection__option--disabled')) {
-	                if (item.dataset.option == hour) {
+	                if (item.dataset.option === hour) {
 	                    this.setOption(item);
 	                }
 	            }
