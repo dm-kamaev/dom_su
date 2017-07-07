@@ -119,6 +119,8 @@ const nnTemplates = {
     'about__': {name: 'about__.html', ServiceName: 'О нас', data:{ menu:{main: true, about: true}}},
     'contacts__': {name: 'contacts__.html', ServiceName: 'Контакты', data:{ menu:{contacts: true}}},
     'davay_druzhit__': {name: 'davay_druzhit__.html', ServiceName: 'Давай дружить', data:{ menu:{main: true, davay_druzhit: true}}},
+    'mite_okon': {name: 'mite_okon.html', ServiceName: 'Мойка окон', data:{ menu:{physical: true, posle_remonta: true}}},
+    'posle_remonta': {name: 'posle_remonta.html', ServiceName: 'Уборка после ремонта', data:{ menu:{physical: true, posle_remonta: true}}},
     'uslugi__': {name: 'uslugi__.html', ServiceName: 'Услуги', data:{ menu:{main: true,  uslugi: true}}},
     'vazhno_znat__': {name: 'vazhno_znat__.html', ServiceName: 'Важно знать', data:{ menu:{ main: true, vazhno_znat: true}}},
     'strahovka__': {name: 'strahovka__.html', ServiceName: 'Страховка', data:{ menu:{main: true, about: true}}},
@@ -185,14 +187,14 @@ const ABTestContainer = {
             {name: "control", page: 'posle_remonta', ratio: 50, description: "Основная"},
             {name: "variation", page: 'posle_remonta_ab', ratio: 50, description: "Пробуем новый дизайн"}
         ]},
-        'mite_okon': { name: "", key: "mite_okon_1_new_design", forNewUser: true, variations: [
-            {name: "control", page: 'mite_okon', ratio: 50, description: "Основная"},
-            {name: "variation", page: 'mite_okon_ab', ratio: 50, description: "Пробуем новый дизайн"}
-        ]},
-        'main': { name: "", key: "main_2_new_design", forNewUser: true, variations: [
-            {name: "control", page: 'main', ratio: 50, description: "Основная"},
-            {name: "variation", page: 'main_ab', ratio: 50, description: "Пробуем новый дизайн"}
-        ]},
+        // 'mite_okon': { name: "", key: "mite_okon_1_new_design", forNewUser: true, variations: [
+        //     {name: "control", page: 'mite_okon', ratio: 50, description: "Основная"},
+        //     {name: "variation", page: 'mite_okon_ab', ratio: 50, description: "Пробуем новый дизайн"}
+        // ]},
+        // 'main': { name: "", key: "main_2_new_design", forNewUser: true, variations: [
+        //     {name: "control", page: 'main', ratio: 50, description: "Основная"},
+        //     {name: "variation", page: 'main_ab', ratio: 50, description: "Пробуем новый дизайн"}
+        // ]},
     }
 }
 

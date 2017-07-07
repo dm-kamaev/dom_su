@@ -42,7 +42,7 @@
               <div class="ui-block-d">
                   <div class="ui-body ui-body-d">
                       <div class="ui-block-c">
-                              <span style="font-weight: normal; color: {{#ifCond conversation.Status '==' 'Новое'}}green{{else}}red{{/ifCond}}">{{conversation.Status}}</span>
+                              <span style="font-weight: normal; color: {{#ifCond conversation.Status '==' 'Активно'}}green{{else}}red{{/ifCond}}">{{conversation.Status}}</span>
                       </div>
                   </div>
               </div>
@@ -60,7 +60,7 @@
                         <li><a href="{{staffUrl 'employeeDetail' selfId }}?orders=true" {{#if activeOrders }} class="ui-btn ui-btn-active" {{/if }}>Заказы</a></li>
                         <li><a data-ajax="false" href="{{staffUrl 'rating' selfId }}" {{#if activeRating }} class="ui-btn ui-btn-active" {{/if }}>Рейтинг</a></li>
                         <li><a href="{{staffUrl 'disciplinaryList' selfId }}" {{#if activeDisciplinary }} class="ui-btn ui-btn-active" {{/if }}>Нарушения</a></li>
-                        <li><a href="{{staffUrl 'conversationList' selfId }}">Обращения</a></li>
+                        <li><a href="{{staffUrl 'conversationList' selfId }}" class="ui-btn ui-btn-active" >Обращения</a></li>
                         <li><a href="{{staffUrl 'news' selfId}}" {{#if activeNews }} class="ui-btn ui-btn-active" {{/if }}>Новости</a></li>
                         <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li>
                         <li><a data-ajax="false" href="{{staffUrl 'logout' }}">Выйти</a></li>

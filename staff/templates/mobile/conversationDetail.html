@@ -90,7 +90,7 @@
         <script>$(document).unbind('scroll');</script>
         <p>
             <span>{{formatPartDate conversation.Date "DD.MM.YYYY"}}</span>
-            <span style="font-weight: normal; float: right; color: {{#ifCond conversation.Status '==' 'Новое'}}green{{else}}red{{/ifCond}}">{{conversation.Status}}</span>
+            <span style="font-weight: normal; float: right; color: {{#ifCond conversation.Status '==' 'Активно'}}green{{else}}red{{/ifCond}}">{{conversation.Status}}</span>
         </p>
         <p>
             <b>{{conversation.Subject}}</b>
