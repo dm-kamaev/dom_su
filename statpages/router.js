@@ -119,7 +119,7 @@ const nnTemplates = {
     'about__': {name: 'about__.html', ServiceName: 'О нас', data:{ menu:{main: true, about: true}}},
     'contacts__': {name: 'contacts__.html', ServiceName: 'Контакты', data:{ menu:{contacts: true}}},
     'davay_druzhit__': {name: 'davay_druzhit__.html', ServiceName: 'Давай дружить', data:{ menu:{main: true, davay_druzhit: true}}},
-    'mite_okon': {name: 'mite_okon.html', ServiceName: 'Мойка окон', data:{ menu:{physical: true, posle_remonta: true}}},
+    'mite_okon': {name: 'mite_okon.html', ServiceName: 'Мойка окон', data:{ menu:{physical: true, mite_okon: true}}},
     'posle_remonta': {name: 'posle_remonta.html', ServiceName: 'Уборка после ремонта', data:{ menu:{physical: true, posle_remonta: true}}},
     'uslugi__': {name: 'uslugi__.html', ServiceName: 'Услуги', data:{ menu:{main: true,  uslugi: true}}},
     'vazhno_znat__': {name: 'vazhno_znat__.html', ServiceName: 'Важно знать', data:{ menu:{ main: true, vazhno_znat: true}}},
