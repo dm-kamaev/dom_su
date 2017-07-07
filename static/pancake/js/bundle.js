@@ -2097,10 +2097,10 @@
 	        for (var _b = 0, RightSideList_1 = RightSideList; _b < RightSideList_1.length; _b++) {
 	            var item = RightSideList_1[_b];
 	            if (!item.classList.contains('right-side__form')) {
-	                var rightSide_1 = new leftSideList.RightSide(item);
+	                pageInit.rightSide = new leftSideList.rightSide(item);
 	            }
 	            else {
-	                var rightSide_2 = new leftSideList.Form(item);
+	                pageInit.rightSide = new leftSideList.form(item);
 	            }
 	        }
 	    }
@@ -2185,6 +2185,11 @@
 	}
 	if (windowFormElement) {
 	    pageInitial.windowForm = new window_form_1.default(windowFormElement);
+	}
+	if (pageElement) {
+	    pageElement.addEventListener('scroll', function (e) {
+	        console.log(e.target, "scroll");
+	    });
 	}
 	module.exports = pageInit;
 
@@ -3102,10 +3107,11 @@
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 16.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var request = __webpack_require__(8);
 	var validate = __webpack_require__(24);
 	var analytic = __webpack_require__(19);
@@ -3175,7 +3181,6 @@
 	    };
 	    return Info;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Info;
 
 
@@ -3435,17 +3440,17 @@
 /* 25 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 22.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	function inputReset(container) {
 	    var elements = Array.prototype.slice.call(container.querySelectorAll('input'));
 	    elements.forEach(function (item) {
 	        item.value = '';
 	    });
 	}
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = inputReset;
 
 
@@ -29673,10 +29678,11 @@
 /* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 20.04.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var button_date_1 = __webpack_require__(205);
 	var selection_1 = __webpack_require__(206);
 	var moment = __webpack_require__(55);
@@ -29768,7 +29774,6 @@
 	    };
 	    return ChangingTime;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ChangingTime;
 
 
@@ -29776,10 +29781,11 @@
 /* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 20.04.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var moment = __webpack_require__(55);
 	__webpack_require__(141);
 	var client = __webpack_require__(9);
@@ -29925,7 +29931,6 @@
 	    };
 	    return ButtonDate;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ButtonDate;
 
 
@@ -29933,21 +29938,28 @@
 /* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 14.03.2017.
 	 */
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var BaseSelection = __webpack_require__(15);
 	var Timing = (function (_super) {
 	    __extends(Timing, _super);
 	    function Timing(element) {
-	        _super.call(this, element);
-	        this.isSelected = false;
+	        var _this = _super.call(this, element) || this;
+	        _this.isSelected = false;
+	        return _this;
 	    }
 	    Timing.prototype.select = function (e) {
 	        _super.prototype.select.call(this, e);
@@ -29982,7 +29994,6 @@
 	    };
 	    return Timing;
 	}(BaseSelection));
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Timing;
 
 
