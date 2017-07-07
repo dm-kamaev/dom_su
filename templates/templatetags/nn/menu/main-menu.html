@@ -20,6 +20,27 @@
         Генеральная уборка
       </a>
     </li>
+    <li class="main-menu__item  main-menu__item--sub {{#if menu.physical}}main-menu__item--active{{/if}}">
+      <a class="main-menu__link">
+        Физическим лицам
+      </a>
+      <!--Sub Menu-->
+      <ul class="main-menu__list  main-menu__list--sub">
+
+        <li class="main-menu__item-sub {{#if menu.posle_remonta}}main-menu__item-sub--active{{/if}}">
+          <a class="main-menu__link-sub" href="{{buildUrl general.city '/posle_remonta'}}">
+            Уборка после ремонта
+          </a>
+        </li>
+
+        <li class="main-menu__item-sub {{#if menu.posle_remonta}}main-menu__item-sub--active{{/if}}">
+          <a class="main-menu__link-sub"  href="{{buildUrl general.city '/mite_okon'}}">
+            Мытьё окон
+          </a>
+        </li>
+      </ul>
+      <!--/Sub Menu-->
+    </li>
     <li class="main-menu__item main-menu__item--sub {{#if menu.main}}main-menu__item--active{{/if}}">
       <a class="main-menu__link">
         О нас
