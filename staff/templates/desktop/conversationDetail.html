@@ -35,16 +35,7 @@
 
 {{/if}}
     <!-- End Google Tag Manager -->
-</head>
-
-<body>
-
-<div id="wrapper-out">
-    {{employeeHeader this}}
-<!--.main-->
-<div id="middle">
-<section class="content">
-<script>
+    <script>
 
 function validate_message(textarea){
     if (textarea.val() !== "") {
@@ -71,8 +62,8 @@ $( document ).ready(function() {
     });
 });
 </script>
-<style>
-    textarea{
+        <style>
+  textarea{
    -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -114,20 +105,18 @@ div.messages-container form input {
     cursor: pointer;
     }
 </style>
+</head>
 
-    <h1 style='font: italic 24px/20px Georgia, "Times New Roman", Times, serif;'>{{ GetDisciplinaryInfo.Title }}</h1>
-    {{#if GetDisciplinaryInfo.Linked }}
-        <a href="{{staffUrl 'orderDetail' GetDisciplinaryInfo.Linked.ID }}">{{ GetDisciplinaryInfo.Linked.Title }}</a>
-        <br><br>
-    {{/if}}
-    <p><b>Статус: </b><br/><span style="color:{{#ifCond GetDisciplinaryInfo.Status '==' 1 }}red{{/ifCond}}{{#ifCond GetDisciplinaryInfo.Status '==' 2 }}#ff6600{{/ifCond}}{{#ifCond GetDisciplinaryInfo.Status '==' 3 }}green{{/ifCond}};">{{ GetDisciplinaryInfo.StatusTitle }}</span></p>
-    <p><b>Дата: </b><br/><span>{{ formatPartDate GetDisciplinaryInfo.Date "DD.MM.YYYY" }}</span></p>
-    <p><b>Описание: </b><br/><span>{{{ GetDisciplinaryInfo.Description }}}</span></p>
-    <p><b>Штрафные баллы: </b><br/><span style="color: red"><b>{{ GetDisciplinaryInfo.Weight }}</b></span></p>
-    <p><b>Срок вступления в силу: </b><br/><span>{{ formatPartDate GetDisciplinaryInfo.DateStart "DD.MM.YYYY" }}</span></p>
-    {{#if GetDisciplinaryInfo.Note }}<p><b>Примечание: </b><br/><span>{{{ GetDisciplinaryInfo.Note }}}</span></p>{{/if}}
+<body>
+
+<div id="wrapper-out">
+    {{employeeHeader this}}
+<!--.main-->
+<div id="middle">
+<section class="content">
+    <h1>Обращение: {{conversation.Subject}}</h1>
     <div class="messages-container">
-        <h3>Комментарии</h3>
+        <h3>Сообщения</h3>
         {{#each GetMessageList.Messages as |message|}}
             <div class="message-line">
                 <div id="{{ message.MessageID }}" class="message">
@@ -140,17 +129,19 @@ div.messages-container form input {
         <form id="message-form"  action="{{staffUrl 'createMessage' selfId }}" method="post"
               enctype="multipart/form-data">
             <input name="this_url" hidden value="{{ currentUrl }}" readonly>
-            <input name="LinkedID" hidden value="{{ GetDisciplinaryInfo.DisciplinaryID }}" readonly>
-            <input name="LinkedType" hidden value="Disciplinary" readonly>
-            <textarea id="message-textarea" name="content" placeholder="Задать вопрос..."></textarea>
+            <input name="LinkedID" hidden value="{{ conversation.ID }}" readonly>
+            <input name="LinkedType" hidden value="Conversation" readonly>
+            <textarea id="message-textarea" name="content" placeholder="Написать сообщение..."></textarea>
             <input id="message-submit" type="submit" >
         </form>
     </div>
 </section>
 <div class="clear"></div>
 </div>
+<!--#middle-->
 <div id="foot-empty"></div>
 </div>
+<!--#wrapper-out-->
 <footer class="main">
     <div>
         <div class="copy">
@@ -159,5 +150,6 @@ div.messages-container form input {
         </div>
     </div>
 </footer>
+<!--.main-->
 </body>
 </html>

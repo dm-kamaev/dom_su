@@ -21,14 +21,35 @@
 <body class="">
     <div data-role="page" class="jqm-demos ui-responsive-panel" id="main-page" data-title="Личный кабинет от Домовёнка">
         <div data-role="header" data-position="fixed" data-tap-toggle="false">
-            <h1 style="overflow: visible">Header</h1>
+            <h1 style="overflow: visible">Обращения</h1>
             <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
         </div>
         <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <script>$(document).unbind('scroll');</script>
-            {% block content %}
-            {% endblock %}
-            <div data-demo-html="#panel-responsive-page1"></div>
+        <div data-role="collapsible" data-content-theme="false">
+        <h4>Создать обращение</h4>
+        <form action="" method="POST" enctype="multipart/form-data" data-ajax="false" >
+            <label>Название:<input name="subject" style="" type="text" required></label>
+            <label>Сообщение:<textarea name="content" required style="" type="text"></textarea></label>
+            <button type="submit">Создать</button>
+        </form>
+        </div>
+        {{#each GetConversationList.ConversationList as |conversation|}}
+            <a class="ui-btn" href="{{staffUrl 'conversationDetail' ../employeeId conversation.ConversationID }}">
+              <div class="ui-block-a">
+                  <div class="ui-body ui-body-d">{{formatPartDate conversation.Date "DD.MM.YYYY"}}</div>
+              </div>
+              <div class="ui-block-d">
+                  <div class="ui-body ui-body-d">
+                      <div class="ui-block-c">
+                              <span style="font-weight: normal; color: {{#ifCond conversation.Status '==' 'Новое'}}green{{else}}red{{/ifCond}}">{{conversation.Status}}</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="ui-block-b"><div class="ui-body ui-body-d"><span style="font-weight: normal; white-space: normal">{{conversation.Subject}}</span></div></div>
+            </a>
+        {{/each}}
+        <div data-demo-html="#panel-responsive-page1"></div>
         </div>
             <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel">
                 <ul data-role="listview">

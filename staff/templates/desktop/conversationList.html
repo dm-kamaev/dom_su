@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="robots" content="index, follow"/>
+    <link href="/static/css/staff_page.css?v=1" type="text/css" rel="stylesheet"/>
+    <link rel="icon" type="image/ico" href="/media/favicon.ico">
+    <title>Личный кабинет от Домовёнка</title>
+
+    <!--[if IE]><script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700&subset=latin,cyrillic' rel='stylesheet'
+          type='text/css'/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script src="/static/js/jquery.mousewheel.js"></script>
+    <script src="/static/js/jquery.tools.min.js"></script>
+    <script src="/static/js/jcarousellite_1.0.1.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/js/jquery.maskedinput.min.js"></script>
+    <script src="/static/js/nich.js?v=1.026"></script>
+    <script src="/static/js/custom_cookie.js"></script>
+
+
+
+    <!--block head-->
+
+    <!-- Google Tag Manager -->
+{{#if general.production}}
+
+  <noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PHD7WW');</script>
+
+{{/if}}
+    <!-- End Google Tag Manager -->
+</head>
+
+<body>
+
+<div id="wrapper-out">
+    {{employeeHeader this}}
+<!--.main-->
+<div id="middle">
+<section class="content">
+    <h1>Список обращений</h1>
+
+<button class="openForm" type="button" style="background: none; border:none; border-bottom: 1px dashed; font-size: 14px; font-style:italic; cursor:pointer;">Создать обращение</button>
+<form action="" method="POST" enctype="multipart/form-data" class="form" style="z-index:2; display: none;position: fixed; top:200px;right:50%;transform: translateX(50%);width: 500px; background-color: #fff;padding:30px;">
+<svg class="form__close" style="cursor:pointer;position:absolute; right: 20px; top: 20px;" width="19" height="19" viewBox="0 0 19 19">
+          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"></line>
+          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"></line>
+        </svg>
+<h2 style="font-size:24px;margin-bottom: 20px;">Новое обращение</h2>
+	<label  style="font-size: 14px;display: flex;margin-bottom: 20px;">Название:<input name="subject" style="margin-left: 29px;     width: 100%; padding: 10px 30px;border-radius: 3px; border: 1px solid #d2b093;" type="text" required></label>
+	<label style="font-size: 14px;display: flex;margin-bottom: 20px;">Сообщение:<textarea name="content" required rows="7" cols="47" style="margin-left: 15px;     width: 100%;padding: 10px 30px; border-radius: 3px;border: 1px solid #d2b093;" type="text"></textarea></label>
+	<button style="margin: auto;display: flex;justify-content: center;background-color: #fd8204;border: none;color: #fff;padding: 10px 30px;cursor:pointer;" type="submit">Создать</button>
+</form>
+<div class="form__back" style="display: none;cursor: pointer; position: fixed;top: 0;right: 0; bottom: 0;left: 0;z-index: 1;background-color: rgba(0,0,0,.6);"></div>
+        <script>
+(function() {var btnOpenForm = document.querySelector('.openForm');
+var form = document.querySelector('.form');
+var formClose = form.querySelector('.form__close');
+var formBack = document.querySelector('.form__back');
+if (formClose) {
+formClose.addEventListener('click', function(e){
+		e.preventDefault();
+		form.style.display = 'none';
+		formBack.style.display = 'none';
+})
+}
+if (formBack) {
+formBack.addEventListener('click', function(e){
+		e.preventDefault();
+		form.style.display = 'none';
+		formBack.style.display = 'none';
+})
+}
+if (btnOpenForm) {
+	btnOpenForm.addEventListener('click', function(e){
+		e.preventDefault();
+		form.style.display = 'block';
+		formBack.style.display = 'block';
+	})
+}})();
+    </script>
+    {{#each GetConversationList.ConversationList as |conversation|}}
+        <p style="margin-top: 15px;font-size: 14px; width: 400px; display: block">
+            <span style="color: #692f17">{{formatPartDate conversation.Date "DD.MM.YYYY"}}</span>
+            <span style="color: green; margin-left: 90px">{{conversation.Status}}</span><br/>
+            <a style="font-size: 18px"  href="{{staffUrl 'conversationDetail' ../employeeId conversation.ConversationID }}">{{conversation.Subject}}</a></p>
+    {{/each}}
+<div class="clear"></div>
+</div>
+<!--#middle-->
+<div id="foot-empty"></div>
+</div>
+<!--#wrapper-out-->
+<footer class="main">
+    <div>
+        <div class="copy">
+            Если у Вас есть предложения и пожелания по работе личного кабинета пишите на почту <a href="mailto: develop@domovenok.su">develop@domovenok.su</a><br />
+            2007-2017 &copy; domovenok.su Клининговая компания ООО &laquo;Комфорт-сервис &laquo;Домовёнок&raquo;, все права защищены.
+        </div>
+    </div>
+</footer>
+<!--.main-->
+
+
+</body>
+</html>

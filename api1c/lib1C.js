@@ -122,7 +122,7 @@ class SingleRequest1C{
     async do (){
         await this.request1C.do()
         if (this.singleMethod.error){
-            throw new Error('API 1C error')
+            throw new Error(`API 1C error ${JSON.stringify(this.singleMethod.error)}`)
         }
         return this.singleMethod.response
     }

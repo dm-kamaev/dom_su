@@ -114,7 +114,8 @@ input.button {
         <form id="message-form"  action="{{staffUrl 'createMessage' selfId }} " method="post"
               enctype="multipart/form-data">
             <input name="this_url" hidden value="{{ currentUrl }}" readonly>
-            <input name="DisciplinaryID" hidden value="{{ DisciplinaryID }}" readonly>
+            <input name="LinkedID" hidden value="{{ LinkedID }}" readonly>
+            <input name="LinkedType" hidden value="{{ LinkedType }}" readonly>
             <div class="block-textarea">
                 <div class="textarea">
                   <textarea id="message-textarea" name="content" placeholder="Написать..."></textarea>

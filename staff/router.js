@@ -6,6 +6,7 @@ const Router = require('koa-router');
 const logger = require('logger')(module, 'staff.log')
 const loggerProblems = require('logger')(module, 'problems.log')
 const config = require('config')
+
 const { Method1C, Request1C } = require('api1c')
 const { getTemplate } = require('utils')
 const { staffUrl, isMobileVersion, toMoscowISO, staffTemplate } = require('./utils')
@@ -16,6 +17,18 @@ const { loginRequired, getEmployeeHeader } = require('./decorators')
 const moneyStaff = require('./money')
 const examsStaff = require('./exams')
 
+
+const nodemailer = require('nodemailer');
+// create reusable transporter object using the default SMTP transport
+let transporter = nodemailer.createTransport({
+    host: 'smtp.yandex.ru',
+    port: 465,
+    secure: true, // secure:true for port 465, secure:false for port 587
+    auth: {
+        user: 'robot@domovenok.su',
+        pass: 'Domovenok2008'
+    }
+})
 
 const staffRouter = new Router();
 
@@ -77,6 +90,20 @@ staffRouter.post(staffUrl('errors'), parseFormMultipart, loginRequired(getEmploy
     await request1C.do()
     let body = ctx.request.body
     body.info = GetEmployeeData.response
+
+    let mailOptions = {
+        from: '<robot@domovenok.su>', // sender address
+        to: 'ovsyannikov.r@domovenok.su, develop@domovenok.su', // list of receivers
+        subject: 'Ошибка на сайте', // Subject line
+        text: `От: ${GetEmployeeData.response.FullTitle}\n${ctx.request.body.fields.error}`, // plain text body
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return logger.error(error);
+        }
+    });
+
     loggerProblems.info(JSON.stringify(body))
     templateCtx.GetEmployeeData = GetEmployeeData.response
     templateCtx.message = 'Спасибо за Вашу помощь!'
@@ -142,6 +169,12 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
         template = getTemplate(staffTemplate.desktop.orderDetail)
     }
     ctx.body = template(ctx.proc(templateCtx, ctx))
+})))
+
+staffRouter.get(staffUrl('orderManagement', ':DepartureID'), loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
+    let GetDepartureData = new Method1C('GetDepartureData', {DepartureID: ctx.params.DepartureID})
+    request1C.add(GetDepartureData)
+    await request1C.do()
 })))
 
 // GET Order Card
@@ -484,6 +517,70 @@ staffRouter.post('/staff/interview/:EmployeeID/:InterviewID/', parseFormMultipar
     ctx.redirect(ctx.headers.referer)
 })))
 
+staffRouter.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
+    const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '');
+    let GetConversationList = new Method1C('Employee.GetConversationList', {'EmployeeID': templateCtx.employeeId})
+    request1CAPIV2.add(GetConversationList)
+    request1CAPIV2.add(GetEmployeeData)
+    let template
+    await request1CAPIV2.do()
+    templateCtx.GetConversationList = GetConversationList.response
+    templateCtx.GetEmployeeData = GetEmployeeData.response
+    if (isMobileVersion(ctx)){
+        template = getTemplate(staffTemplate.mobile.conversationList)
+    } else {
+        template = getTemplate(staffTemplate.desktop.conversationList)
+    }
+    ctx.body = template(ctx.proc(templateCtx, ctx))
+})))
+
+staffRouter.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginRequired(async function (ctx, next) {
+    let salt = uuid4()
+    const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '');
+    let NewConversation = new Method1C('Employee.NewConversation', {'EmployeeID': ctx.state.pancakeUser.auth1C.employee_uuid, 'Subject': ctx.request.body.fields.subject})
+    request1CAPIV2.add(NewConversation)
+    await request1CAPIV2.do()
+    const twoRequest1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '')
+    let SendMessage = new Method1C('SendMessage', {
+    "Role": 2, "Content": ctx.request.body.fields.content, "Salt": salt.toString(),
+    "AnswerToMessageID": null,
+    "Linked": {
+        "ID": NewConversation.response.ConversationID,
+        "Type": 'Conversation'},
+    })
+    twoRequest1CAPIV2.add(SendMessage)
+    await twoRequest1CAPIV2.do()
+    ctx.redirect(staffUrl('conversationDetail', ctx.state.pancakeUser.auth1C.employee_uuid, NewConversation.response.ConversationID))
+}))
+
+staffRouter.get('/staff/:EmployeeID/conversations/:ConversationID', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
+    const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '');
+    let GetConversationList = new Method1C('Employee.GetConversationList', {'EmployeeID': templateCtx.employeeId})
+    let GetMessageList = new Method1C('GetMessageList', {'Count': 100, 'Linked': {'ID': ctx.params.ConversationID, 'Type': 'Conversation'}})
+    request1CAPIV2.add(GetConversationList)
+    request1CAPIV2.add(GetEmployeeData)
+    request1CAPIV2.add(GetMessageList)
+    let template
+    let conversationData = {}
+    await request1CAPIV2.do()
+    for (let conversation of GetConversationList.response.ConversationList){
+        if (conversation.ConversationID == ctx.params.ConversationID){
+            conversationData.ID = conversation.ConversationID
+            conversationData.Subject = conversation.Subject
+            conversationData.Status = conversation.Status
+        }
+    }
+    templateCtx.conversation = conversationData
+    templateCtx.GetEmployeeData = GetEmployeeData.response
+    templateCtx.GetMessageList = GetMessageList.response
+    if (isMobileVersion(ctx)){
+        template = getTemplate(staffTemplate.mobile.conversationDetail)
+    } else {
+        template = getTemplate(staffTemplate.desktop.conversationDetail)
+    }
+    ctx.body = template(ctx.proc(templateCtx, ctx))
+})))
+
 
 // Rating index
 staffRouter.get('/staff/:EmployeeID/rating', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
@@ -616,8 +713,8 @@ staffRouter.post('/staff/message_handler/:EmployeeID', parseFormMultipart, async
         "Role": 2, "Content": ctx.request.body.fields.content, "Salt": salt.toString(),
         "AnswerToMessageID": null,
         "Linked": {
-            "ID": ctx.request.body.fields.DisciplinaryID,
-            "Type": "Disciplinary"},
+            "ID": ctx.request.body.fields.LinkedID,
+            "Type": ctx.request.body.fields.LinkedType},
     })
     request1C.add(SendMessage)
     await request1C.do()
@@ -635,7 +732,8 @@ staffRouter.get('/staff/comments/:EmployeeID/:LinkedType/:LinkedID/:Token/', asy
     templateCtx.GetMessageList = GetMessageList.response
     templateCtx.selfId = ctx.params.EmployeeID
     templateCtx.token = ctx.params.Token
-    templateCtx.DisciplinaryID = ctx.params.LinkedID
+    templateCtx.LinkedType = ctx.params.LinkedType
+    templateCtx.LinkedID = ctx.params.LinkedID
     let template = getTemplate(staffTemplate.oneC.messageList)
     ctx.body = template(ctx.proc(templateCtx, ctx))
 })

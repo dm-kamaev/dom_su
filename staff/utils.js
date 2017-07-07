@@ -83,6 +83,12 @@ const staffDesktopTemplateOpts = {
     depositList: {
         path: 'staff/templates/desktop/depositList.html', name: 'staffDesktopDepositList'
     },
+    conversationList: {
+        path: 'staff/templates/desktop/conversationList.html', name: 'staffDesktopConversationList'
+    },
+    conversationDetail: {
+        path: 'staff/templates/desktop/conversationDetail.html', name: 'staffDesktopConversationDetail'
+    },
     header: {
         path: 'staff/templates/desktop/header.html', name: 'staffDesktopHeader'
     },
@@ -136,6 +142,12 @@ const staffMobileTemplateOpts = {
     },
     depositList: {
         path: 'staff/templates/mobile/depositList.html', name: 'staffMobileDepositList'
+    },
+    conversationList: {
+        path: 'staff/templates/mobile/conversationList.html', name: 'staffMobileConversationList'
+    },
+    conversationDetail: {
+        path: 'staff/templates/mobile/conversationDetail.html', name: 'staffMobileConversationDetail'
     },
 }
 const staffAjaxTemplateOpts = {
@@ -213,8 +225,14 @@ function staffUrl(name) {
             return `/staff/order/${arguments[1]}/`
         case 'orderCard':
             return `/staff/order/${arguments[1]}/card`
+        case 'orderManagement':
+            return `/staff/order/${arguments[1]}/management`
         case 'allOrders':
             return `/staff/all_orders`
+        case 'conversationList':
+            return `/staff/${arguments[1]}/conversations/`
+        case 'conversationDetail':
+            return `/staff/${arguments[1]}/conversations/${arguments[2]}/`
         case 'createMessage':
             return `/staff/message_handler/${arguments[1]}`
         case 'clientPA':

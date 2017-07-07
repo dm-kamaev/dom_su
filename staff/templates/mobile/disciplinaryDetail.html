@@ -103,7 +103,8 @@ div.messages-container form input {
         <form id="message-form" data-ajax="false"  action="{{staffUrl 'createMessage' selfId }}" method="post"
               enctype="multipart/form-data">
             <input class="ui-hidden" name="this_url"  type="hidden" value="{{ currentUrl }}" readonly>
-            <input class="ui-hidden" name="DisciplinaryID"  type="hidden" value="{{ GetDisciplinaryInfo.DisciplinaryID }}" readonly>
+            <input class="ui-hidden" name="LinkedID"  type="hidden" value="{{ GetDisciplinaryInfo.DisciplinaryID }}" readonly>
+            <input class="ui-hidden" name="LinkedType"  type="hidden" value="Disciplinary" readonly>
             <div style="background: none; border: none; padding: 0" class="message">
                 <textarea style="height: 80px; padding: 10px 5px 20px 5px" id="message-textarea" name="content" placeholder="Задать вопрос..."></textarea>
 
@@ -123,6 +124,7 @@ div.messages-container form input {
                         <li><a href="{{staffUrl 'employeeDetail' selfId }}?orders=true">Заказы</a></li>
                         <li><a data-ajax="false" href="{{staffUrl 'rating' selfId }}">Рейтинг</a></li>
                         <li><a href="{{staffUrl 'disciplinaryList' selfId }}" class="ui-btn ui-btn-active">Нарушения</a></li>
+                        <li><a href="{{staffUrl 'conversationList' selfId }}">Обращения</a></li>
                         <li><a href="{{staffUrl 'news' selfId}}" >Новости</a></li>
                         <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li>
                         <li><a data-ajax="false" href="{{staffUrl 'logout' }}">Выйти</a></li>
