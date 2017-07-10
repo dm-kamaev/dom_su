@@ -41,6 +41,20 @@
       </ul>
       <!--/Sub Menu-->
     </li>
+
+    <li class="main-menu__item  main-menu__item--sub {{#if menu.legal}}main-menu__item--active{{/if}}">
+      <a class="main-menu__link">
+        Юридическим лицам
+      </a>
+      <!--Sub Menu-->
+      <ul class="main-menu__list  main-menu__list--sub">
+        <li class="main-menu__item-sub {{#if menu.uborka_ofisov}}main-menu__item-sub--active{{/if}}">
+          <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka_ofisov'}}">
+            Уборка офисов
+          </a>
+        </li>
+      </ul>
+    </li>
     <li class="main-menu__item main-menu__item--sub {{#if menu.main}}main-menu__item--active{{/if}}">
       <a class="main-menu__link">
         О нас

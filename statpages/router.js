@@ -118,6 +118,7 @@ const nnTemplates = {
     'generalnaya_uborka': {name: 'generalnaya_uborka.html', ServiceName: 'Генеральная', data:{ menu:{generalnaya_uborka: true}}},
     'about__': {name: 'about__.html', ServiceName: 'О нас', data:{ menu:{main: true, about: true}}},
     'contacts__': {name: 'contacts__.html', ServiceName: 'Контакты', data:{ menu:{contacts: true}}},
+    'uborka_ofisov': {name: 'uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
     'davay_druzhit__': {name: 'davay_druzhit__.html', ServiceName: 'Давай дружить', data:{ menu:{main: true, davay_druzhit: true}}},
     'mite_okon': {name: 'mite_okon.html', ServiceName: 'Мойка окон', data:{ menu:{physical: true, mite_okon: true}}},
     'posle_remonta': {name: 'posle_remonta.html', ServiceName: 'Уборка после ремонта', data:{ menu:{physical: true, posle_remonta: true}}},
