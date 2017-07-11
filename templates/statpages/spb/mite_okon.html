@@ -36,11 +36,10 @@
   <meta name="msapplication-TileImage" content="/static/pancake/img/mstile-144x144.png?v=1.0">
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.39">
-
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.40">
   <script src="//yastatic.net/share2/share.js" async></script>
-  <base href="" >
-
+  <base href="">
   <script>
     var analyticConf = {
       id: "{{general.analytics.GAUA}}",
@@ -59,7 +58,8 @@
   </script>
 
 </head>
-<body class="page">
+<body class="page  page--ab">
+<!-- Page wrapper -->
 <div class="page__wrap page__wrap--scroll">
   <!-- Page Header -->
   <!-- page-header.html -->
@@ -109,312 +109,473 @@
   </header>
   <!-- /Page Header -->
   <!-- Main Content -->
-  <main class="page__main-content  main-content main-content--vertical">
+  <main class="page__main-content  main-content  main-content--vertical">
     <div class="main-content__wrap">
-      <section class="page__section  section  section--bg-light">
-        <div class="section__wrap">
-          <h1 class="section__title section__title--main title">Мойка окон в квартирах и офисах</h1>
-          <div class="section__description  description">
-            <div class="description__block">
-              <img class="description__image" src="/static/pancake/img/cleaning-window-main.svg" width="auto" height="200">
-            </div>
-            <div class="description__block">
-              <p class="description__text">Мойка окон в квартире посреди мегаполиса — сложная задача. В помощь хозяйкам наш «Домовёнок» придумал отличный способ помыть окна и сберечь при этом время и силы. Сомневаетесь? Вот лишь несколько причин вызвать специалиста и вымыть окна в квартире, офисе или коттедже.
-              </p>
-              <button class="description__button button button--application" type="button" data-name="service-order">Заказать услугу</button>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="page__section  section  section--bg-dark">
-        <div class="section__wrap">
-          <h2 class="section__title title">Что входит в уборку</h2>
-          <div class="service-condition">
-            <div class="service-condition__row service-condition__row--space-between">
-              <div class="service-condition__block">
-                <div class="service-condition__image">
-                  <img height="70" width="70" src="/static/pancake/img/service-inventory.svg">
-                </div>
-                <p class="text text--center">Домовёнок привозит с собой весь необходимый инвентарь для мытья окон, кроме ведра и стремянки.</p>
+      <section class="page__section  section-ab  section-ab--bg-light">
+        <div class="section-ab__wrap">
+          <h1 class="section-ab__title  section-ab__title--main  title">Мойка окон</h1>
+          <p class="section-ab__paragraph  section-ab__paragraph--main  text-ab">Окна – это лицо дома. Если окна грязные, даже ежедневная уборка не сделает квартиру опрятной. «Домовёнок» считает, что хорошую уборку нужно начинать с мойки окон.</p>
+          <div class="service-condition-ab">
+            <div class="service-condition-ab__block">
+              <div class="service-condition-ab__image">
+                <img height="70" width="70" src="/static/pancake/img/service-inventory.svg" alt="Инвентарь">
               </div>
-              <div class="service-condition__block">
-                <div class="service-condition__image">
-                  <img height="70" width="70" src="/static/pancake/img/service-wash-window.svg">
-                </div>
-                <p class="text text--center">Мытьё окон включает в себя мытьё окна с двух сторон, рам, отливов и подоконников.</p>
+              <div class="service-condition-ab__description">
+                <p class="service-condition-ab__text text-ab">Домовёнок привозит весь необходимый инвентарь, кроме ведра и стремянки.</p>
               </div>
-              <div class="service-condition__block">
-                <div class="service-condition__image">
-                  <img height="70" width="70" src="/static/pancake/img/service-wash-finish.svg">
-                </div>
-                <p class="text text--center">Домовёнок подготовит участок к работе, уберёт и поставит всё на места после мытья окон.</p>
+            </div>
+            <div class="service-condition-ab__block">
+              <div class="service-condition-ab__image">
+                <img height="70" width="70" src="/static/pancake/img/service-wash-window.svg" alt="Окно">
+              </div>
+              <div class="service-condition-ab__description">
+                <p class="service-condition-ab__text text-ab">Мытьё окон включает в себя мытьё окна с двух сторон, рам, отливов и подоконников.</p>
+              </div>
+            </div>
+            <div class="service-condition-ab__block">
+              <div class="service-condition-ab__image">
+                <img height="70" width="70" src="/static/pancake/img/service-wash-finish.svg" alt="Окно со шторами">
+              </div>
+              <div class="service-condition-ab__description">
+                <p class="service-condition-ab__text text-ab">Домовёнок подготовит участок к работе, уберёт и поставит всё на места после мытья окон.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <section class="page__section  section  section--bg-light">
-        <div class="section__wrap">
-          <h2 class="section__title  title">Цены на Мытьё окон</h2>
-          <div class="service-cards">
-            <ul class="service-cards__list list">
-              <li class="service-card service-cards__item item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Одна створка<span class="service-card__sign">?<span class="service-card__note">* с форточкой</span></span></p>
-                  <img class="service-card__image" src="/static/pancake/img/service-window-one-wing.svg" width="auto" height="80">
-                </div>
-                <div class="service-card__btn-wrap">
-                  <span class="service-card__price">250</span> руб
-                </div>
-              </li>
-
-              <li class="service-card service-cards__item item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Две створки<span class="service-card__sign">?<span class="service-card__note">* с форточкой</span></span></p>
-                  <img class="service-card__image" src="/static/pancake/img/service-window-two-wings.svg" width="auto" height="80">
-                </div>
-                <div class="service-card__btn-wrap">
-                  <span class="service-card__price">390</span> руб
-                </div>
-              </li>
-
-              <li class="service-card service-cards__item item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Две створки с фрамугой<span class="service-card__sign">?<span class="service-card__note">* с форточкой</span></span></p>
-                  </p>
-                  <img class="service-card__image" src="/static/pancake/img/service-window-two-wings-framuga.svg" width="auto" height="80">
-                </div>
-                <div class="service-card__btn-wrap">
-                  <span class="service-card__price">550</span> руб
-                </div>
-              </li>
-
-              <li class="service-card service-cards__item item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Три створки<span class="service-card__sign">?<span class="service-card__note">* с форточкой</span></span></p>
-                  <img class="service-card__image" src="/static/pancake/img/service-window-three-wings.svg" width="auto" height="80">
-                </div>
-                <div class="service-card__btn-wrap  service-card__btn-wrap--active">
-                  <span class="service-card__price">550</span> руб
-                </div>
-              </li>
-
-            </ul>
-          </div>
-          <div class="service-cards">
-            <ul class="service-cards__list list">
-              <li class="service-card service-cards__item item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Балконная дверь<span class="service-card__sign">?<span class="service-card__note">* стеклянная</span></span></p>
-                  <img class="service-card__image" src="/static/pancake/img/service-balcony-door.svg" width="auto" height="140">
-                </div>
-                <div class="service-card__btn-wrap  service-card__btn-wrap--active">
-                  <span class="service-card__price">250</span> руб
-                </div>
-              </li>
-
-              <li class="service-card service-cards__item item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Балкон по створкам</p>
-                  <img class="service-card__image" src="/static/pancake/img/service-balcony-door-wing.svg" width="auto" height="140">
-                </div>
-
-                <div class="service-card__btn-wrap">
-                  <span class="service-card__price">300</span> руб
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="service-calc__row  service-calc__row--center">
-            <button class="button button--application" type="button" data-name="service-order">Хочу чистые окна!</button>
-          </div>
+      <section class="page__section  section-ab  section-ab--bg-dark">
+        <div class="section-ab__wrap">
+          <h2 class="section-ab__title  title">Как будет выполняться Мытьё окон</h2>
+          <ul class="service-implement-ab list">
+            <li class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text text-ab">При заказе только мытья окон в квартире или офисе минимальная сумма заказа - 1000 руб.</p>
+            </li>
+            <li class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text text-ab">«Домовёнок» отвечает только за людей в спецодежде с логотипом компании.</p>
+            </li>
+            <li class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text text-ab">Мытьё окон относится к опасным работам, с повышенным риском для жизни и здоровья человека! Мытьё окон обязательно выполняется с применением страховочных поясов и телескопических штанг. Если домовёнок пришел без них – сообщите об этом, и мы проведем мытье окон БЕСПЛАТНО!</p>
+            </li>
+          </ul>
         </div>
-        <div class="section__wrap section__wrap--toggle">
-          <a class="section__link heading">Как будет выполняться мытьё окон:<span class="section__sign">Открыть/закрыть</span></a>
-          <div class="section__container">
-            <ul class="service-implement list">
-              <li class="service-implement__item service-implement__item--funds item">
-                <p class="service-implement__text text">Для мытья окон «Домовёнок» предоставляет все необходимое (ручной инвентарь и протирочные материалы, средства для мытья окон, различные расходные материалы) от Вас необходимо предоставить ведро и стремянку(табурет).</p>
+      </section>
+      <section class="page__section  section-ab  section-ab--bg-light" >
+        <div class="section-ab__wrap">
+          <h2 class="section-ab__title  title">Расчёт стоимости уборки</h2>
+          <div class="service-calc  service-calc--new" data-name="washwindow" data-service="washwindow" data-schedule="0x_week">
+            <div class="service-calc__inner">
+              <ul class="service-calc__path list">
+                <li class="service-calc__path-item  service-calc__path-item--arrow  service-calc__path-item--active  item" data-value="1">Шаг 1</li>
+                <li class="service-calc__path-item  service-calc__path-item--arrow  item" data-value="2">Шаг 2</li>
+                <li class="service-calc__path-item  service-calc__path-item--arrow  item" data-value="3">Шаг 3</li>
+                <li class="service-calc__path-item  item" data-value="4">Готово!</li>
+              </ul>
+            </div>
+            <div class="service-calc__container">
+              <div class="service-calc__inner  service-calc__section  service-calc__section--active" data-section="service">
+                <p class="section-ab__heading text-ab">Какие работы необходимо выполнить?</p>
+                <div class="service-calc__row  service-calc__row--service">
+                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="washwindow_1" data-service="washwindow" data-class="window" data-classid="window_1" data-sum="1" data-feature="casement" data-quantity="1" data-price="250" data-features='[{"feature":"side", "quantity":"twoside"},{"feature":"frame", "quantity":"1"}]'>
+                    <div class="service-card-light__wrap">
+                      <img class="service-card-light__image" src="/static/pancake/img/service-window-one-frame.svg" width="50" height="50" alt="Окно">
+                      <p class="service-card-light__text text-ab  text-ab--small">Окно, 1 створка</p>
+                    </div>
+                    <div class="service-counter" data-value="1">
+                      <p class="service-counter__text">Окно, 1 створка</p>
+                      <div class="service-counter__control">
+                        <button class="service-counter__btn  service-counter__btn--minus"></button>
+                        <label class="service-counter__label">
+                          <input class="service-counter__output" min="0" max="99" name="counter" type="number" id="counter" value="1">
+                        </label>
+                        <button class="service-counter__btn  service-counter__btn--plus"></button>
+                      </div>
+                      <p class="service-counter__text">шт</p>
+                    </div>
+                  </div>
+                  <div class="service-calc__item service-cards-ab__item service-card-light item"  data-name="washwindow_2" data-service="washwindow" data-class="window" data-classid="window_2" data-sum="1" data-feature="casement" data-quantity="2" data-price="390" data-features='[{"feature":"side", "quantity":"twoside"},{"feature":"frame", "quantity":"1"}]'>
+                    <div class="service-card-light__wrap">
+                      <img class="service-card-light__image" src="/static/pancake/img/service-window-two-frame.svg" width="50" height="50" alt="Окно">
+                      <p class="service-card-light__text  text-ab  text-ab--small">Окно, 2 створки</p>
+                    </div>
+                    <div class="service-counter" data-value="1">
+                      <p class="service-counter__text">Окно, 2 створки</p>
+                      <div class="service-counter__control">
+                        <button class="service-counter__btn  service-counter__btn--minus"></button>
+                        <label class="service-counter__label">
+                          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                        </label>
+                        <button class="service-counter__btn  service-counter__btn--plus"></button>
+                      </div>
+                      <p class="service-counter__text">шт</p>
+                    </div>
+                  </div>
+                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="washwindow_3" data-service="washwindow" data-class="window" data-classid="window_2_framuga" data-sum="1" data-feature="casement" data-quantity="3" data-price="550" data-features='[{"feature":"side", "quantity":"twoside"},{"feature":"frame", "quantity":"1"}]'>
+                    <div class="service-card-light__wrap">
+                      <img class="service-card-light__image" src="/static/pancake/img/service-window-two-frame--with.svg" width="50" height="50" alt="Окно">
+                      <p class="service-card-light__text  text-ab  text-ab--small">Окно, 2 створки c фрамугой</p>
+                    </div>
+                    <div class="service-counter" data-value="1">
+                      <p class="service-counter__text">Окно, 2 створки c фрамугой</p>
+                      <div class="service-counter__control">
+                        <button class="service-counter__btn  service-counter__btn--minus"></button>
+                        <label class="service-counter__label">
+                          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                        </label>
+                        <button class="service-counter__btn  service-counter__btn--plus"></button>
+                      </div>
+                      <p class="service-counter__text">шт</p>
+                    </div>
+                  </div>
+                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="washwindow_3" data-service="washwindow" data-class="window" data-classid="window_3" data-sum="1" data-feature="casement" data-quantity="3" data-price="550" data-features='[{"feature":"side", "quantity":"twoside"},{"feature":"frame", "quantity":"1"}]'>
+                    <div class="service-card-light__wrap">
+                      <img class="service-card-light__image" src="/static/pancake/img/service-window-three-frame.svg" width="50" height="50" alt="Окно">
+                      <p class="service-card-light__text  text-ab  text-ab--small">Окно, 3 створки</p>
+                    </div>
+                    <div class="service-counter" data-value="1">
+                      <p class="service-counter__text">Окно, 3 створки</p>
+                      <div class="service-counter__control">
+                        <button class="service-counter__btn  service-counter__btn--minus"></button>
+                        <label class="service-counter__label">
+                          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                        </label>
+                        <button class="service-counter__btn  service-counter__btn--plus"></button>
+                      </div>
+                      <p class="service-counter__text">шт</p>
+                    </div>
+                  </div>
+                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="balconydoor" data-service="washwindow" data-class="balconydoor" data-classid="balconydoor" data-sum="1" data-price="250" data-features='[{"feature":"side", "quantity":"twoside"},{"feature":"frame", "quantity":"1"}]'>
+                    <div class="service-card-light__wrap">
+                      <img class="service-card-light__image" src="/static/pancake/img/service-door.svg" width="50" height="50" alt="Балкон">
+                      <p class="service-card-light__text  text-ab  text-ab--small">Балконная дверь</p>
+                    </div>
+                    <div class="service-counter" data-value="1">
+                      <p class="service-counter__text">Балконная дверь</p>
+                      <div class="service-counter__control">
+                        <button class="service-counter__btn  service-counter__btn--minus"></button>
+                        <label class="service-counter__label">
+                          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                        </label>
+                        <button class="service-counter__btn  service-counter__btn--plus"></button>
+                      </div>
+                      <p class="service-counter__text">шт</p>
+                    </div>
+                  </div>
+                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="balcony" data-service="washwindow" data-class="balcony" data-classid="balcony" data-feature="casement" data-quantity="1" data-price="300">
+                    <div class="service-card-light__wrap">
+                      <img class="service-card-light__image" src="/static/pancake/img/service-balcony.svg" width="50" height="50" alt="Балкон">
+                      <p class="service-card-light__text  text-ab  text-ab--small">Балкон по створкам</p>
+                    </div>
+                    <div class="service-counter" data-value="1">
+                      <p class="service-counter__text">Балкон по створкам</p>
+                      <div class="service-counter__control">
+                        <button class="service-counter__btn  service-counter__btn--minus"></button>
+                        <label class="service-counter__label">
+                          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                        </label>
+                        <button class="service-counter__btn  service-counter__btn--plus"></button>
+                      </div>
+                      <p class="service-counter__text">шт</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="service-calc__inner  service-calc__section" data-section="date">
+                <p class="section-ab__heading text-ab">Выберите дату и время уборки:</p>
+                <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_2"}'>
+                  <div class="service-calc-ab__row">
+                    <div class="service-calc__time button-date">
+                      <button class="button-date__btn" data-name="service-calc-calendar"></button>
+                      <div class="button-date__switch">
+                        <span class="button-date__plus">Следующая</span>
+                        <span class="button-date__minus">Предыдущая</span>
+                      </div>
+                    </div>
+                    <div class="service-calc__info">
+                      <div class="service-calc__selection  selection  selection--lg selection--squire selection--grey" data-option="9">
+                        <button class="selection__btn  service-calc__selection-btn" type="button">09:00</button>
+                        <ul class="service-calc__list  selection__list  scroll-container">
+                          <li class="service-calc__option  selection__option" data-option="9">09:00</li>
+                          <li class="service-calc__option  selection__option" data-option="10">10:00</li>
+                          <li class="service-calc__option  selection__option" data-option="11">11:00</li>
+                          <li class="service-calc__option  selection__option" data-option="12">12:00</li>
+                          <li class="service-calc__option  selection__option" data-option="13">13:00</li>
+                          <li class="service-calc__option  selection__option" data-option="14">14:00</li>
+                          <li class="service-calc__option  selection__option" data-option="15">15:00</li>
+                          <li class="service-calc__option  selection__option" data-option="16">16:00</li>
+                          <li class="service-calc__option  selection__option" data-option="17">17:00</li>
+                          <li class="service-calc__option  selection__option" data-option="18">18:00</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="service-calc__inner  service-calc__section" data-section="addition">
+                <p class="section-ab__heading text-ab">Какие дополнительные работы необходимо выполнить?</p>
+                <div class="service-calc__row  service-calc__row--service  service-calc__row--square">
+                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="windowblind" data-service="washwindow" data-class="windowblind" data-classid="windowblind" data-sum="1" data-feature="square" data-quantity="1" data-price="120">
+                    <div class="service-card-light__wrap">
+                      <img class="service-card-light__image" src="/static/pancake/img/service-window-blinds.svg" width="50" height="50" alt="Жалюзи">
+                      <p class="service-card-light__text  text-ab  text-ab--small">Мытьё жалюзи</p>
+                    </div>
+                    <div class="service-counter" data-value="1">
+                      <p class="service-counter__text">Мытьё жалюзи</p>
+                      <div class="service-counter__control">
+                        <button class="service-counter__btn  service-counter__btn--minus"></button>
+                        <label class="service-counter__label">
+                          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                        </label>
+                        <button class="service-counter__btn  service-counter__btn--plus"></button>
+                      </div>
+                      <p class="service-counter__text">м<sup><small>2</small></sup></p>
+                    </div>
+                  </div>
+                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="mosquitonet" data-service="washwindow" data-class="mosquitonet" data-classid="mosquitonet" data-sum="1" data-price="100">
+                    <div class="service-card-light__wrap">
+                      <img class="service-card-light__image" src="/static/pancake/img/service-window-grid.svg" width="50" height="50" alt="Сетка">
+                      <p class="service-card-light__text  text-ab  text-ab--small">Москитная сетка</p>
+                    </div>
+                    <div class="service-counter" data-value="1">
+                      <p class="service-counter__text">Москитная сетка</p>
+                      <div class="service-counter__control">
+                        <button class="service-counter__btn  service-counter__btn--minus"></button>
+                        <label class="service-counter__label">
+                          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                        </label>
+                        <button class="service-counter__btn  service-counter__btn--plus"></button>
+                      </div>
+                      <p class="service-counter__text">шт</p>
+                    </div>
+                  </div>
+                  <div class="service-calc__item service-cards-ab__item service-card-light item" data-name="grate" data-service="washwindow" data-class="grate" data-classid="grate" data-sum="1" data-feature="square" data-quantity="1" data-price="100">
+                    <div class="service-card-light__wrap">
+                      <img class="service-card-light__image" src="/static/pancake/img/service-window-grille.svg" width="50" height="50" alt="Решётка">
+                      <p class="service-card-light__text  text-ab  text-ab--small">Оконные решетки</p>
+                    </div>
+                    <div class="service-counter" data-value="1">
+                      <p class="service-counter__text">Оконные решетки</p>
+                      <div class="service-counter__control">
+                        <button class="service-counter__btn  service-counter__btn--minus"></button>
+                        <label class="service-counter__label">
+                          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                        </label>
+                        <button class="service-counter__btn  service-counter__btn--plus"></button>
+                      </div>
+                      <p class="service-counter__text">м<sup><small>2</small></sup></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="service-calc__inner  service-calc__section" data-section="output">
+                <p class="section-ab__heading text-ab">Информация о Вашем заказе:</p>
+                <div class="service-calc-ab__column">
+                  <div class="service-calc-ab__data service-calc-ab__row" data-field="date">
+                    <p class="service-calc-ab__data-title">Дата:</p>
+                    <p class="service-calc-ab__data-value">25 апреля</p>
+                  </div>
+                  <div class="service-calc-ab__data service-calc-ab__row service-calc-ab__row--mobile"  data-field="service">
+                    <p class="service-calc-ab__data-title">Доп. работы:</p>
+                    <ul class="service-calc-ab__data-value service-calc-ab__data-list list">
+                    </ul>
+                  </div>
+                </div>
+                <div class="service-calc-ab__data" data-field="schedule">
+                  <label class="checkbox-right">
+                    <span class="checkbox-right__text  service-calc-ab__data-title  service-calc-ab__data-title--checkbox">Постоянный клиент:<span class="service-calc__sign  service-calc__sign-popup" data-name="notification">?<span class="service-card__note">Постоянные клиенты - те, кто пользуется услугами нашей компании по уборке своего дома не реже чем 1 раз в 2 недели.</span></span></span>
+                    <input type="checkbox" class="checkbox-right__input  checkbox-right__input--small"  data-name="washwindow" data-service="washwindow" data-schedule="1x_week">
+                    <span class="checkbox-right__indicator checkbox-right__indicator--small"></span>
+                  </label>
+                </div>
+                <div class="service-calc-ab__column">
+                  <div class="service-calc-ab__data  service-calc-ab__row" data-field="price">
+                    <p class="service-calc-ab__data-title">Стоимость:</p>
+                    <p class="service-calc-ab__data-value">0р</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="service-calc__inner  service-calc__control">
+              <button class="service-calc__calc-btn  button  button--square  button--application" type="button" data-name="service-order">Рассчитать по телефону</button>
+              <div class="service-calc__buttons">
+                <button class="service-calc__button  service-calc__button--arrow-previous  button  button--square" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                    <g>
+                      <polyline points="2.5 18.91 9.79 10 2.5 1.09" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><polyline points="10.21 18.91 17.5 10 10.21 1.09" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><rect width="20" height="20" fill="none"/>
+                    </g>
+                  </svg>
+                </button>
+                <button class="service-calc__button  service-calc__button--arrow  button  button--square" type="button">
+                  <span>Следующий шаг</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                    <g>
+                      <polyline points="2.5 18.91 9.79 10 2.5 1.09" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><polyline points="10.21 18.91 17.5 10 10.21 1.09" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><rect width="20" height="20" fill="none"/>
+                    </g>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>     <!-- /Service-calc Wrap -->
+        </div>
+      </section>
+      <section class="page__section  section-ab  section-ab--bg-dark">
+        <div class="section-ab__wrap">
+
+          <h2 class="section-ab__title title">Дополнительные работы</h2>
+          <p class="section-ab__text text-ab text-ab--small ">Добавьте к мытью окон, если нужно</p>
+          <div class="service-cards-ab">
+            <ul class="service-cards-ab__list list">
+              <li class="service-cards-ab__item service-card-light item">
+                <div class="service-card-light__wrap">
+                  <img class="service-card-light__image" src="/static/pancake/img/service-window-siding.svg" width="50" height="50" alt="Сайдинг">
+                  <p class="service-card-light__text  text-ab  text-ab--small">Мытьё сайдинга, облицовочных покрытий</p>
+                </div>
               </li>
-              <li class="service-implement__item service-implement__item--money item">
-                <p class="service-implement__text text">При заказе только мытья окон минимальная сумма заказа - 1000 руб. Цены мытья окон указаны за обработку двух поверхностей (внутренней и внешней) и включают мытьё рам и подоконников оконной конструкции, отлива снаружи. Возможно увеличение стоимости мытья окон при наличии сложных загрязнений: цемент, краска, скотч или трудноотделяемая пленка.</p>
+              <li class="service-cards-ab__item service-card-light item">
+                <div class="service-card-light__wrap">
+                  <img class="service-card-light__image" src="/static/pancake/img/service-window-blinds.svg" width="50" height="50" alt="Жалюзи">
+                  <p class="service-card-light__text  text-ab  text-ab--small">Мытьё жалюзи</p>
+                </div>
               </li>
-              <li class="service-implement__item service-implement__item--man item">
-                <p class="service-implement__text text">Услуга мытьё окон осуществляется одним или двумя домовятами (мужчинами), в зависимости от объема работ. «Домовёнок» несет ответственность только за людей одетых в фирменную спецодежду с логотипом компании.</p>
+              <li class="service-cards-ab__item service-card-light item">
+                <div class="service-card-light__wrap">
+                  <img class="service-card-light__image" src="/static/pancake/img/service-window-grid.svg" width="50" height="50" alt="Москитная сетка">
+                  <p class="service-card-light__text  text-ab  text-ab--small">Москитная сетка</p>
+                </div>
               </li>
-              <li class="service-implement__item service-implement__item--important item">
-                <p class="service-implement__text text">Мытьё окон относится к опасным работам, с повышенным риском для жизни и здоровья человека! Данная работа выполняется специально обученными и подготовленными людьми, с обязательным применением профессионального оборудования. Наличие страховочных поясов и телескопических штанг ОБЯЗАТЕЛЬНО! Клиент, который допускает домовенка к работе без этих инструментов несет ответственность за последствия, т.к. работы проводятся на его территории (объекте).
-              </li>
-              <li class="service-implement__item service-implement__item--important item">
-                <p class="service-implement__text text">«Домовёнок» всегда обеспечивает домовят этими и другими необходимыми инструментами, но не все домовята и не всегда строго соблюдают инструкции по технике безопасности. Если домовенок пришел к Вам проводить работы не подготовленным – сообщите, пожалуйста, об этом нашим менеджерам, в таком случае работы будут перенесены и произведутся для Вас абсолютно <b class="text text--bold text--lg-brown">БЕСПЛАТНО</b>!</p>
-              </li>
-              <li class="service-implement__item service-implement__item--time item">
-                <p class="service-implement__text text">Мойка окон в помещениях площадью от 40 м<sup><small>2</small></sup> до 100 м<sup><small>2</small></sup> занимает от 1-го часа до 4-х часов, в зависимости от объёма работ и сложности остекления.</p>
+              <li class="service-card-light service-cards-ab__item item">
+                <div class="service-card-light__wrap">
+                  <img class="service-card-light__image" src="/static/pancake/img/service-window-grille.svg" width="50" height="50" alt="Решётка">
+                  <p class="service-card-light__text  text-ab  text-ab--small">Оконные решетки</p>
+                </div>
               </li>
             </ul>
           </div>
         </div>
       </section>
-      <section class="page__section  section  section--bg-dark">
-        <div class="section__wrap">
-          <h2 class="section__title  title">Дополнительные работы:</h2>
-          <div class="service-cards">
-            <ul class="service-cards__list list">
-              <li class="service-card service-cards__item item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Мытьё сайдинга, облицовочных покрытий</p>
-                  <img class="service-card__image" src="/static/pancake/img/service-window-siding.svg" width="auto" height="80">
-                </div>
-                <div class="service-card__wrap">
-                  <span class="service-card__mark">1 балкон</span>
-                </div>
-                <div class="service-card__btn-wrap">
-                  <span class="service-card__price">480</span> руб
-                </div>
-              </li>
-              <li class="service-card service-cards__item item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Мытьё жалюзи</p>
-                  <img class="service-card__image" src="/static/pancake/img/service-window-blinds.svg" width="auto" height="80">
-                </div>
-                <div class="service-card__wrap">
-                  <span class="service-card__mark">1 м<sup><small>2</small></sup></span>
-                </div>
-                <div class="service-card__btn-wrap">
-                  <span class="service-card__price">120</span> руб
-                </div>
-              </li>
-              <li class="service-card service-cards__item item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Москитная сетка</p>
-                  <img class="service-card__image" src="/static/pancake/img/service-window-grid.svg" width="auto" height="80">
-                </div>
-                <div class="service-card__wrap">
-                  <span class="service-card__mark">1 шт</span>
-                </div>
-                <div class="service-card__btn-wrap  service-card__btn-wrap--active">
-                  <span class="service-card__price">100</span> руб
-                </div>
-              </li>
-              <li class="service-card service-cards__item item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Оконные решетки</p>
-                  <img class="service-card__image" src="/static/pancake/img/service-window-grille.svg" width="auto" height="80">
-                </div>
-                <div class="service-card__wrap">
-                  <span class="service-card__mark">1 м<sup><small>2</small></sup></span>
-                </div>
-                <div class="service-card__btn-wrap">
-                  <span class="service-card__price">100</span> руб
-                </div>
-              </li>
-              <li class="service-card service-cards__item item">
-                <div class="service-card__wrap">
-                  <p class="service-card__text  text text--center">Нестандартное остекление</p>
-                  <img class="service-card__image" src="/static/pancake/img/service-window-custom.svg" width="auto" height="80">
-                </div>
-                <div class="service-card__wrap">
-                  <span class="service-card__mark">1 м<sup><small>2</small></sup></span>
-                </div>
-                <div class="service-card__btn-wrap">
-                  <span class="service-card__price">180</span> руб
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <section class="page__section  section  section--bg-light">
-        <div class="section__wrap">
-          <p class="section__title  title">Отзывы клиентов</p>
-          <p class="section__text section__text--left text">Мы заботимся о наших Клиентах и верим в свое дело!</p>
+      <section class="page__section  section-ab  section-ab--bg-light">
+        <div class="section-ab__wrap">
+          <p class="section-ab__title  title">Отзывы клиентов</p>
+          <p class="section-ab__text  text-ab">Мы заботимся о наших Клиентах и верим в свое дело!</p>
           <div class="review-section">
-            <div class="review-section__row">
-              <article class="review-section__item review">
-                <p class="review-section__title title">Анна</p>
-                <iframe class="review__video" width="200" height="113" src="https://www.youtube.com/embed/iyu3vYg6yVs?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
-              </article>
-              <article class="review-section__item review">
-                <p class="review-section__title title">Алина</p>
-                <iframe  class="review__video" width="200" height="113" src="https://www.youtube.com/embed/X8hYBcuMqTY?rel=0&start=9" frameborder="0" allowfullscreen></iframe>
-              </article>
-              <article class="review-section__item review">
-                <p class="review-section__title title">Никита</p>
-                <iframe class="review__video" width="200" height="113" src="https://www.youtube.com/embed/Rdgh07XpMPc?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
-              </article>
+            <div class="review-section__row  review-section__row--justify  review-carousel">
+              <div class="review-carousel__wrap">
+                <div class="review-carousel__inner">
+                  <article class="review-ab  review-carousel__item">
+                    <iframe class="review-ab__video" width="200" height="113" src="https://www.youtube.com/embed/iyu3vYg6yVs?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
+                  </article
+                  ><article class="review-ab  review-carousel__item">
+                    <iframe  class="review-ab__video" width="200" height="113" src="https://www.youtube.com/embed/X8hYBcuMqTY?rel=0&start=9" frameborder="0" allowfullscreen></iframe>
+                  </article
+                  ><article class="review-ab  review-carousel__item">
+                  <iframe class="review-ab__video" width="200" height="113" src="https://www.youtube.com/embed/Rdgh07XpMPc?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
+                </article>
+                </div>
+              </div>
+              <button class="review-carousel__button  button" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" stroke="#d3cbbe"><polyline points="2.5 18.91 9.79 10 2.5 1.09" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><polyline points="10.21 18.91 17.5 10 10.21 1.09" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/></svg></button>
             </div>
-          </div>
-          <a class="section__button button" href="{{buildUrl general.city '/otzivi/'}}">Другие отзывы</a>
       
-        </div>
-      </section>
-      <section class="page__section  section  section--bg-dark">
-        <div class="section__wrap">
-          <div class="service-condition__paragraph">
-            <h3 class="service-condition__heading title">Это красиво</h3>
-            <p class="service-condition__text text">Профессиональное мытьё окон — это прозрачные, безупречные стёкла без пыли, пятен, потёков и разводов. Это визитная карточка чистого дома и благополучного офиса! И напротив, если окна покрыты слоем грязи — даже самый дорогой интерьерный дизайн не поможет Вам произвести сногсшибательное впечатление.</p>
-          </div>
-          <div class="service-condition__paragraph">
-            <h3 class="service-condition__heading title">Это делает дом по-настоящему чистым</h3>
-            <p class="service-condition__text text">Можно сделать в доме ремонт, навести идеальный порядок, вычистить каждый уголок... Но ощущение чистоты придёт лишь тогда, когда каждое стёклышко засверкает — а для этого нужна мойка окон в квартире.</p>
-          </div>
-          <div class="service-condition__paragraph">
-            <h3 class="service-condition__heading title">Это естественный свет</h3>
-            <p class="service-condition__text text">Одно чисто вымытое оконное стекло пропускает в помещение 85-87% света. То же стекло, покрытое грязью и пылью, пропускает менее 70% светового потока. Таким образом, два немытых стекла снижают освещённость до 50% — и Ваша светлая комната вдруг становится сумрачной и неприветливой.</p>
-          </div>
-          <div class="service-condition__paragraph">
-            <h3 class="service-condition__heading title">Это экономия средств</h3>
-            <p class="service-condition__text text">Вымыть окна дома ради экономии? Именно так. С грязными окнами нам темно, и мы постоянно включаем свет. А потом оплачиваем огромные счета за электроэнергию! Наши доступные цены на мытьё окон также помогают Вам экономить.</p>
-          </div>
-          <div class="service-condition__paragraph">
-            <h3 class="service-condition__heading title">Это уважение к природе</h3>
-            <p class="service-condition__text text">Мытьё окон полезно не только для Вашего бюджета, но и для планеты — ведь на производство электричества тратятся природные ресурсы.</p>
-          </div>
-          <div class="service-condition__paragraph">
-            <h3 class="service-condition__heading title">Это лучшее самочувствие и настроение</h3>
-            <p class="service-condition__text text"> Хорошее естественное освещение важно не только для планеты и нашего кошелька, но и для самого нашего организма. Наука доказала: дневной свет напрямую влияет на работоспособность, качество сна, настроение, работу наших «внутренних часов». Помыть окна в квартире — значит снизить стресс, которого и так хватает в жизни современного человека.</p>
-          </div>
-          <div class="service-condition__paragraph">
-            <h3 class="service-condition__heading title">Это высокая работоспособность</h3>
-            <p class="service-condition__text text">Точно так же естественный свет благотворно влияет на сотрудников офиса. Исследования показали, что это даже помогает поднять производительность труда.</p>
-          </div>
-          <div class="service-condition__paragraph">
-            <h3 class="service-condition__heading title">И конечно, хороший вид из окна</h3>
-            <p class="service-condition__text text"> Куда бы ни выходили Ваши окна, мойка окна поможет сделать этот вид чуточку лучше. А может, у Вас за окном есть что-то особенно красивое — например, кусты шиповника, изящный клён, красивая беседка? Наши услуги помогут каждый день без помех любоваться милым сердцу зрелищем!</p>
           </div>
         </div>
       </section>
-      <section class="page__section  section  section--bg-light">
-        <div class="section__wrap">
-          <h2 class="section__title  title">А может быть, взять и своими руками вымыть окна в квартире?</h2>
-          <p class="section__paragraph text">Это, конечно же, вариант. Но преимущества работы с нами ясны и прозрачны — так же, как и стёкла, до блеска отдраенные нашими домовятами.</p>
-          <div class="service-condition__paragraph">
-            <h3 class="service-condition__heading title">Безопасность</h3>
-            <p class="service-condition__text text">Мытьё пластиковых окон, как и любых других — работа, связанная с повышенным риском для жизни и здоровья людей: одно неверное движение может привести к травме. Домовята обязательно используют страховочные пояса, телескопические штанги, регулярно проходят инструктаж по технике безопасности.</p>
-          </div>
-          <div class="service-condition__paragraph">
-            <h3 class="service-condition__heading title">Качество</h3>
-            <p class="service-condition__text text">Хозяйки вынуждены тратить массу времени и сил, чтобы полностью удалить все загрязнения и разводы. Помните, сколько раз Вам приходилось отчаянно оттирать стекло газетой? Чтобы забыть об этом, достаточно заказать мойку окон: вооружившись спецоборудованием, опытные клинеры выполнят работу быстрее и качественнее.</p>
-          </div>
-          <div class="service-condition__paragraph">
-            <h3 class="service-condition__heading title">Продолжительность эффекта</h3>
-            <p class="service-condition__text text">Наши профессиональные средства с эффектом антистатика долгое время защищают стёкла от повторных загрязнений, отталкивая частицы пыли и копоти.</p>
-          </div>
-          <div class="service-condition__paragraph">
-            <h3 class="service-condition__heading title">А главное, это недорого</h3>
-            <p class="service-condition__text text">Клининговая компания «Домовёнок» всегда поддерживает доступные цены на все услуги уборки, включая мытьё окон в Санкт-Петербурге.</p>
-          </div>
-          <p class="section__paragraph text">Понадобилось мытьё окон? Время вызывать домовят! Конечная стоимость работ зависит от количества окон и их общей площади в квадратных метрах.
+
+      <section class="page__section  section-ab  section-ab--bg-dark">
+        <div class="section-ab__wrap">
+          <h2 class="section-ab__title title">Профессиональная мойка окон в квартире и офисе</h2>
+          <p class="section-ab__paragraph text-ab">Не стоит экономить</b> на уборке своего дома. Даже самый дорогой, модный интерьер не будет выглядеть привлекательно, если фасад и окна здания покрыты пылью. Услуга «мойка окон в Москве» оказывается квалифицированными специалистами с гарантированно высоким результатом в удобное для заказчика время.</p>
+          <p class="section-ab__paragraph text-ab">Клиентам, которых интересует регулярная <a class="link link--orange" href="{{buildUrl general.city '/davay_druzhit/'}}">уборка по графику</a>, предлагаются выгодные <a class="link link--orange" href="{{buildUrl general.city '/skidki_akcii/'}}">скидки</a> <noindex>на услугу мойки окон</noindex>.</p>
+          <p class="section-ab__paragraph text-ab">Профессиональные услуги и разумная стоимость – визитная карточка компании «Домовёнок». После приезда наших специалистов стекла в Вашей квартире или офисе преобразятся, и Вы в буквальном смысле увидите жизнь в новом свете!
           </p>
-          <p class="section__paragraph text">Получите дополнительную информацию об услугах мойки по телефону <a class="link link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>.
+          <p class="section-ab__paragraph text-ab">Мойка окон в офисе или квартире – это работа, для выполнения которой нужны специальные знания по очистке стеклянных и других поверхностей. С этим видом уборки не справиться без физических усилий и специальных навыков.
+          </p>
+          <p class="section-ab__paragraph text-ab">Мытье окон в Москве требует особой тщательности. В крупных городах смог и пыль постоянно оседают на них, снижая количество солнечного света, попадающего в квартиры. <noindex>Поэтому «Домовёнок» предлагает услугу мытья оконных конструкций профессиональными работниками по разумным ценам</noindex>.
+          </p>
+          <p class="section-ab__paragraph text-ab">Также Вы можете заказать <a class="link link--orange" href="{{buildUrl general.city '/mite_potolkov'}}">Мытьё потолков</a>.</p>
+          <p class="section-ab__paragraph text-ab">Очень востребованное направление деятельности компании «Домовёнок» – профессиональное мытьё окон в квартирах и офисах. Мы готовы работать с любыми загрязнениями на любой высоте. Помимо очистки стёкол в наши услуги входит устранение пыли и грязи с рам, откосов, карнизов.
+          </p>
+          <p class="section-ab__paragraph text-ab">Популярные сегодня пластиковые окна необходимо мыть чаще, чем деревянные – это продлевает срок их службы. Регулярное мытье пластиковых окон в квартире или офисе – залог того, что на пластике и стекле не образуется несмываемый слой пыли, который въедается в рамы.
+          </p>
+          <p class="section-ab__paragraph text-ab">Мойка рам, деревянных и пластиковых окон осуществляется с использованием специальных инструментов: телескопических штанг, стяжек, салфеток с разной пропиткой и т.д. Далеко не в каждой квартире или офисном комплексе есть все эти приспособления. <noindex>Наши специалисты используют для работы свой набор инструментов, что делает мытьё оконных стекол и рам быстрым, эффективным</noindex>.
+          </p>
+          <p class="section-ab__paragraph text-ab">Удалить пыль со стеклянной поверхности – это одно. А вот придать ей сияющий вид, убрать разводы и подтеки – это задача для профессионалов с опытом применения химических моющих веществ. Если для Вас мытье окон – трудо- и времязатратная неприятная процедура, то специалисты «Домовёнка» проведут ее быстро и с блестящим результатом!
+          </p>
+          <p class="section-ab__paragraph text-ab">Почему эта услуга должна проводиться профессионалами? Потому что эта работа – одна из самых травмоопасных. Позаботьтесь о своей безопасности и доверьте мытье окон на высоте специалистам. «Домовёнок» не допускает никаких компромиссов с грязными окнами. Задача наших специалистов – полное устранение пыли. Организации и частные лица, обратившиеся к нам за услугой <noindex>мытья оконных конструкций</noindex>, часто становятся постоянными клиентами, потому что к чистоте, как и ко всему хорошему, быстро привыкаешь.
+          </p>
+          <p class="section-ab__paragraph text-ab">Xотите узнать сколько стоит помыть окна снаружи и внутри в Вашей квартире или офисе? Получите дополнительную информацию об услугах мойки по телефону в Москве <a class="link link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>. Также Вы можете оставить заявку на нашем сайте.
           </p>
         </div>
       </section>
-      <section class="page__section  section  section--bg-dark  section--contact">
-        <div class="section__wrap">
-          <h2 class="section__title  title">Свяжитесь со мной!</h2>
-          <p class="section__text text text--center">Заполните форму заказа и наш менеджер свяжется с Вами в течение 10 минут.</p>
-          <form class="contact-section__form">
+
+      <section class="page__section  section-ab  section-ab--bg-light">
+        <div class="section-ab__wrap">
+          <p class="service-condition-ab__paragraph text-ab">Профессиональное мытьё окон — это прозрачные, безупречные стёкла без пыли, пятен, потёков и разводов. Это визитная карточка чистого дома и благополучного офиса! И напротив, если окна покрыты слоем грязи — даже самый дорогой интерьерный дизайн не поможет Вам произвести сногсшибательное впечатление.</p>
+          <div class="service-condition-ab__paragraph">
+            <h3 class="service-condition-ab__heading title">Это красиво</h3>
+            <p class="service-condition-ab__text text-ab">Мойка окон в квартире посреди мегаполиса — сложная задача. В помощь хозяйкам наш «Домовёнок» придумал отличный способ помыть окна и сберечь при этом время и силы. Сомневаетесь? Вот лишь несколько причин вызвать специалиста и вымыть окна в квартире, офисе или коттедже.</p>
+          </div>
+
+          <div class="service-condition-ab__paragraph">
+            <h3 class="service-condition-ab__heading title">Это делает дом по-настоящему чистым</h3>
+            <p class="service-condition-ab__text text-ab">Можно сделать в доме ремонт, навести идеальный порядок, вычистить каждый уголок... Но ощущение чистоты придёт лишь тогда, когда каждое стёклышко засверкает — а для этого нужна мойка окон в квартире.</p>
+          </div>
+          <div class="service-condition-ab__paragraph">
+            <h3 class="service-condition-ab__heading title">Это естественный свет</h3>
+            <p class="service-condition-ab__text text-ab">Одно чисто вымытое оконное стекло пропускает в помещение 85-87% света. То же стекло, покрытое грязью и пылью, пропускает менее 70% светового потока. Таким образом, два немытых стекла снижают освещённость до 50% — и Ваша светлая комната вдруг становится сумрачной и неприветливой.</p>
+          </div>
+          <div class="service-condition-ab__paragraph">
+            <h3 class="service-condition-ab__heading title">Это экономия средств</h3>
+            <p class="service-condition-ab__text text-ab">Вымыть окна дома ради экономии? Именно так. С грязными окнами нам темно, и мы постоянно включаем свет. А потом оплачиваем огромные счета за электроэнергию! Наши доступные цены на мытьё окон также помогают Вам экономить.</p>
+          </div>
+          <div class="service-condition-ab__paragraph">
+            <h3 class="service-condition-ab__heading title">Это уважение к природе</h3>
+            <p class="service-condition-ab__text text-ab">Мытьё окон полезно не только для Вашего бюджета, но и для планеты — ведь на производство электричества тратятся природные ресурсы.</p>
+          </div>
+          <div class="service-condition-ab__paragraph">
+            <h3 class="service-condition-ab__heading title">Это лучшее самочувствие и настроение</h3>
+            <p class="service-condition-ab__text text-ab"> Хорошее естественное освещение важно не только для планеты и нашего кошелька, но и для самого нашего организма. Наука доказала: дневной свет напрямую влияет на работоспособность, качество сна, настроение, работу наших «внутренних часов». Помыть окна в квартире — значит снизить стресс, которого и так хватает в жизни современного человека.</p>
+          </div>
+          <div class="service-condition-ab__paragraph">
+            <h3 class="service-condition-ab__heading title">Это высокая работоспособность</h3>
+            <p class="service-condition-ab__text text-ab">Точно так же естественный свет благотворно влияет на сотрудников офиса. Исследования показали, что это даже помогает поднять производительность труда.</p>
+          </div>
+          <div class="service-condition-ab__paragraph">
+            <h3 class="service-condition-ab__heading title">И конечно, хороший вид из окна</h3>
+            <p class="service-condition-ab__text text-ab"> Куда бы ни выходили Ваши окна, мойка окна поможет сделать этот вид чуточку лучше. А может, у Вас за окном есть что-то особенно красивое — например, кусты шиповника, изящный клён, красивая беседка? Наши услуги помогут каждый день без помех любоваться милым сердцу зрелищем!</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="page__section  section-ab  section-ab--bg-dark">
+        <div class="section-ab__wrap">
+          <h2 class="section-ab__title title">А может быть, взять и своими руками вымыть окна в квартире?</h2>
+          <p class="service-condition-ab__paragraph text-ab">Это, конечно же, вариант. Но преимущества работы с нами ясны и прозрачны — так же, как и стёкла, до блеска отдраенные нашими домовятами.</p>
+          <div class="service-condition-ab__paragraph text-ab">
+            <h3 class="service-condition-ab__heading title">Безопасность</h3>
+            <p class="service-condition-ab__text text-ab">Мытьё пластиковых окон, как и любых других — работа, связанная с повышенным риском для жизни и здоровья людей: одно неверное движение может привести к травме. Домовята обязательно используют страховочные пояса, телескопические штанги, регулярно проходят инструктаж по технике безопасности.</p>
+          </div>
+          <div class="service-condition-ab__paragraph">
+            <h3 class="service-condition-ab__heading title">Качество</h3>
+            <p class="service-condition-ab__text text-ab">Хозяйки вынуждены тратить массу времени и сил, чтобы полностью удалить все загрязнения и разводы. Помните, сколько раз Вам приходилось отчаянно оттирать стекло газетой? Чтобы забыть об этом, достаточно заказать мойку окон: вооружившись спецоборудованием, опытные клинеры выполнят работу быстрее и качественнее.</p>
+          </div>
+          <div class="service-condition-ab__paragraph">
+            <h3 class="service-condition-ab__heading title">Продолжительность эффекта</h3>
+            <p class="service-condition-ab__text text-ab">Наши профессиональные средства с эффектом антистатика долгое время защищают стёкла от повторных загрязнений, отталкивая частицы пыли и копоти.</p>
+          </div>
+          <div class="service-condition-ab__paragraph">
+            <h3 class="service-condition-ab__heading title">А главное, это недорого</h3>
+            <p class="service-condition-ab__text text-ab">Клининговая компания «Домовёнок» всегда поддерживает доступные цены на все услуги уборки, включая мытьё окон в Санкт-Петербурге.</p>
+          </div>
+          <p class="service-condition-ab__paragraph text-ab">Понадобилось мытьё окон? Время вызывать домовят! Конечная стоимость работ зависит от количества окон и их общей площади в квадратных метрах.
+          </p>
+          <p class="service-condition-ab__paragraph text-ab">Получите дополнительную информацию об услугах мойки по телефону <a class="link link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>.
+          </p>
+        </div>
+      </section>
+
+      <section class="page__section  section-ab  section-ab--bg-light  section-ab--contact">
+        <div class="section-ab__wrap">
+          <h2 class="section-ab__title  title">Свяжитесь со мной!</h2>
+          <p class="section-ab__text text-ab">Заполните форму заказа и наш менеджер свяжется с Вами в течение 10 минут.</p>
+          <form class="contact-section__form--ab  contact-section__form">
             <input class="contact-section__input input" type="text" name="name" placeholder="Имя" required="">
             <input class="contact-section__input input" type="tel" name="tel" placeholder="Телефон" required="">
             <button class="contact-section__button button" type="submit">Отправить</button>
@@ -422,11 +583,11 @@
         </div>
       </section>
       <!-- Page Footer -->
-      <footer class="page-footer">
+      <footer class="page-footer-ab page-footer-ab--bg-dark">
       
-        <div class="page-footer__connection  section  connection">
-          <h2 class="section__title  title">Вы можете написать нам здесь</h2>
-          <div class="connection__wrap">
+        <div class="page-footer-ab__connection  section-ab  connection-ab">
+          <p class="section-ab__title  title">Вы можете написать нам здесь</p>
+          <div class="connection-ab__wrap">
             <a class="connection-ab__item  connection-ab__item--messenger" href="https://m.me/196022577253018" rel="nofollow">
               <svg class="connection-ab__img" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"><g><g><rect width="21" height="21" fill="none"/><path d="M10.5.41C5,.41.5,4.57.5,9.7a9,9,0,0,0,3.71,7.22c0,1.8,0,3.68,0,3.68s2.2-1.34,3.39-2a10.71,10.71,0,0,0,2.93.4c5.52,0,10-4.16,10-9.29S16,.41,10.5.41Zm1.15,12.36L8.85,9.94,4.34,12.47,9.41,6.88l2.8,2.78L17,6.88Z" fill="#fff"/></g></g></svg>
               <span class="connection-ab__name">Messenger</span>
@@ -446,13 +607,13 @@
           </div>
         </div>
       
-        {{templateTag this 'footer/footer-menu.html'}}
+        {{templateTag this 'footer/footer-menu__ab.html'}}
       
         <div class="page-footer-ab__row">
           <div class="page-footer-ab__column">
-            <p class="page-footer__address"><b class="text text--bold text--lg-brown">Адрес:</b><a class="page-footer__link  link" href="{{buildUrl general.city '/contacts/'}}#mymap">Санкт-Петербург, Московский
+            <p class="page-footer-ab__address"><b class="text-ab text-ab--bold text-ab--lg-brown">Адрес:</b><a class="page-footer-ab__link  link" href="{{buildUrl general.city '/contacts/'}}#mymap">Санкт-Петербург, Московский
               проспект 22, БЦ Адмиралтейский, подъезд 3</a></p>
-            <p class="page-footer__tel"><b class="text text--bold text--lg-brown">Телефон:</b><a class="page-footer__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
+            <p class="page-footer-ab__tel"><b class="text-ab text-ab--bold text-ab--lg-brown">Телефон:</b><a class="page-footer-ab__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
             <div class="page-footer-ab__social-links  social-links">
               <a  class="social-link-ab  social-link-ab--grey" href="https://www.facebook.com/uborka.domovenok">
                 <svg  class="social-link-ab__icon  social-link-ab__icon--facebook" width="9.28" height="19.76" viewBox="0 0 9.28 19.76">
@@ -692,6 +853,20 @@
   </div>
   <!-- /Pop up -->
 </div>
+<!-- /Page wrapper -->
+<script id="calendar" type="text/html">
+  {{{{raw}}}}
+  {{#each days}}
+  <a class="calendar__item {{#if active}}calendar__item--active{{/if}} {{#if selected}}calendar__item--selected{{/if}} {{#if inComplete}}calendar__item--incomplete{{/if}}" data-date="{{date}}" data-fulldate="{{fulldate}}">
+    <svg class="calendar__image" width="34" height="34" viewBox="0 0 34 34">
+      <circle class="calendar__circle" cx="17" cy="17" r="15" stroke-width="1"/>
+      <text class="calendar__day" font-size="14" fill="white" font-family="Helvetica Neue" text-anchor="middle" x="17" y="22">{{day}}</text>
+    </svg>
+  </a>
+  {{/each}}
+  {{{{/raw}}}}
+</script>
+<!-- Java Script -->
 <script src="/static/pancake/js/bundle.min.js?v0.44"></script>
 <!-- /Java Script -->
 {{#if general.production}}
