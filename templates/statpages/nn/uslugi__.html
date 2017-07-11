@@ -41,7 +41,7 @@
     <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
     <meta name="theme-color" content="#fd8204">
 
-    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.38">
+    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.39">
 
     <script src="//yastatic.net/share2/share.js" async></script>
     <base href="" >
@@ -148,6 +148,38 @@
                     <p class="text text--center">Генеральная<br>уборка</p>
                   </a>
                 </li>
+                <li class="menu-image__item  menu-image__item--sm  item">
+                  <a href="{{buildUrl general.city '/posle_remonta'}}">
+                    <div class="menu-image__image  menu-image__image--dark  menu-image__image--sm">
+                      <img  width="40" height="40" src="/static/pancake/img/building-tools.svg" alt="Инструменты">
+                    </div>
+                    <p class="text text--center">Уборка<br>после ремонта</p>
+                  </a>
+                </li>
+                <li class="menu-image__item  menu-image__item--sm  item">
+                  <a href="{{buildUrl general.city '/mite_okon'}}">
+                    <div class="menu-image__image  menu-image__image--dark  menu-image__image--sm">
+                      <img width="40" height="40" src="/static/pancake/img/wash-window.svg" alt="Водосгон">
+                    </div>
+                    <p class="text text--center">Мытьё окон</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="page__section  section  section--bg-dark">
+            <div class="section__wrap">
+              <h2 class="section__title  title">Юридическим лицам</h2>
+              <ul class="menu-image list">
+                <li class="menu-image__item  menu-image__item--sm  item">
+                  <a href="{{buildUrl general.city '/uborka_ofisov'}}">
+                    <div class="menu-image__image  menu-image__image--sm">
+                      <img height="40" width="40" src="/static/pancake/img/office-cleaning.svg" alt="Папки">
+                    </div>
+                    <p class="text text--center">Уборка офисов</p>
+                  </a>
+                </li>
               </ul>
             </div>
           </section>
@@ -173,14 +205,23 @@
                 <h3 class="service-condition__heading title" id="supportive"><a class="link" href="{{buildUrl general.city '/podderzhka'}}">Поддерживающая уборка</a></h3>
                 <p class="service-condition__text text">Всё чище и чище, всё уютнее и опрятнее в Вашем доме... Именно такой накопительный эффект даёт регулярная поддерживающая уборка жилых помещений. Вы можете полностью доверить этот вопрос домовятам, и Ваша квартира будет выглядеть безупречно. Практика показывает: много небольших уборок всегда эффективнее, чем одна глобальная!</p>
               </div>
+              <div class="service-condition__paragraph">
+                <h3 class="service-condition__heading title" id="clean-repair"><a class="link" href="{{buildUrl general.city '/posle_remonta'}}">Уборка после ремонта</a></h3>
+                <p class="service-condition__text text">Вот ведь незадача! Столько сил и средств вложено в ремонт — и вот он закончен, а в квартире пыль, грязь и строительный мусор... Хочется хозяйке красотой полюбоваться, дорогих гостей позвать, да нужно брать в руки тряпку, пылесос и делать трудоёмкую, утомительную уборку... Или не нужно? Ведь есть замечательная услуга клининговой компании «Домовёнок» — уборка после ремонта, и доверить её можно опытным специалистам.</p>
+                <p class="service-condition__text text">У домовят в этих делах разговор короткий. Оперативно вычистим строительную пыль, соберём и вынесем мусор, избавимся от пятен краски, следов смесей, скотча... Всё протрём до блеска — и добро пожаловать, хозяева, в Вашу отремонтированную квартиру! А о том, что было здесь сразу после ремонта, можете больше и не вспоминать.</p>
+              </div>
+              <div class="service-condition__paragraph">
+                <h3 class="service-condition__heading title" id="wash-window"><a class="link" href="{{buildUrl general.city '/mite_okon'}}">Мытьё окон</a></h3>
+                <p class="service-condition__text text">Избушка-избушка, повернись ко мне передом! «Не повернусь, – отвечает, – уж больно окна грязны!» С немытыми окнами даже самый опрятный, ухоженный дом будет казаться грязным и неуютным. Не допустим такого непорядка: вымоем до блеска каждое стёклышко, протрём рамы, откосы, карнизы... Ни пылинки не оставим — это наше золотое правило! Недаром же в арсенале домовят есть отличные, экологически чистые моющие средства, удобные стяжки и телескопические штанги для профессиональных клининговых работ.</p>
+              </div>
             </div>
           </section>
 
-          <section class="page__section  section  section--bg-light  section--contact">
+          <section class="page__section  section  section--bg-dark  section--contact">
             <div class="section__wrap">
               <h2 class="section__title  title">Свяжитесь со мной!</h2>
               <p class="section__text text text--center">Заполните форму заказа и наш менеджер свяжется с Вами в течение 10 минут.</p>
-              <form class="contact-section__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "callback"}' ya-reach="callback">
+              <form class="contact-section__form">
                 <input class="contact-section__input input" type="text" name="name" placeholder="Имя" required="">
                 <input class="contact-section__input input" type="tel" name="tel" placeholder="Телефон" required="">
                 <button class="contact-section__button button" type="submit">Отправить</button>
@@ -189,7 +230,8 @@
           </section>
 
           <!-- Page Footer -->
-          <footer class="page-footer  page-footer--bg-dark">
+          <footer class="page-footer">
+          
             <div class="page-footer__connection  section  connection">
               <h2 class="section__title  title">Вы можете написать нам здесь</h2>
               <div class="connection__wrap">
@@ -233,6 +275,7 @@
                     </svg>
                   </a>
                   <a  class="social-link-ab  social-link-ab--grey" href="https://instagram.com/cleaning.domovenok/">
+          
                     <svg class="social-link-ab__icon social-link-ab__icon--instagram" width="20" height="19.81" viewBox="0 0 20 19.81">
                       <g>
                         <rect x="1" y="1" width="18" height="17.81" rx="4" ry="4" style="fill: none;stroke: #fff;stroke-miterlimit: 10;stroke-width: 2px"/>
