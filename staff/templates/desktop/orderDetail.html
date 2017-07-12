@@ -18,7 +18,7 @@
     <script src="/static/js/jquery.cookie.js"></script>
     <script src="/static/js/jquery.maskedinput.min.js"></script>
     <script src="/static/js/nich.js?v=1.026"></script>
-    <script src="/static/js/custom_cookie.js"></script>
+    <script src="/static/js/custom_cookie.js?v=1.01"></script>
 
 
 
@@ -62,6 +62,12 @@
 }
 </style>
 <h1>Заказ №<span class="orange-color">{{GetDepartureData.OrderNumber}}</span></h1>
+
+    {{#if GetDepartureData.Management.Access}}
+    <p>
+        <a class="a-btn" style="font-size: 21px;" onclick="mobile_view_force(true);" href="{{ currentUrl }}">Перейти на мобильную версию для управления заказом</a>
+    </p>
+    {{/if}}
     <p>
         <i>Клиент:</i> <b>
         {{ GetDepartureData.ClientTitle }}

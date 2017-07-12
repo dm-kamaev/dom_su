@@ -173,6 +173,14 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
                     {name: 'Отменить заказ', action: 'CancelOrder'},
                 ]
                 break
+            case 'ОжидаетсяПодтверждениеОтмены':
+                templateCtx.status = 'Ожидается подтверждение отмены'
+                templateCtx.statusColor = 'orange'
+                templateCtx.messageTop = {
+                    color: 'red',
+                    text: 'Вы отправили заявку на отмену заказа, ожидайте звонка для подтверждения'
+                }
+                break
             case 'Выполняется':
                 templateCtx.status = 'Выполняется'
                 templateCtx.statusColor = 'orange'
@@ -193,7 +201,7 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
                         break
                     case 'Отсрочка':
                         templateCtx.status = 'Заказ не оплачен'
-                        templateCtx.statusColor = 'forestgreen'
+                        templateCtx.statusColor = 'red'
                         templateCtx.messageTop = {
                             color: 'forestgreen',
                             text: '*Вы можете покинуть заказ не дожидаясь изменения статуса оплаты'

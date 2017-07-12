@@ -1,6 +1,9 @@
 'use strict';
 
 function isMobileVersion(ctx) {
+    if (ctx.cookies.get('dom_mobile_force')) {
+            return true
+    }
     if (ctx.userAgent.isMobile) {
         if (!ctx.cookies.get('pc_version')) {
             return true
