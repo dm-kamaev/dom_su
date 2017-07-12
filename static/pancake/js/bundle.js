@@ -2314,6 +2314,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Created by Lobova.A on 17.05.2017.
 	 */
@@ -2338,7 +2339,13 @@
 	        this.selectElement = this.element.querySelector('.selection');
 	        this.switchElement = this.element.querySelector('.switch');
 	        this.button = this.element.querySelector('.button');
+	        this.title = this.element.querySelector(".window__promo-text");
 	        this.parentSave = save;
+	        if (this.title) {
+	            if (this.title.classList.contains('window__promo-text--hide')) {
+	                this.title.classList.remove('window__promo-text--hide');
+	            }
+	        }
 	        this.button.addEventListener('click', this.save);
 	        this.select = new Selection(this.selectElement);
 	        this.switch = new switch_square_1.default(this.switchElement);
@@ -2347,10 +2354,12 @@
 	        this.button.removeEventListener('click', this.save);
 	        this.select.remove();
 	        this.switch.remove();
+	        if (this.title) {
+	            this.title.classList.add('window__promo-text--hide');
+	        }
 	    };
 	    return Square;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Square;
 
 
@@ -2490,29 +2499,35 @@
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 18.05.2017.
 	 */
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(17);
 	var switch_1 = __webpack_require__(18);
 	var SwitchSquare = (function (_super) {
 	    __extends(SwitchSquare, _super);
 	    function SwitchSquare(element) {
-	        var _this = this;
-	        _super.call(this, element);
-	        this.changeInput = function (e) {
+	        var _this = _super.call(this, element) || this;
+	        _this.changeInput = function (e) {
 	            e.preventDefault();
 	            utils_1.default._changeInput(e.target);
 	            _this.createChangeEvent();
 	        };
-	        this.input = this.element.querySelector("." + this.className + "__input");
-	        this.input.addEventListener('input', this.changeInput);
+	        _this.input = _this.element.querySelector("." + _this.className + "__input");
+	        _this.input.addEventListener('input', _this.changeInput);
+	        return _this;
 	    }
 	    SwitchSquare.prototype.reset = function () {
 	        if (this.input.parentNode === this.active) {
@@ -2527,7 +2542,6 @@
 	    };
 	    return SwitchSquare;
 	}(switch_1.default));
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = SwitchSquare;
 
 
@@ -2535,10 +2549,11 @@
 /* 17 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 13.04.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils = {
 	    _switchItem: function (container, target) {
 	        while (target !== container) {
@@ -2585,7 +2600,6 @@
 	        }
 	    }
 	};
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = utils;
 
 
@@ -2593,10 +2607,11 @@
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 17.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(17);
 	var analytic = __webpack_require__(19);
 	var Switch = (function () {
@@ -2639,7 +2654,6 @@
 	    };
 	    return Switch;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Switch;
 
 
@@ -2901,10 +2915,11 @@
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 17.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var request = __webpack_require__(8);
 	var priceFormat = __webpack_require__(22);
 	var analytic = __webpack_require__(19);
@@ -2927,11 +2942,17 @@
 	                        if (input.dataset.schedule) {
 	                            _this.param.schedule = input.dataset.schedule;
 	                        }
+	                        if (_this.comment && !_this.comment.classList.contains('window-form__comment--hide')) {
+	                            _this.comment.classList.add('window-form__comment--hide');
+	                        }
 	                        _this.getPrice();
 	                    }
 	                });
 	                if (!checked_1) {
 	                    _this.param = _this.defaultParam;
+	                    if (_this.comment && _this.comment.classList.contains('window-form__comment--hide')) {
+	                        _this.comment.classList.remove('window-form__comment--hide');
+	                    }
 	                    _this.getPrice();
 	                }
 	            }
@@ -2983,8 +3004,10 @@
 	        this.price = this.element.querySelector('.window-form__price-value');
 	        this.service = serviceName;
 	        this.checkboxContainers = [];
-	        this.init(serviceName.dataset.service);
 	        this.getPrice();
+	        this.init(serviceName.dataset.service);
+	        this.form = this.element.querySelector('.window-form');
+	        this.form.classList.add('window-form--sm');
 	        this.button.addEventListener('click', this.save);
 	    }
 	    Price.prototype.init = function (serviceName) {
@@ -2996,6 +3019,11 @@
 	                    this.title.classList.remove('window__promo-text--hide');
 	                }
 	                this.checkboxContainers = Array.prototype.slice.call(this.element.querySelectorAll(".window-form__checkbox[data-name=\"podderzhka\"]"));
+	                this.comment = this.element.querySelector(".window-form__comment[data-name=\"podderzhka\"]");
+	                if (this.comment && this.comment.classList.contains('window-form__comment--hide')) {
+	                    this.getPriceComment(this.comment);
+	                    this.comment.classList.remove('window-form__comment--hide');
+	                }
 	                this.checkboxContainers.forEach(function (item) {
 	                    if (item.classList.contains('window-form__checkbox--hide')) {
 	                        item.classList.remove('window-form__checkbox--hide');
@@ -3010,6 +3038,11 @@
 	                    this.title.classList.remove('window__promo-text--hide');
 	                }
 	                this.checkboxContainers = Array.prototype.slice.call(this.element.querySelectorAll(".window-form__checkbox[data-name=\"light\"]"));
+	                this.comment = this.element.querySelector(".window-form__comment[data-name=\"light\"]");
+	                if (this.comment && this.comment.classList.contains('window-form__comment--hide')) {
+	                    this.getPriceComment(this.comment);
+	                    this.comment.classList.remove('window-form__comment--hide');
+	                }
 	                this.checkboxContainers.forEach(function (item) {
 	                    if (item.classList.contains('window-form__checkbox--hide')) {
 	                        item.classList.remove('window-form__checkbox--hide');
@@ -3024,6 +3057,11 @@
 	                    this.title.classList.remove('window__promo-text--hide');
 	                }
 	                this.checkboxContainers = Array.prototype.slice.call(this.element.querySelectorAll(".window-form__checkbox[data-name=\"general\"]"));
+	                this.comment = this.element.querySelector(".window-form__comment[data-name=\"general\"]");
+	                if (this.comment && this.comment.classList.contains('window-form__comment--hide')) {
+	                    this.getPriceComment(this.comment);
+	                    this.comment.classList.remove('window-form__comment--hide');
+	                }
 	                this.checkboxContainers.forEach(function (item) {
 	                    if (item.classList.contains('window-form__checkbox--hide')) {
 	                        item.classList.remove('window-form__checkbox--hide');
@@ -3038,6 +3076,11 @@
 	                    this.title.classList.remove('window__promo-text--hide');
 	                }
 	                this.checkboxContainers = Array.prototype.slice.call(this.element.querySelectorAll(".window-form__checkbox[data-name=\"posle\"]"));
+	                this.comment = this.element.querySelector(".window-form__comment[data-name=\"posle\"]");
+	                if (this.comment && this.comment.classList.contains('window-form__comment--hide')) {
+	                    this.getPriceComment(this.comment);
+	                    this.comment.classList.remove('window-form__comment--hide');
+	                }
 	                this.checkboxContainers.forEach(function (item) {
 	                    if (item.classList.contains('window-form__checkbox--hide')) {
 	                        item.classList.remove('window-form__checkbox--hide');
@@ -3048,12 +3091,36 @@
 	                break;
 	        }
 	    };
+	    Price.prototype.getPriceComment = function (element) {
+	        if (element) {
+	            this.param = JSON.parse(JSON.stringify(this.defaultParam));
+	            createObject1c(this.param.services, element, element);
+	            if (element.dataset.schedule) {
+	                this.param.schedule = element.dataset.schedule;
+	            }
+	            var data = {
+	                "Method": "Client.CalculateOrder",
+	                "Param": this.param
+	            };
+	            function response(data) {
+	                if (data.Success) {
+	                    var textComment = this.comment.querySelector('.window-form__price-value');
+	                    textComment.innerHTML = priceFormat(data.Data.amountwithdiscount) + " \u0440\u0443\u0431";
+	                }
+	            }
+	            function error() { }
+	            var json = JSON.stringify(data);
+	            var url = "/internalapi";
+	            request.send(url, json, response.bind(this), error.bind(this));
+	        }
+	    };
+	    ;
 	    Price.prototype.changePrice = function (price) {
 	        this.price.innerHTML = priceFormat(price) + " \u0440\u0443\u0431";
 	    };
 	    Price.prototype.remove = function () {
 	        var _this = this;
-	        this.checkboxContainers = Array.prototype.slice.call(this.element.querySelectorAll(".window-form__checkbox[data-name=\"podderzhka\"]"));
+	        this.checkboxContainers = Array.prototype.slice.call(this.element.querySelectorAll(".window-form__checkbox"));
 	        this.checkboxContainers.forEach(function (item) {
 	            if (!item.classList.contains('window-form__checkbox--hide')) {
 	                item.classList.add('window-form__checkbox--hide');
@@ -3062,6 +3129,9 @@
 	            input.checked = false;
 	            input.removeEventListener('click', _this.changeSchedule);
 	        });
+	        if (this.comment && !this.comment.classList.contains('window-form__comment--hide')) {
+	            this.comment.classList.add('window-form__comment--hide');
+	        }
 	        var titles = Array.prototype.slice.call(this.element.querySelectorAll(".window__promo-text"));
 	        if (titles.length) {
 	            titles.forEach(function (item) {
@@ -3070,11 +3140,11 @@
 	                }
 	            });
 	        }
+	        this.form.classList.remove('window-form--sm');
 	        this.button.removeEventListener('click', this.save);
 	    };
 	    return Price;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Price;
 
 
@@ -3096,10 +3166,11 @@
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 16.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var request = __webpack_require__(8);
 	var validate = __webpack_require__(24);
 	var analytic = __webpack_require__(19);
@@ -3169,7 +3240,6 @@
 	    };
 	    return Info;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Info;
 
 
@@ -3429,17 +3499,17 @@
 /* 25 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 22.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	function inputReset(container) {
 	    var elements = Array.prototype.slice.call(container.querySelectorAll('input'));
 	    elements.forEach(function (item) {
 	        item.value = '';
 	    });
 	}
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = inputReset;
 
 
@@ -29667,10 +29737,11 @@
 /* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 20.04.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var button_date_1 = __webpack_require__(205);
 	var selection_1 = __webpack_require__(206);
 	var moment = __webpack_require__(55);
@@ -29762,7 +29833,6 @@
 	    };
 	    return ChangingTime;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ChangingTime;
 
 
@@ -29770,10 +29840,11 @@
 /* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 20.04.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var moment = __webpack_require__(55);
 	__webpack_require__(141);
 	var client = __webpack_require__(9);
@@ -29919,7 +29990,6 @@
 	    };
 	    return ButtonDate;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ButtonDate;
 
 
@@ -29927,21 +29997,28 @@
 /* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 14.03.2017.
 	 */
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var BaseSelection = __webpack_require__(15);
 	var Timing = (function (_super) {
 	    __extends(Timing, _super);
 	    function Timing(element) {
-	        _super.call(this, element);
-	        this.isSelected = false;
+	        var _this = _super.call(this, element) || this;
+	        _this.isSelected = false;
+	        return _this;
 	    }
 	    Timing.prototype.select = function (e) {
 	        _super.prototype.select.call(this, e);
@@ -29976,7 +30053,6 @@
 	    };
 	    return Timing;
 	}(BaseSelection));
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Timing;
 
 
@@ -29984,10 +30060,10 @@
 /* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 20.04.2017.
 	 */
-	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils = __webpack_require__(198);
 	var counter_1 = __webpack_require__(193);
@@ -29998,7 +30074,7 @@
 	            e.preventDefault();
 	            var exist = false;
 	            var target = e.target;
-	            while (target != _this.container) {
+	            while (target !== _this.container) {
 	                if (target.classList.contains('service-calc__item')) {
 	                    if (_this.dataActiveService.length > 0) {
 	                        _this.dataActiveService.forEach(function (item, i) {
@@ -30040,10 +30116,20 @@
 	            var counter = e.currentTarget.querySelector('.service-counter');
 	            if (counter.dataset.value) {
 	                if (e.currentTarget.dataset.sum) {
-	                    e.currentTarget.dataset.sum = counter.dataset.value;
+	                    if (counter.dataset.value > 0) {
+	                        e.currentTarget.dataset.sum = counter.dataset.value;
+	                    }
+	                    else {
+	                        e.currentTarget.dataset.sum = 1;
+	                    }
 	                }
 	                else {
-	                    e.currentTarget.dataset.quantity = counter.dataset.value;
+	                    if (counter.dataset.value > 0) {
+	                        e.currentTarget.dataset.quantity = counter.dataset.value;
+	                    }
+	                    else {
+	                        e.currentTarget.dataset.quantity = 1;
+	                    }
 	                }
 	            }
 	            else {

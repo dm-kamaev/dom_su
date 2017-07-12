@@ -39,7 +39,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
-  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.31">
+  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.41">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -88,202 +88,7 @@
         </svg>
       </a>
       <!--Main Menu-->
-      <nav class="page-header__main-menu  main-menu  scroll-container">
-        <ul class="main-menu__list">
-          <li class="main-menu__item">
-            <a class="main-menu__link"  href="{{buildUrl general.city '/private/auth'}}">
-              Личный кабинет
-            </a>
-          </li>
-          <li class="main-menu__item {{#if menu.podderzhka}}main-menu__item--active{{/if}}">
-            <a class="main-menu__link"  href="{{buildUrl general.city '/podderzhka'}}">
-              Поддерживающая уборка
-            </a>
-          </li>
-          <li class="main-menu__item {{#if menu.generalnaya_uborka}}main-menu__item--active{{/if}}">
-            <a class="main-menu__link"  href="{{buildUrl general.city '/generalnaya_uborka'}}">
-              Генеральная уборка
-            </a>
-          </li>
-          <li class="main-menu__item {{#if menu.mite_okon}}main-menu__item--active{{/if}}">
-            <a class="main-menu__link"  href="{{buildUrl general.city '/mite_okon'}}">
-              Мытьё окон
-            </a>
-          </li>
-          <li class="main-menu__item  main-menu__item--sub {{#if menu.physical}}main-menu__item--active{{/if}}">
-            <a class="main-menu__link">
-              Физическим лицам
-            </a>
-            <!--Sub Menu-->
-            <ul class="main-menu__list  main-menu__list--sub">
-              <li class="main-menu__item-sub {{#if menu.domrabotnica}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/domrabotnica'}}">
-                  Домработница
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.glazhka}}main-menu__item-sub--active{{/if}}" >
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/glazhka'}}">
-                  Глажка
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.posle_remonta}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/posle_remonta'}}">
-                  Уборка после ремонта
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.uborka_kottedzhej}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka-kottedzhej'}}">
-                  Уборка коттеджей
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.himchistka_odezhdy}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/himchistka_odezhdy'}}">
-                  Химчистка
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.himchistka}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/himchistka'}}">
-                  Химчистка мебели
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.vizov_mastera_na_dom}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
-                  Домашний мастер
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.obrabotka_poverhnostey}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
-                  Обработка поверхностей
-                </a>
-              </li>
-            </ul>
-            <!--/Sub Menu-->
-          </li>
-          <li class="main-menu__item  main-menu__item--sub {{#if menu.legal}}main-menu__item--active{{/if}}">
-            <a class="main-menu__link">
-              Юридическим лицам
-            </a>
-            <!--Sub Menu-->
-            <ul class="main-menu__list  main-menu__list--sub">
-              <li class="main-menu__item-sub {{#if menu.uborka_ofisov}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka_ofisov'}}">
-                  Уборка офисов
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.uborka_proizvodstvennyh_pomewenij}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/uborka-proizvodstvennyh-pomewenij'}}">
-                  Уборка производственных помещений
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.ofisnyy_master}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/ofisnyy-master'}}">
-                  Офисный мастер
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.mite_stekol}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/mite_stekol'}}">
-                  Мытьё стекол
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.myte_fasadov}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/myte-fasadov'}}">
-                  Мытьё фасадов
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.promyshlennyj_alpinizm}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/promyshlennyj-alpinizm'}}">
-                  Промышленный альпинизм
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.obrabotka_poverhnostey}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
-                  Обработка поверхностей
-                </a>
-              </li>
-            </ul>
-            <!--/Sub Menu-->
-          </li>
-          <li class="main-menu__item main-menu__item--sub {{#if menu.main}}main-menu__item--active{{/if}}">
-            <a class="main-menu__link">
-              О нас
-            </a>
-            <!--Sub Menu-->
-            <ul class="main-menu__list  main-menu__list--sub">
-              <li class="main-menu__item-sub {{#if menu.index}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/'}}">
-                  Главная
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.about}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/about/'}}">
-                  О компании
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.uslugi}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/uslugi/'}}">
-                  Услуги
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.price}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/price/'}}">
-                  Цены
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.vazhno_znat}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/vazhno_znat/'}}">
-                  Важно знать
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.faq}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/faq/'}}">
-                  Вопросы и ответы
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.reviews}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/otzivi/'}}">
-                  Отзывы
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.news}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/news/'}}">
-                  Новости
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.articles}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/articles/'}}">
-                  Статьи
-                </a>
-              </li>
-              <li class="main-menu__item-sub">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/gallery/'}}">
-                  Галерея
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.skidki_akcii}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/skidki_akcii/'}}">
-                  Специальные акции
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.vakansii}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/vakansii/'}}">
-                  Вакансии
-                </a>
-              </li>
-              <li class="main-menu__item-sub {{#if menu.davay_druzhit}}main-menu__item-sub--active{{/if}}">
-                <a class="main-menu__link-sub" href="{{buildUrl general.city '/davay_druzhit/'}}">
-                  Обслуживание по графику
-                </a>
-              </li>
-            </ul>
-            <!--/Sub Menu-->
-          </li>
-          <li class="main-menu__item {{#if menu.contacts}}main-menu__item--active{{/if}}">
-            <a class="main-menu__link"  href="{{buildUrl general.city '/contacts/'}}">
-              Контакты
-            </a>
-          </li>
-        </ul>
-      </nav>
+      {{templateTag this 'menu/main-menu__new.html'}}
       <!--/Main Menu-->
       <!--
       <div class="page-header__contact  contact">
@@ -299,6 +104,9 @@
           <li class="change-town__item {{#ifCond general.city.keyword '==' 'spb' }}change-town__item--active{{/ifCond}} item">
             <a class="change-town__link link" href="{{buildUrl 'spb' general.path}}">Санкт-Петербург</a>
           </li>
+          <li class="change-town__item {{#ifCond general.city.keyword '==' 'nn' }}change-town__item--active{{/ifCond}} item">
+            <a class="change-town__link link" href="{{buildUrl 'nn' general.path}}">Нижний Новгород</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -313,8 +121,8 @@
           <p class="window__title  title"><span class="window__title-bold">Надёжная помощь</span><br>в домашних делах</p>
           <div class="window__forms">
             <!-- The first window -->
-            <div class="window__section  window__section--active" data-section="squire" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "landingFormPrice"}'>
-
+            <div class="window__section  window__section--active" data-section="squire" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "landingFormPrice"}'>
+              <a href="{{buildUrl general.city '/private/auth'}}" class="window__promo-text window__promo-text--link" data-name="general">Уже заказывали? Закажите снова в пару кликов</a>
               <!-- Row -->
               <form class="window__form window-form">
                 <div class="window-form__row">
@@ -361,7 +169,7 @@
             <!-- /The first window -->
 
             <!-- The second window -->
-            <div  class="window__section" data-section="price" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "landingFormContact"}'>
+            <div  class="window__section" data-section="price" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "landingFormContact"}'>
 
               <p class="window__promo-text window__promo-text--hide" data-name="general"><span class="window__promo-text-bold">Скидка до 35%</span><br>для постоянных клиентов</p>
               <p class="window__promo-text window__promo-text--hide" data-name="posle"><span class="window__promo-text-bold">Скидка 15%</span><br>на уборку без мебели</p>
@@ -369,31 +177,38 @@
               <form class="window__form window-form window-form--white">
                 <div class="window-form__row window-form__row--bg">
                   <div class="window-form__checkboxs">
-                    <label class="window-form__checkbox window-form__checkbox--hide checkbox checkbox--lg checkbox--light-grey" data-name="general">
+                    <label class="window-form__checkbox window-form__checkbox--hide checkbox checkbox--lg checkbox--dark-grey" data-name="general">
                       <input type="checkbox" class="checkbox__input  checkbox__input"   data-name="general" data-service="general" data-class="space" data-schedule="1x_week">
                       <span class="checkbox__indicator checkbox__indicator"></span>
                       <span class="checkbox__text">Постоянный клиент</span>
                     </label>
 
-                    <label class="window-form__checkbox window-form__checkbox--hide checkbox checkbox--lg checkbox--light-grey" data-name="podderzhka">
+                    <label class="window-form__checkbox window-form__checkbox--hide checkbox checkbox--lg checkbox--dark-grey" data-name="podderzhka">
                       <input type="checkbox" class="checkbox__input  checkbox__input" data-name="podderzhka" data-service="podderzhka" data-class="space" data-schedule="1x_week">
                       <span class="checkbox__indicator checkbox__indicator"></span>
                       <span class="checkbox__text">Раз в неделю</span>
                     </label>
 
-                    <label class="window-form__checkbox window-form__checkbox--hide checkbox checkbox--lg checkbox--light-grey" data-name="podderzhka">
+                    <label class="window-form__checkbox window-form__checkbox--hide checkbox checkbox--lg checkbox--dark-grey" data-name="podderzhka">
                       <input type="checkbox" class="checkbox__input  checkbox__input" data-name="podderzhka" data-service="podderzhka" data-class="space" data-schedule="2x_week">
                       <span class="checkbox__indicator checkbox__indicator"></span>
                       <span class="checkbox__text">Раз в 2 недели</span>
                     </label>
 
-                    <label class="window-form__checkbox window-form__checkbox--hide checkbox checkbox--lg checkbox--light-grey" data-name="posle">
+                    <label class="window-form__checkbox window-form__checkbox--hide checkbox checkbox--lg checkbox--dark-grey" data-name="posle">
                       <input type="checkbox" class="checkbox__input  checkbox__input" data-name="posle" data-service="posle" data-class="space" data-feature="furniture" data-quantity="without">
                       <span class="checkbox__indicator checkbox__indicator"></span>
                       <span class="checkbox__text">Без мебели</span>
                     </label>
                   </div>
-                  <p class="window-form__price">Цена заказа:  <span class="window-form__price-value">2 000 руб</span></p>
+                  <div class="window-form__price-block">
+                    <p class="window-form__price">Цена заказа:  <span class="window-form__price-value"></span></p>
+                    <div class="window-form__comments">
+                      <div class="window-form__comment window-form__comment--hide" data-name="general" data-service="general" data-class="space" data-schedule="1x_week"><span class="window-form__price-value"></span> для постоянного клиента</div>
+                      <div class="window-form__comment window-form__comment--hide" data-name="posle" data-service="posle" data-class="space" data-feature="furniture" data-quantity="without"><span class="window-form__price-value"></span> при уборке без мебели</div>
+                      <div class="window-form__comment window-form__comment--hide" data-name="podderzhka" data-service="podderzhka" data-class="space" data-schedule="1x_week"><span class="window-form__price-value"></span> при уборке раз в неделю</div>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="window-form__row  window-form__row--center">
@@ -406,7 +221,7 @@
             <!-- /The second window -->
 
             <!-- The fourth window -->
-            <div  class="window__section" data-section="info" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "landingFormSuccess"}'>
+            <div  class="window__section" data-section="info" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "landingFormSuccess"}'>
 
               <!-- Row -->
               <form class="window__form window-form">
@@ -463,45 +278,45 @@
                   <p class="service-menu__item-name">Поддерживающая <br class="text  text--tablet">уборка</p>
                 </a
                 ><a class="service-menu__item" href="{{buildUrl general.city '/generalnaya_uborka'}}">
-                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M40.92,11.09v-3a.19.19,0,0,1,.19-.19h4.06a.19.19,0,0,1,.19.19v3Z" fill="#fff"/><path d="M44.87,8.42v2.17H41.42V8.42h3.45m.31-1H41.11a.69.69,0,0,0-.69.69v3.47h5.45V8.12a.69.69,0,0,0-.69-.69Z" fill="#fd8204"/><path d="M29.85,51.32a3,3,0,0,1-3-3v-21c0-.86.33-2.1,3.21-3,9.09-2.83,10.75-8.84,11.05-10.94H45v35a3,3,0,0,1-3,3Z" fill="#fff"/><path d="M44.17,14.23V48.36a2.11,2.11,0,0,1-2.11,2.11H29.85a2.11,2.11,0,0,1-2.11-2.11v-21c0-.38,0-1.37,2.62-2.19C39,22.44,41.26,17,41.86,14.23h2.3m1.69-1.7H40.39a1.08,1.08,0,0,0,0,.11s-.11,7.62-10.53,10.86c-2,.63-3.81,1.71-3.81,3.81v21a3.81,3.81,0,0,0,3.81,3.81h12.2a3.81,3.81,0,0,0,3.81-3.81V12.64a.93.93,0,0,0,0-.11Z" fill="#fd8204"/><rect x="9.96" y="12.64" width="3.19" height="2.8" rx="0.44" ry="0.44" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M30.36,34.07a9.18,9.18,0,1,0-18.36,0s0,0,0,.06,0,0,0,.06V49.3a3.81,3.81,0,0,0,3.81,3.81H26.55a3.81,3.81,0,0,0,3.81-3.81V34.19s0,0,0-.06S30.36,34.09,30.36,34.07Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10" stroke-width="1.7"/><path d="M25.15,12.53H12.91a.92.92,0,0,0-.92.92V15.6a.92.92,0,0,0,.92.92h4.64l1.74,5.13h3.77V16.51h2.09a.92.92,0,0,0,.92-.92V13.44A.92.92,0,0,0,25.15,12.53Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M23.09,21.37H19.27a.65.65,0,0,0-.65.65v3.26h5.12V22A.65.65,0,0,0,23.09,21.37Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M15,16.51a7,7,0,0,1-2.3,5.75,22.73,22.73,0,0,1-3,2.13l.47.5A13.22,13.22,0,0,0,15.3,22c2.74-2.74,2.25-5.47,2.25-5.47Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M60.78,31.5c-.44-5.84-4.5-10.42-9.44-10.42s-9,4.58-9.44,10.42a1.52,1.52,0,0,0,0,.35v19.3A1.55,1.55,0,0,0,43.4,52.7H59.27a1.55,1.55,0,0,0,1.55-1.55V31.85A1.59,1.59,0,0,0,60.78,31.5Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10" stroke-width="1.7"/><path d="M54.36,17.86h-6a.56.56,0,0,0-.56.56v2.82h7.16V18.42A.56.56,0,0,0,54.36,17.86Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M10.23,44.71,13.12,63a3.56,3.56,0,0,0,3.56,3.56H57.32A3.56,3.56,0,0,0,60.88,63l2.88-18.3Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><rect x="6.51" y="39.43" width="60.98" height="5.28" rx="1.22" ry="1.22" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M31.26,39.43,26.8,44.34s0,3.95-.88,5.74c-.52,1.07-2.69,6.18-4.76,5.08-1.14-.6,1.34-5.58,1.34-5.58l-7.18,7.05a1.45,1.45,0,0,1-2.06-2.06l-1.19,1.19A1.46,1.46,0,0,1,10,53.71l1-1a1.45,1.45,0,0,1-1.8-2.26l2.11-2.11a1.46,1.46,0,0,1-2.06-2.06L15.58,40c2-2,1.42-1.43,1.42-1.43a27.15,27.15,0,0,1,7.94-.7C29.79,38.21,31.26,39.43,31.26,39.43Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" fill-rule="evenodd"/><line x1="13.29" y1="54.54" x2="17.63" y2="50.21" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="10.97" y1="52.75" x2="15.88" y2="47.84" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="11.37" y1="48.29" x2="14.07" y2="45.6" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="22" y1="50.08" x2="23.73" y2="48.35" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><path d="M29,38.62,29,40.5s-2.69,2.89-3.29,4.78c-.36,1.13-2.31,6.3-.09,6.85,1.21.3,2.85-5,2.85-5l.28,9.89a1.37,1.37,0,0,0,1.45,1.35,1.49,1.49,0,0,0,1.4-1.51l0,1.66a1.37,1.37,0,0,0,1.45,1.35,1.49,1.49,0,0,0,1.4-1.51l0-1.34a1.37,1.37,0,0,0,1.41,1,1.49,1.49,0,0,0,1.4-1.51l-.06-2.93A1.37,1.37,0,0,0,38.67,55a1.49,1.49,0,0,0,1.4-1.51l-.17-8.83c-.05-2.73,0-6.18,0-6.18a21.44,21.44,0,0,0-5.2-.39A28.43,28.43,0,0,0,29,38.62Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" fill-rule="evenodd"/><line x1="31.59" y1="56.86" x2="31.48" y2="50.83" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="34.46" y1="57.06" x2="34.33" y2="50.25" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="37.21" y1="53.54" x2="37.14" y2="49.79" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="28.48" y1="47.86" x2="28.43" y2="45.45" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <p class="service-menu__item-name">Генеральная<br class="text  text--tablet">уборка</p>
-                </a
-                ><a class="service-menu__item" href="{{buildUrl general.city '/mite_okon'}}">
+                <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M40.92,11.09v-3a.19.19,0,0,1,.19-.19h4.06a.19.19,0,0,1,.19.19v3Z" fill="#fff"/><path d="M44.87,8.42v2.17H41.42V8.42h3.45m.31-1H41.11a.69.69,0,0,0-.69.69v3.47h5.45V8.12a.69.69,0,0,0-.69-.69Z" fill="#fd8204"/><path d="M29.85,51.32a3,3,0,0,1-3-3v-21c0-.86.33-2.1,3.21-3,9.09-2.83,10.75-8.84,11.05-10.94H45v35a3,3,0,0,1-3,3Z" fill="#fff"/><path d="M44.17,14.23V48.36a2.11,2.11,0,0,1-2.11,2.11H29.85a2.11,2.11,0,0,1-2.11-2.11v-21c0-.38,0-1.37,2.62-2.19C39,22.44,41.26,17,41.86,14.23h2.3m1.69-1.7H40.39a1.08,1.08,0,0,0,0,.11s-.11,7.62-10.53,10.86c-2,.63-3.81,1.71-3.81,3.81v21a3.81,3.81,0,0,0,3.81,3.81h12.2a3.81,3.81,0,0,0,3.81-3.81V12.64a.93.93,0,0,0,0-.11Z" fill="#fd8204"/><rect x="9.96" y="12.64" width="3.19" height="2.8" rx="0.44" ry="0.44" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M30.36,34.07a9.18,9.18,0,1,0-18.36,0s0,0,0,.06,0,0,0,.06V49.3a3.81,3.81,0,0,0,3.81,3.81H26.55a3.81,3.81,0,0,0,3.81-3.81V34.19s0,0,0-.06S30.36,34.09,30.36,34.07Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10" stroke-width="1.7"/><path d="M25.15,12.53H12.91a.92.92,0,0,0-.92.92V15.6a.92.92,0,0,0,.92.92h4.64l1.74,5.13h3.77V16.51h2.09a.92.92,0,0,0,.92-.92V13.44A.92.92,0,0,0,25.15,12.53Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M23.09,21.37H19.27a.65.65,0,0,0-.65.65v3.26h5.12V22A.65.65,0,0,0,23.09,21.37Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M15,16.51a7,7,0,0,1-2.3,5.75,22.73,22.73,0,0,1-3,2.13l.47.5A13.22,13.22,0,0,0,15.3,22c2.74-2.74,2.25-5.47,2.25-5.47Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M60.78,31.5c-.44-5.84-4.5-10.42-9.44-10.42s-9,4.58-9.44,10.42a1.52,1.52,0,0,0,0,.35v19.3A1.55,1.55,0,0,0,43.4,52.7H59.27a1.55,1.55,0,0,0,1.55-1.55V31.85A1.59,1.59,0,0,0,60.78,31.5Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10" stroke-width="1.7"/><path d="M54.36,17.86h-6a.56.56,0,0,0-.56.56v2.82h7.16V18.42A.56.56,0,0,0,54.36,17.86Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M10.23,44.71,13.12,63a3.56,3.56,0,0,0,3.56,3.56H57.32A3.56,3.56,0,0,0,60.88,63l2.88-18.3Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><rect x="6.51" y="39.43" width="60.98" height="5.28" rx="1.22" ry="1.22" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M31.26,39.43,26.8,44.34s0,3.95-.88,5.74c-.52,1.07-2.69,6.18-4.76,5.08-1.14-.6,1.34-5.58,1.34-5.58l-7.18,7.05a1.45,1.45,0,0,1-2.06-2.06l-1.19,1.19A1.46,1.46,0,0,1,10,53.71l1-1a1.45,1.45,0,0,1-1.8-2.26l2.11-2.11a1.46,1.46,0,0,1-2.06-2.06L15.58,40c2-2,1.42-1.43,1.42-1.43a27.15,27.15,0,0,1,7.94-.7C29.79,38.21,31.26,39.43,31.26,39.43Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" fill-rule="evenodd"/><line x1="13.29" y1="54.54" x2="17.63" y2="50.21" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="10.97" y1="52.75" x2="15.88" y2="47.84" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="11.37" y1="48.29" x2="14.07" y2="45.6" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="22" y1="50.08" x2="23.73" y2="48.35" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><path d="M29,38.62,29,40.5s-2.69,2.89-3.29,4.78c-.36,1.13-2.31,6.3-.09,6.85,1.21.3,2.85-5,2.85-5l.28,9.89a1.37,1.37,0,0,0,1.45,1.35,1.49,1.49,0,0,0,1.4-1.51l0,1.66a1.37,1.37,0,0,0,1.45,1.35,1.49,1.49,0,0,0,1.4-1.51l0-1.34a1.37,1.37,0,0,0,1.41,1,1.49,1.49,0,0,0,1.4-1.51l-.06-2.93A1.37,1.37,0,0,0,38.67,55a1.49,1.49,0,0,0,1.4-1.51l-.17-8.83c-.05-2.73,0-6.18,0-6.18a21.44,21.44,0,0,0-5.2-.39A28.43,28.43,0,0,0,29,38.62Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" fill-rule="evenodd"/><line x1="31.59" y1="56.86" x2="31.48" y2="50.83" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="34.46" y1="57.06" x2="34.33" y2="50.25" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="37.21" y1="53.54" x2="37.14" y2="49.79" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="28.48" y1="47.86" x2="28.43" y2="45.45" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <p class="service-menu__item-name">Генеральная<br class="text  text--tablet">уборка</p>
+              </a>
+                <a class="service-menu__item" href="{{buildUrl general.city '/mite_okon'}}">
                   <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M44.88,69.06a17.23,17.23,0,0,1-5.62-3.94,11.47,11.47,0,0,1-3.1-4.78l.81-.78,9.09,8.18Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10" stroke-width="0.75"/><path d="M45.18,68.89s3.07-4.3,4.8-4.64a18,18,0,0,0,8.16-4.38l2.14-2.14,1.56-1.56,2-2a1.84,1.84,0,0,0,0-2.59l-.29-.29a1.83,1.83,0,0,0-2.59,0L62.27,50a2.12,2.12,0,0,0,0-3l-.33-.33a2.12,2.12,0,0,0-3,0l.26-.26a2.12,2.12,0,0,0,0-3l-.33-.33a2.12,2.12,0,0,0-3,0l-.93.93a2.25,2.25,0,0,0,.17-3.17l-.33-.33a2.25,2.25,0,0,0-3.17.17L49,43.3l-2,2-.18.18v-.23c0-.05,0-.1,0-.16l-.48.49-2.9-2.9a2.68,2.68,0,0,0-2,2.58L41,55.66,36.4,60.11" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" fill-rule="evenodd"/><path d="M9.59,29.24q1.56,1.46,3.09,2.95l3.07,3,6.06,6h-.76l11.81-12,12-11.8v.77l-6.13-6.58c-1-1.09-2-2.22-3-3.33s-2-2.22-3-3.35Q34.31,6.46,35.93,8c1.08,1,2.18,2.06,3.25,3.11l6.42,6.29a.54.54,0,0,1,0,.76h0L33.78,30.14l-12,11.79h0a.52.52,0,0,1-.73,0h0l-5.78-6.29-2.85-3.18Q11,30.85,9.59,29.24Z" fill="#fd8204"/><line x1="48.45" y1="43.82" x2="44.19" y2="48.07" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M36.67,41a5.62,5.62,0,0,0,6.25,1.16l3.38,3.38,2.88-2.88L45.8,39.28A5.62,5.62,0,0,0,44.64,33" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" fill-rule="evenodd"/><path d="M25,44.67,27.35,47a2.35,2.35,0,0,0,3.33,0l20-20a2.35,2.35,0,0,0,0-3.33l-2.31-2.32" fill="none" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7" fill-rule="evenodd"/><polygon points="17.95 20.68 20.8 22.53 23.65 20.68 21.8 23.53 23.65 26.38 20.8 24.53 17.95 26.38 19.8 23.53 17.95 20.68" fill="#fd8204"/><polygon points="17.95 7.08 20.8 8.92 23.65 7.08 21.8 9.93 23.65 12.78 20.8 10.93 17.95 12.78 19.8 9.93 17.95 7.08" fill="#fd8204"/><polygon points="28.35 11.03 31.2 12.88 34.06 11.03 32.2 13.89 34.05 16.74 31.2 14.89 28.35 16.74 30.2 13.89 28.35 11.03" fill="#fd8204"/><path d="M45.34,18.61l2.51,2.51L24.76,44.2,22.25,41.7,45.34,18.61m0-1.41L20.84,41.7l3.92,3.92L49.26,21.11l-3.92-3.92Z" fill="#fd8204"/></svg>
                   <p class="service-menu__item-name">Мытьё окон</p>
-                </a
-                ><a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/domrabotnica'}}">
+                </a>
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/domrabotnica'}}">
                   <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M46.8,32.22l2.1-7.43,1.3,2.08,7.26-4.46s-4.78-9.9-7.35-12.48c-1-1-4-1.63-7.59-1.94,0,.1,0,.19,0,.29a5.52,5.52,0,0,1-11,0c0-.09,0-.17,0-.26-3.49.32-6.35,1-7.33,1.91-2.65,2.58-7.61,12.48-7.61,12.48L24,26.88l1.38-2.08,2.19,7.43A25.41,25.41,0,0,0,22,48.5c0,8,2.92,17.5,2.92,17.5H49.46s3.22-9.54,3.22-17.5A24.72,24.72,0,0,0,46.8,32.22Z" fill="none" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M29,8.33a5.08,5.08,0,1,0,8.34,5.78,5.08,5.08,0,1,0,8.39-5.7c-1-.17-2.09-.31-3.25-.41,0,.1,0,.19,0,.29a5.52,5.52,0,0,1-11,0c0-.09,0-.17,0-.26C30.63,8.11,29.8,8.21,29,8.33Z" fill="none" stroke="#fd8204" stroke-linejoin="round"/><path d="M37.16,33.91a27.7,27.7,0,0,1-9.72-1.55,11.63,11.63,0,1,0,19.45,0A27.7,27.7,0,0,1,37.16,33.91Z" fill="none" stroke="#fd8204" stroke-linejoin="round"/><line x1="37.37" y1="33.88" x2="37.37" y2="14.11" fill="none" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M57.45,22.42s-4.7-9.73-7.28-12.4c.27,1.92.24,6.18-1.37,14.63l1.39,2.23Z" fill="none" stroke="#fd8204" stroke-linejoin="round"/><path d="M25.53,24.61c-1.62-8.13-1.89-12.37-1.72-14.3-2.71,3-7.27,12.11-7.27,12.11L24,26.88Z" fill="none" stroke="#fd8204" stroke-linejoin="round"/></svg>
                   <p class="service-menu__item-name">Домработница</p>
                 </a
                 ><a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/glazhka'}}">
-                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><rect x="2.23" y="43.9" width="36.99" height="8.8" rx="1.48" ry="1.48" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M38.87,42.52A1.37,1.37,0,0,1,37.5,43.9H4.65a1.37,1.37,0,0,1-1.37-1.37h0a1.37,1.37,0,0,1,1.37-1.37H37.5a1.37,1.37,0,0,1,1.37,1.37Z" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><rect x="3.28" y="33.12" width="36.64" height="8.04" rx="1.48" ry="1.48" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><rect x="2.23" y="27.37" width="38.49" height="5.74" rx="1.48" ry="1.48" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M39.24,26.18a1.36,1.36,0,0,1-1.48,1.19h-33a1.36,1.36,0,0,1-1.48-1.19v-5.3a1.36,1.36,0,0,1,1.48-1.19h33a1.36,1.36,0,0,1,1.48,1.19Z" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><line x1="3.7" y1="22.75" x2="38.87" y2="22.75" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="12.25" y1="24.84" x2="38.87" y2="24.84" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="2.23" y1="30.24" x2="31.88" y2="30.24" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="39.24" y1="38.62" x2="7.98" y2="38.62" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="38.87" y1="48.3" x2="2.54" y2="48.3" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><path d="M59.1,48.11,56.61,34.77s-18.7-.08-25.17,1.54a28.36,28.36,0,0,0-12.24,6.14C14.51,46.53,9.84,56,9.84,56H55.57a7.88,7.88,0,0,1,3.53-7.89Zm-21.59-.47c-5.23.51-10.32.78-10.69-1.53s3.54-4.86,8.74-5.68,10.81.64,11.17,3S45.85,46.81,37.51,47.64Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M54.79,35.27h1.63L59,47.87a8.92,8.92,0,0,0-1.54,1.26Z" fill="#fff"/><path d="M56,35.77l2.41,11.87q-.34.24-.66.51L55.39,35.77H56m.3-1H54.19l3,15.46a8.46,8.46,0,0,1,2.39-2.13l-2.7-13.34Z" fill="#fd8204"/><path d="M48.57,43.09c-.52-3.29-5.42-4.77-10-4.77a21.05,21.05,0,0,0-3.27.25c-5.59.88-10.92,3.85-10.29,7.82.55,3.46,5.19,3.46,6.94,3.46s4-.18,5.78-.36c6.24-.61,8.9-1.42,10.18-3.06A4.24,4.24,0,0,0,48.57,43.09ZM37.51,47.64c-5.23.51-10.32.78-10.69-1.53s3.54-4.86,8.74-5.68,10.81.64,11.17,3S45.85,46.81,37.51,47.64Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><path d="M56.39,57c0,.71-.42,1.29-.94,1.29h-46c-.52,0-.94-.58-.94-1.29h0c0-.71.42-1.29.94-1.29h46c.52,0,.94.58.94,1.29Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><path d="M51.78,32.39a2.41,2.41,0,0,0-2.41,2.41s0,0,0,0c1.89,0,3.56-.06,4.82-.07A2.41,2.41,0,0,0,51.78,32.39Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><path d="M58.42,40.34c-.46.08-.58-.35-.66-.81l-.45-2.46c-.08-.46-.16-.9.3-1l2.84-.17a.85.85,0,0,1,1,.68l.34,1.89a.85.85,0,0,1-.68,1Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M61.78,37.33s5.47-.88,6.6,3.14c1.68,6-7.69,8-6.6,13.55,1.32,6.7,10.45,3.36,10.45,3.36" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><path d="M37.51,47.64a45.47,45.47,0,0,0,5.76-.85l-.06-.68A1.25,1.25,0,0,0,41.86,45l-9.68.83A1.25,1.25,0,0,0,31,47.15l.07.82A51.43,51.43,0,0,0,37.51,47.64Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <p class="service-menu__item-name">Глажка</p>
-                </a
-                ><a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/posle_remonta'}}">
+                <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><rect x="2.23" y="43.9" width="36.99" height="8.8" rx="1.48" ry="1.48" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M38.87,42.52A1.37,1.37,0,0,1,37.5,43.9H4.65a1.37,1.37,0,0,1-1.37-1.37h0a1.37,1.37,0,0,1,1.37-1.37H37.5a1.37,1.37,0,0,1,1.37,1.37Z" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><rect x="3.28" y="33.12" width="36.64" height="8.04" rx="1.48" ry="1.48" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><rect x="2.23" y="27.37" width="38.49" height="5.74" rx="1.48" ry="1.48" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M39.24,26.18a1.36,1.36,0,0,1-1.48,1.19h-33a1.36,1.36,0,0,1-1.48-1.19v-5.3a1.36,1.36,0,0,1,1.48-1.19h33a1.36,1.36,0,0,1,1.48,1.19Z" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><line x1="3.7" y1="22.75" x2="38.87" y2="22.75" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="12.25" y1="24.84" x2="38.87" y2="24.84" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="2.23" y1="30.24" x2="31.88" y2="30.24" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="39.24" y1="38.62" x2="7.98" y2="38.62" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="38.87" y1="48.3" x2="2.54" y2="48.3" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><path d="M59.1,48.11,56.61,34.77s-18.7-.08-25.17,1.54a28.36,28.36,0,0,0-12.24,6.14C14.51,46.53,9.84,56,9.84,56H55.57a7.88,7.88,0,0,1,3.53-7.89Zm-21.59-.47c-5.23.51-10.32.78-10.69-1.53s3.54-4.86,8.74-5.68,10.81.64,11.17,3S45.85,46.81,37.51,47.64Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M54.79,35.27h1.63L59,47.87a8.92,8.92,0,0,0-1.54,1.26Z" fill="#fff"/><path d="M56,35.77l2.41,11.87q-.34.24-.66.51L55.39,35.77H56m.3-1H54.19l3,15.46a8.46,8.46,0,0,1,2.39-2.13l-2.7-13.34Z" fill="#fd8204"/><path d="M48.57,43.09c-.52-3.29-5.42-4.77-10-4.77a21.05,21.05,0,0,0-3.27.25c-5.59.88-10.92,3.85-10.29,7.82.55,3.46,5.19,3.46,6.94,3.46s4-.18,5.78-.36c6.24-.61,8.9-1.42,10.18-3.06A4.24,4.24,0,0,0,48.57,43.09ZM37.51,47.64c-5.23.51-10.32.78-10.69-1.53s3.54-4.86,8.74-5.68,10.81.64,11.17,3S45.85,46.81,37.51,47.64Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><path d="M56.39,57c0,.71-.42,1.29-.94,1.29h-46c-.52,0-.94-.58-.94-1.29h0c0-.71.42-1.29.94-1.29h46c.52,0,.94.58.94,1.29Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><path d="M51.78,32.39a2.41,2.41,0,0,0-2.41,2.41s0,0,0,0c1.89,0,3.56-.06,4.82-.07A2.41,2.41,0,0,0,51.78,32.39Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><path d="M58.42,40.34c-.46.08-.58-.35-.66-.81l-.45-2.46c-.08-.46-.16-.9.3-1l2.84-.17a.85.85,0,0,1,1,.68l.34,1.89a.85.85,0,0,1-.68,1Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M61.78,37.33s5.47-.88,6.6,3.14c1.68,6-7.69,8-6.6,13.55,1.32,6.7,10.45,3.36,10.45,3.36" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><path d="M37.51,47.64a45.47,45.47,0,0,0,5.76-.85l-.06-.68A1.25,1.25,0,0,0,41.86,45l-9.68.83A1.25,1.25,0,0,0,31,47.15l.07.82A51.43,51.43,0,0,0,37.51,47.64Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <p class="service-menu__item-name">Глажка</p>
+              </a>
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/posle_remonta'}}">
                   <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M13.09,56.14a3,3,0,0,0,0,4.22L19,66.29a3,3,0,0,0,4.23,0l6.21-6.21a3,3,0,0,0,0-4.23l-8-8Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="2"/><path d="M65.5,11.59l0,0a1.38,1.38,0,0,0-.13-.15l-3-1.91a2,2,0,0,0-2.81.23l-38.16,38L29.64,56l-.09-1.69,1.67-.11-.11-1.65,1.67-.11-.11-1.74,1.61-.1-.11-1.69,1.76-.11-.11-1.69L37.5,47l-.1-1.6L39,45.32l-.11-1.74,1.72-.11-.11-1.67,1.67-.11L42.1,40l1.69-.11-.1-1.62,1.6-.1-.11-1.74,1.69-.11-.11-1.62,1.69-.11h0l-.09-1.69,1.67-.11-.11-1.65L51.62,31l-.11-1.74,1.61-.11L53,27.51l1.76-.11-.11-1.69,1.67-.11-.1-1.6,1.65-.11-.11-1.74L59.48,22l-.11-1.67L61,20.27l-.11-1.69,1.69-.11-.11-1.62,1.6-.1L64,15l1.69-.11-.1-1.62,1.54-.57Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M13.09,56.14a3,3,0,0,0,0,4.22L19,66.29a3,3,0,0,0,4.23,0l6.21-6.21a3,3,0,0,0,0-4.23l-8-8ZM27.7,57a1.35,1.35,0,0,1,0,1.91l-5.6,5.61a1.35,1.35,0,0,1-1.91,0l-5.35-5.35a1.35,1.35,0,0,1,0-1.91l5.6-5.6a1.35,1.35,0,0,1,1.91,0Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M36.78,17h0a5.86,5.86,0,0,0-1.39-.61L16.43,8.05l0,0a5.89,5.89,0,0,0-8.28,8.28l8.26,19a5.9,5.9,0,0,0,9.85,2.56L37.91,26.2A5.88,5.88,0,0,0,36.78,17Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><rect x="35.25" y="26.55" width="2.36" height="19.7" transform="translate(-15.07 36.42) rotate(-45)" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M61.94,64.51a2.59,2.59,0,0,1-1.84-.76l-16-16a.85.85,0,0,0-.6-.25h-.13a5.18,5.18,0,0,1-.82.07,5,5,0,0,1-1.5-.23.67.67,0,0,0-.25-.18.41.41,0,0,1-.13-.09.41.41,0,0,1,0-.59l5.87-5.87a.41.41,0,0,1,.68.14.85.85,0,0,0,.19.28,5.11,5.11,0,0,1,.15,2.29.85.85,0,0,0,.24.73l16,16a2.61,2.61,0,0,1-1.84,4.45Z" fill="#fff"/><path d="M46.63,41.63a4.3,4.3,0,0,1,0,1.53,1.7,1.7,0,0,0,.48,1.47l16,16a1.76,1.76,0,0,1-2.48,2.48l-16-16a1.7,1.7,0,0,0-1.2-.5l-.27,0a4.41,4.41,0,0,1-.69.05,4.19,4.19,0,0,1-.84-.08l5-5m.14-2a1.26,1.26,0,0,0-.9.37L40,45.85a1.26,1.26,0,0,0,0,1.79,1.25,1.25,0,0,0,.41.28l-.07.07a5.81,5.81,0,0,0,2.15.41,6.1,6.1,0,0,0,1-.08l16,16a3.46,3.46,0,0,0,4.89-4.89l-16-16a5.91,5.91,0,0,0-.33-3.1l-.07.07a1.26,1.26,0,0,0-1.17-.78Z" fill="#fd8204"/><line x1="43.45" y1="48.31" x2="48.34" y2="43.42" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/></svg>
                   <p class="service-menu__item-name">Уборка <br class="text  text--tablet">после ремонта</p>
-                </a
-                ><a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/uborka-kottedzhej'}}">
+                </a>
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/uborka-kottedzhej'}}">
                   <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M41.1,61.33v-9a4.1,4.1,0,0,0-8.2,0v9H9.52A1.31,1.31,0,0,1,8.21,60V41.32H65.79V60a1.31,1.31,0,0,1-1.3,1.31Z" fill="#fff"/><path d="M64.94,42.17V60a.46.46,0,0,1-.45.45H41.95V52.31a5,5,0,1,0-9.9,0v8.17H9.52A.46.46,0,0,1,9.06,60V42.17H64.94m1.7-1.7H7.36V60a2.15,2.15,0,0,0,2.15,2.15H33.75V52.31a3.25,3.25,0,0,1,6.5,0v9.87H64.48A2.15,2.15,0,0,0,66.64,60V40.47Z" fill="#fd8204"/><polygon points="16.24 29.24 57.69 29.24 37.1 13.74 16.24 29.24" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><polygon points="16.21 29.21 14.76 27.58 37.48 11.82 59.24 27.55 57.85 29.21 37.46 14.18 16.21 29.21" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><polygon points="50.22 29.46 50.22 29.34 50.1 29.4 49.98 29.34 49.98 29.46 37.24 35.44 24.98 29.46 24.98 29.34 24.85 29.4 24.73 29.34 24.73 29.46 2.65 41.48 24.38 41.48 24.73 41.48 24.98 41.48 49.62 41.48 49.98 41.48 50.22 41.48 71.34 41.48 50.22 29.46" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><polygon points="22.64 39.97 22.64 24.71 37.29 14.53 51.36 24.7 51.36 39.97 22.64 39.97" fill="#fff"/><path d="M37.28,15.14,50.86,25V39.47H23.14V25l14.14-9.82m0-1.23L22.14,24.45v16H51.86v-16L37.3,13.92Z" fill="#fd8204"/><path d="M41.1,61.33v-9a4.1,4.1,0,0,0-8.2,0v9H23v-20H51v20Z" fill="#fff"/><path d="M50.16,42.17V60.48H42V52.31a5,5,0,0,0-9.9,0v8.17H23.84V42.17H50.16m1.7-1.7H22.14V62.18H33.75V52.31a3.25,3.25,0,0,1,6.5,0v9.87H51.86V40.47Z" fill="#fd8204"/><path d="M15.4,47.52a2.66,2.66,0,0,0-2.66,2.66v6.05h5.32V50.17A2.66,2.66,0,0,0,15.4,47.52Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M58.51,47.8A2.48,2.48,0,0,0,56,50.29v5.66h5V50.29A2.48,2.48,0,0,0,58.51,47.8Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M36.86,23.36A2.66,2.66,0,0,0,34.21,26v6.05h5.32V26A2.66,2.66,0,0,0,36.86,23.36Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><rect x="22.64" y="36.16" width="28.71" height="7.96" fill="#fff"/><path d="M50.86,36.66v7H23.14v-7H50.86m1-1H22.14v9H51.86v-9Z" fill="#fd8204"/></svg>
                   <p class="service-menu__item-name">Уборка <br class="text  text--tablet">коттеджей</p>
                 </a
                 ><a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/himchistka_odezhdy'}}">
-                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><rect x="29.96" y="9.81" width="13.32" height="5.36" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M49.49,17.39,53.39,50V62.54a1.66,1.66,0,0,1-1.65,1.65H22a1.66,1.66,0,0,1-1.65-1.65V49.89l4.58-32.66S28.76,14.93,37,14.9C45.49,14.88,49.49,17.39,49.49,17.39Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><line x1="36.73" y1="10.47" x2="36.73" y2="62.94" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M21.2,54.91h-.67c-4.94,0-4.76-.42-5-5a57.85,57.85,0,0,1,.57-9.24C17.78,31.11,20.06,24.8,22.65,20c1.59-2.92,3.87-4.54,3.71.31L26.15,50C26.15,54.25,26.43,54.66,21.2,54.91Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M52.8,54.65h.67c4.91,0,5-.15,5-5a57.85,57.85,0,0,0-.57-9.24c-1.64-9.62-3.91-15.93-6.51-20.69-1.59-2.92-3.87-4.54-3.71.31l.21,29.61C47.85,54.37,48.05,54.65,52.8,54.65Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><line x1="15.58" y1="49.96" x2="26.15" y2="49.96" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><line x1="47.87" y1="50" x2="58.28" y2="50" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/></svg>
-                  <p class="service-menu__item-name">Химчистка</p>
-                </a
-                ><a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/himchistka'}}">
-                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><ellipse cx="37" cy="55.44" rx="35.47" ry="10.96" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><ellipse cx="37" cy="54.51" rx="29.59" ry="8.21" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M54.15,14.92H50.94a16.92,16.92,0,0,0-27.87,0H19.85a4,4,0,0,0-3.95,3.94V43.52a4,4,0,0,0,3.95,3.95h34.3a4,4,0,0,0,3.95-3.95V18.87A3.94,3.94,0,0,0,54.15,14.92Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><ellipse cx="37" cy="37.57" rx="21.73" ry="5.34" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M57,49.93c0,2.32-1.25,4.19-2.79,4.19L19.78,54C18.24,54,17,52.16,17,49.84v-5.3c0-2.32,1.25-4.19,2.79-4.19l34.42.07c1.54,0,2.78,1.88,2.77,4.2Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><path d="M20.08,33.79a5.65,5.65,0,1,0-8,5.11V53.8A2.18,2.18,0,0,0,14.23,56H17.9a2.18,2.18,0,0,0,2.18-2.18V33.92s0,0,0-.06S20.08,33.81,20.08,33.79Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><path d="M54.77,33.78a5.77,5.77,0,0,1,11.53,0A5.63,5.63,0,0,1,63,38.89V53.77a2.2,2.2,0,0,1-2.23,2.18H57a2.2,2.2,0,0,1-2.23-2.18V33.91s0,0,0-.06S54.77,33.8,54.77,33.78Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><circle cx="14.43" cy="33.71" r="1.47" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><circle cx="60.54" cy="33.71" r="1.47" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M48.72,26a59.6,59.6,0,0,1,.4-7c-3.18-1.6-7.47,1-12.18,1s-8.89-2.61-12.06-1a59.52,59.52,0,0,1,.4,7,59.53,59.53,0,0,1-.4,7c3.17,1.57,7.41-.21,12.06-.21s9,1.75,12.18.15A59.6,59.6,0,0,1,48.72,26Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/></svg>
-                  <p class="service-menu__item-name">Химчистка <br class="text  text--tablet">мебели</p>
-                </a
-                ><a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
-                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M45.59,28.5a7.65,7.65,0,1,1,7.65-7.65A7.66,7.66,0,0,1,45.59,28.5Zm.06-13.11a5.54,5.54,0,1,0,5.54,5.54A5.55,5.55,0,0,0,45.65,15.38Z" fill="#fff"/><path d="M45.59,13.7a7.15,7.15,0,1,1-7.15,7.15,7.15,7.15,0,0,1,7.15-7.15M45.65,27a6,6,0,1,0-6-6,6,6,0,0,0,6,6M45.59,12.7a8.15,8.15,0,1,0,8.15,8.15,8.15,8.15,0,0,0-8.15-8.15ZM45.65,26a5,5,0,1,1,5-5,5,5,0,0,1-5,5Z" fill="#fd8204"/><rect x="21.06" y="21.5" width="49.06" height="35.68" rx="4.05" ry="4.05" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M70.12,30.67V25.55a4,4,0,0,0-4-4h-41a4,4,0,0,0-4,4v5.13" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><line x1="21.06" y1="30.67" x2="70.12" y2="30.67" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><rect x="38.43" y="28.79" width="14.32" height="3.77" rx="0.81" ry="0.81" fill="#fff"/><path d="M51.94,29.29a.31.31,0,0,1,.31.31v2.14a.31.31,0,0,1-.31.31H39.24a.31.31,0,0,1-.31-.31V29.6a.31.31,0,0,1,.31-.31h12.7m0-1H39.24a1.31,1.31,0,0,0-1.31,1.31v2.14a1.31,1.31,0,0,0,1.31,1.31h12.7a1.31,1.31,0,0,0,1.31-1.31V29.6a1.31,1.31,0,0,0-1.31-1.31Z" fill="#fd8204"/><path d="M42.78,55.45a6,6,0,1,1,6-6A6,6,0,0,1,42.78,55.45Zm0-9.15A3.19,3.19,0,1,0,46,49.49,3.19,3.19,0,0,0,42.78,46.3Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M3.25,41.84a1,1,0,0,1,1-1H31.89a1,1,0,0,1,1,1h0a1,1,0,0,1-1,1H4.29a1,1,0,0,1-1-1Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M51.21,39.21A3.14,3.14,0,0,0,51,38a4.72,4.72,0,0,0-4.51-3.35h-20l-.33,0-.32,0a7.21,7.21,0,0,0,0,14.42l.32,0,.33,0H43l1.6,9.1a3.14,3.14,0,0,0,3.14,3.14h3.7a3.14,3.14,0,0,0,3.14-3.14Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M20.17,37.45a4.53,4.53,0,1,0,0,8.77Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/></svg>
-                  <p class="service-menu__item-name">Домашний <br class="text  text--tablet">мастер</p>
-                </a
-                ><a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
-                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M57.95,7.49H50.34a1.73,1.73,0,0,0-1.73,1.73V41.3H50.1v-30h7.85a1.73,1.73,0,0,0,1.73-1.73V9.22A1.73,1.73,0,0,0,57.95,7.49Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M37.81,39.55c.46-2.09.78-4,2.66-4h9.29v3.7" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M49.78,55.73V37.86h-10c-1.14,0-1.6,1-2.07,2.07-3.2,7.12-5.46,12.63-5.46,12.63-1,0-7.73,6.42-9.52,8.15H16.87a1,1,0,0,0-1,1v3.18a1,1,0,0,0,1,1H47.66" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><line x1="49.78" y1="52.91" x2="32" y2="52.91" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="22.74" y1="61.06" x2="43.52" y2="61.06" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><circle cx="48.64" cy="60.72" r="5.79" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><circle cx="48.64" cy="60.72" r="2.81" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <p class="service-menu__item-name">Обработка <br class="text  text--tablet">поверхностей</p>
-                </a>
+                <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><rect x="29.96" y="9.81" width="13.32" height="5.36" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M49.49,17.39,53.39,50V62.54a1.66,1.66,0,0,1-1.65,1.65H22a1.66,1.66,0,0,1-1.65-1.65V49.89l4.58-32.66S28.76,14.93,37,14.9C45.49,14.88,49.49,17.39,49.49,17.39Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><line x1="36.73" y1="10.47" x2="36.73" y2="62.94" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M21.2,54.91h-.67c-4.94,0-4.76-.42-5-5a57.85,57.85,0,0,1,.57-9.24C17.78,31.11,20.06,24.8,22.65,20c1.59-2.92,3.87-4.54,3.71.31L26.15,50C26.15,54.25,26.43,54.66,21.2,54.91Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M52.8,54.65h.67c4.91,0,5-.15,5-5a57.85,57.85,0,0,0-.57-9.24c-1.64-9.62-3.91-15.93-6.51-20.69-1.59-2.92-3.87-4.54-3.71.31l.21,29.61C47.85,54.37,48.05,54.65,52.8,54.65Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><line x1="15.58" y1="49.96" x2="26.15" y2="49.96" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><line x1="47.87" y1="50" x2="58.28" y2="50" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/></svg>
+                <p class="service-menu__item-name">Химчистка</p>
+              </a
+              ><a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/himchistka'}}">
+                <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><ellipse cx="37" cy="55.44" rx="35.47" ry="10.96" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><ellipse cx="37" cy="54.51" rx="29.59" ry="8.21" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M54.15,14.92H50.94a16.92,16.92,0,0,0-27.87,0H19.85a4,4,0,0,0-3.95,3.94V43.52a4,4,0,0,0,3.95,3.95h34.3a4,4,0,0,0,3.95-3.95V18.87A3.94,3.94,0,0,0,54.15,14.92Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><ellipse cx="37" cy="37.57" rx="21.73" ry="5.34" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M57,49.93c0,2.32-1.25,4.19-2.79,4.19L19.78,54C18.24,54,17,52.16,17,49.84v-5.3c0-2.32,1.25-4.19,2.79-4.19l34.42.07c1.54,0,2.78,1.88,2.77,4.2Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><path d="M20.08,33.79a5.65,5.65,0,1,0-8,5.11V53.8A2.18,2.18,0,0,0,14.23,56H17.9a2.18,2.18,0,0,0,2.18-2.18V33.92s0,0,0-.06S20.08,33.81,20.08,33.79Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><path d="M54.77,33.78a5.77,5.77,0,0,1,11.53,0A5.63,5.63,0,0,1,63,38.89V53.77a2.2,2.2,0,0,1-2.23,2.18H57a2.2,2.2,0,0,1-2.23-2.18V33.91s0,0,0-.06S54.77,33.8,54.77,33.78Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><circle cx="14.43" cy="33.71" r="1.47" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><circle cx="60.54" cy="33.71" r="1.47" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M48.72,26a59.6,59.6,0,0,1,.4-7c-3.18-1.6-7.47,1-12.18,1s-8.89-2.61-12.06-1a59.52,59.52,0,0,1,.4,7,59.53,59.53,0,0,1-.4,7c3.17,1.57,7.41-.21,12.06-.21s9,1.75,12.18.15A59.6,59.6,0,0,1,48.72,26Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/></svg>
+                <p class="service-menu__item-name">Химчистка <br class="text  text--tablet">мебели</p>
+              </a
+              ><a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
+                <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M45.59,28.5a7.65,7.65,0,1,1,7.65-7.65A7.66,7.66,0,0,1,45.59,28.5Zm.06-13.11a5.54,5.54,0,1,0,5.54,5.54A5.55,5.55,0,0,0,45.65,15.38Z" fill="#fff"/><path d="M45.59,13.7a7.15,7.15,0,1,1-7.15,7.15,7.15,7.15,0,0,1,7.15-7.15M45.65,27a6,6,0,1,0-6-6,6,6,0,0,0,6,6M45.59,12.7a8.15,8.15,0,1,0,8.15,8.15,8.15,8.15,0,0,0-8.15-8.15ZM45.65,26a5,5,0,1,1,5-5,5,5,0,0,1-5,5Z" fill="#fd8204"/><rect x="21.06" y="21.5" width="49.06" height="35.68" rx="4.05" ry="4.05" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M70.12,30.67V25.55a4,4,0,0,0-4-4h-41a4,4,0,0,0-4,4v5.13" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><line x1="21.06" y1="30.67" x2="70.12" y2="30.67" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><rect x="38.43" y="28.79" width="14.32" height="3.77" rx="0.81" ry="0.81" fill="#fff"/><path d="M51.94,29.29a.31.31,0,0,1,.31.31v2.14a.31.31,0,0,1-.31.31H39.24a.31.31,0,0,1-.31-.31V29.6a.31.31,0,0,1,.31-.31h12.7m0-1H39.24a1.31,1.31,0,0,0-1.31,1.31v2.14a1.31,1.31,0,0,0,1.31,1.31h12.7a1.31,1.31,0,0,0,1.31-1.31V29.6a1.31,1.31,0,0,0-1.31-1.31Z" fill="#fd8204"/><path d="M42.78,55.45a6,6,0,1,1,6-6A6,6,0,0,1,42.78,55.45Zm0-9.15A3.19,3.19,0,1,0,46,49.49,3.19,3.19,0,0,0,42.78,46.3Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M3.25,41.84a1,1,0,0,1,1-1H31.89a1,1,0,0,1,1,1h0a1,1,0,0,1-1,1H4.29a1,1,0,0,1-1-1Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M51.21,39.21A3.14,3.14,0,0,0,51,38a4.72,4.72,0,0,0-4.51-3.35h-20l-.33,0-.32,0a7.21,7.21,0,0,0,0,14.42l.32,0,.33,0H43l1.6,9.1a3.14,3.14,0,0,0,3.14,3.14h3.7a3.14,3.14,0,0,0,3.14-3.14Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M20.17,37.45a4.53,4.53,0,1,0,0,8.77Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/></svg>
+                <p class="service-menu__item-name">Домашний <br class="text  text--tablet">мастер</p>
+              </a
+              ><a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
+                <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M57.95,7.49H50.34a1.73,1.73,0,0,0-1.73,1.73V41.3H50.1v-30h7.85a1.73,1.73,0,0,0,1.73-1.73V9.22A1.73,1.73,0,0,0,57.95,7.49Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M37.81,39.55c.46-2.09.78-4,2.66-4h9.29v3.7" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M49.78,55.73V37.86h-10c-1.14,0-1.6,1-2.07,2.07-3.2,7.12-5.46,12.63-5.46,12.63-1,0-7.73,6.42-9.52,8.15H16.87a1,1,0,0,0-1,1v3.18a1,1,0,0,0,1,1H47.66" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><line x1="49.78" y1="52.91" x2="32" y2="52.91" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="22.74" y1="61.06" x2="43.52" y2="61.06" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><circle cx="48.64" cy="60.72" r="5.79" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><circle cx="48.64" cy="60.72" r="2.81" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <p class="service-menu__item-name">Обработка <br class="text  text--tablet">поверхностей</p>
+              </a>
               </div>
               <button class="service-menu__button">
                 <span class="service-menu__button-text">Другие услуги</span>
@@ -1144,92 +959,7 @@
 
       <footer class="page-footer">
         <div class="page-footer__wrap">
-          <nav class="page-footer__secondary-menu  secondary-menu">
-            <ul class="secondary-menu__list list">
-              <li class="secondary-menu__item item"><a class="link  link--white  link--without-line" href="{{buildUrl general.city '/private/auth'}}">Личный кабинет</a></li>
-              <li class="secondary-menu__item item"><a class="link  link--white  link--without-line" href="{{buildUrl general.city '/about/'}}">О компании</a></li>
-              <li class="secondary-menu__item item"><a class="link  link--white  link--without-line" href="{{buildUrl general.city '/vazhno_znat/'}}">Важно знать</a></li>
-              <li class="secondary-menu__item item"><a class="link  link--white  link--without-line" href="{{buildUrl general.city '/davay_druzhit/'}}">Обслуживание по графику</a></li>
-              <li class="secondary-menu__item item"><a class="link  link--white  link--without-line" href="{{buildUrl general.city '/faq/'}}">Вопросы и ответы</a></li>
-              <li class="secondary-menu__item item"><a class="link  link--white  link--without-line" href="{{buildUrl general.city '/news/'}}">Новости</a></li>
-              <li class="secondary-menu__item item"><a class="link  link--white  link--without-line" href="{{buildUrl general.city '/articles/'}}">Статьи</a></li>
-              <li class="secondary-menu__item item"><a class="link  link--white  link--without-line" href="{{buildUrl general.city '/gallery/'}}">Галерея</a></li>
-              <li class="secondary-menu__item item"><a class="link  link--white  link--without-line" href="{{buildUrl general.city '/skidki_akcii/'}}">Специальные акции</a></li>
-              <li class="secondary-menu__item item"><a class="link  link--white  link--without-line" href="{{buildUrl general.city '/vakansii/'}}">Вакансии</a></li>
-              <li class="secondary-menu__item item"><a class="link  link--white  link--without-line" href="{{buildUrl general.city '/contacts/'}}">Контакты</a></li>
-            </ul>
-      
-            <ul class="secondary-menu__list list">
-              <li class="secondary-menu__item  item"><a class="secondary-menu__link  link  link--white" href="{{buildUrl general.city '/'}}">Физическим лицам</a>
-                <ul class="secondary-menu__list secondary-menu__list--sub list">
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/podderzhka'}}">Поддерживающая уборка</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/generalnaya_uborka'}}">Генеральная уборка</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/posle_remonta'}}">Уборка после ремонта</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/uborka-kottedzhej'}}">Уборка коттеджей</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/mite_okon'}}">Мытьё окон</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/himchistka'}}">Химчистка</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">Домашний мастер</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">Обработка поверхностей</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/ezhednevnaya_uborka'}}">Ежедневная уборка квартиры</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/kompleksnaya_uborka'}}">Комплексная уборка</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/uborka_kvartir'}}">Уборка квартир</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/drugie_raboty'}}">Дополнительные работы</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-      
-            <ul class="secondary-menu__list list">
-              <li class="secondary-menu__item  item"><a class="secondary-menu__link  link  link--white" href="{{buildUrl general.city '/b2b/'}}">Юридическим лицам</a>
-                <ul class="secondary-menu__list secondary-menu__list--sub list">
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/uborka_ofisov'}}">Уборка офисов</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/uborka-proizvodstvennyh-pomewenij'}}">Уборка производственных помещений</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/ofisnyy-master'}}">Офисный мастер</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/mite_stekol'}}">Мытье стекол</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/myte-fasadov'}}">Мытье фасадов</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/promyshlennyj-alpinizm'}}">Промышленный альпинизм</a>
-                  </li>
-                  <li class="secondary-menu__item  secondary-menu__item--sub  item">
-                    <a class="secondary-menu__link  secondary-menu__link--sub  link" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">Обработка поверхностей</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </nav>
+          {{templateTag this 'footer/footer-menu__new.html'}}
       
           <div class="page-footer__row">
           <div class="page-footer__column">
@@ -1264,8 +994,8 @@
     </div>
     
     <div class="contact-btn" data-ga='{"hitType": "click", "eventCategory": "button", "eventAction": "send", "eventLabel": "orderButton"}'>
-      <button class="contact-btn__btn contact-btn__btn--main  contact-btn__btn--rotate" type="button" data-name="service-order">
-        <svg class="contact-btn__image" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><rect width="30" height="30" fill="none"/><path d="M28.5,9.4a9.15,9.15,0,0,0-2.11-6.09,8.72,8.72,0,0,0-.67-.71A15,15,0,0,0,23.79,1a1.85,1.85,0,0,0-2.7.17A15.65,15.65,0,0,0,18.45,5a6.66,6.66,0,0,0-.63,1.71,2.47,2.47,0,0,0,.77,2.46,15.18,15.18,0,0,0,1.74,1.46,2.45,2.45,0,0,1,.92,3.2A11.2,11.2,0,0,1,19.35,17a22.67,22.67,0,0,1-3.48,3.66A5.91,5.91,0,0,1,13.52,22a2.16,2.16,0,0,1-2.11-.61c-.58-.56-1.16-1.11-1.78-1.63a2.71,2.71,0,0,0-3.24-.3,9.69,9.69,0,0,0-1.64,1.09c-.81.67-1.58,1.39-2.35,2.12a3.82,3.82,0,0,0-.64.88A1.91,1.91,0,0,0,2,25.8,12.78,12.78,0,0,0,5,28.26,8.92,8.92,0,0,0,9.61,29.5a12.34,12.34,0,0,0,6.42-2,28.38,28.38,0,0,0,6.77-6,29.05,29.05,0,0,0,4.12-6.07A13.94,13.94,0,0,0,28.5,9.4Z" fill="#fff"/></svg>
+      <button class="contact-btn__btn contact-btn__btn--main" type="button" data-name="service-order">
+        <svg class="contact-btn__image" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><rect width="30" height="30" fill="none"/><line x1="15" y1="1.5" x2="15" y2="28.5" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/><line x1="1.5" y1="15" x2="28.5" y2="15" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/></svg>
       </button>
     </div>
   </main>
@@ -1475,7 +1205,7 @@
 </script>
 <!-- /Page wrapper -->
 <!-- Java Script -->
-<script src="/static/pancake/js/bundle.min.js?v0.37"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.45"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 
