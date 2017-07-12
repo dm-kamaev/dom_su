@@ -3,15 +3,7 @@
 const moscowTemplates = {
     'dir': 'templates/statpages/www/',
     'key': 'moscow',
-    //'akcii__return': {name: 'akcii__return.html'},
-    //'sitemap': {name: 'sitemap.html'},
 
-    //'domrabotnica__perechen_rabot': {name: 'domrabotnica__perechen_rabot.html'},
-    //'akcii__glazhka': {name: 'akcii__glazhka.html'},
-    //'uborka-kottedzhej_posle_remonta': {name: 'uborka-kottedzhej_posle_remonta.html'},
-    //'search': {name: 'search.html'},
-    //'kristallizatsiya-i-restavratsiya-mramornykh-polov': {name: 'kristallizatsiya-i-restavratsiya-mramornykh-polov.html'},
-    // Exist
 
     // AB test page
     'main_ab': {hide: true, name: 'main_ab.html', data: {menu: {index: true}}},
