@@ -17,6 +17,72 @@
 
 {{/if}}
     <!-- End Google Tag Manager -->
+    {{#if GetDepartureData.Management.Access}}
+        <script>
+        var departureID = '{{departureId}}';
+        function OrderAction(action) {
+            $.ajax({
+              type: "GET",
+              url: "/staff/ajax/order/management",
+              data: ({'DepartureID': departureID, 'action': action}),
+              cache: false,
+              dataType: "text",
+              success: onSuccess,
+                error: onError
+            });
+        };
+        function onError() {
+            var elem = document.getElementById('errorAction');
+            elem.style.display = 'block';
+        }
+        function onSuccess(data)
+        {
+            var parseData = JSON.parse(data)
+            if (parseData.Result === true){
+                if (parseData.Message){
+                    var buttons = $('#order-buttons')
+                    buttons.hide()
+                    var message = $('#order-message')
+                    message.text(parseData.Message.text)
+                    if (parseData.Message.color){
+                        message.css('color', parseData.Message.color);
+                    }
+                    message.show()
+                } else {
+                    location.reload();
+                }
+
+            }
+            else {
+                onError();
+            }
+        }
+        {{#if updateStatus}}
+        var Status = '{{GetDepartureData.Management.Status}}';
+        var AmountStatus = '{{GetDepartureData.Management.AmountStatus}}'
+        function updateStatus() {
+            $.ajax({
+              type: "GET",
+              url: "/staff/ajax/order/management",
+              data: ({'DepartureID': departureID, 'action': 'GetStatus'}),
+              cache: false,
+              dataType: "text",
+              success: onStatusSuccess,
+                error: function () {}
+            });
+        }
+            function onStatusSuccess(data){
+                var parseData = JSON.parse(data)
+                if (parseData.Result === true){
+                    if (parseData.Status != Status || parseData.AmountStatus != AmountStatus){
+                        location.reload();
+                    }
+                }
+            }
+        setInterval(updateStatus, 30 * 1000)
+        {{/if}}
+    </script>
+    {{/if}}
 </head>
 <body class="">
     <div data-role="page" class="jqm-demos ui-responsive-panel" id="main-page" data-title="Личный кабинет от Домовёнка">
@@ -26,7 +92,47 @@
         </div>
         <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <script>$(document).unbind('scroll');</script>
-   <p><b>Клиент: </b><br/><span>{{ GetDepartureData.ClientTitle }}</span></p>
+
+    {{#if GetDepartureData.Management.Access}}
+        <div id="errorAction" style="display: none; color: red">Возникла ошибка.<br/> Для завершения работы с заказом свяжитесь с менеджером</div>
+        <div data-role="collapsible" data-inset="false" data-collapsed="false">
+        <h2>Управление заказом</h2>
+        <p>Статус:<br/> <b style="color: {{statusColor}}">{{status}}</b></p>
+            {{#if messageTop}}
+                <p style="color: {{messageTop.color}}">{{messageTop.text}}</p>
+            {{/if}}
+            {{#if buttons}}
+            <div data-role="navbar" id="order-buttons">
+                <p>Действия над заказом:</p>
+                <ul>
+                {{#each buttons as |button|}}
+                    <li><a href="" onclick="OrderAction('{{button.action}}')" class="">{{button.name}}</a></li>
+                {{/each}}
+                </ul>
+            </div>
+            {{/if}}
+            {{#if showTakeMoneyWidget}}
+            <div id="order-block-collapse" data-role="collapsible" data-content-theme="false">
+                <h4>Принять наличные</h4>
+                <form action="/staff/ajax/order/management" method="GET" enctype="application/x-www-form-urlencoded" data-ajax="false" >
+                    <input type="hidden" name="action" value="ConfirmPayment">
+                    <input type="hidden" name="DepartureID" value="{{departureId}}">
+                    <label>Сумма:<input name="PaidAmount" style="" type="number" required></label>
+                    <button class="ui-btn ui-btn-inline" type="submit" style="color: green">Принять</button>
+                    <a onclick='$( "#order-block-collapse" ).collapsible( "collapse" )' class="ui-btn ui-btn-inline" type="" style="color: red">Отменить</a>
+                </form>
+            </div>
+            {{/if}}
+            {{#if showAmountToPaid}}
+                <p>Сумма к оплате: <span style="color: green">{{ toMoney GetDepartureData.Management.AmountToPaid}}</span> Руб.</p>
+            {{/if }}
+            {{#if messageBottom}}
+                <p style="color: {{messageBottom.color}}">{{messageBottom.text}}</p>
+            {{/if}}
+            <div id="order-message" style="display: none"></div>
+    </div>
+    {{/if}}
+    <p><b>Клиент: </b><br/><span>{{ GetDepartureData.ClientTitle }}</span></p>
     <p><b>Сумма: </b><br/><span>{{ toMoney GetDepartureData.TotalAmount}}</span> руб.</p>
     {{#if GetDepartureData.IsCash }}
             {{#if isSenior }}

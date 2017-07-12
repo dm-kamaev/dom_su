@@ -164,6 +164,61 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
             templateCtx.lat = null
             templateCtx.lon = null
         }
+        switch (GetDepartureData.response.Management.Status) {
+            case 'ОжиданиеНачала':
+                templateCtx.status = 'Ожидание начала'
+                templateCtx.statusColor = 'orange'
+                templateCtx.buttons = [
+                    {name: 'Начать заказ', action: 'StartDeparture'},
+                    {name: 'Отменить заказ', action: 'CancelOrder'},
+                ]
+                break
+            case 'Выполняется':
+                templateCtx.status = 'Выполняется'
+                templateCtx.statusColor = 'orange'
+                templateCtx.buttons = [
+                    {name: 'Завершить заказ', action: 'FinishDeparture'},
+                ]
+                break
+            case 'ВыполненВыезд':
+            case 'Выполнен':
+                switch (GetDepartureData.response.Management.AmountStatus) {
+                    case 'Оплачен':
+                        templateCtx.status = 'Заказ оплачен'
+                        templateCtx.statusColor = 'forestgreen'
+                        templateCtx.messageBottom = {
+                            color: 'black',
+                            text: 'Спасибо! Вы сделали этот мир чище'
+                        }
+                        break
+                    case 'Отсрочка':
+                        templateCtx.status = 'Заказ не оплачен'
+                        templateCtx.statusColor = 'forestgreen'
+                        templateCtx.messageTop = {
+                            color: 'forestgreen',
+                            text: '*Вы можете покинуть заказ не дожидаясь изменения статуса оплаты'
+                        }
+                        templateCtx.messageBottom = {
+                            color: 'black',
+                            text: 'Спасибо! Вы сделали этот мир чище'
+                        }
+                        break
+                    case 'Задолжность':
+                        templateCtx.status = 'Заказ не оплачен'
+                        templateCtx.statusColor = 'red'
+                        templateCtx.showTakeMoneyWidget = true
+                        templateCtx.updateStatus = true
+                        templateCtx.messageTop = {
+                            color: 'black',
+                            text: '*Если Клиент оплачивает картой - дождитесь изменения статуса оплаты.'
+                        }
+                        if (GetDepartureData.response.Management.AmountToPaid) {
+                            templateCtx.showAmountToPaid = true
+                        }
+                        break
+                }
+            break
+        }
         template = getTemplate(staffTemplate.mobile.orderDetail)
     } else {
         template = getTemplate(staffTemplate.desktop.orderDetail)
@@ -171,11 +226,55 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
     ctx.body = template(ctx.proc(templateCtx, ctx))
 })))
 
-staffRouter.get(staffUrl('orderManagement', ':DepartureID'), loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
-    let GetDepartureData = new Method1C('GetDepartureData', {DepartureID: ctx.params.DepartureID})
-    request1C.add(GetDepartureData)
+staffRouter.get('/staff/ajax/order/management', loginRequired(async function (ctx, next) {
+    const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '');
+    let method1C
+    let response = {"Result": true}
+    switch (ctx.query.action){
+        case 'StartDeparture':
+            method1C = new Method1C('Employee.StartDeparture', {DepartureID: ctx.query.DepartureID})
+            break
+        case 'CancelOrder':
+            method1C = new Method1C('Employee.CancelOrder', {DepartureID: ctx.query.DepartureID})
+            response.Redirect = staffUrl('employeeOrders', ctx.state.pancakeUser.auth1C.employee_uuid)
+            response.Message = {
+                text: 'Вы отправили заявку на отмену заказа, ожидайте звонка для подтверждения',
+                color: 'red'
+            }
+            break
+        case 'ConfirmPayment':
+            method1C = new Method1C('Employee.ConfirmPayment', {DepartureID: ctx.query.DepartureID, PaidAmount: Number(ctx.query.PaidAmount)})
+            response.Redirect = staffUrl('orderDetail', ctx.query.DepartureID)
+            request1C.add(method1C)
+            await request1C.do()
+            ctx.status = 302
+            ctx.redirect(staffUrl('orderDetail', ctx.query.DepartureID))
+            return
+        case 'FinishDeparture':
+            method1C = new Method1C('Employee.FinishDeparture', {DepartureID: ctx.query.DepartureID})
+            response.Redirect = staffUrl('orderDetail', ctx.query.DepartureID)
+            break
+        case 'GetStatus':
+            method1C = new Method1C('GetDepartureData', {DepartureID: ctx.query.DepartureID})
+            request1C.add(method1C)
+            await request1C.do()
+            response.Status = method1C.response.Management.Status
+            response.AmountStatus = method1C.response.Management.AmountStatus
+            ctx.body = response
+            return
+        default:
+            logger.error(`Unknown action order ${JSON.stringify(ctx.query)}`)
+            break
+    }
+    request1C.add(method1C)
     await request1C.do()
-})))
+    if (method1C.response && method1C.response.Result == true){
+        ctx.body = response
+    } else {
+        ctx.body = {"Result": false}
+    }
+
+}))
 
 // GET Order Card
 staffRouter.get(staffUrl('orderCard', ':DepartureID'), loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {

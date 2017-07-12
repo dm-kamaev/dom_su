@@ -225,8 +225,8 @@ function staffUrl(name) {
             return `/staff/order/${arguments[1]}/`
         case 'orderCard':
             return `/staff/order/${arguments[1]}/card`
-        case 'orderManagement':
-            return `/staff/order/${arguments[1]}/management`
+        case 'orderManagementAjax':
+            return `/staff/ajax/order/management`
         case 'allOrders':
             return `/staff/all_orders`
         case 'conversationList':
