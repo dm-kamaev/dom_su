@@ -41,7 +41,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.42">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.43">
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
 
@@ -498,6 +498,10 @@
                       <p class="service-calc-ab__data-title">Стоимость:</p>
                       <p class="service-calc-ab__data-value">6 590р</p>
                     </div>
+
+                    <div class="service-calc-ab__data  service-calc-ab__row" data-field="comment">
+                      <div class="service-calc-ab__comment" data-name="posle" data-service="posle" data-class="space" data-feature="furniture" data-quantity="without"><span class="service-calc-ab__price-value"></span> при уборке без мебели</div>
+                    </div>
                   </div>
 
                 </div>
@@ -878,67 +882,8 @@
     {{{{/raw}}}}
   </script>
 
-  <script id="order-service" type="text/html">
-    <div class="service-card-sm" data-name="mite_posudi">
-      <p class="service-card-sm__text">Мытьё окон</p>
-      <div class="service-card-sm__wrap">
-        <img class="service-card-sm__image" src="/static/pancake/img/service-washing-window.svg" width="50" height="50" alt="Посуда">
-        <div class="service-card-sm__btn-wrap">
-          <span class="service-card-sm__price">от 250</span> руб
-        </div>
-      </div>
-
-    </div>
-    <div class="service-card-sm" data-name="himchistka">
-      <p class="service-card-sm__text">Химчистка мебели</p>
-      <div class="service-card-sm__wrap">
-        <img class="service-card-sm__image" src="/static/pancake/img/service-armchair.svg" width="50" height="50" alt="Кресло">
-        <div class="service-card-sm__btn-wrap">
-          <span class="service-card-sm__price">от 120</span> руб
-        </div>
-      </div>
-
-    </div>
-    <div class="service-card-sm" data-name="home_master">
-      <p class="service-card-sm__text">Домашний мастер</p>
-      <div class="service-card-sm__wrap">
-        <img class="service-card-sm__image" src="/static/pancake/img/service-master.svg" width="50" height="50" alt="Инструменты">
-        <div class="service-card-sm__btn-wrap">
-          <span class="service-card-sm__price">от 500</span> руб
-        </div>
-      </div>
-
-    </div>
-  </script>
-
-  
-  <script id="service-cart" type="text/html">
-    {{{{raw}}}}
-  
-        <div class="service-cart__col">
-          <p class="service-cart__text service-cart__text--service text">{{name}} {{square}} м<sup><small>2</small></sup></p>
-        </div>
-  
-        <div class="service-cart__col  service-cart__col--mobile">
-          <p class="service-cart__text service-cart__text--image service-cart__text--time text">
-            ~ {{hour}} час.
-          </p>
-          <p class="service-cart__text service-cart__text--image service-cart__text--people text">
-            {{people}} чел.
-          </p>
-        </div>
-  
-        <div class="service-cart__col">
-          <p class="service-cart__text service-cart__text--bold text">
-            Стоимость: <span class="service-cart__text service-cart__text--price service-cart__text--bold service-cart__text--orange text">{{price}} руб</span>
-          </p>
-        </div>
-  
-    {{{{/raw}}}}
-  </script>
-
   <!-- Java Script -->
-  <script src="/static/pancake/js/bundle.min.js?v0.45"></script>
+  <script src="/static/pancake/js/bundle.min.js?v0.46"></script>
   <!-- /Java Script -->
   {{#if general.production}}
   

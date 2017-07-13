@@ -2799,22 +2799,34 @@
 	            });
 	            function sendId(google_id) {
 	                var data = {
-	                    google_id: ''
+	                    "type": "Living",
+	                    "data": {
+	                        google_id: ''
+	                    }
 	                };
 	                if (google_id) {
-	                    data.google_id = google_id;
+	                    data.data.google_id = google_id;
 	                }
 	                function response() {
 	                }
 	                function error() { }
 	                var json = JSON.stringify(data);
-	                var requestUrl = "/living/";
+	                var requestUrl = "/event-handler";
 	                request.send(requestUrl, json, response, error);
 	                setTimeout(sendId, 30000, google_id);
 	            }
 	            sendId(google_id_1);
 	        }
 	        catch (e) { }
+	    },
+	    sendAD: function () {
+	        var data = {};
+	        function response() {
+	        }
+	        function error() { }
+	        var json = JSON.stringify(data);
+	        var requestUrl = "/event-handler";
+	        request.send(requestUrl, json, response, error);
 	    },
 	    init: function () {
 	        this.sendAnalyticId();
@@ -2931,11 +2943,13 @@
 	            if (_this.checkboxContainers) {
 	                var checked_1 = false;
 	                _this.checkboxContainers.forEach(function (item) {
+	                    console.log(item);
 	                    var input = item.querySelector('input');
 	                    if (input !== e.currentTarget) {
 	                        input.checked = false;
 	                    }
 	                    if (input.checked) {
+	                        console.log(input);
 	                        checked_1 = true;
 	                        _this.param = JSON.parse(JSON.stringify(_this.defaultParam));
 	                        createObject1c(_this.param.services, input, input);
@@ -30206,11 +30220,26 @@
 	        this.changeSchedule = function (e) {
 	            _this.checkboxs.forEach(function (item) {
 	                if (item.checked) {
+	                    checked = true;
 	                    if (item !== e.target) {
 	                        item.checked = false;
+	                        checked = false;
 	                    }
 	                }
 	            });
+	            var checked = _this.checkboxs.some(function (item) {
+	                return item.checked;
+	            });
+	            if (checked) {
+	                if (_this.comment && !_this.comment.classList.contains('service-calc-ab__comment--hide')) {
+	                    _this.comment.classList.add('service-calc-ab__comment--hide');
+	                }
+	            }
+	            else {
+	                if (_this.comment && _this.comment.classList.contains('service-calc-ab__comment--hide')) {
+	                    _this.comment.classList.remove('service-calc-ab__comment--hide');
+	                }
+	            }
 	            var element = e.target.checked ? e.target : _this.data.element;
 	            creatObject1c(_this.services, element, element);
 	            var data = {
@@ -30232,6 +30261,50 @@
 	                    var field = this.element.querySelector('.service-calc-ab__data[data-field="price"]');
 	                    var items = field.querySelector('.service-calc-ab__data-value');
 	                    items.innerHTML = priceFormat(data.Data.amountwithdiscount) + "\u0440";
+	                }
+	            }
+	            function error() {
+	            }
+	            var json = JSON.stringify(data);
+	            var url = "/internalapi";
+	            request.send(url, json, response.bind(_this), error.bind(_this));
+	        };
+	        this.getPriceComment = function (dataa) {
+	            //if (e) e.preventDefault();
+	            // if (this.promo) {
+	            //   this.param.promocode = this.promo.value;
+	            // }
+	            var data = {
+	                "Method": "Client.CalculateOrder",
+	                "Param": {
+	                    services: []
+	                }
+	            };
+	            var element = dataa.element;
+	            if (_this.comment.dataset.schedule) {
+	                data.Param.schedule = _this.comment.dataset.schedule;
+	            }
+	            if (dataa.square) {
+	                creatObject1c(data.Param.services, element, element, dataa.square);
+	            }
+	            else {
+	                creatObject1c(data.Param.services, element, element);
+	            }
+	            if (dataa.services.length) {
+	                dataa.services.forEach(function (item) {
+	                    creatObject1c(data.Param.services, item, item);
+	                });
+	            }
+	            if (dataa.mainServices.length) {
+	                dataa.mainServices.forEach(function (item) {
+	                    creatObject1c(data.Param.services, item, item);
+	                });
+	            }
+	            _this.services = data.Param.services;
+	            function response(data) {
+	                if (data.Success) {
+	                    var item = this.comment.querySelector('.service-calc-ab__price-value');
+	                    item.innerHTML = priceFormat(data.Data.amountwithdiscount) + " \u0440\u0443\u0431";
 	                }
 	            }
 	            function error() {
@@ -30302,6 +30375,10 @@
 	        this.checkboxs = this.fieldSchedule ? Array.prototype.slice.call(this.fieldSchedule.querySelectorAll('input')) : null;
 	        if (this.fieldSchedule) {
 	            this.addCheckboxEvent();
+	        }
+	        this.comment = this.element.querySelector('.service-calc-ab__comment');
+	        if (this.comment && this.comment.classList.contains('service-calc-ab__comment--hide')) {
+	            this.comment.classList.remove('service-calc-ab__comment--hide');
 	        }
 	        this.services = null;
 	        this.init(this.data);
@@ -30438,6 +30515,9 @@
 	        var items = field.querySelector('.service-calc-ab__data-value');
 	        //let price = getPrice(data.element, data.square.dataset.value);
 	        this.getPrice(data);
+	        if (this.comment) {
+	            this.getPriceComment(data);
+	        }
 	        if (data.services.length) {
 	            data.services.forEach(function (el) {
 	                //price += Number(el.dataset.price);
