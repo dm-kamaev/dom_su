@@ -94,10 +94,10 @@
         <script>$(document).unbind('scroll');</script>
 
     {{#if GetDepartureData.Management.Access}}
-        <div id="errorAction" style="display: none; color: red">Возникла ошибка.<br/> Для завершения работы с заказом свяжитесь с менеджером</div>
         <div data-role="collapsible" data-inset="false" data-collapsed="false">
         <h2>Управление заказом</h2>
-        <p>Статус:<br/> <b style="color: {{statusColor}}">{{status}}</b></p>
+        <div id="errorAction" style="display: none; color: red">Возникла ошибка.<br/> Для завершения работы с заказом свяжитесь с менеджером</div>
+        <p><span style="font-style: italic">Статус:</span><br/> <b style="color: {{statusColor}}">{{status}}</b></p>
             {{#if messageTop}}
                 <p style="color: {{messageTop.color}}">{{messageTop.text}}</p>
             {{/if}}
@@ -106,20 +106,32 @@
                 <p>Действия над заказом:</p>
                 <ul>
                 {{#each buttons as |button|}}
-                    <li><a href="" onclick="OrderAction('{{button.action}}')" class="">{{button.name}}</a></li>
+                    <li><a style="font-size: 18px;text-shadow: none; background: {{button.background}}; color: {{button.color}}; font-weight: 100" href="" onclick="OrderAction('{{button.action}}')" class="">{{button.name}}</a></li>
                 {{/each}}
                 </ul>
             </div>
             {{/if}}
             {{#if showTakeMoneyWidget}}
-            <div id="order-block-collapse" data-role="collapsible" data-content-theme="false">
+            <div id="order-block-collapse" class="listItemNoIcon" data-role="collapsible" data-content-theme="false">
+                <style>
+                    .listItemNoIcon .ui-icon
+                    {
+                     display: none;
+                    }
+                    .listItemNoIcon a {
+
+                        background: #f9c15c;
+    text-shadow: none;
+    font-size: 18px;
+                    }
+                </style>
                 <h4>Принять наличные</h4>
                 <form action="/staff/ajax/order/management" method="GET" enctype="application/x-www-form-urlencoded" data-ajax="false" >
                     <input type="hidden" name="action" value="ConfirmPayment">
                     <input type="hidden" name="DepartureID" value="{{departureId}}">
                     <label>Сумма:<input name="PaidAmount" style="" type="number" required></label>
-                    <button class="ui-btn ui-btn-inline" type="submit" style="color: green">Принять</button>
-                    <a onclick='$( "#order-block-collapse" ).collapsible( "collapse" )' class="ui-btn ui-btn-inline" type="" style="color: red">Отменить</a>
+                    <button class="ui-btn ui-btn-inline" type="submit" style="background: #478447; color: white; text-shadow: none;">Принять</button>
+                    <a onclick='$( "#order-block-collapse" ).collapsible( "collapse" )' class="ui-btn ui-btn-inline" type="" style="background: #b50000; text-shadow: none; color: white;">Отменить</a>
                 </form>
             </div>
             {{/if}}
@@ -215,7 +227,7 @@
                         <li><a href="{{staffUrl 'employeeDetail' selfId }}?profile=true">Профиль</a></li>
                         <li><a href="{{staffUrl 'creditsCurrent' selfId }}">Заработано</a></li>
                         <li><a href="{{staffUrl 'depositCurrent' selfId }}">Необходимо сдать</a></li>
-                        <li><a href="{{staffUrl 'employeeDetail' selfId }}?orders=true">Заказы</a></li>
+                        <li><a data-ajax="false" href="{{staffUrl 'employeeDetail' selfId }}?orders=true">Заказы</a></li>
                         <li><a data-ajax="false" href="{{staffUrl 'rating' selfId }}">Рейтинг</a></li>
                         <li><a href="{{staffUrl 'disciplinaryList' selfId }}">Нарушения</a></li>
                         <li><a href="{{staffUrl 'conversationList' selfId }}">Обращения</a></li>

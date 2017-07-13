@@ -165,12 +165,19 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
             templateCtx.lon = null
         }
         switch (GetDepartureData.response.Management.Status) {
+            case 'ОжиданиеНачалаВыезда':
+                templateCtx.status = 'Ожидание начала'
+                templateCtx.statusColor = 'orange'
+                templateCtx.buttons = [
+                    {name: 'Начать заказ', action: 'StartDeparture', color: 'white', background: '#478447'},
+                ]
+                break
             case 'ОжиданиеНачала':
                 templateCtx.status = 'Ожидание начала'
                 templateCtx.statusColor = 'orange'
                 templateCtx.buttons = [
-                    {name: 'Начать заказ', action: 'StartDeparture'},
-                    {name: 'Отменить заказ', action: 'CancelOrder'},
+                    {name: 'Начать', action: 'StartDeparture', color: 'white', background: '#478447'},
+                    {name: 'Отменить', action: 'CancelOrder', color: 'white', background: '#b50000'},
                 ]
                 break
             case 'ОжидаетсяПодтверждениеОтмены':
@@ -185,10 +192,21 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
                 templateCtx.status = 'Выполняется'
                 templateCtx.statusColor = 'orange'
                 templateCtx.buttons = [
-                    {name: 'Завершить заказ', action: 'FinishDeparture'},
+                    {name: 'Завершить заказ', action: 'FinishDeparture', color: 'white', background: '#478447'},
                 ]
                 break
             case 'ВыполненВыезд':
+                templateCtx.status = 'Выезд выполнен'
+                templateCtx.statusColor = 'green'
+                templateCtx.messageTop = {
+                    color: 'forestgreen',
+                    text: '*Вы можете покинуть заказ'
+                }
+                templateCtx.messageBottom = {
+                    color: 'black',
+                    text: 'Спасибо! Вы сделали этот мир чище'
+                }
+                break
             case 'Выполнен':
                 switch (GetDepartureData.response.Management.AmountStatus) {
                     case 'Оплачен':
@@ -512,7 +530,21 @@ staffRouter.get('/staff/:EmployeeID/news/', loginRequired(getEmployeeHeader(asyn
     let template
     let limit =  (ctx.query.all) ? undefined : 5
     let news = await EmployeeNews.findAll({where: {active: true} , order: [['id', 'DESC']], 'limit': limit})
+    // let newsList = await EmployeeNews.findAll({where: {active: true} , order: [['id', 'DESC']], 'limit': limit})
+    // // check access
+    // let accessList = []
+    // for (let news of newsList){
+    //     if (news.access_list && news.access_list.length > 0){
+    //         if (news.access_list.indexOf(ctx.state.pancakeUser.auth1C.employee_uuid) > -1){
+    //             accessList.push(news)
+    //         }
+    //     } else {
+    //         accessList.push(news)
+    //     }
+    //
+    // }
     templateCtx.GetEmployeeData = GetEmployeeData.response
+    // templateCtx.news = accessList
     templateCtx.news = news
     templateCtx.limit = limit
     if (isMobileVersion(ctx)){
@@ -821,7 +853,8 @@ staffRouter.post('/staff/message_handler/:EmployeeID', parseFormMultipart, async
         "AnswerToMessageID": null,
         "Linked": {
             "ID": ctx.request.body.fields.LinkedID,
-            "Type": ctx.request.body.fields.LinkedType},
+            "Type": ctx.request.body.fields.LinkedType
+        },
     })
     request1C.add(SendMessage)
     await request1C.do()
