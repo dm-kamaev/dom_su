@@ -187,9 +187,9 @@ class PancakeUser {
         let google_id = this.ctx.request.body.google_id
         if (this.google_id !== google_id){
             this.queue.push(async function (previousResult, pancakeUser) {
-                    pancakeUser.model.set('data.google_id', google_id);
-                    await pancakeUser.model.save()
-                    return pancakeUser
+                pancakeUser.model.set('data.google_id', google_id);
+                await pancakeUser.model.save()
+                return pancakeUser
             })
         }
     }

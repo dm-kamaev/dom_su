@@ -1,7 +1,7 @@
 "use strict";
 
 const { initPancakeUser, setUserVisit, createEventRequest, UTMCollector,
-    LUIDHandler, callTracking, createEventLiving, definitionRequestType,
+    LUIDHandler, callTracking, createEvent, definitionRequestType,
             initPancakeService} = require('./middleware')
 const { eventType }             = require('./event_type')
 const { userManagerServiceRouter }         = require('./serviceRouter')
@@ -13,7 +13,7 @@ module.exports = {
     initPancakeUser,
     setUserVisit,
     createEventRequest,
-    createEventLiving,
+    createEvent,
     UTMCollector,
     LUIDHandler,
     callTracking,

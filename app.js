@@ -2,7 +2,7 @@
 const koa = require('koa');
 const config = require('config');
 const {errorMiddleware, throw404, accessLogger, applyRouters, applyServiceRouters, checkSlashEnd} = require('middlewares')
-const {initPancakeUser, setUserVisit, createEventRequest, createEventLiving, UTMCollector, ctxProcessor, LUIDHandler, callTracking, definitionRequestType, onlyUser, onlyService, initPancakeService } = require('user_manager')
+const {initPancakeUser, setUserVisit, createEventRequest, createEvent, UTMCollector, ctxProcessor, LUIDHandler, callTracking, definitionRequestType, onlyUser, onlyService, initPancakeService } = require('user_manager')
 const {accessSectionCity, loadCities} = require('cities')
 const koaBody = require('koa-body');
 const schedule = require('schedule')
@@ -45,7 +45,7 @@ async function run() {
         appUser.use(initPancakeUser)
         appUser.use(setUserVisit)
         // if POST /living/
-            appUser.use(createEventLiving.routes())
+            appUser.use(createEvent.routes())
         // return response
         appUser.use(createEventRequest)
         appUser.use(accessSectionCity)

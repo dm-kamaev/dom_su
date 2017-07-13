@@ -3,7 +3,7 @@
 const {initPancakeUser} = require('./initPancakeUser');
 const {setUserVisit} = require('./setUserVisit');
 const {createEventRequest} = require('./createEventRequest');
-const {createEventLiving} = require('./createEventLiving');
+const {createEvent} = require('./createEvent');
 const {UTMCollector} = require('./UTMCollector');
 const {LUIDHandler} = require('./LUIDHandler');
 const {callTracking} = require('./callTracking');
@@ -15,7 +15,7 @@ module.exports = {
     initPancakeUser,
     setUserVisit,
     createEventRequest,
-    createEventLiving,
+    createEvent,
     UTMCollector,
     LUIDHandler,
     callTracking,
