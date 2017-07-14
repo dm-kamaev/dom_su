@@ -181,10 +181,10 @@ class PancakeUser {
         }
     }
     setGoogleId(){
-        if (!this.ctx.request.body.google_id){
+        if (!this.ctx.request.body.data && !this.ctx.request.body.data.google_id){
             return
         }
-        let google_id = this.ctx.request.body.google_id
+        let google_id = this.ctx.request.body.data.google_id
         if (this.google_id !== google_id){
             this.queue.push(async function (previousResult, pancakeUser) {
                 pancakeUser.model.set('data.google_id', google_id);
