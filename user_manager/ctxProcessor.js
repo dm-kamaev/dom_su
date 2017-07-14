@@ -3,7 +3,8 @@ const config = require('config')
 
 const phoneDimensionDict = {
     moscow: 'dimension2',
-    spb: 'dimension3'
+    spb: 'dimension3',
+    nn: 'dimension8',
 }
 
 function numberToTemplate(number) {

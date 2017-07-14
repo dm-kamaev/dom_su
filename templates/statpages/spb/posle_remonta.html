@@ -49,7 +49,6 @@
     <script>
       var analyticConf = {
         id: "{{general.analytics.GAUA}}",
-        userId: "{{general.analytics.userUuid}}",
         phone: "{{general.analytics.phone}}",
         phoneDimension: "{{general.analytics.phoneDimension}}",
         ABTestId: {{#if general.analytics.ABTestID}}"{{general.analytics.ABTestID}}"{{else}}null{{/if}},
@@ -802,7 +801,7 @@
   </script>
 
   <!-- Java Script -->
-  <script src="/static/pancake/js/bundle.min.js?v0.46"></script>
+  <script src="/static/pancake/js/bundle.min.js?v0.47"></script>
   <!-- /Java Script -->
   {{#if general.production}}
   

@@ -2314,7 +2314,6 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Created by Lobova.A on 17.05.2017.
 	 */
@@ -2360,6 +2359,7 @@
 	    };
 	    return Square;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Square;
 
 
@@ -2499,35 +2499,29 @@
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
 	/**
 	 * Created by Lobova.A on 18.05.2017.
 	 */
-	var __extends = (this && this.__extends) || (function () {
-	    var extendStatics = Object.setPrototypeOf ||
-	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-	    return function (d, b) {
-	        extendStatics(d, b);
-	        function __() { this.constructor = d; }
-	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	    };
-	})();
-	Object.defineProperty(exports, "__esModule", { value: true });
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
 	var utils_1 = __webpack_require__(17);
 	var switch_1 = __webpack_require__(18);
 	var SwitchSquare = (function (_super) {
 	    __extends(SwitchSquare, _super);
 	    function SwitchSquare(element) {
-	        var _this = _super.call(this, element) || this;
-	        _this.changeInput = function (e) {
+	        var _this = this;
+	        _super.call(this, element);
+	        this.changeInput = function (e) {
 	            e.preventDefault();
 	            utils_1.default._changeInput(e.target);
 	            _this.createChangeEvent();
 	        };
-	        _this.input = _this.element.querySelector("." + _this.className + "__input");
-	        _this.input.addEventListener('input', _this.changeInput);
-	        return _this;
+	        this.input = this.element.querySelector("." + this.className + "__input");
+	        this.input.addEventListener('input', this.changeInput);
 	    }
 	    SwitchSquare.prototype.reset = function () {
 	        if (this.input.parentNode === this.active) {
@@ -2542,6 +2536,7 @@
 	    };
 	    return SwitchSquare;
 	}(switch_1.default));
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = SwitchSquare;
 
 
@@ -2549,11 +2544,10 @@
 /* 17 */
 /***/ (function(module, exports) {
 
-	"use strict";
 	/**
 	 * Created by Lobova.A on 13.04.2017.
 	 */
-	Object.defineProperty(exports, "__esModule", { value: true });
+	"use strict";
 	var utils = {
 	    _switchItem: function (container, target) {
 	        while (target !== container) {
@@ -2600,6 +2594,7 @@
 	        }
 	    }
 	};
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = utils;
 
 
@@ -2607,11 +2602,10 @@
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
 	/**
 	 * Created by Lobova.A on 17.05.2017.
 	 */
-	Object.defineProperty(exports, "__esModule", { value: true });
+	"use strict";
 	var utils_1 = __webpack_require__(17);
 	var analytic = __webpack_require__(19);
 	var Switch = (function () {
@@ -2654,6 +2648,7 @@
 	    };
 	    return Switch;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Switch;
 
 
@@ -2685,12 +2680,6 @@
 	    sendPageview: function (e) {
 	        try {
 	            ga('send', 'pageview');
-	        }
-	        catch (e) { }
-	    },
-	    setUserId: function (e) {
-	        try {
-	            ga('set', '&uid', analyticConf.userId);
 	        }
 	        catch (e) { }
 	    },
@@ -2832,7 +2821,6 @@
 	        this.sendAnalyticId();
 	        this.sendAbTest();
 	        this.sendPageview();
-	        this.setUserId();
 	        this.setPhone();
 	        this.setPhoneDimension();
 	        this.setLiving();
@@ -2927,11 +2915,10 @@
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
 	/**
 	 * Created by Lobova.A on 17.05.2017.
 	 */
-	Object.defineProperty(exports, "__esModule", { value: true });
+	"use strict";
 	var request = __webpack_require__(8);
 	var priceFormat = __webpack_require__(22);
 	var analytic = __webpack_require__(19);
@@ -2943,13 +2930,11 @@
 	            if (_this.checkboxContainers) {
 	                var checked_1 = false;
 	                _this.checkboxContainers.forEach(function (item) {
-	                    console.log(item);
 	                    var input = item.querySelector('input');
 	                    if (input !== e.currentTarget) {
 	                        input.checked = false;
 	                    }
 	                    if (input.checked) {
-	                        console.log(input);
 	                        checked_1 = true;
 	                        _this.param = JSON.parse(JSON.stringify(_this.defaultParam));
 	                        createObject1c(_this.param.services, input, input);
@@ -3159,6 +3144,7 @@
 	    };
 	    return Price;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Price;
 
 
@@ -3180,11 +3166,10 @@
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
 	/**
 	 * Created by Lobova.A on 16.05.2017.
 	 */
-	Object.defineProperty(exports, "__esModule", { value: true });
+	"use strict";
 	var request = __webpack_require__(8);
 	var validate = __webpack_require__(24);
 	var analytic = __webpack_require__(19);
@@ -3254,6 +3239,7 @@
 	    };
 	    return Info;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Info;
 
 
@@ -3513,17 +3499,17 @@
 /* 25 */
 /***/ (function(module, exports) {
 
-	"use strict";
 	/**
 	 * Created by Lobova.A on 22.05.2017.
 	 */
-	Object.defineProperty(exports, "__esModule", { value: true });
+	"use strict";
 	function inputReset(container) {
 	    var elements = Array.prototype.slice.call(container.querySelectorAll('input'));
 	    elements.forEach(function (item) {
 	        item.value = '';
 	    });
 	}
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = inputReset;
 
 
@@ -29751,11 +29737,10 @@
 /* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
 	/**
 	 * Created by Lobova.A on 20.04.2017.
 	 */
-	Object.defineProperty(exports, "__esModule", { value: true });
+	"use strict";
 	var button_date_1 = __webpack_require__(205);
 	var selection_1 = __webpack_require__(206);
 	var moment = __webpack_require__(55);
@@ -29847,6 +29832,7 @@
 	    };
 	    return ChangingTime;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ChangingTime;
 
 
@@ -29854,11 +29840,10 @@
 /* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
 	/**
 	 * Created by Lobova.A on 20.04.2017.
 	 */
-	Object.defineProperty(exports, "__esModule", { value: true });
+	"use strict";
 	var moment = __webpack_require__(55);
 	__webpack_require__(141);
 	var client = __webpack_require__(9);
@@ -30004,6 +29989,7 @@
 	    };
 	    return ButtonDate;
 	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ButtonDate;
 
 
@@ -30011,28 +29997,21 @@
 /* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
 	/**
 	 * Created by Lobova.A on 14.03.2017.
 	 */
-	var __extends = (this && this.__extends) || (function () {
-	    var extendStatics = Object.setPrototypeOf ||
-	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-	    return function (d, b) {
-	        extendStatics(d, b);
-	        function __() { this.constructor = d; }
-	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	    };
-	})();
-	Object.defineProperty(exports, "__esModule", { value: true });
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
 	var BaseSelection = __webpack_require__(15);
 	var Timing = (function (_super) {
 	    __extends(Timing, _super);
 	    function Timing(element) {
-	        var _this = _super.call(this, element) || this;
-	        _this.isSelected = false;
-	        return _this;
+	        _super.call(this, element);
+	        this.isSelected = false;
 	    }
 	    Timing.prototype.select = function (e) {
 	        _super.prototype.select.call(this, e);
@@ -30067,6 +30046,7 @@
 	    };
 	    return Timing;
 	}(BaseSelection));
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Timing;
 
 
