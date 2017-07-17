@@ -19,8 +19,8 @@ const ABTestContainer = {
         //     {name: "variation", page: 'mite_okon_ab', ratio: 50, description: "Пробуем новый дизайн"}
         // ]},
         'main': { name: "", key: "main_3_new_design", forNewUser: false, variations: [
-            {name: "control", page: 'main', ratio: 50, description: "Основная"},
-            {name: "variation", page: 'main_ab', ratio: 50, description: "Пробуем новый дизайн"}
+            {name: "control", page: 'main', ratio: 20, description: "Основная"},
+            {name: "variation", page: 'main_ab', ratio: 80, description: "Пробуем новый дизайн"}
         ]},
     }
 }

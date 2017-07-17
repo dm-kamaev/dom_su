@@ -86,17 +86,23 @@ class PancakeUser {
             this.setSelfInCookie()
             // queue
             this.queue.push(async function (previousResult, pancakeUser) {
-                let user = await User.create({
-                    uuid: self.uuid,
-                    data: {
-                        city: self.ctx.cities.default.keyword,
-                        track: self.track,
-                        google_id: null,
-                        ab_test : {},
-                        first_visit: self.firstVisit,
-                    }
+                let user = await User.findOrCreate({
+                    defaults: {
+                        uuid: self.uuid,
+                        data: {
+                            city: self.ctx.cities.default.keyword,
+                            track: self.track,
+                            google_id: null,
+                            ab_test : {},
+                            first_visit: self.firstVisit,
+                        }
+                    },
+                    where: {
+                        uuid: self.uuid
+                    },
+                    limit: 1
                 })
-                pancakeUser.model = user
+                pancakeUser.model = user[0]
                 return user
             })
         }
