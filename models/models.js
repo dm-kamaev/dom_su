@@ -17,7 +17,8 @@ const EmployeeNews = sequelize.define('employee_news', {
     title: Sequelize.STRING,
     text: Sequelize.TEXT,
     text_m: Sequelize.TEXT,
-    active: Sequelize.BOOLEAN
+    active: Sequelize.BOOLEAN,
+    access_list: Sequelize.JSON
 })
 
 const FAQ = sequelize.define('faq', {

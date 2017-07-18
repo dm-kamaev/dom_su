@@ -175,19 +175,16 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
             case 'ОжиданиеНачала':
                 templateCtx.status = 'Ожидание начала'
                 templateCtx.statusColor = 'orange'
+                templateCtx.updateStatus = true
                 templateCtx.buttons = [
                     {name: 'Начать', action: 'StartDeparture', color: 'white', background: '#478447'},
                     {name: 'Отменить', action: 'CancelOrder', color: 'white', background: '#b50000'},
                 ]
                 break
             case 'ОжидаетсяПодтверждениеОтмены':
-                templateCtx.status = 'Ожидается подтверждение отмены'
-                templateCtx.statusColor = 'orange'
-                templateCtx.messageTop = {
-                    color: 'red',
-                    text: 'Вы отправили заявку на отмену заказа, ожидайте звонка для подтверждения'
-                }
-                break
+                ctx.status = 302
+                ctx.redirect(`/staff/${ctx.state.pancakeUser.auth1C.employee_uuid}/?orders=true`)
+                return
             case 'Выполняется':
                 templateCtx.status = 'Выполняется'
                 templateCtx.statusColor = 'orange'
@@ -262,7 +259,6 @@ staffRouter.get('/staff/ajax/order/management', loginRequired(async function (ct
             break
         case 'CancelOrder':
             method1C = new Method1C('Employee.CancelOrder', {DepartureID: ctx.query.DepartureID})
-            response.Redirect = staffUrl('employeeOrders', ctx.state.pancakeUser.auth1C.employee_uuid)
             response.Message = {
                 text: 'Вы отправили заявку на отмену заказа, ожидайте звонка для подтверждения',
                 color: 'red'

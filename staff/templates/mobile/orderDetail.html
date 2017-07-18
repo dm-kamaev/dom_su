@@ -35,8 +35,7 @@
             var elem = document.getElementById('errorAction');
             elem.style.display = 'block';
         }
-        function onSuccess(data)
-        {
+        function onSuccess(data){
             var parseData = JSON.parse(data)
             if (parseData.Result === true){
                 if (parseData.Message){
@@ -79,7 +78,7 @@
                     }
                 }
             }
-        setInterval(updateStatus, 30 * 1000)
+        setInterval(updateStatus, 10 * 1000)
         {{/if}}
     </script>
     {{/if}}
