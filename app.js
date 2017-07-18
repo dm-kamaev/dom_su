@@ -29,9 +29,9 @@ async function run() {
         require('utils/helpers')
 
         // General Service middleware
-        if (config.app.debug) {
+        //if (config.app.debug) {
             app.use(accessLogger())
-        }
+        //}
         app.use(errorMiddleware)
         app.use(koaBody())
         app.use(userAgent)
