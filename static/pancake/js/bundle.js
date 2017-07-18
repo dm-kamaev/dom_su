@@ -2802,7 +2802,7 @@
 	                var json = JSON.stringify(data);
 	                var requestUrl = "/event-handler";
 	                request.send(requestUrl, json, response, error);
-	                setTimeout(sendId, 30000, google_id);
+	                setTimeout(sendId, 60000, google_id);
 	            }
 	            sendId(google_id_1);
 	        }
