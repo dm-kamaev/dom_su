@@ -546,6 +546,7 @@ staffRouter.get('/staff/:EmployeeID/news/', loginRequired(getEmployeeHeader(asyn
         }
 
     }
+    templateCtx.GetEmployeeData = GetEmployeeData.response
     templateCtx.news = accessList
     templateCtx.limit = limit
     if (isMobileVersion(ctx)){
