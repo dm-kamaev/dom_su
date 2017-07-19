@@ -525,23 +525,28 @@ staffRouter.get('/staff/:EmployeeID/news/', loginRequired(getEmployeeHeader(asyn
     await request1C.do()
     let template
     let limit =  (ctx.query.all) ? undefined : 5
-    let news = await EmployeeNews.findAll({where: {active: true} , order: [['id', 'DESC']], 'limit': limit})
-    // let newsList = await EmployeeNews.findAll({where: {active: true} , order: [['id', 'DESC']], 'limit': limit})
-    // // check access
-    // let accessList = []
-    // for (let news of newsList){
-    //     if (news.access_list && news.access_list.length > 0){
-    //         if (news.access_list.indexOf(ctx.state.pancakeUser.auth1C.employee_uuid) > -1){
-    //             accessList.push(news)
-    //         }
-    //     } else {
-    //         accessList.push(news)
-    //     }
-    //
-    // }
-    templateCtx.GetEmployeeData = GetEmployeeData.response
-    // templateCtx.news = accessList
-    templateCtx.news = news
+    //let news = await EmployeeNews.findAll({where: {active: true} , order: [['id', 'DESC']], 'limit': limit})
+    let newsList = await EmployeeNews.findAll({where: {active: true} , order: [['id', 'DESC']], 'limit': limit})
+    // check access
+    let accessList = []
+    for (let news of newsList){
+        if (news.access_list){
+            if (news.access_list.show){
+                if (news.access_list.list.indexOf(ctx.state.pancakeUser.auth1C.employee_uuid) > -1){
+                    accessList.push(news)
+                }
+            } else {
+                if (news.access_list.list.indexOf(ctx.state.pancakeUser.auth1C.employee_uuid) < 0){
+                    accessList.push(news)
+                }
+            }
+
+        } else {
+            accessList.push(news)
+        }
+
+    }
+    templateCtx.news = accessList
     templateCtx.limit = limit
     if (isMobileVersion(ctx)){
         template = getTemplate(staffTemplate.mobile.newsIndex)
