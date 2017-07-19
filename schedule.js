@@ -80,7 +80,6 @@ function cleanPhoneNumber() {
 }
 
 async function checkPayments() {
-    logger.info('start check payments')
     let payments
     try{
          payments = await Payment.findAll({where: {
@@ -96,7 +95,7 @@ async function checkPayments() {
             for (let payment of payments){
                 let paymentState = await getState(payment.PaymentId)
                 if (['CONFIRMING', 'CONFIRMED'].indexOf(paymentState) > 0){
-                    loggerPay.info(`Bank Check State - Success | Status - ${paymentState} | OrderId - ${payment.id} `)
+                    loggerPay.info(`SCHEDULE Bank Check State - Success | Status - ${paymentState} | OrderId - ${payment.id} `)
                     try {
                         let data = {};
                         data['OrderId'] = payment.OrderId
@@ -111,16 +110,16 @@ async function checkPayments() {
                         try{
                             await saveAndSend('PaymentSuccess', data)
                         } catch (e){
-                            loggerPay.error(`Tickets are not sent ${JSON.stringify(data)}`)
+                            loggerPay.error(`SCHEDULE Tickets are not sent ${JSON.stringify(data)}`)
                         }
                         payment.success = true
                         await payment.save()
-                        loggerPay.info(`Payment Success Completed OrderId - ${payment.OrderId} | Id - ${payment.id}`)
+                        loggerPay.info(`SCHEDULE Payment Success Completed OrderId - ${payment.OrderId} | Id - ${payment.id}`)
                     } catch (e){
                         loggerPay.error(e)
                     }
                 } else {
-                    loggerPay.error(`Bank Check State - Failure | Status - ${paymentState} | Id - ${payment.id}`)
+                    loggerPay.error(`SCHEDULE Bank Check State - Failure | Status - ${paymentState} | Id - ${payment.id}`)
                 }
             }
         }
