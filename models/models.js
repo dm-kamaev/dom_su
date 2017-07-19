@@ -85,6 +85,7 @@ const Client = sequelize.define('clients', {
 const User = sequelize.define('users', {
     uuid: {type: Sequelize.UUID, primaryKey: true},
     data: Sequelize.JSON,
+    last_action: Sequelize.DATE,
 });
 
 const Employee = sequelize.define('employees', {

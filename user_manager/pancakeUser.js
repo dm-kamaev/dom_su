@@ -200,7 +200,7 @@ class PancakeUser {
         }
     }
 
-    async setVisit() {
+    setVisit() {
         if (this.isNew === true) {
 
             const data = {};
@@ -231,8 +231,6 @@ class PancakeUser {
             })
         }
     }
-
-
 
     createEvent(eventData) {
         let task = taskEventCreate(eventData)
@@ -274,6 +272,13 @@ class PancakeUser {
                 user_uuid: pancakeUser.uuid
             })
             return UTM
+        })
+    }
+
+    setLastAction() {
+        this.queue.push(async function (previousResult, pancakeUser) {
+            pancakeUser.model.last_action = new Date()
+            await pancakeUser.model.save()
         })
     }
 
