@@ -1,5 +1,8 @@
 "use strict";
 
-const { paymentsRouter } = require('./router');
+const { paymentsRouter, getState } = require('./router');
 
-module.exports = { paymentsRouter: paymentsRouter };
+module.exports = {
+    paymentsRouter: paymentsRouter,
+    getState: getState
+};

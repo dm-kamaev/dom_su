@@ -187,9 +187,6 @@ async function getState(paymentId) {
 paymentsRouter.get('/payments/success/', async function (ctx, next) {
     try{
         let payment = await Payment.findOne({where: {id: ctx.query.OrderId}})
-        if (payment && payment.PaymentId.toString() == '2603727'){
-            await confirm(payment)
-        }
         let paymentState = await getState(payment.PaymentId)
         if (['CONFIRMING', 'CONFIRMED'].indexOf(paymentState) > 0){
             logger.info(`Bank Check State - Success | Status - ${paymentState} | OrderId - ${payment.id} `)
@@ -400,5 +397,6 @@ paymentsRouter.post('/payments/take/', async function (ctx, next) {
 })
 
 module.exports = {
-    paymentsRouter
+    paymentsRouter,
+    getState
 }

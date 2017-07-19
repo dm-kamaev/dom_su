@@ -5,15 +5,19 @@ const Sequelize = require('sequelize')
 const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, {logging: false});
 const schedule = require('node-schedule');
 const logger = require('logger')(module)
-const { models, ErrorCodes, ModelsError, scrollModel } = require('models')
-const { User, Ticket, UTMS } = models
-const { sendTicket } = require('tickets')
+const loggerPay = require('logger')(module, 'pay.log')
+const { models } = require('models')
+const { User, Ticket, UTMS, Payment } = models
+const { sendTicket, saveAndSend } = require('tickets')
+const { getState } = require('payments')
+const moment = require('moment')
 
 const MAX_STAGNATION_VISIT_MINUTE = 15;
 const MAX_STAGNATION_TAKE_NUMBER_MINUTE = 10;
 const CRON_VISIT = 1;
 const CRON_NUMBER = 1;
 const CRON_TICKET = 1;
+const CRON_PAYMENT = 1;
 
 // TODO ERROR HANDLER
 
@@ -75,6 +79,56 @@ function cleanPhoneNumber() {
         })
 }
 
+async function checkPayments() {
+    logger.info('start check payments')
+    let payments
+    try{
+         payments = await Payment.findAll({where: {
+            initial: true,
+            notification: true,
+            success: false,
+            createdAt: {
+                // last 3 hour
+                $gt: new Date(new Date() - 1000*60*60*3)
+            }}
+        })
+        if (payments !== null){
+            for (let payment of payments){
+                let paymentState = await getState(payment.PaymentId)
+                if (['CONFIRMING', 'CONFIRMED'].indexOf(paymentState) > 0){
+                    loggerPay.info(`Bank Check State - Success | Status - ${paymentState} | OrderId - ${payment.id} `)
+                    try {
+                        let data = {};
+                        data['OrderId'] = payment.OrderId
+                        data['Amount'] = payment.Amount
+                        data['Description'] = payment.Description
+                        data['PaymentOrgType'] = payment.payment_org_type
+                        data['id'] = payment.id
+                        data['date'] = moment.parseZone(moment(payment.create_time).utcOffset("+03:00").format('YYYY-MM-DDTHH:mm:ssZ')).format('YYYY-MM-DDTHH:mm:ss') + 'Z'
+                        data['PaymentId'] = payment.PaymentId
+                        // TODO add user_uuid field in payments
+                        // data['user_id'] = ctx.state.pancakeUser.uuid
+                        try{
+                            await saveAndSend('PaymentSuccess', data)
+                        } catch (e){
+                            loggerPay.error(`Tickets are not sent ${JSON.stringify(data)}`)
+                        }
+                        payment.success = true
+                        await payment.save()
+                        loggerPay.info(`Payment Success Completed OrderId - ${payment.OrderId} | Id - ${payment.id}`)
+                    } catch (e){
+                        loggerPay.error(e)
+                    }
+                } else {
+                    loggerPay.error(`Bank Check State - Failure | Status - ${paymentState} | Id - ${payment.id}`)
+                }
+            }
+        }
+    } catch (e){
+        logger.info(e)
+    }
+}
+
 async function sendForgottenTicket() {
     let ticket;
     try {
@@ -102,19 +156,25 @@ async function sendForgottenTicket() {
 }
 
 module.exports = () => {
-    logger.info('Schedule - CLOSE VISIT  - START')
+
     let taskVisit = schedule.scheduleJob(`*/${CRON_VISIT} * * * *`, function(){
       setVisitFinish()
     });
+    logger.info('Schedule - CLOSE VISIT  - START')
 
-    logger.info('Schedule - CLEAN NUMBER - START')
     let taskPhoneNumber = schedule.scheduleJob(`*/${CRON_NUMBER} * * * *`, function () {
         cleanPhoneNumber()
     })
+    logger.info('Schedule - CLEAN NUMBER - START')
 
-    logger.info('Schedule - SEND TICKET - START')
     let taskTicket = schedule.scheduleJob(`*/${CRON_TICKET} * * * *`,async function () {
         await sendForgottenTicket()
     })
+    logger.info('Schedule - SEND TICKET - START')
 
+    let taskPayments = schedule.scheduleJob(`*/${CRON_PAYMENT} * * * *`,async function () {
+        await checkPayments()
+    })
+
+    logger.info('Schedule - CHECK PAYMENTS - START')
 }
