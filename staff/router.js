@@ -118,130 +118,142 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
     request1C.add(GetDepartureData)
     await request1C.do()
     templateCtx.GetEmployeeData = GetEmployeeData.response
-    GetDepartureData.response.AllDepartures.sort((a, b)=>{return (a.Date > b.Date) ? true : false})
-    GetDepartureData.response.AllDepartures.forEach(item => {if (item.DepartureID == ctx.params.DepartureID) {templateCtx.currentDate = item.Date; item.currentDeparture = true}})
-    countEmployees = GetDepartureData.response.Employees.length
-    templateCtx.width = Math.max(604 + 100 * countEmployees, 904)
-    if (countEmployees == 1){
-        templateCtx.employeeColumnWidth = 300
-    }
-    else if (countEmployees == 2){
-        templateCtx.employeeColumnWidth = 150
-    } else {
-        templateCtx.employeeColumnWidth = 100
-    }
-    if (GetDepartureData.response.ServiceObjectClassEmployee != undefined){
-        for (let Service of GetDepartureData.response.Services){
-            for (let objectClass of Service.ObjectClasses){
-                objectClass.Employees = []
-                objectClass.EmployeeListID = []
-                for (let ServiceObjectClass of GetDepartureData.response.ServiceObjectClassEmployee){
-                    if (Service.ServiceID == ServiceObjectClass.ServiceID && objectClass.ObjectClassID == ServiceObjectClass.ObjectClassID){
-                        for (let emp of GetDepartureData.response.Employees){
-                            if (emp.EmployeeID == ServiceObjectClass.EmployeeID){
-                                objectClass.Employees.push(emp)
-                                objectClass.EmployeeListID.push(emp.EmployeeID)
+    if (GetDepartureData.response) {
+        GetDepartureData.response.AllDepartures.sort((a, b)=> {
+            return (a.Date > b.Date) ? true : false
+        })
+        GetDepartureData.response.AllDepartures.forEach(item => {
+            if (item.DepartureID == ctx.params.DepartureID) {
+                templateCtx.currentDate = item.Date;
+                item.currentDeparture = true
+            }
+        })
+        countEmployees = GetDepartureData.response.Employees.length
+        templateCtx.width = Math.max(604 + 100 * countEmployees, 904)
+        if (countEmployees == 1) {
+            templateCtx.employeeColumnWidth = 300
+        }
+        else if (countEmployees == 2) {
+            templateCtx.employeeColumnWidth = 150
+        } else {
+            templateCtx.employeeColumnWidth = 100
+        }
+        if (GetDepartureData.response.ServiceObjectClassEmployee != undefined) {
+            for (let Service of GetDepartureData.response.Services) {
+                for (let objectClass of Service.ObjectClasses) {
+                    objectClass.Employees = []
+                    objectClass.EmployeeListID = []
+                    for (let ServiceObjectClass of GetDepartureData.response.ServiceObjectClassEmployee) {
+                        if (Service.ServiceID == ServiceObjectClass.ServiceID && objectClass.ObjectClassID == ServiceObjectClass.ObjectClassID) {
+                            for (let emp of GetDepartureData.response.Employees) {
+                                if (emp.EmployeeID == ServiceObjectClass.EmployeeID) {
+                                    objectClass.Employees.push(emp)
+                                    objectClass.EmployeeListID.push(emp.EmployeeID)
+                                }
                             }
                         }
                     }
                 }
             }
         }
-    }
-    for (let emp of GetDepartureData.response.Employees){
-        if (emp.EmployeeID == ctx.state.pancakeUser.auth1C.employee_uuid){
-            templateCtx.EarningsOrder = emp.EarnedMoney
-            break
+        for (let emp of GetDepartureData.response.Employees) {
+            if (emp.EmployeeID == ctx.state.pancakeUser.auth1C.employee_uuid) {
+                templateCtx.EarningsOrder = emp.EarnedMoney
+                break
+            }
+        }
+        templateCtx.isSenior = (GetDepartureData.response.Senior.EmployeeID == ctx.state.pancakeUser.auth1C.employee_uuid) ? true : false
+        templateCtx.departureId = ctx.params.DepartureID
+        templateCtx.GetDepartureData = GetDepartureData.response
+        if (isMobileVersion(ctx)) {
+            try {
+                [templateCtx.lon, templateCtx.lat] = JSON.parse(GetDepartureData.response['Address']['AddressJson'])['GeoObject']['Point']['pos'].split(' ')
+            } catch (e) {
+                templateCtx.lat = null
+                templateCtx.lon = null
+            }
+            switch (GetDepartureData.response.Management.Status) {
+                case 'ОжиданиеНачалаВыезда':
+                    templateCtx.status = 'Ожидание начала'
+                    templateCtx.statusColor = 'orange'
+                    templateCtx.buttons = [
+                        {name: 'Начать заказ', action: 'StartDeparture', color: 'white', background: '#478447'},
+                    ]
+                    break
+                case 'ОжиданиеНачала':
+                    templateCtx.status = 'Ожидание начала'
+                    templateCtx.statusColor = 'orange'
+                    templateCtx.updateStatus = true
+                    templateCtx.buttons = [
+                        {name: 'Начать', action: 'StartDeparture', color: 'white', background: '#478447'},
+                        {name: 'Отменить', action: 'CancelOrder', color: 'white', background: '#b50000'},
+                    ]
+                    break
+                case 'ОжидаетсяПодтверждениеОтмены':
+                    ctx.status = 302
+                    ctx.redirect(`/staff/${ctx.state.pancakeUser.auth1C.employee_uuid}/?orders=true`)
+                    return
+                case 'Выполняется':
+                    templateCtx.status = 'Выполняется'
+                    templateCtx.statusColor = 'orange'
+                    templateCtx.buttons = [
+                        {name: 'Завершить заказ', action: 'FinishDeparture', color: 'white', background: '#478447'},
+                    ]
+                    break
+                case 'ВыполненВыезд':
+                    templateCtx.status = 'Выезд выполнен'
+                    templateCtx.statusColor = 'green'
+                    templateCtx.messageTop = {
+                        color: 'forestgreen',
+                        text: '*Вы можете покинуть заказ'
+                    }
+                    templateCtx.messageBottom = {
+                        color: 'black',
+                        text: 'Спасибо! Вы сделали этот мир чище'
+                    }
+                    break
+                case 'Выполнен':
+                    switch (GetDepartureData.response.Management.AmountStatus) {
+                        case 'Оплачен':
+                            templateCtx.status = 'Заказ оплачен'
+                            templateCtx.statusColor = 'forestgreen'
+                            templateCtx.messageBottom = {
+                                color: 'black',
+                                text: 'Спасибо! Вы сделали этот мир чище'
+                            }
+                            break
+                        case 'Отсрочка':
+                            templateCtx.status = 'Заказ не оплачен'
+                            templateCtx.statusColor = 'red'
+                            templateCtx.messageTop = {
+                                color: 'forestgreen',
+                                text: '*Вы можете покинуть заказ не дожидаясь изменения статуса оплаты'
+                            }
+                            templateCtx.messageBottom = {
+                                color: 'black',
+                                text: 'Спасибо! Вы сделали этот мир чище'
+                            }
+                            break
+                        case 'Задолжность':
+                            templateCtx.status = 'Заказ не оплачен'
+                            templateCtx.statusColor = 'red'
+                            templateCtx.showTakeMoneyWidget = true
+                            templateCtx.updateStatus = true
+                            templateCtx.messageTop = {
+                                color: 'black',
+                                text: '*Если Клиент оплачивает картой - дождитесь изменения статуса оплаты.'
+                            }
+                            if (GetDepartureData.response.Management.AmountToPaid) {
+                                templateCtx.showAmountToPaid = true
+                            }
+                            break
+                    }
+                    break
+            }
+
         }
     }
-    templateCtx.isSenior = (GetDepartureData.response.Senior.EmployeeID == ctx.state.pancakeUser.auth1C.employee_uuid) ? true : false
-    templateCtx.departureId = ctx.params.DepartureID
-    templateCtx.GetDepartureData = GetDepartureData.response
     if (isMobileVersion(ctx)){
-        try {
-            [templateCtx.lon, templateCtx.lat] = JSON.parse(GetDepartureData.response['Address']['AddressJson'])['GeoObject']['Point']['pos'].split(' ')
-        } catch (e){
-            templateCtx.lat = null
-            templateCtx.lon = null
-        }
-        switch (GetDepartureData.response.Management.Status) {
-            case 'ОжиданиеНачалаВыезда':
-                templateCtx.status = 'Ожидание начала'
-                templateCtx.statusColor = 'orange'
-                templateCtx.buttons = [
-                    {name: 'Начать заказ', action: 'StartDeparture', color: 'white', background: '#478447'},
-                ]
-                break
-            case 'ОжиданиеНачала':
-                templateCtx.status = 'Ожидание начала'
-                templateCtx.statusColor = 'orange'
-                templateCtx.updateStatus = true
-                templateCtx.buttons = [
-                    {name: 'Начать', action: 'StartDeparture', color: 'white', background: '#478447'},
-                    {name: 'Отменить', action: 'CancelOrder', color: 'white', background: '#b50000'},
-                ]
-                break
-            case 'ОжидаетсяПодтверждениеОтмены':
-                ctx.status = 302
-                ctx.redirect(`/staff/${ctx.state.pancakeUser.auth1C.employee_uuid}/?orders=true`)
-                return
-            case 'Выполняется':
-                templateCtx.status = 'Выполняется'
-                templateCtx.statusColor = 'orange'
-                templateCtx.buttons = [
-                    {name: 'Завершить заказ', action: 'FinishDeparture', color: 'white', background: '#478447'},
-                ]
-                break
-            case 'ВыполненВыезд':
-                templateCtx.status = 'Выезд выполнен'
-                templateCtx.statusColor = 'green'
-                templateCtx.messageTop = {
-                    color: 'forestgreen',
-                    text: '*Вы можете покинуть заказ'
-                }
-                templateCtx.messageBottom = {
-                    color: 'black',
-                    text: 'Спасибо! Вы сделали этот мир чище'
-                }
-                break
-            case 'Выполнен':
-                switch (GetDepartureData.response.Management.AmountStatus) {
-                    case 'Оплачен':
-                        templateCtx.status = 'Заказ оплачен'
-                        templateCtx.statusColor = 'forestgreen'
-                        templateCtx.messageBottom = {
-                            color: 'black',
-                            text: 'Спасибо! Вы сделали этот мир чище'
-                        }
-                        break
-                    case 'Отсрочка':
-                        templateCtx.status = 'Заказ не оплачен'
-                        templateCtx.statusColor = 'red'
-                        templateCtx.messageTop = {
-                            color: 'forestgreen',
-                            text: '*Вы можете покинуть заказ не дожидаясь изменения статуса оплаты'
-                        }
-                        templateCtx.messageBottom = {
-                            color: 'black',
-                            text: 'Спасибо! Вы сделали этот мир чище'
-                        }
-                        break
-                    case 'Задолжность':
-                        templateCtx.status = 'Заказ не оплачен'
-                        templateCtx.statusColor = 'red'
-                        templateCtx.showTakeMoneyWidget = true
-                        templateCtx.updateStatus = true
-                        templateCtx.messageTop = {
-                            color: 'black',
-                            text: '*Если Клиент оплачивает картой - дождитесь изменения статуса оплаты.'
-                        }
-                        if (GetDepartureData.response.Management.AmountToPaid) {
-                            templateCtx.showAmountToPaid = true
-                        }
-                        break
-                }
-            break
-        }
         template = getTemplate(staffTemplate.mobile.orderDetail)
     } else {
         template = getTemplate(staffTemplate.desktop.orderDetail)

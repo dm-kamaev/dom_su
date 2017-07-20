@@ -61,6 +61,7 @@
     color: white;
 }
 </style>
+{{#if GetDepartureData}}
 <h1>Заказ №<span class="orange-color">{{GetDepartureData.OrderNumber}}</span></h1>
 
     {{#if GetDepartureData.Management.Access}}
@@ -275,7 +276,12 @@
     }
 </script>
 <script src="/static/js/map.js?v=1.001"></script>
-
+{{else}}
+        <p style="color: red; margin-left: 15px">
+            Открыт не ваш заказ!<br>
+            Просмотр запрещен.
+        </p>
+{{/if}}
 </section>
 <div class="clear"></div>
 </div>

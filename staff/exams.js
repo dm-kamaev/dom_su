@@ -26,11 +26,13 @@ let examsIndex = loginRequired(getEmployeeHeader(async function (ctx, next, requ
     templateCtx.GetAllCoursesForEmployee = GetAllCoursesForEmployee.response
     templateCtx.GetEmployeeData = GetEmployeeData.response
 
-    for (let test of templateCtx.GetAllCoursesForEmployee.TestsList){
-        test['djangoTestStatusID'] = TEST_STATUS[test['TestStatusID']][0]
-        test['link'] = TEST_STATUS[test['TestStatusID']][1]
-        test['colorStatus'] = TEST_STATUS[test['TestStatusID']][2]
-        test['showResult'] = TEST_STATUS[test['TestStatusID']][3]
+    if (templateCtx.GetAllCoursesForEmployee && templateCtx.GetAllCoursesForEmployee.TestsList){
+        for (let test of templateCtx.GetAllCoursesForEmployee.TestsList){
+            test['djangoTestStatusID'] = TEST_STATUS[test['TestStatusID']][0]
+            test['link'] = TEST_STATUS[test['TestStatusID']][1]
+            test['colorStatus'] = TEST_STATUS[test['TestStatusID']][2]
+            test['showResult'] = TEST_STATUS[test['TestStatusID']][3]
+        }
     }
 
     let template = getTemplate(staffTemplate.desktop.examsIndex)
