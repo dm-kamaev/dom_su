@@ -10,10 +10,10 @@ const ABTestContainer = {
         //     {name: "control", page: 'podderzhka', ratio: 50, description: "Основная"},
         //     {name: "variation", page: 'podderzhka_ab', ratio: 50, description: "Пробуем новый дизайн"}
         // ]},
-        'posle_remonta': { name: "", key: "posle_remonta_2_new_design", forNewUser: true, variations: [
-            {name: "control", page: 'posle_remonta', ratio: 50, description: "Основная"},
-            {name: "variation", page: 'posle_remonta_ab', ratio: 50, description: "Пробуем новый дизайн"}
-        ]},
+        // 'posle_remonta': { name: "", key: "posle_remonta_2_new_design", forNewUser: true, variations: [
+        //     {name: "control", page: 'posle_remonta', ratio: 50, description: "Основная"},
+        //     {name: "variation", page: 'posle_remonta_ab', ratio: 50, description: "Пробуем новый дизайн"}
+        // ]},
         // 'mite_okon': { name: "", key: "mite_okon_1_new_design", forNewUser: true, variations: [
         //     {name: "control", page: 'mite_okon', ratio: 50, description: "Основная"},
         //     {name: "variation", page: 'mite_okon_ab', ratio: 50, description: "Пробуем новый дизайн"}
