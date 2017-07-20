@@ -24,16 +24,13 @@ const CRON_PAYMENT = 1;
 function setVisitFinish() {
     sequelize.query(
         "UPDATE visits " +
-        'SET (active, "end") = ' +
-        "(False, NOW()) " +
-        "WHERE uuid IN " +
-            "(SELECT DISTINCT visit_uuid " +
-            "FROM events " +
-            "WHERE events.visit_uuid IN " +
-                "(SELECT uuid FROM visits as v WHERE active is True) " +
-            "GROUP BY visit_uuid " +
-            `HAVING	MAX(date) < (NOW() - INTERVAL '${MAX_STAGNATION_VISIT_MINUTE} minutes')) ` +
-        "RETURNING uuid, user_uuid"
+        "SET active = False, " +
+          '"end" = NOW() ' +
+        "FROM users " +
+        "WHERE visits.active is True AND " +
+              "visits.user_uuid = users.uuid AND " +
+              `users.last_action < (NOW() - INTERVAL '${MAX_STAGNATION_VISIT_MINUTE} minutes') ` +
+        "RETURNING visits.uuid, visits.user_uuid; "
     )
         .spread(async function(results, metadata) {
             if (results.length > 0){
@@ -48,18 +45,14 @@ function setVisitFinish() {
 
 function cleanPhoneNumber() {
     sequelize.query(
-            "SELECT DISTINCT user_uuid " +
-            "FROM visits " +
-            "WHERE visits.uuid IN " +
-                "(SELECT DISTINCT visit_uuid " +
-                "FROM events " +
-                "WHERE events.visit_uuid IN " +
-                    "(SELECT uuid " +
-                    "FROM visits " +
-                    "WHERE user_uuid IN " +
-                        "(SELECT user_uuid FROM phones WHERE living IS True)) " +
-                "GROUP BY visit_uuid " +
-                `HAVING	MAX(date) < (NOW() - INTERVAL '${MAX_STAGNATION_TAKE_NUMBER_MINUTE} minutes')) `
+        "UPDATE phones " +
+        "SET (living) = (false)" +
+        "FROM users " +
+        "WHERE " +
+            "phones.living IS True AND " +
+            "users.uuid = phones.user_uuid AND " +
+            `users.last_action < (NOW() - INTERVAL '${MAX_STAGNATION_TAKE_NUMBER_MINUTE} minutes')` +
+        "RETURNING phones.user_uuid"
     )
         .spread(async function(results, metadata) {
             if (results.length > 0){
@@ -71,10 +64,6 @@ function cleanPhoneNumber() {
                     user.set('data.track.numbers', {})
                     await user.save()
                 }
-                sequelize.query("UPDATE phones " +
-                    "SET (living) = (false) " +
-                    "WHERE user_uuid IN " +
-                    `('${user_uuid_list.join('\',\'')}')`)
             }
         })
 }

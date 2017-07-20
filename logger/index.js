@@ -2,6 +2,7 @@
 
 const winston = require('winston')
 const config = require('config');
+const moment = require('moment')
 
 module.exports = (module, filename) => {
     filename = filename || 'info.log'
@@ -15,8 +16,8 @@ function makeLogger(module, filename) {
     let transports = [
 
         new winston.transports.File({
-            timestamp: true,
-                    filename: 'log/' + filename,
+            timestamp: function () { return moment().format()},
+            filename: 'log/' + filename,
             level: 'debug',
             label: path,
             json: false,
