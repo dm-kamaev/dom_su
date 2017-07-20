@@ -2808,15 +2808,6 @@
 	        }
 	        catch (e) { }
 	    },
-	    sendAD: function () {
-	        var data = {};
-	        function response() {
-	        }
-	        function error() { }
-	        var json = JSON.stringify(data);
-	        var requestUrl = "/event-handler";
-	        request.send(requestUrl, json, response, error);
-	    },
 	    init: function () {
 	        this.sendAnalyticId();
 	        this.sendAbTest();
@@ -30265,7 +30256,12 @@
 	                data.Param.schedule = _this.comment.dataset.schedule;
 	            }
 	            if (dataa.square) {
-	                creatObject1c(data.Param.services, element, element, dataa.square);
+	                if (_this.comment.dataset.name === 'posle') {
+	                    creatObject1c(data.Param.services, _this.comment, _this.comment, dataa.square);
+	                }
+	                else {
+	                    creatObject1c(data.Param.services, element, element, dataa.square);
+	                }
 	            }
 	            else {
 	                creatObject1c(data.Param.services, element, element);
