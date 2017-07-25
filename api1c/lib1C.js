@@ -21,7 +21,8 @@ class Method1C{
 
 class Request1C {
 
-    constructor(token, ip, userAgent, oldAPI){
+    constructor(token, userUUID, ip, userAgent, oldAPI){
+        userUUID = userUUID || null
         oldAPI = oldAPI || false
         this.methods = [];
         this.response = null;
@@ -30,7 +31,10 @@ class Request1C {
         this.ip = ip
         this.userAgent = userAgent
         this.body = {
-            Methods: [], Token: token, ClientData: {
+            Methods: [],
+            user_id: userUUID,
+            Token: token,
+            ClientData: {
                 IP: ip,
                 UserAgent: {
                     "Original": Original,
@@ -110,11 +114,11 @@ class Request1C {
 
 class SingleRequest1C{
 
-    constructor (name, param, token, ip, userAgent){
+    constructor (name, param, token, userUUID, ip, userAgent){
         token = token || null
         ip = ip || null
         userAgent = userAgent || null
-        this.request1C = new Request1C(token, ip, userAgent);
+        this.request1C = new Request1C(token, userUUID, ip, userAgent);
         this.singleMethod = new Method1C(name, param);
         this.request1C.add(this.singleMethod)
     }

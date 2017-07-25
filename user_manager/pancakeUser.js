@@ -273,6 +273,7 @@ class PancakeUser {
             })
             return UTM
         })
+        this.sendTicket('CaughtUTM', {utm: data})
     }
 
     setLastAction() {

@@ -10,7 +10,7 @@ const staffServiceRouter = new Router();
 
 
 staffServiceRouter.get('/staff/check_service', async function (ctx, next) {
-    const request1C = new Request1C(null, '', '', true);
+    const request1C = new Request1C(null, null, '', '', true);
     let CheckAPI = new Method1C('CheckAPI', {})
     request1C.add(CheckAPI)
     await request1C.do()

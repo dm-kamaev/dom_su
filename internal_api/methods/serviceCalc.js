@@ -8,7 +8,7 @@ async function GetDate(ctx) {
     let param = ctx.request.body.Param || {}
     //param.city = 'moscow'
     param.city = ctx.state.pancakeUser.city.keyword
-    let singleRequest = new SingleRequest1C('Common.GetTimeInfo', param)
+    let singleRequest = new SingleRequest1C('Common.GetTimeInfo', param, null, ctx.state.pancakeUser.uuid)
     let response1C = await singleRequest.do()
     ctx.body = {
         "Data": {

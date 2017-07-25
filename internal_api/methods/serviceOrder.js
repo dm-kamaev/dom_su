@@ -5,7 +5,7 @@ const uuid4 = require('uuid/v4')
 
 async function SendTimeInfo(ctx) {
     let param = ctx.request.body.Param
-    let singleRequest = new SingleRequest1C('Client.ServiceOrder.SendTimeInfo', param)
+    let singleRequest = new SingleRequest1C('Client.ServiceOrder.SendTimeInfo', param, null, ctx.state.pancakeUser.uuid)
     let response1C = await singleRequest.do()
     ctx.body = { "Success": true }
 }
@@ -14,7 +14,7 @@ async function SendTimeInfo(ctx) {
 
 async function SendAdditionInfo(ctx) {
     let param = ctx.request.body.Param
-    let singleRequest = new SingleRequest1C('Client.ServiceOrder.SendAdditionInfo', param)
+    let singleRequest = new SingleRequest1C('Client.ServiceOrder.SendAdditionInfo', param, null, ctx.state.pancakeUser.uuid)
     let response1C = await singleRequest.do()
     ctx.body = { 'Success': true }
 }
@@ -24,7 +24,7 @@ async function Create(ctx) {
     if (!ctx.request.body.Param.city){
         param.city = ctx.state.pancakeUser.city.keyword
     }
-    let singleRequest = new SingleRequest1C('Client.ServiceOrder.Create', param)
+    let singleRequest = new SingleRequest1C('Client.ServiceOrder.Create', param, null, ctx.state.pancakeUser.uuid)
     let response1C = await singleRequest.do()
     ctx.body = { 'Success': true }
 }
@@ -34,7 +34,7 @@ async function SendContactInfo(ctx) {
     const serviceOrderUUID = uuid4()
     param.city = ctx.state.pancakeUser.city.keyword
     param.uuid = serviceOrderUUID
-    let singleRequest = new SingleRequest1C('Client.ServiceOrder.SendContactInfo', param)
+    let singleRequest = new SingleRequest1C('Client.ServiceOrder.SendContactInfo', param, null, ctx.state.pancakeUser.uuid)
     let response1C = await singleRequest.do()
     ctx.body = {
         'Data': {

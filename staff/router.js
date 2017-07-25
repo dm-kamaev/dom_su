@@ -262,7 +262,7 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
 })))
 
 staffRouter.get('/staff/ajax/order/management', loginRequired(async function (ctx, next) {
-    const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '');
+    const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '');
     let method1C
     let response = {"Result": true}
     switch (ctx.query.action){
@@ -671,7 +671,7 @@ staffRouter.post('/staff/interview/:EmployeeID/:InterviewID/', parseFormMultipar
 })))
 
 staffRouter.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
-    const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '');
+    const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '');
     let GetConversationList = new Method1C('Employee.GetConversationList', {'EmployeeID': templateCtx.employeeId})
     request1CAPIV2.add(GetConversationList)
     request1CAPIV2.add(GetEmployeeData)
@@ -689,11 +689,11 @@ staffRouter.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHe
 
 staffRouter.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginRequired(async function (ctx, next) {
     let salt = uuid4()
-    const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '');
+    const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '');
     let NewConversation = new Method1C('Employee.NewConversation', {'EmployeeID': ctx.state.pancakeUser.auth1C.employee_uuid, 'Subject': ctx.request.body.fields.subject})
     request1CAPIV2.add(NewConversation)
     await request1CAPIV2.do()
-    const twoRequest1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '')
+    const twoRequest1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '')
     let SendMessage = new Method1C('SendMessage', {
     "Role": 2, "Content": ctx.request.body.fields.content, "Salt": salt.toString(),
     "AnswerToMessageID": null,
@@ -707,7 +707,7 @@ staffRouter.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginR
 }))
 
 staffRouter.get('/staff/:EmployeeID/conversations/:ConversationID', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
-    const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '');
+    const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '');
     let GetConversationList = new Method1C('Employee.GetConversationList', {'EmployeeID': templateCtx.employeeId})
     let GetMessageList = new Method1C('GetMessageList', {'Count': 100, 'Linked': {'ID': ctx.params.ConversationID, 'Type': 'Conversation'}})
     request1CAPIV2.add(GetConversationList)
@@ -861,7 +861,7 @@ staffRouter.post('/staff/message_handler/:EmployeeID', parseFormMultipart, async
         let auth1C = await ctx.state.pancakeUser.getAuth1C()
         token = auth1C.token
     }
-    const request1C = new Request1C(token, '', '', true);
+    const request1C = new Request1C(token, ctx.state.pancakeUser.uuid, '', '', true);
     let SendMessage = new Method1C('SendMessage', {
         "Role": 2, "Content": ctx.request.body.fields.content, "Salt": salt.toString(),
         "AnswerToMessageID": null,
@@ -879,7 +879,7 @@ staffRouter.post('/staff/message_handler/:EmployeeID', parseFormMultipart, async
 // Message list
 staffRouter.get('/staff/comments/:EmployeeID/:LinkedType/:LinkedID/:Token/', async function (ctx, next) {
     let templateCtx = {}
-    const request1C = new Request1C(ctx.params.Token, '', '', true);
+    const request1C = new Request1C(ctx.params.Token, null, '', '', true);
     let GetMessageList = new Method1C('GetMessageList', {'Count': 100, 'Linked': {'ID': ctx.params.LinkedID, 'Type': ctx.params.LinkedType}})
     request1C.add(GetMessageList)
     await request1C.do()
@@ -899,7 +899,7 @@ staffRouter.get('/staff/ajax/get_rating_history', loginRequired(async function (
     let from_item = Number(ctx.request.query.item_count)
     let count = Number(ctx.request.query.get_item_count)
     let GetRatingHistory = new Method1C('GetRatingHistory', {'EmployeeID': employeeId, 'From': from_item, 'Count': count})
-    const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '', true);
+    const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', true);
     request1C.add(GetRatingHistory)
     await request1C.do()
     let templateCtx = {}
@@ -919,7 +919,7 @@ staffRouter.get('/staff/ajax/orderList', loginRequired(async function (ctx, next
         let order_from = order_count + 1
         let order_to = order_from + 4
         let GetEmployeeDepartures = new Method1C('GetEmployeeDepartures', {'Filter': {'OrderFrom': order_from, 'OrderTo': order_to}, 'EmployeeID': employeeId})
-        const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '', true);
+        const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', true);
         request1C.add(GetEmployeeDepartures)
         await request1C.do()
         templateCtx.GetEmployeeDepartures = GetEmployeeDepartures.response

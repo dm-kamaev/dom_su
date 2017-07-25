@@ -5,7 +5,7 @@ const logger = require('logger')(module, 'staff.log')
 
 function getEmployeeHeader(routerFunc) {
     return async function (ctx, next) {
-        const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, '', '', true);
+        const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', true);
         const GetEmployeeData = new Method1C('GetEmployeeData', {EmployeeID: ctx.params.EmployeeID || ctx.state.pancakeUser.auth1C.employee_uuid});
         request1C.add(GetEmployeeData)
         let templateCtx = {

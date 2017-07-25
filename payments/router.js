@@ -65,7 +65,7 @@ async function getTerminalData(paymentId, orderId) {
     }
     try{
         if (orderId){
-            let singleRequest = new SingleRequest1C('Client.GetPaymentOrgType', {"OrderID": orderId})
+            let singleRequest = new SingleRequest1C('Client.GetPaymentOrgType', {"OrderID": orderId}, null, ctx.state.pancakeUser.uuid)
             let response = await singleRequest.do()
             if (PaymentOrgType[response.PaymentOrgType]){
                 return PaymentOrgType[response.PaymentOrgType]
