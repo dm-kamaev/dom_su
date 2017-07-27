@@ -130,7 +130,7 @@
                 <form action="/staff/ajax/order/management" method="GET" enctype="application/x-www-form-urlencoded" data-ajax="false" >
                     <input type="hidden" name="action" value="ConfirmPayment">
                     <input type="hidden" name="DepartureID" value="{{departureId}}">
-                    <label>Сумма:<input name="PaidAmount" style="" type="number" required></label>
+                    <label>Сумма: {{#if showAmountToPaid}}<span style="color: green">{{ toMoney GetDepartureData.Management.AmountToPaid}}</span> Руб.{{/if }}<input name="PaidAmount" style="" type="number" required></label>
                     <button class="ui-btn ui-btn-inline" type="submit" style="background: #478447; color: white; text-shadow: none;">Принять</button>
                     <a onclick='$( "#order-block-collapse" ).collapsible( "collapse" )' class="ui-btn ui-btn-inline" type="" style="background: #b50000; text-shadow: none; color: white;">Отменить</a>
                 </form>
