@@ -32,7 +32,7 @@ class PancakeService {
         if (user == null){
             throw new Error(`Post call tracking | User on Phone - ${data.phone} - not found`)
         }
-        this.sendTicket('NewTrackingCall', ticket, user.uuid)
+        this.sendTicket('NewTrackingCall', ticket)
         this.sendDataGA({
             'v': 1,
             'tid': config.analytics.google,
@@ -70,11 +70,7 @@ class PancakeService {
 
     sendTicket(type, data, user_uuid) {
         this.queue.push(async function (previousResult, pancakeService) {
-            let utms;
-            if (user_uuid) {
-                utms = await pancakeService.getUserUtms(user_uuid)
-            }
-            let ticket = await saveAndSend(type, data, utms)
+            let ticket = await saveAndSend(type, data)
             return ticket
         })
     }

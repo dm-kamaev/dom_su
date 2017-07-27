@@ -291,9 +291,8 @@ class PancakeUser {
     sendTicket(type, data) {
         // Add UTMS and User UUID in Ticket
         this.queue.push(async function (previousResult, pancakeUser) {
-            let utms = await pancakeUser.getUtms()
             data['user_id'] = pancakeUser.uuid
-            let ticket = await saveAndSend(type, data, utms)
+            let ticket = await saveAndSend(type, data)
             return ticket
         })
     }
