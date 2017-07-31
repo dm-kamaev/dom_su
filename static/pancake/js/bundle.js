@@ -55,8 +55,8 @@
 	 * Created by Lobova.A on 14.02.2017.
 	 */
 	__webpack_require__(2);
-	__webpack_require__(226);
-	var resize = __webpack_require__(231);
+	__webpack_require__(228);
+	var resize = __webpack_require__(233);
 	window.addEventListener('resize', resize);
 
 
@@ -1245,9 +1245,9 @@
 	var init = __webpack_require__(11);
 	// let renderOrder = require('./../../../components/order/render-order');
 	// let renderSchedule = require('./../../../components/order/render-schedule');
-	var renderItem = __webpack_require__(228);
-	var renderForm = __webpack_require__(229);
-	var message = __webpack_require__(230);
+	var renderItem = __webpack_require__(230);
+	var renderForm = __webpack_require__(231);
+	var message = __webpack_require__(232);
 	var leftSide = document.querySelector('.left-side');
 	var rightSide = document.querySelector('.right-side');
 	var pageState = {
@@ -1793,7 +1793,7 @@
 	        if (this.width() < 768) {
 	            return this.mobile;
 	        }
-	        else if (this.width() < 1280) {
+	        else if (this.width() < 1360) {
 	            return this.tablet;
 	        }
 	        else {
@@ -1863,10 +1863,11 @@
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 29.11.2016.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var custom_event_1 = __webpack_require__(12);
 	var window_form_1 = __webpack_require__(13);
 	//let url = require('./../state-address/state-address');
@@ -1898,9 +1899,11 @@
 	var Carousel = __webpack_require__(218);
 	var carousel_two_1 = __webpack_require__(219);
 	var service_menu_carousel_1 = __webpack_require__(220);
-	var service_menu_open_1 = __webpack_require__(221);
-	var review_open_1 = __webpack_require__(222);
-	var pageHeader = __webpack_require__(223);
+	var banner_1 = __webpack_require__(221);
+	var service_menu_open_1 = __webpack_require__(222);
+	var review_open_1 = __webpack_require__(223);
+	var review_right_open_1 = __webpack_require__(224);
+	var pageHeader = __webpack_require__(225);
 	var pageElement = document.querySelector('.page');
 	var pageAuth = document.querySelector('.page--authorization');
 	var pagePrivate = document.querySelector('.page--orders');
@@ -1931,9 +1934,11 @@
 	var windowFormElement = pageElement.querySelector('.window__forms');
 	var carouselElements = pageElement.querySelectorAll('.carousel');
 	var serviceCarouselElements = pageElement.querySelectorAll('.service-menu-carousel');
+	var bannerlElement = pageElement.querySelector('.banner');
 	var carouselElementReview = pageElement.querySelectorAll('.review-carousel');
 	var serviceMenuButton = pageElement.querySelector('.service-menu__button');
 	var reviewButtons = pageElement.querySelectorAll('.review__button');
+	var reviewRightButtons = pageElement.querySelectorAll('.review-right__button');
 	var counterElements = pageElement.querySelectorAll('.service-counter');
 	var buttonConstantClient = pageElement.querySelector('.button--constant-client');
 	custom_event_1.default();
@@ -1993,7 +1998,7 @@
 	    });
 	}
 	if (buttonPriceListElements.length) {
-	    var _loop_1 = function(i) {
+	    var _loop_1 = function (i) {
 	        buttonPriceListElements[i].addEventListener('click', function (e) {
 	            e.preventDefault();
 	            var event = document.createEvent('Event');
@@ -2114,7 +2119,7 @@
 	    pageInit.contactForm = new ContactForm(contactFormElement);
 	}
 	if (buttonApplicationElements) {
-	    var _loop_2 = function(item) {
+	    var _loop_2 = function (item) {
 	        item.addEventListener('click', function (e) {
 	            e.preventDefault();
 	            var event = document.createEvent('Event');
@@ -2133,7 +2138,7 @@
 	}
 	if (questionSectionElement) {
 	    var questionElement = questionSectionElement.querySelectorAll('.question-section__item');
-	    var _loop_3 = function(item) {
+	    var _loop_3 = function (item) {
 	        var buttonToggle = item.querySelector('.question-section__link');
 	        var answer = item.querySelector('.question-section__answer');
 	        buttonToggle.addEventListener('click', function () {
@@ -2160,26 +2165,35 @@
 	        item.addEventListener('click', review_open_1.default);
 	    }
 	}
+	if (reviewRightButtons) {
+	    for (var _f = 0, reviewRightButtons_1 = reviewRightButtons; _f < reviewRightButtons_1.length; _f++) {
+	        var item = reviewRightButtons_1[_f];
+	        item.addEventListener('click', review_right_open_1.default);
+	    }
+	}
 	if (carouselElements) {
-	    for (var _f = 0, carouselElements_1 = carouselElements; _f < carouselElements_1.length; _f++) {
-	        var item = carouselElements_1[_f];
+	    for (var _g = 0, carouselElements_1 = carouselElements; _g < carouselElements_1.length; _g++) {
+	        var item = carouselElements_1[_g];
 	        pageInit.carousel = new carousel_two_1.default(item);
 	    }
 	}
 	if (carouselElementReview) {
-	    for (var _g = 0, carouselElementReview_1 = carouselElementReview; _g < carouselElementReview_1.length; _g++) {
-	        var item = carouselElementReview_1[_g];
+	    for (var _h = 0, carouselElementReview_1 = carouselElementReview; _h < carouselElementReview_1.length; _h++) {
+	        var item = carouselElementReview_1[_h];
 	        pageInit.carousel = new Carousel(item);
 	    }
 	}
 	if (serviceCarouselElements) {
-	    for (var _h = 0, serviceCarouselElements_1 = serviceCarouselElements; _h < serviceCarouselElements_1.length; _h++) {
-	        var item = serviceCarouselElements_1[_h];
+	    for (var _j = 0, serviceCarouselElements_1 = serviceCarouselElements; _j < serviceCarouselElements_1.length; _j++) {
+	        var item = serviceCarouselElements_1[_j];
 	        pageInit.serviceCarousel = new service_menu_carousel_1.default(item);
 	    }
 	}
+	if (bannerlElement) {
+	    pageInit.bannerCarousel = new banner_1.default(bannerlElement);
+	}
 	if (pageAuth) {
-	    var authorization = __webpack_require__(227);
+	    var authorization = __webpack_require__(229);
 	    authorization();
 	}
 	if (windowFormElement) {
@@ -2192,10 +2206,11 @@
 /* 12 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 15.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	function polyfillCustomEvent() {
 	    try {
 	        new CustomEvent("IE has CustomEvent, but doesn't support constructor");
@@ -2215,7 +2230,6 @@
 	        CustomEvent.prototype = Object.create(window.Event.prototype);
 	    }
 	}
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = polyfillCustomEvent;
 
 
@@ -2223,10 +2237,11 @@
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 16.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var square_1 = __webpack_require__(14);
 	var price_1 = __webpack_require__(21);
 	var info_1 = __webpack_require__(23);
@@ -2305,7 +2320,6 @@
 	    };
 	    return WindowForm;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = WindowForm;
 
 
@@ -2314,6 +2328,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Created by Lobova.A on 17.05.2017.
 	 */
@@ -2359,7 +2374,6 @@
 	    };
 	    return Square;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Square;
 
 
@@ -2499,29 +2513,35 @@
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 18.05.2017.
 	 */
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(17);
 	var switch_1 = __webpack_require__(18);
 	var SwitchSquare = (function (_super) {
 	    __extends(SwitchSquare, _super);
 	    function SwitchSquare(element) {
-	        var _this = this;
-	        _super.call(this, element);
-	        this.changeInput = function (e) {
+	        var _this = _super.call(this, element) || this;
+	        _this.changeInput = function (e) {
 	            e.preventDefault();
 	            utils_1.default._changeInput(e.target);
 	            _this.createChangeEvent();
 	        };
-	        this.input = this.element.querySelector("." + this.className + "__input");
-	        this.input.addEventListener('input', this.changeInput);
+	        _this.input = _this.element.querySelector("." + _this.className + "__input");
+	        _this.input.addEventListener('input', _this.changeInput);
+	        return _this;
 	    }
 	    SwitchSquare.prototype.reset = function () {
 	        if (this.input.parentNode === this.active) {
@@ -2536,7 +2556,6 @@
 	    };
 	    return SwitchSquare;
 	}(switch_1.default));
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = SwitchSquare;
 
 
@@ -2544,10 +2563,11 @@
 /* 17 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 13.04.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils = {
 	    _switchItem: function (container, target) {
 	        while (target !== container) {
@@ -2594,7 +2614,6 @@
 	        }
 	    }
 	};
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = utils;
 
 
@@ -2602,10 +2621,11 @@
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 17.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(17);
 	var analytic = __webpack_require__(19);
 	var Switch = (function () {
@@ -2648,7 +2668,6 @@
 	    };
 	    return Switch;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Switch;
 
 
@@ -2906,10 +2925,11 @@
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 17.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var request = __webpack_require__(8);
 	var priceFormat = __webpack_require__(22);
 	var analytic = __webpack_require__(19);
@@ -3135,7 +3155,6 @@
 	    };
 	    return Price;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Price;
 
 
@@ -3157,10 +3176,11 @@
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 16.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var request = __webpack_require__(8);
 	var validate = __webpack_require__(24);
 	var analytic = __webpack_require__(19);
@@ -3230,7 +3250,6 @@
 	    };
 	    return Info;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Info;
 
 
@@ -3490,17 +3509,17 @@
 /* 25 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 22.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	function inputReset(container) {
 	    var elements = Array.prototype.slice.call(container.querySelectorAll('input'));
 	    elements.forEach(function (item) {
 	        item.value = '';
 	    });
 	}
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = inputReset;
 
 
@@ -29728,10 +29747,11 @@
 /* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 20.04.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var button_date_1 = __webpack_require__(205);
 	var selection_1 = __webpack_require__(206);
 	var moment = __webpack_require__(55);
@@ -29823,7 +29843,6 @@
 	    };
 	    return ChangingTime;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ChangingTime;
 
 
@@ -29831,10 +29850,11 @@
 /* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 20.04.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var moment = __webpack_require__(55);
 	__webpack_require__(141);
 	var client = __webpack_require__(9);
@@ -29980,7 +30000,6 @@
 	    };
 	    return ButtonDate;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ButtonDate;
 
 
@@ -29988,21 +30007,28 @@
 /* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by Lobova.A on 14.03.2017.
 	 */
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var BaseSelection = __webpack_require__(15);
 	var Timing = (function (_super) {
 	    __extends(Timing, _super);
 	    function Timing(element) {
-	        _super.call(this, element);
-	        this.isSelected = false;
+	        var _this = _super.call(this, element) || this;
+	        _this.isSelected = false;
+	        return _this;
 	    }
 	    Timing.prototype.select = function (e) {
 	        _super.prototype.select.call(this, e);
@@ -30037,7 +30063,6 @@
 	    };
 	    return Timing;
 	}(BaseSelection));
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Timing;
 
 
@@ -31227,6 +31252,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Created by A.Belokuraya on 19.04.2017.
 	 */
@@ -31276,7 +31302,7 @@
 	        this.buttonPrev = element.querySelector("." + this.className + "__button-prev");
 	        this.container = element.querySelector("." + this.className + "__wrap");
 	        this.inner = this.container.querySelector("." + this.className + "__inner");
-	        this.scrollWidth = this.container.scrollWidth - this.container.clientWidth;
+	        this.scrollWidth = Number(this.container.scrollWidth) - Number(this.container.clientWidth);
 	        this.getStep();
 	        this.shift = 0;
 	        this.inProcess = false;
@@ -31357,7 +31383,6 @@
 	    ;
 	    return Carousel;
 	}());
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = Carousel;
 
 
@@ -31365,21 +31390,27 @@
 /* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
 	/**
 	 * Created by A.Belokuraya on 18.05.2017.
 	 */
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = (this && this.__extends) || (function () {
+	    var extendStatics = Object.setPrototypeOf ||
+	        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+	        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() { this.constructor = d; }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	})();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var client = __webpack_require__(9);
 	var carousel_two_1 = __webpack_require__(219);
 	var ServiceMenuCarousel = (function (_super) {
 	    __extends(ServiceMenuCarousel, _super);
 	    function ServiceMenuCarousel(element) {
-	        _super.call(this, element);
+	        return _super.call(this, element) || this;
 	    }
 	    ServiceMenuCarousel.prototype.init = function () {
 	        if (!client.isMobile()) {
@@ -31388,18 +31419,94 @@
 	    };
 	    return ServiceMenuCarousel;
 	}(carousel_two_1.default));
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = ServiceMenuCarousel;
 
 
 /***/ }),
 /* 221 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	/**
+	 * Created by Lobova.A on 26.07.2017.
+	 */
+	Object.defineProperty(exports, "__esModule", { value: true });
+	var client = __webpack_require__(9);
+	var BannerCarousel = (function () {
+	    function BannerCarousel(element) {
+	        var _this = this;
+	        this.next = function (e) {
+	            if (e) {
+	                e.preventDefault();
+	                if (!client.isMobile() && !_this.change) {
+	                    clearInterval(_this.timer);
+	                    _this.change = true;
+	                }
+	            }
+	            _this.count++;
+	            if (_this.count < _this.countMax) {
+	                if (_this.count === 1) {
+	                    _this.buttonPrev.addEventListener('click', _this.previous);
+	                    if (_this.buttonPrev.classList.contains("banner__button-prev--disabled")) {
+	                        _this.buttonPrev.classList.remove("banner__button-prev--disabled");
+	                    }
+	                }
+	            }
+	            else {
+	                _this.count = 0;
+	                _this.buttonPrev.removeEventListener('click', _this.previous);
+	                if (!_this.buttonPrev.classList.contains("banner__button-prev--disabled")) {
+	                    _this.buttonPrev.classList.add("banner__button-prev--disabled");
+	                }
+	            }
+	            _this.inner.style["transform"] = "translateX(-" + _this.count + "00%)";
+	        };
+	        this.previous = function (e) {
+	            if (e) {
+	                e.preventDefault();
+	            }
+	            _this.count--;
+	            if (_this.count === 0) {
+	                _this.buttonPrev.removeEventListener('click', _this.previous);
+	                if (!_this.buttonPrev.classList.contains("banner__button-prev--disabled")) {
+	                    _this.buttonPrev.classList.add("banner__button-prev--disabled");
+	                }
+	            }
+	            _this.inner.style["transform"] = "translateX(-" + _this.count + "00%)";
+	        };
+	        this.element = element;
+	        this.buttonNext = this.element.querySelector(".banner__button-next");
+	        this.buttonPrev = this.element.querySelector(".banner__button-prev");
+	        this.inner = this.element.querySelector(".banner__inner");
+	        this.shift = 0;
+	        this.banners = Array.prototype.slice.call(this.element.querySelectorAll('.banner__item'));
+	        this.count = 0;
+	        this.change = false;
+	        this.init();
+	    }
+	    BannerCarousel.prototype.init = function () {
+	        this.countMax = this.banners.length;
+	        if (this.buttonNext) {
+	            this.buttonNext.addEventListener('click', this.next);
+	        }
+	        if (!client.isMobile() && !this.change) {
+	            this.timer = setInterval(this.next, 6000);
+	        }
+	    };
+	    return BannerCarousel;
+	}());
+	exports.default = BannerCarousel;
+
+
+/***/ }),
+/* 222 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by A.Belokuraya on 18.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	function openServiceList(e) {
 	    e.preventDefault();
 	    var timer = 0;
@@ -31407,7 +31514,7 @@
 	    if (this.classList.contains('service-menu__button--open')) {
 	        var serviceItems_1 = document.querySelectorAll('.service-menu__item');
 	        this.classList.remove('service-menu__button--open');
-	        var _loop_1 = function(i) {
+	        var _loop_1 = function (i) {
 	            setTimeout(function () {
 	                page.scrollTop -= 81;
 	                serviceItems_1[i].classList.add('service-menu__item--hide');
@@ -31421,7 +31528,7 @@
 	    else {
 	        this.classList.add('service-menu__button--open');
 	        var serviceItems = document.querySelectorAll('.service-menu__item--hide');
-	        var _loop_2 = function(item) {
+	        var _loop_2 = function (item) {
 	            setTimeout(function () {
 	                item.classList.remove('service-menu__item--hide');
 	            }, timer);
@@ -31433,18 +31540,18 @@
 	        }
 	    }
 	}
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = openServiceList;
 
 
 /***/ }),
-/* 222 */
+/* 223 */
 /***/ (function(module, exports) {
 
+	"use strict";
 	/**
 	 * Created by A.Belokuraya on 22.05.2017.
 	 */
-	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	function openReview(e) {
 	    e.preventDefault();
 	    var reviewDescription = this.parentElement.parentElement.querySelector('.review__description');
@@ -31456,22 +31563,44 @@
 	    var closeReviewDescription = reviewDescription.querySelector('.review__btn-close');
 	    closeReviewDescription.addEventListener('click', closeReview);
 	}
-	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = openReview;
 
 
 /***/ }),
-/* 223 */
+/* 224 */
+/***/ (function(module, exports) {
+
+	"use strict";
+	/**
+	 * Created by A.Belokuraya on 22.05.2017.
+	 */
+	Object.defineProperty(exports, "__esModule", { value: true });
+	function openReview(e) {
+	    e.preventDefault();
+	    var reviewDescription = this.parentElement.parentElement.querySelector('.review-right__description');
+	    reviewDescription.classList.remove('review-right__description--hide');
+	    function closeReview() {
+	        e.preventDefault();
+	        reviewDescription.classList.add('review-right__description--hide');
+	    }
+	    var closeReviewDescription = reviewDescription.querySelector('.review-right__btn-close');
+	    closeReviewDescription.addEventListener('click', closeReview);
+	}
+	exports.default = openReview;
+
+
+/***/ }),
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by Lobova.A on 25.11.2016.
 	 */
 	"use strict";
-	var main_menu_1 = __webpack_require__(224);
-	var openApplication = __webpack_require__(225);
+	var main_menu_1 = __webpack_require__(226);
+	var openApplication = __webpack_require__(227);
 	//let callback = require('./../callback/callback');
-	var init = __webpack_require__(226);
+	var init = __webpack_require__(228);
 	var initElement = __webpack_require__(11);
 	var headerElement = document.querySelector('.page-header');
 	var menuElement = headerElement.querySelector('.main-menu');
@@ -31504,7 +31633,7 @@
 
 
 /***/ }),
-/* 224 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -31592,7 +31721,7 @@
 
 
 /***/ }),
-/* 225 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -31657,7 +31786,7 @@
 
 
 /***/ }),
-/* 226 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -31667,7 +31796,7 @@
 
 
 /***/ }),
-/* 227 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -31779,7 +31908,7 @@
 
 
 /***/ }),
-/* 228 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -31789,7 +31918,7 @@
 	var client = __webpack_require__(9);
 	var moment = __webpack_require__(55);
 	var url = __webpack_require__(6);
-	var init = __webpack_require__(226);
+	var init = __webpack_require__(228);
 	var urlThridColumn = __webpack_require__(10);
 	var defineObject = __webpack_require__(189);
 	var RightSide = __webpack_require__(213);
@@ -31839,7 +31968,7 @@
 
 
 /***/ }),
-/* 229 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -31849,7 +31978,7 @@
 	var Mustache = __webpack_require__(186);
 	var moment = __webpack_require__(55);
 	var url = __webpack_require__(6);
-	var init = __webpack_require__(226);
+	var init = __webpack_require__(228);
 	var urlThridColumn = __webpack_require__(10);
 	var defineObject = __webpack_require__(189);
 	var Form = __webpack_require__(214);
@@ -31883,7 +32012,7 @@
 
 
 /***/ }),
-/* 230 */
+/* 232 */
 /***/ (function(module, exports) {
 
 	/**
@@ -31902,7 +32031,7 @@
 
 
 /***/ }),
-/* 231 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**

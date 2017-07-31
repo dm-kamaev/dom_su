@@ -7,6 +7,7 @@ const spbTemplates = {
     'dir': 'templates/statpages/spb/',
     'key': 'spb',
     'googleb8984dcdbac1d5fd.html': {name: 'googleb8984dcdbac1d5fd.html', data: {}},
+    'user_agreement__': {name: 'user_agreement__.html', data: { menu:{main: true, user_agreement: true}}},
     'strahovka__': {name: 'strahovka__.html', data: {noindex: true, menu:{physical: true}}},
     'garantii__': {name: 'garantii__.html', data: {noindex: true, menu:{physical: true}}},
     'generalnaya_uborka_ofisov': {name: 'generalnaya_uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
