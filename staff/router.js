@@ -185,8 +185,8 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
                     templateCtx.statusColor = 'orange'
                     templateCtx.updateStatus = true
                     templateCtx.buttons = [
-                        {name: 'Начать', action: 'StartDeparture', color: 'white', background: '#478447'},
-                        {name: 'Отменить', action: 'CancelOrder', color: 'white', background: '#b50000'},
+                        {name: 'Начать заказ', action: 'StartDeparture', color: 'white', background: '#478447'},
+                        {name: 'Отменить заказ', action: 'CancelOrder', color: 'white', background: '#b50000'},
                     ]
                     break
                 case 'ОжидаетсяПодтверждениеОтмены':
@@ -234,6 +234,7 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
                                 text: 'Спасибо! Вы сделали этот мир чище'
                             }
                             break
+                        case 'Задолженность':
                         case 'Задолжность':
                             templateCtx.status = 'Заказ не оплачен'
                             templateCtx.statusColor = 'red'
