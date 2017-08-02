@@ -103,6 +103,7 @@ class Request1C {
             })
             req.setTimeout(1000 * 20, function(){reject(new errors.API1CError('The request ended in failure', this.token, 'Timeout response', 500))})
             req.on('error', (e) => {
+                log.error(e)
                 reject(new errors.API1CError('The request ended in failure', this.token, 'The request ended in failure', 500))
             })
             req.write(this.body)
