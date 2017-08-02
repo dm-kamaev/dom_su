@@ -229,9 +229,14 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
                                 color: 'forestgreen',
                                 text: '*Вы можете покинуть заказ не дожидаясь изменения статуса оплаты'
                             }
+                            templateCtx.showTakeMoneyWidget = true,
+
                             templateCtx.messageBottom = {
                                 color: 'black',
                                 text: 'Спасибо! Вы сделали этот мир чище'
+                            }
+                            if (GetDepartureData.response.Management.AmountToPaid) {
+                                templateCtx.showAmountToPaid = true
                             }
                             break
                         case 'Задолженность':
