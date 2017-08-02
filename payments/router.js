@@ -22,15 +22,15 @@ const PaymentOrgType = {
         'TERMINAL_KEY': 'domovenok3DS',
         'PASSWORD': '1AOJ.Di8b8EwGt,X'
         // TEST KSD
-        //'PASSWORD': 'q6YYOi^^jsTo@l1S'
+        // 'PASSWORD': 'q6YYOi^^jsTo@l1S'
     },
     'tinkoff_ipatova': {
         'NAME': 'tinkoff_ipatova',
         'TERMINAL_KEY': '1487066466356',
         'PASSWORD': 'f7ydxrgo3c42l9ub'
         // TEST Ipatova
-        //'TERMINAL_KEY': '1487066466356DEMO',
-        //'PASSWORD': 'b85qudmm7bagosat',
+        // 'TERMINAL_KEY': '1487066466356DEMO',
+        // 'PASSWORD': 'b85qudmm7bagosat',
     }
 }
 
@@ -65,7 +65,7 @@ async function getTerminalData(paymentId, orderId) {
     }
     try{
         if (orderId){
-            let singleRequest = new SingleRequest1C('Client.GetPaymentOrgType', {"OrderID": orderId}, null, ctx.state.pancakeUser.uuid)
+            let singleRequest = new SingleRequest1C('Client.GetPaymentOrgType', {"OrderID": orderId}, null, null)
             let response = await singleRequest.do()
             if (PaymentOrgType[response.PaymentOrgType]){
                 return PaymentOrgType[response.PaymentOrgType]
