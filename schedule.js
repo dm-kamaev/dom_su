@@ -172,11 +172,10 @@ module.exports = () => {
     let taskPayments = schedule.scheduleJob(`*/${CRON_PAYMENT} * * * *`,async function () {
         await checkPayments()
     })
+    logger.info('Schedule - CHECK PAYMENTS - START')
 
     let taskActionToken = schedule.scheduleJob(`*/${CRON_ACTION_TOKEN} * * * *`,async function () {
         await deleteOldActionToken()
     })
     logger.info('Schedule - CLEAN ACTION TOKEN - START')
-
-    logger.info('Schedule - CHECK PAYMENTS - START')
 }
