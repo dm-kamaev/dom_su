@@ -10,6 +10,7 @@ const config = require('config')
 const { Method1C, Request1C } = require('api1c')
 const { getTemplate } = require('utils')
 const { staffUrl, isMobileVersion, toMoscowISO, staffTemplate } = require('./utils')
+const { validateActionToken } = require('user_manager')
 const moment = require('moment')
 const uuid4 = require('uuid/v4')
 const parseFormMultipart = require('koa-body')({multipart: true});
@@ -172,12 +173,13 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
                 templateCtx.lat = null
                 templateCtx.lon = null
             }
+
             switch (GetDepartureData.response.Management.Status) {
                 case 'ОжиданиеНачалаВыезда':
                     templateCtx.status = 'Ожидание начала'
                     templateCtx.statusColor = 'orange'
                     templateCtx.buttons = [
-                        {name: 'Начать заказ', action: 'StartDeparture', color: 'white', background: '#478447'},
+                        {name: 'Начать заказ', action: 'StartDeparture', color: 'white', background: '#478447', },
                     ]
                     break
                 case 'ОжиданиеНачала':
@@ -256,10 +258,15 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
                     }
                     break
             }
+            // Если есть действия на стр. создает экшен токен.
+            if (templateCtx.buttons || templateCtx.showTakeMoneyWidget){
+                templateCtx.actionToken = ctx.state.pancakeUser.getActionToken('StaffOrder')
+            }
 
         }
     }
     if (isMobileVersion(ctx)){
+        // Action Token для управления заказами требуется только в мобильной версии
         template = getTemplate(staffTemplate.mobile.orderDetail)
     } else {
         template = getTemplate(staffTemplate.desktop.orderDetail)
@@ -267,7 +274,8 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
     ctx.body = template(ctx.proc(templateCtx, ctx))
 })))
 
-staffRouter.get('/staff/ajax/order/management', loginRequired(async function (ctx, next) {
+staffRouter.get('/staff/ajax/order/management', loginRequired(validateActionToken('StaffOrder',
+    async function (ctx, next) {
     const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '');
     let method1C
     let response = {"Result": true}
@@ -294,14 +302,6 @@ staffRouter.get('/staff/ajax/order/management', loginRequired(async function (ct
             method1C = new Method1C('Employee.FinishDeparture', {DepartureID: ctx.query.DepartureID})
             response.Redirect = staffUrl('orderDetail', ctx.query.DepartureID)
             break
-        case 'GetStatus':
-            method1C = new Method1C('GetDepartureData', {DepartureID: ctx.query.DepartureID})
-            request1C.add(method1C)
-            await request1C.do()
-            response.Status = method1C.response.Management.Status
-            response.AmountStatus = method1C.response.Management.AmountStatus
-            ctx.body = response
-            return
         default:
             logger.error(`Unknown action order ${JSON.stringify(ctx.query)}`)
             break
@@ -313,7 +313,36 @@ staffRouter.get('/staff/ajax/order/management', loginRequired(async function (ct
     } else {
         ctx.body = {"Result": false}
     }
+},
+    async function (ctx, next) {
+        let response = {"Result": true}
+        switch (ctx.query.action){
+            case 'StartDeparture':
+            case 'CancelOrder':
+            case 'FinishDeparture':
+                break
+            case 'ConfirmPayment':
+                ctx.status = 302
+                ctx.redirect(staffUrl('orderDetail', ctx.query.DepartureID))
+                return
+            default:
+                logger.error(`Unknown action order ${JSON.stringify(ctx.query)}`)
+                break
+        }
+        ctx.body = response
+}
+)))
 
+staffRouter.get('/staff/ajax/order/management/get_status', loginRequired(async function (ctx, next) {
+    const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '');
+    let method1C = new Method1C('GetDepartureData', {DepartureID: ctx.query.DepartureID})
+    request1C.add(method1C)
+    await request1C.do()
+    let response = {"Result": true}
+    response.Status = method1C.response.Management.Status
+    response.AmountStatus = method1C.response.Management.AmountStatus
+    ctx.body = response
+    return
 }))
 
 // GET Order Card

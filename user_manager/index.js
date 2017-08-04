@@ -5,7 +5,7 @@ const { initPancakeUser, setUserVisit, createEventRequest, UTMCollector,
             initPancakeService} = require('./middleware')
 const { eventType }             = require('./event_type')
 const { userManagerServiceRouter }         = require('./serviceRouter')
-const { onlyUser, onlyService } = require('./decorators')
+const { onlyUser, onlyService, validateActionToken} = require('./decorators')
 const { ctxProcessor }          = require('./ctxProcessor')
 
 module.exports = {
@@ -19,6 +19,7 @@ module.exports = {
     callTracking,
     onlyUser,
     onlyService,
+    validateActionToken,
     definitionRequestType,
     initPancakeService,
     userManagerServiceRouter,

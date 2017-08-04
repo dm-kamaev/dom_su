@@ -1,7 +1,7 @@
 "use strict";
 const {QueueAsync} = require('./queue')
 const {models, ErrorCodes, ModelsError} = require('models');
-const {User, UTMS, Visit, Phone, Token, PendingToken, Employee, Client} = models;
+const {User, UTMS, Visit, Phone, Token, PendingToken, Employee, Client, ActionToken} = models;
 const config = require('config')
 const uuid4 = require('uuid/v4')
 const {taskEventCreate} = require('./task')
@@ -281,6 +281,25 @@ class PancakeUser {
             pancakeUser.model.last_action = new Date()
             await pancakeUser.model.save()
         })
+    }
+
+    getActionToken(actionType){
+        let actionTokenUUID = uuid4()
+        // asyc потому что пользователь может не создаться
+        this.queue.push(async function (previousResult, pancakeUser) {
+            await ActionToken.create({token: actionTokenUUID, user_uuid: pancakeUser.uuid, type: actionType})
+        })
+        return actionTokenUUID
+    }
+
+    async checkActionToken(actionType, token){
+        let actionToken = await ActionToken.findOne({where:{user_uuid: this.uuid, token: token, type: actionType}})
+        if (actionToken === null){
+            return false
+        } else {
+            await actionToken.destroy()
+            return true
+        }
     }
 
     clientConnect(luid) {

@@ -1,5 +1,16 @@
 "use strict";
 
+function validateActionToken(typeAction, func, elseFunc) {
+    return async function (ctx, next) {
+        let access = await ctx.state.pancakeUser.checkActionToken(typeAction, ctx.query.action_token)
+        if (access){
+            return await func(ctx, next)
+        } else {
+            return await elseFunc(ctx, next)
+        }
+    }
+}
+
 function onlyUser(middleware) {
     return async function (ctx, next) {
         if (ctx.state.requestType.user){
@@ -23,4 +34,5 @@ function onlyService(middleware) {
 module.exports = {
     onlyUser,
     onlyService,
+    validateActionToken,
 }

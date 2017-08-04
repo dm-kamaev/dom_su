@@ -393,6 +393,20 @@ const ShortUrl = sequelize.define('short_url', {
     }
 })
 
+const ActionToken = sequelize.define('action_token', {
+    token: Sequelize.UUID,
+    user_uuid: {
+        allowNull: false,
+        type: Sequelize.UUID,
+        references: {
+            model: User,
+            key: 'uuid',
+            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+        }
+    },
+    type: Sequelize.STRING,
+})
+
 const Payment = sequelize.define('payments', {
     id: {
         type: Sequelize.BIGINT,
@@ -453,5 +467,6 @@ module.exports = {
     Ticket: Ticket,
     Payment: Payment,
     EmployeeNews: EmployeeNews,
-    ShortUrl: ShortUrl
+    ShortUrl: ShortUrl,
+    ActionToken: ActionToken,
 }

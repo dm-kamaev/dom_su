@@ -19,12 +19,13 @@
     <!-- End Google Tag Manager -->
     {{#if GetDepartureData.Management.Access}}
         <script>
+        var actionToken = '{{actionToken}}'
         var departureID = '{{departureId}}';
         function OrderAction(action) {
             $.ajax({
               type: "GET",
               url: "/staff/ajax/order/management",
-              data: ({'DepartureID': departureID, 'action': action}),
+              data: ({'DepartureID': departureID, 'action': action, 'action_token': actionToken}),
               cache: false,
               dataType: "text",
               success: onSuccess,
@@ -62,8 +63,8 @@
         function updateStatus() {
             $.ajax({
               type: "GET",
-              url: "/staff/ajax/order/management",
-              data: ({'DepartureID': departureID, 'action': 'GetStatus'}),
+              url: "/staff/ajax/order/management/get_status",
+              data: ({'DepartureID': departureID}),
               cache: false,
               dataType: "text",
               success: onStatusSuccess,
@@ -129,6 +130,7 @@
                 <h4>Принять наличные</h4>
                 <form action="/staff/ajax/order/management" method="GET" enctype="application/x-www-form-urlencoded" data-ajax="false" >
                     <input type="hidden" name="action" value="ConfirmPayment">
+                    <input type="hidden" name="action_token" value="{{actionToken}}">
                     <input type="hidden" name="DepartureID" value="{{departureId}}">
                     <label>Сумма: {{#if showAmountToPaid}}<span style="color: green">{{ toMoney GetDepartureData.Management.AmountToPaid}}</span> Руб.{{/if }}<input name="PaidAmount" style="" type="number" required></label>
                     <button class="ui-btn ui-btn-inline" type="submit" style="background: #478447; color: white; text-shadow: none;">Принять</button>
