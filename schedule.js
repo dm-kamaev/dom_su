@@ -14,10 +14,13 @@ const moment = require('moment')
 
 const MAX_STAGNATION_VISIT_MINUTE = 15;
 const MAX_STAGNATION_TAKE_NUMBER_MINUTE = 10;
+const MAX_STAGNATION_ACTION_TOKEN_MINUTE = 0;
+//const MAX_STAGNATION_ACTION_TOKEN_MINUTE = 2 * 24 * 60;
 const CRON_VISIT = 1;
 const CRON_NUMBER = 1;
 const CRON_TICKET = 1;
 const CRON_PAYMENT = 1;
+const CRON_ACTION_TOKEN = 1;
 
 // TODO ERROR HANDLER
 
@@ -143,6 +146,13 @@ async function sendForgottenTicket() {
 
 }
 
+async function deleteOldActionToken() {
+    await sequelize.query(
+        'DELETE FROM action_token ' +
+        `WHERE "createdAt" < (NOW() - INTERVAL '${MAX_STAGNATION_ACTION_TOKEN_MINUTE} MINUTES');`
+    )
+}
+
 module.exports = () => {
 
     let taskVisit = schedule.scheduleJob(`*/${CRON_VISIT} * * * *`, function(){
@@ -163,6 +173,11 @@ module.exports = () => {
     let taskPayments = schedule.scheduleJob(`*/${CRON_PAYMENT} * * * *`,async function () {
         await checkPayments()
     })
+
+    let taskActionToken = schedule.scheduleJob(`*/${CRON_ACTION_TOKEN} * * * *`,async function () {
+        await deleteOldActionToken()
+    })
+    logger.info('Schedule - CLEAN ACTION TOKEN - START')
 
     logger.info('Schedule - CHECK PAYMENTS - START')
 }
