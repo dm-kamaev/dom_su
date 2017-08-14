@@ -65,7 +65,7 @@ const moscowTemplates = {
     'generalnaya_uborka': {name: 'generalnaya_uborka.html', ServiceName: 'Генеральная уборка', data:{ menu:{ generalnaya_uborka: true}}},
     'domrabotnica': {name: 'domrabotnica.html', ServiceName: 'Домработница', data:{ menu:{physical: true, domrabotnica: true}}},
     'drugie_raboty': {name: 'drugie_raboty.html', ServiceName: 'Дополнительные работы', data:{ menu:{physical: true}}},
-    'podderzhka': {name: 'podderzhka.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
+    'podderzhka': {name: 'podderzhka_ab.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
     'about__': {name: 'about__.html', ServiceName: 'О компании', data:{ menu:{main: true, about: true}}},
     'b2b__': {name: 'b2b__.html', ServiceName: 'B2B', data:{ menu:{physical: true}}},
     'vakansii__': {name: 'vakansii__.html', ServiceName: 'Вакансии', data:{ menu:{main: true, vakansii: true}}},
