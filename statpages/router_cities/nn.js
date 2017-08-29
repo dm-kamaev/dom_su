@@ -21,6 +21,10 @@ const nnTemplates = {
     'vazhno_znat__': {name: 'vazhno_znat__.html', ServiceName: 'Важно знать', data:{ menu:{ main: true, vazhno_znat: true}}},
     'strahovka__': {name: 'strahovka__.html', ServiceName: 'Страховка', data:{ menu:{main: true, about: true}}},
     'garantii__': {name: 'garantii__.html', ServiceName: 'Гарантии', data:{ menu:{main: true, about: true}}},
+    'vakansii__': {name: 'vakansii__.html', ServiceName: 'Вакансии', data:{ menu:{main: true, vakansii: true}}},
+    'vakansii__domrabotnica__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Домработница', data: { domrabotnica: true, menu:{ main: true, vakansii: true}}},
+    'vakansii__uborka-kvartir__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка квартир', data: { uborkaKvartir: true, menu:{ main: true, vakansii: true}}},
+    'vakansii__uborka-territorii__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка территории', data: { uborkaTerritorii: true, menu:{ main: true, vakansii: true}}}
 }
 
 module.exports = {

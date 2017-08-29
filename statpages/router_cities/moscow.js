@@ -14,6 +14,7 @@ const moscowTemplates = {
 
     'main': {name: 'main.html', data: {menu: {index: true}}},
     'user_agreement__': {name: 'user_agreement__.html', data: { menu:{main: true, user_agreement: true}}},
+    'privacy__': {name: 'privacy__.html', data: { }},
     'strahovka__': {name: 'strahovka__.html', data:{ menu:{physical: true }}},
     'garantii__': {name: 'garantii__.html', data:{ menu:{physical: true }}},
     'ezhednevnaya_uborka_ofisov': {name: 'ezhednevnaya_uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
