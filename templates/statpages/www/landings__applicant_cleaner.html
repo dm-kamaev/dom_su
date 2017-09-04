@@ -34,7 +34,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/landing.min.css?v0.48">
+  <link rel="stylesheet" href="/static/pancake/css/landing.min.css?v0.49">
 </head>
 <body>
 
@@ -51,6 +51,10 @@
           <div class="landing-contact__text landing-contact__text--orange text landing-contact__text--tel">
             <p>Санкт-Петербург</p>
             <a class="landing-contact__tel  text" href="tel: +79319687880">8 (931) 968-78-80</a>
+          </div>
+          <div class="landing-contact__text landing-contact__text--orange text landing-contact__text--tel">
+            <p>Нижний Новгород</p>
+            <a class="landing-contact__tel  text" href="tel: +79306866249">8 (930) 686-62-49</a>
           </div>
         </div>
         <div class="landing-contact__wrap  landing-contact__wrap--call">
@@ -78,7 +82,7 @@
           </ul>
         </div>
         <div class="landing-advantages__wrap landing-advantages__wrap--right">
-          <form class="landing-advantages__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "applicant-request"}' ya-reach="applicant-request" id="formWorkMain">
+          <form class="landing-advantages__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "applicant-request"}' ya-reach="applicant-request" id="formWorkMain">
             <div class="landing-advantages__row">
               <input class="landing-advantages__input  landing-advantages__input--name input" type="text" name="ticket_name" placeholder="ФИО" required>
             </div>
@@ -132,7 +136,7 @@
           </div>
       </div>
       <div class="landing-advantages landing-advantages--group">
-        <form class="landing-advantages__form landing-advantages__form--photo" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "applicant-request"}' ya-reach="applicant-request" id="formWorkDuplicate">
+        <form class="landing-advantages__form landing-advantages__form--photo" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "applicant-request"}' ya-reach="applicant-request" id="formWorkDuplicate">
           <div class="landing-advantages__row">
             <input class="landing-advantages__input  landing-advantages__input--name input" type="text" name="ticket_name" placeholder="ФИО" required>
           </div>
@@ -192,6 +196,12 @@
             <p class="landing-address__text text">Тел: <a class="landing-address__text  text" href="tel: +79319687880">8 (931) 968-78-80</a></p>
             <p class="landing-address__text text">Адрес: Санкт-Петербург, Московский проспект 22, БЦ Адмиралтейский, подъезд 3</p>
           </div>
+
+          <div class="landing-address__wrap">
+            <p class="landing-address__text text">Нижний Новгород</p>
+            <p class="landing-address__text text">Тел: <a class="landing-address__text  text" href="tel: +79306866249">8 (930) 686-62-49</a></p>
+            <p class="landing-address__text text">Адрес: Нижний Новгород, ул. Ильинская, 72</p>
+          </div>
         </div>
         <div class="landing-address  landing-address--right">
           <div class="landing-address__wrap">
@@ -226,7 +236,7 @@
   </div>
   <!-- /Pop up -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script src="/static/pancake/js/landing.min.js?v0.51"></script>
+  <script src="/static/pancake/js/landing.min.js?v0.52"></script>
   <!-- /Java Script -->
   {{#if general.production}}
   
