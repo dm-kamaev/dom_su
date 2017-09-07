@@ -42,7 +42,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.48">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.50">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -117,7 +117,7 @@
     <!-- Main Content -->
     <main class="page__main-content  main-content  main-content--vertical">
       <div class="main-content__wrap">
-        <section class="page__section  section-ab  section-ab--bg-light">
+        <section class="page__section  section-ab">
           <div class="section-ab__wrap">
             <h1 class="section-ab__title  section-ab__title--main  title">Уборка после ремонта</h1>
             <p class="section-ab__paragraph  section-ab__paragraph--main  text-ab">Уборка после ремонта нужна… после ремонта в квартире или коттедже! Дополнительно к услугам <a class="link" href="{{buildUrl general.city '/generalnaya_uborka'}}">Генеральной уборки</a>, мы уберем мелкую строительную пыль, следы краски и цемента.</p>
@@ -159,7 +159,7 @@
           </div>
         </section>
 
-        <section class="page__section  section-ab  section-ab--bg-dark">
+        <section class="page__section  section-ab">
           <div class="section-ab__wrap  section-ab__wrap--toggle">
             <div class="section-ab__control">
               <p class="section-ab__control-text  text-ab  text-ab--small">Уборка после ремонта длится от 6 до 8 часов и содержит более 45 видов работ.</p>
@@ -238,7 +238,7 @@
           </div>
         </section>
 
-        <section class="page__section  section-ab  section-ab--bg-light">
+        <section class="page__section  section-ab">
           <div class="section-ab__wrap">
             <h2 class="section-ab__title  title">Цена может быть выше, если</h2>
             <ul class="service-list list">
@@ -262,7 +262,7 @@
           </div>
         </section>
 
-        <section class="page__section  section-ab  section-ab--bg-dark">
+        <section class="page__section  section-ab">
           <div class="section-ab__wrap">
             <h2 class="section-ab__title  title">Как будет выполняться Уборка после ремонта</h2>
             <ul class="service-implement-ab list">
@@ -282,7 +282,7 @@
           </div>
         </section>
 
-        <section class="page__section  section-ab  section-ab--bg-light">
+        <section class="page__section  section-ab">
           <div class="section-ab__wrap">
             <h2 class="section-ab__title  title">Расчёт стоимости уборки</h2>
 
@@ -536,33 +536,104 @@
           </div>
         </section>
 
-        <section class="page__section  section-ab  section-ab--bg-dark">
+        <section class="page__section  section-ab">
           <div class="section-ab__wrap">
-            <p class="section-ab__title  title">Отзывы клиентов</p>
-            <p class="section-ab__text  text-ab">Мы заботимся о наших Клиентах и верим в свое дело!</p>
-            <div class="review-section">
-              <div class="review-section__row  review-section__row--justify  review-carousel">
-                <div class="review-carousel__wrap">
-                  <div class="review-carousel__inner">
-                    <article class="review-ab  review-carousel__item">
-                      <iframe class="review-ab__video" width="200" height="113" src="https://www.youtube.com/embed/iyu3vYg6yVs?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
-                    </article
-                    ><article class="review-ab  review-carousel__item">
-                      <iframe  class="review-ab__video" width="200" height="113" src="https://www.youtube.com/embed/X8hYBcuMqTY?rel=0&start=9" frameborder="0" allowfullscreen></iframe>
-                    </article
-                    ><article class="review-ab  review-carousel__item">
-                    <iframe class="review-ab__video" width="200" height="113" src="https://www.youtube.com/embed/Rdgh07XpMPc?rel=0&start=10" frameborder="0" allowfullscreen></iframe>
-                  </article>
-                  </div>
-                </div>
-                <button class="review-carousel__button  button" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" stroke="#d3cbbe"><polyline points="2.5 18.91 9.79 10 2.5 1.09" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/><polyline points="10.21 18.91 17.5 10 10.21 1.09" fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/></svg></button>
-              </div>
+            <p class="section-ab__title title">Отзывы клиентов</p>
+            <div class="review-section-right">
+              <div class="review-carousel-right__wrap">
+                <div class="review-carousel-right__inner">
+                  <article class="review-section-right__item review-right">
+                    <div class="review-right__inner">
+                      <img class="review-right__image" width="95" height="95" src="/static/pancake/img/NatashaPavlenko@1x.jpg" srcset="/static/pancake/img/NatashaPavlenko@2x.jpg 2x" alt="Наталья Павленко">
+                      <div class="review-right__stars stars">
+                        <div class="stars__item stars__item--active" title="gorgeous">gorgeous</div>
+                        <div class="stars__item" title="good">good</div>
+                        <div class="stars__item" title="regular">regular</div>
+                        <div class="stars__item" title="poor">poor</div>
+                        <div class="stars__item" title="bad">bad</div>
+                      </div>
+                      <p class="review-right__title title">Наталья Павленко</p>
+                      <p class="review-right__text text">Отличный сервис, быстро, удобно и чисто! Клиентская служба на высоте, учиты...</p>
+                      <button class="review-right__button  link  link--orange  link--without-line">Подробнее</button>
+                    </div>
         
+                    <div class="review-right__description  review-right__description--hide">
+                      <button class="review-right__btn-close  icon-close" type="button">
+                        <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+                          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+                          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+                        </svg>
+                      </button>
+                      <p class="review-right__title title">Наталья Павленко</p>
+                      <p class="review-right__text text">Отличный сервис, быстро, удобно и чисто! Клиентская служба на высоте, учитывают все пожелания! Рекомендуем!</p>
+                      <a class="review-right__link  link  link--orange" href="{{buildUrl general.city '/otzivi/'}}">Посмотреть другие отзывы</a>
+                    </div>
+                  </article>
+        
+                  <article class="review-section-right__item review-right">
+                    <div class="review-right__inner">
+                      <img class="review-right__image" width="95" height="95" src="/static/pancake/img/MarinaPrilebskaya@1x.jpg" srcset="/static/pancake/img/MarinaPrilebskaya@2x.jpg 2x" alt="Марина Прилебская">
+                      <div class="review-right__stars stars">
+                        <div class="stars__item stars__item--active" title="gorgeous">gorgeous</div>
+                        <div class="stars__item" title="good">good</div>
+                        <div class="stars__item" title="regular">regular</div>
+                        <div class="stars__item" title="poor">poor</div>
+                        <div class="stars__item" title="bad">bad</div>
+                      </div>
+                      <p class="review-right__title title">Марина Прилебская</p>
+                      <p class="review-right__text text">"Домовенок" убирается у меня с недавних пор. Приходит девушка Елена и делае...</p>
+                      <button class="review-right__button  link  link--orange  link--without-line">Подробнее</button>
+                    </div>
+        
+                    <div class="review-right__description  review-right__description--hide">
+                      <button class="review-right__btn-close  icon-close" type="button">
+                        <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+                          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+                          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+                        </svg>
+                      </button>
+                      <p class="review-right__title title">Марина Прилебская</p>
+                      <p class="review-right__text text">"Домовенок" убирается у меня с недавних пор. Приходит девушка Елена и делает поддерживающую уборку. В итоге ванная сверкает, посуда блестит, ни пылинки на полу. Довольна на 100% и приятно удивлена тем, что ровно в 9.00 уборка уже начинается. Такой пунктуальности я не ожидала. "Домовенок" в лице Елены решил полностью вопрос поддержания чистоты в доме. Огромное спасибо ей лично и "Домовенку" за то, что сильно сэкономили мое время, силы и сохранили маникюр. Успехов Вам!</p>
+                      <a class="review-right__link  link  link--orange" href="{{buildUrl general.city '/otzivi/'}}">Посмотреть другие отзывы</a>
+                    </div>
+                  </article
+                  >
+        
+                  <article class="review-section-right__item review-right">
+                  <div class="review-right__inner">
+                    <img class="review-right__image" width="95" height="95" src="/static/pancake/img/AnnaBelova@1x.jpg" srcset="/static/pancake/img/AnnaBelova@2x.jpg 2x" alt="Анна Белова">
+                    <div class="review-right__stars stars">
+                      <div class="stars__item stars__item--active" title="gorgeous">gorgeous</div>
+                      <div class="stars__item" title="good">good</div>
+                      <div class="stars__item" title="regular">regular</div>
+                      <div class="stars__item" title="poor">poor</div>
+                      <div class="stars__item" title="bad">bad</div>
+                    </div>
+                    <p class="review-right__title title">Анна Белова</p>
+                    <p class="review-right__text text">Отличное качество работы. Даже если и были минусы, то их быстренько исправи...</p>
+                    <button class="review-right__button  link  link--orange  link--without-line">Подробнее</button>
+                  </div>
+        
+                  <div class="review-right__description  review-right__description--hide">
+                    <button class="review-right__btn-close  icon-close" type="button">
+                      <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+                        <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+                        <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+                      </svg>
+                    </button>
+                    <p class="review-right__title title">Анна Белова</p>
+                    <p class="review-right__text text">Отличное качество работы. Даже если и были минусы, то их быстренько исправили. Спасибо. Буду и дальше пользоваться услугами вашей компании!</p>
+                    <a class="review-right__link  link  link--orange" href="{{buildUrl general.city '/otzivi/'}}">Посмотреть другие отзывы</a>
+                  </div>
+                </article>
+                </div>
+              </div>
             </div>
+        
           </div>
         </section>
 
-        <section class="page__section  section-ab  section-ab--bg-light">
+        <section class="page__section  section-ab">
           <div class="section-ab__wrap">
             <h2 class="section-ab__title  title">Восстановим справедливость!</h2>
             <p class="section-ab__paragraph text-ab">"Вот закончим ремонт — и будем жить, как нам нравится!"<br>
@@ -589,7 +660,7 @@
           </div>
         </section>
 
-        <section class="page__section  section-ab  section-ab--bg-dark">
+        <section class="page__section  section-ab">
           <div class="section-ab__wrap">
             <h2 class="section-ab__title  title">Ещё одна причина, по которой послестроительная уборка оправдывает свою стоимость</h2>
             <p class="section-ab__paragraph text-ab">Мы знаем, как не навредить - Что может быть обиднее, чем неосторожным движением испортить совершенно новый натяжной потолок? Или повредить деликатное покрытие неправильно подобранным агрессивным чистящим средством? А ведь такие случаи — отнюдь не редкость! Грамотный послеремонтный клининг сводит к минимуму риск подобного ущерба.
@@ -623,9 +694,9 @@
         </section>
 
         <!-- Page Footer -->
-        <footer class="page-footer-ab">
+        <footer class="page-footer-ab section-ab">
         
-          <div class="page-footer-ab__connection  section-ab  connection-ab">
+          <div class="page-footer-ab__connection connection-ab">
             <p class="section-ab__title  title">Вы можете написать нам здесь</p>
             <div class="connection-ab__wrap">
               <a class="connection-ab__item  connection-ab__item--messenger" href="https://m.me/196022577253018" rel="nofollow">
@@ -651,8 +722,7 @@
         
           <div class="page-footer-ab__row">
             <div class="page-footer-ab__column">
-              <p class="page-footer-ab__address"><b class="text-ab text-ab--bold text-ab--lg-brown">Адрес:</b><a class="page-footer-ab__link  link" href="{{buildUrl general.city '/contacts/'}}#mymap">Санкт-Петербург, Московский
-                проспект 22, БЦ Адмиралтейский, подъезд 3</a></p>
+              <p class="page-footer-ab__address"><b class="text-ab text-ab--bold text-ab--lg-brown">Адрес:</b><a class="page-footer-ab__link  link" href="{{buildUrl general.city '/contacts/'}}#mymap">Москва, ул. Матросская Тишина, 16Г</a></p>
               <p class="page-footer-ab__tel"><b class="text-ab text-ab--bold text-ab--lg-brown">Телефон:</b><a class="page-footer-ab__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
               <div class="page-footer-ab__social-links  social-links">
                 <a  class="social-link-ab  social-link-ab--grey" href="https://www.facebook.com/uborka.domovenok">
@@ -924,7 +994,7 @@
   </script>
 
   <!-- Java Script -->
-  <script src="/static/pancake/js/bundle.min.js?v0.51"></script>
+  <script src="/static/pancake/js/bundle.min.js?v0.52"></script>
   <!-- /Java Script -->
   {{#if general.production}}
   

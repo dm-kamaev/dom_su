@@ -2,10 +2,10 @@
 
 const ABTestContainer = {
     'moscow': {
-        'generalnaya_uborka': { name: "Тестирование 3-го шага на рассчете стоимости", key: "generalnaya_uborka_1_3step", forNewUser: true, variations: [
-            {name: "control", page: 'generalnaya_uborka', ratio: 50, description: "Основные дополнительные услуги"},
-            {name: "variation", page: 'generalnaya_uborka_ab', ratio: 50, description: "Мытье окон как доп. услуга"},
-        ]},
+        // 'generalnaya_uborka': { name: "Тестирование 3-го шага на рассчете стоимости", key: "generalnaya_uborka_1_3step", forNewUser: true, variations: [
+        //     {name: "control", page: 'generalnaya_uborka', ratio: 50, description: "Основные дополнительные услуги"},
+        //     {name: "variation", page: 'generalnaya_uborka_ab', ratio: 50, description: "Мытье окон как доп. услуга"},
+        // ]},
         // 'podderzhka': { name: "", key: "podderzhka_3_otzivi", forNewUser: false, variations: [
         //     {name: "control", page: 'podderzhka', ratio: 20, description: "Основная"},
         //     {name: "variation", page: 'podderzhka_ab', ratio: 80, description: "Пробуем новый дизайн"}
