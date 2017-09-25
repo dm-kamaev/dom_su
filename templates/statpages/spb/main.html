@@ -40,7 +40,7 @@
   <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
   <meta name="theme-color" content="#fd8204">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
-  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.51">
+  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.53">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -203,6 +203,11 @@
                   </div>
                   <div class="window-form__price-block">
                     <p class="window-form__price">Цена заказа:  <span class="window-form__price-value"></span></p>
+                    <div class="window-form__comments">
+                      <div class="window-form__comment window-form__comment--hide" data-name="general" data-service="general" data-class="space" data-schedule="1x_week"><span class="window-form__price-value"></span> для постоянного клиента</div>
+                      <div class="window-form__comment window-form__comment--hide" data-name="posle" data-service="posle" data-class="space" data-feature="furniture" data-quantity="without"><span class="window-form__price-value"></span> при уборке без мебели</div>
+                      <div class="window-form__comment window-form__comment--hide" data-name="podderzhka" data-service="podderzhka" data-class="space" data-schedule="1x_week"><span class="window-form__price-value"></span> при уборке раз в неделю</div>
+                    </div>
                   </div>
                 </div>
 
@@ -1207,7 +1212,7 @@
 </script>
 <!-- /Page wrapper -->
 <!-- Java Script -->
-<script src="/static/pancake/js/bundle.min.js?v0.53"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.54"></script>
 <!-- /Java Script -->
 {{#if general.production}}
 
