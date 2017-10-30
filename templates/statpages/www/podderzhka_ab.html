@@ -291,11 +291,11 @@
                   </div>
                 </div>
 
-                <!--<label class="service-calc-ab__row checkbox checkbox&#45;&#45;lg checkbox&#45;&#45;grey">-->
-                  <!--<input type="checkbox" class="checkbox__input  checkbox__input" data-name="wet_cleaning_of_surfaces" data-service="wet_cleaning_of_surfaces" data-class="space">-->
-                  <!--<span class="checkbox__indicator checkbox__indicator"></span>-->
-                  <!--<span class="checkbox__text checkbox__text&#45;&#45;brown">влажная уборка выше 2м</span>-->
-                <!--</label>-->
+                <label class="service-calc-ab__row checkbox checkbox--lg checkbox--grey">
+                  <input type="checkbox" class="checkbox__input  checkbox__input" data-name="wet_cleaning_of_surfaces" data-service="wet_cleaning_of_surfaces" data-class="space">
+                  <span class="checkbox__indicator checkbox__indicator"></span>
+                  <span class="checkbox__text checkbox__text--brown">влажная уборка выше 2м</span>
+                </label>
               </div>
 
               <div class="service-calc__inner  service-calc__section" data-section="date">
@@ -779,20 +779,20 @@
 
   <!-- Pop up -->
   <div class="pop-up  pop-up--hide">
-
+  
     <div class="pop-up__wrap  scroll-container-unstable">
-
+  
       <button class="pop-up__btn-close  icon-close" type="button">
         <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
           <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
           <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
         </svg>
       </button>
-
+  
       <div class="pop-up__item  pop-up__item--sm  pop-up__item--hide  notification">
         <p class="notification__text  title">Текст</p>
       </div>
-
+  
       <div class="pop-up__item  pop-up__item--sm  pop-up__item--hide  general-question">
         <form class="general-question__form">
           <p class="general-question__title  title">Вы уверены?</p>
@@ -800,17 +800,17 @@
           <button class="general-question__button  general-question__button--no  button" type="button">Нет</button>
         </form>
       </div>
-
+  
       <div class="pop-up__item  pop-up__item--hide  get-document">
         <div class="get-document__wrap">
           <form class="get-document__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "getContract"}'  ya-reach="order_applic">
             <p class="get-document__title  title">Получить экземпляр договора</p>
-
+  
             <div class="get-document__row">
               <label class="get-document__label  label">Введите e-mail</label>
               <input class="get-document__input  input" type="email" autofocus required>
             </div>
-
+  
             <div class="get-document__row">
               <label class="checkbox">
                 <input type="checkbox" class="checkbox__input checkbox__input--small" checked required>
@@ -826,11 +826,17 @@
           </form>
         </div>
       </div>
-
+  
       <div class="pop-up__item pop-up__item--hide  service-order">
         <div class="service-order__wrap">
           <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_1"}'>
             <p class="service-order__title  title">Оформить заказ</p>
+            <div class="service-order__row">
+              <label class="service-order__label  label">
+                Как к Вам обращаться?
+                <input class="service-order__input  input" type="text" name="name">
+              </label>
+            </div>
             <div class="service-order__row">
               <label class="service-order__label  label">
                 Номер телефона<span class="label__required">*</span>
@@ -840,11 +846,11 @@
             <button class="service-order__button button" type="submit">Далее</button>
           </form>
         </div>
-
+  
         <div class="service-order__wrap">
           <p class="service-order__title  title">Выберите дату и время</p>
           <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_2"}'>
-
+  
             <div class="service-order__calendar  calendar">
               <p class="calendar__title  title">Март</p>
               <div class="calendar__table">
@@ -859,7 +865,7 @@
                 </div>
               </div>
             </div>
-
+  
             <div class="service-order__row  service-order__row--gorizontal">
               <div class="service-order__info">
                 <p class="service-order__info-label">Дата:</p>
@@ -884,7 +890,7 @@
                 </div>
               </div>
             </div>
-
+  
             <div class="service-order__row">
               <div class="service-order__button">
                 <button class="button" type="submit">Далее</button>
@@ -892,7 +898,7 @@
             </div>
           </form>
         </div>
-
+  
         <div class="service-order__wrap  service-order__wrap--no-fixed">
           <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_3"}'>
             <p class="service-order__heading  text">Сумма Вашего заказа - <br class="service-order__mobile"><span class="service-order__price text  text--bold  text--orange  text--big">1 990 руб.</span></p>
@@ -912,7 +918,7 @@
           </form>
         </div>
       </div>
-
+  
       <div class="pop-up__item pop-up__item--hide  constant-client">
         <div class="constant-client__wrap">
           <form class="constant-client__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_1"}'>
@@ -933,32 +939,32 @@
           </form>
         </div>
       </div>
-
+  
       <div class="pop-up__item  pop-up__item--hide  price-list"></div>
-
+  
       <div class="pop-up__item pop-up__item--hide  service-calc-calendar">
-        <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_2"}'>
-
-          <div class="service-order__calendar  calendar">
-            <p class="calendar__title  title">Март</p>
-            <div class="calendar__table">
-              <div class="calendar__list  calendar__list--week">
-                <span class="calendar__item  calendar__item--week">Пн</span>
-                <span class="calendar__item  calendar__item--week">Вт</span>
-                <span class="calendar__item  calendar__item--week">Ср</span>
-                <span class="calendar__item  calendar__item--week">Чт</span>
-                <span class="calendar__item  calendar__item--week">Пт</span>
-                <span class="calendar__item  calendar__item--week">Сб</span>
-                <span class="calendar__item  calendar__item--week">Вс</span>
+          <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_2"}'>
+  
+            <div class="service-order__calendar  calendar">
+              <p class="calendar__title  title">Март</p>
+              <div class="calendar__table">
+                <div class="calendar__list  calendar__list--week">
+                  <span class="calendar__item  calendar__item--week">Пн</span>
+                  <span class="calendar__item  calendar__item--week">Вт</span>
+                  <span class="calendar__item  calendar__item--week">Ср</span>
+                  <span class="calendar__item  calendar__item--week">Чт</span>
+                  <span class="calendar__item  calendar__item--week">Пт</span>
+                  <span class="calendar__item  calendar__item--week">Сб</span>
+                  <span class="calendar__item  calendar__item--week">Вс</span>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
-
+          </form>
+  
       </div>
-
+  
     </div>
-
+  
   </div>
   <!-- /Pop up -->
 
