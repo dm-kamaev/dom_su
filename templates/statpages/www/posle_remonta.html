@@ -55,7 +55,7 @@
   <meta name="smartbanner:enabled-platforms" content="android,ios">
   <!-- End SmartBanner configuration -->
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.61">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.62">
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
 
@@ -532,6 +532,24 @@
                           </div>
                           <div class="service-counter" data-value="1">
                             <p class="service-counter__text">Постирать</p>
+                            <div class="service-counter__control">
+                              <button class="service-counter__btn  service-counter__btn--minus"></button>
+                              <label class="service-counter__label">
+                                <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                              </label>
+                              <button class="service-counter__btn  service-counter__btn--plus"></button>
+                            </div>
+                            <p class="service-counter__text">шт</p>
+                          </div>
+                        </div>
+
+                        <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="individual_work" data-service="individual_work" data-class="washing_chandelier" data-classid="washing_chandelier" data-sum="1" data-feature="" data-quantity="" data-price="990">
+                          <div class="service-card-light__wrap">
+                            <img class="service-card-light__image" src="/static/pancake/img/service-lamp.svg" width="50" height="50" alt="Плита">
+                            <p class="service-card-light__text  text-ab  text-ab--small">Помыть люстру</p>
+                          </div>
+                          <div class="service-counter" data-value="1">
+                            <p class="service-counter__text">Помыть люстру</p>
                             <div class="service-counter__control">
                               <button class="service-counter__btn  service-counter__btn--minus"></button>
                               <label class="service-counter__label">
