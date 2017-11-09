@@ -1,16 +1,42 @@
 'use strict'
 const koa = require('koa');
 const config = require('config');
-const {errorMiddleware, throw404, accessLogger, applyRouters, applyServiceRouters, checkSlashEnd} = require('middlewares')
-const {initPancakeUser, setUserVisit, createEventRequest, createEvent, UTMCollector, ctxProcessor, LUIDHandler, callTracking, definitionRequestType, onlyUser, onlyService, initPancakeService } = require('user_manager')
-const {accessSectionCity, loadCities} = require('cities')
+const {
+    errorMiddleware,
+    throw404,
+    accessLogger,
+    applyRouters,
+    applyServiceRouters,
+    checkSlashEnd
+} = require('middlewares');
+const {
+    initPancakeUser,
+    setUserVisit,
+    createEventRequest,
+    createEvent,
+    UTMCollector,
+    ctxProcessor,
+    LUIDHandler,
+    callTracking,
+    definitionRequestType,
+    onlyUser,
+    onlyService,
+    initPancakeService
+} = require('user_manager');
+const {accessSectionCity, loadCities} = require('cities');
+const proxyRequestTo1C = require('proxyRequestTo1C/router.js');
 const koaBody = require('koa-body');
-const schedule = require('schedule')
+const schedule = require('schedule');
 const userAgent = require('koa-useragent');
-const logger = require('logger')(module)
+const logger = require('logger')(module);
 
+process.on('uncaughtException', (err) => {
+  console.log('ERROR= ', err);
+});
 
-
+process.on('unhandledRejection', (reason, p) => {
+  console.log('Promise failed =', reason, p);
+});
 
 async function run() {
     try{
@@ -54,7 +80,8 @@ async function run() {
         appUser.use(LUIDHandler)
 
         // Add routers Pancake User
-        applyRouters(appUser)
+        applyRouters(appUser);
+        appUser.use(proxyRequestTo1C.routes());
 
         // Only external service
         appService.use(initPancakeService)
@@ -67,6 +94,7 @@ async function run() {
         app.use(checkSlashEnd)
         app.use(throw404)
 
+        console.log('START ON PORT ', config.app.port);
         app.listen(config.app.port)
     } catch (e){
         logger.error(e)
