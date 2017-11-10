@@ -71,6 +71,11 @@
             О компании
           </a>
         </li>
+        <li class="main-menu__item-sub {{#if menu.garantii}}main-menu__item-sub--active{{/if}}">
+          <a class="main-menu__link-sub" href="{{buildUrl general.city '/garantii/'}}">
+            Гарантии качества
+          </a>
+        </li>
         <li class="main-menu__item-sub {{#if menu.uslugi}}main-menu__item-sub--active{{/if}}">
           <a class="main-menu__link-sub" href="{{buildUrl general.city '/uslugi/'}}">
             Услуги
@@ -94,12 +99,6 @@
         <li class="main-menu__item-sub {{#if menu.articles}}main-menu__item-sub--active{{/if}}">
           <a class="main-menu__link-sub" href="{{buildUrl general.city '/articles/'}}">
             Статьи
-          </a>
-        </li>
-
-        <li class="main-menu__item-sub">
-          <a class="main-menu__link-sub" href="https://www.instagram.com/cleaning.domovenok/">
-            Галерея
           </a>
         </li>
 
