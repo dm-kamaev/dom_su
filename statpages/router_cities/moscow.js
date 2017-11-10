@@ -14,9 +14,10 @@ const moscowTemplates = {
 
     'main': {name: 'main.html', data: {menu: {index: true}}},
     'user_agreement__': {name: 'user_agreement__.html', data: { menu:{main: true, user_agreement: true}}},
+    'contract__': {name: 'contract__.html', data: { }},
     'privacy__': {name: 'privacy__.html', data: { }},
     'strahovka__': {name: 'strahovka__.html', data:{ menu:{physical: true }}},
-    'garantii__': {name: 'garantii__.html', data:{ menu:{physical: true }}},
+    'garantii__': {name: 'garantii__.html', data:{ menu:{main: true, garantii: true}}},
     'ezhednevnaya_uborka_ofisov': {name: 'ezhednevnaya_uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
     'generalnaya_uborka_ofisov': {name: 'generalnaya_uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
     'vechernyaya_uborka_ofisov': {name: 'vechernyaya_uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{menu:{legal: true, uborka_ofisov: true}}},

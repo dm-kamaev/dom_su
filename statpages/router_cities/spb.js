@@ -25,6 +25,7 @@ const spbTemplates = {
     'myte-fasadov': {name: 'myte-fasadov.html', ServiceName: 'Мытьё фасадов', data:{ menu:{legal: true, myte_fasadov: true}}},
     //'mite_potolkov': {name: 'mite_potolkov.html', ServiceName: 'Генеральная уборка', data:{ menu:{ generalnaya_uborka: true}}},
     'podderzhka': {name: 'podderzhka.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
+    'lite': {name: 'lite.html', ServiceName: 'Лайт', data:{ menu:{physical: true, lite: true}}},
     //'polirovka-polov': {name: 'polirovka-polov.html', ServiceName: 'Обработка поверхностей', data:{ menu:{legal: true, obrabotka_poverhnostey: true}}},
     'uborka_ofisov': {name: 'uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
     'uborka_kvartir': {name: 'uborka_kvartir.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
