@@ -1,7 +1,7 @@
 'use strict';
-const { staffUrl } = require('./utils')
-const { Method1C, Request1C } = require('api1c')
-const logger = require('logger')(module, 'staff.log')
+const { staffUrl } = require('./utils');
+const { Method1C, Request1C } = require('api1c');
+const logger = require('logger')(module, 'staff.log');
 
 function getEmployeeHeader(routerFunc) {
     return async function (ctx, next) {
@@ -13,7 +13,7 @@ function getEmployeeHeader(routerFunc) {
             employeeId: ctx.params.EmployeeID || ctx.state.pancakeUser.auth1C.employee_uuid,
             clientId:  ctx.state.pancakeUser.auth1C.client_uuid,
             selfId: ctx.state.pancakeUser.auth1C.employee_uuid,
-            mobileDevice: ctx.userAgent.isMobile
+            mobileDevice: ctx.userAgent.isMobile,
         }
         await routerFunc(ctx, next, request1C, GetEmployeeData, templateCtx)
     }
