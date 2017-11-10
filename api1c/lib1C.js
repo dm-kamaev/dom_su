@@ -73,6 +73,7 @@ class Request1C {
         }
     }
 
+    // {"ok": true/false, "data": ..., "error": {"code": ..., "text": "..."}
     do(){
         logger1C('Request1C request => ', this.body);
         this.body = JSON.stringify(this.body);
