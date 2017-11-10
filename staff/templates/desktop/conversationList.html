@@ -20,7 +20,11 @@
     <script src="/static/js/nich.js?v=1.026"></script>
     <script src="/static/js/custom_cookie.js"></script>
 
-
+    <style>
+        .conversation-render-select-score{margin-top:20px;}
+        .conversation-render-select-score input{margin-left:15px; cursor:pointer;}
+        .conversation-render-select-score label{padding-left:5px; cursor:pointer;}
+    </style>
 
     <!--block head-->
 
@@ -46,7 +50,9 @@
 <section class="content">
     <h1>Список обращений</h1>
 
-<button class="openForm" type="button" style="background: none; border:none; border-bottom: 1px dashed; font-size: 14px; font-style:italic; cursor:pointer;">Создать обращение</button>
+<div>
+    <button class="openForm" type="button" style="background: none; border:none; border-bottom: 1px dashed; font-size: 14px; font-style:italic; cursor:pointer;">Создать обращение</button>
+</div>
 <form action="" method="POST" enctype="multipart/form-data" class="form" style="z-index:2; display: none;position: fixed; top:200px;right:50%;transform: translateX(50%);width: 500px; background-color: #fff;padding:30px;">
 <svg class="form__close" style="cursor:pointer;position:absolute; right: 20px; top: 20px;" width="19" height="19" viewBox="0 0 19 19">
           <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"></line>
@@ -85,11 +91,39 @@ if (btnOpenForm) {
 	})
 }})();
     </script>
-    {{#each GetConversationList.ConversationList as |conversation|}}
-        <p style="margin-top: 15px;font-size: 14px; width: 400px; display: block">
-            <span style="color: #692f17">{{formatPartDate conversation.Date "DD.MM.YYYY"}}</span>
-            <span style="color: green; margin-left: 90px">{{conversation.Status}}</span><br/>
-            <a style="font-size: 18px"  href="{{staffUrl 'conversationDetail' ../employeeId conversation.ConversationID }}">{{conversation.Subject}}</a></p>
+    {{#each conversationList as |conversation|}}
+        <div>
+            <div style="margin-top: 15px;font-size: 14px; width:30%;display: inline-block; vertical-align: top;">
+                <span style="color: #692f17">{{formatPartDate conversation.Date "DD.MM.YYYY"}}</span>
+                <span style="color: green; margin-left: 90px">{{conversation.Status}}</span><br/>
+                <p style=margin-top:10px;>
+                    <a style="font-size: 18px"  href="{{staffUrl 'conversationDetail' ../employeeId conversation.ConversationID }}">{{conversation.Subject}}</a>
+                </p>
+            </div>
+            {{#conversation.renderSelectScore}}
+                <div style="display: inline-block;width: 30%;vertical-align: top;font-size: 110%">
+                    <div id=select_score_{{conversation.indexId}} class=conversation-render-select-score>
+                        <input id="score_1" type=radio name=score value=1>
+                        <label for="score_1">1</label>
+                        <input id="score_2" type=radio name=score value=2>
+                        <label for="score_2">2</label>
+                        <input id="score_3" type=radio name=score value=3>
+                        <label for="score_3">3</label>
+                        <input id="score_4" type=radio name=score value=4>
+                        <label for="score_4">4</label>
+                        <input id="score_5" type=radio name=score value=5>
+                        <label for="score_5">5</label>
+                        <div style=margin-left:15px>
+                            <button id=select_score_assess_{{conversation.indexId}} style=margin-top:15px;padding:4px type=button>Оценить</button>
+                        </div>
+                        <p id=select_score_error_{{conversation.indexId}} style="display:none;color:red;margin-top:10px">* Оценка не выбрана!</p>
+                    </div>
+                </div>
+            {{/conversation.renderSelectScore}}
+            {{#conversation.Score}}
+                <p style="display:inline-block;width: 30%;margin-top: 15px;vertical-align: top;font-size: 110%">Оценка: {{conversation.Score}}</p>
+            {{/conversation.Score}}
+        </div>
     {{/each}}
 <div class="clear"></div>
 </div>
@@ -107,6 +141,44 @@ if (btnOpenForm) {
 </footer>
 <!--.main-->
 
+    <script>
+    (function() {
+        function getTarget(e) {
+            return e && e.target || e.srcElement;
+        }
+        {{#each conversationList as |conversation|}}
+            mountEvents('{{conversation.indexId}}', '{{conversation.ConversationID}}');
+        {{/each}}
+        function mountEvents(indexId, conversationId) {
+            var $selectScore = document.getElementById('select_score_'+indexId);
+            var $assess = document.getElementById('select_score_assess_'+indexId);
+            var $error = document.getElementById('select_score_error_'+indexId);
+            if (!$selectScore || !$assess) {
+                return;
+            }
+            var score;
+            $selectScore.onclick = function (e) {
+                var target = getTarget(e);
+                if (target.getAttribute('type') === 'radio' && target.hasAttribute('id')) {
+                    var $input = target;
+                    score = $input.value;
+                    $error.style.display = 'none';
+                }
+            };
 
+            $assess.onclick = function (e) {
+                var target = getTarget(e);
+                if (score) {
+                    console.log('Send score !!! = ', '/staff/ajax/conversations/'+conversationId+'/score/'+score);
+                    $.post('/staff/ajax/conversations/'+conversationId+'/score/'+score, {}, function(result, textStatus, jqXHR) {});
+                    $selectScore.innerHTML = '<p>Оценка: '+score+'</p>';
+                } else {
+                    $error.style.display = 'block';
+                }
+            };
+        }
+
+    }())
+    </script>
 </body>
 </html>

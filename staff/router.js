@@ -1,5 +1,6 @@
 "use strict";
 
+const util = require('util');
 const { models } = require('models')
 const { EmployeeNews, Token, PendingToken } = models
 const Router = require('koa-router');
@@ -627,7 +628,7 @@ let questionTextRegExp = new RegExp(/^(:?.+)-text$/)
 let questionAnswerRegExp = new RegExp(/^answer-(:?.+)-wall-(:?.+)-text$/)
 
 staffRouter.post('/staff/interview/:EmployeeID/:InterviewID/', parseFormMultipart, loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx){
-    
+
     function parseResult(rawQuestionId, rawResults) {
         let value = []
         let questionId
@@ -703,70 +704,6 @@ staffRouter.post('/staff/interview/:EmployeeID/:InterviewID/', parseFormMultipar
     await request1C.do()
     ctx.status = 302
     ctx.redirect(ctx.headers.referer)
-})))
-
-staffRouter.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
-    const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '');
-    let GetConversationList = new Method1C('Employee.GetConversationList', {'EmployeeID': templateCtx.employeeId})
-    request1CAPIV2.add(GetConversationList)
-    request1CAPIV2.add(GetEmployeeData)
-    let template
-    await request1CAPIV2.do()
-    templateCtx.GetConversationList = GetConversationList.response
-    templateCtx.GetEmployeeData = GetEmployeeData.response
-    if (isMobileVersion(ctx)){
-        template = getTemplate(staffTemplate.mobile.conversationList)
-    } else {
-        template = getTemplate(staffTemplate.desktop.conversationList)
-    }
-    ctx.body = template(ctx.proc(templateCtx, ctx))
-})))
-
-staffRouter.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginRequired(async function (ctx, next) {
-    let salt = uuid4()
-    const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '');
-    let NewConversation = new Method1C('Employee.NewConversation', {'EmployeeID': ctx.state.pancakeUser.auth1C.employee_uuid, 'Subject': ctx.request.body.fields.subject})
-    request1CAPIV2.add(NewConversation)
-    await request1CAPIV2.do()
-    const twoRequest1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '')
-    let SendMessage = new Method1C('SendMessage', {
-    "Role": 2, "Content": ctx.request.body.fields.content, "Salt": salt.toString(),
-    "AnswerToMessageID": null,
-    "Linked": {
-        "ID": NewConversation.response.ConversationID,
-        "Type": 'Conversation'},
-    })
-    twoRequest1CAPIV2.add(SendMessage)
-    await twoRequest1CAPIV2.do()
-    ctx.redirect(staffUrl('conversationDetail', ctx.state.pancakeUser.auth1C.employee_uuid, NewConversation.response.ConversationID))
-}))
-
-staffRouter.get('/staff/:EmployeeID/conversations/:ConversationID', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
-    const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '');
-    let GetConversationList = new Method1C('Employee.GetConversationList', {'EmployeeID': templateCtx.employeeId})
-    let GetMessageList = new Method1C('GetMessageList', {'Count': 100, 'Linked': {'ID': ctx.params.ConversationID, 'Type': 'Conversation'}})
-    request1CAPIV2.add(GetConversationList)
-    request1CAPIV2.add(GetEmployeeData)
-    request1CAPIV2.add(GetMessageList)
-    let template
-    let conversationData = {}
-    await request1CAPIV2.do()
-    for (let conversation of GetConversationList.response.ConversationList){
-        if (conversation.ConversationID == ctx.params.ConversationID){
-            conversationData.ID = conversation.ConversationID
-            conversationData.Subject = conversation.Subject
-            conversationData.Status = conversation.Status
-        }
-    }
-    templateCtx.conversation = conversationData
-    templateCtx.GetEmployeeData = GetEmployeeData.response
-    templateCtx.GetMessageList = GetMessageList.response
-    if (isMobileVersion(ctx)){
-        template = getTemplate(staffTemplate.mobile.conversationDetail)
-    } else {
-        template = getTemplate(staffTemplate.desktop.conversationDetail)
-    }
-    ctx.body = template(ctx.proc(templateCtx, ctx))
 })))
 
 
@@ -975,10 +912,11 @@ staffRouter.get('/staff/ajax/depositList', moneyStaff.ajaxDepositList)
 
 // Staff
 staffRouter.get('/staff/', loginRequired(async function (ctx, next) {
-    ctx.status = 302
-    ctx.redirect(staffUrl('news', ctx.state.pancakeUser.auth1C.employee_uuid))
-}))
+  ctx.status = 302;
+  ctx.redirect(staffUrl('news', ctx.state.pancakeUser.auth1C.employee_uuid));
+}));
+
 
 module.exports = {
     staffRouter
-}
+};

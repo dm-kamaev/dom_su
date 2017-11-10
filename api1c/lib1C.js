@@ -6,8 +6,8 @@ let errors = require('./errors')
 const config = require('config')
 const uap = require('node-uap');
 
-
-let server = config.api1C
+const NODE_ENV = process.env.NODE_ENV;
+let server = config.api1C;
 
 
 class Method1C{
@@ -74,6 +74,7 @@ class Request1C {
     }
 
     do(){
+        logger1C('Request1C request => ', this.body);
         this.body = JSON.stringify(this.body);
 
         log.debug('\n --- start request\n',this.body, '\n --- end request');
@@ -91,6 +92,7 @@ class Request1C {
                     let endDate = Date.now();
                     log.debug('\n --- start response\n',response_json, '\n --- end response', '\nRequest Time -', Date.now()-startDateRequest, 'ms')
                     try {
+                        logger1C('Request1C response => ', ((response_json) ? JSON.parse(response_json) : ''));
                         this.response = JSON.parse(response_json)
                     } catch (e) {
                         reject(e)
@@ -104,6 +106,7 @@ class Request1C {
             req.setTimeout(1000 * 20, function(){reject(new errors.API1CError('The request ended in failure', this.token, 'Timeout response', 500))})
             req.on('error', (e) => {
                 log.error(e)
+                logger1C(e);
                 reject(new errors.API1CError('The request ended in failure', this.token, 'The request ended in failure', 500))
             })
             req.write(this.body)
@@ -133,6 +136,34 @@ class SingleRequest1C{
     }
 
 }
+
+function logger1C() {
+  // TODO: write in file
+  if (NODE_ENV === 'development') {
+    try {
+      if (arguments.length === 2) {
+        var a = arguments[0];
+        var b = arguments[1];
+        if (a instanceof Object) {
+          a = JSON.stringify(a, null, 2);
+        }
+        if (b instanceof Object) {
+          b = JSON.stringify(b, null, 2);
+        }
+        console.log(a, b);
+      } else {
+        var a = arguments[0];
+        if (a instanceof Object) {
+          a = JSON.stringify(a, null, 2);
+        }
+        console.log(a);
+      }
+    } catch (err) {
+      console.log('logger1C =', err);
+    }
+  }
+}
+
 
 module.exports = {
     Method1C,

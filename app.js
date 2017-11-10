@@ -25,6 +25,7 @@ const {
 } = require('user_manager');
 const {accessSectionCity, loadCities} = require('cities');
 const proxyRequestTo1C = require('proxyRequestTo1C/router.js');
+const routerStaffConversation = require('staff/staff_conversation/routerStaffConversation.js');
 const koaBody = require('koa-body');
 const schedule = require('schedule');
 const userAgent = require('koa-useragent');
@@ -82,6 +83,7 @@ async function run() {
         // Add routers Pancake User
         applyRouters(appUser);
         appUser.use(proxyRequestTo1C.routes());
+        appUser.use(routerStaffConversation.routes());
 
         // Only external service
         appService.use(initPancakeService)

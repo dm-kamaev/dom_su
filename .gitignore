@@ -1,7 +1,10 @@
 .idea
 *.log
+.jshintrc
 node_modules
 public/media
 getFixture.js
 config/default.json
 ecosystem.json
+/config
+/templates
