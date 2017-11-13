@@ -42,9 +42,10 @@ router.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(
       }]
   }*/
   GetConversationList.response.ConversationList.forEach((conversation, i) => {
-    conversation.renderSelectScore = !(conversation.Status === 'Завершено');
+    const score = parseInt(conversation.Score, 10) || 0;
+    conversation.renderSelectScore = conversation.Status === 'Завершено' && score === 0;
     conversation.indexId = i + 1;
-    conversation.Score = (conversation.Score) ? conversation.Score : null;
+    conversation.Score = (score) ? score : null;
   });
   templateCtx.conversationList = GetConversationList.response.ConversationList;
   templateCtx.GetEmployeeData = GetEmployeeData.response;

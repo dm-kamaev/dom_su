@@ -169,7 +169,6 @@ if (btnOpenForm) {
             $assess.onclick = function (e) {
                 var target = getTarget(e);
                 if (score) {
-                    console.log('Send score !!! = ', '/staff/ajax/conversations/'+conversationId+'/score/'+score);
                     $.post('/staff/ajax/conversations/'+conversationId+'/score/'+score, {}, function(result, textStatus, jqXHR) {});
                     $selectScore.innerHTML = '<p>Оценка: '+score+'</p>';
                 } else {
