@@ -18,6 +18,10 @@ router.post('/proxy_request/:methodName', decorators.loginRequired(async functio
   const methodName = ctx.params.methodName;
   const user = ctx.state.pancakeUser;
   const request1C = new Request1Cv3(user.auth1C.token, user.uuid);
-  await request1C.add(methodName, ctx.request.body).do();
+  let body = ctx.request.body;
+  if (typeof body === 'string') {
+    body = JSON.parse(body);
+  }
+  await request1C.add(methodName, body).do();
   ctx.body = request1C.get();
 }));

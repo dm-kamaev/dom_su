@@ -67,6 +67,11 @@ module.exports = class Request1Cv3 {
     const dataFor1C = createTemplateForData(methodName, data);
     const count = this.methods.length;
     this.methods.push(dataFor1C);
+    console.log({
+      "Method": dataFor1C.name,
+      "Param": dataFor1C.param,
+      "ActionID": count,
+    });
     this.body.Methods.push({
       "Method": dataFor1C.name,
       "Param": dataFor1C.param,
