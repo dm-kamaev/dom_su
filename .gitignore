@@ -1,6 +1,7 @@
 .idea
 *.log
 .jshintrc
+.DS_Store
 node_modules
 public/media
 getFixture.js
