@@ -8,3 +8,4 @@ getFixture.js
 config/default.json
 ecosystem.json
 /config
+/templates
