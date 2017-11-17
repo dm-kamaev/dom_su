@@ -13,10 +13,8 @@ if (ENV === 'development') {
       {
         "name": "pancake",
         "script": "/p/pancake/app.js",
-        // "out_file": "/home/ruslan/.pm2/logs/test.log",
-        // "error_file": "/home/ruslan/.pm2/zam-web.error",
-        // "out_file": "/home/ruslan/.pm2/zam-web.out",
-        // "pid_file": "/home/ruslan/.pm2/zam-web.pid",
+        "out_file": "/p/log/pm2/pancake.log",
+        "error_file": "/p/log/pm2/pancake.log",
         "env": {
           "NODE_PATH": "/p/pancake",
           "NODE_ENV": "development"
@@ -31,8 +29,8 @@ if (ENV === 'development') {
       {
         "name"      : "pancake",
         "script"    : "app.js",
-        "error_file"  : "/dev/null",
-        "out_file"    : "/dev/null",
+        "out_file": "/p/log/pm2/pancake.log",
+        "error_file": "/p/log/pm2/pancake.log",
         "env": {
           "NODE_PATH": "/srv/www/pancake"
         },
