@@ -3,7 +3,9 @@ const { staffUrl } = require('./utils');
 const { Method1C, Request1C } = require('api1c');
 const logger = require('logger')(module, 'staff.log');
 
-function getEmployeeHeader(routerFunc) {
+const decorators = exports;
+
+decorators.getEmployeeHeader = function(routerFunc) {
     return async function (ctx, next) {
         const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', true);
         const GetEmployeeData = new Method1C('GetEmployeeData', {EmployeeID: ctx.params.EmployeeID || ctx.state.pancakeUser.auth1C.employee_uuid});
@@ -17,9 +19,10 @@ function getEmployeeHeader(routerFunc) {
         }
         await routerFunc(ctx, next, request1C, GetEmployeeData, templateCtx)
     }
-}
+};
 
-function loginRequired(routerFunc) {
+
+decorators.loginRequired = function (routerFunc) {
     return async function (ctx, next) {
         let auth1C = await ctx.state.pancakeUser.getAuth1C()
         if (auth1C.token != null){
@@ -29,9 +32,23 @@ function loginRequired(routerFunc) {
             ctx.redirect(staffUrl('login'))
         }
     }
-}
+};
 
-module.exports = {
-    loginRequired,
-    getEmployeeHeader
-}
+
+decorators.loginRequiredWithoutRedirect = function (routerFunc) {
+    return async function (ctx, next) {
+        let auth1C = await ctx.state.pancakeUser.getAuth1C();
+        if (auth1C.token != null) {
+            await routerFunc(ctx, next);
+        } else {
+            ctx.status = 200;
+            ctx.body = {
+              ok: false,
+              error: {
+                code: -3,
+                text: 'Access denied',
+              }
+            };
+        }
+    }
+};
