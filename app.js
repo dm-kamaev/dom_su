@@ -71,6 +71,25 @@ async function run() {
     app.use(koaBody())
     app.use(userAgent)
 
+    // FOR PANCAKE
+    app.use(async function(ctx, next) {
+      const { request: req, response: res } = ctx;
+      if (req.method === 'POST' || req.method === 'GET') {
+        res.set("Access-Control-Allow-Origin", "*");
+        res.set("Access-Control-Allow-Credentials", "true");
+      }
+      if (req.method === 'OPTIONS') {
+        console.log('set header for OPTIONS');
+        res.set("Access-Control-Allow-Origin", "*");
+        res.set("Access-Control-Allow-Headers", "X-Dom-Auth, Accept-Encoding, Accept, Accept-Language, Overwrite, Destination, Content-Type, content-type, Connection, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control, Pragma, User-Agent, Referer");
+        res.set("Access-Control-Allow-Credentials", "true");
+        res.set("Access-Control-Allow-Method", "PROPFIND, PROPPATCH, COPY, MOVE, DELETE, MKCOL, LOCK, UNLOCK, PUT, GETLIB, VERSION-CONTROL, CHECKIN, CHECKOUT, UNCHECKOUT, REPORT, UPDATE, CANCELUPLOAD, HEAD, OPTIONS, GET, POST");
+        res.set("Access-Control-Max-Age", "86400");
+        ctx.status = 200;
+        return;
+      }
+      await next();
+    });
 
 
     // App middleware
