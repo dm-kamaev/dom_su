@@ -29,18 +29,36 @@ newsRouter.get('newsList', /^\/news\/$/, async function (ctx, next) {
 })
 
 newsRouter.get('newsItem', /^\/news\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
-    const news = await getNews(ctx.params[0], ctx.state.pancakeUser.city.id, ['id', 'city_id'])
-    if (news === null){
-        await next()
-        return
+  const user = ctx.state.pancakeUser;
+  const userCityId = user.city.id;
+  const news = await getNews(ctx.params[0], userCityId, ['id', 'city_id']);
+  if (news === null){
+      await next();
+      return;
+  }
+  const { modelList, begin, end } = await getNewsListScroll({
+    direction: 0,
+    keyValue: news.id,
+    where: {
+      city_id: user.city.id
     }
-    const {modelList, begin, end} = await getNewsListScroll({direction: 0, keyValue: news.id, where: {city_id: ctx.state.pancakeUser.city.id}})
-    const template = getTemplate(newsTemplateOpts)
-    let noindex = true;
-    if (news.city_id == ctx.state.pancakeUser.city.id){
-        noindex = false
-    }
-    ctx.body = template(ctx.proc({ItemList: modelList, Item: news, Begin: begin, End: end, HasRightSide: true, menu: menu, noindex: noindex}))
+  });
+  const template = getTemplate(newsTemplateOpts);
+  let noindex = true;
+
+  if (news.city_id === userCityId) {
+    noindex = false;
+  }
+
+  ctx.body = template(ctx.proc({
+    ItemList: modelList,
+    Item: news,
+    Begin: begin,
+    End: end,
+    HasRightSide: true,
+    menu,
+    noindex,
+  }))
 })
 
 newsRouter.get('newsListAjax', /^\/m\/news$/, async function (ctx, next) {
