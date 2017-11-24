@@ -2,7 +2,7 @@
 
 const config = require('config');
 const Sequelize = require('sequelize');
-const promise_api = require('/p/clientPA/my/promise_api.js');
+const promise_api = require('/p/pancake/my/promise_api.js');
 const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, {
   logging: false
 });
@@ -14,18 +14,18 @@ module.exports = async function () {
 
     let news_after_clean;
 
-    // news_after_clean = clean_first_template(news_db);
-    // await update_news(news_after_clean);
+    news_after_clean = clean_first_template(news_db);
+    await update_news(news_after_clean);
 
-    // news_after_clean = clean_second_template(news_db);
-    // await update_news(news_after_clean);
+    news_after_clean = clean_second_template(news_db);
+    await update_news(news_after_clean);
 
-    // news_after_clean = clean_four_template(clean_third_template(news_db));
-    // await update_news(news_after_clean);
-    // search_django_template(news_db);
+    news_after_clean = clean_four_template(clean_third_template(news_db));
+    await update_news(news_after_clean);
+    search_django_template(news_db);
 
-    // news_after_clean = replace_form(news_db);
-    // await update_news(news_after_clean);
+    news_after_clean = replace_form(news_db);
+    await update_news(news_after_clean);
 
     news_after_clean = replace_http_to_https(news_db);
     await update_news(news_after_clean);
@@ -192,7 +192,7 @@ async function update_news(news_after_cleam) {
     return await sequelize.query(query, {
       replacements: { id, preview_text, full_text, },
       type: sequelize.QueryTypes.SELECT
-    }).catch(err => console.log(err, '\n QUERY=', query));
+    }).catch(err => console.log('Error=', err, '\n QUERY=', query));
   });
 }
 
