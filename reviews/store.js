@@ -22,7 +22,7 @@ async function shareReview(share) {
 }
 
 async function getReview(id) {
-    let attributes = ['id', 'name', 'date', 'rating', 'answer', 'review', 'title_meta', 'description_meta', 'keywords_meta', 'block_link', 'city_id']
+    let attributes = [ 'id', 'name', 'date', 'rating', 'answer', 'review', 'title_meta', 'description_meta', 'keywords_meta', 'block_link', 'city_id', 'note' ];
 
     if (typeof additionalAttr == 'list'){
         attributes = attributes.concat(additionalAttr)

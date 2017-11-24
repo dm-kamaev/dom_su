@@ -3,7 +3,8 @@
 const Router = require('koa-router');
 const router = new Router();
 const { getFAQ, getFAQListScroll, saveFAQ } = require('./store')
-const logger = require('logger')(module)
+const logger = require('logger')(module);
+const time = require('/p/pancake/my/time.js');
 const { getTemplate, loadTemplate } = require('utils')
 
 const FAQTemplateOpts = {
@@ -67,7 +68,17 @@ FAQRouter.get('FAQItem', /^\/faq\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, ne
     }
     const {modelList, begin, end}= await getFAQListScroll({direction: 0, keyValue: faq.id})
     const template = getTemplate(FAQTemplateOpts)
-    ctx.body = template(ctx.proc({ItemList: modelList, Item: faq, Begin: begin, End: end, RightForm: RightForm, HasRightSide: true, menu: menu, noindex: ctx.state.pancakeUser.city.keyword != 'moscow'}))
+    ctx.body = template(ctx.proc({
+        ItemList: modelList,
+        Item: faq,
+        Begin: begin,
+        End: end,
+        RightForm: RightForm,
+        HasRightSide: true,
+        menu: menu,
+        titlePubDate: time.format('DD.MM.YYYY hh:mm:ss', time.get(faq.pub_date)),
+        noindex: ctx.state.pancakeUser.city.keyword != 'moscow'
+    }))
 })
 
 FAQRouter.get('FAQListAjax', /^\/m\/faq$/, async function (ctx, next) {

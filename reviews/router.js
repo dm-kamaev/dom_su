@@ -76,9 +76,23 @@ reviewsRouter.get('reviewItem', /^\/otzivi\/([0-9a-zA-Z_\-]+)\/$/, async functio
     if (review.city_id != ctx.state.pancakeUser.city.id){
         noindex = true
     }
-    const {modelList, begin, end}= await getReviewListScroll({direction: 0, keyValue: review.id})
+    const { modelList, begin, end }= await getReviewListScroll({direction: 0, keyValue: review.id})
     const template = getTemplate(reviewsTemplateOpts)
-    ctx.body = template(ctx.proc({ItemList: modelList, Item: review, Begin: begin, End: end, RightForm: RightForm, HasRightSide: true, menu: menu, formName: share.name, formRating: share.score, formReview: share.content, noindex: noindex}))
+    const noteForTitle = review.note.replace(/выполнено/, '');
+    ctx.body = template(ctx.proc({
+        ItemList: modelList,
+        Item: review,
+        Begin: begin,
+        End: end,
+        RightForm: RightForm,
+        HasRightSide: true,
+        menu: menu,
+        formName: share.name,
+        formRating: share.score,
+        formReview: share.content,
+        noteForTitle,
+        noindex: noindex,
+    }))
 })
 
 reviewsRouter.get('reviewListAjax', /^\/m\/otzivi$/, async function (ctx, next) {

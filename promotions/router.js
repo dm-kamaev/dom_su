@@ -32,8 +32,28 @@ promotionsRouter.get('promotionsItem', /^\/skidki_akcii\/([0-9a-zA-Z_\-]+)\/$/, 
         await next()
         return
     }
-    const template = getTemplate(promotionsTemplateOpts)
-    ctx.body = template(ctx.proc({ItemList: modelList, Item: promotion, Begin: true, End: true, HasRightSide: true, menu: menu}))
+    const template = getTemplate(promotionsTemplateOpts);
+    const sectionName = ctx.params[0];
+    const hashTitle = {
+        reviews: 'Скидки и акции от Домовенка (обзоры)',
+        lateness: 'Свежие скидки и акции от Домовенка',
+        schedule: 'Расписание скидок и акций от Домовенка',
+        certificates: 'Сертификаты на скидки и акции от Домовенка',
+        birthday: 'Скидки и акции от Домовенка в день рождения',
+        invite: 'Скидки и акции от Домовенка (приглашения)',
+        coupons: 'Купоны на скидки и акции от Домовенка',
+    };
+    console.log('sectionName=', sectionName);
+    const title = hashTitle[sectionName] || 'Скидки и акции от Домовенка';
+    ctx.body = template(ctx.proc({
+        ItemList: modelList,
+        Item: promotion,
+        Begin: true,
+        End: true,
+        HasRightSide: true,
+        menu: menu,
+        title,
+    }))
 })
 
 promotionsRouter.get('promotionsListAjax', /^\/m\/skidki_akcii$/, async function (ctx, next) {
@@ -64,4 +84,4 @@ promotionsRouter.get('promotionsItemAjax', /^\/m\/skidki_akcii\/([0-9a-zA-Z_\-]+
 
 module.exports = {
     promotionsRouter,
-}
+};
