@@ -26,6 +26,7 @@ promise_api.queue = function (data, promise_handler) {
 //     setTimeout(function() {
 //       console.log('HERE=', i);
 //       resolve(i);
+//       // reject(12312)
 //     }, i);
 //   });
 // }).then(res => console.log(res)).catch(err => console.log(err));
