@@ -18,11 +18,18 @@ loadTemplate(promotionsTemplateOpts)
 
 const promotionsRouter = new Router();
 
-
-promotionsRouter.get('promotionsList', /^\/skidki_akcii\/$/, async function (ctx, next) {
-    const modelList = getPromotionList(ctx.state.pancakeUser.city)
-    const template = getTemplate(promotionsTemplateOpts)
-    ctx.body = template(ctx.proc({ItemList: modelList, Begin: true, End: true, HasRightSide: false, menu: menu}))
+promotionsRouter.get('promotionsList', /^\/skidki_akcii\/$/, async function(ctx, next) {
+  const modelList = getPromotionList(ctx.state.pancakeUser.city);
+  const template = getTemplate(promotionsTemplateOpts);
+  const title = 'Скидки и акции от Домовенка';
+  ctx.body = template(ctx.proc({
+    ItemList: modelList,
+    Begin: true,
+    End: true,
+    HasRightSide: false,
+    menu: menu,
+    title: title
+  }))
 })
 
 promotionsRouter.get('promotionsItem', /^\/skidki_akcii\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
@@ -43,7 +50,6 @@ promotionsRouter.get('promotionsItem', /^\/skidki_akcii\/([0-9a-zA-Z_\-]+)\/$/, 
         invite: 'Скидки и акции от Домовенка (приглашения)',
         coupons: 'Купоны на скидки и акции от Домовенка',
     };
-    console.log('sectionName=', sectionName);
     const title = hashTitle[sectionName] || 'Скидки и акции от Домовенка';
     ctx.body = template(ctx.proc({
         ItemList: modelList,
