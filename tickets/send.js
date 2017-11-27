@@ -15,9 +15,9 @@ const connectParam = {
     }
 }
 
-    function sendTicket(ticket) {
+function sendTicket(ticket) {
     connectParam.headers['Content-length'] = Buffer.from(ticket).length;
-    let response_json= "";
+    let response_json = "";
     let promiseRequest = new Promise((reslove, reject) => {
         const startDateRequest = Date.now();
         let req = http.request(connectParam, (res) => {
@@ -29,13 +29,15 @@ const connectParam = {
                 try {
                     reslove(JSON.parse(response_json))
                 } catch (e) {
-                    log.error('Parse JSON error response - ', response_json )
+                    log.error('Parse JSON error response - ', response_json)
                     reject(e)
                     return
                 }
             });
         })
-        req.setTimeout(1000 * 20, function(){reject(new Error('Ticket send error'))})
+        req.setTimeout(1000 * 20, function() {
+            reject(new Error('Ticket send error'))
+        })
         req.on('error', (e) => {
             log.error(e)
             reject(new Error('Ticket send error'))
