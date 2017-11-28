@@ -14,7 +14,8 @@ const router = module.exports = new Router();
 //   "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8"
 // }
 // responce –– { "ok": true/false, "data": ..., "error": {"code": ..., "text": "..."}
-router.post('/proxy_request/:methodName', decorators.loginRequiredWithoutRedirect(async function (ctx, next) {
+// decorators.loginRequiredWithoutRedirect();
+router.post('/proxy_request/:methodName', async function (ctx, next) {
   const methodName = ctx.params.methodName;
   const user = ctx.state.pancakeUser;
   const request1C = new Request1Cv3(user.auth1C.token, user.uuid);
@@ -22,7 +23,34 @@ router.post('/proxy_request/:methodName', decorators.loginRequiredWithoutRedirec
   if (typeof body === 'string') {
     body = JSON.parse(body);
   }
-  await request1C.add(methodName, body).do();
-  ctx.body = request1C.get();
-}));
 
+  let res;
+  console.log(methodName, body);
+  switch (methodName) {
+    case 'Login':
+      const authApi = new AuthApi(ctx);
+      // await request1C.add('Auth.Login', body).do();
+      // res = await authApi.login(body.phone, body.code);
+      res = await authApi.login(body);
+      break;
+    default:
+      await request1C.add(methodName, body).do();
+      res = request1C.get();
+  }
+  ctx.body = res;
+});
+
+class AuthApi {
+  constructor(ctx) {
+    this.user = ctx.state.pancakeUser;
+  }
+
+  async login(body) {
+    const user = this.user;
+    const request1C = new Request1Cv3(user.auth1C.token, user.uuid);
+    console.log(body);
+    await request1C.add('Auth.Login', body).do();
+    const res = request1C.get();
+    return res;
+  }
+}
