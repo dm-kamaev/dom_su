@@ -34,7 +34,7 @@
             <button type="submit">Создать</button>
         </form>
         </div>
-        {{#each GetConversationList.ConversationList as |conversation|}}
+        {{#each conversationList as |conversation|}}
             <a class="ui-btn" href="{{staffUrl 'conversationDetail' ../employeeId conversation.ConversationID }}">
               <div class="ui-block-a">
                   <div class="ui-body ui-body-d">{{formatPartDate conversation.Date "DD.MM.YYYY"}}</div>
