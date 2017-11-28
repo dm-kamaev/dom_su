@@ -48,36 +48,70 @@ pool.on('error', (err, client) => {
     last_action: null
   }]
  */
-db.read =  async function (query, params) {
+db.read = async function (query, params) {
   const client = await pool.connect();
+  let result;
   try {
     const res = await client.query(query, params);
-    return res.rows;
+    result = res.rows;
   } catch(err) {
-    return new Error(err);
+    result = new DbError(query, err, params);
   } finally {
     client.release();
+    return result;
   }
 };
 
-// TODO: readOne
-// db.readOne = function (query, params) {
 
-// };
-
-// TODO: to finalize
-db.write = async function (query, params) {
+/**
+ * read one, add to query LIMIT 1
+ * @param  {string} query   'SELECT * FROM users WHERE uuid=$1'
+ * @param  {[array]} params  ['3eedc2f4-3206-4632-9a3f-60cad6257aa2']
+ * @return {object || null}
+ */
+db.readOne = async function (query, params) {
   const client = await pool.connect();
+  let result;
+  try {
+    const res = await client.query(query+' LIMIT 1', params);
+    result = res.rows[0] || null;
+  } catch(err) {
+    result = new DbError(query, err, params);
+  } finally {
+    client.release();
+    return result;
+  }
+};
+
+
+/**
+ * insert or update
+ * @param  {string} query  INSERT INTO auth_data (uuid, client_id, employee_id, token) VALUES ($1, $2, $3, $4);'
+ * @param  {array} params [ this.uuid,  ClientID, EmployeeID, Token ]
+ * @return {number}
+ */
+db.edit = async function (query, params) {
+  const client = await pool.connect();
+  let result;
   try {
     const res = await client.query(query, params);
-    return res.rows[0];
-  } catch(e) {
-    console.log(new Error(e));
+    result = res.rowCount;
+  } catch(err) {
+    result = new DbError(query, err, params);
   } finally {
     client.release();
+    return result;
   }
 };
 
+
+class DbError extends Error {
+  constructor(query, err, params) {
+    super(err);
+    this.query = query;
+    this.params = params;
+  }
+}
 // EXAMPLE
 // (async function () {
 //   let res

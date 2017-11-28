@@ -5,6 +5,7 @@
 const Router = require('koa-router');
 const Request1Cv3 = require('api1c/request1Cv3.js');
 const decorators = require('staff/decorators.js');
+const AuthApi = require('/p/pancake/auth/authApi.js');
 
 const router = module.exports = new Router();
 
@@ -31,7 +32,7 @@ router.post('/proxy_request/:methodName', async function (ctx, next) {
       const authApi = new AuthApi(ctx);
       // await request1C.add('Auth.Login', body).do();
       // res = await authApi.login(body.phone, body.code);
-      res = await authApi.login(body);
+      res = await authApi.login(body.Phone, body.Code);
       break;
     default:
       await request1C.add(methodName, body).do();
@@ -39,18 +40,3 @@ router.post('/proxy_request/:methodName', async function (ctx, next) {
   }
   ctx.body = res;
 });
-
-class AuthApi {
-  constructor(ctx) {
-    this.user = ctx.state.pancakeUser;
-  }
-
-  async login(body) {
-    const user = this.user;
-    const request1C = new Request1Cv3(user.auth1C.token, user.uuid);
-    console.log(body);
-    await request1C.add('Auth.Login', body).do();
-    const res = request1C.get();
-    return res;
-  }
-}
