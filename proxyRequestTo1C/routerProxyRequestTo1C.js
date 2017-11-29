@@ -26,17 +26,25 @@ router.post('/proxy_request/:methodName', async function (ctx, next) {
   }
 
   let res;
-  console.log(methodName, body);
   switch (methodName) {
     case 'Login':
       const authApi = new AuthApi(ctx);
-      // await request1C.add('Auth.Login', body).do();
-      // res = await authApi.login(body.phone, body.code);
       res = await authApi.login(body.Phone, body.Code);
+      // console.log('isLoginAsClient= ', await authApi.isLoginAsClient());
+      // console.log('isLoginAsClientEmployee= ', await authApi.isLoginAsClientEmployee());
       break;
     default:
       await request1C.add(methodName, body).do();
       res = request1C.get();
   }
   ctx.body = res;
+});
+
+router.get('/test_auth/', async function (ctx, next) {
+  const authApi = new AuthApi(ctx);
+
+  ctx.status = 200;
+  ctx.body =
+  '<p style=font-size:190%>isLoginAsClient = ' + await authApi.isLoginAsClient()+ '</p>'+
+  '<p style=font-size:190%>isLoginAsClientEmployee = ' + await authApi.isLoginAsClientEmployee()+ '</p>';
 });
