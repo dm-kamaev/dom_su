@@ -9,13 +9,16 @@ const random = require('/p/pancake/my/random.js');
 const Request1Cv3 = require('/p/pancake/api1c/request1Cv3.js');
 
 
-const SERVER_KEY = 'lalalal3424242324';
+const SERVER_KEY_FOR_CLIENT = '2AqeaZezW7ildrOkHwIDvJ1kOEyXiFnV';
+const SERVER_KEY_FOR_EMPLOYEE = '7ZLNfdFg8HVcuNx39dWdqAihmTgTiGjH';
+
 // CREATE TABLE IF NOT EXISTS auth_data(
 //   auth_data_id   SERIAL PRIMARY KEY  NOT NULL,
 //   uuid           CHAR(36) NOT NULL,
 //   client_id      CHAR(36) NOT NULL,
 //   employee_id    CHAR(36),
-//   token          CHAR(36) NOT NULL
+//   token          CHAR(36) NOT NULL,
+//   timestamp      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 // );
 // -- e7958b5e-360e-11e2-a60e-08edb9b907e8
 // -- 6ed99ac9-9657-11e2-beb6-1078d2da50b0
@@ -87,7 +90,7 @@ module.exports = class AuthApi {
                       .update(A)
                       .update(client_id)
                       .update(this.userAgent)
-                      .update(SERVER_KEY)
+                      .update(SERVER_KEY_FOR_CLIENT)
                       .digest('hex');
       const status = this.hashStatus.client;
       const cookiesApi = this.cookiesApi;
@@ -99,9 +102,11 @@ module.exports = class AuthApi {
       console.log('host', host);
       const daysToLive = 1;
       const maxAge = daysToLive * 60 * 60 * 24; // 1 day, change to 3 month
-      cookiesApi.set('A', A, { domain: host, maxAge, path: '/', httpOnly: false });
-      cookiesApi.set('B', B, { domain: host, maxAge, path: '/', httpOnly: false });
-      cookiesApi.set('status', status, { domain: host, maxAge, path: '/', httpOnly: false });
+      const httpOnly = false;
+      const path = '/';
+      cookiesApi.set('A', A, { domain: host, maxAge, path: '/', httpOnly });
+      cookiesApi.set('B', B, { domain: host, maxAge, path: '/', httpOnly });
+      cookiesApi.set('status', status, { domain: host, maxAge, path: '/', httpOnly });
     } else if (client_id && employee_id) { // client-employee login
 
     } else {
