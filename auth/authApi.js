@@ -132,11 +132,16 @@ module.exports = class AuthApi {
     //          |
 
     const hashStatus = this.hashStatus;
-    if (status === hashStatus.client && employee_id) { // if he BECAME a employee, repeat login
-      await this.becomeClientEmployee_(employee_id);
+    if (status === hashStatus.client) { // if he BECAME a employee, repeat login
+      if (employee_id) {
+        console.log('HERE === ');
+        await this.becomeClientEmployee_(employee_id);
+      }
       return (B === createClientCookie(this, client_id, A).B);
-    } else if (status === hashStatus.clientEmployee && !employee_id) { // if he CEASED to be an client-employee, repeat login
-      await this.becomeClient_(client_id);
+    } else if (status === hashStatus.clientEmployee) { // if he CEASED to be an client-employee, repeat login
+      if (!employee_id) {
+        await this.becomeClient_(client_id);
+      }
       return true;
     } else {
       return false;
