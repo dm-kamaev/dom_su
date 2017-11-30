@@ -5,8 +5,9 @@ let log = require('logger')(module, 'staff.log')
 let errors = require('./errors')
 const config = require('config')
 const uap = require('node-uap');
+const logger = require('/p/pancake/lib/logger.js');
 
-const NODE_ENV = process.env.NODE_ENV;
+// const NODE_ENV = process.env.NODE_ENV;
 let server = config.api1C;
 
 module.exports = class Request1Cv3 {
@@ -77,7 +78,7 @@ module.exports = class Request1Cv3 {
 
 
   do() {
-    logger1C('Request1C request => ', this.body);
+    logger.info('Request1C request => \n' + JSON.stringify(this.body, null, 2));
     this.body = JSON.stringify(this.body);
 
     log.debug('\n --- start request\n', this.body, '\n --- end request');
@@ -95,7 +96,8 @@ module.exports = class Request1Cv3 {
           let endDate = Date.now();
           log.debug('\n --- start response\n', response_json, '\n --- end response', '\nRequest Time -', Date.now() - startDateRequest, 'ms')
           try {
-            logger1C('Request1C response => ', ((response_json) ? JSON.parse(response_json) : ''));
+            const for_log = ((response_json) ? JSON.parse(response_json) : '');
+            logger.info('Request1C response => \n ' + JSON.stringify(for_log, null, 2));
             this.response = JSON.parse(response_json)
           } catch (e) {
             reject(e)
@@ -111,7 +113,7 @@ module.exports = class Request1Cv3 {
       })
       req.on('error', (e) => {
         log.error(e);
-        logger1C(e);
+        logger.warn(e);
         reject(new errors.API1CError('The request ended in failure', this.token, 'The request ended in failure', 500));
       })
       req.write(this.body);
@@ -155,7 +157,7 @@ module.exports = class Request1Cv3 {
       }
     } catch (err) {
       log.error(err)
-      logger1C(err);
+      logger.warn(err);
       res = {
         ok: false,
         error: {
@@ -181,29 +183,29 @@ function createTemplateForData(name, param) {
 }
 
 
-function logger1C() {
-  // TODO: write in file
-  if (NODE_ENV === 'development') {
-    try {
-      if (arguments.length === 2) {
-        var a = arguments[0];
-        var b = arguments[1];
-        if (a instanceof Object) {
-          a = JSON.stringify(a, null, 2);
-        }
-        if (b instanceof Object) {
-          b = JSON.stringify(b, null, 2);
-        }
-        console.log(a, b);
-      } else {
-        var a = arguments[0];
-        if (a instanceof Object) {
-          a = JSON.stringify(a, null, 2);
-        }
-        console.log(a);
-      }
-    } catch (err) {
-      console.log('logger1C =', err);
-    }
-  }
-}
+// function logger1C() {
+//   // TODO: write in file
+//   if (NODE_ENV === 'development') {
+//     try {
+//       if (arguments.length === 2) {
+//         var a = arguments[0];
+//         var b = arguments[1];
+//         if (a instanceof Object) {
+//           a = JSON.stringify(a, null, 2);
+//         }
+//         if (b instanceof Object) {
+//           b = JSON.stringify(b, null, 2);
+//         }
+//         console.log(a, b);
+//       } else {
+//         var a = arguments[0];
+//         if (a instanceof Object) {
+//           a = JSON.stringify(a, null, 2);
+//         }
+//         console.log(a);
+//       }
+//     } catch (err) {
+//       console.log('logger1C =', err);
+//     }
+//   }
+// }

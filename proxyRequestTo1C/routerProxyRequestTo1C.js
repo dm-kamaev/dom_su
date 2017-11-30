@@ -43,8 +43,24 @@ router.post('/proxy_request/:methodName', async function (ctx, next) {
 router.get('/test_auth/', async function (ctx, next) {
   const authApi = new AuthApi(ctx);
 
-  ctx.status = 200;
-  ctx.body =
+  const text =
   '<p style=font-size:190%>isLoginAsClient = ' + await authApi.isLoginAsClient()+ '</p>'+
-  '<p style=font-size:190%>isLoginAsClientEmployee = ' + await authApi.isLoginAsClientEmployee()+ '</p>';
+  '<p style=font-size:190%>isLoginAsClientEmployee = ' + await authApi.isLoginAsClientEmployee()+ '</p>'+
+  '<a href=/test_logout style=font-size:190%>LOGOUT</a>';
+
+  ctx.status = 200;
+  ctx.body = text;
+});
+
+
+router.get('/test_logout/', async function (ctx, next) {
+  const authApi = new AuthApi(ctx);
+
+  authApi.logout();
+  const text =
+  '<p style=font-size:190%>success logout</p>'+
+  '<a href=/test_auth style=font-size:190%>CHECK AUTH</a>';
+
+  ctx.status = 200;
+  ctx.body = text;
 });

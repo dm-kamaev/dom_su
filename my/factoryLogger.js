@@ -53,7 +53,7 @@ class Logger {
     const now = time.get();
 
     var title = this.title.trim().toUpperCase();
-    var prefix = time.format('[YYYY/MM/DD hh:mm:ss] ', now) + '[' + title + '] error_ms:' + now.in_ms + '\n';
+    var prefix = time.format('INFO: [YYYY/MM/DD hh:mm:ss] ', now) + '[' + title + '] info_ms:' + now.in_ms + '\n';
     // const prefix_with_color = color.set_bgreen(prefix);
     const prefix_with_color = prefix;
 

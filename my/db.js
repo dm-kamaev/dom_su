@@ -1,11 +1,13 @@
 'use strict';
 
 // CONNECTOR FOR POSTGRES
-// TODO: Inject logger
+// TODO: add cnfig
 
 const pg = require('pg');
+const logger = require('/p/pancake/lib/logger.js');
 // const config = require('config');
 
+const SHOW_SQL = true;
 const db = exports;
 
 // const configPool = {
@@ -31,7 +33,7 @@ const pool = new pg.Pool(configPool);
 // the pool with emit an error on behalf of any idle clients
 // it contains if a backend error or network partition happens
 pool.on('error', (err, client) => {
-  console.log('Unexpected error on idle client', err);
+  logger.warn('Unexpected error on idle client => ' + err);
 });
 
 
@@ -54,8 +56,12 @@ db.read = async function (query, params) {
   try {
     const res = await client.query(query, params);
     result = res.rows;
+    if (SHOW_SQL) {
+      logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : null));
+    }
   } catch(err) {
     result = new DbError(query, err, params);
+    logger.warn(result);
   } finally {
     client.release();
     return result;
@@ -75,8 +81,12 @@ db.readOne = async function (query, params) {
   try {
     const res = await client.query(query+' LIMIT 1', params);
     result = res.rows[0] || null;
+    if (SHOW_SQL) {
+      logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : null));
+    }
   } catch(err) {
     result = new DbError(query, err, params);
+    logger.warn(result);
   } finally {
     client.release();
     return result;
@@ -96,8 +106,12 @@ db.edit = async function (query, params) {
   try {
     const res = await client.query(query, params);
     result = res.rowCount;
+    if (SHOW_SQL) {
+      logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : null));
+    }
   } catch(err) {
     result = new DbError(query, err, params);
+    logger.warn(result);
   } finally {
     client.release();
     return result;

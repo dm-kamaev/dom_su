@@ -3,11 +3,11 @@
 // AUTH API
 
 const crypto = require('crypto');
-const db = require('/p/pancake/my/db.js');
+let db = require('/p/pancake/my/db.js');
 const time = require('/p/pancake/my/time.js');
 const random = require('/p/pancake/my/random.js');
-const Request1Cv3 = require('/p/pancake/api1c/request1Cv3.js');
-
+let Request1Cv3 = require('/p/pancake/api1c/request1Cv3.js');
+const logger = require('/p/pancake/lib/logger.js');
 
 const SERVER_KEY_FOR_CLIENT = '2AqeaZezW7ildrOkHwIDvJ1kOEyXiFnV';
 const SERVER_KEY_FOR_EMPLOYEE = '7ZLNfdFg8HVcuNx39dWdqAihmTgTiGjH';
@@ -20,9 +20,15 @@ const SERVER_KEY_FOR_EMPLOYEE = '7ZLNfdFg8HVcuNx39dWdqAihmTgTiGjH';
 //   token          CHAR(36) NOT NULL,
 //   timestamp      TIMESTAMP DEFAULT NOW()
 // );
-// -- e7958b5e-360e-11e2-a60e-08edb9b907e8
-// -- 6ed99ac9-9657-11e2-beb6-1078d2da50b0
-// -- b20fe506-da73-4e81-a20e-bbe952a12a3e
+// CREATE INDEX auth_data_i_uuid ON auth_data (uuid);
+// CREATE TABLE IF NOT EXISTS uuid_phone(
+//   uuid_phone_id   SERIAL PRIMARY KEY NOT NULL,
+//   uuid           CHAR(36) NOT NULL,
+//   phone          CHAR(50) NOT NULL,
+//   timestamp      TIMESTAMP DEFAULT NOW()
+// );
+// CREATE INDEX uuid_phone_i_uuid ON uuid_phone (uuid);
+
 module.exports = class AuthApi {
   constructor(ctx) {
     this.user = ctx.state.pancakeUser;
@@ -35,16 +41,34 @@ module.exports = class AuthApi {
       client: 1,
       clientEmployee: 2,
     };
+    this.listStatus = [ , 'client', 'clientEmployee' ];
+
+    //////
+    // this.test = new Test({ 'login_client': true, first_login: true });
+    // this.test = new Test({ 'login_client': true });
+    // this.test = new Test({ login_client_employee: true, first_login: true });
+    // this.test = new Test({ login_client_employee: true });
+    // db = this.test.REPLACE_DB();
+    // Request1Cv3 = this.test.REPLACE_1C();
+    //////
+
   }
 
+
   async login(phone, code) {
+    logger.log('=== LOGIN ===');
     // TODO: return via http object with error
-    if (!phone || !code) {
-      console.log(`Not exist phone or code: ${phone} or ${code}`);
+    if (!phone) {
+      console.log(`Not exist phone: ${phone}`);
+      return {};
+    }
+
+    if (!code) {
+      console.log(`Not exist code: ${code}`);
       return {};
     }
     let authData = await db.readOne('SELECT uuid, client_id, employee_id, token FROM auth_data WHERE uuid = $1', [ this.uuid ]);
-    console.log('auth_data from db =', authData);
+    logger.log('auth_data from db =', JSON.stringify(authData, null, 2));
     if (authData instanceof Error) {
       throw authData;
     }
@@ -62,10 +86,18 @@ module.exports = class AuthApi {
       //     "Token": "85253ffa-9d03-4cb0-ac76-5809e02de202"
       //   }
       // }
+
       const WrapAuthDataFrom1c = request1C.get();
       if (!WrapAuthDataFrom1c.ok) {
         throw WrapAuthDataFrom1c;
       }
+
+      ////// FOR TEST ONLY CLIENT
+      ///     |
+      //     V
+      // WrapAuthDataFrom1c.data.EmployeeID = null;  //
+      ////// FOR TEST ONLY CLIENT
+
       const authDataFrom1c = WrapAuthDataFrom1c.data;
       authData = {
         uuid: this.uuid,
@@ -80,14 +112,15 @@ module.exports = class AuthApi {
       if (resInsert instanceof Error) {
         throw resInsert;
       }
-      console.log('resInsert=', resInsert);
+      logger.log('resInsert= ' + resInsert);
+
+      const uuidPhoneInsert = await db.edit(
+        'INSERT INTO uuid_phone (uuid, phone) VALUES ($1, $2)',
+        [ this.uuid,  phone ]
+      );
     }
 
     let { client_id, employee_id } = authData;
-    // FOR TEST |
-    //          V
-    employee_id = null;
-    //          |
 
     if (client_id && !employee_id) {  // client login
       this.becomeClient_(client_id);
@@ -97,12 +130,16 @@ module.exports = class AuthApi {
       throw new Error('Not valid data', authData.data);
     }
 
+    const data = {
+      ClientID: client_id,
+    };
+    if (employee_id) {
+      data.EmployeeID = employee_id;
+    }
+
     return {
       ok: true,
-      data: {
-        ClientID: client_id,
-        EmployeeID: employee_id,
-      }
+      data
     };
   }
 
@@ -124,27 +161,25 @@ module.exports = class AuthApi {
     }
 
     const client_id = auth_data.client_id;
-    let employee_id = auth_data.employee_id;
+    const employee_id = auth_data.employee_id;
     // TODO: Проверять, не истек ли token
-    // FOR TEST |
-    //          V
-    employee_id = null;
-    //          |
 
     const hashStatus = this.hashStatus;
-    if (status === hashStatus.client) { // if he BECAME a employee, repeat login
-      if (employee_id) {
-        console.log('HERE === ');
+    if (status === hashStatus.client) {
+      if (!this.checkClient_(A, B, client_id)) {
+        return false;
+      }
+      if (employee_id) { // if he BECAME a employee, repeat login
         await this.becomeClientEmployee_(employee_id);
       }
-      return (B === createClientCookie(this, client_id, A).B);
-    } else if (status === hashStatus.clientEmployee) { // if he CEASED to be an client-employee, repeat login
-      if (!employee_id) {
-        await this.becomeClient_(client_id);
-      }
       return true;
-    } else {
-      return false;
+    } else if (status === hashStatus.clientEmployee) {
+      if (!employee_id) { // if he CEASED to be an client-employee, repeat login
+        await this.becomeClient_(client_id);
+        return true;
+      } else {
+        return this.checkClientEmployee_(A, B, employee_id);
+      }
     }
   }
 
@@ -166,34 +201,49 @@ module.exports = class AuthApi {
       return false;
     }
 
+    // TODO: Проверять, не истек ли token
     const client_id = auth_data.client_id;
     const employee_id = auth_data.employee_id;
     if (!employee_id) { // if he CEASED to be an client-employee, repeat login
       await this.becomeClient_(client_id);
       return false;
     }
-    const isLoginClient = (B === createClientCookie(this, client_id, A).B);
     const hashStatus = this.hashStatus;
-    if (isLoginClient && status === hashStatus.client && employee_id) {
-      this.becomeClientEmployee_(employee_id); // if he BECAME a employee, repeat login
-      return true;
+    if (status === hashStatus.client) {
+      if (!this.checkClient_(A, B, client_id)) {
+        return false;
+      }
+      if (employee_id) {
+        this.becomeClientEmployee_(employee_id); // if he BECAME a employee, repeat login
+        return true;
+      } else {
+        return false;
+      }
     } else if (status === hashStatus.clientEmployee) {
-      // TODO: Проверять, не истек ли token
-      return B === createClientEmployeeCookie(this, employee_id, A).B;
+      return this.checkClientEmployee_(A, B, employee_id);
     }
   }
 
+  logout() {
+    const cookiesApi = this.cookiesApi;
+    const params = { domain: this.host, maxAge: 0 , path: '/', httpOnly: false };
+    // TODO: Maybe clean session_uuid_dom_dev_t
+    cookiesApi.set('A', null, params);
+    cookiesApi.set('B', null, params);
+    cookiesApi.set('status', null, params);
+    logger.log('=== LOGOUT ===');
+  }
+
+
   isNotValidCookies_(A, B, status) {
     if (!A || !B) {
-      return false;
+      return true;
     }
     status = parseInt(status, 10);
     if (!status) {
-      return false;
+      return true;
     }
-    return !Boolean(Object.keys(this.hashStatus).find(key => {
-      return status === this.hashStatus[key];
-    }));
+    return !this.listStatus[status];
   }
 
   becomeClient_(client_id) {
@@ -203,17 +253,17 @@ module.exports = class AuthApi {
     const { A, B, status } = createClientCookie(this, client_id);
     const cookiesApi = this.cookiesApi;
 
-    console.log('A=', A);
-    console.log('B=', B);
-    console.log('status=', status);
-    console.log('host', this.host);
+    logger.log('A= '+A);
+    logger.log('B= '+B);
+    logger.log('status= '+status);
+    logger.log('host '+this.host);
 
     const cookieParam = { domain: this.host, maxAge, path: '/', httpOnly: false };
     cookiesApi.set('A', A, cookieParam);
     cookiesApi.set('B', B, cookieParam);
     cookiesApi.set('status', status, cookieParam);
 
-    console.log('=== AUTH HOW CLIENT ===');
+    logger.log('=== AUTH HOW CLIENT ===');
   }
 
   becomeClientEmployee_(employee_id) {
@@ -223,10 +273,10 @@ module.exports = class AuthApi {
     const { A, B, status } = createClientEmployeeCookie(this, employee_id);
     const cookiesApi = this.cookiesApi;
 
-    console.log('A=', A);
-    console.log('B=', B);
-    console.log('status=', status);
-    console.log('host', this.host);
+    logger.log('A= '+A);
+    logger.log('B= '+B);
+    logger.log('status= '+status);
+    logger.log('host '+this.host);
 
     const path = '/';
     const cookieParam = { domain: this.host, maxAge, path: '/', httpOnly: false };
@@ -234,7 +284,15 @@ module.exports = class AuthApi {
     cookiesApi.set('B', B, cookieParam);
     cookiesApi.set('status', status, cookieParam);
 
-    console.log('=== AUTH HOW CLIENT-EMPLOYEEE ===');
+    logger.log('=== AUTH HOW CLIENT-EMPLOYEE ===');
+  }
+
+  checkClient_(A, B, client_id) {
+    return B === createClientCookie(this, client_id, A).B;
+  }
+
+  checkClientEmployee_(A, B, employee_id) {
+    return B === createClientEmployeeCookie(this, employee_id, A).B;
   }
 
 };
@@ -268,4 +326,106 @@ function createClientEmployeeCookie(me, employee_id, A) {
 
 
 
+// class Test {
+//   constructor(option) {
+//     this.option = option;
+//     logger.log('===== TEST LOGIN ====');
 
+//     if (option['login_client']) {
+//       this.data1c = {
+//         "ok": true,
+//         "data": {
+//           "ClientID": "6ed99ac9-9657-11e2-beb6-1078d2da50b0",
+//           "Token": "85253ffa-9d03-4cb0-ac76-5809e02de202"
+//         }
+//       };
+//     } else if (option['login_client_employee']) {
+//       this.data1c = {
+//         "ok": true,
+//         "data": {
+//           "ClientID": "6ed99ac9-9657-11e2-beb6-1078d2da50b0",
+//           "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8",
+//           "Token": "85253ffa-9d03-4cb0-ac76-5809e02de202"
+//         }
+//       };
+//     } else if (option['first_login'] && option['err_1C']) {
+//       this.data1c = {
+//         "ok": false,
+//         "error": 'Подставь ошибку'
+//       };
+//     }
+//     this.db = this.create_test_db();
+//   }
+
+//   REPLACE_1C() {
+//     const me = this;
+//     return class TEST_Request1Cv3 {
+//       constructor() {
+
+//       }
+
+//       add() {
+//         return this;
+//       }
+
+//       async do() {
+//         return Promise.resolve(this);
+//       }
+
+//       get() {
+//         return me.data1c;
+//       }
+//     }
+//   }
+
+//   REPLACE_DB() {
+//     return this.db;
+//   }
+
+//   create_test_db() {
+//     const me = this;
+//     const db = {};
+//     let data = me.data1c.data;
+//     let count_read = 0;
+//     data = {
+//       client_id: data.ClientID,
+//       employee_id: data.EmployeeID,
+//       token: data.Token,
+//     };
+//     db.readOne = async function () {
+//       if (me.option['first_login'] && !count_read) {
+//         count_read = 1;
+//         return null;
+//       }
+//       return data;
+//     };
+//     db.edit = async function () {
+//       return 1;
+//     };
+//     return db;
+//   }
+// }
+
+
+// class TEST_Request1Cv3 {
+//   constructor() {
+
+//   }
+
+//   add() {
+//     return this;
+//   }
+
+//   async do() {
+//     return Promise.resolve(this);
+//   }
+
+//   get() {
+//     return me.data1c;
+//   }
+// };
+
+// (async function () {
+//   const c = new Test({ 'login_client': true, first_login: true }).REPLACE_1C();
+//   console.log(await new c().add().do());
+// }());
