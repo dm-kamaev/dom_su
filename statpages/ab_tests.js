@@ -22,6 +22,22 @@ const ABTestContainer = {
             {name: "control", page: 'main', ratio: 50, description: "Основная"},
             {name: "variation", page: 'main_ab', ratio: 50, description: "новое меню"}
         ]},
+        'price__': {
+            name: "Изменение дизайна",
+            key: "price_new_design",
+            forNewUser: true,
+            variations: [{
+                name: "control",
+                page: 'price__',
+                ratio: 50,
+                description: "Основная"
+            }, {
+                name: "variation",
+                page: 'price_ab',
+                ratio: 50,
+                description: "Пробуем новый дизайн"
+            }]
+        },
     }
 }
 
