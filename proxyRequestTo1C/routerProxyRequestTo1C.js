@@ -4,7 +4,6 @@
 
 const Router = require('koa-router');
 const Request1Cv3 = require('api1c/request1Cv3.js');
-// const decorators = require('staff/decorators.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
 
 const router = module.exports = new Router();
@@ -32,29 +31,6 @@ router.post('/proxy_request/Login', async function (ctx, next) {
   const res = await authApi.login(body.Phone, body.Code);
   ctx.status = 200;
   ctx.body = res;
-  // console.log('isLoginAsClient= ', await authApi.isLoginAsClient());
-  // console.log('isLoginAsClientEmployee= ', await authApi.isLoginAsClientEmployee());
-
-  // let res;
-  // switch (methodName) {
-  //   case 'Login':
-  //     const authApi = new AuthApi(ctx);
-  //     res = await authApi.login(body.Phone, body.Code);
-  //     // console.log('isLoginAsClient= ', await authApi.isLoginAsClient());
-  //     // console.log('isLoginAsClientEmployee= ', await authApi.isLoginAsClientEmployee());
-  //     break;
-  //   default:
-  //     const isLoginRequired = await loginRequired(ctx, next);
-  //     if (!isLoginRequired) {
-  //       return;
-  //     }
-  //     const user = ctx.state.pancakeUser;
-  //     // console.log('user', user);
-  //     const request1C = new Request1Cv3(user.auth1C.token, user.uuid);
-  //     await request1C.add(methodName, body).do();
-  //     res = request1C.get();
-  // }
-  // ctx.body = res;
 });
 
 
@@ -109,7 +85,7 @@ function loginRequiredWithoutRedirect(routerFunc) {
         } else {
             ctx.status = 200;
             ctx.body = {
-              ok: true, // ЗАМЕНИТЬ НА FALSE
+              ok: false, // ЗАМЕНИТЬ НА FALSE
               error: {
                 code: -3,
                 text: 'Access denied',

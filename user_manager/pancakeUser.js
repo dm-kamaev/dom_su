@@ -454,7 +454,6 @@ class PancakeUser {
             },
         });
         if (!tokenDb) {
-            console.log('CREATE TOKEN');
             await Token.create({
                 token: auth1C.token,
                 user_uuid: auth1C.uuid,

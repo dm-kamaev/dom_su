@@ -83,20 +83,38 @@ module.exports = class AuthApi {
 
   async login(phone, code) {
     logger.log('=== LOGIN ===');
-    // TODO: return via http object with error
     if (!phone) {
-      console.log(`Not exist phone: ${phone}`);
-      return {};
+      logger.log(`Not exist phone: ${phone}`);
+      return {
+        ok: false,
+        error: {
+          code: -3,
+          text: `Not exist phone: ${phone}`,
+        }
+      };
     }
 
     if (!code) {
-      console.log(`Not exist code: ${code}`);
-      return {};
+      logger.log(`Not exist code: ${code}`);
+      return {
+        ok: false,
+        error: {
+          code: -3,
+          text: `Not exist code: ${code}`,
+        }
+      };
     }
     let authData = await db.readOne('SELECT uuid, client_id, employee_id, token FROM auth_data WHERE uuid = $1', [ this.uuid ]);
     logger.log('auth_data from db =', JSON.stringify(authData, null, 2));
     if (authData instanceof Error) {
-      throw authData;
+      logger.warn(authData);
+      return {
+        ok: false,
+        error: {
+          code: -1,
+          text: `Internal error`,
+        }
+      };
     }
 
     if (!authData) {
@@ -115,7 +133,7 @@ module.exports = class AuthApi {
 
       const WrapAuthDataFrom1c = request1C.get();
       if (!WrapAuthDataFrom1c.ok) {
-        throw WrapAuthDataFrom1c;
+        return WrapAuthDataFrom1c;
       }
 
       ////// FOR TEST ONLY CLIENT
@@ -256,6 +274,8 @@ module.exports = class AuthApi {
     const cookiesApi = this.cookiesApi;
     const params = { domain: this.host, maxAge: 0 , path: '/', httpOnly: false };
     // TODO: Maybe clean session_uuid_dom_dev_t
+    cookiesApi.set('session_uid_dom_dev', null, params);
+    cookiesApi.set('session_uuid_dom_dev_t', null, params);
     cookiesApi.set('A', null, params);
     cookiesApi.set('B', null, params);
     cookiesApi.set('status', null, params);

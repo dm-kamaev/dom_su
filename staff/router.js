@@ -18,7 +18,7 @@ const parseFormMultipart = require('koa-body')({multipart: true});
 const { loginRequired, getEmployeeHeader } = require('./decorators')
 const moneyStaff = require('./money')
 const examsStaff = require('./exams')
-
+const AuthApi = require('/p/pancake/auth/authApi.js');
 
 const nodemailer = require('nodemailer');
 // create reusable transporter object using the default SMTP transport
@@ -42,6 +42,7 @@ const regQuestionAnswerCookie = new RegExp('(?:^|;)*(:?question[^;=]*)', "g")
 
 
 staffRouter.get(staffUrl('logout'), async function (ctx, next) {
+    new AuthApi(ctx).logout();
     let header = ctx.headers["cookie"]
     let questionAnswers = header.match(regQuestionAnswerCookie)
     if (questionAnswers){

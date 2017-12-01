@@ -2,6 +2,7 @@
 const { staffUrl } = require('./utils');
 const { Method1C, Request1C } = require('api1c');
 const logger = require('logger')(module, 'staff.log');
+const AuthApi = require('/p/pancake/auth/authApi.js');
 
 const decorators = exports;
 
@@ -24,7 +25,16 @@ decorators.getEmployeeHeader = function(routerFunc) {
 
 decorators.loginRequired = function (routerFunc) {
     return async function (ctx, next) {
-        let auth1C = await ctx.state.pancakeUser.getAuth1C()
+        const authApi = new AuthApi(ctx);
+        let authData;
+        if (await authApi.isLoginAsClientEmployee()) {
+          authData = authApi.getAuthData();
+        }
+        const user = ctx.state.pancakeUser;
+        let auth1C = await user.getAuth1C()
+        if (!auth1C.token && authData) {
+          await user.setAuth1C(authData);
+        }
         if (auth1C.token != null){
             await routerFunc(ctx, next)
         } else {
