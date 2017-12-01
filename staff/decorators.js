@@ -35,20 +35,3 @@ decorators.loginRequired = function (routerFunc) {
 };
 
 
-decorators.loginRequiredWithoutRedirect = function (routerFunc) {
-    return async function (ctx, next) {
-        let auth1C = await ctx.state.pancakeUser.getAuth1C();
-        if (auth1C.token != null) {
-            await routerFunc(ctx, next);
-        } else {
-            ctx.status = 200;
-            ctx.body = {
-              ok: false,
-              error: {
-                code: -3,
-                text: 'Access denied',
-              }
-            };
-        }
-    }
-};

@@ -4,10 +4,59 @@
 
 const Router = require('koa-router');
 const Request1Cv3 = require('api1c/request1Cv3.js');
-const decorators = require('staff/decorators.js');
+// const decorators = require('staff/decorators.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
 
 const router = module.exports = new Router();
+
+// /proxy_request/Login
+// {
+//   "Phone": "79161387884",
+//   "Code": "111"
+// }
+// return –– {
+//   "ok": true,
+//   "data": {
+//     "ClientID": "6ed99ac9-9657-11e2-beb6-1078d2da50b0",
+//     "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8"
+//   }
+// }
+router.post('/proxy_request/Login', async function (ctx, next) {
+  const methodName = ctx.params.methodName;
+  let body = ctx.request.body;
+  if (typeof body === 'string') {
+    body = JSON.parse(body);
+  }
+
+  const authApi = new AuthApi(ctx);
+  const res = await authApi.login(body.Phone, body.Code);
+  ctx.status = 200;
+  ctx.body = res;
+  // console.log('isLoginAsClient= ', await authApi.isLoginAsClient());
+  // console.log('isLoginAsClientEmployee= ', await authApi.isLoginAsClientEmployee());
+
+  // let res;
+  // switch (methodName) {
+  //   case 'Login':
+  //     const authApi = new AuthApi(ctx);
+  //     res = await authApi.login(body.Phone, body.Code);
+  //     // console.log('isLoginAsClient= ', await authApi.isLoginAsClient());
+  //     // console.log('isLoginAsClientEmployee= ', await authApi.isLoginAsClientEmployee());
+  //     break;
+  //   default:
+  //     const isLoginRequired = await loginRequired(ctx, next);
+  //     if (!isLoginRequired) {
+  //       return;
+  //     }
+  //     const user = ctx.state.pancakeUser;
+  //     // console.log('user', user);
+  //     const request1C = new Request1Cv3(user.auth1C.token, user.uuid);
+  //     await request1C.add(methodName, body).do();
+  //     res = request1C.get();
+  // }
+  // ctx.body = res;
+});
+
 
 // proxy request from frontend to auth1C and return responce
 // url –– /proxy_request/Employee.GetConversationList
@@ -16,29 +65,60 @@ const router = module.exports = new Router();
 // }
 // responce –– { "ok": true/false, "data": ..., "error": {"code": ..., "text": "..."}
 // decorators.loginRequiredWithoutRedirect();
-router.post('/proxy_request/:methodName', async function (ctx, next) {
+router.post('/proxy_request/:methodName', loginRequiredWithoutRedirect(async function (ctx, next) {
   const methodName = ctx.params.methodName;
-  const user = ctx.state.pancakeUser;
-  const request1C = new Request1Cv3(user.auth1C.token, user.uuid);
+  // TODO: Redirect to Login method
   let body = ctx.request.body;
   if (typeof body === 'string') {
     body = JSON.parse(body);
   }
 
-  let res;
-  switch (methodName) {
-    case 'Login':
-      const authApi = new AuthApi(ctx);
-      res = await authApi.login(body.Phone, body.Code);
-      // console.log('isLoginAsClient= ', await authApi.isLoginAsClient());
-      // console.log('isLoginAsClientEmployee= ', await authApi.isLoginAsClientEmployee());
-      break;
-    default:
-      await request1C.add(methodName, body).do();
-      res = request1C.get();
-  }
+  const user = ctx.state.pancakeUser;
+  // console.log('user', user);
+  const request1C = new Request1Cv3(user.auth1C.token, user.uuid);
+  await request1C.add(methodName, body).do();
+  const res = request1C.get();
   ctx.body = res;
-});
+}));
+
+
+function loginRequiredWithoutRedirect(routerFunc) {
+    return async function (ctx, next) {
+        const authApi = new AuthApi(ctx);
+        let authData;
+        if (await authApi.isLoginAsClient()) {
+          authData = authApi.getAuthData();
+        }
+        const user = ctx.state.pancakeUser;
+        // auth1C –– {
+        //   token: null,
+        //   employee_uuid: null,
+        //   client_uuid: null,
+        //   uuid: null,
+        //   model: null
+        // }
+        let auth1C = await user.getAuth1C();
+        console.log('ctx.state.pancakeUser.uuid', user.uuid);
+        console.log('auth1C', auth1C);
+        console.log('authData=', authData);
+        if (!auth1C.token && authData) {
+          await user.setAuth1C(authData);
+        }
+        if (auth1C.token != null) {
+            await routerFunc(ctx, next);
+        } else {
+            ctx.status = 200;
+            ctx.body = {
+              ok: true, // ЗАМЕНИТЬ НА FALSE
+              error: {
+                code: -3,
+                text: 'Access denied',
+              }
+            };
+        }
+    }
+};
+
 
 router.get('/test_auth/', async function (ctx, next) {
   const authApi = new AuthApi(ctx);

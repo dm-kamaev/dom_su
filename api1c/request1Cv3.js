@@ -1,7 +1,7 @@
 'use strict';
 let http = require('http');
 let querystring = require('querystring');
-let log = require('logger')(module, 'staff.log')
+// let log = require('logger')(module, 'staff.log')
 let errors = require('./errors')
 const config = require('config')
 const uap = require('node-uap');
@@ -81,7 +81,7 @@ module.exports = class Request1Cv3 {
     logger.info('Request1C request => \n' + JSON.stringify(this.body, null, 2));
     this.body = JSON.stringify(this.body);
 
-    log.debug('\n --- start request\n', this.body, '\n --- end request');
+    // log.debug('\n --- start request\n', this.body, '\n --- end request');
     this.connectParam.headers['Content-length'] = Buffer.from(this.body).length;
     let response_json = "";
 
@@ -94,14 +94,15 @@ module.exports = class Request1Cv3 {
         });
         res.on('end', () => {
           let endDate = Date.now();
-          log.debug('\n --- start response\n', response_json, '\n --- end response', '\nRequest Time -', Date.now() - startDateRequest, 'ms')
+          // log.debug('\n --- start response\n', response_json, '\n --- end response', '\nRequest Time -', Date.now() - startDateRequest, 'ms')
           try {
             const for_log = ((response_json) ? JSON.parse(response_json) : '');
             logger.info('Request1C response => \n ' + JSON.stringify(for_log, null, 2));
             this.response = JSON.parse(response_json)
           } catch (e) {
             reject(e)
-            log.error('Parse JSON error response - ', response_json)
+            logger.warn(response_json);
+            // log.error('Parse JSON error response - ', response_json)
             return
           }
           this.routing_response()
@@ -112,7 +113,7 @@ module.exports = class Request1Cv3 {
         reject(new errors.API1CError('The request ended in failure', this.token, 'Timeout response', 500));
       })
       req.on('error', (e) => {
-        log.error(e);
+        // log.error(e);
         logger.warn(e);
         reject(new errors.API1CError('The request ended in failure', this.token, 'The request ended in failure', 500));
       })
@@ -156,7 +157,7 @@ module.exports = class Request1Cv3 {
         };
       }
     } catch (err) {
-      log.error(err)
+      // log.error(err)
       logger.warn(err);
       res = {
         ok: false,

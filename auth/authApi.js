@@ -30,18 +30,33 @@ const SERVER_KEY_FOR_EMPLOYEE = '7ZLNfdFg8HVcuNx39dWdqAihmTgTiGjH';
 // CREATE INDEX uuid_phone_i_uuid ON uuid_phone (uuid);
 
 module.exports = class AuthApi {
-  constructor(ctx) {
-    this.user = ctx.state.pancakeUser;
+  constructor(ctx, expressORKoa) {
+    this.user = ctx.state.pancakeUser; // { auth1C: {token: null, employee_uuid: null, client_uuid: null, uuid: null, model: null} }
     this.uuid = this.user.uuid;
     this.ctx = ctx;
     this.userAgent = ctx.request.headers['user-agent'];
-    this.host = ctx.headers.host;
-    this.cookiesApi = ctx.cookies;
+    this.host = ctx.request.headers.host;
+    if (expressORKoa === 'express') {
+      this.cookiesApi = {
+        get: function (key) {
+          return ctx.request.cookies[key];
+        },
+        set: function (name, val, option) {
+          ctx.response.cookie(name, val, option);
+        }
+      };
+    } else {
+      this.cookiesApi = ctx.cookies;
+    }
+
+    // console.log('dom_session=', this.cookiesApi.get('dom_session'));
+    // this.cookiesApi.set('TEST', 123, { domain: '.dev2.domovenok.su', maxAge: 100000000 , path: '/', httpOnly: false});
+
     this.hashStatus = {
       client: 1,
       clientEmployee: 2,
     };
-    this.listStatus = [ , 'client', 'clientEmployee' ];
+    this.listStatus = [ null, 'client', 'clientEmployee' ];
 
     //////
     // this.test = new Test({ 'login_client': true, first_login: true });
@@ -54,6 +69,17 @@ module.exports = class AuthApi {
 
   }
 
+  // authData –– { client_id, employee_id, token }
+  setAuthData(authData) {
+    this.auth_data = authData;
+  }
+
+  // return { uuid, client_id, employee_id, token }
+  getAuthData() {
+    const authData = this.auth_data;
+    authData.uuid = this.uuid;
+    return authData;
+  }
 
   async login(phone, code) {
     logger.log('=== LOGIN ===');
@@ -152,13 +178,14 @@ module.exports = class AuthApi {
       return false;
     }
 
-    const auth_data = await db.readOne('SELECT client_id, employee_id FROM auth_data WHERE uuid=$1', [this.uuid]);
+    const auth_data = await db.readOne('SELECT client_id, employee_id, token FROM auth_data WHERE uuid=$1', [this.uuid]);
     if (auth_data instanceof Error) {
       throw auth_data;
     }
     if (!auth_data) {
       return false;
     }
+    this.setAuthData(auth_data);
 
     const client_id = auth_data.client_id;
     const employee_id = auth_data.employee_id;
@@ -193,13 +220,14 @@ module.exports = class AuthApi {
       return false;
     }
 
-    const auth_data = await db.readOne('SELECT client_id, employee_id FROM auth_data WHERE uuid=$1', [ this.uuid ]);
+    const auth_data = await db.readOne('SELECT client_id, employee_id, token FROM auth_data WHERE uuid=$1', [ this.uuid ]);
     if (auth_data instanceof Error) {
       throw auth_data;
     }
     if (!auth_data) {
       return false;
     }
+    this.setAuthData(auth_data);
 
     // TODO: Проверять, не истек ли token
     const client_id = auth_data.client_id;

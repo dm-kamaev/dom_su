@@ -439,6 +439,31 @@ class PancakeUser {
             }
         })
     }
+
+
+    // MY ADAPTER METHOD
+    async setAuth1C(authData) {
+        const auth1C = this.auth1C;
+        auth1C.uuid = authData.uuid;
+        auth1C.client_uuid = authData.client_id;
+        auth1C.employee_uuid = authData.employee_id;
+        auth1C.token = authData.token;
+        const tokenDb = await Token.find({
+            where: {
+                uuid:auth1C.uuid,
+            },
+        });
+        if (!tokenDb) {
+            console.log('CREATE TOKEN');
+            await Token.create({
+                token: auth1C.token,
+                user_uuid: auth1C.uuid,
+                employee_uuid: auth1C.employee_uuid,
+                client_uuid: auth1C.client_uuid,
+                active: true,
+            });
+        }
+    }
 }
 
 module.exports = {PancakeUser}
