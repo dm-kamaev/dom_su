@@ -9,6 +9,7 @@ const serviceCalc = require('./methods/serviceCalc')
 const { GetExecutionInfo } = require('./methods/getExecutionInfo')
 const { CalculateOrder } = require('./methods/calculateOrder')
 const { GetTimes } = require('./methods/getTimes')
+const calculate = require('/p/pancake/internal_api/methods/calculate.js');
 
 
 function validateRequest(body) {
@@ -20,7 +21,9 @@ internalClientAPI.post('/internalapi', async function (ctx, next) {
     if (validateRequest(ctx.request.body)){
       switch (ctx.request.body.Method) {
         case 'Client.CalculateOrder':
-          return await Client.CalculateOrder(ctx)
+          return await Client.CalculateOrder(ctx);
+        case 'Client.Calculate':
+          return await calculate(ctx);
         case 'Client.GetExecutionInfo':
           return await Client.GetExecutionInfo(ctx)
         case 'Client.GetTimes':

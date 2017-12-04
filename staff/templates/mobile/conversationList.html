@@ -34,7 +34,7 @@
             <button type="submit">Создать</button>
         </form>
         </div>
-        {{#each GetConversationList.ConversationList as |conversation|}}
+        {{#each conversationList as |conversation|}}
             <a class="ui-btn" href="{{staffUrl 'conversationDetail' ../employeeId conversation.ConversationID }}">
               <div class="ui-block-a">
                   <div class="ui-body ui-body-d">{{formatPartDate conversation.Date "DD.MM.YYYY"}}</div>
@@ -48,8 +48,32 @@
               </div>
               <div class="ui-block-b"><div class="ui-body ui-body-d"><span style="font-weight: normal; white-space: normal">{{conversation.Subject}}</span></div></div>
             </a>
+            {{#conversation.renderSelectScore}}
+              <div id=block_score_{{conversation.indexId}} data-role="content">
+                <fieldset id=select_score_{{conversation.indexId}} data-role="controlgroup" data-type="horizontal">
+                  <legend>Оценить:</legend>
+                  <input type=radio name="radio-choice-h-2" id=score_1_{{conversation.indexId}} value=1>
+                  <label for=score_1_{{conversation.indexId}}>1</label>
+                  <input type=radio name="radio-choice-h-2" id=score_2_{{conversation.indexId}} value=2>
+                  <label for=score_2_{{conversation.indexId}}>2</label>
+                  <input type=radio name="radio-choice-h-2" id=score_3_{{conversation.indexId}} value=3>
+                  <label for=score_3_{{conversation.indexId}}>3</label>
+                  <input type=radio name="radio-choice-h-2" id=score_4_{{conversation.indexId}} value=4>
+                  <label for=score_4_{{conversation.indexId}}>4</label>
+                  <input type=radio name="radio-choice-h-2" id=score_5_{{conversation.indexId}} value=5>
+                  <label for=score_5_{{conversation.indexId}}>5</label>
+                </fieldset>
+                <div id=show_score_{{conversation.indexId}}></div>
+              </div>
+            {{/conversation.renderSelectScore}}
+            {{#conversation.Score}}
+              <div style=margin-top:15px;>
+                <span style=margin-left:10px;font-size:110%>Оценка: {{conversation.Score}}</span>
+              </div>
+            {{/conversation.Score}}
         {{/each}}
-        <div data-demo-html="#panel-responsive-page1"></div>
+
+         <div data-demo-html="#panel-responsive-page1"></div>
         </div>
             <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel">
                 <ul data-role="listview">
@@ -67,5 +91,19 @@
                 </ul>
             </div>
     </div>
+<script>
+  {{#each conversationList as |conversation|}}
+    mountEvents('{{conversation.indexId}}', '{{conversation.ConversationID}}');
+  {{/each}}
+
+  function mountEvents(indexId, conversationId) {
+    $("#select_score_"+indexId).on('change', function() {
+      var score = $("input[name='radio-choice-h-2']:checked").val();
+      $('#select_score_'+indexId).hide();
+      $('#show_score_'+indexId).html('<span style=margin-left:10px;font-size:110%>Оценка: '+score+'</span>').show();
+      $.post('/staff/ajax/conversations/'+conversationId+'/score/'+score, {}, function(result, textStatus, jqXHR) { });
+    });
+  }
+</script>
 </body>
 </html>

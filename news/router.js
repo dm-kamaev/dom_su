@@ -32,10 +32,13 @@ newsRouter.get('newsItem', /^\/news\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx,
   const user = ctx.state.pancakeUser;
   const userCityId = user.city.id;
   const news = await getNews(ctx.params[0], userCityId, ['id', 'city_id']);
-  if (news === null){
-      await next();
-      return;
+
+  if (!news) {
+    ctx.status = 302;
+    ctx.redirect('/news');
+    return;
   }
+
   const { modelList, begin, end } = await getNewsListScroll({
     direction: 0,
     keyValue: news.id,
