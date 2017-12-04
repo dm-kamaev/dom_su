@@ -3,10 +3,10 @@
 // AUTH API
 
 const crypto = require('crypto');
-let db = require('/p/pancake/my/db.js');
+const db = require('/p/pancake/my/db.js');
 const time = require('/p/pancake/my/time.js');
 const random = require('/p/pancake/my/random.js');
-let Request1Cv3 = require('/p/pancake/api1c/request1Cv3.js');
+const Request1Cv3 = require('/p/pancake/api1c/request1Cv3.js');
 const logger = require('/p/pancake/lib/logger.js');
 
 const SERVER_KEY_FOR_CLIENT = '2AqeaZezW7ildrOkHwIDvJ1kOEyXiFnV';
@@ -14,17 +14,17 @@ const SERVER_KEY_FOR_EMPLOYEE = '7ZLNfdFg8HVcuNx39dWdqAihmTgTiGjH';
 
 // CREATE TABLE IF NOT EXISTS auth_data(
 //   auth_data_id   SERIAL PRIMARY KEY  NOT NULL,
-//   uuid           CHAR(36) NOT NULL,
-//   client_id      CHAR(36) NOT NULL,
-//   employee_id    CHAR(36),
-//   token          CHAR(36) NOT NULL,
+//   uuid           VARCHAR(36) NOT NULL,
+//   client_id      VARCHAR(36) NOT NULL,
+//   employee_id    VARCHAR(36),
+//   token          VARCHAR(36) NOT NULL,
 //   timestamp      TIMESTAMP DEFAULT NOW()
 // );
 // CREATE INDEX auth_data_i_uuid ON auth_data (uuid);
 // CREATE TABLE IF NOT EXISTS uuid_phone(
 //   uuid_phone_id   SERIAL PRIMARY KEY NOT NULL,
-//   uuid           CHAR(36) NOT NULL,
-//   phone          CHAR(50) NOT NULL,
+//   uuid           VARCHAR(36) NOT NULL,
+//   phone          VARCHAR(50) NOT NULL,
 //   timestamp      TIMESTAMP DEFAULT NOW()
 // );
 // CREATE INDEX uuid_phone_i_uuid ON uuid_phone (uuid);
@@ -57,6 +57,12 @@ module.exports = class AuthApi {
       clientEmployee: 2,
     };
     this.listStatus = [ null, 'client', 'clientEmployee' ];
+    this.auth_data = {
+      uuid: null,
+      client_id: null,
+      employee_id: null,
+      token: null
+    };
 
     //////
     // this.test = new Test({ 'login_client': true, first_login: true });
@@ -76,6 +82,13 @@ module.exports = class AuthApi {
 
   // return { uuid, client_id, employee_id, token }
   getAuthData() {
+    const authData = this.auth_data;
+    authData.uuid = this.uuid;
+    return authData;
+  }
+
+  // return { uuid, client_id, employee_id, token }
+  get_auth_data() {
     const authData = this.auth_data;
     authData.uuid = this.uuid;
     return authData;
@@ -104,7 +117,7 @@ module.exports = class AuthApi {
         }
       };
     }
-    let authData = await db.readOne('SELECT uuid, client_id, employee_id, token FROM auth_data WHERE uuid = $1', [ this.uuid ]);
+    let authData = await db.read_one('SELECT uuid, client_id, employee_id, token FROM auth_data WHERE uuid = $1', [ this.uuid ]);
     logger.log('auth_data from db =', JSON.stringify(authData, null, 2));
     if (authData instanceof Error) {
       logger.warn(authData);
@@ -196,10 +209,11 @@ module.exports = class AuthApi {
       return false;
     }
 
-    const auth_data = await db.readOne('SELECT client_id, employee_id, token FROM auth_data WHERE uuid=$1', [this.uuid]);
+    const auth_data = await db.read_one('SELECT client_id, employee_id, token FROM auth_data WHERE uuid=$1', [this.uuid]);
     if (auth_data instanceof Error) {
       throw auth_data;
     }
+    logger.log(' isLoginAsClient => auth_data= \n'+ JSON.stringify(auth_data, null, 2));
     if (!auth_data) {
       return false;
     }
@@ -238,7 +252,7 @@ module.exports = class AuthApi {
       return false;
     }
 
-    const auth_data = await db.readOne('SELECT client_id, employee_id, token FROM auth_data WHERE uuid=$1', [ this.uuid ]);
+    const auth_data = await db.read_one('SELECT client_id, employee_id, token FROM auth_data WHERE uuid=$1', [ this.uuid ]);
     if (auth_data instanceof Error) {
       throw auth_data;
     }
@@ -274,8 +288,9 @@ module.exports = class AuthApi {
     const cookiesApi = this.cookiesApi;
     const params = { domain: this.host, maxAge: 0 , path: '/', httpOnly: false };
     // TODO: Maybe clean session_uuid_dom_dev_t
-    cookiesApi.set('session_uid_dom_dev', null, params);
-    cookiesApi.set('session_uuid_dom_dev_t', null, params);
+    cookiesApi.set('u_uuid', null, params);
+    // cookiesApi.set('session_uid_dom_dev', null, params);
+    // cookiesApi.set('session_uuid_dom_dev_t', null, params);
     cookiesApi.set('A', null, params);
     cookiesApi.set('B', null, params);
     cookiesApi.set('status', null, params);
@@ -301,6 +316,7 @@ module.exports = class AuthApi {
     const { A, B, status } = createClientCookie(this, client_id);
     const cookiesApi = this.cookiesApi;
 
+    logger.log('uuid= '+this.uuid);
     logger.log('A= '+A);
     logger.log('B= '+B);
     logger.log('status= '+status);
@@ -321,6 +337,7 @@ module.exports = class AuthApi {
     const { A, B, status } = createClientEmployeeCookie(this, employee_id);
     const cookiesApi = this.cookiesApi;
 
+    logger.log('uuid= '+this.uuid);
     logger.log('A= '+A);
     logger.log('B= '+B);
     logger.log('status= '+status);
@@ -440,7 +457,7 @@ function createClientEmployeeCookie(me, employee_id, A) {
 //       employee_id: data.EmployeeID,
 //       token: data.Token,
 //     };
-//     db.readOne = async function () {
+//     db.read_one = async function () {
 //       if (me.option['first_login'] && !count_read) {
 //         count_read = 1;
 //         return null;

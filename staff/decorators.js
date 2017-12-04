@@ -31,15 +31,15 @@ decorators.loginRequired = function (routerFunc) {
           authData = authApi.getAuthData();
         }
         const user = ctx.state.pancakeUser;
-        let auth1C = await user.getAuth1C()
+        let auth1C = await user.getAuth1C();
         if (!auth1C.token && authData) {
           await user.setAuth1C(authData);
         }
         if (auth1C.token != null){
-            await routerFunc(ctx, next)
+            await routerFunc(ctx, next);
         } else {
-            ctx.status = 302
-            ctx.redirect(staffUrl('login'))
+            ctx.status = 302;
+            ctx.redirect(staffUrl('login'));
         }
     }
 };

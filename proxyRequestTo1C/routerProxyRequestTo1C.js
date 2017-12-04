@@ -34,6 +34,19 @@ router.post('/proxy_request/Login', async function (ctx, next) {
 });
 
 
+router.post('/proxy_request/Auth.GetCode', async function (ctx, next) {
+  let body = ctx.request.body;
+  if (typeof body === 'string') {
+    body = JSON.parse(body);
+  }
+  const user = ctx.state.pancakeUser;
+  const request1C = new Request1Cv3(user.auth1C.token, user.uuid);
+  await request1C.add('Auth.GetCode', body).do();
+  const res = request1C.get();
+  ctx.body = res;
+});
+
+
 // proxy request from frontend to auth1C and return responce
 // url –– /proxy_request/Employee.GetConversationList
 // request –– {
