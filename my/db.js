@@ -1,7 +1,7 @@
 'use strict';
 
 // CONNECTOR FOR POSTGRES
-// TODO: add cnfig
+// TODO: add config
 
 const pg = require('pg');
 const logger = require('/p/pancake/lib/logger.js');
@@ -18,15 +18,31 @@ const db = exports;
 //   max: 10, // max number of clients in the pool
 //   idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
 // };
-const configPool = {
-  user: "domovenok",
-  password: "domovenokPG",
-  database: "pancake",
-  host: "localhost",
-  max: 10, // max number of clients in the pool
-  idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
-
-};
+let configPool;
+switch (process.env.NODE_ENV) {
+  case 'development':
+    configPool = {
+      user: "domovenok",
+      password: "domovenokPG",
+      database: "pancake",
+      host: "localhost",
+      max: 10, // max number of clients in the pool
+      idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
+    };
+    break;
+  case 'production':
+    configPool = {
+      "user": "domovenok",
+      "password": "TQ7Ee3q74F6hPNfp",
+      "database": "domovenok",
+      "host": "localhost",
+      max: 10, // max number of clients in the pool
+      idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
+    };
+    break;
+  default:
+    throw new Error('DB required NODE_ENV from list: production, development');
+}
 
 const pool = new pg.Pool(configPool);
 
@@ -75,7 +91,7 @@ db.read = async function (query, params) {
  * @param  {[array]} params  ['3eedc2f4-3206-4632-9a3f-60cad6257aa2']
  * @return {object || null}
  */
-db.readOne = async function (query, params) {
+db.read_one = async function (query, params) {
   const client = await pool.connect();
   let result;
   try {
