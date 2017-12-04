@@ -12,7 +12,7 @@ const logger = require('logger')(module)
 const moment = require('moment')
 
 
-const USER_COOKIE_KEY = config.USER_COOKIE_KEY
+const USER_COOKIE_KEY = config.USER_COOKIE_KEY // session_uid_dom_dev
 const PENDING_TOKEN_KEY = config.PENDING_TOKEN_USER_KEY
 
 let banRefererString = '(:?\\w+)' + '\\\.' + config.serverPath.domain.withoutCity.replace(/\./g, "\\\.") + '$'
@@ -84,6 +84,7 @@ class PancakeUser {
             this.city = this.ctx.cities.default
 
             this.setSelfInCookie()
+
             // queue
             this.queue.push(async function (previousResult, pancakeUser) {
                 let user = await User.findOrCreate({
@@ -105,6 +106,20 @@ class PancakeUser {
                 pancakeUser.model = user[0]
                 return user
             })
+        }
+    }
+
+    // SET key 'u_uuid' in cookie value uuid
+    // if first visit on site
+    async set_in_cookie_user_uuid() {
+        const cookie_name = 'u_uuid';
+        const cookiesApi = this.ctx.cookies;
+        if (!cookiesApi.get(cookie_name)) {
+            cookiesApi.set(cookie_name, this.uuid, {
+                httpOnly: false,
+                domain: this.ctx.headers.host,
+                maxAge: 9 * 365 * 24 * 60 * 60 * 1000
+            });
         }
     }
 
