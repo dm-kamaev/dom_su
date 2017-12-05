@@ -5,6 +5,7 @@
 const Router = require('koa-router');
 const Request1Cv3 = require('api1c/request1Cv3.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
+const logger = require('/p/pancake/lib/logger.js');
 
 const router = module.exports = new Router();
 
@@ -17,7 +18,17 @@ const router = module.exports = new Router();
 //   "ok": true,
 //   "data": {
 //     "ClientID": "6ed99ac9-9657-11e2-beb6-1078d2da50b0",
-//     "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8"
+//     "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8",
+       // "cookies": [{ // FOR CORDOVA
+       //   "name": "A",
+       //   "value": "4ddcc194-9229-408f-99f0-6c2e672ba831iG5CPqtQl41512469429614",
+       //   "params": {
+       //     "domain": "www.dev2.domovenok.su",
+       //     "maxAge": 7776000000,
+       //     "path": "/",
+       //     "httpOnly": false
+       //   }
+       // }],
 //   }
 // }
 router.post('/proxy_request/Auth.Login', async function (ctx, next) {
@@ -96,9 +107,10 @@ function loginRequiredWithoutRedirect(routerFunc) {
         //   model: null
         // }
         let auth1C = await user.getAuth1C();
-        console.log('ctx.state.pancakeUser.uuid', user.uuid);
-        console.log('auth1C', auth1C);
-        console.log('authData=', authData);
+        logger.log(' === loginRequiredWithoutRedirect === ');
+        logger.log('ctx.state.pancakeUser.uuid = '+user.uuid);
+        logger.log('auth1C = ' + JSON.stringify(auth1C, null, 2));
+        logger.log('authData= ', + JSON.stringify(authData, null, 2));
         if (!auth1C.token && authData) {
           await user.setAuth1C(authData);
         }

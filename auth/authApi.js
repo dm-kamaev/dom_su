@@ -82,16 +82,13 @@ module.exports = class AuthApi {
 
   // return { uuid, client_id, employee_id, token }
   getAuthData() {
-    const authData = this.auth_data;
-    authData.uuid = this.uuid;
-    return authData;
+    return this.get_auth_data();
   }
 
   // return { uuid, client_id, employee_id, token }
   get_auth_data() {
-    const authData = this.auth_data;
-    authData.uuid = this.uuid;
-    return authData;
+    this.auth_data.uuid = this.uuid;
+    return this.auth_data;
   }
 
   async login(phone, code) {
@@ -106,6 +103,7 @@ module.exports = class AuthApi {
         }
       };
     }
+    phone = phone.replace(/[^\d]+/g, '');
 
     if (!code) {
       logger.log(`Not exist code: ${code}`);
@@ -118,7 +116,7 @@ module.exports = class AuthApi {
       };
     }
     let authData = await db.read_one('SELECT uuid, client_id, employee_id, token FROM auth_data WHERE uuid = $1', [ this.uuid ]);
-    logger.log('auth_data from db =', JSON.stringify(authData, null, 2));
+    logger.log('auth_data from db ='+ JSON.stringify(authData, null, 2));
     if (authData instanceof Error) {
       logger.warn(authData);
       return {
@@ -167,7 +165,14 @@ module.exports = class AuthApi {
         [ this.uuid,  authData.client_id, authData.employee_id, authData.token ]
       );
       if (resInsert instanceof Error) {
-        throw resInsert;
+        logger.warn(resInsert);
+        return {
+          ok: false,
+          error: {
+            code: -1,
+            text: `Internal error`,
+          }
+        };
       }
       logger.log('resInsert= ' + resInsert);
 
@@ -189,15 +194,23 @@ module.exports = class AuthApi {
 
     const data = {
       ClientID: client_id,
+      cookies: this.cookie_for_cordova,
     };
     if (employee_id) {
       data.EmployeeID = employee_id;
     }
 
+    this.setAuthData(authData);
+    this.success_login = true;
     return {
       ok: true,
       data
     };
+  }
+
+  // for detect success login or not
+  is_not_success_login() {
+    return !Boolean(this.success_login);
   }
 
   async isLoginAsClient() {
@@ -327,6 +340,12 @@ module.exports = class AuthApi {
     cookiesApi.set('B', B, cookieParam);
     cookiesApi.set('status', status, cookieParam);
 
+    this.set_cookie_for_cordova([
+      { name: 'A', value: A, params: cookieParam },
+      { name: 'B', value: B, params: cookieParam },
+      { name: 'status', value: status, params: cookieParam }
+    ]);
+
     logger.log('=== AUTH HOW CLIENT ===');
   }
 
@@ -349,6 +368,11 @@ module.exports = class AuthApi {
     cookiesApi.set('B', B, cookieParam);
     cookiesApi.set('status', status, cookieParam);
 
+    this.set_cookie_for_cordova([
+      { name: 'A', value: A, params: cookieParam },
+      { name: 'B', value: B, params: cookieParam },
+      { name: 'status', value: status, params: cookieParam }
+    ]);
     logger.log('=== AUTH HOW CLIENT-EMPLOYEE ===');
   }
 
@@ -360,6 +384,9 @@ module.exports = class AuthApi {
     return B === createClientEmployeeCookie(this, employee_id, A).B;
   }
 
+  set_cookie_for_cordova(list_cookie) {
+    this.cookie_for_cordova = list_cookie;
+  }
 };
 
 
