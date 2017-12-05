@@ -20,7 +20,7 @@ const router = module.exports = new Router();
 //     "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8"
 //   }
 // }
-router.post('/proxy_request/Login', async function (ctx, next) {
+router.post('/proxy_request/Auth.Login', async function (ctx, next) {
   const methodName = ctx.params.methodName;
   let body = ctx.request.body;
   if (typeof body === 'string') {
@@ -29,6 +29,15 @@ router.post('/proxy_request/Login', async function (ctx, next) {
 
   const authApi = new AuthApi(ctx);
   const res = await authApi.login(body.Phone, body.Code);
+
+  // let request1C = new Request1C(meta);
+
+  // let GetCommon = new Method1C('Client.GetCommon', { ClientID: meta.token.clientId });
+  // let GetDepartureList = new Method1C('Client.GetDepartureList', {Filter: {Status: "Active"}});
+  // let GetDeparture = new Method1C('Client.GetDeparture');
+  // let GetSchedule = new Method1C('Client.GetScheduleNEW');
+  // request1C.add(GetCommon, GetDepartureList, GetDeparture, GetSchedule)
+
   ctx.status = 200;
   ctx.body = res;
 });
