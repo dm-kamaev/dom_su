@@ -29,14 +29,34 @@ const SERVER_KEY_FOR_EMPLOYEE = '7ZLNfdFg8HVcuNx39dWdqAihmTgTiGjH';
 // );
 // CREATE INDEX uuid_phone_i_uuid ON uuid_phone (uuid);
 
-module.exports = class AuthApi {
-  constructor(ctx, expressORKoa) {
+const AuthApi = module.exports = class AuthApi {
+  /**
+   *
+   * @param  {object} ctx
+   * {
+      request: req,
+      response: res,
+      state: {
+        pancakeUser: {
+          auth1C: {
+            uuid: cookie_u_uuid,
+          },
+          uuid: cookie_u_uuid,
+        }
+      }
+    },
+   * @param  {string} express_or_koa 'express'
+   * @return {[type]}                [description]
+   */
+  constructor(ctx, express_or_koa) {
     this.user = ctx.state.pancakeUser; // { auth1C: {token: null, employee_uuid: null, client_uuid: null, uuid: null, model: null} }
-    this.uuid = this.user.uuid;
+    this.headers = ctx.request.headers;
+    this.uuid = this.user.uuid || this.headers['x-dom-auth'] || null;
     this.ctx = ctx;
-    this.userAgent = ctx.request.headers['user-agent'];
-    this.host = ctx.request.headers.host;
-    if (expressORKoa === 'express') {
+    this.userAgent = this.headers['user-agent'];
+    this.host = this.headers.host;
+    logger.log('this.headers='+ JSON.stringify(this.headers, null, 2));
+    if (express_or_koa === 'express') {
       this.cookiesApi = {
         get: function (key) {
           return ctx.request.cookies[key];
@@ -215,9 +235,9 @@ module.exports = class AuthApi {
 
   async isLoginAsClient() {
     const cookiesApi = this.cookiesApi;
-    const status = parseInt(cookiesApi.get('status'), 10);
-    const A = cookiesApi.get('A');
-    const B = cookiesApi.get('B');
+    const status = parseInt(extract_cookie(this, 'status'), 10);
+    const A = extract_cookie(this, 'A');
+    const B = extract_cookie(this, 'B');
     if (this.isNotValidCookies_(A, B, status)) {
       return false;
     }
@@ -227,7 +247,7 @@ module.exports = class AuthApi {
       throw auth_data;
     }
     logger.log(' isLoginAsClient => auth_data= \n'+ JSON.stringify(auth_data, null, 2));
-    if (!auth_data) {
+    if (!auth_data || !auth_data.client_id) {
       return false;
     }
     this.setAuthData(auth_data);
@@ -258,9 +278,9 @@ module.exports = class AuthApi {
 
   async isLoginAsClientEmployee() {
     const cookiesApi = this.cookiesApi;
-    const status = parseInt(cookiesApi.get('status'), 10);
-    const A = cookiesApi.get('A');
-    const B = cookiesApi.get('B');
+    const status = parseInt(extract_cookie(this, 'status'), 10);
+    const A = extract_cookie(this, 'A');
+    const B = extract_cookie(this, 'B');
     if (this.isNotValidCookies_(A, B, status)) {
       return false;
     }
@@ -269,7 +289,7 @@ module.exports = class AuthApi {
     if (auth_data instanceof Error) {
       throw auth_data;
     }
-    if (!auth_data) {
+    if (!auth_data || !auth_data.client_id) {
       return false;
     }
     this.setAuthData(auth_data);
@@ -376,8 +396,9 @@ module.exports = class AuthApi {
     logger.log('=== AUTH HOW CLIENT-EMPLOYEE ===');
   }
 
-  checkClient_(A, B, client_id) {
-    return B === createClientCookie(this, client_id, A).B;
+  checkClient_(A_input, B_input, client_id) {
+    const B_new = createClientCookie(this, client_id, A_input).B;
+    return B_input === B_new;
   }
 
   checkClientEmployee_(A, B, employee_id) {
@@ -388,7 +409,6 @@ module.exports = class AuthApi {
     this.cookie_for_cordova = list_cookie;
   }
 };
-
 
 
 function createClientCookie(me, client_id, A) {
@@ -416,6 +436,13 @@ function createClientEmployeeCookie(me, employee_id, A) {
   return { A, B, status };
 }
 
+
+function extract_cookie(me, cookie_name) {
+  return me.cookiesApi.get(cookie_name) ||
+         me.headers[cookie_name] ||
+         me.headers[cookie_name.toLowerCase()] ||
+         null;
+}
 
 
 // class Test {

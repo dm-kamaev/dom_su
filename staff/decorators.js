@@ -1,7 +1,7 @@
 'use strict';
 const { staffUrl } = require('./utils');
 const { Method1C, Request1C } = require('api1c');
-const logger = require('logger')(module, 'staff.log');
+const logger = require('/p/pancake/lib/logger.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
 
 const decorators = exports;
@@ -27,7 +27,10 @@ decorators.loginRequired = function (routerFunc) {
     return async function (ctx, next) {
         const authApi = new AuthApi(ctx);
         let authData;
-        if (await authApi.isLoginAsClientEmployee()) {
+        logger.log(' === STAFF ===');
+        const is_login_employee = await authApi.isLoginAsClientEmployee();
+        logger.log('isLoginAsClientEmployee= '+await authApi.isLoginAsClientEmployee());
+        if (is_login_employee) {
           authData = authApi.getAuthData();
         }
         const user = ctx.state.pancakeUser;
@@ -35,7 +38,7 @@ decorators.loginRequired = function (routerFunc) {
         if (!auth1C.token && authData) {
           await user.setAuth1C(authData);
         }
-        if (auth1C.token != null){
+        if (is_login_employee && auth1C.token != null){
             await routerFunc(ctx, next);
         } else {
             ctx.status = 302;

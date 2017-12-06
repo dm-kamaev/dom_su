@@ -14,22 +14,41 @@ const router = module.exports = new Router();
 //   "Phone": "79161387884",
 //   "Code": "111"
 // }
-// return –– {
-//   "ok": true,
-//   "data": {
-//     "ClientID": "6ed99ac9-9657-11e2-beb6-1078d2da50b0",
-//     "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8",
-       // "cookies": [{ // FOR CORDOVA
-       //   "name": "A",
-       //   "value": "4ddcc194-9229-408f-99f0-6c2e672ba831iG5CPqtQl41512469429614",
-       //   "params": {
-       //     "domain": "www.dev2.domovenok.su",
-       //     "maxAge": 7776000000,
-       //     "path": "/",
-       //     "httpOnly": false
-       //   }
-       // }],
-//   }
+// return ––
+// {
+//   "ok": true,
+//   "data": {
+//     "ClientID": "6ed99ac9-9657-11e2-beb6-1078d2da50b0",
+//     "cookies": [{
+//       "name": "A",
+//       "value": "4ddcc194-9229-408f-99f0-6c2e672ba831XmyxiIyGEH1512549247817",
+//       "params": {
+//         "domain": "www.dev2.domovenok.su",
+//         "maxAge": 7776000000,
+//         "path": "/",
+//         …
+//       }
+//     }, {
+//       "name": "B",
+//       "value": "8469457212264e268d1fdffa8e742f49d8d2c97e80254472e0347957425000329abd2b48347384c4e5f31e34dd24d34a65155c1692989f585e88da922b4b9eb0",
+//       "params": {
+//         "domain": "www.dev2.domovenok.su",
+//         "maxAge": 7776000000,
+//         "path": "/",
+//         …
+//       }
+//     }, {
+//       "name": "status",
+//       "value": 2,
+//       "params": {
+//         "domain": "www.dev2.domovenok.su",
+//         "maxAge": 7776000000,
+//         "path": "/",
+//         …
+//       }
+//     }],
+//     "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8"
+//   }
 // }
 router.post('/proxy_request/Auth.Login', async function (ctx, next) {
   const methodName = ctx.params.methodName;
@@ -41,6 +60,10 @@ router.post('/proxy_request/Auth.Login', async function (ctx, next) {
   const authApi = new AuthApi(ctx);
   const res = await authApi.login(body.Phone, body.Code);
 
+  // GetCommon
+  // GetDepartureList
+  // help
+  // promotion
   // let request1C = new Request1C(meta);
 
   // let GetCommon = new Method1C('Client.GetCommon', { ClientID: meta.token.clientId });
@@ -95,7 +118,8 @@ function loginRequiredWithoutRedirect(routerFunc) {
     return async function (ctx, next) {
         const authApi = new AuthApi(ctx);
         let authData;
-        if (await authApi.isLoginAsClient()) {
+        const is_login_client = await authApi.isLoginAsClient();
+        if (is_login_client) {
           authData = authApi.getAuthData();
         }
         const user = ctx.state.pancakeUser;
@@ -111,15 +135,16 @@ function loginRequiredWithoutRedirect(routerFunc) {
         logger.log('ctx.state.pancakeUser.uuid = '+user.uuid);
         logger.log('auth1C = ' + JSON.stringify(auth1C, null, 2));
         logger.log('authData= ', + JSON.stringify(authData, null, 2));
-        if (!auth1C.token && authData) {
-          await user.setAuth1C(authData);
-        }
-        if (auth1C.token != null) {
+        await user.setAuth1C(authData);
+        // if (!auth1C.token && authData) {
+        //   await user.setAuth1C(authData);
+        // }
+        if (is_login_client && auth1C.token != null) {
             await routerFunc(ctx, next);
         } else {
             ctx.status = 200;
             ctx.body = {
-              ok: false, // ЗАМЕНИТЬ НА FALSE
+              ok: false,
               error: {
                 code: -3,
                 text: 'Access denied',
@@ -137,6 +162,10 @@ router.get('/test_auth/', async function (ctx, next) {
   '<p style=font-size:190%>isLoginAsClient = ' + await authApi.isLoginAsClient()+ '</p>'+
   '<p style=font-size:190%>isLoginAsClientEmployee = ' + await authApi.isLoginAsClientEmployee()+ '</p>'+
   '<a href=/test_logout style=font-size:190%>LOGOUT</a>';
+
+  // 'isLoginAsClient = ' + await authApi.isLoginAsClient()+ '\n'+
+  // 'isLoginAsClientEmployee = ' + await authApi.isLoginAsClientEmployee()+ '\n';
+
 
   ctx.status = 200;
   ctx.body = text;
