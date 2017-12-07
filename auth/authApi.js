@@ -49,9 +49,15 @@ const AuthApi = module.exports = class AuthApi {
    * @return {[type]}                [description]
    */
   constructor(ctx, express_or_koa) {
+    if (ctx.state.auth_api) {
+      return ctx.state.auth_api;
+    }
+    ctx.state.auth_api = this;
+
     this.user = ctx.state.pancakeUser; // { auth1C: {token: null, employee_uuid: null, client_uuid: null, uuid: null, model: null} }
     this.headers = ctx.request.headers;
-    this.uuid = this.user.uuid || this.headers['x-dom-auth'] || null;
+    logger.log('auth_api => uuid: user.uuid='+ this.user.uuid+' x-dom-auth='+ this.headers['x-dom-auth']);
+    this.uuid = this.headers['x-dom-auth'] || this.user.uuid || null;
     this.ctx = ctx;
     this.userAgent = this.headers['user-agent'];
     this.host = this.headers.host;
@@ -361,6 +367,7 @@ const AuthApi = module.exports = class AuthApi {
     cookiesApi.set('status', status, cookieParam);
 
     this.set_cookie_for_cordova([
+      { name: 'X-Dom-Auth', value: this.uuid, },
       { name: 'A', value: A, params: cookieParam },
       { name: 'B', value: B, params: cookieParam },
       { name: 'status', value: status, params: cookieParam }
@@ -389,6 +396,7 @@ const AuthApi = module.exports = class AuthApi {
     cookiesApi.set('status', status, cookieParam);
 
     this.set_cookie_for_cordova([
+      { name: 'X-Dom-Auth', value: this.uuid, },
       { name: 'A', value: A, params: cookieParam },
       { name: 'B', value: B, params: cookieParam },
       { name: 'status', value: status, params: cookieParam }

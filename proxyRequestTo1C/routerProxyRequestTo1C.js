@@ -5,7 +5,9 @@
 const Router = require('koa-router');
 const Request1Cv3 = require('api1c/request1Cv3.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
+const check_auth = require('/p/pancake/auth/check_auth.js');
 const logger = require('/p/pancake/lib/logger.js');
+const rp = require('/p/pancake/my/request_promise.js');
 
 const router = module.exports = new Router();
 
@@ -97,8 +99,8 @@ router.post('/proxy_request/Auth.GetCode', async function (ctx, next) {
 // }
 // responce –– { "ok": true/false, "data": ..., "error": {"code": ..., "text": "..."}
 // decorators.loginRequiredWithoutRedirect();
-router.post('/proxy_request/:methodName', loginRequiredWithoutRedirect(async function (ctx, next) {
-  const methodName = ctx.params.methodName;
+router.post('/proxy_request/:methodName', check_auth.ajax(async function (ctx, next) {
+  const method_name = ctx.params.methodName;
   // TODO: Redirect to Login method
   let body = ctx.request.body;
   if (typeof body === 'string') {
@@ -107,52 +109,20 @@ router.post('/proxy_request/:methodName', loginRequiredWithoutRedirect(async fun
 
   const user = ctx.state.pancakeUser;
   // console.log('user', user);
+
+
+  if (method_name === 'Client.GetDepartureList') {
+    const authApi = new AuthApi(ctx);
+    const auth_data = authApi.get_auth_data();
+    const client_id = auth_data.client_id;
+    body.ClientID = client_id;
+  }
+
   const request1C = new Request1Cv3(user.auth1C.token, user.uuid);
-  await request1C.add(methodName, body).do();
+  await request1C.add(method_name, body).do();
   const res = request1C.get();
   ctx.body = res;
 }));
-
-
-function loginRequiredWithoutRedirect(routerFunc) {
-    return async function (ctx, next) {
-        const authApi = new AuthApi(ctx);
-        let authData;
-        const is_login_client = await authApi.isLoginAsClient();
-        if (is_login_client) {
-          authData = authApi.getAuthData();
-        }
-        const user = ctx.state.pancakeUser;
-        // auth1C –– {
-        //   token: null,
-        //   employee_uuid: null,
-        //   client_uuid: null,
-        //   uuid: null,
-        //   model: null
-        // }
-        let auth1C = await user.getAuth1C();
-        logger.log(' === loginRequiredWithoutRedirect === ');
-        logger.log('ctx.state.pancakeUser.uuid = '+user.uuid);
-        logger.log('auth1C = ' + JSON.stringify(auth1C, null, 2));
-        logger.log('authData= ', + JSON.stringify(authData, null, 2));
-        await user.setAuth1C(authData);
-        // if (!auth1C.token && authData) {
-        //   await user.setAuth1C(authData);
-        // }
-        if (is_login_client && auth1C.token != null) {
-            await routerFunc(ctx, next);
-        } else {
-            ctx.status = 200;
-            ctx.body = {
-              ok: false,
-              error: {
-                code: -3,
-                text: 'Access denied',
-              }
-            };
-        }
-    }
-};
 
 
 router.get('/test_auth/', async function (ctx, next) {
