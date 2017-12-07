@@ -212,10 +212,19 @@ const AuthApi = module.exports = class AuthApi {
 
     if (client_id && !employee_id) {  // client login
       this.becomeClient_(client_id);
+    } else if (!client_id && employee_id) { // employee login
+      this.becomeClientEmployee_(employee_id);
     } else if (client_id && employee_id) { // client-employee login
       this.becomeClientEmployee_(employee_id);
     } else {
-      throw new Error('Not valid data', authData.data);
+      logger.warn('Not valid data => '+JSON.stringify(authData.data, null, 2));
+      return {
+        ok: false,
+        error: {
+          code: -2,
+          text: 'Not valid data => '+JSON.stringify(authData.data, null, 2),
+        }
+      };
     }
 
     const data = {
@@ -295,7 +304,7 @@ const AuthApi = module.exports = class AuthApi {
     if (auth_data instanceof Error) {
       throw auth_data;
     }
-    if (!auth_data || !auth_data.client_id) {
+    if (!auth_data) {
       return false;
     }
     this.setAuthData(auth_data);
@@ -315,8 +324,6 @@ const AuthApi = module.exports = class AuthApi {
       if (employee_id) {
         this.becomeClientEmployee_(employee_id); // if he BECAME a employee, repeat login
         return true;
-      } else {
-        return false;
       }
     } else if (status === hashStatus.clientEmployee) {
       return this.checkClientEmployee_(A, B, employee_id);
