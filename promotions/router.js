@@ -1,8 +1,12 @@
 "use strict";
 
 const Router = require('koa-router');
-const { getPromotion, getPromotionList } = require('./store')
-const { getTemplate, loadTemplate } = require('utils')
+const { getPromotion, getPromotionList } = require('./store');
+const { getTemplate, loadTemplate } = require('utils');
+const AuthApi = require('/p/pancake/auth/authApi.js');
+const logger = require('/p/pancake/lib/logger.js');
+const rp = require('/p/pancake/my/request_promise.js');
+const check_auth = require('/p/pancake/auth/check_auth.js');
 
 const promotionsTemplateOpts = {
     path: 'templates/promotions/promotions.html',
@@ -87,6 +91,32 @@ promotionsRouter.get('promotionsItemAjax', /^\/m\/skidki_akcii\/([0-9a-zA-Z_\-]+
         ctx.body = JSON.stringify({ Success: false })
     }
 })
+
+// /promotion
+promotionsRouter.get('/promotion/', check_auth.ajax(async function (ctx, next) {
+  const client_id = new AuthApi(ctx).get_auth_data().client_id;
+  ctx.status = 200;
+  try {
+    const url = `https://${ctx.headers.host}/private/get_promotion/${client_id}`;
+    const reply = await rp.get(url, { rejectUnauthorized: false });
+    if (reply.response.status === 500) {
+      throw reply.body;
+    }
+    ctx.body = {
+      ok: true,
+      data: reply.body,
+    };
+  } catch (err) {
+    logger.warn(err);
+    ctx.body = {
+      ok: false,
+      error: {
+        code: -1,
+        text: `Internal error`,
+      }
+    };
+  }
+}));
 
 module.exports = {
     promotionsRouter,
