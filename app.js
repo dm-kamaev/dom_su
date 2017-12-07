@@ -32,14 +32,14 @@ const routerStaffConversation = require('staff/staff_conversation/routerStaffCon
 const koaBody = require('koa-body');
 const schedule = require('schedule');
 const userAgent = require('koa-useragent');
-const logger = require('logger')(module);
+const logger = require('/p/clientPA/lib/logger.js');
 
 process.on('uncaughtException', (err) => {
-  console.log('ERROR= ', err);
+  logger.warn('ERROR= '+err);
 });
 
 process.on('unhandledRejection', (reason, p) => {
-  console.log('Promise failed =', reason, p);
+  logger.warn('Promise failed ='+reason+' '+p);
 });
 
 async function run() {
@@ -74,14 +74,15 @@ async function run() {
     // FOR PANCAKE
     app.use(async function(ctx, next) {
       const { request: req, response: res } = ctx;
+      logger.log('HEADERS= '+JSON.stringify(req.headers));
       if (req.method === 'POST' || req.method === 'GET') {
         res.set("Access-Control-Allow-Origin", "*");
         res.set("Access-Control-Allow-Credentials", "true");
       }
       if (req.method === 'OPTIONS') {
-        console.log('set header for OPTIONS');
+        logger.log('set header for OPTIONS');
         res.set("Access-Control-Allow-Origin", "*");
-        res.set("Access-Control-Allow-Headers", "X-Dom-Auth, Accept-Encoding, Accept, Accept-Language, Overwrite, Destination, Content-Type, content-type, Connection, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control, Pragma, User-Agent, Referer");
+        res.set("Access-Control-Allow-Headers", "status, a, b, X-Dom-Auth, Accept-Encoding, Accept, Accept-Language, Overwrite, Destination, Content-Type, content-type, Connection, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control, Pragma, User-Agent, Referer");
         res.set("Access-Control-Allow-Credentials", "true");
         res.set("Access-Control-Allow-Method", "PROPFIND, PROPPATCH, COPY, MOVE, DELETE, MKCOL, LOCK, UNLOCK, PUT, GETLIB, VERSION-CONTROL, CHECKIN, CHECKOUT, UNCHECKOUT, REPORT, UPDATE, CANCELUPLOAD, HEAD, OPTIONS, GET, POST");
         res.set("Access-Control-Max-Age", "86400");
@@ -123,10 +124,10 @@ async function run() {
     app.use(checkSlashEnd);
     app.use(throw404);
 
-    console.log('START ON PORT ', config.app.port);
+    logger.log('START ON PORT '+config.app.port);
     app.listen(config.app.port)
   } catch (e) {
-    logger.error(e)
+    logger.warn(e);
   }
 }
 
