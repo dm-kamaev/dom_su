@@ -458,6 +458,7 @@ class PancakeUser {
 
     // MY ADAPTER METHOD
     async setAuth1C(authData) {
+        authData = authData || {};
         const auth1C = this.auth1C;
         auth1C.uuid = authData.uuid;
         auth1C.client_uuid = authData.client_id;
@@ -465,10 +466,10 @@ class PancakeUser {
         auth1C.token = authData.token;
         const tokenDb = await Token.find({
             where: {
-                uuid:auth1C.uuid,
+                uuid: auth1C.uuid,
             },
         });
-        if (!tokenDb) {
+        if (!tokenDb && auth1C.uuid) {
             await Token.create({
                 token: auth1C.token,
                 user_uuid: auth1C.uuid,

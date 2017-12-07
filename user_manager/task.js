@@ -14,7 +14,7 @@ function taskEventCreate (opts) {
 
         let event = await Event.create({
             visit_uuid: pancakeUser.visit_uuid,
-            token_uuid: pancakeUser.auth1C.uuid,
+            // token_uuid: pancakeUser.auth1C.uuid,
             data: data,
             type: type,
         })
