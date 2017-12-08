@@ -335,8 +335,9 @@ const AuthApi = module.exports = class AuthApi {
     const params = { domain: this.host, maxAge: 0 , path: '/', httpOnly: false };
     // TODO: Maybe clean session_uuid_dom_dev_t
     cookiesApi.set('u_uuid', null, params);
-    // cookiesApi.set('session_uid_dom_dev', null, params);
-    // cookiesApi.set('session_uuid_dom_dev_t', null, params);
+    cookiesApi.set('session_uid_dom', null, params);
+    cookiesApi.set('session_uid_dom_dev', null, params);
+    cookiesApi.set('session_uuid_dom_dev_t', null, params);
     cookiesApi.set('A', null, params);
     cookiesApi.set('B', null, params);
     cookiesApi.set('status', null, params);
