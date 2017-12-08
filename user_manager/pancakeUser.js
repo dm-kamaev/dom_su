@@ -470,13 +470,13 @@ class PancakeUser {
             },
         });
         if (!tokenDb && auth1C.uuid) {
-            await Token.create({
-                token: auth1C.token,
-                user_uuid: auth1C.uuid,
-                employee_uuid: auth1C.employee_uuid,
-                client_uuid: auth1C.client_uuid,
-                active: true,
-            });
+            // await Token.create({
+            //     token: auth1C.token,
+            //     user_uuid: auth1C.uuid,
+            //     employee_uuid: auth1C.employee_uuid,
+            //     client_uuid: auth1C.client_uuid,
+            //     active: true,
+            // });
         }
     }
 }

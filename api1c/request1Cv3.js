@@ -7,8 +7,8 @@ const config = require('config')
 const uap = require('node-uap');
 const logger = require('/p/pancake/lib/logger.js');
 
-// const NODE_ENV = process.env.NODE_ENV;
 let server = config.api1C;
+
 
 module.exports = class Request1Cv3 {
 

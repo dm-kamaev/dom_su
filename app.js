@@ -74,7 +74,7 @@ async function run() {
     // FOR PANCAKE
     app.use(async function(ctx, next) {
       const { request: req, response: res } = ctx;
-      logger.log('HEADERS= '+JSON.stringify(req.headers));
+      logger.log('HEADERS= '+JSON.stringify(req.headers, null, 2));
       if (req.method === 'POST' || req.method === 'GET') {
         res.set("Access-Control-Allow-Origin", "*");
         res.set("Access-Control-Allow-Credentials", "true");
