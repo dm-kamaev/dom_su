@@ -6,6 +6,7 @@
 
 const fs = require('fs');
 const time = require('/p/pancake/my/time.js');
+const wf_sync = require('/p/pancake/my/wf_sync.js');
 const Email = require('/p/pancake/my/email.js');
 
 module.exports = class FactoryLogger {
@@ -16,11 +17,26 @@ module.exports = class FactoryLogger {
   //   consoleLog: true,
   // }
   constructor(option) {
-    this.logger = new Logger(option);
+    this.option = option;
   }
 
   get() {
-    return this.logger;
+    return new Logger(this.option);
+  }
+
+  rotate_by_restart_app() {
+    const file_path = this.option.fileOne;
+    if (!wf_sync.exist(file_path)) {
+      wf_sync.write(file_path, '');
+      return this;
+    }
+    const file_info = wf_sync.get_file_info(file_path);
+    const mtime = time.format('YYYY_MM_DD_hh_mm_ss', file_info.mtime);
+    const new_name_for_old_file = file_path.replace(/\.log$/, '__' + mtime);
+    console.log(file_path, file_path.replace(/\.log$/, '_' + mtime + '.log'));
+    wf_sync.rename(file_path, file_path.replace(/\.log$/, '_' + mtime + '.log'));
+    wf_sync.write(file_path, '');
+    return this;
   }
 };
 
