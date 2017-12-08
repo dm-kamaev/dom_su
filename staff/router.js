@@ -480,11 +480,68 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
     let template
     let dateFrom = moment().subtract(7, "days")
     let dateTo = (moment().hour() < 19) ? moment().startOf('day') : moment().add(1, 'days').startOf('day');
-    let GetEmployeeDepartures = new Method1C('GetEmployeeDepartures', {'Filter': {'DateFrom': toMoscowISO(dateFrom), 'DateTo': toMoscowISO(dateTo)}, 'EmployeeID': ctx.params.EmployeeID})
+    let GetEmployeeDepartures = new Method1C('GetEmployeeDepartures', {
+        'Filter': {
+            'DateFrom': toMoscowISO(dateFrom),
+            'DateTo': toMoscowISO(dateTo)
+        },
+        'EmployeeID': ctx.params.EmployeeID
+    })
     request1C.add(GetEmployeeDepartures)
     await request1C.do()
-    templateCtx.GetEmployeeData = GetEmployeeData.response
-    templateCtx.GetEmployeeDepartures = GetEmployeeDepartures.response
+    templateCtx.GetEmployeeData = GetEmployeeData.response;
+    // GetEmployeeDepartures.response = {
+    //   DeparturesList: [{
+    //     CardCompleted: true,
+    //     Date: '2017-12-09T12:00:00Z',
+    //     ServiceName: 'Мытье окон',
+    //     EarnedMoney: 0,
+    //     ClientTitle: 'Камаев',
+    //     AddressTitle: 'Россия, Москва, Западный административный округ',
+    //     DepartureID: 'd9e6b30c-db56-11e7-82ef-40167eadd993',
+    //     TotalAmount: 8000,
+    //     EmployeeTitle: 'Маматова Каныкей Аманбаевна',
+    //     EmployeeID: 'f82270ac-e9b0-11e5-80de-00155d594900'
+    //   }, {
+    //     CardCompleted: true,
+    //     Date: '2017-12-08T12:00:00Z',
+    //     ServiceName: 'Поддерживающая уборка',
+    //     EarnedMoney: 0,
+    //     ClientTitle: 'Назаренко Александр Олегович',
+    //     AddressTitle: 'Россия, Москва, Западный административный округ',
+    //     DepartureID: 'd9e6b30c-db56-11e7-82ef-40167eadd993',
+    //     TotalAmount: 1680,
+    //     EmployeeTitle: 'Маматова Каныкей Аманбаевна',
+    //     EmployeeID: 'f82270ac-e9b0-11e5-80de-00155d594900'
+    //   }, {
+    //     CardCompleted: true,
+    //     Date: '2017-12-07T11:00:00Z',
+    //     ServiceName: 'Поддерживающая уборка',
+    //     EarnedMoney: 0,
+    //     ClientTitle: 'Назаренко Александр Олегович',
+    //     AddressTitle: 'Россия, Москва, Окская улица, вл11, кв. 24, подъезд 1',
+    //     DepartureID: 'bb85a6b3-db29-11e7-82ef-40167eadd993',
+    //     TotalAmount: 1490,
+    //     EmployeeTitle: 'Маматова Каныкей Аманбаевна',
+    //     EmployeeID: 'f82270ac-e9b0-11e5-80de-00155d594900'
+    //   }, {
+    //     CardCompleted: true,
+    //     Date: '2017-12-03T10:00:00Z',
+    //     ServiceName: 'Поддерживающая уборка',
+    //     EarnedMoney: 0,
+    //     ClientTitle: 'Реуса Валерия Андреевна',
+    //     AddressTitle: 'Россия, Москва, Веерная улица, 30к2, кв. 15, подъезд 1, этаж 6, домофон 015',
+    //     DepartureID: 'd4e19de5-ced0-11e7-80e9-00155d0af906',
+    //     TotalAmount: 2450,
+    //     EmployeeTitle: 'Маматова Каныкей Аманбаевна',
+    //     EmployeeID: 'f82270ac-e9b0-11e5-80de-00155d594900'
+    //   }],
+    //   TotalNumber: 3,
+    //   TimeAvailability: '21:00',
+    //   OrdersAvailability: false,
+    // };
+
+    templateCtx.GetEmployeeDepartures = GetEmployeeDepartures.response;
     const todayFilter = moment().startOf('day')
     templateCtx.tomorrow = []
     templateCtx.today = []
@@ -504,13 +561,21 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
         ctx.body = template(ctx.proc(templateCtx, ctx))
         return
     }
+    const orders_availability = GetEmployeeDepartures.response.OrdersAvailability;
+    const time_availability = GetEmployeeDepartures.response.TimeAvailability;
+    templateCtx.time_availability = time_availability;
+    // templateCtx.time_availability = '22:00';
+
+    const today_day = moment().startOf('day');
+    const { tomorrow, today, old } = templateCtx;
     for (let departure of GetEmployeeDepartures.response.DeparturesList){
-        if (moment(departure.Date).startOf('day') < todayFilter){
-            templateCtx.old.push(departure)
-        } else if (todayFilter.isSame(moment(departure.Date).startOf('day'))) {
-            templateCtx.today.push(departure)
-        } else {
-            templateCtx.tomorrow.push(departure)
+        const departure_day = moment(departure.Date).startOf('day');
+        if (orders_availability && today_day < departure_day){
+          tomorrow.push(departure);
+        } else if (today_day.isSame(departure_day)) {
+          today.push(departure);
+        } else if (departure_day < today_day) {
+          old.push(departure);
         }
     }
     templateCtx.old = (templateCtx.old.length == 0) ? false : templateCtx.old
@@ -519,9 +584,9 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
     templateCtx.permission = true
     if (isMobileVersion(ctx)){
         if (!ctx.query.profile && GetEmployeeDepartures.response.DeparturesList && GetEmployeeDepartures.response.DeparturesList.length > 0){
-            template = getTemplate(staffTemplate.mobile.userOrders)
+            template = getTemplate(staffTemplate.mobile.userOrders); // staff/templates/mobile/userOrders.html
         } else {
-            template = getTemplate(staffTemplate.mobile.userIndex)
+            template = getTemplate(staffTemplate.mobile.userIndex); // staff/templates/desctop/userIndex.html
         }
     } else {
         template = getTemplate(staffTemplate.desktop.userIndex)
