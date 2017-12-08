@@ -367,7 +367,8 @@ const AuthApi = module.exports = class AuthApi {
     logger.log('A= '+A);
     logger.log('B= '+B);
     logger.log('status= '+status);
-    logger.log('host '+this.host);
+    logger.log('userAgent= '+this.userAgent);
+    logger.log('host= '+this.host);
 
     const cookieParam = { domain: this.host, maxAge, path: '/', httpOnly: false };
     cookiesApi.set('A', A, cookieParam);
@@ -395,6 +396,7 @@ const AuthApi = module.exports = class AuthApi {
     logger.log('A= '+A);
     logger.log('B= '+B);
     logger.log('status= '+status);
+    logger.log('userAgent= '+this.userAgent);
     logger.log('host '+this.host);
 
     const path = '/';
