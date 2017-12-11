@@ -9,3 +9,4 @@ config/default.json
 /ecosystem.json
 /config
 /templates
+/static
