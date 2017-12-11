@@ -33,7 +33,6 @@ module.exports = class FactoryLogger {
     const file_info = wf_sync.get_file_info(file_path);
     const mtime = time.format('YYYY_MM_DD_hh_mm_ss', file_info.mtime);
     const new_name_for_old_file = file_path.replace(/\.log$/, '__' + mtime);
-    console.log(file_path, file_path.replace(/\.log$/, '_' + mtime + '.log'));
     wf_sync.rename(file_path, file_path.replace(/\.log$/, '_' + mtime + '.log'));
     wf_sync.write(file_path, '');
     return this;
