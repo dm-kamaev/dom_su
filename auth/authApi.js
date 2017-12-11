@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // AUTH API
 
@@ -29,7 +29,7 @@ const SERVER_KEY_FOR_EMPLOYEE = '7ZLNfdFg8HVcuNx39dWdqAihmTgTiGjH';
 // );
 // CREATE INDEX uuid_phone_i_uuid ON uuid_phone (uuid);
 
-const AuthApi = module.exports = class AuthApi {
+module.exports = class AuthApi {
   /**
    *
    * @param  {object} ctx
@@ -90,14 +90,14 @@ const AuthApi = module.exports = class AuthApi {
       token: null
     };
 
-    //////
+    // ////
     // this.test = new Test({ 'login_client': true, first_login: true });
     // this.test = new Test({ 'login_client': true });
     // this.test = new Test({ login_client_employee: true, first_login: true });
     // this.test = new Test({ login_client_employee: true });
     // db = this.test.REPLACE_DB();
     // Request1Cv3 = this.test.REPLACE_1C();
-    //////
+    // ////
 
   }
 
@@ -149,7 +149,7 @@ const AuthApi = module.exports = class AuthApi {
         ok: false,
         error: {
           code: -1,
-          text: `Internal error`,
+          text: 'Internal error',
         }
       };
     }
@@ -173,11 +173,11 @@ const AuthApi = module.exports = class AuthApi {
         return WrapAuthDataFrom1c;
       }
 
-      ////// FOR TEST ONLY CLIENT
-      ///     |
+      // //// FOR TEST ONLY CLIENT
+      // /     |
       //     V
       // WrapAuthDataFrom1c.data.EmployeeID = null;  //
-      ////// FOR TEST ONLY CLIENT
+      // //// FOR TEST ONLY CLIENT
 
       const authDataFrom1c = WrapAuthDataFrom1c.data;
       authData = {
@@ -196,7 +196,7 @@ const AuthApi = module.exports = class AuthApi {
           ok: false,
           error: {
             code: -1,
-            text: `Internal error`,
+            text: 'Internal error',
           }
         };
       }
@@ -206,6 +206,9 @@ const AuthApi = module.exports = class AuthApi {
         'INSERT INTO uuid_phone (uuid, phone) VALUES ($1, $2)',
         [ this.uuid,  phone ]
       );
+      if (uuidPhoneInsert instanceof Error) {
+        logger.warn(uuidPhoneInsert);
+      }
     }
 
     let { client_id, employee_id } = authData;
@@ -231,6 +234,7 @@ const AuthApi = module.exports = class AuthApi {
       ClientID: client_id,
       cookies: this.cookie_for_cordova,
     };
+
     if (employee_id) {
       data.EmployeeID = employee_id;
     }
@@ -249,7 +253,6 @@ const AuthApi = module.exports = class AuthApi {
   }
 
   async isLoginAsClient() {
-    const cookiesApi = this.cookiesApi;
     const status = parseInt(extract_cookie(this, 'status'), 10);
     const A = extract_cookie(this, 'A');
     const B = extract_cookie(this, 'B');
@@ -292,7 +295,6 @@ const AuthApi = module.exports = class AuthApi {
 
 
   async isLoginAsClientEmployee() {
-    const cookiesApi = this.cookiesApi;
     const status = parseInt(extract_cookie(this, 'status'), 10);
     const A = extract_cookie(this, 'A');
     const B = extract_cookie(this, 'B');
@@ -399,7 +401,6 @@ const AuthApi = module.exports = class AuthApi {
     logger.log('userAgent= '+this.userAgent);
     logger.log('host '+this.host);
 
-    const path = '/';
     const cookieParam = { domain: this.host, maxAge, path: '/', httpOnly: false };
     cookiesApi.set('A', A, cookieParam);
     cookiesApi.set('B', B, cookieParam);
@@ -432,11 +433,11 @@ const AuthApi = module.exports = class AuthApi {
 function createClientCookie(me, client_id, A) {
   A = A || me.uuid + random.str(10) + time.get().in_ms;
   const B = crypto.createHash('sha512')
-                  .update(A)
-                  .update(client_id)
-                  .update(me.userAgent)
-                  .update(SERVER_KEY_FOR_CLIENT)
-                  .digest('hex');
+    .update(A)
+    .update(client_id)
+    .update(me.userAgent)
+    .update(SERVER_KEY_FOR_CLIENT)
+    .digest('hex');
   const status = me.hashStatus.client;
   return { A, B, status };
 }
@@ -445,11 +446,11 @@ function createClientCookie(me, client_id, A) {
 function createClientEmployeeCookie(me, employee_id, A) {
   A = A || me.uuid + random.str(10) + time.get().in_ms;
   const B = crypto.createHash('sha512')
-                  .update(A)
-                  .update(employee_id)
-                  .update(me.userAgent)
-                  .update(SERVER_KEY_FOR_EMPLOYEE)
-                  .digest('hex');
+    .update(A)
+    .update(employee_id)
+    .update(me.userAgent)
+    .update(SERVER_KEY_FOR_EMPLOYEE)
+    .digest('hex');
   const status = me.hashStatus.clientEmployee;
   return { A, B, status };
 }
