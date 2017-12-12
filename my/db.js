@@ -22,20 +22,20 @@ let configPool;
 switch (process.env.NODE_ENV) {
   case 'development':
     configPool = {
-      user: "domovenok",
-      password: "domovenokPG",
-      database: "pancake",
-      host: "localhost",
+      user: 'domovenok',
+      password: 'domovenokPG',
+      database: 'pancake',
+      host: 'localhost',
       max: 10, // max number of clients in the pool
       idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
     };
     break;
   case 'production':
     configPool = {
-      "user": "domovenok",
-      "password": "TQ7Ee3q74F6hPNfp",
-      "database": "domovenok",
-      "host": "localhost",
+      'user': 'domovenok',
+      'password': 'TQ7Ee3q74F6hPNfp',
+      'database': 'domovenok',
+      'host': 'localhost',
       max: 10, // max number of clients in the pool
       idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
     };
@@ -50,6 +50,7 @@ const pool = new pg.Pool(configPool);
 // it contains if a backend error or network partition happens
 pool.on('error', (err, client) => {
   logger.warn('Unexpected error on idle client => ' + err);
+  logger.warn(client);
 });
 
 
@@ -75,10 +76,11 @@ db.read = async function (query, params) {
     if (SHOW_SQL) {
       logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : null));
     }
+    client.release();
+    return result;
   } catch(err) {
     result = new DbError(query, err, params);
     logger.warn(result);
-  } finally {
     client.release();
     return result;
   }
@@ -100,10 +102,11 @@ db.read_one = async function (query, params) {
     if (SHOW_SQL) {
       logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : null));
     }
+    client.release();
+    return result;
   } catch(err) {
     result = new DbError(query, err, params);
     logger.warn(result);
-  } finally {
     client.release();
     return result;
   }
@@ -125,10 +128,11 @@ db.edit = async function (query, params) {
     if (SHOW_SQL) {
       logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : null));
     }
+    client.release();
+    return result;
   } catch(err) {
     result = new DbError(query, err, params);
     logger.warn(result);
-  } finally {
     client.release();
     return result;
   }
@@ -151,4 +155,41 @@ class DbError extends Error {
 // }());
 
 
+
+/**
+ * transform_named_params
+ * @param  {string} query  'INSERT INTO auth_data (uuid=, client_id, employee_id, token) VALUES (:uuid, :client_id, :employee_id, :token)'
+ * @param  {object} params {
+    uuid: '7f193762-1585-4fe1-bbde-05c1aad2fe01',
+    client_id: '6ed99ac9-9657-11e2-beb6-1078d2da50b0',
+    employee_id: 'e7958b5e-360e-11e2-a60e-08edb9b907e8',
+    token: 'e1fe386b-2849-4546-a9cc-64d36649411f',
+   }
+ * @return {object}  {
+ *  query: 'INSERT INTO auth_data (uuid, client_id, employee_id, token) VALUES ($1, $2, $3, $4)',
+ *  params: [ '7f193762-1585-4fe1-bbde-05c1aad2fe01', '6ed99ac9-9657-11e2-beb6-1078d2da50b0', 'e7958b5e-360e-11e2-a60e-08edb9b907e8', 'e1fe386b-2849-4546-a9cc-64d36649411f']
+ * }
+ */
+// function transform_named_params(query, params) {
+//   const keys = Object.keys(params);
+//   const hash = {};
+//   const array_param = [];
+//   for (var i = 0, l = keys.length; i < l; i++) {
+//     const key = keys[i];
+//     hash[key] = '$'+(i+1);
+//     array_param.push(params[key]);
+//     const reg = new RegExp(':'+key+'', 'g');
+//     query = query.replace(reg, hash[key]);
+//   }
+//   return { query, params: array_param };
+// }
+
+// console.log(
+//   transform_named_params('INSERT INTO auth_data (uuid, client_id, employee_id, token) VALUES (:uuid, :client_id, :employee_id, :token)', {
+//     token: 'e1fe386b-2849-4546-a9cc-64d36649411f',
+//     client_id: '6ed99ac9-9657-11e2-beb6-1078d2da50b0',
+//     employee_id: 'e7958b5e-360e-11e2-a60e-08edb9b907e8',
+//     uuid: '7f193762-1585-4fe1-bbde-05c1aad2fe01',
+//   })
+// );
 
