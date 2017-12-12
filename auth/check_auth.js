@@ -30,6 +30,7 @@ check_auth.ajax = function (routerFunc) {
     logger.log('ctx.state.pancakeUser.uuid = ' + user.uuid);
     logger.log('auth1C = ' + JSON.stringify(auth1C, null, 2));
     logger.log('authData= ', +JSON.stringify(authData, null, 2));
+    logger.log('isLoginAsClient= '+is_login_client);
     await user.setAuth1C(authData);
     // if (!auth1C.token && authData) {
     //   await user.setAuth1C(authData);

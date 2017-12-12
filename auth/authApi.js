@@ -63,7 +63,6 @@ module.exports = class AuthApi {
     this.ctx = ctx;
     this.userAgent = this.headers['user-agent'];
     this.host = this.headers.host;
-    logger.log('this.headers='+ JSON.stringify(this.headers, null, 2));
     if (express_or_koa === 'express') {
       this.cookiesApi = {
         get: function (key) {
@@ -287,7 +286,7 @@ module.exports = class AuthApi {
     if (auth_data instanceof Error) {
       throw auth_data;
     }
-    logger.log(' isLoginAsClient => auth_data= \n'+ JSON.stringify(auth_data, null, 2));
+    logger.log('isLoginAsClient => auth_data= \n'+ JSON.stringify(auth_data, null, 2));
     if (!auth_data || !auth_data.client_id) {
       return false;
     }
@@ -464,7 +463,6 @@ function createClientCookie(me, client_id, A) {
   const B = crypto.createHash('sha512')
     .update(A)
     .update(client_id)
-    .update(me.userAgent)
     .update(SERVER_KEY_FOR_CLIENT)
     .digest('hex');
   const status = me.hashStatus.client;
@@ -477,7 +475,6 @@ function createClientEmployeeCookie(me, employee_id, A) {
   const B = crypto.createHash('sha512')
     .update(A)
     .update(employee_id)
-    .update(me.userAgent)
     .update(SERVER_KEY_FOR_EMPLOYEE)
     .digest('hex');
   const status = me.hashStatus.clientEmployee;
