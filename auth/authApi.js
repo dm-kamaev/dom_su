@@ -29,6 +29,8 @@ const SERVER_KEY_FOR_EMPLOYEE = '7ZLNfdFg8HVcuNx39dWdqAihmTgTiGjH';
 // );
 // CREATE INDEX uuid_phone_i_uuid ON uuid_phone (uuid);
 
+// TODO: maybe add?
+// CREATE UNIQUE INDEX auth_data_ui_uuid ON auth_data (uuid);
 module.exports = class AuthApi {
   /**
    *
@@ -141,9 +143,10 @@ module.exports = class AuthApi {
         }
       };
     }
-    let authData = await db.read_one('SELECT uuid, client_id, employee_id, token FROM auth_data WHERE uuid = $1', [ this.uuid ]);
-    logger.log('auth_data from db ='+ JSON.stringify(authData, null, 2));
-    if (authData instanceof Error) {
+
+    let auth_data_in_db = await db.read_one('SELECT uuid, client_id, employee_id, token FROM auth_data WHERE uuid = $1', [ this.uuid ]);
+    logger.log('auth_data from db ='+ JSON.stringify(auth_data_in_db, null, 2));
+    if (auth_data_in_db instanceof Error) {
       logger.warn(authData);
       return {
         ok: false,
@@ -153,45 +156,48 @@ module.exports = class AuthApi {
         }
       };
     }
+    const exist_auth_dta_in_db = Boolean(auth_data_in_db);
+    logger.log('exist_auth_dta_in_db ='+ JSON.stringify(exist_auth_dta_in_db, null, 2));
 
-    if (!authData) {
-      // TODO: токен может истекать( через 1 год)
-      // После изменения статуса соотрудника не меняется его token
-      const request1C = new Request1Cv3(this.user.auth1C.token, this.uuid);
-      await request1C.add('Auth.Login', { Phone: phone, Code: code }).do();
-      // authDataFrom1c –– {
-      //   "ok": true,
-      //   "data": {
-      //     "ClientID": "6ed99ac9-9657-11e2-beb6-1078d2da50b0",
-      //     "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8",
-      //     "Token": "85253ffa-9d03-4cb0-ac76-5809e02de202"
-      //   }
-      // }
+    // TODO: токен может истекать( через 1 год)
+    // После изменения статуса соотрудника не меняется его token
+    const request1C = new Request1Cv3(this.user.auth1C.token, this.uuid);
+    await request1C.add('Auth.Login', { Phone: phone, Code: code }).do();
+    // authDataFrom1c –– {
+    //   "ok": true,
+    //   "data": {
+    //     "ClientID": "6ed99ac9-9657-11e2-beb6-1078d2da50b0",
+    //     "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8",
+    //     "Token": "85253ffa-9d03-4cb0-ac76-5809e02de202"
+    //   }
+    // }
 
-      const WrapAuthDataFrom1c = request1C.get();
-      if (!WrapAuthDataFrom1c.ok) {
-        return WrapAuthDataFrom1c;
-      }
+    const WrapAuthDataFrom1c = request1C.get();
+    if (!WrapAuthDataFrom1c.ok) {
+      return WrapAuthDataFrom1c;
+    }
 
-      // //// FOR TEST ONLY CLIENT
-      // /     |
-      //     V
-      // WrapAuthDataFrom1c.data.EmployeeID = null;  //
-      // //// FOR TEST ONLY CLIENT
+    // //// FOR TEST ONLY CLIENT
+    // /     |
+    //     V
+    // WrapAuthDataFrom1c.data.EmployeeID = null;  //
+    // //// FOR TEST ONLY CLIENT
 
-      const authDataFrom1c = WrapAuthDataFrom1c.data;
-      authData = {
-        uuid: this.uuid,
-        client_id: authDataFrom1c.ClientID,
-        employee_id: authDataFrom1c.EmployeeID,
-        token: authDataFrom1c.Token,
-      };
-      const resInsert = await db.edit(
-        'INSERT INTO auth_data (uuid, client_id, employee_id, token) VALUES ($1, $2, $3, $4)',
-        [ this.uuid,  authData.client_id, authData.employee_id, authData.token ]
+    const authDataFrom1c = WrapAuthDataFrom1c.data;
+    const authData = {
+      uuid: this.uuid,
+      client_id: authDataFrom1c.ClientID,
+      employee_id: authDataFrom1c.EmployeeID,
+      token: authDataFrom1c.Token,
+    };
+
+    if (exist_auth_dta_in_db) {
+      const res_update = await db.edit(
+        'UPDATE auth_data SET client_id=$1, employee_id=$2, token=$3, timestamp=$4 WHERE uuid=$5',
+        [ authData.client_id, authData.employee_id, authData.token, new Date(), this.uuid ]
       );
-      if (resInsert instanceof Error) {
-        logger.warn(resInsert);
+      if (res_update instanceof Error) {
+        logger.warn(res_update);
         return {
           ok: false,
           error: {
@@ -200,15 +206,32 @@ module.exports = class AuthApi {
           }
         };
       }
-      logger.log('resInsert= ' + resInsert);
-
-      const uuidPhoneInsert = await db.edit(
-        'INSERT INTO uuid_phone (uuid, phone) VALUES ($1, $2)',
-        [ this.uuid,  phone ]
+      logger.log('res_update= ' + res_update);
+    } else {
+      const res_insert = await db.edit(
+        'INSERT INTO auth_data (uuid, client_id, employee_id, token) VALUES ($1, $2, $3, $4)',
+        [ this.uuid,  authData.client_id, authData.employee_id, authData.token ]
       );
-      if (uuidPhoneInsert instanceof Error) {
-        logger.warn(uuidPhoneInsert);
+      if (res_insert instanceof Error) {
+        logger.warn(res_insert);
+        return {
+          ok: false,
+          error: {
+            code: -1,
+            text: 'Internal error',
+          }
+        };
       }
+      logger.log('res_insert= ' + res_insert);
+    }
+
+
+    const uuid_phone_insert = await db.edit(
+      'INSERT INTO uuid_phone (uuid, phone) VALUES ($1, $2)',
+      [ this.uuid, phone ]
+    );
+    if (uuid_phone_insert instanceof Error) {
+      logger.warn(uuid_phone_insert);
     }
 
     let { client_id, employee_id } = authData;
@@ -268,6 +291,9 @@ module.exports = class AuthApi {
     if (!auth_data || !auth_data.client_id) {
       return false;
     }
+    if (!auth_data.client_id && !auth_data.employee_id) {
+      return false;
+    }
     this.setAuthData(auth_data);
 
     const client_id = auth_data.client_id;
@@ -307,6 +333,9 @@ module.exports = class AuthApi {
       throw auth_data;
     }
     if (!auth_data) {
+      return false;
+    }
+    if (!auth_data.client_id && !auth_data.employee_id) {
       return false;
     }
     this.setAuthData(auth_data);
@@ -567,3 +596,147 @@ function extract_cookie(me, cookie_name) {
 //   const c = new Test({ 'login_client': true, first_login: true }).REPLACE_1C();
 //   console.log(await new c().add().do());
 // }());
+
+
+// let authData = await db.read_one('SELECT uuid, client_id, employee_id, token FROM auth_data WHERE uuid = $1', [ this.uuid ]);
+// logger.log('auth_data from db ='+ JSON.stringify(authData, null, 2));
+// if (authData instanceof Error) {
+//   logger.warn(authData);
+//   return {
+//     ok: false,
+//     error: {
+//       code: -1,
+//       text: 'Internal error',
+//     }
+//   };
+// }
+
+// async login(phone, code) {
+//     logger.log('=== LOGIN ===');
+//     if (!phone) {
+//       logger.log(`Not exist phone: ${phone}`);
+//       return {
+//         ok: false,
+//         error: {
+//           code: -3,
+//           text: `Not exist phone: ${phone}`,
+//         }
+//       };
+//     }
+//     phone = phone.replace(/[^\d]+/g, '');
+
+//     if (!code) {
+//       logger.log(`Not exist code: ${code}`);
+//       return {
+//         ok: false,
+//         error: {
+//           code: -3,
+//           text: `Not exist code: ${code}`,
+//         }
+//       };
+//     }
+//     let authData = await db.read_one('SELECT uuid, client_id, employee_id, token FROM auth_data WHERE uuid = $1', [ this.uuid ]);
+//     logger.log('auth_data from db ='+ JSON.stringify(authData, null, 2));
+//     if (authData instanceof Error) {
+//       logger.warn(authData);
+//       return {
+//         ok: false,
+//         error: {
+//           code: -1,
+//           text: 'Internal error',
+//         }
+//       };
+//     }
+
+//     if (!authData) {
+//       // TODO: токен может истекать( через 1 год)
+//       // После изменения статуса соотрудника не меняется его token
+//       const request1C = new Request1Cv3(this.user.auth1C.token, this.uuid);
+//       await request1C.add('Auth.Login', { Phone: phone, Code: code }).do();
+//       // authDataFrom1c –– {
+//       //   "ok": true,
+//       //   "data": {
+//       //     "ClientID": "6ed99ac9-9657-11e2-beb6-1078d2da50b0",
+//       //     "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8",
+//       //     "Token": "85253ffa-9d03-4cb0-ac76-5809e02de202"
+//       //   }
+//       // }
+
+//       const WrapAuthDataFrom1c = request1C.get();
+//       if (!WrapAuthDataFrom1c.ok) {
+//         return WrapAuthDataFrom1c;
+//       }
+
+//       // //// FOR TEST ONLY CLIENT
+//       // /     |
+//       //     V
+//       // WrapAuthDataFrom1c.data.EmployeeID = null;  //
+//       // //// FOR TEST ONLY CLIENT
+
+//       const authDataFrom1c = WrapAuthDataFrom1c.data;
+//       authData = {
+//         uuid: this.uuid,
+//         client_id: authDataFrom1c.ClientID,
+//         employee_id: authDataFrom1c.EmployeeID,
+//         token: authDataFrom1c.Token,
+//       };
+//       const resInsert = await db.edit(
+//         'INSERT INTO auth_data (uuid, client_id, employee_id, token) VALUES ($1, $2, $3, $4)',
+//         [ this.uuid,  authData.client_id, authData.employee_id, authData.token ]
+//       );
+//       if (resInsert instanceof Error) {
+//         logger.warn(resInsert);
+//         return {
+//           ok: false,
+//           error: {
+//             code: -1,
+//             text: 'Internal error',
+//           }
+//         };
+//       }
+//       logger.log('resInsert= ' + resInsert);
+
+//       const uuidPhoneInsert = await db.edit(
+//         'INSERT INTO uuid_phone (uuid, phone) VALUES ($1, $2)',
+//         [ this.uuid,  phone ]
+//       );
+//       if (uuidPhoneInsert instanceof Error) {
+//         logger.warn(uuidPhoneInsert);
+//       }
+//     }
+
+//     let { client_id, employee_id } = authData;
+
+//     if (client_id && !employee_id) {  // client login
+//       this.becomeClient_(client_id);
+//     } else if (!client_id && employee_id) { // employee login
+//       this.becomeClientEmployee_(employee_id);
+//     } else if (client_id && employee_id) { // client-employee login
+//       this.becomeClientEmployee_(employee_id);
+//     } else {
+//       logger.warn('Not valid data => '+JSON.stringify(authData.data, null, 2));
+//       return {
+//         ok: false,
+//         error: {
+//           code: -2,
+//           text: 'Not valid data => '+JSON.stringify(authData.data, null, 2),
+//         }
+//       };
+//     }
+
+//     const data = {
+//       ClientID: client_id,
+//       cookies: this.cookie_for_cordova,
+//     };
+
+//     if (employee_id) {
+//       data.EmployeeID = employee_id;
+//     }
+
+//     this.setAuthData(authData);
+//     this.success_login = true;
+//     return {
+//       ok: true,
+//       data
+//     };
+//   }

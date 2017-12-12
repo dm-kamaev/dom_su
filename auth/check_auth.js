@@ -1,6 +1,6 @@
 #!/usr/local/bin/node
 
-"use strict";
+'use strict';
 
 // CHECK LOGIN
 
@@ -46,5 +46,5 @@ check_auth.ajax = function (routerFunc) {
         }
       };
     }
-  }
+  };
 };
