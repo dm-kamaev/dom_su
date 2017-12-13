@@ -160,7 +160,7 @@ module.exports = class AuthApi {
 
     // TODO: токен может истекать( через 1 год)
     // После изменения статуса соотрудника не меняется его token
-    const request1C = new Request1Cv3(this.user.auth1C.token, this.uuid);
+    const request1C = new Request1Cv3(this.user.auth1C.token, this.uuid, null, this.ctx);
     await request1C.add('Auth.Login', { Phone: phone, Code: code }).do();
     // authDataFrom1c –– {
     //   "ok": true,

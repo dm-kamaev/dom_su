@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // PROXY REQUEST TO 1C
 
@@ -6,8 +6,7 @@ const Router = require('koa-router');
 const Request1Cv3 = require('api1c/request1Cv3.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
 const check_auth = require('/p/pancake/auth/check_auth.js');
-const logger = require('/p/pancake/lib/logger.js');
-const rp = require('/p/pancake/my/request_promise.js');
+// const logger = require('/p/pancake/lib/logger.js');
 
 const router = module.exports = new Router();
 
@@ -16,44 +15,44 @@ const router = module.exports = new Router();
 //   "Phone": "79161387884",
 //   "Code": "111"
 // }
-// return ––
-// {
-//   "ok": true,
-//   "data": {
-//     "ClientID": "6ed99ac9-9657-11e2-beb6-1078d2da50b0",
-//     "cookies": [{
-//       "name": "A",
-//       "value": "4ddcc194-9229-408f-99f0-6c2e672ba831XmyxiIyGEH1512549247817",
-//       "params": {
-//         "domain": "www.dev2.domovenok.su",
-//         "maxAge": 7776000000,
-//         "path": "/",
-//         …
-//       }
-//     }, {
-//       "name": "B",
-//       "value": "8469457212264e268d1fdffa8e742f49d8d2c97e80254472e0347957425000329abd2b48347384c4e5f31e34dd24d34a65155c1692989f585e88da922b4b9eb0",
-//       "params": {
-//         "domain": "www.dev2.domovenok.su",
-//         "maxAge": 7776000000,
-//         "path": "/",
-//         …
-//       }
-//     }, {
-//       "name": "status",
-//       "value": 2,
-//       "params": {
-//         "domain": "www.dev2.domovenok.su",
-//         "maxAge": 7776000000,
-//         "path": "/",
-//         …
-//       }
-//     }],
-//     "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8"
-//   }
-// }
-router.post('/proxy_request/Auth.Login', async function (ctx, next) {
-  const methodName = ctx.params.methodName;
+/* return ––
+{
+  "ok": true,
+  "data": {
+    "ClientID": "8e0420c8-8c8e-11e7-80e4-00155d594900",
+    "cookies": [{
+      "name": "X-Dom-Auth",
+      "value": "556884d4-5cd6-45fc-bb51-dbf4cec9f43c"
+    }, {
+      "name": "A",
+      "value": "556884d4-5cd6-45fc-bb51-dbf4cec9f43cFggwEaM2GF1513172070394",
+      "params": {
+        "domain": "www.dev2.domovenok.su",
+        "maxAge": 7776000000,
+        "path": "/",
+        "httpOnly": false
+      }
+    }, {
+      "name": "B",
+      "value": "fd67ee9d2bf8836018e70c515b4088c75bfe2c809f22cbf5d1ee1327bbf97ecc09e60b938d260c50be5ee95b0400e5c9ca4353a92b9f60bee6643a17274f8dbb",
+      "params": {
+        "domain": "www.dev2.domovenok.su",
+        "maxAge": 7776000000,
+        "path": "/",
+        "httpOnly": false
+      }
+    }, {
+      "name": "status",
+      "value": 1,
+      "params": {
+        "domain": "www.dev2.domovenok.su",
+        "maxAge": 7776000000,
+        "path": "/",
+      }
+    }]
+  }
+}*/
+router.post('/proxy_request/Auth.Login', async function (ctx) {
   let body = ctx.request.body;
   if (typeof body === 'string') {
     body = JSON.parse(body);
@@ -61,31 +60,18 @@ router.post('/proxy_request/Auth.Login', async function (ctx, next) {
 
   const authApi = new AuthApi(ctx);
   const res = await authApi.login(body.Phone, body.Code);
-
-  // GetCommon
-  // GetDepartureList
-  // help
-  // promotion
-  // let request1C = new Request1C(meta);
-
-  // let GetCommon = new Method1C('Client.GetCommon', { ClientID: meta.token.clientId });
-  // let GetDepartureList = new Method1C('Client.GetDepartureList', {Filter: {Status: "Active"}});
-  // let GetDeparture = new Method1C('Client.GetDeparture');
-  // let GetSchedule = new Method1C('Client.GetScheduleNEW');
-  // request1C.add(GetCommon, GetDepartureList, GetDeparture, GetSchedule)
-
   ctx.status = 200;
   ctx.body = res;
 });
 
 
-router.post('/proxy_request/Auth.GetCode', async function (ctx, next) {
+router.post('/proxy_request/Auth.GetCode', async function (ctx) {
   let body = ctx.request.body;
   if (typeof body === 'string') {
     body = JSON.parse(body);
   }
   const user = ctx.state.pancakeUser;
-  const request1C = new Request1Cv3(user.auth1C.token, user.uuid);
+  const request1C = new Request1Cv3(user.auth1C.token, user.uuid, null, ctx);
   await request1C.add('Auth.GetCode', body).do();
   const res = request1C.get();
   ctx.body = res;
@@ -99,7 +85,7 @@ router.post('/proxy_request/Auth.GetCode', async function (ctx, next) {
 // }
 // responce –– { "ok": true/false, "data": ..., "error": {"code": ..., "text": "..."}
 // decorators.loginRequiredWithoutRedirect();
-router.post('/proxy_request/:methodName', check_auth.ajax(async function (ctx, next) {
+router.post('/proxy_request/:methodName', check_auth.ajax(async function (ctx) {
   const method_name = ctx.params.methodName;
   // TODO: Redirect to Login method
   let body = ctx.request.body;
@@ -118,14 +104,14 @@ router.post('/proxy_request/:methodName', check_auth.ajax(async function (ctx, n
     body.ClientID = client_id;
   }
 
-  const request1C = new Request1Cv3(user.auth1C.token, user.uuid);
+  const request1C = new Request1Cv3(user.auth1C.token, user.uuid, null, ctx);
   await request1C.add(method_name, body).do();
   const res = request1C.get();
   ctx.body = res;
 }));
 
 
-router.get('/test_auth/', async function (ctx, next) {
+router.get('/test_auth/', async function (ctx) {
   const authApi = new AuthApi(ctx);
 
   const text =
@@ -142,7 +128,7 @@ router.get('/test_auth/', async function (ctx, next) {
 });
 
 
-router.get('/test_logout/', async function (ctx, next) {
+router.get('/test_logout/', async function (ctx) {
   const authApi = new AuthApi(ctx);
 
   authApi.logout();

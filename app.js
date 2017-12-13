@@ -1,6 +1,7 @@
-'use strict'
+'use strict';
 const koa = require('koa');
 const config = require('config');
+const set_app_version = require('/p/pancake/middlewares/set_app_version.js');
 const {
   errorMiddleware,
   throw404,
@@ -44,34 +45,35 @@ process.on('unhandledRejection', (reason, p) => {
 
 async function run() {
   try {
-    schedule()
+    schedule();
     const app = new koa();
 
     // with HTTP headers X-Dom-Service
     let appService = {
-        use: (middleware) => app.use(onlyService(middleware))
-      }
+      use: (middleware) => app.use(onlyService(middleware))
+    };
       // all without HTTP headers X-Dom-Service
     let appUser = {
       use: (middleware) => app.use(onlyUser(middleware))
-    }
+    };
 
     // Task
-    app.context.cities = await loadCities()
-    app.context.analytics = config.analytics
-    app.context.proc = ctxProcessor
-      // Load helpers
-    require('utils/helpers')
+    app.context.cities = await loadCities();
+    app.context.analytics = config.analytics;
+    app.context.proc = ctxProcessor;
+    // Load helpers
+    require('utils/helpers');
 
     // General Service middleware
     if (config.app.debug) {
-      app.use(accessLogger())
+      app.use(accessLogger());
     }
-    app.use(errorMiddleware)
-    app.use(koaBody())
-    app.use(userAgent)
+    app.use(errorMiddleware);
+    app.use(koaBody());
+    app.use(userAgent);
 
-    // FOR PANCAKE
+    app.use(set_app_version);
+
     app.use(async function(ctx, next) {
       const { request: req, response: res } = ctx;
       logger.log('HEADERS= '+JSON.stringify(req.headers, null, 2));
@@ -97,19 +99,19 @@ async function run() {
 
 
     // App middleware
-    app.use(definitionRequestType)
+    app.use(definitionRequestType);
 
     // Pancake User middleware
-    appUser.use(initPancakeUser)
-    appUser.use(setUserVisit)
-      // if POST /living/
-    appUser.use(createEvent.routes())
-      // return response
-    appUser.use(createEventRequest)
-    appUser.use(accessSectionCity)
-    appUser.use(callTracking)
-    appUser.use(UTMCollector)
-    appUser.use(LUIDHandler)
+    appUser.use(initPancakeUser);
+    appUser.use(setUserVisit);
+    // if POST /living/
+    appUser.use(createEvent.routes());
+    // return response
+    appUser.use(createEventRequest);
+    appUser.use(accessSectionCity);
+    appUser.use(callTracking);
+    appUser.use(UTMCollector);
+    appUser.use(LUIDHandler);
 
     // Add routers Pancake User
     applyRouters(appUser);
@@ -117,21 +119,21 @@ async function run() {
     appUser.use(routerStaffConversation.routes());
 
     // Only external service
-    appService.use(initPancakeService)
-      // Add router service
-    applyServiceRouters(appService)
-      //appService.use(serviceRouter.routes())
-      // End Service
+    appService.use(initPancakeService);
+    // Add router service
+    applyServiceRouters(appService);
+    //appService.use(serviceRouter.routes())
+    // End Service
 
     // Throw 404
     app.use(checkSlashEnd);
     app.use(throw404);
 
     logger.log('START ON PORT '+config.app.port);
-    app.listen(config.app.port)
+    app.listen(config.app.port);
   } catch (e) {
     logger.warn(e);
   }
 }
 
-run()
+run();

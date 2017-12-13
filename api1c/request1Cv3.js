@@ -1,9 +1,8 @@
 'use strict';
-let http = require('http');
-let querystring = require('querystring');
-// let log = require('logger')(module, 'staff.log')
-let errors = require('./errors')
-const config = require('config')
+
+const http = require('http');
+const errors = require('./errors');
+const config = require('config');
 const uap = require('node-uap');
 const logger = require('/p/pancake/lib/logger.js');
 
@@ -13,28 +12,31 @@ let server = config.api1C;
 module.exports = class Request1Cv3 {
 
   // option? –– { ip, userAgent, oldAPI }
-  constructor(token, userUUID, option){
+  constructor(token, userUUID, option, ctx) {
     let { ip, userAgent, oldAPI } = option || {};
-    userUUID = userUUID || null
-    oldAPI = oldAPI || false
+    ctx = ctx || {};
+    const app_version = ctx.state.app_version || null;
+    userUUID = userUUID || null;
+    oldAPI = oldAPI || false;
     this.methods = [];
     this.response = null;
-    this.token = token
-    const {ua, os, device, userAgent: Original } = uap.parse(userAgent);
-    this.ip = ip
-    this.userAgent = userAgent
+    this.token = token;
+    const { ua, os, device, userAgent: Original } = uap.parse(userAgent);
+    this.ip = ip;
+    this.userAgent = userAgent;
     this.body = {
       Methods: [],
       user_id: userUUID,
       Token: token,
+      Fv: app_version,
       ClientData: {
-          IP: ip,
-          UserAgent: {
-              "Original": Original,
-              "Soft": ua,
-              "OS": os,
-              "Device": device
-          }
+        IP: ip,
+        UserAgent: {
+          'Original': Original,
+          'Soft': ua,
+          'OS': os,
+          'Device': device
+        }
       }
     };
     this.connectParam = {
@@ -43,8 +45,8 @@ module.exports = class Request1Cv3 {
       path: (oldAPI) ? server.oldAPI : server.url,
       method: 'POST',
       headers: {
-          'Content-type': "application/json",
-          'Authorization': 'Basic ' + new Buffer('site' + ':' + 'asASDFdfs23').toString('base64')
+        'Content-type': 'application/json',
+        'Authorization': 'Basic ' + new Buffer('site' + ':' + 'asASDFdfs23').toString('base64')
       }
     };
   }
@@ -52,15 +54,15 @@ module.exports = class Request1Cv3 {
   routing_response() {
     // console.log('BEFORE this.response = ', this.response);
     this.response.forEach((item) => {
-        if (!item.ErrorCode) {
-          this.methods[item.ActionID].response = item.Data
-        } else
-          this.methods[item.ActionID].error = {
-            code: item.ErrorCode,
-            text: item.ErrorText
-          }
-      })
-      // console.log('AFTER this.response =', this.response);
+      if (!item.ErrorCode) {
+        this.methods[item.ActionID].response = item.Data;
+      } else
+        this.methods[item.ActionID].error = {
+          code: item.ErrorCode,
+          text: item.ErrorText
+        };
+    });
+    // console.log('AFTER this.response =', this.response);
   }
 
 
@@ -69,9 +71,9 @@ module.exports = class Request1Cv3 {
     const count = this.methods.length;
     this.methods.push(dataFor1C);
     this.body.Methods.push({
-      "Method": dataFor1C.name,
-      "Param": dataFor1C.param,
-      "ActionID": count,
+      'Method': dataFor1C.name,
+      'Param': dataFor1C.param,
+      'ActionID': count,
     });
     return this;
   }
@@ -83,60 +85,60 @@ module.exports = class Request1Cv3 {
 
     // log.debug('\n --- start request\n', this.body, '\n --- end request');
     this.connectParam.headers['Content-length'] = Buffer.from(this.body).length;
-    let response_json = "";
+    let response_json = '';
 
     let promiseRequest = new Promise((reslove, reject) => {
-      let startDateRequest = Date.now();
+      // let startDateRequest = Date.now();
       let req = http.request(this.connectParam, (res) => {
-        res.setEncoding('utf8')
+        res.setEncoding('utf8');
         res.on('data', (chunk) => {
-          response_json += chunk
+          response_json += chunk;
         });
         res.on('end', () => {
-          let endDate = Date.now();
+          // let endDate = Date.now();
           // log.debug('\n --- start response\n', response_json, '\n --- end response', '\nRequest Time -', Date.now() - startDateRequest, 'ms')
           try {
             const for_log = ((response_json) ? JSON.parse(response_json) : '');
             logger.info('Request1C response => \n ' + JSON.stringify(for_log, null, 2));
-            this.response = JSON.parse(response_json)
+            this.response = JSON.parse(response_json);
           } catch (e) {
-            reject(e)
+            reject(e);
             logger.warn(response_json);
             // log.error('Parse JSON error response - ', response_json)
-            return
+            return;
           }
-          this.routing_response()
+          this.routing_response();
           reslove(this.response);
         });
-      })
+      });
       req.setTimeout(1000 * 20, function() {
         reject(new errors.API1CError('The request ended in failure', this.token, 'Timeout response', 500));
-      })
+      });
       req.on('error', (e) => {
         // log.error(e);
         logger.warn(e);
         reject(new errors.API1CError('The request ended in failure', this.token, 'The request ended in failure', 500));
-      })
+      });
       req.write(this.body);
       req.end();
-    })
+    });
     return promiseRequest;
   }
 
   // get result after request in 1C
   // response ––
   // [{
-  //     "Data": {...},
-  //     "Method": "Client.CalculateOrder",
-  //     "ActionID": 0
+  //     'Data': {...},
+  //     'Method': 'Client.CalculateOrder',
+  //     'ActionID': 0
   // }] OR
   // [{
-  //     "ErrorText": "Invalid service ID",
-  //     "Method": "Client.CalculateOrder",
-  //     "ErrorCode": 43,
-  //     "ActionID": 0
+  //     'ErrorText': 'Invalid service ID',
+  //     'Method': 'Client.CalculateOrder',
+  //     'ErrorCode': 43,
+  //     'ActionID': 0
   // }]
-  // return –– { "ok": true/false, "data": ..., "error": {"code": ..., "text": "..."}
+  // return –– { 'ok': true/false, 'data': ..., 'error': {'code': ..., 'text': '...'}
   get() {
     const response = this.response;
     let res;
