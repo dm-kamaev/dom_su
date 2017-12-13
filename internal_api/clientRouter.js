@@ -38,6 +38,8 @@ internalClientAPI.post('/internalapi', async function (ctx, next) {
           return await Client.ServiceOrder.SendAdditionInfo(ctx)
         case 'Client.ServiceOrder.SendAllInfo':
           return await Client.ServiceOrder.Create(ctx)
+        case 'Client.ServiceOrder.NewOrder':
+          return await Client.ServiceOrder.NewOrder(ctx);
         default:
           throw new Error(`Internal API - Name Method Error - ${ctx.request.body.Method}`)
       }
@@ -45,15 +47,15 @@ internalClientAPI.post('/internalapi', async function (ctx, next) {
       throw new Error('Internal API - Validate Error')
     }
   } catch (e) {
-    logger.error('Internal API Error')
-    logger.error(e)
-    ctx.body = {'Success': false }
+    logger.error('Internal API Error');
+    logger.error(e);
+    ctx.body = {'Success': false };
   }
 })
 
 module.exports = {
   internalClientAPI
-}
+};
 
 
 
@@ -65,4 +67,4 @@ const Client = {
   ServiceOrder: serviceOrder,
   ServiceCalc: serviceCalc,
   GetTimes: GetTimes
-}
+};

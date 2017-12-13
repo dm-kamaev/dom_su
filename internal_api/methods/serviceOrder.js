@@ -48,9 +48,23 @@ async function SendContactInfo(ctx) {
     }
 }
 
-module.exports = {
-    SendTimeInfo,
-    SendContactInfo,
-    SendAdditionInfo,
-    Create,
+
+async function NewOrder(ctx) {
+  const param = ctx.request.body.Param;
+  const user = ctx.state.pancakeUser;
+  if (!param.city){
+    param.Сity = user.city.keyword;
+  }
+  console.log('NewOrder param=', param);
+  const singleRequest = new SingleRequest1C('Client.ServiceOrder.Create', param, null, user.uuid);
+  const response1C = await singleRequest.do();
+  ctx.body = { 'Success': true };
 }
+
+module.exports = {
+  SendTimeInfo,
+  SendContactInfo,
+  SendAdditionInfo,
+  Create,
+  NewOrder
+};
