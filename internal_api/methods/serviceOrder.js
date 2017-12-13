@@ -52,10 +52,7 @@ async function SendContactInfo(ctx) {
 async function NewOrder(ctx) {
   const param = ctx.request.body.Param;
   const user = ctx.state.pancakeUser;
-  if (!param.city){
-    param.Сity = user.city.keyword;
-  }
-  console.log('NewOrder param=', param);
+  param.City = user.city.keyword;
   const singleRequest = new SingleRequest1C('Client.ServiceOrder.NewOrder', param, null, user.uuid);
   const response1C = await singleRequest.do();
   ctx.body = { 'Success': true };
