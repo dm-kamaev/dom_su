@@ -56,7 +56,7 @@ async function NewOrder(ctx) {
     param.Сity = user.city.keyword;
   }
   console.log('NewOrder param=', param);
-  const singleRequest = new SingleRequest1C('Client.ServiceOrder.Create', param, null, user.uuid);
+  const singleRequest = new SingleRequest1C('Client.ServiceOrder.NewOrder', param, null, user.uuid);
   const response1C = await singleRequest.do();
   ctx.body = { 'Success': true };
 }
