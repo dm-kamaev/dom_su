@@ -16,6 +16,7 @@ module.exports = class Request1Cv3 {
     let { ip, userAgent, oldAPI } = option || {};
     ctx = ctx || { state: {} };
     const app_version = ctx.state.app_version || null;
+    const is_mobile = Boolean(ctx.state.is_mobile);
     userUUID = userUUID || null;
     oldAPI = oldAPI || false;
     this.methods = [];
@@ -30,6 +31,7 @@ module.exports = class Request1Cv3 {
       Token: token,
       Fv: app_version,
       ClientData: {
+        Type: (is_mobile) ? 'app' : 'web',
         IP: ip,
         UserAgent: {
           'Original': Original,

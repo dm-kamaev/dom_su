@@ -6,7 +6,6 @@ const logger = require('/p/pancake/lib/logger.js');
 
 module.exports = async function (ctx, next) {
   const headers = ctx.headers;
-  // const x_requested_with = headers['x-requested-with'];
   // VARIANT (not all)
   // "com.android.browser"
   // "ru.domovenok.app"
@@ -26,10 +25,10 @@ module.exports = async function (ctx, next) {
   // "com.android.mms"
   // "com.htc.sense.browser"
   const app_version = headers['app-version'];
-  // const is_cordova = x_requested_with && x_requested_with !== 'XMLHttpRequest';
   const state = ctx.state;
+  state.is_mobile = detect_mobile(headers);
   if (!app_version) {
-    state.app_version = '1.0.0';
+    state.app_version = '1';
   } else {
     state.app_version = app_version;
   }
@@ -38,3 +37,13 @@ module.exports = async function (ctx, next) {
 };
 
 
+function detect_mobile(headers) {
+  const is_cordova_new_method = headers['is-cordova'];
+  const x_requested_with = headers['x-requested-with'];
+  const is_cordova_old_method = x_requested_with && x_requested_with !== 'XMLHttpRequest';
+  if (is_cordova_new_method){
+    return true;
+  } else {
+    return is_cordova_old_method;
+  }
+}

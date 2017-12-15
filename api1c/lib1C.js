@@ -22,6 +22,9 @@ class Method1C{
 class Request1C {
 
   constructor(token, userUUID, ip, userAgent, oldAPI, ctx){
+    ctx = ctx || { state: {} };
+    const app_version = ctx.state.app_version || null;
+    const is_mobile = Boolean(ctx.state.is_mobile);
     userUUID = userUUID || null;
     oldAPI = oldAPI || false;
     this.methods = [];
@@ -30,14 +33,13 @@ class Request1C {
     const { ua, os, device, userAgent: Original } = uap.parse(userAgent);
     this.ip = ip;
     this.userAgent = userAgent;
-    ctx = ctx || { state: {} };
-    const app_version = ctx.state.app_version || null;
     this.body = {
       Methods: [],
       user_id: userUUID,
       Token: token,
       Fv: app_version,
       ClientData: {
+        Type: (is_mobile) ? 'app' : 'web',
         IP: ip,
         UserAgent: {
           'Original': Original,
