@@ -6,10 +6,10 @@ const ABTestContainer = {
         //     {name: "control", page: 'generalnaya_uborka', ratio: 50, description: "Основные дополнительные услуги"},
         //     {name: "variation", page: 'generalnaya_uborka_ab', ratio: 50, description: "Мытье окон как доп. услуга"},
         // ]},
-        'podderzhka': { name: "", key: "podderzhka_7_wet_cleaning", forNewUser: true, variations: [
-            {name: "control", page: 'podderzhka', ratio: 50, description: "Основная"},
-            {name: "variation", page: 'podderzhka_ab', ratio: 50, description: "Влажная уборка"}
-        ]}
+        // 'podderzhka': { name: "", key: "podderzhka_7_wet_cleaning", forNewUser: true, variations: [
+        //     {name: "control", page: 'podderzhka', ratio: 50, description: "Основная"},
+        //     {name: "variation", page: 'podderzhka_ab', ratio: 50, description: "Влажная уборка"}
+        // ]}
         // 'posle_remonta': { name: "", key: "posle_remonta_2_new_design", forNewUser: true, variations: [
         //     {name: "control", page: 'posle_remonta', ratio: 50, description: "Основная"},
         //     {name: "variation", page: 'posle_remonta_ab', ratio: 50, description: "Пробуем новый дизайн"}
