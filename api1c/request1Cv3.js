@@ -14,7 +14,7 @@ module.exports = class Request1Cv3 {
   // option? –– { ip, userAgent, oldAPI }
   constructor(token, userUUID, option, ctx) {
     let { ip, userAgent, oldAPI } = option || {};
-    ctx = ctx || {};
+    ctx = ctx || { state: {} };
     const app_version = ctx.state.app_version || null;
     userUUID = userUUID || null;
     oldAPI = oldAPI || false;

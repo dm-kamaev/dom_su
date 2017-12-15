@@ -27,9 +27,10 @@ class Request1C {
     this.methods = [];
     this.response = null;
     this.token = token;
-    const {ua, os, device, userAgent: Original } = uap.parse(userAgent);
+    const { ua, os, device, userAgent: Original } = uap.parse(userAgent);
     this.ip = ip;
     this.userAgent = userAgent;
+    ctx = ctx || { state: {} };
     const app_version = ctx.state.app_version || null;
     this.body = {
       Methods: [],
@@ -126,7 +127,7 @@ class SingleRequest1C{
     token = token || null;
     ip = ip || null;
     userAgent = userAgent || null;
-    this.request1C = new Request1C(token, userUUID, ip, userAgent, null, ctx);
+    this.request1C = new Request1C(token, userUUID, ip, userAgent, null, ctx || {});
     this.singleMethod = new Method1C(name, param);
     this.request1C.add(this.singleMethod);
   }

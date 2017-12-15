@@ -87,7 +87,7 @@ async function run() {
         // App-Version –– current version for mobile
         // status, a, b, –– auth cookie
         // X-Dom-Auth –– uuid for auth and etc
-        res.set('Access-Control-Allow-Headers', 'App-Version, status, a, b, X-Dom-Auth, Accept-Encoding, Accept, Accept-Language, Overwrite, Destination, Content-Type, content-type, Connection, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control, Pragma, User-Agent, Referer');
+        res.set('Access-Control-Allow-Headers', 'Is-Cordova, App-Version, status, a, b, X-Dom-Auth, Accept-Encoding, Accept, Accept-Language, Overwrite, Destination, Content-Type, content-type, Connection, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control, Pragma, User-Agent, Referer');
         res.set('Access-Control-Allow-Credentials', 'true');
         res.set('Access-Control-Allow-Method', 'PROPFIND, PROPPATCH, COPY, MOVE, DELETE, MKCOL, LOCK, UNLOCK, PUT, GETLIB, VERSION-CONTROL, CHECKIN, CHECKOUT, UNCHECKOUT, REPORT, UPDATE, CANCELUPLOAD, HEAD, OPTIONS, GET, POST');
         res.set('Access-Control-Max-Age', '86400');
