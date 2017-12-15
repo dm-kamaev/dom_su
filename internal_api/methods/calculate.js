@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 const api1c = require('api1c');
 
 // {
@@ -27,7 +27,15 @@ module.exports = async function (ctx) {
   const param = ctx.request.body.Param;
   const user = ctx.state.pancakeUser;
   param.City = user.city.keyword;
-  const singleRequest = new api1c.SingleRequest1C('Client.Calculate', param, null, user.uuid);
+  const singleRequest = new api1c.SingleRequest1C(
+    'Client.Calculate', // name
+    param, // param
+    null, // token
+    user.uuid, // userUUID
+    null, // ip
+    null, // userAgent
+    ctx
+  );
   const response1C = await singleRequest.do();
   ctx.body = {
     Data: response1C,
