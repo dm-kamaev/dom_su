@@ -33,6 +33,7 @@ module.exports = async function (ctx, next) {
     state.app_version = app_version;
   }
   logger.log('=== pancake.app_version === '+ctx.state.app_version);
+  logger.log('=== pancake.is_mobile === '+state.is_mobile);
   await next();
 };
 
@@ -44,6 +45,6 @@ function detect_mobile(headers) {
   if (is_cordova_new_method){
     return true;
   } else {
-    return is_cordova_old_method;
+    return Boolean(is_cordova_old_method);
   }
 }

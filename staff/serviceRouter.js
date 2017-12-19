@@ -9,8 +9,8 @@ const { Method1C, Request1C } = require('api1c')
 const staffServiceRouter = new Router();
 
 
-staffServiceRouter.get('/staff/check_service', async function (ctx, next) {
-    const request1C = new Request1C(null, null, '', '', true);
+staffServiceRouter.get('/staff/check_service', async function (ctx) {
+    const request1C = new Request1C(null, null, '', '', true, ctx);
     let CheckAPI = new Method1C('CheckAPI', {})
     request1C.add(CheckAPI)
     await request1C.do()
@@ -26,7 +26,7 @@ staffServiceRouter.get('/staff/check_service', async function (ctx, next) {
     }
 })
 
-staffServiceRouter.post('/staff/deactivate_token', async function (ctx, next) {
+staffServiceRouter.post('/staff/deactivate_token', async function (ctx) {
     let body = ctx.request.body
     if (body.SECRET != SECRET){
         throw Error('Error api secret')

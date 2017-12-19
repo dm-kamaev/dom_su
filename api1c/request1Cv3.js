@@ -4,15 +4,19 @@ const http = require('http');
 const errors = require('./errors');
 const config = require('config');
 const uap = require('node-uap');
+const detect_client_or_employee_method = require('/p/pancake/api1c/detect_client_or_employee_method.js');
 const logger = require('/p/pancake/lib/logger.js');
 
-let server = config.api1C;
+const server = config.api1C;
 
 
 module.exports = class Request1Cv3 {
 
   // option? –– { ip, userAgent, oldAPI }
   constructor(token, userUUID, option, ctx) {
+    if (!ctx) {
+      logger.warn('Incorrect call pancake Request1Cv3, without ctx');
+    }
     let { ip, userAgent, oldAPI } = option || {};
     ctx = ctx || { state: {} };
     const app_version = ctx.state.app_version || null;
@@ -25,19 +29,21 @@ module.exports = class Request1Cv3 {
     const { ua, os, device, userAgent: Original } = uap.parse(userAgent);
     this.ip = ip;
     this.userAgent = userAgent;
+    this.type_request = (is_mobile) ? 'app' : 'web';
+    this.Type = this.type_request+'.client';
     this.body = {
       Methods: [],
       user_id: userUUID,
       Token: token,
-      Fv: app_version,
       ClientData: {
-        Type: (is_mobile) ? 'app' : 'web',
+        Type: this.Type,
+        Version: app_version,
         IP: ip,
         UserAgent: {
-          'Original': Original,
-          'Soft': ua,
-          'OS': os,
-          'Device': device
+          Original: Original,
+          Soft: ua,
+          OS: os,
+          Device: device
         }
       }
     };
@@ -77,6 +83,7 @@ module.exports = class Request1Cv3 {
       'Param': dataFor1C.param,
       'ActionID': count,
     });
+    this.body.ClientData.Type = this.type_request+'.'+detect_client_or_employee_method(dataFor1C.name);
     return this;
   }
 
