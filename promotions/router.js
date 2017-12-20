@@ -99,7 +99,6 @@ promotionsRouter.get('/promotion/', check_auth.ajax(async function (ctx, next) {
   ctx.status = 200;
   try {
     const url = `${CONF.domain}/private/get_promotion/${client_id}`;
-    console.log('url=', url);
     const reply = await rp.get(url, { rejectUnauthorized: false });
     if (reply.response.status === 500) {
       throw reply.body;
