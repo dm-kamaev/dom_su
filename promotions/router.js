@@ -1,5 +1,6 @@
 "use strict";
 
+const CONF = require('/p/pancake/settings/config.js');
 const Router = require('koa-router');
 const { getPromotion, getPromotionList } = require('./store');
 const { getTemplate, loadTemplate } = require('utils');
@@ -97,7 +98,8 @@ promotionsRouter.get('/promotion/', check_auth.ajax(async function (ctx, next) {
   const client_id = new AuthApi(ctx).get_auth_data().client_id;
   ctx.status = 200;
   try {
-    const url = `https://${ctx.headers.host}/private/get_promotion/${client_id}`;
+    const url = `${CONF.domain}/private/get_promotion/${client_id}`;
+    console.log('url=', url);
     const reply = await rp.get(url, { rejectUnauthorized: false });
     if (reply.response.status === 500) {
       throw reply.body;

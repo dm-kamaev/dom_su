@@ -42,7 +42,12 @@ const CONF = {
 };
 
 module.exports = function() {
-  if (env === 'prod') {
+  if (env === 'dev') {
+    CONF.domain = 'https://www.dev.domovenok.su';
+  } else if (env === 'dev2') {
+    CONF.domain = 'https://www.dev2.domovenok.su';
+  } else if (env === 'prod') {
+    CONF.domain = 'https://www.domovenok.su';
     CONF.pg = {
       user: 'domovenok',
       password: 'TQ7Ee3q74F6hPNfp',
