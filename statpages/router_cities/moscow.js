@@ -6,9 +6,9 @@ const moscowTemplates = {
 
 
     // AB test page
-    'main_ab': {hide: true, name: 'main_ab.html', data: {menu: {index: true}}},
-    'price_ab': {name: 'price_ab.html', ServiceName: 'Цены', data:{ menu:{main: true, price: true}}},
-    // 'podderzhka_ab': {hide: true,name: 'podderzhka_ab.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
+    // 'main_ab': {hide: true, name: 'main_ab.html', data: {menu: {index: true}}},
+    // 'price_ab': {name: 'price_ab.html', ServiceName: 'Цены', data:{ menu:{main: true, price: true}}},
+    podderzhka_ab: {hide: true,name: 'podderzhka_ab.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
     //'generalnaya_uborka_ab': {hide: true, name: 'generalnaya_uborka_ab.html', ServiceName: 'Генеральная уборка', data:{ menu:{general: true}}},
     //'posle_remonta_ab': {hide: true, name: 'posle_remonta_ab.html', ServiceName: 'Уборка после ремонта', data:{ menu:{physical: true, posle_remonta: true}}},
     //'mite_okon_ab': {hide: true, name: 'mite_okon_ab.html', ServiceName: 'Мойка окон', data:{ menu:{ mite_okon: true}}},
