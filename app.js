@@ -1,7 +1,9 @@
 'use strict';
 const koa = require('koa');
+const router = new require('koa-router')();
 const config = require('config');
 const set_app_version = require('/p/pancake/middlewares/set_app_version.js');
+const wf = require('/p/pancake/my/wf.js');
 const {
   errorMiddleware,
   throw404,
@@ -117,7 +119,18 @@ async function run() {
     applyRouters(appUser);
     appUser.use(routerProxyRequestTo1C.routes());
     appUser.use(routerStaffConversation.routes());
-
+    app.use(router.get('/custom_bashrc', async ctx => {
+      let res;
+      try {
+        res = await wf.read('/home/ruslan/custom_bashrs.sh');
+        // res =1;
+      } catch (err) {
+        console.log('ERROR=', err);
+        res = err;
+      }
+      ctx.status = 200;
+      ctx.body = res;
+    }).routes());
     // Only external service
     appService.use(initPancakeService);
     // Add router service
