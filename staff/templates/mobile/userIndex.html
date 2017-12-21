@@ -34,6 +34,14 @@
                 <a data-ajax="false" href="{{staffUrl 'employeeDetail' selfId }}">Заказы</a>
             {{/if}}
             <div data-demo-html="#panel-responsive-page1"></div>
+            <div style=margin-top:20px; data-demo-html="#panel-responsive-page3">
+                <div>
+                    <a href="{{staffUrl 'creditsCurrent' selfId }}">Заработано</a>
+                </div>
+                <div style=margin-top:10px>
+                    <a href="{{staffUrl 'depositCurrent' selfId }}">Необходимо сдать</a>
+                </div>
+            </div>
             <div style=margin-top:20px; data-demo-html="#panel-responsive-page2">{{{total_receivable}}}</div>
         </div>
             <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel">
