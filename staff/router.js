@@ -662,12 +662,13 @@ function calc_total_receivable(GetCurrentWageForEmployee, GetCurrentDepositForEm
   //   GeneralSum: 1740
   // }
 
-  const diff = getCurrentWageForEmployee.Sum - getCurrentDepositForEmployee.GeneralSum;
+  let diff = getCurrentWageForEmployee.Sum - getCurrentDepositForEmployee.GeneralSum;
   let res = '';
+
   if (diff >= 0) {
-    res = `<span style=color:green> Итого к получению: ${diff} руб.</span>`;
+    res += `<span style=color:green> Итого к получению: ${diff} руб.</span>`;
   } else {
-    res = `<span style=color:red> Итого к сдаче: ${diff} руб.</span>`;
+    res += `<span style=color:red> Итого к сдаче: ${diff * -1} руб.</span>`;
   }
   return res;
 }
