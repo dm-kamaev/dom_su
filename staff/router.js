@@ -476,18 +476,31 @@ staffRouter.post(staffUrl('orderCard', ':DepartureID'), parseFormMultipart, logi
 })));
 
 // Employee page
+// PROFILE
 staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
   let template;
   let dateFrom = moment().subtract(7, 'days');
   let dateTo = moment().add(1, 'days').startOf('day'); // next day
+  const employee_id = ctx.params.EmployeeID;
   let GetEmployeeDepartures = new Method1C('GetEmployeeDepartures', {
-    'Filter': {
-      'DateFrom': toMoscowISO(dateFrom),
-      'DateTo': toMoscowISO(dateTo)
+    Filter: {
+      DateFrom: toMoscowISO(dateFrom),
+      DateTo: toMoscowISO(dateTo)
     },
-    'EmployeeID': ctx.params.EmployeeID
+    EmployeeID: employee_id
   });
+
+  const GetCurrentWageForEmployee = new Method1C('GetCurrentWageForEmployee', {
+    EmployeeID: employee_id
+  });
+
+  const GetCurrentDepositForEmployee = new Method1C('GetCurrentDepositForEmployee', {
+    EmployeeID: employee_id
+  });
+
   request1C.add(GetEmployeeDepartures);
+  request1C.add(GetCurrentWageForEmployee); // https://wiki.domovenok.su/api_employee#GetCurrentWageForEmployee
+  request1C.add(GetCurrentDepositForEmployee); //https://wiki.domovenok.su/api_employee#GetCurrentDepositForEmployee
   await request1C.do();
   templateCtx.GetEmployeeData = GetEmployeeData.response;
   // GetEmployeeDepartures.response = {
@@ -582,8 +595,11 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
   templateCtx.permission = true;
   if (isMobileVersion(ctx)){
     if (!ctx.query.profile && GetEmployeeDepartures.response.DeparturesList && GetEmployeeDepartures.response.DeparturesList.length > 0){
+      // show orders for mobile
       template = getTemplate(staffTemplate.mobile.userOrders); // staff/templates/mobile/userOrders.html
     } else {
+      templateCtx.total_receivable = calc_total_receivable(GetCurrentWageForEmployee, GetCurrentDepositForEmployee)
+      // show profile on mobile
       template = getTemplate(staffTemplate.mobile.userIndex); // staff/templates/desctop/userIndex.html
     }
   } else {
@@ -591,6 +607,70 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
   }
   ctx.body = template(ctx.proc(templateCtx, ctx));
 })));
+
+
+
+function calc_total_receivable(GetCurrentWageForEmployee, GetCurrentDepositForEmployee) {
+  if (GetCurrentWageForEmployee.ErrorCode || GetCurrentDepositForEmployee.ErrorCode) {
+    const error_response = (GetCurrentWageForEmployee.ErrorCode) ? GetCurrentWageForEmployee : GetCurrentDepositForEmployee;
+    log.warn(JSON.stringify(error_response, null, 2));
+    return '<span>Не удалось посчитать сумму к получению</span>';
+  }
+  const getCurrentWageForEmployee = GetCurrentWageForEmployee.response;
+  const getCurrentDepositForEmployee = GetCurrentDepositForEmployee.response;
+  // GetCurrentWageForEmployee –– {
+  //   InterestOnOrder: [{
+  //     Date: '2017-09-11T09:00:00Z',
+  //     Sum: 1254,
+  //     Description: 'Процент с заказа',
+  //     DepartureID: '4228d9fe-91cd-11e7-80e4-00155d594900',
+  //     Metro: 'Беляево (Калужско-Рижская линия)',
+  //     Client: 'Наговицина Наталья Владимировна',
+  //     Adjustment: null
+  //   }, {
+  //     Date: '2017-09-12T10:00:00Z',
+  //     Sum: 1485,
+  //     Description: 'Процент с заказа',
+  //     DepartureID: '66d5b544-9296-11e7-80e4-00155d594900',
+  //     Metro: 'Молодежная (Арбатско-Покровская линия)',
+  //     Client: 'Басина Елена Валерьевна',
+  //     Adjustment: null
+  //   }, {
+  //     Date: '2017-09-11T17:45:00Z',
+  //     Sum: 957,
+  //     Description: 'Процент с заказа',
+  //     DepartureID: '360fb728-91cd-11e7-80e4-00155d594900',
+  //     Metro: 'Новые Черемушки (Калужско-Рижская линия)',
+  //     Client: 'Котова Татьяна Александровна',
+  //     Adjustment: null
+  //   }],
+  //   AdditionalCharges: [],
+  //   MonthlyCharges: [],
+  //   Sum: 3696
+  // }
+
+  // GetCurrentDepositForEmployee–– {
+  //   List: [{
+  //     Date: '11.09.17 17:45',
+  //     OrderSum: 1740,
+  //     DepositSumClient: 1740,
+  //     Description: '',
+  //     DepartureID: '360fb728-91cd-11e7-80e4-00155d594900',
+  //     Metro: 'Новые Черемушки (Калужско-Рижская линия)',
+  //     Client: 'Котова Татьяна Александровна'
+  //   }],
+  //   GeneralSum: 1740
+  // }
+
+  const diff = getCurrentWageForEmployee.Sum - getCurrentDepositForEmployee.GeneralSum;
+  let res = '';
+  if (diff >= 0) {
+    res = `<span style=color:green> Итого к получению: ${diff} руб.</span>`;
+  } else {
+    res = `<span style=color:red> Итого к сдаче: ${diff} руб.</span>`;
+  }
+  return res;
+}
 
 // Order list
 staffRouter.get('/staff/:EmployeeID/orders', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
