@@ -598,7 +598,7 @@ function calc_total_receivable(GetCurrentWageForEmployee, GetCurrentDepositForEm
   if (diff >= 0) {
     res = `<span style=color:green> Итого к получению: ${diff} руб.</span>`;
   } else {
-    res = `<span style=color:red> Итого к сдаче: ${diff} руб.</span>`;
+    res = `<span style=color:red> Итого к сдаче: ${diff * -1} руб.</span>`;
   }
   return res;
 }
