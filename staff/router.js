@@ -4,7 +4,7 @@ const { models } = require('models');
 const { EmployeeNews, Token, PendingToken } = models;
 const Router = require('koa-router');
 const logger = require('logger')(module, 'staff.log');
-const log = require('/p/pancake/lib/logger.js');
+// const log = require('/p/pancake/lib/logger.js');
 const loggerProblems = require('logger')(module, 'problems.log');
 const config = require('config');
 
@@ -613,7 +613,7 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
 function calc_total_receivable(GetCurrentWageForEmployee, GetCurrentDepositForEmployee) {
   if (GetCurrentWageForEmployee.ErrorCode || GetCurrentDepositForEmployee.ErrorCode) {
     const error_response = (GetCurrentWageForEmployee.ErrorCode) ? GetCurrentWageForEmployee : GetCurrentDepositForEmployee;
-    log.warn(JSON.stringify(error_response, null, 2));
+    logger.error(JSON.stringify(error_response, null, 2));
     return '<span>Не удалось посчитать сумму к получению</span>';
   }
   const getCurrentWageForEmployee = GetCurrentWageForEmployee.response;
