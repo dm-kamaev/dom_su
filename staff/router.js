@@ -479,8 +479,19 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
     let template
     let dateFrom = moment().subtract(7, "days")
     let dateTo = (moment().hour() < 19) ? moment().startOf('day') : moment().add(1, 'days').startOf('day');
+    const employee_id = ctx.params.EmployeeID;
     let GetEmployeeDepartures = new Method1C('GetEmployeeDepartures', {'Filter': {'DateFrom': toMoscowISO(dateFrom), 'DateTo': toMoscowISO(dateTo)}, 'EmployeeID': ctx.params.EmployeeID})
+    const GetCurrentWageForEmployee = new Method1C('GetCurrentWageForEmployee', {
+      EmployeeID: employee_id
+    });
+
+    const GetCurrentDepositForEmployee = new Method1C('GetCurrentDepositForEmployee', {
+      EmployeeID: employee_id
+    });
+
     request1C.add(GetEmployeeDepartures)
+    request1C.add(GetCurrentWageForEmployee)
+    request1C.add(GetCurrentDepositForEmployee)
     await request1C.do()
     templateCtx.GetEmployeeData = GetEmployeeData.response
     templateCtx.GetEmployeeDepartures = GetEmployeeDepartures.response
