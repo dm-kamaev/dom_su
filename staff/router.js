@@ -531,7 +531,7 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
         if (!ctx.query.profile && GetEmployeeDepartures.response.DeparturesList && GetEmployeeDepartures.response.DeparturesList.length > 0){
             template = getTemplate(staffTemplate.mobile.userOrders)
         } else {
-            templateCtx.total_receivable = calc_total_receivable(GetCurrentWageForEmployee, GetCurrentDepositForEmployee)
+            set_total_receivable(templateCtx, GetCurrentWageForEmployee, GetCurrentDepositForEmployee);
             template = getTemplate(staffTemplate.mobile.userIndex)
         }
     } else {
@@ -541,10 +541,10 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
 })))
 
 
-function calc_total_receivable(GetCurrentWageForEmployee, GetCurrentDepositForEmployee) {
+function set_total_receivable(templateCtx, GetCurrentWageForEmployee, GetCurrentDepositForEmployee) {
   if (GetCurrentWageForEmployee.ErrorCode || GetCurrentDepositForEmployee.ErrorCode) {
     const error_response = (GetCurrentWageForEmployee.ErrorCode) ? GetCurrentWageForEmployee : GetCurrentDepositForEmployee;
-    logger.error(JSON.stringify(error_response, null, 2));
+    log.warn(JSON.stringify(error_response, null, 2));
     return '<span>Не удалось посчитать сумму к получению</span>';
   }
   const getCurrentWageForEmployee = GetCurrentWageForEmployee.response;
@@ -593,14 +593,19 @@ function calc_total_receivable(GetCurrentWageForEmployee, GetCurrentDepositForEm
   //   GeneralSum: 1740
   // }
 
-  const diff = getCurrentWageForEmployee.Sum - getCurrentDepositForEmployee.GeneralSum;
-  let res = '';
+  const earned_money = getCurrentWageForEmployee.Sum;
+  const deposit_money = getCurrentDepositForEmployee.GeneralSum;
+  const diff = earned_money - deposit_money;
+  let total_receivable = '';
+
   if (diff >= 0) {
-    res = `<span style=color:green> Итого к получению: ${diff} руб.</span>`;
+    total_receivable += `<span style=color:green> Итого к получению: <b>${diff} руб.</b></span>`;
   } else {
-    res = `<span style=color:red> Итого к сдаче: ${diff * -1} руб.</span>`;
+    total_receivable += `<span style=color:red> Итого к сдаче: <b>${diff * -1} руб.</b></span>`;
   }
-  return res;
+  templateCtx.earned_money = earned_money;
+  templateCtx.deposit_money = deposit_money;
+  templateCtx.total_receivable = total_receivable;
 }
 
 // Order list
