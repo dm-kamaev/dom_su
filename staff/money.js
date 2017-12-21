@@ -16,23 +16,55 @@ function getPageInfo(ctx, countItem) {
     return pageInfo
 }
 
-let getCreditsCurrent = loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
-    let template;
-    if (templateCtx.selfId != templateCtx.employeeId){
-        ctx.status = 302
-        ctx.redirect(staffUrl('userIndex',  templateCtx.employeeId))
-    }
-    let GetCurrentWageForEmployee = new Method1C('GetCurrentWageForEmployee', {EmployeeID: templateCtx.selfId})
-    request1C.add(GetCurrentWageForEmployee)
-    await request1C.do()
-    templateCtx.GetCurrentWageForEmployee = GetCurrentWageForEmployee.response
-    templateCtx.GetEmployeeData = GetEmployeeData.response
-    if (isMobileVersion(ctx)){
-        template = getTemplate(staffTemplate.mobile.creditsCurrent)
-    } else {
-        template = getTemplate(staffTemplate.desktop.creditsCurrent)
-    }
-    ctx.body = template(ctx.proc(templateCtx, ctx))
+let getCreditsCurrent = loginRequired(getEmployeeHeader(async function(ctx, next, request1C, GetEmployeeData, templateCtx) {
+  let template;
+  if (templateCtx.selfId != templateCtx.employeeId) {
+    ctx.status = 302
+    ctx.redirect(staffUrl('userIndex', templateCtx.employeeId))
+  }
+  let GetCurrentWageForEmployee = new Method1C('GetCurrentWageForEmployee', {
+    EmployeeID: templateCtx.selfId
+  })
+  request1C.add(GetCurrentWageForEmployee);
+  await request1C.do();
+  // GetCurrentWageForEmployee–– {
+  //   InterestOnOrder: [{
+  //     Date: '2017-09-11T09:00:00Z',
+  //     Sum: 1254,
+  //     Description: 'Процент с заказа',
+  //     DepartureID: '4228d9fe-91cd-11e7-80e4-00155d594900',
+  //     Metro: 'Беляево (Калужско-Рижская линия)',
+  //     Client: 'Наговицина Наталья Владимировна',
+  //     Adjustment: null
+  //   }, {
+  //     Date: '2017-09-12T10:00:00Z',
+  //     Sum: 1485,
+  //     Description: 'Процент с заказа',
+  //     DepartureID: '66d5b544-9296-11e7-80e4-00155d594900',
+  //     Metro: 'Молодежная (Арбатско-Покровская линия)',
+  //     Client: 'Басина Елена Валерьевна',
+  //     Adjustment: null
+  //   }, {
+  //     Date: '2017-09-11T17:45:00Z',
+  //     Sum: 957,
+  //     Description: 'Процент с заказа',
+  //     DepartureID: '360fb728-91cd-11e7-80e4-00155d594900',
+  //     Metro: 'Новые Черемушки (Калужско-Рижская линия)',
+  //     Client: 'Котова Татьяна Александровна',
+  //     Adjustment: null
+  //   }],
+  //   AdditionalCharges: [],
+  //   MonthlyCharges: [],
+  //   Sum: 3696
+  // }
+  templateCtx.GetCurrentWageForEmployee = GetCurrentWageForEmployee.response
+  templateCtx.GetEmployeeData = GetEmployeeData.response
+  if (isMobileVersion(ctx)) {
+    template = getTemplate(staffTemplate.mobile.creditsCurrent)
+  } else {
+    template = getTemplate(staffTemplate.desktop.creditsCurrent)
+  }
+  ctx.body = template(ctx.proc(templateCtx, ctx))
 }))
 
 let getCreditsDetail = loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
@@ -92,24 +124,38 @@ let getCreditsList = loginRequired(getEmployeeHeader(async function (ctx, next, 
     ctx.body = template(ctx.proc(templateCtx, ctx))
 }))
 
-let getDepositCurrent = loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
-    let template
-    if (templateCtx.selfId != templateCtx.employeeId){
-        ctx.status = 302
-        ctx.redirect(staffUrl('userIndex',  templateCtx.employeeId))
-    }
-    let GetCurrentDepositForEmployee = new Method1C('GetCurrentDepositForEmployee', {EmployeeID: templateCtx.employeeId})
-    request1C.add(GetCurrentDepositForEmployee)
-    await request1C.do()
-    templateCtx.GetCurrentDepositForEmployee = GetCurrentDepositForEmployee.response
-    templateCtx.GetEmployeeData = GetEmployeeData.response
-    if (isMobileVersion(ctx)){
-        template = getTemplate(staffTemplate.mobile.depositCurrent)
-    } else {
-        template = getTemplate(staffTemplate.desktop.depositCurrent)
-    }
-    ctx.body = template(ctx.proc(templateCtx, ctx))
-}))
+let getDepositCurrent = loginRequired(getEmployeeHeader(async function(ctx, next, request1C, GetEmployeeData, templateCtx) {
+  let template
+  if (templateCtx.selfId != templateCtx.employeeId) {
+    ctx.status = 302
+    ctx.redirect(staffUrl('userIndex', templateCtx.employeeId))
+  }
+  let GetCurrentDepositForEmployee = new Method1C('GetCurrentDepositForEmployee', {
+    EmployeeID: templateCtx.employeeId
+  })
+  request1C.add(GetCurrentDepositForEmployee)
+  await request1C.do()
+  // GetCurrentDepositForEmployee–– {
+  //   List: [{
+  //     Date: '11.09.17 17:45',
+  //     OrderSum: 1740,
+  //     DepositSumClient: 1740,
+  //     Description: '',
+  //     DepartureID: '360fb728-91cd-11e7-80e4-00155d594900',
+  //     Metro: 'Новые Черемушки (Калужско-Рижская линия)',
+  //     Client: 'Котова Татьяна Александровна'
+  //   }],
+  //   GeneralSum: 1740
+  // }
+  templateCtx.GetCurrentDepositForEmployee = GetCurrentDepositForEmployee.response
+  templateCtx.GetEmployeeData = GetEmployeeData.response
+  if (isMobileVersion(ctx)) {
+    template = getTemplate(staffTemplate.mobile.depositCurrent)
+  } else {
+    template = getTemplate(staffTemplate.desktop.depositCurrent)
+  }
+  ctx.body = template(ctx.proc(templateCtx, ctx))
+}));
 
 let getDepositDetail = loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
     let template
