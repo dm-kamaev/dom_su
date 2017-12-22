@@ -259,14 +259,22 @@ class PancakeUser {
         return null
     }
 
-    setABTest(ABTestKey, ABTestVariant){
+    // current_page –– which user see,
+    // variations –– alterantive page for a/b
+    setABTest(ABTestKey, ABTestVariant, current_page, variations){
+        const me = this;
         if (this.ab_test === undefined){
             this.ab_test = {}
         }
         this.ab_test[ABTestKey] = {page: ABTestVariant.page, name: ABTestVariant.name}
         this.queue.push(async function   (previousResult, pancakeUser) {
             pancakeUser.model.set(`data.ab_test.${ABTestKey}`, {});
-            pancakeUser.model.set(`data.ab_test.${ABTestKey}`, {page: ABTestVariant.page, name: ABTestVariant.name});
+            pancakeUser.model.set(`data.ab_test.${ABTestKey}`, {page: ABTestVariant.page, name: ABTestVariant.name, date: new Date() });
+            await me.sendTicket('a_b_test', {
+                key: ABTestKey,
+                currentPage: current_page,
+                variations
+            });
             await pancakeUser.model.save()
         })
     }
