@@ -9,7 +9,7 @@ const { checkPromotionUrl } = require('promotions')
 const { CITIES } = require('cities')
 const { citiesTemplate } = require('./router_cities')
 const { ABTestContainer, choiceTest, checkForOnlyFirstVisit, yaBotsRegExp } = require('./ab_tests')
-const { addRobotsFileInRouting } = require('./robots')
+const { addRobotsFileInRouting } = require('./robots');
 
 
 const re_slash = new RegExp('\/', 'g');
@@ -73,16 +73,22 @@ function getServiceName(city, referer) {
 
 async function getPageWithABTest(ctx, page) {
     let city = ctx.state.pancakeUser.city.keyword
-    if (ABTestContainer[city] && ABTestContainer[city][page]
-        && !yaBotsRegExp.test(ctx.request.headers['user-agent'])
-        && await checkForOnlyFirstVisit(ctx, ABTestContainer[city][page])
-    ){
+    const user = ctx.state.pancakeUser;
+    const is_a_b_test =
+      ABTestContainer[city] &&
+      ABTestContainer[city][page] &&
+      !yaBotsRegExp.test(ctx.request.headers['user-agent']) &&
+      await checkForOnlyFirstVisit(ctx, ABTestContainer[city][page]);
+
+    if (is_a_b_test) {
         let ABTest = ABTestContainer[city][page]
         let testData = ctx.state.pancakeUser.getABTest(ABTest)
         if (!testData) {
-            let ABTestVariant = choiceTest(ABTest.variations)
-            testData = {page: ABTestVariant.page, name: ABTestVariant.name}
-            ctx.state.pancakeUser.setABTest(ABTest.key , testData)
+            const variations = ABTest.variations;
+            let ABTestVariant = choiceTest(variations);
+            testData = {page: ABTestVariant.page, name: ABTestVariant.name};
+            const current_page =  ABTestVariant;
+            ctx.state.pancakeUser.setABTest(ABTest.key, testData, current_page, variations);
         }
         let {template, data} = await getPage(citiesTemplate[city], testData.page)
         if (template){
