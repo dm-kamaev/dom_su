@@ -314,8 +314,11 @@ paymentsRouter.post('/payments/take/', async function (ctx, next) {
                 return
             }
             let whole = re_amount[1]
-            let fraction = re_amount[2]
-            if (fraction === undefined){
+            let fraction = re_amount[2] || '';
+            if (fraction) {
+                fraction = fraction.replace(/[\.,]+/g, '');
+            }
+            if (!fraction){
                 amount = whole + '00'
             } else if (fraction.length == 2){
                 amount = whole + fraction
