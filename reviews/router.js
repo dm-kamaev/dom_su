@@ -48,6 +48,8 @@ reviewsRouter.get('reviewsList', /^\/otzivi\/$/, async function (ctx, next) {
     ctx.body = template(ctx.proc({ItemList: modelList, Begin: begin, End: end, RightForm: false, HasRightSide: false, menu: menu}))
 })
 
+
+// /otzivi/2641/
 reviewsRouter.get('reviewItem', /^\/otzivi\/([0-9a-zA-Z_\-]+)\/$/, async function (ctx, next) {
     let review, RightForm;
     let share = { name: '', content: ''}
@@ -78,6 +80,7 @@ reviewsRouter.get('reviewItem', /^\/otzivi\/([0-9a-zA-Z_\-]+)\/$/, async functio
     }
     const { modelList, begin, end }= await getReviewListScroll({direction: 0, keyValue: review.id})
     const template = getTemplate(reviewsTemplateOpts)
+    review.note = review.note || '';
     const noteForTitle = review.note.replace(/выполнено/, '');
     ctx.body = template(ctx.proc({
         ItemList: modelList,
