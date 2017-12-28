@@ -66,12 +66,16 @@ function ctxProcessor(data) {
         data.canonicalPath = this.request.origin + this.request.path
     }
 
+    if (data.canonicalPath) {
+        data.canonicalPath = data.canonicalPath.replace('http', 'https');
+    }
     // Temporary for all page, with protocol https
     // In future custom for every page
     if (!data.canonical) {
         data.canonical = true;
         data.canonicalPath = this.request.origin.replace('http', 'https') + this.request.path;
     }
+
     return data;
 }
 
