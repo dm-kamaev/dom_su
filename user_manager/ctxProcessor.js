@@ -57,6 +57,7 @@ function ctxProcessor(data) {
         data.noindex = true
     }
 
+    // This code work for one case
     if (data.generateCanonical){
         data.canonical = true
         data.canonicalPath = data.generateCanonical()
@@ -64,7 +65,14 @@ function ctxProcessor(data) {
         data.canonical = true
         data.canonicalPath = this.request.origin + this.request.path
     }
-    return data
+
+    // Temporary for all page, with protocol https
+    // In future custom for every page
+    if (!data.canonical) {
+        data.canonical = true;
+        data.canonicalPath = this.request.origin.replace('http', 'https') + this.request.path;
+    }
+    return data;
 }
 
 module.exports = {
