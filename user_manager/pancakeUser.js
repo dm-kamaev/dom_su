@@ -11,8 +11,9 @@ const validateUUID = require('uuid-validate');
 const logger = require('logger')(module)
 const moment = require('moment')
 
-
-const USER_COOKIE_KEY = config.USER_COOKIE_KEY // session_uid_dom_dev
+// FOR DEV session_uid_dom_dev
+// FOR PROD session_uid_dom
+const USER_COOKIE_KEY = config.USER_COOKIE_KEY
 const PENDING_TOKEN_KEY = config.PENDING_TOKEN_USER_KEY
 
 let banRefererString = '(:?\\w+)' + '\\\.' + config.serverPath.domain.withoutCity.replace(/\./g, "\\\.") + '$'
@@ -361,7 +362,7 @@ class PancakeUser {
     setSelfInCookie() {
         this.ctx.cookies.set(USER_COOKIE_KEY, this.uuid, {
             httpOnly: false,
-            domain: config.cookie.domain,
+            domain: config.cookie.domain, // now set .domovenok.su; TODO: set www.domovenok.su
             maxAge: 9 * 365 * 24 * 60 * 60 * 1000
         })
     }
