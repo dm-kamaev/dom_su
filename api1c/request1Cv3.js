@@ -6,8 +6,9 @@ const config = require('config');
 const uap = require('node-uap');
 const detect_client_or_employee_method = require('/p/pancake/api1c/detect_client_or_employee_method.js');
 const logger = require('/p/pancake/lib/logger.js');
+const CONF = require('/p/pancake/settings/config.js');
 
-const server = config.api1C;
+const server = CONF.api1C;
 
 
 module.exports = class Request1Cv3 {
