@@ -976,12 +976,14 @@ staffRouter.post(staffUrl('examsSend', ':EmployeeID', ':CourseID'), parseFormMul
 
 // Message handler POST
 staffRouter.post('/staff/message_handler/:EmployeeID', parseFormMultipart, async function(ctx) {
-  const auth_api = new AuthApi(ctx);
-  let token = null;
-  if (await auth_api.isLoginAsClientEmployee()) {
-    token = auth_api.get_auth_data().token;
-  } else {
-    log.warn(`uuid "${auth_api.get_auth_data().uuid}" without token send /staff/message_handler/:EmployeeID`);
+  let token = ctx.request.body.fields.token; // служебный токен
+  if (!token) {
+    const auth_api = new AuthApi(ctx);
+    if (await auth_api.isLoginAsClientEmployee()) {
+      token = auth_api.get_auth_data().token;
+    } else {
+      log.warn(`uuid "${auth_api.get_auth_data().uuid}" without token send /staff/message_handler/:EmployeeID`);
+    }
   }
 
   const request1C = new Request1C(token, ctx.state.pancakeUser.uuid, '', '', true, ctx);
@@ -1004,6 +1006,7 @@ staffRouter.post('/staff/message_handler/:EmployeeID', parseFormMultipart, async
 });
 
 // Message list
+// https://www.domovenok.su/staff/comments/395db11c-8bc4-11e7-80e4-00155d594900/Conversation/3a3c63c5-f68a-11e7-80e6-00155d594900/7d7cfbfa-550d-4001-ab20-a3a18747f2d0/#end
 staffRouter.get('/staff/comments/:EmployeeID/:LinkedType/:LinkedID/:Token/', async function (ctx) {
   let templateCtx = {};
   const request1C = new Request1C(ctx.params.Token, null, '', '', true, ctx);

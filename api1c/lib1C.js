@@ -6,9 +6,10 @@ const config = require('config');
 const uap = require('node-uap');
 const detect_client_or_employee_method = require('/p/pancake/api1c/detect_client_or_employee_method.js');
 const logger = require('/p/pancake/lib/logger.js');
+const CONF = require('/p/pancake/settings/config.js');
 
-// const NODE_ENV = process.env.NODE_ENV;
-let server = config.api1C;
+// let server = config.api1C;
+let server = CONF.api1C;
 
 
 class Method1C{
