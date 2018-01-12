@@ -45,7 +45,9 @@ module.exports = async function (ctx, next) {
 function detect_mobile(headers) {
   const is_cordova_new_method = headers['is-cordova'];
   const x_requested_with = headers['x-requested-with'];
-  const is_cordova_old_method = x_requested_with && x_requested_with !== 'XMLHttpRequest';
+  const is_cordova_old_method =
+    x_requested_with &&
+    (x_requested_with !== 'XMLHttpRequest' && x_requested_with !== 'com.android.browser');
   if (is_cordova_new_method){
     return true;
   } else {
