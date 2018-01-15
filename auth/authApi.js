@@ -489,6 +489,13 @@ function extract_cookie(me, cookie_name) {
          null;
 }
 
+// console.log(
+//   '3bdacb77-9a94-47fe-97ab-8c5273875bee',
+//   createClientEmployeeCookie({
+//     uuid: '3bdacb77-9a94-47fe-97ab-8c5273875bee',
+//     hashStatus: { clientEmployee: 2 }
+//   }, 'd20a10cf-3a17-11e7-80e4-00155d594900')
+// );
 
 // class Test {
 //   constructor(option) {

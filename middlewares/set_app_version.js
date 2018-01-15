@@ -51,6 +51,7 @@ function detect_mobile(headers) {
   if (is_cordova_new_method){
     return true;
   } else {
-    return Boolean(is_cordova_old_method);
+    return false;
+    // return Boolean(is_cordova_old_method);
   }
 }
