@@ -11,7 +11,8 @@ const validateUUID = require('uuid-validate');
 const logger = require('logger')(module)
 const moment = require('moment')
 
-
+// FOR DEV session_uid_dom_dev
+// FOR PROD session_uid_dom
 const USER_COOKIE_KEY = config.USER_COOKIE_KEY
 const PENDING_TOKEN_KEY = config.PENDING_TOKEN_USER_KEY
 
@@ -84,6 +85,7 @@ class PancakeUser {
             this.city = this.ctx.cities.default
 
             this.setSelfInCookie()
+
             // queue
             this.queue.push(async function (previousResult, pancakeUser) {
                 let user = await User.findOrCreate({
@@ -105,6 +107,39 @@ class PancakeUser {
                 pancakeUser.model = user[0]
                 return user
             })
+        }
+    }
+
+    // SET key 'u_uuid' in cookie value uuid
+    // if first visit on site
+    async set_in_cookie_user_uuid() {
+        const cookie_name = 'u_uuid';
+        const cookiesApi = this.ctx.cookies;
+        if (!cookiesApi.get(cookie_name)) {
+            cookiesApi.set(cookie_name, this.uuid, {
+                httpOnly: false,
+                domain: this.ctx.headers.host,
+                maxAge: 9 * 365 * 24 * 60 * 60 * 1000
+            });
+        } else if (cookiesApi.get('session_uid_dom') !== cookiesApi.get('u_uuid')) {
+            // зачищаем следы старой авторизации
+
+            cookiesApi.set('session_uid_dom', this.uuid, {
+                httpOnly: false,
+                domain: this.ctx.headers.host,
+                maxAge: 9 * 365 * 24 * 60 * 60 * 1000
+            });
+            cookiesApi.set(cookie_name, this.uuid, {
+                httpOnly: false,
+                domain: this.ctx.headers.host,
+                maxAge: 9 * 365 * 24 * 60 * 60 * 1000
+            });
+            // remove old cookie for '.domovenok.su'
+            cookiesApi.set('session_uid_dom', null, {
+                httpOnly: false,
+                domain: '.domovenok.su',
+                maxAge: 0
+            });
         }
     }
 
@@ -327,7 +362,7 @@ class PancakeUser {
     setSelfInCookie() {
         this.ctx.cookies.set(USER_COOKIE_KEY, this.uuid, {
             httpOnly: false,
-            domain: config.cookie.domain,
+            domain: config.cookie.domain, // now set .domovenok.su; TODO: set www.domovenok.su
             maxAge: 9 * 365 * 24 * 60 * 60 * 1000
         })
     }
@@ -446,6 +481,31 @@ class PancakeUser {
                 }
             }
         })
+    }
+
+
+    // MY ADAPTER METHOD
+    async setAuth1C(authData) {
+        authData = authData || {};
+        const auth1C = this.auth1C;
+        auth1C.uuid = authData.uuid;
+        auth1C.client_uuid = authData.client_id;
+        auth1C.employee_uuid = authData.employee_id;
+        auth1C.token = authData.token;
+        const tokenDb = await Token.find({
+            where: {
+                uuid: auth1C.uuid,
+            },
+        });
+        if (!tokenDb && auth1C.uuid) {
+            // await Token.create({
+            //     token: auth1C.token,
+            //     user_uuid: auth1C.uuid,
+            //     employee_uuid: auth1C.employee_uuid,
+            //     client_uuid: auth1C.client_uuid,
+            //     active: true,
+            // });
+        }
     }
 }
 

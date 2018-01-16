@@ -21,7 +21,7 @@ const router = module.exports = new Router();
 
 
 router.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(async function(ctx, next, request1C, GetEmployeeData, templateCtx) {
-  const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '');
+  const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', false, ctx);
   let GetConversationList = new Method1C('Employee.GetConversationList', {
     'EmployeeID': templateCtx.employeeId
   });
@@ -59,16 +59,16 @@ router.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(
 })));
 
 
-router.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginRequired(async function(ctx, next) {
+router.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginRequired(async function(ctx) {
   let salt = uuid4()
-  const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '');
+  const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', false, ctx);
   let NewConversation = new Method1C('Employee.NewConversation', {
     'EmployeeID': ctx.state.pancakeUser.auth1C.employee_uuid,
     'Subject': ctx.request.body.fields.subject
   })
   request1CAPIV2.add(NewConversation)
   await request1CAPIV2.do()
-  const twoRequest1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '')
+  const twoRequest1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', false, ctx);
   let SendMessage = new Method1C('SendMessage', {
     "Role": 2,
     "Content": ctx.request.body.fields.content,
@@ -86,7 +86,7 @@ router.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginRequir
 
 // set score for conversation
 // url –– /staff/ajax/conversations/747b480b-bf14-11e7-84bd-1c1b0dc62163/score/2'
-router.post('/staff/ajax/conversations/:conversationId/score/:score', loginRequired(async function (ctx, next){
+router.post('/staff/ajax/conversations/:conversationId/score/:score', loginRequired(async function (ctx){
   const params = ctx.params || {};
   const conversationId = params.conversationId;
   const score = parseInt(params.score, 10);
@@ -103,7 +103,7 @@ router.post('/staff/ajax/conversations/:conversationId/score/:score', loginRequi
        'Score': score
     });
     const user = ctx.state.pancakeUser;
-    const request1C = new Request1C(user.auth1C.token, user.uuid);
+    const request1C = new Request1C(user.auth1C.token, user.uuid, null, null, null, ctx);
     request1C.add(scoreConversation);
     await request1C.do();
     success = true;
@@ -113,7 +113,7 @@ router.post('/staff/ajax/conversations/:conversationId/score/:score', loginRequi
 
 
 router.get('/staff/:EmployeeID/conversations/:ConversationID', loginRequired(getEmployeeHeader(async function(ctx, next, request1C, GetEmployeeData, templateCtx) {
-  const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '');
+  const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', false, ctx);
   let GetConversationList = new Method1C('Employee.GetConversationList', {
     'EmployeeID': templateCtx.employeeId
   })

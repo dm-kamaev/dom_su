@@ -1,12 +1,82 @@
-"use strict";
+'use strict';
 
 // PROXY REQUEST TO 1C
 
 const Router = require('koa-router');
 const Request1Cv3 = require('api1c/request1Cv3.js');
-const decorators = require('staff/decorators.js');
+const AuthApi = require('/p/pancake/auth/authApi.js');
+const check_auth = require('/p/pancake/auth/check_auth.js');
+// const logger = require('/p/pancake/lib/logger.js');
 
 const router = module.exports = new Router();
+
+// /proxy_request/Login
+// {
+//   "Phone": "79161387884",
+//   "Code": "111"
+// }
+/* return ––
+{
+  "ok": true,
+  "data": {
+    "ClientID": "8e0420c8-8c8e-11e7-80e4-00155d594900",
+    "cookies": [{
+      "name": "X-Dom-Auth",
+      "value": "556884d4-5cd6-45fc-bb51-dbf4cec9f43c"
+    }, {
+      "name": "A",
+      "value": "556884d4-5cd6-45fc-bb51-dbf4cec9f43cFggwEaM2GF1513172070394",
+      "params": {
+        "domain": "www.dev2.domovenok.su",
+        "maxAge": 7776000000,
+        "path": "/",
+        "httpOnly": false
+      }
+    }, {
+      "name": "B",
+      "value": "fd67ee9d2bf8836018e70c515b4088c75bfe2c809f22cbf5d1ee1327bbf97ecc09e60b938d260c50be5ee95b0400e5c9ca4353a92b9f60bee6643a17274f8dbb",
+      "params": {
+        "domain": "www.dev2.domovenok.su",
+        "maxAge": 7776000000,
+        "path": "/",
+        "httpOnly": false
+      }
+    }, {
+      "name": "status",
+      "value": 1,
+      "params": {
+        "domain": "www.dev2.domovenok.su",
+        "maxAge": 7776000000,
+        "path": "/",
+      }
+    }]
+  }
+}*/
+router.post('/proxy_request/Auth.Login', async function (ctx) {
+  let body = ctx.request.body;
+  if (typeof body === 'string') {
+    body = JSON.parse(body);
+  }
+
+  const authApi = new AuthApi(ctx);
+  const res = await authApi.login(body.Phone, body.Code);
+  ctx.status = 200;
+  ctx.body = res;
+});
+
+
+router.post('/proxy_request/Auth.GetCode', async function (ctx) {
+  let body = ctx.request.body;
+  if (typeof body === 'string') {
+    body = JSON.parse(body);
+  }
+  const user = ctx.state.pancakeUser;
+  const request1C = new Request1Cv3(user.auth1C.token, user.uuid, null, ctx);
+  await request1C.add('Auth.GetCode', body).do();
+  const res = request1C.get();
+  ctx.body = res;
+});
+
 
 // proxy request from frontend to auth1C and return responce
 // url –– /proxy_request/Employee.GetConversationList
@@ -14,15 +84,58 @@ const router = module.exports = new Router();
 //   "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8"
 // }
 // responce –– { "ok": true/false, "data": ..., "error": {"code": ..., "text": "..."}
-router.post('/proxy_request/:methodName', decorators.loginRequiredWithoutRedirect(async function (ctx, next) {
-  const methodName = ctx.params.methodName;
-  const user = ctx.state.pancakeUser;
-  const request1C = new Request1Cv3(user.auth1C.token, user.uuid);
+// decorators.loginRequiredWithoutRedirect();
+router.post('/proxy_request/:methodName', check_auth.ajax(async function (ctx) {
+  const method_name = ctx.params.methodName;
+  // TODO: Redirect to Login method
   let body = ctx.request.body;
   if (typeof body === 'string') {
     body = JSON.parse(body);
   }
-  await request1C.add(methodName, body).do();
-  ctx.body = request1C.get();
+
+  const user = ctx.state.pancakeUser;
+  // console.log('user', user);
+
+
+  if (method_name === 'Client.GetDepartureList') {
+    const authApi = new AuthApi(ctx);
+    const auth_data = authApi.get_auth_data();
+    const client_id = auth_data.client_id;
+    body.ClientID = client_id;
+  }
+
+  const request1C = new Request1Cv3(user.auth1C.token, user.uuid, null, ctx);
+  await request1C.add(method_name, body).do();
+  const res = request1C.get();
+  ctx.body = res;
 }));
 
+
+router.get('/test_auth/', async function (ctx) {
+  const authApi = new AuthApi(ctx);
+
+  const text =
+  '<p style=font-size:190%>isLoginAsClient = ' + await authApi.isLoginAsClient()+ '</p>'+
+  '<p style=font-size:190%>isLoginAsClientEmployee = ' + await authApi.isLoginAsClientEmployee()+ '</p>'+
+  '<a href=/test_logout style=font-size:190%>LOGOUT</a>';
+
+  // 'isLoginAsClient = ' + await authApi.isLoginAsClient()+ '\n'+
+  // 'isLoginAsClientEmployee = ' + await authApi.isLoginAsClientEmployee()+ '\n';
+
+
+  ctx.status = 200;
+  ctx.body = text;
+});
+
+
+router.get('/test_logout/', async function (ctx) {
+  const authApi = new AuthApi(ctx);
+
+  authApi.logout();
+  const text =
+  '<p style=font-size:190%>success logout</p>'+
+  '<a href=/test_auth style=font-size:190%>CHECK AUTH</a>';
+
+  ctx.status = 200;
+  ctx.body = text;
+});

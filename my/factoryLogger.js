@@ -4,6 +4,7 @@
 
 // CREATE LOGGER
 
+const CONF = require('/p/pancake/settings/config.js');
 const fs = require('fs');
 const time = require('/p/pancake/my/time.js');
 const wf_sync = require('/p/pancake/my/wf_sync.js');
@@ -32,7 +33,6 @@ module.exports = class FactoryLogger {
     }
     const file_info = wf_sync.get_file_info(file_path);
     const mtime = time.format('YYYY_MM_DD_hh_mm_ss', file_info.mtime);
-    const new_name_for_old_file = file_path.replace(/\.log$/, '__' + mtime);
     wf_sync.rename(file_path, file_path.replace(/\.log$/, '_' + mtime + '.log'));
     wf_sync.write(file_path, '');
     return this;
@@ -131,7 +131,7 @@ function sendEmail(title, output) {
   // if (CONF.is_env('prod') && me.is_send_email) {
   const subject = 'Warning: в '+title+'. Время: '+time.format('YYYY-MM-DD hh:mm:ss');
   // output = 'ENV = "'+CONF.env+'" \n'+output;
-  output = 'ENV = "dev2" \n'+output;
+  output = 'ENV = "'+CONF.env+'" \n'+output;
   const data = {
     subject,
     text: output

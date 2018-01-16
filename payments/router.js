@@ -56,7 +56,7 @@ loadTemplate({path: 'templates/payments/init.html', name: 'paymentsInit'})
 loadTemplate({path: 'templates/payments/success.html', name: 'paymentsSuccess'})
 loadTemplate({path: 'templates/payments/failure.html', name: 'paymentsFailure'})
 
-async function getTerminalData(paymentId, orderId) {
+async function getTerminalData(paymentId, orderId, ctx) {
     if (paymentId) {
         let payment = await Payment.findOne({where: {PaymentId: paymentId}})
         if (payment && payment.payment_org_type){
@@ -65,7 +65,15 @@ async function getTerminalData(paymentId, orderId) {
     }
     try{
         if (orderId){
-            let singleRequest = new SingleRequest1C('Client.GetPaymentOrgType', {"OrderID": orderId}, null, null)
+            let singleRequest = new SingleRequest1C(
+                'Client.GetPaymentOrgType', // name
+                {"OrderID": orderId}, // param
+                null, // token
+                null, // userUUID
+                null, // ip
+                null, // userAgent
+                ctx
+            );
             let response = await singleRequest.do()
             if (PaymentOrgType[response.PaymentOrgType]){
                 return PaymentOrgType[response.PaymentOrgType]
@@ -78,6 +86,7 @@ async function getTerminalData(paymentId, orderId) {
     }
     return PaymentOrgType[DEFAULT_PAYMENT_ORG_TYPE]
 }
+
 
 async function confirm(payment) {
     let getParam = {'PaymentId': payment.PaymentId}
@@ -332,7 +341,7 @@ paymentsRouter.post('/payments/take/', async function (ctx, next) {
         }
         get_param['Amount'] = amount
         get_param['IP'] = ctx.request.header['x-real-ip']
-        let terminalData = await getTerminalData(null, ctx.request.body.order_id)
+        let terminalData = await getTerminalData(null, ctx.request.body.order_id, ctx)
         let last_payment = await Payment.findOne({order: [['id', 'DESC']]})
         let create_payment = {'OrderId': ctx.request.body.order_id, 'Amount': Number(get_param['Amount']), 'Description': ctx.request.body.description, 'IP': get_param['IP'], 'redirectNewSite': false, 'redirectPath': '', id: Number(last_payment.id) + 1, 'payment_org_type': terminalData['NAME']}
         if (ctx.request.body.redirect){
