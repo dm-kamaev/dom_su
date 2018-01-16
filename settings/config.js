@@ -10,6 +10,12 @@ if (env !== 'dev' && env !== 'dev2' && env !== 'dev3' && env !== 'prod') {
   throw new Error('Not valid env for node js "'+env+'"');
 }
 
+const enum_api_1C = {
+  SASHA: 'sasha',
+  PASHA: 'pasha',
+  PROD: 'prod'
+};
+
 const CONF = {
   env,
   pg: {
@@ -57,7 +63,7 @@ module.exports = function() {
       break;
     case 'dev2':
       CONF.domain = 'https://www.dev2.domovenok.su';
-      CONF.api1C = get_api_1c('sasha');
+      CONF.api1C = get_api_1c(enum_api_1C.PASHA);
       break;
     case 'prod':
       CONF.domain = 'https://www.domovenok.su';
@@ -67,7 +73,7 @@ module.exports = function() {
         database: 'domovenok',
         host: 'localhost'
       };
-      CONF.api1C = get_api_1c('prod');
+      CONF.api1C = get_api_1c(enum_api_1C.PROD);
       CONF.analytics = {
         google: 'UA-26472404-10'
       };

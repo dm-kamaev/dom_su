@@ -107,13 +107,17 @@
                 </a>
             {{/each }}
         {{/if }}
-        {{#if GetCurrentWageForEmployee.AdditionalCharges }}
+        {{#if additional_charges }}
             <h3>Дополнительные начисления</h3>
-            {{#each GetCurrentWageForEmployee.AdditionalCharges as |wage|}}
+            {{#each additional_charges as |charge|}}
                 <a class="table-item">
-                    <p class="table-item__text  table-item__text--bold">{{#if wage.Date}}{{ formatPartDate wage.Date "HH:mm" }}{{else}}-{{/if}}</p>
-                    <p class="table-item__text">{{ wage.Description }}</p>
-                    <p class="table-item__text  table-item__text--summa  table-item__text--bold">Сумма: {{ toMoney wage.Sum }} руб.</p>
+                    <p class="table-item__text">{{ charge.description }}</p>
+                    <p class="table-item__text  table-item__text--bold">
+                        {{charge.date}}
+                        {{charge.document.number}}
+                    </p>
+                    <p class=table-item__text>{{charge.document.description}}</p>
+                    <p class="table-item__text  table-item__text--summa  table-item__text--bold">Сумма: {{ toMoney charge.sum }} руб.</p>
                 </a>
             {{/each }}
         {{/if }}
