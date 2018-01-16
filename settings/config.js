@@ -18,13 +18,13 @@ const CONF = {
     database: 'pancake',
     host: 'localhost'
   },
-  api1C: {
-    ip: '192.168.1.63', // Саша
-    url: '/domovenok/hs/api/v2/',
-    oldAPI: '/domovenok/hs/api/',
-    port: 80,
-    ticket_url: '/domovenok/hs/rq'
-  },
+  // api1C: {
+  //   ip: '192.168.1.63', // Саша
+  //   url: '/domovenok/hs/api/v2/',
+  //   oldAPI: '/domovenok/hs/api/',
+  //   port: 80,
+  //   ticket_url: '/domovenok/hs/rq'
+  // },
   // 'api1C': { // Лиза
   //   'ip': '192.168.1.144',
   //   'url': '/domovenok/hs/api/v2/',
@@ -32,6 +32,13 @@ const CONF = {
   //   'port': 80,
   //   'ticket_url': '/domovenok/hs/rq'
   // },
+  api1C: { // Паша
+    ip: '192.168.1.50',
+    url: '/domovenok/hs/api/v2/',
+    oldAPI: '/domovenok/hs/api/',
+    port: 80,
+    ticket_url: '/domovenok/hs/rq'
+  },
   // api1C: { // Не работающий прод
   //   ip: '192.168.1.241',
   //   port: 80,
