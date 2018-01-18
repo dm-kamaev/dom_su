@@ -73,21 +73,19 @@ async function getPageWithABTest(ctx, page) {
   let city = ctx.state.pancakeUser.city.keyword;
   const user = ctx.state.pancakeUser;
   const is_a_b_test =
-      ABTestContainer[city] &&
-      ABTestContainer[city][page] &&
-      !yaBotsRegExp.test(ctx.request.headers['user-agent']) &&
-      await checkForOnlyFirstVisit(ctx, ABTestContainer[city][page]);
-  console.log('=== getPageWithABTest ===');
+    ABTestContainer[city] &&
+    ABTestContainer[city][page] &&
+    !yaBotsRegExp.test(ctx.request.headers['user-agent']) &&
+    await checkForOnlyFirstVisit(ctx, ABTestContainer[city][page]);
   if (is_a_b_test) {
     let ABTest = ABTestContainer[city][page];
-    let testData = ctx.state.pancakeUser.getABTest(ABTest);
+    let testData = user.getABTest(ABTest);
     if (!testData) {
       const variations = ABTest.variations;
       let ABTestVariant = choiceTest(variations);
       testData = {page: ABTestVariant.page, name: ABTestVariant.name};
       const current_page =  ABTestVariant;
-      console.log('current_page=', current_page);
-      ctx.state.pancakeUser.setABTest(ABTest.key, testData, current_page, variations);
+      user.setABTest(ABTest.key, testData, current_page, variations);
     }
     let {template, data} = await getPage(citiesTemplate[city], testData.page);
     if (template){
