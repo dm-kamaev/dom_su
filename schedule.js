@@ -18,7 +18,7 @@ const moment = require('moment');
 const MAX_STAGNATION_VISIT_MINUTE = 15;
 const MAX_STAGNATION_TAKE_NUMBER_MINUTE = 10;
 const MAX_STAGNATION_ACTION_TOKEN_MINUTE = 2 * 24 * 60;
-const CRON_VISIT = 4;
+const CRON_VISIT = 1;
 const CRON_NUMBER = 1;
 const CRON_TICKET = 1;
 const CRON_PAYMENT = 1;
@@ -226,10 +226,8 @@ async function deleteOldActionToken() {
 }
 
 module.exports = () => {
-  // setTimeout(function() {
-  //   setVisitFinish();
-  // }, 10);
-  let taskVisit = schedule.scheduleJob(`*/${CRON_VISIT} *4* * *`, function(){
+  // let taskVisit = schedule.scheduleJob(`*/${CRON_VISIT} *4* * *`, function(){
+  let taskVisit = schedule.scheduleJob(`*/10 * * * *`, function(){
     setVisitFinish();
   });
   logger.info('Schedule - CLOSE VISIT  - START');
