@@ -90,11 +90,13 @@
             <h2 class="table-item__title">Проценты с заказа</h2>
             {{#each GetCurrentWageForEmployee.InterestOnOrder as |wage|}}
                 <a class="table-item" href="{{staffUrl 'orderDetail' wage.DepartureID }}">
-                    <p class="table-item__text  table-item__text--bold">{{#if wage.Date}}{{ formatPartDate wage.Date "DD.MM.YYYY" }}<span class="table-item__text  table-item__text--big"> {{ formatPartDate wage.Date "HH:MM" }}</span>{{else}}-{{/if}}</p>
                     <p class="table-item__text">{{ wage.Description }}</p>
+                    <p class="table-item__text table-item__text--bold">
+                        {{#if wage.Date}}{{ formatPartDate wage.Date "DD.MM.YYYY" }} <span class="table-item__text  table-item__text--big"> {{ formatPartDate wage.Date "HH:MM" }}</span> {{else}} - {{/if}}
+                    </p>
                     {{#if wage.Adjustment }}
                         <div class="table-item__text--summa">
-                            <p class="table-item__text  table-item__text--bold">Сумма: {{ toMoney wage.Sum}} руб.</p>
+                            <p class="table-item__text table-item__text--bold">Сумма: {{ toMoney wage.Sum}} руб.</p>
                                 <p class="table-item__text">Корректировка.<br> Начислено за заказ: {{ toMoney wage.Adjustment.Sum }} руб.</p>
                                 <p class="table-item__text">Предыдущие выдачи:</p>
                                 {{#each wage.Adjustment.OldWages as |adjst|}}
@@ -112,9 +114,9 @@
             {{#each additional_charges as |charge|}}
                 <a class="table-item">
                     <p class="table-item__text">{{ charge.description }}</p>
-                    <p class="table-item__text  table-item__text--bold">
-                        {{charge.date}}
-                        {{charge.document.number}}
+                    <p class="table-item__text">
+                        <span class=table-item__text--bold>{{charge.date}}</span>
+                        <span style=font-size:16px;>{{charge.document.number}}</span>
                     </p>
                     <p class=table-item__text>{{charge.document.description}}</p>
                     <p class="table-item__text  table-item__text--summa  table-item__text--bold">Сумма: {{ toMoney charge.sum }} руб.</p>

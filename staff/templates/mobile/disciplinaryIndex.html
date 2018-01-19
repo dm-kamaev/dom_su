@@ -31,9 +31,10 @@
             {{#each GetDisciplinaryList.List as |item|}}
                     <a class="ui-btn" href="{{ staffUrl 'disciplinaryInfo' ../employeeId item.DisciplinaryID }}">
                       <div class="ui-block-a"><div class="ui-body ui-body-e">{{ formatPartDate item.Date "DD.MM.YYYY" }}</div></div>
+                      <div class="ui-block-c"><div class="ui-body ui-body-e">{{ item.Number }}</div></div>
                       <div class="ui-block-b"><div class="ui-body ui-body-e"><span style="font-weight: normal; white-space: normal;">{{ item.Title }}</span></div></div>
                       <div class="ui-block-c"><div class="ui-body ui-body-e"><span style="font-weight: normal">{{ formatPartDate item.DateStart "DD.MM.YYYY" }}</span></div></div>
-                      <div class="ui-block-d"><div class="ui-body ui-body-e"><span style="font-weight: normal; color: red">{{ item.Weight }}</span></div></div>
+                      {{!-- <div class="ui-block-d"><div class="ui-body ui-body-e"><span style="font-weight: normal; color: red">{{ item.Weight }}</span></div></div> --}}
                       <div class="ui-block-e"><div class="ui-body ui-body-e"><span style="font-weight: normal; white-space: normal;color:{{#ifCond item.Status '==' 1 }}red{{/ifCond}}{{#ifCond item.Status '==' 2 }}#ff6600{{/ifCond}}{{#ifCond item.Status '==' 3 }}green{{/ifCond}}">{{ item.StatusTitle }}</span></div></div>
                     </a>
             {{/each}}

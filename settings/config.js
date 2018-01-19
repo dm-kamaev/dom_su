@@ -22,34 +22,11 @@ const CONF = {
     user: 'domovenok',
     password: 'domovenokPG',
     database: 'pancake',
-    host: 'localhost'
+    host: 'localhost',
+    max: 10, // max number of clients in the pool
+    idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
   },
-  // api1C: {
-  //   ip: '192.168.1.63', // Саша
-  //   url: '/domovenok/hs/api/v2/',
-  //   oldAPI: '/domovenok/hs/api/',
-  //   port: 80,
-  //   ticket_url: '/domovenok/hs/rq'
-  // },
-  // 'api1C': { // Лиза
-  //   'ip': '192.168.1.144',
-  //   'url': '/domovenok/hs/api/v2/',
-  //   oldAPI: '/domovenok/hs/api/',
-  //   'port': 80,
-  //   'ticket_url': '/domovenok/hs/rq'
-  // },
-  // api1C: { // Паша
-  //   ip: '192.168.1.50',
-  //   url: '/domovenok/hs/api/v2/',
-  //   oldAPI: '/domovenok/hs/api/',
-  //   port: 80,
-  //   ticket_url: '/domovenok/hs/rq'
-  // },
-  // api1C: { // Не работающий прод
-  //   ip: '192.168.1.241',
-  //   port: 80,
-  //   url: '/domovenok/hs/api/v2/',
-  // }
+  session_uid: 'session_uid_dom_dev', // cookie user uuid
   analytics: {
     google: 'UA-91645230-1'
   }
@@ -63,7 +40,7 @@ module.exports = function() {
       break;
     case 'dev2':
       CONF.domain = 'https://www.dev2.domovenok.su';
-      CONF.api1C = get_api_1c(enum_api_1C.PASHA);
+      CONF.api1C = get_api_1c(enum_api_1C.SASHA);
       break;
     case 'prod':
       CONF.domain = 'https://www.domovenok.su';
@@ -71,12 +48,15 @@ module.exports = function() {
         user: 'domovenok',
         password: 'TQ7Ee3q74F6hPNfp',
         database: 'domovenok',
-        host: 'localhost'
+        host: 'localhost',
+        max: 10, // max number of clients in the pool
+        idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
       };
       CONF.api1C = get_api_1c(enum_api_1C.PROD);
       CONF.analytics = {
         google: 'UA-26472404-10'
       };
+      CONF.session_uid = 'session_uid_dom';
       break;
     default:
       throw new Error('Not valid env for node js "'+env+'". Valid value: dev, dev2, prod');

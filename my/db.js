@@ -2,49 +2,15 @@
 
 // CONNECTOR FOR POSTGRES
 // TODO: add config
-
+const CONF = require('/p/pancake/settings/config.js');
 const pg = require('pg');
 const logger = require('/p/pancake/lib/logger.js');
-// const config = require('config');
 
 const SHOW_SQL = true;
+
 const db = exports;
 
-// const configPool = {
-//   user: config.db.user, // name of the user account
-//   password: config.db.password, // name of the user account
-//   database: config.db.database, // name of the database
-//   host: config.db.host,
-//   max: 10, // max number of clients in the pool
-//   idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
-// };
-let configPool;
-switch (process.env.NODE_ENV) {
-  case 'development':
-    configPool = {
-      user: 'domovenok',
-      password: 'domovenokPG',
-      database: 'pancake',
-      host: 'localhost',
-      max: 10, // max number of clients in the pool
-      idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
-    };
-    break;
-  case 'production':
-    configPool = {
-      'user': 'domovenok',
-      'password': 'TQ7Ee3q74F6hPNfp',
-      'database': 'domovenok',
-      'host': 'localhost',
-      max: 10, // max number of clients in the pool
-      idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
-    };
-    break;
-  default:
-    throw new Error('DB required NODE_ENV from list: production, development');
-}
-
-const pool = new pg.Pool(configPool);
+const pool = new pg.Pool(CONF.pg);
 
 // the pool with emit an error on behalf of any idle clients
 // it contains if a backend error or network partition happens
@@ -71,11 +37,11 @@ db.read = async function (query, params) {
   const client = await pool.connect();
   let result;
   try {
-    const res = await client.query(query, params);
-    result = res.rows;
     if (SHOW_SQL) {
       logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : null));
     }
+    const res = await client.query(query, params);
+    result = res.rows;
     client.release();
     return result;
   } catch(err) {
@@ -97,11 +63,11 @@ db.read_one = async function (query, params) {
   const client = await pool.connect();
   let result;
   try {
-    const res = await client.query(query+' LIMIT 1', params);
-    result = res.rows[0] || null;
     if (SHOW_SQL) {
       logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : null));
     }
+    const res = await client.query(query+' LIMIT 1', params);
+    result = res.rows[0] || null;
     client.release();
     return result;
   } catch(err) {
@@ -123,11 +89,11 @@ db.edit = async function (query, params) {
   const client = await pool.connect();
   let result;
   try {
-    const res = await client.query(query, params);
-    result = res.rowCount;
     if (SHOW_SQL) {
       logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : null));
     }
+    const res = await client.query(query, params);
+    result = res.rowCount;
     client.release();
     return result;
   } catch(err) {
