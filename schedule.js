@@ -226,12 +226,12 @@ async function deleteOldActionToken() {
 }
 
 module.exports = () => {
-  setTimeout(function() {
-    setVisitFinish();
-  }, 10);
-  // let taskVisit = schedule.scheduleJob(`*/${CRON_VISIT} * * * *`, function(){
+  // setTimeout(function() {
   //   setVisitFinish();
-  // });
+  // }, 10);
+  let taskVisit = schedule.scheduleJob(`*/${CRON_VISIT} * * * *`, function(){
+    setVisitFinish();
+  });
   logger.info('Schedule - CLOSE VISIT  - START');
 
   let taskPhoneNumber = schedule.scheduleJob(`*/${CRON_NUMBER} * * * *`, function () {
