@@ -98,7 +98,7 @@ db.edit = async function (query, params) {
     return result;
   } catch(err) {
     result = new DbError(query, err, params);
-    logger.warn(result);
+    logger.warn(query+err);
     client.release();
     return result;
   }
