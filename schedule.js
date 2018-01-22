@@ -35,7 +35,7 @@ function setVisitFinish() {
         'visits.user_uuid = users.uuid AND ' +
         `users.last_action < (NOW() - INTERVAL '${MAX_STAGNATION_VISIT_MINUTE} minutes') ` +
   // 'users.last_action < NOW()' +
-     'RETURNING visits.uuid, visits.user_uuid ';
+     'RETURNING visits.uuid, visits.user_uuid; ';
   console.log('!!!query!!! ', query);
   sequelize.query(query)
     .spread(async function(results) {
