@@ -36,7 +36,6 @@ function setVisitFinish() {
         `users.last_action < (NOW() - INTERVAL '${MAX_STAGNATION_VISIT_MINUTE} minutes') ` +
   // 'users.last_action < NOW()' +
      'RETURNING visits.uuid, visits.user_uuid; ';
-  console.log('!!!query!!! ', query);
   sequelize.query(query)
     .spread(async function(results) {
       console.log('\n\n\n\n\n  === setVisitFinish === ');
@@ -227,7 +226,8 @@ async function deleteOldActionToken() {
 }
 
 module.exports = () => {
-  let taskVisit = schedule.scheduleJob(`*/${CRON_VISIT} * * * *`, function(){
+  // let taskVisit = schedule.scheduleJob(`*/${CRON_VISIT} * * * *`, function(){
+  let taskVisit = schedule.scheduleJob('*/20 * * * *', function(){
     setVisitFinish();
   });
   logger.info('Schedule - CLOSE VISIT  - START');
