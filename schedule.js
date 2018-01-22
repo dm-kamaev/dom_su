@@ -227,7 +227,7 @@ async function deleteOldActionToken() {
 }
 
 module.exports = () => {
-  let taskVisit = schedule.scheduleJob(`*/${CRON_VISIT} *4* * *`, function(){
+  let taskVisit = schedule.scheduleJob(`*/${CRON_VISIT} * * * *`, function(){
     setVisitFinish();
   });
   logger.info('Schedule - CLOSE VISIT  - START');
