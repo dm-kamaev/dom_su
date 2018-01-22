@@ -27,17 +27,17 @@ const CRON_ACTION_TOKEN = 20;
 // TODO ERROR HANDLER
 
 function setVisitFinish() {
-  sequelize.query(
-    'UPDATE visits ' +
-      'SET active = False, ' +
-        '"end" = NOW() ' +
-        'FROM users ' +
-        'WHERE visits.active is True AND ' +
-          'visits.user_uuid = users.uuid AND ' +
-          `users.last_action < (NOW() - INTERVAL '${MAX_STAGNATION_VISIT_MINUTE} minutes') ` +
-    // 'users.last_action < NOW()' +
-       'RETURNING visits.uuid, visits.user_uuid; '
-  )
+  const query = 'UPDATE visits ' +
+    'SET active = False, ' +
+      '"end" = NOW() ' +
+      'FROM users ' +
+      'WHERE visits.active is True AND ' +
+        'visits.user_uuid = users.uuid AND ' +
+        `users.last_action < (NOW() - INTERVAL '${MAX_STAGNATION_VISIT_MINUTE} minutes') ` +
+  // 'users.last_action < NOW()' +
+     'RETURNING visits.uuid, visits.user_uuid ';
+  console.log('!!!query!!! ', query);
+  sequelize.query(query)
     .spread(async function(results) {
       console.log('\n\n\n\n\n  === setVisitFinish === ');
       console.log('results=', results);
