@@ -4,7 +4,7 @@ const config = require('config');
 const db = require('/p/pancake/my/db.js');
 const promise_api = require('/p/pancake/my/promise_api.js');
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, {logging: true});
+const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, {logging: false});
 const schedule = require('node-schedule');
 const logger = require('logger')(module);
 const loggerPay = require('logger')(module, 'pay.log');
@@ -29,14 +29,14 @@ const CRON_ACTION_TOKEN = 20;
 function setVisitFinish() {
   sequelize.query(
     'UPDATE visits ' +
-        'SET active = False, ' +
-          '"end" = NOW() ' +
+      'SET active = False, ' +
+        '"end" = NOW() ' +
         'FROM users ' +
         'WHERE visits.active is True AND ' +
-              'visits.user_uuid = users.uuid AND ' +
-              `users.last_action < (NOW() - INTERVAL '${MAX_STAGNATION_VISIT_MINUTE} minutes') ` +
-              // 'users.last_action < NOW()' +
-        'RETURNING visits.uuid, visits.user_uuid; '
+          'visits.user_uuid = users.uuid AND ' +
+          `users.last_action < (NOW() - INTERVAL '${MAX_STAGNATION_VISIT_MINUTE} minutes') ` +
+    // 'users.last_action < NOW()' +
+       'RETURNING visits.uuid, visits.user_uuid; '
   )
     .spread(async function(results) {
       console.log('\n\n\n\n\n  === setVisitFinish === ');
@@ -47,29 +47,30 @@ function setVisitFinish() {
           user.set('data.first_visit', false);
           await user.save();
         }
-        promise_api.queue(results, async function (visit) {
-          const visit_from_db = await db.read_one(`
-              SELECT
-                uuid,
-                user_uuid,
-                active,
-                begin,
-                "end",
-                data,
-                "createdAt",
-                "updatedAt"
-              FROM
-                visits
-              WHERE
-                uuid = '${visit.uuid}'
-          `);
-          console.log('visit_from_db=', visit_from_db);
-          if (visit_from_db instanceof Error) {
-            return log.warn(visit_from_db);
-          }
+        const visit_uuids = results.map(visit => visit.uuid);
+        const visits_from_db = await db.read(`
+          SELECT
+            uuid,
+            user_uuid,
+            active,
+            begin,
+            "end",
+            data,
+            "createdAt",
+            "updatedAt"
+          FROM
+            visits
+          WHERE
+            uuid IN(${visit_uuids.map(uuid => `'${uuid}'`).join(',')})
+        `);
+        console.log('visits_from_db=', visits_from_db);
+        if (visits_from_db instanceof Error) {
+          return log.warn(visits_from_db);
+        }
+        promise_api.queue(visits_from_db, async function (visit) {
           const insert_res = await db.edit(`
             INSERT INTO
-              visits_finish
+              visits_finish_2017
             (
               uuid,
               user_uuid,
@@ -90,14 +91,14 @@ function setVisitFinish() {
               $7,
               $8
             )`, [
-              visit_from_db.uuid,
-              visit_from_db.user_uuid,
-              visit_from_db.active,
-              visit_from_db.begin,
-              visit_from_db.end,
-              visit_from_db.data,
-              visit_from_db.createdAt,
-              visit_from_db.updatedAt,
+              visit.uuid,
+              visit.user_uuid,
+              visit.active,
+              visit.begin,
+              visit.end,
+              visit.data,
+              visit.createdAt,
+              visit.updatedAt,
             ]);
           if (insert_res instanceof Error) {
             return log.warn(insert_res);
@@ -107,7 +108,7 @@ function setVisitFinish() {
             DELETE FROM
               visits
             WHERE
-              uuid='${visit_from_db.uuid}'
+              uuid='${visit.uuid}'
           `);
           console.log('delete_res=', delete_res);
           if (delete_res instanceof Error) {
@@ -227,7 +228,6 @@ async function deleteOldActionToken() {
 
 module.exports = () => {
   let taskVisit = schedule.scheduleJob(`*/${CRON_VISIT} *4* * *`, function(){
-  // let taskVisit = schedule.scheduleJob(`*/10 * * * *`, function(){
     setVisitFinish();
   });
   logger.info('Schedule - CLOSE VISIT  - START');

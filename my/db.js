@@ -38,7 +38,7 @@ db.read = async function (query, params) {
   let result;
   try {
     if (SHOW_SQL) {
-      logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : null));
+      logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : ''));
     }
     const res = await client.query(query, params);
     result = res.rows;
@@ -64,7 +64,7 @@ db.read_one = async function (query, params) {
   let result;
   try {
     if (SHOW_SQL) {
-      logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : null));
+      logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : ''));
     }
     const res = await client.query(query+' LIMIT 1', params);
     result = res.rows[0] || null;
@@ -90,7 +90,7 @@ db.edit = async function (query, params) {
   let result;
   try {
     if (SHOW_SQL) {
-      logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : null));
+      logger.info(`SQL: ${query} ` + ((params) ? JSON.stringify(params, null, 2) : ''));
     }
     const res = await client.query(query, params);
     result = res.rowCount;

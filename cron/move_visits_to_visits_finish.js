@@ -10,16 +10,13 @@ const logger = require('/p/pancake/lib/logger.js');
 void async function () {
   const visits = await read_visits();
   if (visits instanceof Error) {
-    return logger.warn(visits);
+    logger.warn(visits);
+    return global.process.exit(1);
   }
-  const visits_finish = await read_visits_finish();
-  if (visits_finish instanceof Error) {
-    return logger.warn(visits_finish);
-  }
-  await update_visits_finish(visits, convert_to_hash(visits_finish, 'uuid'));
+  await update_visits_finish(visits);
 
   console.log('THE END');
-  global.process.exit();
+  global.process.exit(0);
 }();
 
 
@@ -45,62 +42,21 @@ async function read_visits() {
 }
 
 
-async function read_visits_finish() {
-  const query = `
-    SELECT
-      uuid,
-      user_uuid,
-      active,
-      begin,
-      "end",
-      data,
-      "createdAt",
-      "updatedAt"
-    FROM
-      visits_finish
-  `;
-  return await db.read(query);
-}
-
-
-function convert_to_hash(arr, key) {
-  var res = {};
-  for (var i = 0, l = arr.length; i < l; i++) {
-    var el = arr[i];
-    res[el[key]] = el;
-  }
-  return res;
-}
-
-
-async function update_visits_finish(visits, hash_visits_finish) {
+async function update_visits_finish(visits) {
   await promise_api.queue(visits, async function(visit) {
-    let query = '';
-    if (hash_visits_finish[visit.uuid]) {
-      query = `
-        DELETE FROM
-          visits
-        WHERE
-          uuid = '${visit.uuid}'
-      `;
-      console.log('repeat', visit);
-      return await db.edit(query);
-    }
-
-    query = `
+    const delete_res = await db.edit(`
       DELETE FROM
         visits
       WHERE
         uuid = '${visit.uuid}'
-    `;
-    const delete_res = await db.edit(query);
+    `);
     if (delete_res instanceof Error) {
       return logger.warn(delete_res);
     }
     console.log('delete_res=', delete_res);
     const insert_res = await db.edit(`
       INSERT INTO
-        visits_finish
+        visits_finish_2017
       (
         uuid,
         user_uuid,
