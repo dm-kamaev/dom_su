@@ -69,7 +69,7 @@ function setVisitFinish() {
         promise_api.queue(visits_from_db, async function (visit) {
           const insert_res = await db.edit(`
             INSERT INTO
-              visits_finish_2017
+              visits_finish_2018
             (
               uuid,
               user_uuid,
