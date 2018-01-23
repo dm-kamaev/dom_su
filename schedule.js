@@ -38,8 +38,6 @@ function setVisitFinish() {
      'RETURNING visits.uuid, visits.user_uuid; ';
   sequelize.query(query)
     .spread(async function(results) {
-      console.log('\n\n\n\n\n  === setVisitFinish === ');
-      console.log('results=', results);
       if (results.length > 0){
         for (let user_data of results){
           let user = await User.findOne({where:{uuid: user_data.user_uuid}});
@@ -62,7 +60,6 @@ function setVisitFinish() {
           WHERE
             uuid IN(${visit_uuids.map(uuid => `'${uuid}'`).join(',')})
         `);
-        console.log('visits_from_db=', visits_from_db);
         if (visits_from_db instanceof Error) {
           return log.warn(visits_from_db);
         }
@@ -102,14 +99,12 @@ function setVisitFinish() {
           if (insert_res instanceof Error) {
             return log.warn(insert_res);
           }
-          console.log('insert_res=', insert_res);
           const delete_res = await db.edit(`
             DELETE FROM
               visits
             WHERE
               uuid='${visit.uuid}'
           `);
-          console.log('delete_res=', delete_res);
           if (delete_res instanceof Error) {
             return log.warn(delete_res);
           }
