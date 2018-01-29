@@ -9,8 +9,9 @@ const { citiesTemplate } = require('./router_cities');
 const { ABTestContainer, choiceTest, checkForOnlyFirstVisit, yaBotsRegExp } = require('./ab_tests');
 const { addRobotsFileInRouting } = require('./robots');
 
-
+/* eslint-disable */
 const re_slash = new RegExp('\/', 'g');
+/* eslint-enable */
 const sectionListRegExp = [
   new RegExp('^/articles'),
   new RegExp('^/faq'),

@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use strict";
 const { models, ErrorCodes, ModelsError } = require('models');
 const { City } = models;
@@ -21,7 +22,7 @@ async function loadCities() {
 }
 
 module.exports = {
-    CITIES: CITIES,
+    CITIES,
     loadCities,
 }
 

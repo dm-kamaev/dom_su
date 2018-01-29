@@ -128,16 +128,16 @@ class Logger {
 }
 
 function sendEmail(title, output) {
-  // if (CONF.is_env('prod') && me.is_send_email) {
-  const subject = 'Warning: в '+title+'. Время: '+time.format('YYYY-MM-DD hh:mm:ss');
-  // output = 'ENV = "'+CONF.env+'" \n'+output;
-  output = 'ENV = "'+CONF.env+'" \n'+output;
-  const data = {
-    subject,
-    text: output
-  };
-  new Email().toMe(data).send().catch(err => console.log(err));
-  // }
+  if (CONF.is_prod) {
+    const subject = 'Warning: в '+title+'. Время: '+time.format('YYYY-MM-DD hh:mm:ss');
+    // output = 'ENV = "'+CONF.env+'" \n'+output;
+    output = 'ENV = "'+CONF.env+'" \n'+output;
+    const data = {
+      subject,
+      text: output
+    };
+    new Email().toMe(data).send().catch(err => console.log(err));
+  }
 }
 
 // const logger = new module.exports({
