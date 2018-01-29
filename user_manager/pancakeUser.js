@@ -75,7 +75,10 @@ class PancakeUser {
         this.ab_test = user.data.ab_test || {};
         this.firstVisit = user.data.first_visit || false;
         // set custom phone from table users or default number for city
-        this.set_phone(user.current_phone || this.city.phone);
+        if (user.current_phone) {
+          this.set_phone(user.current_phone);
+        }
+        // this.set_phone(user.current_phone || this.city.phone);
       } else {
         if (validateUUID(this.ctx.cookies.get(USER_COOKIE_KEY), 4)){
           uuidNext = this.ctx.cookies.get(USER_COOKIE_KEY);
@@ -88,7 +91,7 @@ class PancakeUser {
       this.uuid = uuidNext || uuid4();
       this.isNew = true;
       this.city = city_api.get_via_host(this.ctx);
-      this.set_phone(this.city.phone);
+      // this.set_phone(this.city.phone);
 
       this.setSelfInCookie(this.ctx);
 
@@ -117,7 +120,6 @@ class PancakeUser {
   }
 
   set_phone(phone) {
-    this.city.phone = phone;
     return this.current_phone = phone;
   }
 
