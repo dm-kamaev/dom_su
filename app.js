@@ -39,10 +39,10 @@ const routerStaffConversation = require('staff/staff_conversation/routerStaffCon
 const koaBody = require('koa-body');
 const schedule = require('schedule');
 const userAgent = require('koa-useragent');
-const logger = require('/p/clientPA/lib/logger.js');
+const logger = require('/p/pancake/lib/logger.js');
 
 process.on('uncaughtException', (err) => {
-  logger.warn('ERROR= '+err);
+  logger.warn('ERROR= '+err.stack);
 });
 
 process.on('unhandledRejection', (reason, p) => {

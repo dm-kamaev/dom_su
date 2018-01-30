@@ -1,11 +1,13 @@
 'use strict';
 
-const koa_morgan = require('/p/pancake/lib/koa_morgan.js');
 const rfs = require('rotating-file-stream');
+const koa_morgan = require('/p/pancake/lib/koa_morgan.js');
+
 
 koa_morgan.token('uuid', function(req, res) {
-  const uuid = req.ctx.state.pancakeUser.uuid;
-  return uuid;
+  const state = req.ctx.state || {};
+  const user = state.pancakeUser || {};
+  return user.uuid || '';
 });
 
 koa_morgan.token('hit_id', function(req, res) {
