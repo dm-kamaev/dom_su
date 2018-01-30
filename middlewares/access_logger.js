@@ -13,6 +13,11 @@ koa_morgan.token('hit_id', function(req, res) {
   return context.get('hit_id');
 });
 
+koa_morgan.token('ip', function(req, res) {
+  const header = req.headers;
+  return header['x-forwarded-for'] || '';
+});
+
 koa_morgan.token('req_time', function(req, res) {
   const context = req.ctx.state.context;
   return context.get('req_time');
@@ -42,7 +47,8 @@ access_logger.to_file = function() {
     return [
       tokens.uuid(req, res),
       tokens.hit_id(req, res),
-      tokens['remote-addr'](req, res) || tokens['remote-user'](req, res),
+      // tokens['remote-addr'](req, res) || tokens['remote-user'](req, res),
+      tokens.ip(req, res),
       tokens.method(req, res),
       tokens.url(req, res),
       // tokens['date'](req, res, 'clf'),
@@ -66,7 +72,8 @@ access_logger.to_out = function() {
     return [
       tokens.uuid(req, res),
       tokens.hit_id(req, res),
-      tokens['remote-addr'](req, res) || tokens['remote-user'](req, res),
+      // tokens['remote-addr'](req, res) || tokens['remote-user'](req, res),
+      tokens.ip(req, res),
       tokens.method(req, res),
       tokens.url(req, res),
       // tokens['date'](req, res, 'clf'),
