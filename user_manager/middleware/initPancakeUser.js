@@ -1,17 +1,16 @@
 'use strict';
-const { PancakeUser } = require('../pancakeUser')
+const { PancakeUser } = require('../pancakeUser');
 
 
 async function initPancakeUser(ctx, next) {
-    ctx.state.pancakeUser = new PancakeUser(ctx)
-    await ctx.state.pancakeUser.sync();
-    await ctx.state.pancakeUser.set_in_cookie_user_uuid();
-    await ctx.state.pancakeUser.getAuth1CTask()
-    ctx.state.pancakeUser.setLastAction()
+  ctx.state.pancakeUser = new PancakeUser(ctx);
+  await ctx.state.pancakeUser.sync();
+  await ctx.state.pancakeUser.set_in_cookie_user_uuid();
+  await ctx.state.pancakeUser.getAuth1CTask();
+  ctx.state.pancakeUser.setLastAction();
+  await next();
 
-    await next();
-
-    ctx.state.pancakeUser.runAsyncTask()
+  ctx.state.pancakeUser.runAsyncTask();
 }
 
-module.exports = {initPancakeUser: initPancakeUser}
+module.exports = {initPancakeUser: initPancakeUser};

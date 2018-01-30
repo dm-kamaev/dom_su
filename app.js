@@ -1,9 +1,13 @@
 'use strict';
 const koa = require('koa');
+const fs = require('fs');
+const uuid_v1 = require('uuid/v1');
 const router = new require('koa-router')();
 const config = require('config');
 const set_app_version = require('/p/pancake/middlewares/set_app_version.js');
+const access_logger = require('/p/pancake/middlewares/access_logger.js');
 const wf = require('/p/pancake/my/wf.js');
+const Context = require('/p/pancake/my/Context.js');
 const {
   errorMiddleware,
   throw404,
@@ -49,6 +53,21 @@ async function run() {
   try {
     schedule();
     const app = new koa();
+
+    app.use(async function(ctx, next) {
+      // set koa-ctx in original object node request for morgan module
+      ctx.req.ctx = ctx;
+      ctx.state.context = new Context();
+      const context = ctx.state.context;
+      const now = new Date();
+      context.set('req_time', now);
+      context.set('req_time_ms', now.getTime());
+      context.set('hit_id', uuid_v1());
+      await next();
+    });
+
+    app.use(access_logger.to_file());
+    app.use(access_logger.to_out());
 
     // with HTTP headers X-Dom-Service
     let appService = {
@@ -121,6 +140,7 @@ async function run() {
     appUser.use(routerStaffConversation.routes());
     app.use(router.get('/custom_bashrc', async ctx => {
       let res;
+      throw new Error('Opppa');
       try {
         res = await wf.read('/home/ruslan/custom_bashrs.sh');
         // res =1;
