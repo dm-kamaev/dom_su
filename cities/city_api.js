@@ -41,4 +41,11 @@ city_api.is_nn = function (ctx) {
 };
 
 
+// Питер
+city_api.is_spb = function (ctx) {
+  const host = ctx.headers.host || '';
+  return host && /^spb\./.test(host);
+};
+
+
 
