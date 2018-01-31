@@ -47,6 +47,14 @@ const spbTemplates = {
     'vakansii__domrabotnica__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Домработница', data: {domrabotnica: true, menu:{ main: true, vakansii: true}}},
     'vakansii__uborka-kvartir__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка квартир', data: {uborkaKvartir: true, menu:{ main: true, vakansii: true}}},
     'vakansii__uborka-territorii__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка территории', data: {uborkaTerritorii: true, menu:{ main: true, vakansii: true}}},
+    'light-main': {
+        name: 'light-main.html',
+        data: {
+            menu: {
+                index: true
+            }
+        }
+    },
 };
 
 module.exports = {
