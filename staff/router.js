@@ -18,6 +18,7 @@ const parseFormMultipart = require('koa-body')({multipart: true});
 const { loginRequired, getEmployeeHeader } = require('./decorators');
 const moneyStaff = require('./money');
 const examsStaff = require('./exams');
+const router_employee_photo = require('/p/pancake/staff/router_employee_photo.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
 
 const nodemailer = require('nodemailer');
@@ -1074,6 +1075,7 @@ staffRouter.get('/staff/', loginRequired(async function (ctx) {
   ctx.redirect(staffUrl('news', ctx.state.pancakeUser.auth1C.employee_uuid));
 }));
 
+router_employee_photo(staffRouter);
 
 module.exports = {
   staffRouter

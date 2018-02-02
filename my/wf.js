@@ -32,3 +32,31 @@ wf.write = function(path, data) {
     });
   });
 };
+
+
+wf.write_base64 = function(path, data) {
+  return new Promise((reslove, reject) => {
+    fs.writeFile(path, data, { encoding: 'base64' }, function (err) {
+      if (err) {
+        reject(err);
+      } else {
+        reslove();
+      }
+    });
+  });
+};
+
+
+wf.read_base64 = function(path, data) {
+  return new Promise((reslove, reject) => {
+      fs.readFile(path, {
+        encoding: 'base64'
+      }, function(err, file) {
+        if (err)
+          reject(file);
+        else {
+          reslove(file);
+        }
+      });
+    });
+};
