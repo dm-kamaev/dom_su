@@ -294,16 +294,22 @@ paymentsRouter.get('/payments/failure/', async function (ctx, next) {
 })
 
 paymentsRouter.post('/payments/notification/', async function (ctx, next) {
-    const paymentId = ctx.request.body['PaymentId']
-    const payment = await Payment.findOne({where: {PaymentId: paymentId}})
-    let terminalData = await getTerminalData(paymentId)
-    if (payment.id == ctx.request.body['OrderId'] && payment.Amount == ctx.request.body['Amount'] && terminalData.TERMINAL_KEY == ctx.request.body['TerminalKey']){
-        logger.info(`Notification Success OrderId - ${payment.OrderId} | Id - ${payment.id}`)
-        payment.notification = true
-        await payment.save()
-        ctx.body = 'OK'
-    } else {
-        logger.error(`Notification Failure OrderId - ${ctx.request.body['OrderId']} | Id - ${payment.id} | Amount - ${ctx.request.body['Amount']} | TerminalKey - ${terminalData.TERMINAL_KEY}`)
+    try {
+      const paymentId = ctx.request.body['PaymentId']
+      const payment = await Payment.findOne({where: {PaymentId: paymentId}})
+      let terminalData = await getTerminalData(paymentId)
+      if (payment.id == ctx.request.body['OrderId'] && payment.Amount == ctx.request.body['Amount'] && terminalData.TERMINAL_KEY == ctx.request.body['TerminalKey']){
+          logger.info(`Notification Success OrderId - ${payment.OrderId} | Id - ${payment.id}`)
+          console.log(`Notification Success OrderId - ${payment.OrderId} | Id - ${payment.id}`);
+          payment.notification = true
+          await payment.save()
+          ctx.body = 'OK'
+      } else {
+          logger.error(`Notification Failure OrderId - ${ctx.request.body['OrderId']} | Id - ${payment.id} | Amount - ${ctx.request.body['Amount']} | TerminalKey - ${terminalData.TERMINAL_KEY}`)
+          console.log(`Notification Failure OrderId - ${ctx.request.body['OrderId']} | Id - ${payment.id} | Amount - ${ctx.request.body['Amount']} | TerminalKey - ${terminalData.TERMINAL_KEY}`);
+      }
+    } catch (err) {
+      console.log(`FAILED Notification Failure OrderId - ${ctx.request.body['OrderId']}`, err);
     }
 })
 
