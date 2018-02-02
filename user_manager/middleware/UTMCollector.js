@@ -39,6 +39,11 @@ async function UTMCollector(ctx, next) {
     }
   }
 
+  const employee_id = ctx.query.employee_id;
+  if (employee_id) {
+    utm.employee_id = employee_id;
+  }
+
   if (Object.keys(utm).length !== 0){
     ctx.state.pancakeUser.saveUTMS(utm);
   }

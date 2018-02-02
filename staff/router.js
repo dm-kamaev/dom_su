@@ -1,5 +1,6 @@
 'use strict';
 
+const CONF = require('/p/pancake/settings/config.js');
 const { models } = require('models');
 const { EmployeeNews, Token, PendingToken } = models;
 const Router = require('koa-router');
@@ -600,6 +601,9 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
       template = getTemplate(staffTemplate.mobile.userOrders); // staff/templates/mobile/userOrders.html
     } else {
       set_total_receivable(templateCtx, GetCurrentWageForEmployee, GetCurrentDepositForEmployee);
+
+      templateCtx.link_to_landing_with_utm =
+        CONF.domain+'/landings__applicant_cleaner/?utm_source=from_employee_profile&employee_id='+employee_id+'&utm_medium=referral&utm_referrer=from_employee_profile';
       // show profile on mobile
       template = getTemplate(staffTemplate.mobile.userIndex); // staff/templates/desctop/userIndex.html
     }

@@ -7,7 +7,8 @@ const logger = require('/p/pancake/lib/logger.js');
 
 
 module.exports = function (employee_router) {
-  // /staff/employee_photo/f482eb0b-007b-11e6-80de-00155d594900
+  // /staff/employee_photo/f482eb0b-007b-11e6-80de-00155d594900 dev2
+  // /staff/employee_photo/a2f09a81-8c9b-11e6-80e2-00155d594900 prod
   // if not exist photo, then take photo(base64)  from 1C and save to file and redirect to nginx
   // else if photo exist in folder(check db) redirect to nginx
   employee_router.get('/staff/employee_photo/:file_uuid', async function (ctx) {

@@ -3,6 +3,12 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+    <style>
+        .ui-input-text.ui-custom {
+           border: none;
+           box-shadow: none;
+        }
+    </style>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="/static/js/custom_cookie.js?v=1.0"></script>
@@ -43,6 +49,18 @@
                 </div>
             </div>
             <div style=margin-top:20px; data-demo-html="#panel-responsive-page2">{{{total_receivable}}}</div>
+
+            <div style=margin-top:30px;text-align:center>
+                <button id=copy_link_in_buffer style=width:100% type=button>Скопировать ссылку</button>
+                <input
+                    id=text_for_buffer
+                    data-wrapper-class=ui-custom {{!-- add custom class for wrap. Turn off border  --}}
+                    style=display:none;
+                    value='Работа в стабильной компании. Зарплата до 50 тыс. рублей.
+                    Клининговая компания Домовенок ищет сотрудников на полную занятость. Еженедельные выплаты. Корпоративная SIM-карта. Бесплатное обучение.
+                    {{link_to_landing_with_utm}}'
+                />
+            </div>
         </div>
             <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel">
                 <ul data-role="listview">
@@ -60,5 +78,44 @@
                 </ul>
             </div>
     </div>
+    <script>
+        var $copy_link_in_buffer = $('#copy_link_in_buffer')
+        $copy_link_in_buffer.click(function(){
+          copy_link_in_clipboard('text_for_buffer');
+          $copy_link_in_buffer.css({ opacity: 0.5 });
+          $copy_link_in_buffer.prop('disabled', true);
+        });
+
+        function copy_link_in_clipboard(id) {
+          var copyText = document.getElementById(id);
+          copyText.style.display = 'block';
+          copyText.select();
+          document.execCommand("Copy");
+          copyText.style.display = 'none';
+        }
+
+        // cross-browser
+        // to_copy -- dom-object
+        // function copy_link_in_clipboard(to_copy) {
+        //     if (document.createRange) {
+        //         // IE9 and modern browsers
+        //         var r = document.createRange();
+        //         r.setStartBefore(to_copy);
+        //         r.setEndAfter(to_copy);
+        //         r.selectNode(to_copy);
+        //         var sel = window.getSelection();
+        //         sel.addRange(r);
+        //         document.execCommand('Copy');  // does nothing on FF
+        //     } else {
+        //         // IE 8 and earlier.  This stuff won't work on IE9.
+        //         // (unless forced into a backward compatibility mode,
+        //         // or selecting plain divs, not img or table).
+        //         var r = document.body.createTextRange();
+        //         r.moveToElementText(to_copy);
+        //         r.select()
+        //         r.execCommand('Copy');
+        //     }
+        // }
+    </script>
 </body>
 </html>
