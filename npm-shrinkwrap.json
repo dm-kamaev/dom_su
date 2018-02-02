@@ -436,6 +436,12 @@
       "from": "dkim-signer@>=0.2.2 <0.3.0",
       "resolved": "https://registry.npmjs.org/dkim-signer/-/dkim-signer-0.2.2.tgz"
     },
+    "dotenv": {
+      "version": "5.0.0",
+      "from": "dotenv@>=1.0.0",
+      "resolved": "https://registry.npmjs.org/dotenv/-/dotenv-5.0.0.tgz",
+      "optional": true
+    },
     "dottie": {
       "version": "1.1.1",
       "from": "dottie@>=1.0.0 <2.0.0",
@@ -1610,6 +1616,48 @@
       "version": "1.0.0",
       "from": "next-tick@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/next-tick/-/next-tick-1.0.0.tgz"
+    },
+    "node-pg-migrate": {
+      "version": "2.17.0",
+      "from": "node-pg-migrate@2.17.0",
+      "resolved": "https://registry.npmjs.org/node-pg-migrate/-/node-pg-migrate-2.17.0.tgz",
+      "dependencies": {
+        "ansi-regex": {
+          "version": "3.0.0",
+          "from": "ansi-regex@>=3.0.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-3.0.0.tgz"
+        },
+        "camelcase": {
+          "version": "4.1.0",
+          "from": "camelcase@>=4.1.0 <5.0.0",
+          "resolved": "https://registry.npmjs.org/camelcase/-/camelcase-4.1.0.tgz"
+        },
+        "cliui": {
+          "version": "4.0.0",
+          "from": "cliui@>=4.0.0 <5.0.0",
+          "resolved": "https://registry.npmjs.org/cliui/-/cliui-4.0.0.tgz"
+        },
+        "lodash": {
+          "version": "4.17.4",
+          "from": "lodash@>=4.17.0 <4.18.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz"
+        },
+        "strip-ansi": {
+          "version": "4.0.0",
+          "from": "strip-ansi@>=4.0.0 <5.0.0",
+          "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-4.0.0.tgz"
+        },
+        "yargs": {
+          "version": "11.0.0",
+          "from": "yargs@>=11.0.0 <11.1.0",
+          "resolved": "https://registry.npmjs.org/yargs/-/yargs-11.0.0.tgz"
+        },
+        "yargs-parser": {
+          "version": "9.0.2",
+          "from": "yargs-parser@>=9.0.2 <10.0.0",
+          "resolved": "https://registry.npmjs.org/yargs-parser/-/yargs-parser-9.0.2.tgz"
+        }
+      }
     },
     "node-schedule": {
       "version": "1.2.5",

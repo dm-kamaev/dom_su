@@ -1,6 +1,6 @@
 #!/usr/local/bin/node
 
-"use strict";
+'use strict';
 
 // CREATE LOGGER
 
@@ -83,7 +83,7 @@ class Logger {
     if (!text) {
       return;
     }
-    if (this.jsonStringify && text instanceof Object) {
+    if (this.jsonStringify && text instanceof Object && !(text instanceof Error)) {
       text = JSON.stringify(text, null, 2);
     }
     const now = time.get();
