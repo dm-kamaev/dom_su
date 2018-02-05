@@ -80,6 +80,12 @@ function ctxProcessor(data) {
     data.canonicalPath = this.request.origin.replace('http', 'https') + this.request.path;
   }
 
+  // data for frontend
+  const globalData = {
+    clientId: user.get_client_id(),
+  };
+  data.globalData = JSON.stringify(globalData);
+
   return data;
 }
 

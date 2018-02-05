@@ -11,6 +11,7 @@ const validateUUID = require('uuid-validate');
 // const logger = require('logger')(module);
 const moment = require('moment');
 const city_api = require('/p/pancake/cities/city_api.js');
+const db_users = require('/p/pancake/db/db_users.js');
 
 // FOR DEV session_uid_dom_dev
 // FOR PROD session_uid_dom
@@ -125,6 +126,15 @@ class PancakeUser {
 
   get_phone() {
     return this.current_phone;
+  }
+
+
+  async save_client_id() {
+    this.client_id = await db_users.get_client_id(this.uuid);
+  }
+
+  get_client_id() {
+    return this.client_id;
   }
 
   // SET key 'u_uuid' in cookie value uuid
