@@ -151,9 +151,9 @@
 
       // copy link to clipboard
       void function () {
-        init_copy_to_clipboard();
-        var $copy_link_in_buffer = $('#copy_link_in_buffer');
         $(function () {
+          init_copy_to_clipboard();
+          var $copy_link_in_buffer = $('#copy_link_in_buffer');
           $copy_link_in_buffer.click(function(){
             $('#text_for_buffer').CopyToClipboard(function (val) {
               val = val || '';
