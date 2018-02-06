@@ -153,13 +153,15 @@
       void function () {
         init_copy_to_clipboard();
         var $copy_link_in_buffer = $('#copy_link_in_buffer');
-        $copy_link_in_buffer.click(function(){
-          $('#text_for_buffer').CopyToClipboard(function (val) {
-            val = val || '';
-            return val.replace(/\s+/g, ' ').trim();
+        $(function () {
+          $copy_link_in_buffer.click(function(){
+            $('#text_for_buffer').CopyToClipboard(function (val) {
+              val = val || '';
+              return val.replace(/\s+/g, ' ').trim();
+            });
+              $copy_link_in_buffer.prop('disabled', true);
+              $copy_link_in_buffer.css({ opacity: 0.5 });
           });
-            $copy_link_in_buffer.prop('disabled', true);
-            $copy_link_in_buffer.css({ opacity: 0.5 });
         });
 
         // $(function(){
