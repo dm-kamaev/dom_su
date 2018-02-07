@@ -148,6 +148,11 @@
       //   }
 
         var clipboard = new Clipboard('#copy_link_in_buffer');
+        clipboard.on('success', function(e) {
+          var copy_link_in_buffer = document.getElementById('copy_link_in_buffer');
+          copy_link_in_buffer.disabled = true;
+          copy_link_in_buffer.style.opacity = .5;
+        });
         // init_copy_to_clipboard();
         // var $copy_link_in_buffer = $('#copy_link_in_buffer');
         // $copy_link_in_buffer.click(function(){
