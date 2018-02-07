@@ -10,4 +10,4 @@ config/default.json
 /config
 /templates
 /static
-/stat
+/stat/employee_photo
