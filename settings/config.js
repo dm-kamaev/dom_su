@@ -5,6 +5,7 @@
 // КОНФИГУРАЦИОННЫЙ ФАЙЛ
 
 const env = require('/p/env/node_env.js');
+const config_pancake = require('/p/pancake/settings/config_pancake.json');
 
 if (env !== 'dev' && env !== 'dev2' && env !== 'dev3' && env !== 'prod') {
   throw new Error('Not valid env for node js "'+env+'"');

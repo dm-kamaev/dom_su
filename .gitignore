@@ -11,3 +11,4 @@ config/default.json
 /templates
 /static
 /stat/employee_photo
+/settings/*.json
