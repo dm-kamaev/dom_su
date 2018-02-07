@@ -6,7 +6,7 @@ const CONF = require('/p/pancake/settings/config.js');
 const child  = require('/p/pancake/my/child.js');
 const list_param  = require('/p/pancake/my/argv.js').get_all();
 
-const config_path = (CONF.is_prod) ? '/p/pancake/settings/migration_config_prod.json' : '/p/pancake/settings/migration_config_dev.json';
+const config_path = '/p/pancake/settings/config_migration.json';
 
 if (!list_param.length) {
   throw new Error('Not exist list_param');
