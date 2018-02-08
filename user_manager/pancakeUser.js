@@ -142,32 +142,45 @@ class PancakeUser {
   async set_in_cookie_user_uuid() {
     const cookie_name = 'u_uuid';
     const cookiesApi = this.ctx.cookies;
+    const host = this.ctx.headers.host;
     if (!cookiesApi.get(cookie_name)) {
       cookiesApi.set(cookie_name, this.uuid, {
         httpOnly: false,
-        domain: this.ctx.headers.host,
+        domain: host,
         maxAge: 9 * 365 * 24 * 60 * 60 * 1000
       });
-    } else if (cookiesApi.get('session_uid_dom') !== cookiesApi.get('u_uuid')) {
+    } else if (cookiesApi.get(USER_COOKIE_KEY) !== cookiesApi.get(cookie_name)) {
       // зачищаем следы старой авторизации
 
-      cookiesApi.set('session_uid_dom', this.uuid, {
+      cookiesApi.set(USER_COOKIE_KEY, this.uuid, {
         httpOnly: false,
-        domain: this.ctx.headers.host,
+        domain: host,
         maxAge: 9 * 365 * 24 * 60 * 60 * 1000
       });
       cookiesApi.set(cookie_name, this.uuid, {
         httpOnly: false,
-        domain: this.ctx.headers.host,
+        domain: host,
         maxAge: 9 * 365 * 24 * 60 * 60 * 1000
       });
       // remove old cookie for '.domovenok.su'
-      cookiesApi.set('session_uid_dom', null, {
+      cookiesApi.set(USER_COOKIE_KEY, null, {
         httpOnly: false,
         domain: '.domovenok.su',
         maxAge: 0
       });
     }
+
+    cookiesApi.set(USER_COOKIE_KEY, null, {
+      httpOnly: false,
+      domain: '.domovenok.su',
+      maxAge: 0
+    });
+
+    cookiesApi.set(USER_COOKIE_KEY, this.uuid, {
+      httpOnly: false,
+      domain: host,
+      maxAge: 9 * 365 * 24 * 60 * 60 * 1000
+    });
   }
 
   async getUtms() {
