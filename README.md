@@ -24,28 +24,29 @@ Start project via Pm2
 
 Развертка проектов:
 По пути кладешь /p/
-1. cd /p/; git pull pancake
-2. Для генерации ecosystem.json (pm2)
+cd /p/; git pull pancake
+Для генерации ecosystem.json (pm2)
 ```
   cd /p/pancake; NODE_ENV=development node auto_config/ecosystemPancake.js
 ```
-3. cd /p/; git pull clientPa
-4. Для генерации ecosystem.json (pm2)
+cd /p/; git pull clientPa
+Для генерации ecosystem.json (pm2)
 ```
   cd /p/clientPA; NODE_ENV=development node auto_config/ecosystemClientPA.js
 ```
-5. Создается файл в /p/pancake/env/node_env.js
+Создается файл в /p/pancake/env/node_env.js
 ```
   module.exports = 'dev';
 ```
-6. В /p/pancake/ делается
+В /p/pancake/ делается
 ```
   npm run migrate
 ```
-7. Создать каталог /p/log/ c папками
+Создать каталог c папками
 ```
-      |
-      | -- access_log/
-      | -- app/
-      | -- pm2/
+  /p/log/ –––––
+              |
+              | -- access_log/
+              | -- app/
+              | -- pm2/
 ```
