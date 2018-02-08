@@ -7,7 +7,7 @@ const opts = {
   define: {
     freezeTableName: true,
   },
-  logging: false,
+  logging: true,
 };
 
 const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, opts);
@@ -83,7 +83,7 @@ const Client = sequelize.define('clients', {
 });
 
 const User = sequelize.define('users', {
-  uuid: {type: Sequelize.UUID, primaryKey: true},
+  uuid: {type: Sequelize.STRING, primaryKey: true},
   data: Sequelize.JSON,
   last_action: Sequelize.DATE,
   current_phone: Sequelize.STRING,
@@ -146,11 +146,12 @@ const Token = sequelize.define('tokens', {
   token: {type: Sequelize.UUID, allowNull: false},
   user_uuid: {
     allowNull: false,
-    type: Sequelize.UUID,
+    // type: Sequelize.UUID,
+    type: Sequelize.STRING,
     references: {
       model: User,
       key: 'uuid',
-      deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+      // deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
     }
   },
   employee_uuid: {
@@ -233,12 +234,13 @@ const Phone = sequelize.define('phones', {
     defaultValue: false
   },
   user_uuid: {
-    type: Sequelize.UUID,
+    // type: Sequelize.UUID,
+    type: Sequelize.STRING,
     allowNull: true,
     references: {
       model: User,
       key: 'uuid',
-      deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+      // deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
     }
   },
   active: {type: Sequelize.BOOLEAN}
@@ -275,11 +277,12 @@ const Visit = sequelize.define('visits', {
   uuid: {type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV4},
   user_uuid: {
     allowNull: false,
-    type: Sequelize.UUID,
+    type: Sequelize.STRING,
+    // type: Sequelize.UUID,
     references: {
       model: User,
       key: 'uuid',
-      deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+      // deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
     }
   },
   active: {
@@ -368,11 +371,12 @@ const UTMS = sequelize.define('utms', {
   },
   user_uuid: {
     allowNull: false,
-    type: Sequelize.UUID,
+    // type: Sequelize.UUID,
+    type: Sequelize.STRING,
     references: {
       model: User,
       key: 'uuid',
-      deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+      // deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
     }
   },
 });
@@ -398,11 +402,12 @@ const ActionToken = sequelize.define('action_token', {
   token: Sequelize.UUID,
   user_uuid: {
     allowNull: false,
-    type: Sequelize.UUID,
+    // type: Sequelize.UUID,
+    type: Sequelize.STRING,
     references: {
       model: User,
       key: 'uuid',
-      deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+      // deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
     }
   },
   type: Sequelize.STRING,

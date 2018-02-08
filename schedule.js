@@ -4,7 +4,7 @@ const config = require('config');
 const db = require('/p/pancake/my/db.js');
 const promise_api = require('/p/pancake/my/promise_api.js');
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, {logging: false});
+const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, {logging: true});
 const schedule = require('node-schedule');
 const logger = require('logger')(module);
 const loggerPay = require('logger')(module, 'pay.log');
@@ -18,7 +18,7 @@ const moment = require('moment');
 const MAX_STAGNATION_VISIT_MINUTE = 15;
 const MAX_STAGNATION_TAKE_NUMBER_MINUTE = 10;
 const MAX_STAGNATION_ACTION_TOKEN_MINUTE = 2 * 24 * 60;
-const CRON_VISIT = 1;
+// const CRON_VISIT = 1;
 const CRON_NUMBER = 1;
 const CRON_TICKET = 1;
 const CRON_PAYMENT = 1;
@@ -34,7 +34,7 @@ function setVisitFinish() {
       'WHERE visits.active is True AND ' +
         'visits.user_uuid = users.uuid AND ' +
         `users.last_action < (NOW() - INTERVAL '${MAX_STAGNATION_VISIT_MINUTE} minutes') ` +
-  // 'users.last_action < NOW()' +
+    // 'users.last_action < NOW()' +
      'RETURNING visits.uuid, visits.user_uuid; ';
   sequelize.query(query)
     .spread(async function(results) {
@@ -110,18 +110,21 @@ function setVisitFinish() {
           }
         });
       }
+    }).catch(err => {
+      log.warn('SHEDULE ERROR setVisitFinish => '+err);
+      console.log(err);
     });
 }
 
 function cleanPhoneNumber() {
   sequelize.query(
     'UPDATE phones ' +
-        'SET (living) = (false)' +
+        'SET (living) = (false) ' +
         'FROM users ' +
         'WHERE ' +
             'phones.living IS True AND ' +
             'users.uuid = phones.user_uuid AND ' +
-            `users.last_action < (NOW() - INTERVAL '${MAX_STAGNATION_TAKE_NUMBER_MINUTE} minutes')` +
+            `users.last_action < (NOW() - INTERVAL '${MAX_STAGNATION_TAKE_NUMBER_MINUTE} minutes') ` +
         'RETURNING phones.user_uuid'
   )
     .spread(async function(results, metadata) {
@@ -135,6 +138,9 @@ function cleanPhoneNumber() {
           await user.save();
         }
       }
+    }).catch(err => {
+      log.warn('SHEDULE ERROR cleanPhoneNumber => '+err);
+      console.log(err);
     });
 }
 
@@ -182,8 +188,10 @@ async function checkPayments() {
         }
       }
     }
-  } catch (e){
-    logger.info(e);
+  } catch (err){
+    logger.info(err);
+    log.warn('SHEDULE ERROR checkPayments => '+err);
+    console.log(err);
   }
 }
 
@@ -206,9 +214,11 @@ async function sendForgottenTicket() {
         await ticket.save();
       }
     }
-  } catch (e){
+  } catch (err){
+    log.warn(`SHEDULE ERROR sendForgottenTicket => ${JSON.stringify(ticket)}`);
+    log.warn(err);
     logger.error(`ERROR Send Forgotten ticket ${JSON.stringify(ticket)}`);
-    logger.error(e);
+    console.log(err);
   }
 
 }
@@ -217,33 +227,56 @@ async function deleteOldActionToken() {
   await sequelize.query(
     'DELETE FROM action_token ' +
         `WHERE "createdAt" < (NOW() - INTERVAL '${MAX_STAGNATION_ACTION_TOKEN_MINUTE} MINUTES');`
-  );
+  ).catch(err => {
+    log.warn('SCHEDULE ERROR => deleteOldActionToken'+err);
+    console.log(err);
+  });
 }
 
 module.exports = () => {
   // let taskVisit = schedule.scheduleJob(`*/${CRON_VISIT} * * * *`, function(){
   let taskVisit = schedule.scheduleJob('*/20 * * * *', function(){
-    setVisitFinish();
+    try {
+      setVisitFinish();
+    } catch (err) {
+      console.log('SCHEDULE ERROR => setVisitFinish ', err);
+    }
   });
   logger.info('Schedule - CLOSE VISIT  - START');
 
   let taskPhoneNumber = schedule.scheduleJob(`*/${CRON_NUMBER} * * * *`, function () {
-    cleanPhoneNumber();
+    try {
+      cleanPhoneNumber();
+    } catch (err) {
+      console.log('SCHEDULE ERROR => cleanPhoneNumber ', err);
+    }
   });
   logger.info('Schedule - CLEAN NUMBER - START');
 
   let taskTicket = schedule.scheduleJob(`*/${CRON_TICKET} * * * *`,async function () {
-    await sendForgottenTicket();
+    try {
+      await sendForgottenTicket();
+    } catch (err) {
+      console.log('SCHEDULE ERROR => sendForgottenTicket ', err);
+    }
   });
   logger.info('Schedule - SEND TICKET - START');
 
   let taskPayments = schedule.scheduleJob(`*/${CRON_PAYMENT} * * * *`,async function () {
-    await checkPayments();
+    try {
+      await checkPayments();
+    } catch (err) {
+      console.log('SCHEDULE ERROR => checkPayments ', err);
+    }
   });
   logger.info('Schedule - CHECK PAYMENTS - START');
 
   let taskActionToken = schedule.scheduleJob(`*/${CRON_ACTION_TOKEN} * * * *`,async function () {
-    await deleteOldActionToken();
+    try {
+      await deleteOldActionToken();
+    } catch (err) {
+      console.log('SCHEDULE ERROR => deleteOldActionToken ', err);
+    }
   });
   logger.info('Schedule - CLEAN ACTION TOKEN - START');
 };
