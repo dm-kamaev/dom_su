@@ -5,6 +5,9 @@ const fn = exports;
 fn.deep_value = function (object, path) {
   const parts = path.split('.');
   let val = object;
+  if (!val) {
+    return null;
+  }
   for (var i = 0, l = parts.length; i < l; i++) {
     var key = parts[i];
     var temp_val = val[key];

@@ -21,6 +21,8 @@ const moneyStaff = require('./money');
 const examsStaff = require('./exams');
 const router_employee_photo = require('/p/pancake/staff/router_employee_photo.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
+const fn = require('/p/pancake/my/fn.js');
+const Request1Cv3 = require('/p/pancake/api1c/request1Cv3.js');
 
 const nodemailer = require('nodemailer');
 // create reusable transporter object using the default SMTP transport
@@ -556,11 +558,18 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
   //   OrdersAvailability: false,
   // };
 
-  templateCtx.GetEmployeeDepartures = GetEmployeeDepartures.response;
+
+  templateCtx.GetEmployeeDepartures = GetEmployeeDepartures.response || {};
   templateCtx.tomorrow = [];
   templateCtx.today = [];
   templateCtx.old = [];
   templateCtx.noOrders = (moment().hour() < 19) ? false: true;
+
+  const res_getEmployeeData = GetEmployeeData.response || {};
+  let addressjson = (res_getEmployeeData.addressjson) || null;
+  addressjson = JSON.parse(addressjson);
+  templateCtx.employee_address = fn.deep_value(addressjson, 'GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted');
+
   if (GetEmployeeDepartures.response && GetEmployeeDepartures.response.DeparturesList){
     templateCtx.orderCount = GetEmployeeDepartures.response.DeparturesList.length;
   } else {
@@ -681,6 +690,29 @@ function set_total_receivable(templateCtx, GetCurrentWageForEmployee, GetCurrent
   templateCtx.deposit_money = deposit_money;
   templateCtx.total_receivable = total_receivable;
 }
+
+// change addres for employee
+// POST /staff/set_employee_adress/e7958b5e-360e-11e2-a60e-08edb9b907e8
+// body {"GeoObject":{"metaDataProperty":{"GeocoderMetaData":{"kind":"house","text":"Россия, Москва, Тверская улица, 11","precision":"exact","Address":{"country_code":"RU","postal_code":"125009","formatted":"Москва, Тверская улица, 11","Components":[{"kind":"country","name":"Россия"},{"kind":"province","name":"Центральный федеральный округ"},{"kind":"province","name":"Москва"},{"kind":"locality","name":"Москва"},{"kind":"street","name":"Тверская улица"},{"kind":"house","name":"11"}]},"AddressDetails":{"Country":{"AddressLine":"Москва, Тверская улица, 11","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Москва","Locality":{"LocalityName":"Москва","Thoroughfare":{"ThoroughfareName":"Тверская улица","Premise":{"PremiseNumber":"11","PostalCode":{"PostalCodeNumber":"125009"}}}}}}}}},"description":"Москва, Россия","name":"Тверская улица, 11","boundedBy":{"Envelope":{"lowerCorner":"37.605706 55.758245","upperCorner":"37.613916 55.762875"}},"Point":{"pos":"37.609811 55.76056"}}}
+//
+staffRouter.post('/staff/set_employee_adress/:employee_id', loginRequired(getEmployeeHeader(async function (ctx, next, request1C) {
+  try {
+    const data = {
+      EmployeeID: ctx.params.employee_id,
+      addressjson: JSON.stringify(ctx.request.body), // Object from yandex API
+    };
+    const { token, uuid } = new AuthApi(ctx).get_auth_data();
+    const request1Cv3 = new Request1Cv3(token, uuid, null, ctx);
+    request1Cv3.add('Employee.SaveAddress', data); // http://confluence.domovenok.su/pages/viewpage.action?pageId=9340462
+    await request1Cv3.do();
+    ctx.status = 200;
+  } catch (err) {
+    log.warn(err);
+    ctx.status = 500;
+    ctx.body = 'Internal error';
+  }
+})));
+
 
 // Order list
 staffRouter.get('/staff/:EmployeeID/orders', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
@@ -1084,3 +1116,8 @@ router_employee_photo(staffRouter);
 module.exports = {
   staffRouter
 };
+
+
+
+
+

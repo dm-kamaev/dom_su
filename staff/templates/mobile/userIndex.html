@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
 
     <!-- For autocomplete -->
-    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <style>
         .ui-input-text.ui-custom {
@@ -21,7 +21,8 @@
     <!-- For autocomplete -->
     <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-    <!-- <script src="/stat/jquery-ui.js?v3"></script> -->
+
+    <script src="/stat/lib/jquery-ui.js?v3"></script>
 
     <!-- Google Tag Manager -->
 {{#if general.production}}
@@ -61,22 +62,25 @@
             </div>
             <div style=margin-top:20px; data-demo-html="#panel-responsive-page2">{{{total_receivable}}}</div>
 
+
             <!-- Address -->
-<!--             <div id=block_employee_adress style=margin-top:24px;font-size:120%;>
-              <table>
-                <tr>
-                  <td style=width:50%>Адрес: <span id=employee_adress>Москва, улица Островитянова, 41к1</span></td>
-                  <td style=width:50%><button id=change_employee_address type=button>Изменить</button></td>
-                </tr>
-              </table>
+            <div style=margin-top:40px;>
+               <div id=block_employee_adress style=font-size:120%;>
+                 <table>
+                   <tr>
+                     <td style=width:50%>Адрес: <span id=employee_adress>Москва, улица Островитянова, 41к1</span></td>
+                     <td style=width:50%><button id=change_employee_address type=button>Изменить</button></td>
+                   </tr>
+                 </table>
+               </div>
+              <div id=block_change_employee_adress style=margin-top:24px;font-size:120%; class=ui-widget>
+                <label for=input_employee_address>Введите адрес: </label>
+                <input id=input_employee_address placeholder="Mocква, ул Твeрская д. 11">
+                <p id=input_employee_address_error style=color:red></p>
+                <button id=set_employee_address style=width:100% type=button>Добавить</button>
+              </div>
             </div>
-            <div style=clear:both></div>
-           <div id=block_change_employee_adress style=margin-top:24px;font-size:120%; class=ui-widget>
-             <label for=input_employee_address>Введите адрес: </label>
-             <input id=input_employee_address placeholder="Mocква, ул Твeрская д. 11">
-             <button id=set_employee_address style=width:100% type=button>Добавить</button>
-           </div> -->
-            <!--  -->
+            <!-- END Address  -->
 
             <div style=margin-top:40px;text-align:center>
                 <button id=copy_link_in_buffer style=width:100% type=button data-clipboard-text="Работа в стабильной компании.Зарплата до 50 тыс. рублей. Клининговая компания Домовенок ищет сотрудников на полную занятость. Еженедельные выплаты. Корпоративная SIM-карта. Бесплатное обучение. {{link_to_landing_with_utm}}">
@@ -104,173 +108,155 @@
             </div>
     </div>
 
-    <script>
+  <script>
+// copy link to clipboard
+void function () {
+  /* eslint-disable */
+  var clipboard = new Clipboard('#copy_link_in_buffer');
+  /* eslint-enable */
+  clipboard.on('success', function() {
+    var copy_link_in_buffer = document.getElementById('copy_link_in_buffer');
+    copy_link_in_buffer.disabled = true;
+    copy_link_in_buffer.style.opacity = .5;
+  });
+}();
 
-      // copy link to clipboard
-      void function () {
-      //   function init_copy_to_clipboard() {
-      //     $.fn.CopyToClipboard = function(transform_function) {
-      //       var textToCopy = false;
-      //       if (this.is('select') || this.is('textarea') || this.is('input')) {
-      //         textToCopy = this.val();
-      //       } else {
-      //         textToCopy = this.text();
-      //       }
-      //       textToCopy = transform_function ? transform_function(textToCopy) : textToCopy;
-      //       CopyToClipboard(textToCopy);
-      //     };
+void function () {
+  var employee_address = '{{employee_address}}';
+  var exist_employee_address = Boolean(employee_address);
+  var $block_employee_adress = document.getElementById('block_employee_adress');
+  var $block_change_employee_adress = document.getElementById('block_change_employee_adress');
+  var $input_employee_address_error = document.getElementById('input_employee_address_error');
+  var $set_employee_address = document.getElementById('set_employee_address')
+  var $employee_adress = $('#employee_adress');
+  if (exist_employee_address) {
+    show_address(employee_address);
+  } else {
+    show_change_address();
+  }
 
-      //     function CopyToClipboard(val) {
-      //       var hiddenClipboard = $('#_hiddenClipboard_');
-      //       if (!hiddenClipboard.length) {
-      //         $('body').append('<textarea style="position:absolute;top: -9999px;" id="_hiddenClipboard_"></textarea>');
-      //         hiddenClipboard = $('#_hiddenClipboard_');
-      //       }
+  function show_address(employee_address) {
+    $block_employee_adress.style.display = 'block';
+    $block_change_employee_adress.style.display = 'none';
 
-      //       hiddenClipboard.html(val);
-      //       hiddenClipboard.select();
-      //       document.execCommand('copy');
-      //       document.getSelection().removeAllRanges();
-      //     }
+    if (employee_address) {
+      $employee_adress.text(employee_address);
+    }
+    document.getElementById('change_employee_address').onclick = function () {
+      show_change_address();
+      $block_employee_adress.style.display = 'none';
+      $block_change_employee_adress.style.display = 'block';
+    };
+  }
 
-      //     $(function() {
-      //       $('[data-clipboard-target]').each(function() {
-      //         $(this).click(function() {
-      //           $($(this).data('clipboard-target')).CopyToClipboard();
-      //         });
-      //       });
-      //       $('[data-clipboard-text]').each(function() {
-      //         $(this).click(function() {
-      //           CopyToClipboard($(this).data('clipboard-text'));
-      //         });
-      //       });
-      //     });
-      //   }
+  // set address for employee
+  function show_change_address() {
+    $block_employee_adress.style.display = 'none';
+    $block_change_employee_adress.style.display = 'block';
 
-        var clipboard = new Clipboard('#copy_link_in_buffer');
-        clipboard.on('success', function(e) {
-          var copy_link_in_buffer = document.getElementById('copy_link_in_buffer');
-          copy_link_in_buffer.disabled = true;
-          copy_link_in_buffer.style.opacity = .5;
+    var hash_selected_address = {};
+    var current_address;
+    var $input_employee_address = $('#input_employee_address');
+    $input_employee_address.autocomplete({
+      select: function(event, ui) {
+        var el_address = deep_value(ui, 'item') || {};
+        if (hash_selected_address[el_address.label]) {
+          current_address = el_address;
+          // console.log('SET CURRENT_ADDRESS', current_address);
+        }
+      },
+      source: function(request, response) {
+        $input_employee_address_error.innerHTML = '';
+        // console.log('term=', request.term);
+        var address = request.term;
+        if (address && !/\s+/.test(address)) {
+          return;
+        }
+        $.get('https://geocode-maps.yandex.ru/1.x/?format=json&geocode=' + decodeURIComponent(address), function(result, textStatus) {
+          if (textStatus !== 'success') {
+            return $input_employee_address_error.innerHTML = '* Ошибка доступа в geocode-maps.yandex.ru';
+          }
+          var res = [];
+          var featureMembers = deep_value(result, 'response.GeoObjectCollection.featureMember');
+          for (var i = 0, l = featureMembers.length; i < l; i++) {
+            var featureMember = featureMembers[i];
+            var el = deep_value(featureMember, 'GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted');
+            if (el) {
+              res.push({ label: el, value: el, featureMember: featureMember});
+              hash_selected_address[el] = featureMember;
+            }
+          }
+          res = uniq_res_for_autocomplete(res);
+          response(res);
         });
-        // init_copy_to_clipboard();
-        // var $copy_link_in_buffer = $('#copy_link_in_buffer');
-        // $copy_link_in_buffer.click(function(){
-        //   console.log('!!! START !!!!');
-        //   $('#text_for_buffer').CopyToClipboard(function (val) {
-        //     val = val || '';
-        //     return val.replace(/\s+/g, ' ').trim();
-        //   });
-        //   $copy_link_in_buffer.prop('disabled', true);
-        //   $copy_link_in_buffer.css({ opacity: 0.5 });
-        // });
-        // new Clipboard('#copy_link_in_buffer');
+      },
+      minLength: 10, // minimum number letter for search
+      delay: 600,
+    });
 
-      }();
+    $set_employee_address.onclick = function() {
+      if (!current_address) {
+        return $input_employee_address_error.innerHTML = '* Не введен адрес';
+      }
+      var label = current_address.label;
+      var GeoObject = current_address.featureMember;
+      if (!GeoObject && !(GeoObject instanceof Object)) {
+        return $input_employee_address_error.innerHTML = '* Не корректный адрес';
+      }
+      $employee_adress.text(label);
+      $('#block_employee_adress').css('display', 'block');
+      $('#block_change_employee_adress').css('display', 'none');
+      // console.log('AJAX SEND ', current_address);
 
-      // change_address();
+      $.ajax({
+        url: '/staff/set_employee_adress/{{selfId}}',
+        type: 'POST',
+        data: JSON.stringify(GeoObject),
+        dataType: 'json',
+        contentType: 'application/json',
+      });
+      show_address();
+      $block_change_employee_adress.style.display = 'none';
+      $block_employee_adress.style.display = 'block';
+      $input_employee_address.val('');
+    };
+  }
 
-      // set address for employee
-      // function change_address() {
-      //   var hash_selected_address = {};
-      //   var current_address;
-      //   $('#input_employee_address').autocomplete({
-      //     select: function(event, ui) {
-      //       var el_address = deep_value(ui, 'item') || {};
-      //       if (hash_selected_address[el_address.label]) {
-      //         current_address = el_address;
-      //         console.log('SET CURRENT_ADDRESS', current_address);
-      //       }
-      //     },
-      //     source: function(request, response) {
-      //       console.log('term=', request.term);
-      //       var address = request.term;
-      //       if (address && !/\s+/.test(address)) {
-      //         return;
-      //       }
-      //       $.get('https://geocode-maps.yandex.ru/1.x/?format=json&geocode=' + decodeURIComponent(address), function(result, textStatus, jqXHR) {
-      //         // TODO: handler error
-      //         var res = [];
-      //         console.log(result);
-      //         var featureMembers = deep_value(result, 'response.GeoObjectCollection.featureMember');
-      //         console.log('featureMember=', featureMembers);
-      //         for (var i = 0, l = featureMembers.length; i < l; i++) {
-      //           var featureMember = featureMembers[i];
-      //           var el = deep_value(featureMember, 'GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted');
-      //           if (el) {
-      //             res.push({ label: el, value: el, featureMember: featureMember});
-      //             hash_selected_address[el] = featureMember;
-      //           }
-      //         }
-      //         res = uniq_res_for_autocomplete(res);
-      //         response(res);
-      //       });
-      //     },
-      //     minLength: 10, // minimum number letter for search
-      //     delay: 790,
-      //   });
+  function deep_value(object, path) {
+    if (!object) {
+      return null;
+    }
+    var parts = path.split('.');
+    var val = object;
+    for (var i = 0, l = parts.length; i < l; i++) {
+      var key = parts[i];
+      var temp_val = val[key];
+      if (temp_val) {
+        val = temp_val;
+      } else {
+        val = null;
+        break;
+      }
+    }
+    return val;
+  }
 
-      //   $('#set_employee_address').click(function() {
-      //     var label = current_address.label;
-      //     var GeoObject = current_address.value;
-      //     if (!GeoObject) {
-      //       // TODO: set error
-      //       return console.log('Not found GeoObject', GeoObject);
-      //     }
-      //     $('#employee_adress').text(label);
-      //     $('#block_employee_adress').css('display', 'block');
-      //     $('#block_change_employee_adress').css('display', 'none');
-      //     console.log('AJAX SEND ', current_address);
-      //     // console.log('address=', address);
-      //     // console.log('GeoObject=', );
-      //     // console.log('featureMember=', featureMembers);
-      //     // $.post('/staff/set_employee_adress', GeoObject, function (result, textStatus, jqXHR) {});
-      //   });
 
-      //   function deep_value(object, path) {
-      //     if (!object) {
-      //       return null;
-      //     }
-      //     var parts = path.split('.');
-      //     var val = object;
-      //     for (var i = 0, l = parts.length; i < l; i++) {
-      //       var key = parts[i];
-      //       var temp_val = val[key];
-      //       if (temp_val) {
-      //         val = temp_val;
-      //       } else {
-      //         val = null;
-      //         break;
-      //       }
-      //     }
-      //     return val;
-      //   }
+  function uniq_res_for_autocomplete(array) {
+    var uniq = {};
+    var res = [];
+    for (var i = 0, l = array.length; i < l; i++) {
+      var el = array[i];
+      var label = el.label;
+      if (!uniq[label]) {
+        uniq[label] = true;
+        res.push(el);
+      }
+    }
+    return res;
+  }
 
-      //   function debounce(ms, cb) {
-      //     var idTime = null;
-      //     return function() {
-      //       if (idTime) {
-      //         clearTimeout(idTime);
-      //       }
-      //       idTime = setTimeout(cb, ms);
-      //     };
-      //   }
-
-      //   function uniq_res_for_autocomplete(array) {
-      //     return array;
-      //     var uniq = {};
-      //     var res = [];
-      //     for (var i = 0, l = array.length; i < l; i++) {
-      //       var el = array[i];
-      //       var label = el.label;
-      //       if (!uniq[label]) {
-      //         uniq[label] = true;
-      //         res.push(el);
-      //       }
-      //     }
-      //     return res;
-      //   }
-      // }
+}();
 
     </script>
 </body>
