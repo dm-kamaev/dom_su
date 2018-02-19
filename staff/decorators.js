@@ -48,3 +48,28 @@ decorators.loginRequired = function(routerFunc) {
     }
   };
 };
+
+
+// NEW METHOD
+
+decorators.login_required = async function(ctx, next) {
+  const authApi = new AuthApi(ctx);
+  let authData;
+  logger.log(' === STAFF ===');
+  const is_login_employee = await authApi.isLoginAsClientEmployee();
+  logger.log('isLoginAsClientEmployee= ' + await authApi.isLoginAsClientEmployee());
+  if (is_login_employee) {
+    authData = authApi.getAuthData();
+  }
+  const user = ctx.state.pancakeUser;
+  let auth1C = await user.getAuth1C();
+  if (!auth1C.token && authData) {
+    await user.setAuth1C(authData);
+  }
+  if (is_login_employee && auth1C.token != null) {
+    await next(ctx, next);
+  } else {
+    ctx.status = 302;
+    ctx.redirect(staffUrl('login'));
+  }
+};

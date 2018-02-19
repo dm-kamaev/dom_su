@@ -20,6 +20,7 @@ const { loginRequired, getEmployeeHeader } = require('./decorators');
 const moneyStaff = require('./money');
 const examsStaff = require('./exams');
 const router_employee_photo = require('/p/pancake/staff/router_employee_photo.js');
+const router_commodity_material_values = require('/p/pancake/staff/router_commodity_material_values.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
 const fn = require('/p/pancake/my/fn.js');
 const Request1Cv3 = require('/p/pancake/api1c/request1Cv3.js');
@@ -1112,6 +1113,7 @@ staffRouter.get('/staff/', loginRequired(async function (ctx) {
 }));
 
 router_employee_photo(staffRouter);
+router_commodity_material_values(staffRouter);
 
 module.exports = {
   staffRouter

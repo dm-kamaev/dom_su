@@ -90,6 +90,8 @@ module.exports = class Request1Cv3 {
 
 
   do() {
+    const { hostname, port, path } = this.connectParam;
+    logger.log(`${hostname} ${port} ${path}`);
     logger.info('Request1C request => \n' + JSON.stringify(this.body, null, 2));
     this.body = JSON.stringify(this.body);
 
