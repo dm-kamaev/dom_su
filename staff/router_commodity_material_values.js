@@ -76,12 +76,29 @@ module.exports = function (employee_router) {
         };
       });
 
+      const employee_id = ctx.params.employee_id;
       const request1Cv3_2 = new Request1Cv3(token, null, null, ctx);
-      await request1Cv3_2.add('GetEmployeeData', { EmployeeID: ctx.params.employee_id }).do();
+      await request1Cv3_2.add('GetEmployeeData', { EmployeeID: employee_id }).do();
       const getEmployeeData = request1Cv3_2.get();
       if (!getEmployeeData.ok) {
         throw new getEmployeeData.error;
       }
+
+      const request1Cv3_3 = new Request1Cv3(token, null, null, ctx);
+      await request1Cv3_3.add('Employee.GetInventoryRequestList', {
+        EmployeeID: employee_id,
+        Count: 1,
+        From: 1,
+        Filter: {
+          Status: 'Active'
+        }
+      }).do();
+      var getInventoryRequestList = request1Cv3_3.get();
+      if (!getInventoryRequestList.ok) {
+        throw getInventoryRequestList.error;
+      }
+      var inventory_request = getInventoryRequestList.data.InventoryRequestList[0];
+      // inventory_request.
 
 
       ctx.status = 200;
@@ -97,4 +114,13 @@ module.exports = function (employee_router) {
     }
   }));
 
+
+  employee_router.post('/staff/:employee_id/new_inventory_request', decorators.login_required, async function (ctx) {
+    const request1Cv3 = new Request1Cv3(new AuthApi(ctx).get_auth_data().token, null, null, ctx);
+    await request1Cv3.add('NewInventoryRequest', {
+      EmployeeID: ctx.params.employee_id,
+      InventoryList: ctx.request.body,
+      Date: new Date(),
+    }).do();
+  });
 };

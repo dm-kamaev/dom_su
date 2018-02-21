@@ -127,28 +127,31 @@
         el = (typeof el === 'string') ? getByID(el) : el;
         return el.dataset || {};
       }
-      function objectKeys(obj) {
-        var keys = [];
-        for (var key in obj) {
-          if (obj.hasOwnProperty(key)) { keys.push(key); }
-        }
-        return keys;
-      }
       if (!Object.keys) {
-        Object.keys = objectKeys;
+        Object.keys = function(obj) {
+          var keys = [];
+          for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+              keys.push(key);
+            }
+          }
+          return keys;
+        };
       }
 
-      new Api({{{getEmployeeData.MatLimit}}}, {{{hash_mean_material}}}).set_events('tabs');
+      new Api(
+        {{{getEmployeeData.MatLimit}}},
+        {{{hash_mean_material}}}
+      ).set_events('tabs');
 
       function Api(_mat_limit, _hash_mean_material) {
         var _active_hash = {};
         var $create_proposal = getById('create_proposal');
+        var $error = getById('error');
         _mat_limit = to_cents(_mat_limit);
+        _current_mat_limit = 0;
 
-        update_total_means(0);
-        update_total_materials(0);
-        update_total(0);
-        update_status_text(_mat_limit);
+        recalc();
 
         this.set_events = function (id) {
           getById(id).onchange = onchange;
@@ -188,10 +191,14 @@
         }
 
         function create_proposal(e) {
+          $error.innerHTML = '';
           $create_proposal.style.opacity = .5;
           var keys = Object.keys(_active_hash)
           if (!Object.keys(_active_hash).length) {
-            return getById('error').innerHTML = '* Выберите средства или материалы';
+            return $error.innerHTML = '* Выберите средства или материалы';
+          }
+          if (_current_mat_limit < 0) {
+            return $error.innerHTML = '* Вам не хватает средств, уберите что-нибудь или уменьшите кол-во';
           }
           var data = [];
           for (var i = 0, l = keys.length; i < l; i++) {
@@ -199,13 +206,14 @@
             data.push({
               InventoryID: el.inventory_id,
               PackageID: el.package_id,
-              Quantity: 1
+              Quantity: el.quantity,
             });
           }
           console.log('SEND AJAX =', data);
       }
 
         function recalc() {
+          $error.innerHTML = '';
           var keys = Object.keys(_active_hash);
           var total_means = 0;
           var total_materials = 0;
@@ -222,10 +230,11 @@
             }
           }
           var total = total_means + total_materials;
+          _current_mat_limit = _mat_limit - total;
           update_total_means(total_means);
           update_total_materials(total_materials);
           update_total(total);
-          update_status_text(_mat_limit - total);
+          update_status_text(_current_mat_limit);
         }
 
         function update_total_means(means) {
