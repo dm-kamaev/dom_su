@@ -4,7 +4,9 @@ const config = require('config');
 const db = require('/p/pancake/my/db.js');
 const promise_api = require('/p/pancake/my/promise_api.js');
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, {logging: true});
+const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, {
+  logging: false
+});
 const schedule = require('node-schedule');
 const logger = require('logger')(module);
 const loggerPay = require('logger')(module, 'pay.log');

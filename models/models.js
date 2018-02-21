@@ -7,7 +7,7 @@ const opts = {
   define: {
     freezeTableName: true,
   },
-  logging: true,
+  logging: false,
 };
 
 const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, opts);
