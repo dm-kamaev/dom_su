@@ -46,13 +46,51 @@ const regCardScore = new RegExp('^score_.*');
 const regQuestionAnswerCookie = new RegExp('(?:^|;)*(:?question[^;=]*)', 'g');
 
 
+// staffRouter.get('/staff/test', async function (ctx) {
+//   let header = ctx.headers['cookie'];
+//   console.log('header= ', header);
+//   let questionAnswers = header.match(regQuestionAnswerCookie);
+//   console.log('questionAnswers= ', questionAnswers);
+//   console.log('ctx.cookies = ', Object.getOwnPropertyNames(ctx.cookies));
+//   if (questionAnswers){
+//     for (let cookieName of questionAnswers){
+//       console.log('set cookieName=', cookieName, {
+//         maxAge: 0,
+//         domain: ctx.headers.host,
+//         httpOnly: false
+//       });
+//       ctx.cookies.set(encodeURIComponent(cookieName), null, {
+//         maxAge: 0,
+//         // domain: ctx.headers.host,
+//         // domain: ctx.headers.host,
+//         httpOnly: false
+//       });
+//     }
+//   }
+
+//   ctx.status = 200;
+//   ctx.body = '';
+// });
+
+
 staffRouter.get(staffUrl('logout'), async function (ctx) {
   new AuthApi(ctx).logout();
   let header = ctx.headers['cookie'];
+  // console.log('header= ', header);
   let questionAnswers = header.match(regQuestionAnswerCookie);
+  // console.log('questionAnswers= ', questionAnswers);
   if (questionAnswers){
     for (let cookieName of questionAnswers){
-      ctx.cookies.set(cookieName, null, {maxAge: 0, httpOnly: false});
+      // console.log('set cookieName=', cookieName, {
+      //   maxAge: 0,
+      //   domain: ctx.headers.host,
+      //   httpOnly: false
+      // });
+      ctx.cookies.set(cookieName, null, {
+        maxAge: 0,
+        // domain: ctx.headers.host,
+        httpOnly: false
+      });
     }
   }
   // TODO else
@@ -868,7 +906,8 @@ staffRouter.post('/staff/interview/:EmployeeID/:InterviewID/', parseFormMultipar
     for (let interviewQuestion of interviewQuestionAnswers){
       if (interviewQuestion.InterviewQuestionID == questionAnswers.InterviewQuestionID){
         haveQuestion = true;
-        addAnswer(questionAnswers, interviewQuestion);
+        // Потому что переполняются размер выделенный под cookie
+        // addAnswer(questionAnswers, interviewQuestion);
         return;
       }
     }

@@ -72,7 +72,7 @@
             var parseCookie = []
         }
         parseCookie.push(value)
-        setCookie(name, dumpAnswers(parseCookie), {expires: {{ GetTestForEmployee.TimeLeft }} })
+        // setCookie(name, dumpAnswers(parseCookie), {expires: {{ GetTestForEmployee.TimeLeft }} })
     }
     function removeAnswerInCookie(name, value){
         var oldCookie = getCookie(name)
@@ -82,7 +82,7 @@
             if (index > -1) {
                 parseCookie.splice(index, 1);
             }
-            setCookie(name, dumpAnswers(parseCookie), {expires: 60 * 60})}
+            // setCookie(name, dumpAnswers(parseCookie), {expires: 60 * 60})}
     }
     function setCookie(name, value, options) {
       name = 'question' + name
@@ -143,16 +143,16 @@
             answers[i].parentElement.style.background = '#ffdcbb';
         }
         elem.parentElement.style.background = '#67A151';
-        setCookie(elem.parentElement.parentElement.getAttribute('data-name'), dumpAnswers([elem.value]), {expires: 60 * 60})
+        // setCookie(elem.parentElement.parentElement.getAttribute('data-name'), dumpAnswers([elem.value]), {expires: 60 * 60})
 }
 </script>
 <script>
     function add_answer(elem){
         if (elem.checked === true){
-            addAnswerInCookie(elem.parentElement.parentElement.getAttribute('data-name'), elem.value);
+            // addAnswerInCookie(elem.parentElement.parentElement.getAttribute('data-name'), elem.value);
             elem.parentElement.style.background = '#67A151';
         } else {
-            removeAnswerInCookie(elem.parentElement.parentElement.getAttribute('data-name'), elem.value);
+            // removeAnswerInCookie(elem.parentElement.parentElement.getAttribute('data-name'), elem.value);
             elem.parentElement.style.background = '#ffdcbb';
         }
     }
