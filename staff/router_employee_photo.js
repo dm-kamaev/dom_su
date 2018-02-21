@@ -22,7 +22,7 @@ module.exports = function (employee_router) {
       } else if (employee_photo) { // exist photo on server
         ctx.status = 200;
         ctx.body = {
-          ok: false,
+          ok: true,
           data: {
             file_path: url_path+employee_photo.file_name,
           }
@@ -61,7 +61,7 @@ module.exports = function (employee_router) {
 
         ctx.status = 200;
         ctx.body = {
-          ok: false,
+          ok: true,
           data: {
             file_path: url_path+file_name,
           }
