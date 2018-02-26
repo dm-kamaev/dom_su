@@ -31,14 +31,20 @@ void async function () {
       is_mobile: false
     }
   };
-  console.log(auth_datas);
   auth_datas = uniq_auth_data_by_employee_id(auth_datas);
-  const count_client_id = auth_datas.length;
-  console.log('COUNT client_id', auth_datas.length);
+  let count_employee_id = auth_datas.length;
+  console.log('COUNT employee_id', auth_datas.length);
   await promise_api.queue(auth_datas, function (auth_data) {
     return new Promise(function (resolve) {
+      const file_name = '/p/pancake/only_one/employee_data/' + auth_data.employee_id + '.txt';
+      if (wf_sync.exist(file_name)) {
+        count_employee_id--;
+        console.log('remained= ', count_employee_id);
+        return resolve();
+      }
       setTimeout(async function() {
-        console.log('remained= ', count_client_id);
+        count_employee_id--;
+        console.log('remained= ', count_employee_id);
         resolve(request(auth_data, ctx));
       }, 2000);
     });
@@ -46,11 +52,7 @@ void async function () {
 }();
 
 
-async function request(auth_data, ctx) {
-  const file_name = '/p/pancake/only_one/employee_data/'+auth_data.employee_id+'.txt';
-  if (wf_sync.exist(file_name)) {
-    return;
-  }
+async function request(auth_data, file_name, ctx) {
   const request1Cv3 = new Request1Cv3(auth_data.token, null, null, ctx);
   await request1Cv3.add('GetEmployeeData', { EmployeeID: auth_data.employee_id }).do();
   let get_common = request1Cv3.get();

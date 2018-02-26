@@ -32,33 +32,37 @@ void async function () {
       is_mobile: false
     }
   };
-  console.log(auth_datas);
+  // console.log(auth_datas);
   auth_datas = uniq_auth_data_by_client_id(auth_datas);
-  const count_client_id = auth_datas.length;
-  console.log('COUNT client_id', auth_datas.length);
+  let count_client_id = auth_datas.length;
+  console.log('COUNT client_id === ', count_client_id);
   await promise_api.queue(auth_datas, function (auth_data) {
     return new Promise(function (resolve) {
-      setTimeout(async function() {
+      const file_name = '/p/pancake/only_one/client_data/'+auth_data.client_id+'.txt';
+      if (wf_sync.exist(file_name)) {
+        count_client_id--;
         console.log('remained= ', count_client_id);
-        resolve(request(auth_data, ctx));
+        return resolve();
+      }
+      setTimeout(async function() {
+        count_client_id--;
+        console.log('remained= ', count_client_id);
+        resolve(request(auth_data, file_name, ctx));
       }, 2000);
     });
   });
 }();
 
 
-async function request(auth_data, ctx) {
-  const file_name = '/p/pancake/only_one/client_data/'+auth_data.client_id+'.txt';
-  if (wf_sync.exist(file_name)) {
-    return;
-  }
+async function request(auth_data, file_name, ctx) {
   const request1Cv3 = new Request1Cv3(auth_data.token, null, null, ctx);
   await request1Cv3.add('Client.GetCommon', { ClientID: auth_data.client_id }).do();
   let get_common = request1Cv3.get();
   if (get_common.ok) {
     get_common = get_common.data;
   } else {
-    throw get_common;
+    console.log('Error= ', get_common);
+    wf_sync.append('/p/pancake/only_one/client_error.txt', JSON.stringify(get_common)+'\n');
   }
   get_common.phone = auth_data.phone;
   console.log('\n\n===========================');

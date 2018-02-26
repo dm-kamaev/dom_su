@@ -15,6 +15,13 @@ wf_sync.write = function (path, data) {
   fs.writeFileSync(path, data, 'utf8');
 };
 
+/**
+ * append
+ * @param  {string} path
+ * @param  {string} data)
+ * @return {}
+ */
+wf_sync.append = function (path, data) { fs.appendFileSync(path, data,'utf8'); };
 
 /**
  * exist file safe
