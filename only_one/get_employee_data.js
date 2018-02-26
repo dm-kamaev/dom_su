@@ -10,7 +10,6 @@ void async function () {
     SELECT
       ad.auth_data_id,
       ad.uuid,
-      ad.client_id,
       ad.employee_id,
       ad.token,
       up.phone
@@ -21,7 +20,7 @@ void async function () {
     ON
       ad.uuid = up.uuid
     WHERE
-      client_id IS NOT NULL
+      employee_id IS NOT NULL
   `);
   if (auth_datas instanceof Error) {
     throw auth_datas;
@@ -33,7 +32,7 @@ void async function () {
     }
   };
   console.log(auth_datas);
-  auth_datas = uniq_auth_data_by_client_id(auth_datas);
+  auth_datas = uniq_auth_data_by_employee_id(auth_datas);
   const count_client_id = auth_datas.length;
   console.log('COUNT client_id', auth_datas.length);
   await promise_api.queue(auth_datas, function (auth_data) {
@@ -48,12 +47,12 @@ void async function () {
 
 
 async function request(auth_data, ctx) {
-  const file_name = '/p/pancake/only_one/client_data/'+auth_data.client_id+'.txt';
+  const file_name = '/p/pancake/only_one/employee_data/'+auth_data.employee_id+'.txt';
   if (wf_sync.exist(file_name)) {
     return;
   }
   const request1Cv3 = new Request1Cv3(auth_data.token, null, null, ctx);
-  await request1Cv3.add('Client.GetCommon', { ClientID: auth_data.client_id }).do();
+  await request1Cv3.add('GetEmployeeData', { EmployeeID: auth_data.employee_id }).do();
   let get_common = request1Cv3.get();
   if (get_common.ok) {
     get_common = get_common.data;
@@ -67,8 +66,8 @@ async function request(auth_data, ctx) {
 }
 
 
-function uniq_auth_data_by_client_id(auth_datas) {
+function uniq_auth_data_by_employee_id(auth_datas) {
   var hash = {};
-  auth_datas.forEach(auth_data => hash[auth_data.client_id] = auth_data);
-  return Object.keys(hash).map(client_id => hash[client_id]);
+  auth_datas.forEach(auth_data => hash[auth_data.employee_id] = auth_data);
+  return Object.keys(hash).map(employee_id => hash[employee_id]);
 }
