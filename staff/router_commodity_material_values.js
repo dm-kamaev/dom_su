@@ -16,7 +16,37 @@ module.exports = function (employee_router) {
   employee_router.get('/staff/:employee_id/means_and_materials', decorators.login_required, decorators.getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
     try {
       const token = new AuthApi(ctx).get_auth_data().token;
-      const request1C = new Request1Cv3(token, null, null, ctx);
+      const employee_id = ctx.params.employee_id;
+
+      const req = new Request1Cv3(token, null, null, ctx);
+      req.add('GetEmployeeData', {
+        EmployeeID: employee_id
+      }).add('Employee.InventoryList', {}).add('Employee.GetInventoryRequestList', {
+        EmployeeID: employee_id,
+        Count: 1,
+        From: 1,
+        Filter: {
+          Status: 'Active'
+        }
+      });
+      await req.do();
+      let {
+        GetEmployeeData: getEmployeeData,
+        'Employee.GetInventoryRequestList': getInventoryRequestList,
+        'Employee.InventoryList': Employee_InventoryList
+      } = req.get_all();
+      // console.log('GetEmployeeData=', getEmployeeData);
+      // console.log('Employee.GetInventoryRequestList=', getInventoryRequestList);
+      // console.log('Employee.GetInventoryRequestList=', Employee_InventoryList);
+
+      if (!getEmployeeData.ok) {
+        throw new getEmployeeData.error;
+      } else if (!Employee_InventoryList.ok) {
+        throw Employee_InventoryList.error;
+      } else if (!getInventoryRequestList.ok) {
+        throw getInventoryRequestList.error;
+      }
+
       // InventoryList: [{
       //   InventoryID: "63666f19-d76a-11e2-8286-002590306b4e",
       //   InventoryTitle: "Моп 18003 (40*12) абразив",
@@ -32,29 +62,30 @@ module.exports = function (employee_router) {
       //   Quantity: 125,
       //   Price: 80.24
       // }]
-      await request1C.add('Employee.InventoryList', {}).do();
-      const Employee_InventoryList = request1C.get();
-      if (!Employee_InventoryList.ok) {
-        throw Employee_InventoryList.error;
-      }
+
       const i_list = Employee_InventoryList.data.InventoryList;
       const means = [];
       const materials = [];
       const hash_mean_material = {};
       i_list.forEach((inventory, i) => {
-        const quantity = [];
-        for (var j = 1, l = inventory.Balance; j < l; j++) { quantity.push(j); }
         const price = inventory.Price;
         const inventory_id = inventory.InventoryID;
         const package_id = inventory.PackageID;
+        const package_title = inventory.PackageTitle.replace(/\d+/g, '');
+
+        const quantity = [{ name: 'Не выбрано', value: 0 }];
+        for (var j = 1, l = inventory.Balance; j < l; j++) {
+          quantity.push({ name: (j+' '+package_title), value: j });
+        }
+        var row_id = inventory_id;
         const el = {
           inventory_id,
           inventory_title: inventory.InventoryTitle,
           inventory_description: inventory.InventoryDescription,
           package_id,
-          package_title: inventory.PackageTitle.replace(/\d+/g, ''),
           quantity,
-          price
+          price,
+          row_id
         };
         if (inventory.InventoryType === 'Средства') {
           el.data_type = 'mean';
@@ -72,34 +103,13 @@ module.exports = function (employee_router) {
           package_id,
           price,
           checked: false,
-          quantity: 1
+          quantity: 1,
+          row_id,
         };
       });
 
-      const employee_id = ctx.params.employee_id;
-      const request1Cv3_2 = new Request1Cv3(token, null, null, ctx);
-      await request1Cv3_2.add('GetEmployeeData', { EmployeeID: employee_id }).do();
-      const getEmployeeData = request1Cv3_2.get();
-      if (!getEmployeeData.ok) {
-        throw new getEmployeeData.error;
-      }
-
-      const request1Cv3_3 = new Request1Cv3(token, null, null, ctx);
-      await request1Cv3_3.add('Employee.GetInventoryRequestList', {
-        EmployeeID: employee_id,
-        Count: 1,
-        From: 1,
-        Filter: {
-          Status: 'Active'
-        }
-      }).do();
-      var getInventoryRequestList = request1Cv3_3.get();
-      if (!getInventoryRequestList.ok) {
-        throw getInventoryRequestList.error;
-      }
-      var inventory_request = getInventoryRequestList.data.InventoryRequestList[0];
+      // var inventory_request = getInventoryRequestList.data.InventoryRequestList[0];
       // inventory_request.
-
 
       ctx.status = 200;
       templateCtx.means = means;

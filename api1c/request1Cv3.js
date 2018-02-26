@@ -183,6 +183,49 @@ module.exports = class Request1Cv3 {
     }
     return res;
   }
+
+  get_all() {
+    const response = this.response;
+    const hash = {};
+    for (var i = 0, l = this.response.length; i < l; i++) {
+      const el = response[i];
+      const { method_name, res } = this._get(el);
+      hash[method_name] = res;
+    }
+    return hash;
+  }
+
+  _get(el) {
+    let res;
+    try {
+      if (el.ErrorCode) {
+        res = {
+          ok: false,
+          error: {
+            code: el.ErrorCode,
+            text: el.ErrorText,
+          }
+        };
+      } else {
+        res = {
+          ok: true,
+          data: el.Data,
+        };
+      }
+    } catch (err) {
+      // log.error(err)
+      logger.warn(err);
+      res = {
+        ok: false,
+        error: {
+          code: -2,
+          text: 'Internal error',
+        }
+      };
+    }
+    // return res;
+    return { method_name: el.Method, res };
+  }
 };
 
 

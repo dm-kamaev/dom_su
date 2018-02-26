@@ -1,12 +1,16 @@
 <!doctype html>
 <html>
   <head>
+    <title>Заявки на средства и материалы</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
     <style>
       .digit{
         font-weight: bold
       }
+      /*.custom-table tr{
+        border-top: 2px solid #EEE;
+      }*/
     </style>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -25,7 +29,7 @@
     <!-- End Google Tag Manager -->
   </head>
   <body class="">
-    <div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage" data-title="Личный кабинет от Домовёнка">
+    <div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage" data-title="Заявки на средства и материалы">
       <div data-role="header" data-position="fixed" data-tap-toggle="false">
         <h1 style="overflow: visible">Заявки на средства и материалы</h1>
         <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
@@ -46,53 +50,85 @@
             </ul>
           </div>
 
-          <div id=means class="ui-body-d ui-content">
-            {{#each means as |mean| }}
-            <div style=margin-top:30px>
-              {{!-- TODO: photo --}}
-              <label>
-                <input type=checkbox name="checkbox-0" data-key={{mean.data_key}} data-my-type=check>Выбрать
-              </label>
-              <p>inventory_title = {{mean.inventory_title}}</p>
-              <p>inventory_description = {{mean.inventory_description}}</p>
-              <p>price = {{mean.price}} руб.</p>
-              <div>
-                <div style=width:36% class="ui-field-contain">
-                  <select name="select-native-2" id="select-native-2" data-mini="true" data-key={{mean.data_key}} data-my-type=quantity>
-                    {{#each mean.quantity as |quan| }}
-                    <option value={{quan}}>{{quan}} {{mean.package_title}}</option>
-                    {{/each}}
-                  </select>
-                </div>
-              </div>
-            </div>
-            {{/each}}
+          <div id=means style=margin-top:24px class="ui-body-d ui-content">
+            <table data-role=table data-mode=reflow class="ui-responsive custom-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Название:</th>
+                  <th></th>
+                  <th>Цена:</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each means as |mean| }}
+                  <tr id='{{mean.row_id}}' style='border-top: 2px solid #EEE;text-align:left'>
+                    <td>
+                      <div style="width:100%;margin-top:0;" class="ui-field-contain">
+                        <select name="select-native-1_{{mean.data_key}}" id="select-native-1_{{mean.data_key}}" data-mini="true" data-key={{mean.data_key}} data-my-type=quantity>
+                          {{#each mean.quantity as |quan| }}
+                          <option value={{quan.value}}>{{quan.name}}</option>
+                          {{/each}}
+                        </select>
+                      </div>
+                    </td>
+                    <td>{{mean.inventory_title}}</td>
+                    <td>
+                      <div data-role=collapsible data-content-theme=false>
+                        <h4>Описание</h4>
+                        <p>{{mean.inventory_description}}</p>
+                      </div>
+                    </td>
+                    <td>{{mean.price}} руб.</td>
+                  </tr>
+                  <tr style=height:50px;><td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td></tr>
+                {{/each}}
+              </tbody>
+            </table>
           </div>
 
-          <div id=materials>
-            {{#each materials as |material| }}
-            <div style=margin-top:30px>
-              {{!-- TODO: photo --}}
-              <label>
-                <input type=checkbox name="checkbox-0" data-key={{material.data_key}} data-my-type=check>Выбрать
-              </label>
-              <p>inventory_title = {{material.inventory_title}}</p>
-              <p>inventory_description = {{material.inventory_description}}</p>
-              <p>price = {{material.price}} руб.</p>
-              <div>
-                <div style=width:36% class="ui-field-contain">
-                  <select name="select-native-2" id="select-native-2" data-mini="true" data-key={{material.data_key}} data-my-type=quantity>
-                    {{#each material.quantity as |quan| }}
-                    <option value={{quan}}>{{quan}} {{material.package_title}}</option>
-                    {{/each}}
-                  </select>
-                </div>
-              </div>
-            </div>
-            {{/each}}
+          <div id=materials style=margin-top:24px>
+           <table data-role=table data-mode=reflow class="ui-responsive custom-table">
+             <thead>
+               <tr>
+                 <th></th>
+                 <th>Название:</th>
+                 <th></th>
+                 <th>Цена:</th>
+               </tr>
+             </thead>
+             <tbody>
+               {{#each materials as |material| }}
+                 <tr id='{{material.row_id}}' style='border-top: 2px solid #EEE;text-align:left'>
+                   <td>
+                     <div style="width:100%;margin-top:0;" class="ui-field-contain">
+                       <select name="select-native-2_{{material.data_key}}" id="select-native-2_{{material.data_key}}" data-mini="true" data-key={{material.data_key}} data-my-type=quantity>
+                         {{#each material.quantity as |quan| }}
+                         <option value={{quan.value}}>{{quan.name}}</option>
+                         {{/each}}
+                       </select>
+                     </div>
+                   </td>
+                   <td>{{material.inventory_title}}</td>
+                   <td>
+                     <div data-role=collapsible data-content-theme=false>
+                       <h4>Описание</h4>
+                       <p>{{material.inventory_description}}</p>
+                     </div>
+                   </td>
+                   <td>{{material.price}} руб.</td>
+                 </tr>
+                 <tr style=height:50px;><td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td></tr>
+               {{/each}}
+             </tbody>
+           </table>
           </div>
-
-        </div>
 
         <div style="margin-top:16px;border-top:2px solid #999;font-size:120%">
           <p>Итог по средствам: <span id=total_means class=digit></span> руб.</p>
@@ -117,6 +153,7 @@
           <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li>
           <li><a data-ajax="false" href="{{staffUrl 'logout' }}">Выйти</a></li>
         </ul>
+      </div>
       </div>
     </div>
     <script>
@@ -165,29 +202,45 @@
           var key = data.key;
           var el;
           // console.log('BEFORE Change', t, data, t.value);
-          if (type === 'check') {
-            var checked = t.checked;
-            console.log('Change check', t, t.checked);
-            el = _hash_mean_material[key];
-            el.checked = checked;
-            if (checked) {
-              _active_hash[key] = el;
-            } else {
-              delete _active_hash[key];
-            }
-            recalc();
-            console.dir(_active_hash);
-          } else if (type === 'quantity') {
-            var value = t.value;
-            el = _hash_mean_material[key];
-            el.quantity = parseInt(value, 10);
-            if (el.checked) {
-              _active_hash[key] = el;
-              recalc();
-            }
-            console.log('Change quantity', t, );
-            console.dir(_active_hash);
+          if (type !== 'quantity') {
+            return;
           }
+          var value = t.value;
+          el = _hash_mean_material[key];
+          el.quantity = parseInt(value, 10);
+          if (el.quantity > 0) {
+            _active_hash[key] = el;
+            getById(el.row_id).style.backgroundColor = '#EEE';
+          } else if (el.quantity === 0) {
+            delete _active_hash[key];
+            getById(el.row_id).style.backgroundColor = '#FFF';
+          }
+          recalc();
+          console.log('Change quantity', t);
+          console.dir(_active_hash);
+          // if (type === 'check') {
+          //   var checked = t.checked;
+          //   console.log('Change check', t, t.checked);
+          //   el = _hash_mean_material[key];
+          //   el.checked = checked;
+          //   if (checked) {
+          //     _active_hash[key] = el;
+          //   } else {
+          //     delete _active_hash[key];
+          //   }
+          //   recalc();
+          //   console.dir(_active_hash);
+          // } else if (type === 'quantity') {
+          //   var value = t.value;
+          //   el = _hash_mean_material[key];
+          //   el.quantity = parseInt(value, 10);
+          //   if (el.checked) {
+          //     _active_hash[key] = el;
+          //     recalc();
+          //   }
+          //   console.log('Change quantity', t, );
+          //   console.dir(_active_hash);
+          // }
         }
 
         function create_proposal(e) {
