@@ -12,3 +12,5 @@ config/default.json
 /static
 /stat/employee_photo
 /settings/*.json
+/only_one/client_data/
+/only_one/employee_data/
