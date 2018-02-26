@@ -1,6 +1,6 @@
 #!/usr/local/bin/node
 
-"use strict";
+'use strict';
 
 // METHODS FOR WORK WITH PRoMISE
 
@@ -9,7 +9,7 @@ const promise_api = exports;
 /**
  * queue –– call promise step by step
  * @param  {Array} data
- * @param  {Promise} promise_handler
+ * @param  {Function} promise_handler
  * @return {Promise}
  */
 promise_api.queue = function (data, promise_handler) {
