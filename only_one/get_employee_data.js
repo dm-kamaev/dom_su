@@ -53,7 +53,7 @@ void async function () {
 
 
 async function request(auth_data, file_name, ctx) {
-  const request1Cv3 = new Request1Cv3(auth_data.token, null, null, ctx);
+  const request1Cv3 = new Request1Cv3(auth_data.token, auth_data.uuid, null, ctx);
   await request1Cv3.add('GetEmployeeData', { EmployeeID: auth_data.employee_id }).do();
   let get_common = request1Cv3.get();
   if (get_common.ok) {

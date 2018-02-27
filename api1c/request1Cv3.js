@@ -184,6 +184,7 @@ module.exports = class Request1Cv3 {
     return res;
   }
 
+  // return  { method_name : data_from_1C }
   get_all() {
     const response = this.response;
     const hash = {};
@@ -195,6 +196,7 @@ module.exports = class Request1Cv3 {
     return hash;
   }
 
+  // wrapper and extractor for data form 1C
   _get(el) {
     let res;
     try {
@@ -213,7 +215,6 @@ module.exports = class Request1Cv3 {
         };
       }
     } catch (err) {
-      // log.error(err)
       logger.warn(err);
       res = {
         ok: false,
@@ -239,31 +240,3 @@ function createTemplateForData(name, param) {
     error: null,
   };
 }
-
-
-// function logger1C() {
-//   // TODO: write in file
-//   if (NODE_ENV === 'development') {
-//     try {
-//       if (arguments.length === 2) {
-//         var a = arguments[0];
-//         var b = arguments[1];
-//         if (a instanceof Object) {
-//           a = JSON.stringify(a, null, 2);
-//         }
-//         if (b instanceof Object) {
-//           b = JSON.stringify(b, null, 2);
-//         }
-//         console.log(a, b);
-//       } else {
-//         var a = arguments[0];
-//         if (a instanceof Object) {
-//           a = JSON.stringify(a, null, 2);
-//         }
-//         console.log(a);
-//       }
-//     } catch (err) {
-//       console.log('logger1C =', err);
-//     }
-//   }
-// }
