@@ -1,10 +1,14 @@
 'use strict';
 
-const UTMS_NAME = ['utm_medium', 'utm_source', 'utm_campaign', 'utm_term', 'utm_content', 'utm_referrer'];
+const CONF = require('/p/pancake/settings/config.js');
 const phone_api = require('/p/pancake/lib/phone_api.js');
 const city_api = require('/p/pancake/cities/city_api.js');
 
-async function UTMCollector(ctx, next) {
+const UTMCollector = module.exports;
+
+const UTMS_NAME = ['utm_medium', 'utm_source', 'utm_campaign', 'utm_term', 'utm_content', 'utm_referrer'];
+
+UTMCollector.UTMCollector = async function (ctx, next) {
   let utm = {};
   // Google UTMS
   if (ctx.query.campaignid){
@@ -39,17 +43,15 @@ async function UTMCollector(ctx, next) {
     }
   }
 
-  const employee_id = ctx.query.employee_id;
-  if (employee_id) {
-    utm.employee_id = employee_id;
-  }
-
   if (Object.keys(utm).length !== 0){
     ctx.state.pancakeUser.saveUTMS(utm);
   }
   await next();
-}
-
-module.exports = {
-  UTMCollector
 };
+
+
+UTMCollector.create_link_for_employee_profile = function (employee_id) {
+  return CONF.domain+'/landings__applicant_cleaner/?utm_source=from_employee_profile&utm_medium=referral&utm_referrer='+employee_id;
+};
+
+

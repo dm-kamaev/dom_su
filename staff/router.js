@@ -24,6 +24,7 @@ const router_commodity_material_values = require('/p/pancake/staff/router_commod
 const AuthApi = require('/p/pancake/auth/authApi.js');
 const fn = require('/p/pancake/my/fn.js');
 const Request1Cv3 = require('/p/pancake/api1c/request1Cv3.js');
+const UTMCollector = require('/p/pancake/user_manager/middleware/UTMCollector.js');
 
 const nodemailer = require('nodemailer');
 // create reusable transporter object using the default SMTP transport
@@ -650,8 +651,8 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
     } else {
       set_total_receivable(templateCtx, GetCurrentWageForEmployee, GetCurrentDepositForEmployee);
 
-      templateCtx.link_to_landing_with_utm =
-        CONF.domain+'/landings__applicant_cleaner/?utm_source=from_employee_profile&employee_id='+employee_id+'&utm_medium=referral&utm_referrer=from_employee_profile';
+      templateCtx.link_to_landing_with_utm = UTMCollector.create_link_for_employee_profile(employee_id);
+      // CONF.domain+'/landings__applicant_cleaner/?utm_source=from_employee_profile&employee_id='+employee_id+'&utm_medium=referral&utm_referrer=from_employee_profile';
       // show profile on mobile
       template = getTemplate(staffTemplate.mobile.userIndex); // staff/templates/desctop/userIndex.html
     }
