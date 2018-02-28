@@ -69,3 +69,15 @@ Start project via Pm2
               | -- app/
               | -- pm2/
 ```
+
+Как работает раздача статики в проекте:
+```
+  nginx location ~/static {
+    root /srv/www/domovenok_su/public_html/static/
+  }
+  there are two symlinks in this folder:
+  
+  general -> /srv/www/clientPA/public/static/general
+  pancake -> /srv/www/pancake/static/pancake
+  
+```
