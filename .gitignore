@@ -8,8 +8,6 @@ getFixture.js
 config/default.json
 /ecosystem.json
 /config
-/templates
-/static
 /stat/employee_photo
 /settings/*.json
 /only_one/client_data/
