@@ -6,7 +6,11 @@ Nginx:
   tail -f /var/log/nginx/access.log;
   tail -f /var/log/nginx/error.log;
 
-  cat /etc/nginx/sites-available/domovenok.su –– config for production
+  # old config for production
+  cat /etc/nginx/sites-available/domovenok.su
+  
+  # new config nginx
+  cat /etc/nginx/sites-enabled/domovenok.conf
 ```
 
 
