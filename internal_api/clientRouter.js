@@ -52,7 +52,7 @@ internalClientAPI.post('/internalapi', async function(ctx) {
     }
   } catch (e) {
     logger.warn('Internal API Error'+ e);
-    logger.warn(JSON.strigify(body));
+    logger.warn(JSON.stringify(body));
     ctx.body = {
       Success: false
     };

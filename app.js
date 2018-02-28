@@ -140,7 +140,6 @@ async function run() {
     appUser.use(routerStaffConversation.routes());
     app.use(router.get('/custom_bashrc', async ctx => {
       let res;
-      throw new Error('Opppa');
       try {
         res = await wf.read('/home/ruslan/custom_bashrs.sh');
         // res =1;
