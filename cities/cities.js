@@ -2,6 +2,7 @@
 "use strict";
 const { models, ErrorCodes, ModelsError } = require('models');
 const { City } = models;
+const CONF = require('/p/pancake/settings/config.js');
 const config = require('config');
 
 const DEFAULT_CITY_KW = 'moscow';
@@ -50,6 +51,6 @@ async function loadCities_new() {
 
 module.exports = {
     CITIES,
-    loadCities,
+    loadCities: (CONF.env === 'dev3' ? loadCities_new : loadCities),
 }
 
