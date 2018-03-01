@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Заявки на средства и материалы</title>
+    <title>Текущая заявка на средства и материалы</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
     <style>
@@ -28,7 +28,7 @@
   <body class="">
     <div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage" data-title="Заявки на средства и материалы">
       <div data-role="header" data-position="fixed" data-tap-toggle="false">
-        <h1 style="overflow: visible">Заявки на средства и материалы</h1>
+        <h1 style="overflow: visible">Текущая заявка на средства и материалы</h1>
         <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
       </div>
       <div role="main" class="ui-content jqm-content jqm-fullwidth">
@@ -38,104 +38,41 @@
 
         <p>Лимит на средства и материалы: <span class=digit>{{getEmployeeData.MatLimit}}</span> руб.</p>
 
-        <div data-role="tabs" id="tabs">
+        <table data-role=table data-mode=reflow class="ui-responsive custom-table">
+          <thead>
+            <tr>
+              <th>Название</th>
+              <th>Кол-во</th>
+              <th>Тип</th>
+              <th>Цена:</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each info_inventory_request as |inventory| }}
+              <tr class=table-row>
+                <td>{{inventory_title}}</td>
+                <td> {{inventory.quantity}}</td>
+                <td>{{inventory.package_title}}</td>
+                <td>{{inventory.amount}} руб.</td>
+              </tr>
+              <tr style=height:50px;>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
 
-          <div data-role="navbar">
-            <ul>
-              <li><a href="#means" class="ui-btn-active">Средства</a></li>
-              <li><a href="#materials">Материалы</a></li>
-            </ul>
-          </div>
-
-          <div id=means style=margin-top:24px class="ui-body-d ui-content">
-            <table data-role=table data-mode=reflow class="ui-responsive custom-table">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Название:</th>
-                  <th></th>
-                  <th>Цена:</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each means as |mean| }}
-                  <tr id='{{mean.row_id}}' class=table-row>
-                    <td>
-                      <div style="width:100%;margin-top:0;" class="ui-field-contain">
-                        <select name="select-native-1_{{mean.data_key}}" id="select-native-1_{{mean.data_key}}" data-mini="true" data-key={{mean.data_key}} data-my-type=quantity>
-                          {{#each mean.quantity as |quan| }}
-                          <option value={{quan.value}}>{{quan.name}}</option>
-                          {{/each}}
-                        </select>
-                      </div>
-                    </td>
-                    <td>{{mean.inventory_title}}</td>
-                    <td>
-                      <div data-role=collapsible data-content-theme=false>
-                        <h4>Описание</h4>
-                        <p style=text-align:justify>{{mean.inventory_description}}</p>
-                      </div>
-                    </td>
-                    <td>{{mean.price}} руб.</td>
-                  </tr>
-                  <tr style=height:50px;><td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td></tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-
-          <div id=materials style=margin-top:24px class="ui-body-d ui-content">
-           <table data-role=table data-mode=reflow class="ui-responsive custom-table">
-             <thead>
-               <tr>
-                 <th></th>
-                 <th>Название:</th>
-                 <th></th>
-                 <th>Цена:</th>
-               </tr>
-             </thead>
-             <tbody>
-               {{#each materials as |material| }}
-                 <tr id='{{material.row_id}}' class=table-row>
-                   <td>
-                     <div style="width:100%;margin-top:0;" class="ui-field-contain">
-                       <select name="select-native-2_{{material.data_key}}" id="select-native-2_{{material.data_key}}" data-mini="true" data-key={{material.data_key}} data-my-type=quantity>
-                         {{#each material.quantity as |quan| }}
-                         <option value={{quan.value}}>{{quan.name}}</option>
-                         {{/each}}
-                       </select>
-                     </div>
-                   </td>
-                   <td>{{material.inventory_title}}</td>
-                   <td>
-                     <div data-role=collapsible data-content-theme=false>
-                       <h4>Описание</h4>
-                       <p style=text-align:justify>{{material.inventory_description}}</p>
-                     </div>
-                   </td>
-                   <td>{{material.price}} руб.</td>
-                 </tr>
-                 <tr style=height:50px;><td></td>
-                 <td></td>
-                 <td></td>
-                 <td></td></tr>
-               {{/each}}
-             </tbody>
-           </table>
-          </div>
-
-        <div style="margin-top:16px;border-top:2px solid #999;font-size:120%">
+<!--         <div style="margin-top:16px;border-top:2px solid #999;font-size:120%">
           <p>Итог по средствам: <span id=total_means class=digit></span> руб.</p>
           <p>Итог по материалам: <span id=total_materials class=digit></span> руб.</p>
           <p>Итог всего: <span id=total class=digit></span> руб.</p>
           <p id=status_text style=font-size:100%></p>
           <button id=create_proposal type=button>Оформить заявку</button>
           <p style=color:red id=error></p>
-        </div>
-      </div>
+        </div> -->
       <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel">
         <ul data-role="listview">
           <li data-icon="delete"><a href="#" data-rel="close">Закрыть Меню</a></li>
