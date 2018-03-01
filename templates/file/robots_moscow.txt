@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /search
+Disallow: /?page=1
+Crawl-delay: 1
+Host: https://www.domovenok.su
+Sitemap: https://www.domovenok.su/sitemap.xml

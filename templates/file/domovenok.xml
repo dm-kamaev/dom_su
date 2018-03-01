@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<yml_catalog date="2016-10-03 13:04">
+<shop>
+		<name>domovenok.su</name>
+		<company>Домовёнок</company>
+		<url>https://www.domovenok.su/</url>
+
+		<currencies>
+			<currency  id="RUR" rate="1"/>
+		</currencies>
+
+		<categories>
+		<category id="1">Услуги</category>
+		</categories>
+		
+		<offers>
+			<offer id="1" available="true">
+				  <url>https://www.domovenok.su/generalnaya_uborka</url>
+				  <price>6590</price>
+				  <currencyId>RUR</currencyId>
+				  <categoryId>1</categoryId>
+				  <picture></picture>
+				  <delivery>false</delivery>
+				  <name>Генеральная уборка квартиры и помещений</name>
+				  <description>Работники нашей компании возьмут на себя проведение генеральной уборки квартиры, дома, помещения в Москве.</description>
+			</offer>
+			
+			<offer id="2" available="true">
+				  <url>https://www.domovenok.su/podderzhka</url>
+				  <price>1490</price>
+				  <currencyId>RUR</currencyId>
+				  <categoryId>1</categoryId>
+				  <picture></picture>
+				  <delivery>false</delivery>	  
+				  <name>Поддерживающая уборка квартир</name>
+				  <description>Наша компания осуществляет поддерживающую уборку квартир и жилых помещений любой площади в Москве и Санкт-Петербурге. Для постоянных клиентов у нас имеются скидки.</description>
+			</offer>
+			
+			
+			<offer id="3" available="true">
+				  <url>https://www.domovenok.su/posle_remonta</url>
+				  <price>5600</price>
+				  <currencyId>RUR</currencyId>
+				  <categoryId>1</categoryId>
+				  <picture></picture>
+				  <delivery>false</delivery>	  
+				  <name>Уборка после ремонта</name>
+				  <description>Наша компания специализируется на уборке квартир, офисов, домов и коттеджей после ремонта и строительства в Москве и Санкт-Петербурге.</description>
+			</offer>
+			
+			<offer id="4" available="true">
+				  <url>https://www.domovenok.su/mite_okon</url>
+				  <price>250</price>
+				  <currencyId>RUR</currencyId>
+				  <categoryId>1</categoryId>
+				  <picture></picture>
+				  <delivery>false</delivery>		  
+				  <name>Мытье окон </name>
+				  <description>Специалисты нашей компании осуществляют мойку окон в квартирах и офисах в Москве и Санкт-Петербурге. Цены на мытье окон указаны на сайте.</description>
+			</offer>
+			
+			<offer id="5" available="true">
+				  <url>https://www.domovenok.su/vizov_mastera_na_dom</url>
+				  <price>1450</price>
+				  <currencyId>RUR</currencyId>
+				  <categoryId>1</categoryId>
+				  <picture></picture>
+				  <delivery>false</delivery>  
+				  <name>Домашний мастер</name>
+				  <description>В агентстве бытовых услуг «Домовёнок» Вы можете заказать срочный вызов домашнего мастера на дом в Москве и Санкт-Петербурге.</description>
+			</offer>
+			
+			<offer id="6" available="true">
+				  <url>https://www.domovenok.su/glazhka</url>
+				  <price>250</price>
+				  <currencyId>RUR</currencyId>
+				  <categoryId>1</categoryId>
+				  <picture></picture>
+				  <delivery>false</delivery>  
+				  <name>Глажка белья</name>
+				  <description>Клининговая компания Домовенок предлагает своим клиентам профессиональные услуги глажки и стирки белья. На нашем сайте вы можете ознакомиться с расценками услуги.</description>
+			</offer>
+						
+		</offers>
+		
+</shop>
+</yml_catalog>
