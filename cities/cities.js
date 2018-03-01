@@ -4,7 +4,6 @@ const { models } = require('models');
 const { City } = models;
 const CONF = require('/p/pancake/settings/config.js');
 const config = require('config');
-
 const DEFAULT_CITY_KW = 'moscow';
 
 const CITIES = { DICT : {}, URL: {}};
@@ -60,4 +59,3 @@ module.exports = {
   CITIES,
   loadCities: (CONF.env === 'dev3' ? loadCities_new : loadCities),
 };
-
