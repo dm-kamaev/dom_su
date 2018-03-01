@@ -8,17 +8,14 @@
       .digit{
         font-weight: bold
       }
-      /*.custom-table tr{
+      .table-row{
+        text-align:left;
         border-top: 2px solid #EEE;
-      }*/
+      }
     </style>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    {{!-- <script src="/static/js/custom_cookie.js?v=1.0"></script> --}}
-    <!-- For autocomplete -->
-    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-    <!-- <script src="/stat/lib/jquery-ui.js?v3"></script> -->
+
     <!-- Google Tag Manager -->
     {{#if general.production}}
     <noscript>
@@ -62,7 +59,7 @@
               </thead>
               <tbody>
                 {{#each means as |mean| }}
-                  <tr id='{{mean.row_id}}' style='border-top: 2px solid #EEE;text-align:left'>
+                  <tr id='{{mean.row_id}}' class=table-row>
                     <td>
                       <div style="width:100%;margin-top:0;" class="ui-field-contain">
                         <select name="select-native-1_{{mean.data_key}}" id="select-native-1_{{mean.data_key}}" data-mini="true" data-key={{mean.data_key}} data-my-type=quantity>
@@ -76,7 +73,7 @@
                     <td>
                       <div data-role=collapsible data-content-theme=false>
                         <h4>Описание</h4>
-                        <p>{{mean.inventory_description}}</p>
+                        <p style=text-align:justify>{{mean.inventory_description}}</p>
                       </div>
                     </td>
                     <td>{{mean.price}} руб.</td>
@@ -90,7 +87,7 @@
             </table>
           </div>
 
-          <div id=materials style=margin-top:24px>
+          <div id=materials style=margin-top:24px class="ui-body-d ui-content">
            <table data-role=table data-mode=reflow class="ui-responsive custom-table">
              <thead>
                <tr>
@@ -102,7 +99,7 @@
              </thead>
              <tbody>
                {{#each materials as |material| }}
-                 <tr id='{{material.row_id}}' style='border-top: 2px solid #EEE;text-align:left'>
+                 <tr id='{{material.row_id}}' class=table-row>
                    <td>
                      <div style="width:100%;margin-top:0;" class="ui-field-contain">
                        <select name="select-native-2_{{material.data_key}}" id="select-native-2_{{material.data_key}}" data-mini="true" data-key={{material.data_key}} data-my-type=quantity>
@@ -116,7 +113,7 @@
                    <td>
                      <div data-role=collapsible data-content-theme=false>
                        <h4>Описание</h4>
-                       <p>{{material.inventory_description}}</p>
+                       <p style=text-align:justify>{{material.inventory_description}}</p>
                      </div>
                    </td>
                    <td>{{material.price}} руб.</td>
@@ -218,29 +215,6 @@
           recalc();
           console.log('Change quantity', t);
           console.dir(_active_hash);
-          // if (type === 'check') {
-          //   var checked = t.checked;
-          //   console.log('Change check', t, t.checked);
-          //   el = _hash_mean_material[key];
-          //   el.checked = checked;
-          //   if (checked) {
-          //     _active_hash[key] = el;
-          //   } else {
-          //     delete _active_hash[key];
-          //   }
-          //   recalc();
-          //   console.dir(_active_hash);
-          // } else if (type === 'quantity') {
-          //   var value = t.value;
-          //   el = _hash_mean_material[key];
-          //   el.quantity = parseInt(value, 10);
-          //   if (el.checked) {
-          //     _active_hash[key] = el;
-          //     recalc();
-          //   }
-          //   console.log('Change quantity', t, );
-          //   console.dir(_active_hash);
-          // }
         }
 
         function create_proposal(e) {
@@ -251,7 +225,7 @@
             return $error.innerHTML = '* Выберите средства или материалы';
           }
           if (_current_mat_limit < 0) {
-            return $error.innerHTML = '* Вам не хватает средств, уберите что-нибудь или уменьшите кол-во';
+            return $error.innerHTML = '* Вам не хватает средств, уберите что-нибудь';
           }
           var data = [];
           for (var i = 0, l = keys.length; i < l; i++) {
@@ -306,7 +280,7 @@
           var text = '';
           var $status_text = getById('status_text');
           if (new_mat_limit < 0) {
-            $status_text.innerHTML = 'Вам не хватает '+to_rubles((-1 * new_mat_limit))+' руб. , уберите что-нибудь или уменьшите количество';
+            $status_text.innerHTML = 'Вам не хватает '+to_rubles((-1 * new_mat_limit))+' руб. , уберите что-нибудь';
             $status_text.style.color = 'red';
           } else {
             $status_text.innerHTML = 'У вас оcталось еще '+ to_rubles(new_mat_limit)+' руб.';
