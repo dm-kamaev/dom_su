@@ -17,7 +17,7 @@ city_api.get_via_host = function(ctx) {
     } else {
       return cities.default;
     }
-  } else { // old logic
+  } else { // old logic for dev machine and for prod
     const host = ctx.headers.host || '';
     const cities = ctx.cities;
     if (/^nn\./.test(host)) {
@@ -48,12 +48,20 @@ city_api.get_via_host = function(ctx) {
 // Нижний Новгород
 city_api.is_nn = function (ctx) {
   const host = ctx.headers.host || '';
-  return host && /^nn\./.test(host);
+  if (CONF.env === 'dev3') {
+    return host && /^nn-/.test(host);
+  } else { // old logic for dev machine and for prod
+    return host && /^nn\./.test(host);
+  }
 };
 
 
 // Питер
 city_api.is_spb = function (ctx) {
   const host = ctx.headers.host || '';
-  return host && /^spb\./.test(host);
+  if (CONF.env === 'dev3') {
+    return host && /^spb-/.test(host);
+  } else { // old logic for dev machine and for prod
+    return host && /^spb\./.test(host);
+  }
 };
