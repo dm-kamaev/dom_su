@@ -25,14 +25,26 @@ class PancakeService {
         }
         let ticket = {
             channel: data.channel,
-            google_id: user.google_id,
+            google_id: user.data.google_id,
             active: phone.living,
             user_id: user.uuid,
         }
         if (user == null){
             throw new Error(`Post call tracking | User on Phone - ${data.phone} - not found`)
         }
-        this.sendTicket('NewTrackingCall', ticket)
+        // {
+        //     "action": "NewOnlineObjects",
+        //     "param": [{
+        //         "type": "NewTrackingCall",
+        //         "data": {
+        //             "channel": 2769574,
+        //             "active": true,
+        //             "user_id": "2e93858f-c0d5-4dfe-af93-d295e805d546",
+        //             "date": "2018-03-05T10:09:25.330Z"
+        //         }
+        //     }]
+        // }
+        this.sendTicket('NewTrackingCall', ticket);
         this.sendDataGA({
             'v': 1,
             'tid': config.analytics.google,
