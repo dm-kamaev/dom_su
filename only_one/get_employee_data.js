@@ -59,7 +59,8 @@ async function request(auth_data, file_name, ctx) {
   if (get_common.ok) {
     get_common = get_common.data;
   } else {
-    throw get_common;
+    console.log('Error= ', get_common);
+    wf_sync.append('/p/pancake/only_one/employee_error.txt', JSON.stringify(get_common)+'\n');
   }
   get_common.phone = auth_data.phone;
   console.log('\n\n===========================');

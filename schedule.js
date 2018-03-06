@@ -121,7 +121,8 @@ function setVisitFinish() {
 function cleanPhoneNumber() {
   sequelize.query(
     'UPDATE phones ' +
-        'SET (living) = (false) ' +
+        // 'SET (living) = (false) ' +
+        'SET living = false ' +
         'FROM users ' +
         'WHERE ' +
             'phones.living IS True AND ' +
