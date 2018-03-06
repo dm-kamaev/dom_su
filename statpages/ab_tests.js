@@ -32,7 +32,7 @@ const ABTestContainer = {
     // ]},
     main: {
       name: "",
-      key: "main_7_form",
+      key: "main_8_new",
       forNewUser: true,
       variations: [{
         name: "control",
