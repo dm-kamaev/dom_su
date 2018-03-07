@@ -1,16 +1,21 @@
 <!doctype html>
-<html>
+<html lang=RU>
   <head>
     <title>Текущая заявка на средства и материалы</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
     <style>
+      *{font-size:100%}
       .digit{
         font-weight: bold
       }
       .table-row{
         text-align:left;
         border-top: 2px solid #EEE;
+      }
+      @media screen and (max-width:640px) {
+        .row-margin-top{display:none} /* hide tr, which use as margin-top, because jquery mobile show th for every td  */
+        .table-row{border-top: 1px solid #AAA;}
       }
     </style>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
@@ -28,7 +33,7 @@
   <body class="">
     <div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage" data-title="Заявки на средства и материалы">
       <div data-role="header" data-position="fixed" data-tap-toggle="false">
-        <h1 style="overflow: visible">Текущая заявка на средства и материалы</h1>
+        <h1 style="overflow: visible">Текущая заявка <br/>на средства и материалы</h1>
         <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
       </div>
       <div role="main" class="ui-content jqm-content jqm-fullwidth">
@@ -38,7 +43,7 @@
 
         <p>Лимит на средства и материалы: <span class=digit>{{getEmployeeData.MatLimit}}</span> руб.</p>
 
-        <table data-role=table data-mode=reflow class="ui-responsive custom-table">
+        <table style=margin-top:32px data-role=table data-mode=reflow class='ui-responsive custom-table'>
           <thead>
             <tr>
               <th>Название</th>
@@ -55,7 +60,7 @@
                 <td>{{inventory.package_title}}</td>
                 <td>{{inventory.amount}} руб.</td>
               </tr>
-              <tr style=height:50px;>
+              <tr class=row-margin-top style=height:30px;>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -65,18 +70,15 @@
           </tbody>
         </table>
 
-<!--         <div style="margin-top:16px;border-top:2px solid #999;font-size:120%">
-          <p>Итог по средствам: <span id=total_means class=digit></span> руб.</p>
-          <p>Итог по материалам: <span id=total_materials class=digit></span> руб.</p>
-          <p>Итог всего: <span id=total class=digit></span> руб.</p>
-          <p id=status_text style=font-size:100%></p>
-          <button id=create_proposal type=button>Оформить заявку</button>
-          <p style=color:red id=error></p>
-        </div> -->
+        <div style="margin-top:16px;border-top:2px solid #999;font-size:120%">
+          <button id=cansel_inventory_request type=button>Отменить заявку</button>
+          <p style=font-size:90%>* Чтобы создать новую заявку требуется закрыть текущую</p>
+          <p id=cansel_inventory_request_success_or_error></p>
+        </div>
       <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel">
         <ul data-role="listview">
           <li data-icon="delete"><a href="#" data-rel="close">Закрыть Меню</a></li>
-          <li><a data-ajax="false" href="{{staffUrl 'employeeDetail' selfId }}?profile=true" class="ui-btn ui-btn-active">Профиль</a></li>
+          <li><a data-ajax="false" href="{{staffUrl 'employeeDetail' selfId }}?profile=true">Профиль</a></li>
           <li><a href="{{staffUrl 'creditsCurrent' selfId }}">Заработано</a></li>
           <li><a href="{{staffUrl 'depositCurrent' selfId }}">Необходимо сдать</a></li>
           <li><a href="{{staffUrl 'employeeDetail' selfId }}?orders=true">Заказы</a></li>
@@ -84,6 +86,7 @@
           <li><a href="{{staffUrl 'disciplinaryList' selfId }}">Нарушения</a></li>
           <li><a href="{{staffUrl 'conversationList' selfId }}">Обращения</a></li>
           <li><a href="{{staffUrl 'news' selfId}}">Новости</a></li>
+          <li><a href="{{staffUrl 'means_and_materials' selfId}}" class='ui-btn ui-btn-active'>Средства и материалы</a></li>
           <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li>
           <li><a data-ajax="false" href="{{staffUrl 'logout' }}">Выйти</a></li>
         </ul>
@@ -93,147 +96,29 @@
     <script>
     void function () {
       function getById(id) { return document.getElementById(id); }
-      function getTarget(e) { return e && e.target || e.srcElement; }
-      function getDataAttribute(el) {
-        el = (typeof el === 'string') ? getByID(el) : el;
-        return el.dataset || {};
-      }
-      if (!Object.keys) {
-        Object.keys = function(obj) {
-          var keys = [];
-          for (var key in obj) {
-            if (obj.hasOwnProperty(key)) {
-              keys.push(key);
-            }
+
+      var $cansel_success_or_error = getById('cansel_inventory_request_success_or_error');
+      var $cansel_inventory_request = getById('cansel_inventory_request');
+      $cansel_inventory_request.onclick = function () {
+        $cansel_success_or_error.innerHTML = '';
+        $.ajax({
+          type: 'DELETE',
+          url: '/staff/aj/{{selfId}}/inventory_request/{{inventory_request_id}}',
+          cache: false,
+          success: function () {
+            console.log('Success=', arguments);
+            $cansel_inventory_request.style.opacity = .5;
+            $cansel_success_or_error.style.color = 'green';
+            $cansel_success_or_error.innerHTML = 'Заявка успешно отменена <a data-ajax=false style=font-size:90%; href="{{current_url}}">Создать новую заявку</a>';
+            window.location.reload();
+          },
+          error: function () {
+            console.log('Error=', arguments);
+            $cansel_success_or_error.style.color = 'red';
+            $cansel_success_or_error.innerHTML = '* Произошла ошибка';
           }
-          return keys;
-        };
-      }
-
-      new Api(
-        {{{getEmployeeData.MatLimit}}},
-        {{{hash_mean_material}}}
-      ).set_events('tabs');
-
-      function Api(_mat_limit, _hash_mean_material) {
-        var _active_hash = {};
-        var $create_proposal = getById('create_proposal');
-        var $error = getById('error');
-        _mat_limit = to_cents(_mat_limit);
-        _current_mat_limit = 0;
-
-        recalc();
-
-        this.set_events = function (id) {
-          getById(id).onchange = onchange;
-          $create_proposal.onclick = create_proposal;
-        };
-
-        function onchange(e) {
-          var t = getTarget(e);
-          var data = getDataAttribute(t);
-          var type = data.myType;
-          var key = data.key;
-          var el;
-          // console.log('BEFORE Change', t, data, t.value);
-          if (type !== 'quantity') {
-            return;
-          }
-          var value = t.value;
-          el = _hash_mean_material[key];
-          el.quantity = parseInt(value, 10);
-          if (el.quantity > 0) {
-            _active_hash[key] = el;
-            getById(el.row_id).style.backgroundColor = '#EEE';
-          } else if (el.quantity === 0) {
-            delete _active_hash[key];
-            getById(el.row_id).style.backgroundColor = '#FFF';
-          }
-          recalc();
-          console.log('Change quantity', t);
-          console.dir(_active_hash);
-        }
-
-        function create_proposal(e) {
-          $error.innerHTML = '';
-          $create_proposal.style.opacity = .5;
-          var keys = Object.keys(_active_hash)
-          if (!Object.keys(_active_hash).length) {
-            return $error.innerHTML = '* Выберите средства или материалы';
-          }
-          if (_current_mat_limit < 0) {
-            return $error.innerHTML = '* Вам не хватает средств, уберите что-нибудь';
-          }
-          var data = [];
-          for (var i = 0, l = keys.length; i < l; i++) {
-            var el = _active_hash[keys[i]];
-            data.push({
-              InventoryID: el.inventory_id,
-              PackageID: el.package_id,
-              Quantity: el.quantity,
-            });
-          }
-          console.log('SEND AJAX =', data);
-      }
-
-        function recalc() {
-          $error.innerHTML = '';
-          var keys = Object.keys(_active_hash);
-          var total_means = 0;
-          var total_materials = 0;
-          for (var i = 0, l = keys.length; i < l; i++) {
-            var el = _active_hash[keys[i]];
-            var res = el.quantity * to_cents(el.price);
-            var type = el.type;
-            if (type === 'mean') {
-              total_means += res;
-            } else if (type === 'material') {
-              total_materials += res;
-            } else {
-              console.error('Incorrect type =>'+type);
-            }
-          }
-          var total = total_means + total_materials;
-          _current_mat_limit = _mat_limit - total;
-          update_total_means(total_means);
-          update_total_materials(total_materials);
-          update_total(total);
-          update_status_text(_current_mat_limit);
-        }
-
-        function update_total_means(means) {
-          getById('total_means').innerHTML = to_rubles(means);
-        }
-
-        function update_total_materials(materials) {
-          getById('total_materials').innerHTML = to_rubles(materials);
-        }
-
-        function update_total(total) {
-          getById('total').innerHTML = to_rubles(total);
-        }
-
-        function update_status_text(new_mat_limit) {
-          var text = '';
-          var $status_text = getById('status_text');
-          if (new_mat_limit < 0) {
-            $status_text.innerHTML = 'Вам не хватает '+to_rubles((-1 * new_mat_limit))+' руб. , уберите что-нибудь';
-            $status_text.style.color = 'red';
-          } else {
-            $status_text.innerHTML = 'У вас оcталось еще '+ to_rubles(new_mat_limit)+' руб.';
-            $status_text.style.color = 'green';
-          }
-        }
-
-        function to_cents(digit) {
-          return digit * 100;
-        }
-
-        function to_rubles(digit) {
-          return (digit / 100).toFixed(2);
-        }
-
-      }
+        });
+      };
 
     }();
     </script>

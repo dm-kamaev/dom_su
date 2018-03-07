@@ -12,6 +12,13 @@
         text-align:left;
         border-top: 2px solid #EEE;
       }
+      .row-margin-top{height:30px;}
+      .el-margin-top > b.ui-table-cell-label{ display:none; }
+      .table-row{border-top: 2px solid #EEE;}
+      /*.my-title h1{overflow:visible}*/
+      @media screen and (max-width:640px) {
+        .my-title{font-size:80%;}
+      }
     </style>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -26,9 +33,9 @@
     <!-- End Google Tag Manager -->
   </head>
   <body class="">
-    <div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage" data-title="Заявки на средства и материалы">
-      <div data-role="header" data-position="fixed" data-tap-toggle="false">
-        <h1 style="overflow: visible">Создание заявки на средства и материалы</h1>
+    <div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage" data-title="Создание заявки на средства и материалы">
+      <div class=my-title data-role="header" data-position="fixed" data-tap-toggle="false">
+        <h1>Создание заявки на <br> средства и материалы</h1>
         <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
       </div>
       <div role="main" class="ui-content jqm-content jqm-fullwidth">
@@ -47,7 +54,7 @@
             </ul>
           </div>
 
-          <div id=means style=margin-top:24px class="ui-body-d ui-content">
+          <div id=means style=margin-top:24px class="ui-body-d">
             <table data-role=table data-mode=reflow class="ui-responsive custom-table">
               <thead>
                 <tr>
@@ -59,7 +66,7 @@
               </thead>
               <tbody>
                 {{#each means as |mean| }}
-                  <tr id='{{mean.row_id}}' class=table-row>
+                  <tr id='{{mean.row_id}}' {{#ifCond @index '!=' '0' }} class=table-row {{/ifCond}}>
                     <td>
                       <div style="width:100%;margin-top:0;" class="ui-field-contain">
                         <select name="select-native-1_{{mean.data_key}}" id="select-native-1_{{mean.data_key}}" data-mini="true" data-key={{mean.data_key}} data-my-type=quantity>
@@ -78,16 +85,18 @@
                     </td>
                     <td>{{mean.price}} руб.</td>
                   </tr>
-                  <tr style=height:50px;><td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td></tr>
+                  <tr class=row-margin-top>
+                    <td class=el-margin-top></td>
+                    <td class=el-margin-top></td>
+                    <td class=el-margin-top></td>
+                    <td class=el-margin-top></td>
+                  </tr>
                 {{/each}}
               </tbody>
             </table>
           </div>
 
-          <div id=materials style=margin-top:24px class="ui-body-d ui-content">
+          <div id=materials style=margin-top:24px class="ui-body-d">
            <table data-role=table data-mode=reflow class="ui-responsive custom-table">
              <thead>
                <tr>
@@ -99,7 +108,7 @@
              </thead>
              <tbody>
                {{#each materials as |material| }}
-                 <tr id='{{material.row_id}}' class=table-row>
+                 <tr id='{{material.row_id}}' {{#ifCond @index '!=' '0' }} class=table-row {{/ifCond}}>
                    <td>
                      <div style="width:100%;margin-top:0;" class="ui-field-contain">
                        <select name="select-native-2_{{material.data_key}}" id="select-native-2_{{material.data_key}}" data-mini="true" data-key={{material.data_key}} data-my-type=quantity>
@@ -118,10 +127,12 @@
                    </td>
                    <td>{{material.price}} руб.</td>
                  </tr>
-                 <tr style=height:50px;><td></td>
-                 <td></td>
-                 <td></td>
-                 <td></td></tr>
+                 <tr class=row-margin-top>
+                   <td class=el-margin-top></td>
+                   <td class=el-margin-top></td>
+                   <td class=el-margin-top></td>
+                   <td class=el-margin-top></td>
+                 </tr>
                {{/each}}
              </tbody>
            </table>
@@ -132,14 +143,14 @@
           <p>Итог по материалам: <span id=total_materials class=digit></span> руб.</p>
           <p>Итог всего: <span id=total class=digit></span> руб.</p>
           <p id=status_text style=font-size:100%></p>
-          <button id=create_proposal type=button>Оформить заявку</button>
+          <button id=create_inventory_request type=button>Оформить заявку</button>
           <p style=color:red id=error></p>
         </div>
       </div>
       <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel">
         <ul data-role="listview">
           <li data-icon="delete"><a href="#" data-rel="close">Закрыть Меню</a></li>
-          <li><a data-ajax="false" href="{{staffUrl 'employeeDetail' selfId }}?profile=true" class="ui-btn ui-btn-active">Профиль</a></li>
+          <li><a data-ajax="false" href="{{staffUrl 'employeeDetail' selfId }}?profile=true">Профиль</a></li>
           <li><a href="{{staffUrl 'creditsCurrent' selfId }}">Заработано</a></li>
           <li><a href="{{staffUrl 'depositCurrent' selfId }}">Необходимо сдать</a></li>
           <li><a href="{{staffUrl 'employeeDetail' selfId }}?orders=true">Заказы</a></li>
@@ -147,6 +158,7 @@
           <li><a href="{{staffUrl 'disciplinaryList' selfId }}">Нарушения</a></li>
           <li><a href="{{staffUrl 'conversationList' selfId }}">Обращения</a></li>
           <li><a href="{{staffUrl 'news' selfId}}">Новости</a></li>
+          <li><a href="{{staffUrl 'means_and_materials' selfId}}" class='ui-btn ui-btn-active'>Средства и материалы</a></li>
           <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li>
           <li><a data-ajax="false" href="{{staffUrl 'logout' }}">Выйти</a></li>
         </ul>
@@ -180,7 +192,7 @@
 
       function Api(_mat_limit, _hash_mean_material) {
         var _active_hash = {};
-        var $create_proposal = getById('create_proposal');
+        var $inventory_request = getById('create_inventory_request');
         var $error = getById('error');
         _mat_limit = to_cents(_mat_limit);
         _current_mat_limit = 0;
@@ -189,7 +201,7 @@
 
         this.set_events = function (id) {
           getById(id).onchange = onchange;
-          $create_proposal.onclick = create_proposal;
+          $inventory_request.onclick = create_inventory_request;
         };
 
         function onchange(e) {
@@ -198,7 +210,6 @@
           var type = data.myType;
           var key = data.key;
           var el;
-          // console.log('BEFORE Change', t, data, t.value);
           if (type !== 'quantity') {
             return;
           }
@@ -213,13 +224,10 @@
             getById(el.row_id).style.backgroundColor = '#FFF';
           }
           recalc();
-          console.log('Change quantity', t);
-          console.dir(_active_hash);
         }
 
-        function create_proposal(e) {
+        function create_inventory_request(e) {
           $error.innerHTML = '';
-          $create_proposal.style.opacity = .5;
           var keys = Object.keys(_active_hash)
           if (!Object.keys(_active_hash).length) {
             return $error.innerHTML = '* Выберите средства или материалы';
@@ -236,7 +244,27 @@
               Quantity: el.quantity,
             });
           }
-          console.log('SEND AJAX =', data);
+
+          $.ajax({
+            type: 'POST',
+            url: '/staff/aj/{{selfId}}/inventory_request',
+            cache: false,
+            data: JSON.stringify(data),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function () {
+              console.log('Success=', arguments);
+              $inventory_request.style.opacity = .5;
+              $error.style.color = 'green';
+              $error.innerHTML = 'Заявка успешно создана <a data-ajax=false style=font-size:90%; href="{{current_url}}">Посмотреть текущую заявку</a>';
+              window.location.reload();
+            },
+            error: function () {
+              console.log('Error=', arguments);
+              $error.style.color = 'red';
+              $error.innerHTML = '* Произошла ошибка';
+            }
+          });
       }
 
         function recalc() {
