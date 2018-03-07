@@ -43,7 +43,7 @@ module.exports = function() {
   switch (CONF.env) {
     case 'dev':
       // CONF.domain = 'https://www.dev.domovenok.su';
-      CONF.api1C = get_api_1c(enum_api_1C.LIZA);
+      CONF.api1C = get_api_1c(enum_api_1C.SASHA);
       break;
     case 'dev2':
       // CONF.domain = 'https://www.dev2.domovenok.su';
