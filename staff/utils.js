@@ -237,7 +237,9 @@ function staffUrl(name) {
         case 'conversationDetail':
             return `/staff/${arguments[1]}/conversations/${arguments[2]}/`
         case 'createMessage':
-            return `/staff/message_handler/${arguments[1]}`
+            return `/staff/message_handler/${arguments[1]}`;
+        case 'means_and_materials':
+            return `/staff/${arguments[1]}/means_and_materials`;
         case 'clientPA':
             return `/private/`
         default:

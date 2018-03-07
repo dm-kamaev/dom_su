@@ -119,7 +119,7 @@
       <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel">
         <ul data-role="listview">
           <li data-icon="delete"><a href="#" data-rel="close">Закрыть Меню</a></li>
-          <li><a data-ajax="false" href="{{staffUrl 'employeeDetail' selfId }}?profile=true" class="ui-btn ui-btn-active">Профиль</a></li>
+          <li><a data-ajax="false" href="{{staffUrl 'employeeDetail' selfId }}?profile=true">Профиль</a></li>
           <li><a href="{{staffUrl 'creditsCurrent' selfId }}">Заработано</a></li>
           <li><a href="{{staffUrl 'depositCurrent' selfId }}">Необходимо сдать</a></li>
           <li><a href="{{staffUrl 'employeeDetail' selfId }}?orders=true">Заказы</a></li>
@@ -127,6 +127,7 @@
           <li><a href="{{staffUrl 'disciplinaryList' selfId }}">Нарушения</a></li>
           <li><a href="{{staffUrl 'conversationList' selfId }}">Обращения</a></li>
           <li><a href="{{staffUrl 'news' selfId}}">Новости</a></li>
+          <li><a href="{{staffUrl 'means_and_materials' selfId}}">Средства и материалы</a></li>
           <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li>
           <li><a data-ajax="false" href="{{staffUrl 'logout' }}">Выйти</a></li>
         </ul>

@@ -294,8 +294,6 @@ async function page_history_about_means_materials(ctx, next, request1C, GetEmplo
     templateCtx.list_inventory_request_active = view_list_inventory_request(inventory_request_active);
     templateCtx.list_inventory_request_complete = view_list_inventory_request(inventory_request_complete);
 
-    console.log('templateCtx.list_inventory_request_active=', templateCtx.list_inventory_request_active);
-    console.log('templateCtx.list_inventory_request_complete=', templateCtx.list_inventory_request_complete);
     // FOR TEST
     // |
     // |
@@ -307,7 +305,7 @@ async function page_history_about_means_materials(ctx, next, request1C, GetEmplo
     //   const el = templateCtx.list_inventory_request_active[i];
     //   templateCtx.list_inventory_request_active.push(el);
     // }
-    templateCtx.list_inventory_request_complete = templateCtx.list_inventory_request_active;
+    // templateCtx.list_inventory_request_complete = templateCtx.list_inventory_request_active;
     // templateCtx.list_inventory_request_active = null;
     // templateCtx.list_inventory_request_complete = null;
 
