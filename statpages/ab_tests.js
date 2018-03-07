@@ -46,6 +46,22 @@ const ABTestContainer = {
         description: ""
       }]
     },
+    uborka_ofisov: {
+      name: "",
+      key: "uborka_ofisov_1_new",
+      forNewUser: true,
+      variations: [{
+        name: "control",
+        page: 'uborka_ofisov',
+        ratio: 50,
+        description: ""
+      }, {
+        name: "variation",
+        page: 'uborka_ofisov_ab',
+        ratio: 50,
+        description: ""
+      }]
+    }
     // 'price__': {
     //     name: "Изменение дизайна",
     //     key: "price_new_design",
