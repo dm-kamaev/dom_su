@@ -12,7 +12,7 @@
           type='text/css'/>
     <style>
         body{
-          overscroll-behavior-y: contain;
+          overscroll-behavior-y: contain;/* disable pull refresh for mobile browser*/
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
@@ -72,7 +72,7 @@
 
     // if refresh page
     window.onbeforeunload = function(event) {
-      return 'Are you sure';
+      return 'Вы уверены что хотите обновиться?Данные могут не сохраниться ';
     };
 
     function dumpAnswers(answers){
