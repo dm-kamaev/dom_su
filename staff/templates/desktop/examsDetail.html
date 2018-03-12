@@ -10,7 +10,11 @@
     <!--[if IE]><script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700&subset=latin,cyrillic' rel='stylesheet'
           type='text/css'/>
-
+    <style>
+        body{
+          overscroll-behavior-y: contain;
+        }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
     <script src="/static/js/jquery.mousewheel.js"></script>
     <script src="/static/js/jquery.tools.min.js"></script>
@@ -60,8 +64,19 @@
         <input class="test_start_button" style='margin-top: 40px' type="submit" value="Отправить">
     </form>
 <script>
+
+    document.getElementById('form_question').onsubmit = function () {
+      // disable wraning if only form submitted
+      window.onbeforeunload = null;
+    };
+
+    // if refresh page
+    window.onbeforeunload = function(event) {
+      return 'Are you sure';
+    };
+
     function dumpAnswers(answers){
-        return answers.join('_')
+        return answers.join('_');
     }
 
     function addAnswerInCookie(name, value){
@@ -69,25 +84,28 @@
         if (oldCookie) {
             var parseCookie = oldCookie.split('_')
         } else {
-            var parseCookie = []
+            var parseCookie = [];
         }
-        parseCookie.push(value)
+        parseCookie.push(value);
         // setCookie(name, dumpAnswers(parseCookie), {expires: {{ GetTestForEmployee.TimeLeft }} })
     }
+
     function removeAnswerInCookie(name, value){
-        var oldCookie = getCookie(name)
+        var oldCookie = getCookie(name);
         if (oldCookie){
-            var parseCookie = oldCookie.split('_')
+            var parseCookie = oldCookie.split('_');
             var index = parseCookie.indexOf(value);
             if (index > -1) {
                 parseCookie.splice(index, 1);
             }
             // setCookie(name, dumpAnswers(parseCookie), {expires: 60 * 60})}
+        }
     }
+
     function setCookie(name, value, options) {
-      name = 'question' + name
+      name = 'question' + name;
       options = options || {};
-      options['path'] = '/'
+      options['path'] = '/';
 
       var expires = options.expires;
 
@@ -114,8 +132,9 @@
 
       document.cookie = updatedCookie;
     }
+
     function getCookie(name) {
-        name = 'question' + name
+        name = 'question' + name;
       var matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
       ));
@@ -132,7 +151,7 @@
             });
         function send_test(){document.getElementById("form_question").submit();}
 
-        setTimeout(send_test, ({{ GetTestForEmployee.TimeLeft }}+1) * 1000)
+        setTimeout(send_test, ({{ GetTestForEmployee.TimeLeft }}+1) * 1000);
     });
 </script>
 <script>
@@ -144,7 +163,7 @@
         }
         elem.parentElement.style.background = '#67A151';
         // setCookie(elem.parentElement.parentElement.getAttribute('data-name'), dumpAnswers([elem.value]), {expires: 60 * 60})
-}
+    }
 </script>
 <script>
     function add_answer(elem){
