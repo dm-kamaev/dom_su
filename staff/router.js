@@ -1,6 +1,6 @@
 'use strict';
 
-const CONF = require('/p/pancake/settings/config.js');
+// const CONF = require('/p/pancake/settings/config.js');
 const { models } = require('models');
 const { EmployeeNews, Token, PendingToken } = models;
 const Router = require('koa-router');
@@ -12,7 +12,7 @@ const config = require('config');
 const { Method1C, Request1C } = require('api1c');
 const { getTemplate } = require('utils');
 const { staffUrl, isMobileVersion, toMoscowISO, staffTemplate } = require('./utils');
-const { validateActionToken } = require('user_manager');
+const user_manager = require('user_manager');
 const moment = require('moment');
 const uuid4 = require('uuid/v4');
 const parseFormMultipart = require('koa-body')({multipart: true});
@@ -45,33 +45,6 @@ const regCardService = new RegExp('^service_.*');
 const regCardAdditional = new RegExp('^additional_.*');
 const regCardScore = new RegExp('^score_.*');
 const regQuestionAnswerCookie = new RegExp('(?:^|;)*(:?question[^;=]*)', 'g');
-
-
-// staffRouter.get('/staff/test', async function (ctx) {
-//   let header = ctx.headers['cookie'];
-//   console.log('header= ', header);
-//   let questionAnswers = header.match(regQuestionAnswerCookie);
-//   console.log('questionAnswers= ', questionAnswers);
-//   console.log('ctx.cookies = ', Object.getOwnPropertyNames(ctx.cookies));
-//   if (questionAnswers){
-//     for (let cookieName of questionAnswers){
-//       console.log('set cookieName=', cookieName, {
-//         maxAge: 0,
-//         domain: ctx.headers.host,
-//         httpOnly: false
-//       });
-//       ctx.cookies.set(encodeURIComponent(cookieName), null, {
-//         maxAge: 0,
-//         // domain: ctx.headers.host,
-//         // domain: ctx.headers.host,
-//         httpOnly: false
-//       });
-//     }
-//   }
-
-//   ctx.status = 200;
-//   ctx.body = '';
-// });
 
 
 staffRouter.get(staffUrl('logout'), async function (ctx) {
@@ -158,10 +131,27 @@ staffRouter.post(staffUrl('errors'), parseFormMultipart, loginRequired(getEmploy
   ctx.body = template(ctx.proc(templateCtx, ctx));
 })));
 
+
+// https://www.dev2.domovenok.su/staff/order/883ae466-21fd-11e8-82fd-40167eadd993/ sasha
+// page with buttons: start/end
 // Order detail
 staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
+  const { uuid, token } = new AuthApi(ctx).get_auth_data();
+  const departure_id = ctx.params.DepartureID;
+  // http://confluence.domovenok.su/pages/viewpage.action?pageId=9340757
+  const reg_for_1c = new Request1Cv3(token, uuid, null, ctx).add('Employee.GetReceivedAmount', { DepartureID: departure_id });
+  await reg_for_1c.do();
+  const get_received_amount= reg_for_1c.get();
+  if (!get_received_amount.ok) {
+    log.warn(JSON.stringify(get_received_amount.error, null, 2));
+  } else {
+    templateCtx.already_entered_amount = get_received_amount.data.Amount || 0;
+  }
+  // templateCtx.already_entered_amount = templateCtx.already_entered_amount || '100';
+  console.log('\n\nget_received_amount=', get_received_amount);
+
   let countEmployees, template;
-  let GetDepartureData = new Method1C('GetDepartureData', {DepartureID: ctx.params.DepartureID});
+  let GetDepartureData = new Method1C('GetDepartureData', {DepartureID: departure_id});
   request1C.add(GetDepartureData);
   await request1C.do();
   templateCtx.GetEmployeeData = GetEmployeeData.response;
@@ -320,7 +310,7 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
   ctx.body = template(ctx.proc(templateCtx, ctx));
 })));
 
-staffRouter.get('/staff/ajax/order/management', loginRequired(validateActionToken('StaffOrder',
+staffRouter.get('/staff/ajax/order/management', loginRequired(user_manager.validateActionToken('StaffOrder',
   async function (ctx) {
     const request1C = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', false, ctx);
     let method1C;
@@ -337,12 +327,18 @@ staffRouter.get('/staff/ajax/order/management', loginRequired(validateActionToke
         };
         break;
       case 'ConfirmPayment':
-        method1C = new Method1C('Employee.ConfirmPayment', {DepartureID: ctx.query.DepartureID, PaidAmount: Number(ctx.query.PaidAmount)});
-        response.Redirect = staffUrl('orderDetail', ctx.query.DepartureID);
+        var query = ctx.query || {};
+        var paid_amount = query.PaidAmount || 0;
+        var departure_id = query.DepartureID;
+        method1C = new Method1C('Employee.ConfirmPayment', {
+          DepartureID: departure_id,
+          PaidAmount: Number(paid_amount)
+        });
+        response.Redirect = staffUrl('orderDetail', departure_id); // TODO: seems unused code
         request1C.add(method1C);
         await request1C.do();
         ctx.status = 302;
-        ctx.redirect(staffUrl('orderDetail', ctx.query.DepartureID));
+        ctx.redirect(staffUrl('orderDetail', departure_id));
         return;
       case 'FinishDeparture':
         method1C = new Method1C('Employee.FinishDeparture', {DepartureID: ctx.query.DepartureID});
@@ -652,7 +648,6 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
       set_total_receivable(templateCtx, GetCurrentWageForEmployee, GetCurrentDepositForEmployee);
 
       templateCtx.link_to_landing_with_utm = UTMCollector.create_link_for_employee_profile(employee_id);
-      // CONF.domain+'/landings__applicant_cleaner/?utm_source=from_employee_profile&employee_id='+employee_id+'&utm_medium=referral&utm_referrer=from_employee_profile';
       // show profile on mobile
       template = getTemplate(staffTemplate.mobile.userIndex); // staff/templates/desctop/userIndex.html
     }
