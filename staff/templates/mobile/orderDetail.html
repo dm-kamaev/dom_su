@@ -83,7 +83,7 @@
                     }
                 }
             }
-        // setInterval(updateStatus, 10 * 1000)
+        setInterval(updateStatus, 10 * 1000)
         {{/if}}
     </script>
     {{/if}}
@@ -301,7 +301,7 @@
         // we submit form after timeout
         setTimeout(function() {
           getById('form_accept_cash').submit();
-        }, 300);
+        }, 200);
       };
 
       getById('cancel_accept').onclick = function () {
