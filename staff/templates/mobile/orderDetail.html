@@ -279,14 +279,11 @@
       $('#popup_dialog').popup({
         afteropen: function(event, ui) {
           var input_amount = getById('input_amount').value || '0';
-          console.log(getById('input_amount').value );
           input_amount = input_amount.trim().replace(/\,/g, '.').replace(/[^\d\.]+/g, '') || '0';
           // to cent
           input_amount = parseFloat(
             (parseFloat(input_amount)  * 100).toFixed(2)
           );
-          console.log('CREATE', already_entered_amount, input_amount);
-          console.log('res=', ((already_entered_amount + input_amount) / 100));
           getById('total_amount').innerHTML = ((already_entered_amount + input_amount) / 100).toFixed(2); // to rubles
         },
       });

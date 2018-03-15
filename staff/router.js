@@ -136,24 +136,30 @@ staffRouter.post(staffUrl('errors'), parseFormMultipart, loginRequired(getEmploy
 // page with buttons: start/end
 // Order detail
 staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
-  const { uuid, token } = new AuthApi(ctx).get_auth_data();
+  const { uuid, token, employee_id } = new AuthApi(ctx).get_auth_data();
   const departure_id = ctx.params.DepartureID;
-  // http://confluence.domovenok.su/pages/viewpage.action?pageId=9340757
-  const reg_for_1c = new Request1Cv3(token, uuid, null, ctx).add('Employee.GetReceivedAmount', { DepartureID: departure_id });
-  await reg_for_1c.do();
-  const get_received_amount= reg_for_1c.get();
-  if (!get_received_amount.ok) {
-    log.warn(JSON.stringify(get_received_amount.error, null, 2));
-  } else {
-    templateCtx.already_entered_amount = get_received_amount.data.Amount || 0;
-  }
-  // templateCtx.already_entered_amount = templateCtx.already_entered_amount || '100';
-  console.log('\n\nget_received_amount=', get_received_amount);
+
 
   let countEmployees, template;
   let GetDepartureData = new Method1C('GetDepartureData', {DepartureID: departure_id});
   request1C.add(GetDepartureData);
   await request1C.do();
+
+  const senior_employee_id = GetDepartureData.response && fn.deep_value(GetDepartureData.response, 'Senior.EmployeeID');
+  if (employee_id === senior_employee_id) {
+    // http://confluence.domovenok.su/pages/viewpage.action?pageId=9340757
+    const reg_for_1c = new Request1Cv3(token, uuid, null, ctx).add('Employee.GetReceivedAmount', { DepartureID: departure_id });
+    await reg_for_1c.do();
+
+    const get_received_amount = reg_for_1c.get();
+    if (!get_received_amount.ok) {
+      log.warn(JSON.stringify(get_received_amount.error, null, 2));
+    } else {
+      templateCtx.already_entered_amount = get_received_amount.data.Amount || 0;
+    }
+  }
+
+
   templateCtx.GetEmployeeData = GetEmployeeData.response;
   if (GetDepartureData.response) {
     GetDepartureData.response.AllDepartures.sort((a, b)=> {
