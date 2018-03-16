@@ -93,6 +93,8 @@ class Request1C {
 
   // {"ok": true/false, "data": ..., "error": {"code": ..., "text": "..."}
   do(){
+    const { hostname, port, path } = this.connectParam;
+    logger.log(`${hostname} ${port} ${path}`);
     logger.info('Request1C request => '+ JSON.stringify(this.body, null, 2));
     this.body = JSON.stringify(this.body);
 

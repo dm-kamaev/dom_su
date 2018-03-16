@@ -3,6 +3,10 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+    <style>
+      .ui-btn.green-button{background: #478447; color: white; text-shadow: none; }
+      .ui-btn.green-button:hover{background: #478447; color: white; text-shadow: none; }
+    </style>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="/static/js/custom_cookie.js?v=1.01"></script>
@@ -116,24 +120,37 @@
             {{#if showTakeMoneyWidget}}
             <div id="order-block-collapse" class="listItemNoIcon" data-role="collapsible" data-content-theme="false">
                 <style>
-                    .listItemNoIcon .ui-icon
-                    {
-                     display: none;
-                    }
+                    .listItemNoIcon .ui-icon { display: none; }
                     .listItemNoIcon a {
-
-                        background: #f9c15c;
-    text-shadow: none;
-    font-size: 18px;
+                      background: #f9c15c;
+                      text-shadow: none;
+                      font-size: 18px;
                     }
                 </style>
                 <h4>Принять наличные</h4>
-                <form action="/staff/ajax/order/management" method="GET" enctype="application/x-www-form-urlencoded" data-ajax="false" >
+                <form id=form_accept_cash action="/staff/ajax/order/management" method=GET enctype="application/x-www-form-urlencoded" data-ajax=false>
                     <input type="hidden" name="action" value="ConfirmPayment">
                     <input type="hidden" name="action_token" value="{{actionToken}}">
                     <input type="hidden" name="DepartureID" value="{{departureId}}">
-                    <label>Сумма: {{#if showAmountToPaid}}<span style="color: green">{{ toMoney GetDepartureData.Management.AmountToPaid}}</span> Руб.{{/if }}<input name="PaidAmount" style="" type="number" required></label>
-                    <button class="ui-btn ui-btn-inline" type="submit" style="background: #478447; color: white; text-shadow: none;">Принять</button>
+                    <label>Сумма: {{#if showAmountToPaid}}<span style="color: green">{{ toMoney GetDepartureData.Management.AmountToPaid}}</span> руб.{{/if }}
+                    <input id=input_amount name="PaidAmount" lang=en type=number required></label> {{!-- В mobile firefox могут быть проблемы с корректным оторбажением дробного числа: 100s0.95 --}}
+                    {{#if already_entered_amount}}<span> Уже принятая сумма {{already_entered_amount}} руб. </span>{{/if }}
+
+                    {{#if already_entered_amount}}
+                      {{!-- Если сумма уже когда-то была введена --}}
+                      <a href='#popup_dialog' data-rel=popup data-position-to=window data-transition=pop class='ui-btn ui-btn-inline green-button'>Принять</a>
+                       <div data-role=popup id=popup_dialog data-theme=a data-dismissible=false>
+                          <div role=main class=ui-content>
+                            <h2 style=font-size:120% class=ui-title>Общая сумма принятых денег по заказу <span id=total_amount></span> руб.</h2>
+                            <a id=apply_accept href=# style=width:30% class='ui-btn ui-btn-inline' data-rel=back>Принять</a>
+                            <a id=cancel_accept href=# style=width:30% class='ui-btn ui-btn-inline' data-rel=back>Отмена</a>
+                          </div>
+                       </div>
+                    {{else}}
+                      {{!-- Первый раз вводится сумма --}}
+                      <button class='ui-btn ui-btn-inline green-button' type=submit>Принять</button>
+                    {{/if}}
+
                     <a onclick='$( "#order-block-collapse" ).collapsible( "collapse" )' class="ui-btn ui-btn-inline" type="" style="background: #b50000; text-shadow: none; color: white;">Отменить</a>
                 </form>
             </div>
@@ -241,10 +258,57 @@
                         <li><a href="{{staffUrl 'disciplinaryList' selfId }}">Нарушения</a></li>
                         <li><a href="{{staffUrl 'conversationList' selfId }}">Обращения</a></li>
                         <li><a href="{{staffUrl 'news' selfId}}" >Новости</a></li>
+                        <!-- <li><a href="{{staffUrl 'means_and_materials' selfId}}">Средства и материалы</a></li> -->
                         <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li>
                         <li><a data-ajax="false" href="{{staffUrl 'logout' }}">Выйти</a></li>
                 </ul>
             </div>
     </div>
+
+  <script>
+    function getById(id) { return document.getElementById(id); }
+
+    void function () {
+      // to cent
+      var already_entered_amount = parseFloat(
+        (parseFloat({{already_entered_amount}}) * 100).toFixed(2)
+      );
+      if (!already_entered_amount) {
+        return;
+      }
+      $('#popup_dialog').popup({
+        afteropen: function(event, ui) {
+          var input_amount = getById('input_amount').value || '0';
+          input_amount = input_amount.trim().replace(/\,/g, '.').replace(/[^\d\.]+/g, '') || '0';
+          // to cent
+          input_amount = parseFloat(
+            (parseFloat(input_amount)  * 100).toFixed(2)
+          );
+          getById('total_amount').innerHTML = ((already_entered_amount + input_amount) / 100).toFixed(2); // to rubles
+        },
+      });
+
+      var apply_accept = getById('apply_accept')
+      var cancel_accept = getById('cancel_accept');
+      if (!apply_accept || !cancel_accept) {
+        return;
+      }
+      getById('apply_accept').onclick = function () {
+        // jquery mobile modify form and
+        // we submit form after timeout
+        setTimeout(function() {
+          getById('form_accept_cash').submit();
+        }, 200);
+      };
+
+      getById('cancel_accept').onclick = function () {
+        // jquery mobile modify form and
+        // we submit form after timout
+        getById('input_amount').value = '';
+      };
+
+    }();
+
+  </script>
 </body>
 </html>

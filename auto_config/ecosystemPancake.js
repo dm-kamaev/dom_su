@@ -4,25 +4,32 @@
 
 const ENV = process.env.NODE_ENV;
 const wf = require('/p/pancake/my/wf.js');
+const CONF = require('/p/pancake/settings/config.js');
 
 console.log('===== ENV = ', ENV, '=====');
 let ecosystem;
 if (ENV === 'development') {
   ecosystem = {
-    'apps' : [
+    apps : [
       {
-        'name': 'pancake',
-        'script': '/p/pancake/app.js',
-        'out_file': '/p/log/pm2/pancake.log',
-        'error_file': '/p/log/pm2/pancake.log',
-        'merge_logs': true,
-        'env': {
-          'NODE_PATH': '/p/pancake',
-          'NODE_ENV': 'development'
+        name: 'pancake',
+        script: '/p/pancake/app.js',
+        out_file: '/p/log/pm2/pancake.log',
+        error_file: '/p/log/pm2/pancake.log',
+        merge_logs: true,
+        env: {
+          NODE_PATH: '/p/pancake',
+          NODE_ENV: 'development'
         }
       }
     ]
+  };
+  if (CONF.is_dev2) {
+    var pancake_ecosytem = ecosystem.apps[0];
+    pancake_ecosytem.watch = [ 'staff' ];
+    pancake_ecosytem.ignore_watch = [ 'staff/templates' ];
   }
+
   writeEcosystem(ecosystem);
 } else if (ENV === 'production') {
   ecosystem = {
@@ -41,7 +48,7 @@ if (ENV === 'development') {
         }
       }
     ]
-  }
+  };
   writeEcosystem(ecosystem);
 } else {
   console.log('NOT VALID ENV ', ENV);
