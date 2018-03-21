@@ -61,23 +61,23 @@ const ABTestContainer = {
         ratio: 50,
         description: ""
       }]
-    }
-    // 'price__': {
-    //     name: "Изменение дизайна",
-    //     key: "price_new_design",
-    //     forNewUser: true,
-    //     variations: [{
-    //         name: "control",
-    //         page: 'price__',
-    //         ratio: 50,
-    //         description: "Основная"
-    //     }, {
-    //         name: "variation",
-    //         page: 'price_ab',
-    //         ratio: 50,
-    //         description: "Пробуем новый дизайн"
-    //     }]
-    // },
+    },
+    'price__': {
+        name: "Изменение дизайна",
+        key: "price_1_new",
+        forNewUser: true,
+        variations: [{
+            name: "control",
+            page: 'price__',
+            ratio: 50,
+            description: "Основная"
+        }, {
+            name: "variation",
+            page: 'price_ab',
+            ratio: 50,
+            description: "Пробуем новый дизайн"
+        }]
+    },
   }
 }
 
