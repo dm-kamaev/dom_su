@@ -175,6 +175,11 @@
     {{#if EarningsOrder }}
         <p><b>Заработок с заказа:</b><br/><span style="color: green"><b>{{ toMoney EarningsOrder }}</b> руб.</span></p>
     {{/if}}
+
+    {{#if is_first_order }}
+        <div style=margin-bottom:16px;font-size:120%;color:red>Подарить клиенту магнит, листовку, письмо от Михаила</div>
+    {{/if}}
+
     {{#ifCond GetDepartureData.EnableChangeWorkCard '&&' isSenior }}<a href="{{staffUrl 'orderCard' departureId }}" style="color: red; margin-bottom: 5px; display: inline-block" data-ajax="false">Заполнить карту заказа</a>
     {{ else }}
         {{#if GetDepartureData.CardCompleted }}

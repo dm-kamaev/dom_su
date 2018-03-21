@@ -124,6 +124,9 @@
                 </a></div>
             {{/each}}
         </div>
+    {{#if is_first_order }}
+        <div style=margin-bottom:16px;font-size:120%;color:red>Подарить клиенту магнит, листовку, письмо от Михаила</div>
+    {{/if}}
     <b style="display: block">Примечание:</b> <span style="display: block; margin-bottom: 20px">{{ GetDepartureData.Note }}</span>
     {{#if GetDepartureData.PointNote }}
         <b style="display: block">Место сбора:</b> <span style="display: block; margin-bottom: 20px">{{ GetDepartureData.PointNote }}</span>

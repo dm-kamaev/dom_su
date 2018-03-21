@@ -145,7 +145,8 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
   request1C.add(GetDepartureData);
   await request1C.do();
 
-  const senior_employee_id = GetDepartureData.response && fn.deep_value(GetDepartureData.response, 'Senior.EmployeeID');
+  const get_departure_data = GetDepartureData.response || {};
+  const senior_employee_id = fn.deep_value(GetDepartureData.response, 'Senior.EmployeeID');
   if (employee_id === senior_employee_id) {
     // http://confluence.domovenok.su/pages/viewpage.action?pageId=9340757
     const reg_for_1c = new Request1Cv3(token, uuid, null, ctx).add('Employee.GetReceivedAmount', { DepartureID: departure_id });
@@ -158,7 +159,7 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
       templateCtx.already_entered_amount = get_received_amount.data.Amount || 0;
     }
   }
-
+  templateCtx.is_first_order = get_departure_data.IsFirstOrder;
 
   templateCtx.GetEmployeeData = GetEmployeeData.response;
   if (GetDepartureData.response) {
@@ -315,6 +316,7 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
   }
   ctx.body = template(ctx.proc(templateCtx, ctx));
 })));
+
 
 staffRouter.get('/staff/ajax/order/management', loginRequired(user_manager.validateActionToken('StaffOrder',
   async function (ctx) {
