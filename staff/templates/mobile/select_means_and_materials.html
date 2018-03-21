@@ -45,12 +45,12 @@
 
         <p>Лимит на средства и материалы: <span class=digit>{{getEmployeeData.MatLimit}}</span> руб.</p>
 
-        <div data-role="tabs" id="tabs">
+        <div data-role=tabs id=tabs>
 
-          <div data-role="navbar">
+          <div data-role=navbar>
             <ul>
-              <li><a href="#means" class="ui-btn-active">Средства</a></li>
-              <li><a href="#materials">Материалы</a></li>
+              <li><a href='#means' class="ui-btn-active">Средства</a></li>
+              <li><a href='#materials'>Материалы</a></li>
             </ul>
           </div>
 
@@ -158,7 +158,7 @@
           <li><a href="{{staffUrl 'disciplinaryList' selfId }}">Нарушения</a></li>
           <li><a href="{{staffUrl 'conversationList' selfId }}">Обращения</a></li>
           <li><a href="{{staffUrl 'news' selfId}}">Новости</a></li>
-          <li><a href="{{staffUrl 'means_and_materials' selfId}}" class='ui-btn ui-btn-active'>Средства и материалы</a></li>
+          <li><a data-ajax=false href="{{staffUrl 'means_and_materials' selfId}}" class='ui-btn ui-btn-active'>Средства и материалы</a></li>
           <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li>
           <li><a data-ajax="false" href="{{staffUrl 'logout' }}">Выйти</a></li>
         </ul>
