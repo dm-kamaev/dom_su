@@ -60,7 +60,7 @@
     <meta name="smartbanner:button-url-google" content="https://play.google.com/store/apps/details?id=ru.domovenok.app&hl=ru">
     <meta name="smartbanner:enabled-platforms" content="android,ios">
     <!-- End SmartBanner configuration -->
-    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.94">
+    <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.95">
     <script src="//yastatic.net/share2/share.js" async></script>
     <base href="">
     <script>
@@ -92,7 +92,7 @@
   <!-- Page wrapper -->
   <div class="page__wrap page__wrap--scroll">
     <!-- Page Header -->
-    <!-- page-header.html -->
+    
     <header class="page-header  page-header--contact">
       <div class="page-header__top">
         <button class="main-menu__btn  main-menu__btn--open">
@@ -102,12 +102,13 @@
             <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
           </svg>
         </button>
+    
         <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Клининговая компания Домовёнок"/></a>
     
         <div class="page-header__container">
           <a class="page-header__container-link  page-header__container-link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>
           <a class="page-header__container-link" href="{{buildUrl general.city '/podderzhka'}}">Поддерживающая</a>
-          <a class="page-header__container-link page-header__container-link--tablet-hide" href="{{buildUrl general.city '/generalnaya_uborka'}}">Генеральная</a>
+          <a class="page-header__container-link page-header__container-link--tablet-hide" href="{{buildUrl general.city '/mite_okon'}}">Мойка окон</a>
           <a class="page-header__container-link" href="{{buildUrl general.city '/private/auth'}}">Войти</a>
           <button class="page-header__container-button button" data-name="service-order" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderMenuButton"}'>Заказать</button>
         </div>
@@ -119,14 +120,11 @@
             <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
           </svg>
         </a>
+    
         <!--Main Menu-->
         {{templateTag this 'menu/main-menu.html'}}
         <!--/Main Menu-->
-        <!--
-        <div class="page-header__contact  contact">
-          <a class="contact__callback" href>Свяжитесь со мной</a>
-        </div>
-        -->
+    
         <div class="change-town">
           <p class="change-town__btn">{{general.city.title}}</p>
           <ul class="change-town__list list">
@@ -501,12 +499,12 @@
                   <ul class="service-condition-detail__list list">
                     <li class="service-condition-detail__item  item  item--circle">сухая и влажная уборка полов и плинтусов;</li>
                     <li class="service-condition-detail__item  item  item--circle">поверхностная сухая уборка пылесосом мягкой мебели, диванов и кресел (спинки и сиденья, не снимая подушек);</li>
-                    <li class="service-condition-detail__item  item  item--circle">удаление пыли с осветительных приборов (не выше 2 м);</li>
+                    <li class="service-condition-detail__item  item  item--circle">удаление пыли с осветительных приборов (не выше 1,8 м);</li>
                     <li class="service-condition-detail__item  item  item--circle">влажная уборка подоконников, радиаторов и труб;</li>
                     <li class="service-condition-detail__item  item  item--circle">удаление пыли с дверных блоков;</li>
                     <li class="service-condition-detail__item  item  item--circle">мытьё зеркал на всю высоту и стеклянных поверхностей (перегородки, панели и т.д.);</li>
-                    <li class="service-condition-detail__item  item  item--circle">удаление пыли с аксессуаров, предметов интерьера, элементов дизайна (вазы, рамы картин, фоторамки и т.д., не выше 2 м);</li>
-                    <li class="service-condition-detail__item  item  item--circle">влажная уборка всех видов корпусной мебели (крышек столов, полок, шкафов, тумбочек, внешних фасадов мебели и прочих поверхностей, не выше 2 м);</li>
+                    <li class="service-condition-detail__item  item  item--circle">удаление пыли с аксессуаров, предметов интерьера, элементов дизайна (вазы, рамы картин, фоторамки и т.д., не выше 1,8 м);</li>
+                    <li class="service-condition-detail__item  item  item--circle">влажная уборка всех видов корпусной мебели (крышек столов, полок, шкафов, тумбочек, внешних фасадов мебели и прочих поверхностей, не выше 1,8 м);</li>
                     <li class="service-condition-detail__item  item  item--circle">удаление пыли с бытовой техники;</li>
                     <li class="service-condition-detail__item  item  item--circle">замена постельного белья;</li>
                     <li class="service-condition-detail__item  item  item--circle">вынос мусора, замена полиэтиленовых пакетов в мусорных корзинах;</li>
@@ -521,7 +519,7 @@
                     <li class="service-condition-detail__item  item  item--circle">мытьё холодильника, духовой печи снаружи;</li>
                     <li class="service-condition-detail__item  item  item--circle">мытьё микроволновой печи внутри и снаружи;</li>
                     <li class="service-condition-detail__item  item  item--circle">очистка столешницы и панели (фартука) кухонного гарнитура, мытьё внешних фасадов на всю высоту;</li>
-                    <li class="service-condition-detail__item  item  item--circle">удаление следов жира и масляных пятен (высотой не более 2 м);</li>
+                    <li class="service-condition-detail__item  item  item--circle">удаление следов жира и масляных пятен (высотой не более 1,8 м);</li>
                     <li class="service-condition-detail__item  item  item--circle">удаление пыли и загрязнений с кухонной техники;</li>
                     <li class="service-condition-detail__item  item  item--circle">чистка и дезинфекция сантехники;</li>
                     <li class="service-condition-detail__item  item  item--circle">дезинфекция, влажная уборка места для хранения мусора.</li>
@@ -825,7 +823,7 @@
                   </svg>
                 </a>
               </div>
-              <p class="page-footer-ab__copyright">© <a class="page-footer-ab__link page-footer-ab__link--light link" href="{{buildUrl general.city '/'}}">Клининговая компания ООО «Домовёнок», 2017</a></p>
+              <p class="page-footer-ab__copyright">© <a class="page-footer-ab__link page-footer-ab__link--light link" href="{{buildUrl general.city '/'}}">ООО "Комфорт-сервис "Домовенок", 2018</a></p>
             </div>
           </div>
         </footer>
