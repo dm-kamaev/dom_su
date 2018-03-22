@@ -1,9 +1,19 @@
 'use strict';
 const { getUrlHost, getCityByDomain } = require('../utils');
+const CONF = require('/p/pancake/settings/config.js');
 const config = require('config');
 
-let regexpString = '^(:?\\w+)' + '\\\.' + config.serverPath.domain.withoutCity.replace(/\./g,'\\\.') + '$';
+let regexpString;
+// new logic for dev machine
+if (CONF.env === 'dev3') {
+  // example: ^(:?\w+)-dev3\.domovenok\.su$
+  regexpString = '^(:?\\w+)' + '-' + config.serverPath.domain.withoutCity.replace(/\./g,'\\\.') + '$';
+} else { // old logic and for prod
+  // example: ^(:?\w+)\.dev3\.domovenok\.su$
+  regexpString = '^(:?\\w+)' + '\\\.' + config.serverPath.domain.withoutCity.replace(/\./g,'\\\.') + '$';
+}
 
+console.log(regexpString);
 let regexp = new RegExp(regexpString, 'g');
 
 function needChangeCity(ctx) {
@@ -17,12 +27,14 @@ function needChangeCity(ctx) {
       newCity = getCityByDomain(match[1]);
     }
   }
+
   if (newCity !== ctx.state.pancakeUser.city){
     return { result: true, city: newCity};
   } else {
     return { result: false};
   }
 }
+
 
 async function accessSectionCity(ctx, next) {
   let needChange = needChangeCity(ctx);
