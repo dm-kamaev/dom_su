@@ -10,19 +10,9 @@
         Поддерживающая уборка
       </a>
     </li>
-    <li class="main-menu__item {{#if menu.kompleksnaya_uborka}}main-menu__item--active{{/if}}">
-      <a class="main-menu__link"  href="{{buildUrl general.city '/kompleksnaya_uborka'}}">
-        Комплексная уборка
-      </a>
-    </li>
     <li class="main-menu__item {{#if menu.lite}}main-menu__item--active{{/if}}">
       <a class="main-menu__link"  href="{{buildUrl general.city '/lite'}}">
         Легкая уборка
-      </a>
-    </li>
-    <li class="main-menu__item {{#if menu.generalnaya_uborka}}main-menu__item--active{{/if}}">
-      <a class="main-menu__link" href="{{buildUrl general.city '/generalnaya_uborka'}}">
-        Генеральная уборка
       </a>
     </li>
     <li class="main-menu__item {{#if menu.mite_okon}}main-menu__item--active{{/if}}">
@@ -36,6 +26,11 @@
       </a>
       <!--Sub Menu-->
       <ul class="main-menu__list  main-menu__list--sub">
+        <li class="main-menu__item-sub {{#if menu.generalnaya_uborka}}main-menu__item-sub--active{{/if}}">
+          <a class="main-menu__link-sub"  href="{{buildUrl general.city '/generalnaya_uborka'}}">
+            Генеральная уборка
+          </a>
+        </li>
         <li class="main-menu__item-sub {{#if menu.domrabotnica}}main-menu__item-sub--active{{/if}}">
           <a class="main-menu__link-sub" href="{{buildUrl general.city '/domrabotnica'}}">
             Домработница
