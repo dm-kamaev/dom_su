@@ -13,7 +13,6 @@ if (CONF.env === 'dev3') {
   regexpString = '^(:?\\w+)' + '\\\.' + config.serverPath.domain.withoutCity.replace(/\./g,'\\\.') + '$';
 }
 
-console.log(regexpString);
 let regexp = new RegExp(regexpString, 'g');
 
 function needChangeCity(ctx) {
