@@ -40,7 +40,7 @@ async function update_news() {
     Android iOS </p>
     <p>
     С уважением, Михаил Жилин. <a href="https://www.youtube.com/watch?v=3qXG3_gCPUQ">https://www.youtube.com/watch?v=3qXG3_gCPUQ</a></p>
-    </div>
+    </div></div>
   `;
   var text_m = ` <h2 class="news__title">Уважаемые Домовята!</h2>
             <p class="news__data">26.03.2018</p>
