@@ -63,7 +63,7 @@
   <meta name="smartbanner:enabled-platforms" content="android,ios">
   <!-- End SmartBanner configuration -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
-  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.97">
+  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.98">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -160,7 +160,8 @@
             </div>
             <form class="window-new-form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "landingFormContact"}'>
               <div class="window-new-form__container window-new-form__container--1">
-                <div class="window-new-form__selection  selection  selection--lg selection--light-grey"
+                <div class="window-new-form__content">
+                  <div class="window-new-form__selection  selection  selection--lg selection--light-grey"
                      data-option="podderzhka">
                   <button class="selection__btn  service-calc__selection-btn" type="button">Легкая уборка</button>
                   <ul class="service-calc__list  selection__list  scroll-container">
@@ -171,22 +172,26 @@
                         data-service="podderzhka" data-schedule="0x_week">Поддерживающая уборка
                     </li>
                     <li class="service-calc__option  selection__option" data-option="complex" data-name="complex"
-                        data-service="complex" data-schedule="0x_week">Генеральная уборка
+                        data-service="complex" data-schedule="0x_week">Комплексная уборка
                     </li>
                     <li class="service-calc__option  selection__option" data-option="general" data-name="general"
-                        data-service="general" data-schedule="0x_week">Комплексная уборка
+                        data-service="general" data-schedule="0x_week">Генеральная уборка
                     </li>
                     <li class="service-calc__option  selection__option" data-option="window_cleaning" data-name="window_cleaning" data-features='[{"feature":"side", "quantity":"twoside"}, {"feature":"kind_frame", "quantity":"one-piece"}]'
                         data-service="window_cleaning" data-class="window_space" data-schedule="0x_week">Мытье окон
                     </li>
                   </ul>
                 </div>
-                <div class="window-new-form__wrap"></div>
-                <div class="window-new-form__section window-new-form__section--price">
-                  <p class="window-new-form__price"></p>
-                  <p class="window-new-form__add-price"></p>
+                  <div class="window-new-form__wrap"></div>
                 </div>
-                <button class="window-new-form__button button button--md" type="button">Заказать</button>
+
+                <footer class="window-new-form__footer">
+                  <div class="window-new-form__section window-new-form__section--price">
+                    <p class="window-new-form__price"></p>
+                    <p class="window-new-form__add-price"></p>
+                  </div>
+                  <button class="window-new-form__button button button--md" type="button">Заказать</button>
+                </footer>
               </div>
               <div class="window-new-form__container window-new-form__container--2 window-new-form__container--hide">
                 <div class="window-new-form__section">
@@ -1186,7 +1191,7 @@
 <!-- Java Script -->
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.00"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.01"></script>
 <!-- /Java Script -->
 
 </body>
