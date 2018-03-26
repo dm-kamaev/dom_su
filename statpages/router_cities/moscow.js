@@ -38,7 +38,7 @@ const moscowTemplates = {
     'uborka_kvartir__trehkomnatnaya': {name: 'uborka_kvartir__trehkomnatnaya.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
 
     'master_po_remontu_mebeli': {name: 'master_po_remontu_mebeli.html', ServiceName: 'Вызов мастера', data:{ menu:{physical: true, vizov_mastera_na_dom: true}}},
-    'kompleksnaya_uborka': {name: 'kompleksnaya_uborka.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
+    'kompleksnaya_uborka': {name: 'kompleksnaya_uborka.html', ServiceName: 'Комплексная уборка', data:{ menu:{ kompleksnaya_uborka: true}}},
     'ezhednevnaya_uborka': {name: 'ezhednevnaya_uborka.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
     'melkii-remont': {name: 'melkii-remont.html', ServiceName: 'Вызов мастера', data:{ menu:{physical: true, vizov_mastera_na_dom: true}}},
     'glazhka': {name: 'glazhka.html', ServiceName: 'Глажка', data:{ menu:{physical: true, glazhka: true}}},

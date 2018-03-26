@@ -10,6 +10,7 @@ const nnTemplates = {
     'main': {name: 'main.html', ServiceName: 'Главная', data:{ menu:{index: true}}},
     'podderzhka': {name: 'podderzhka.html', ServiceName: 'Поддержка', data:{ menu:{podderzhka: true}}},
     'lite': {name: 'lite.html', ServiceName: 'Лайт', data:{ menu:{lite: true}}},
+    'kompleksnaya_uborka': {name: 'kompleksnaya_uborka.html', ServiceName: 'Комплексная уборка', data:{ menu:{ kompleksnaya_uborka: true}}},
     'generalnaya_uborka': {name: 'generalnaya_uborka.html', ServiceName: 'Генеральная', data:{ menu:{generalnaya_uborka: true}}},
     'about__': {name: 'about__.html', ServiceName: 'О нас', data:{ menu:{main: true, about: true}}},
     'contacts__': {name: 'contacts__.html', ServiceName: 'Контакты', data:{ menu:{contacts: true}}},
