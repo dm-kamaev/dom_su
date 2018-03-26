@@ -10,6 +10,7 @@ const spbTemplates = {
     'user_agreement__': {name: 'user_agreement__.html', data: { menu:{main: true, user_agreement: true}}},
     'strahovka__': {name: 'strahovka__.html', data: {noindex: true, menu:{physical: true}}},
     'garantii__': {name: 'garantii__.html', data: {noindex: true, menu:{physical: true}}},
+    'kompleksnaya_uborka': {name: 'kompleksnaya_uborka.html', ServiceName: 'Комплексная уборка', data:{ menu:{ kompleksnaya_uborka: true}}},
     'generalnaya_uborka_ofisov': {name: 'generalnaya_uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
     'ezhednevnaya_uborka_ofisov': {name: 'ezhednevnaya_uborka_ofisov.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
     'b2b__': {name: 'b2b__.html', ServiceName: 'B2B', data:{ menu:{physical: true}}},

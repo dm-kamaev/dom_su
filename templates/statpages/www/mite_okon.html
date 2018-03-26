@@ -60,7 +60,7 @@
   <meta name="smartbanner:enabled-platforms" content="android,ios">
   <!-- End SmartBanner configuration -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.93">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.98">
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
   <script>
@@ -92,7 +92,7 @@
 <!-- Page wrapper -->
 <div class="page__wrap page__wrap--scroll">
   <!-- Page Header -->
-  <!-- page-header.html -->
+  
   <header class="page-header  page-header--contact">
     <div class="page-header__top">
       <button class="main-menu__btn  main-menu__btn--open">
@@ -102,12 +102,13 @@
           <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
         </svg>
       </button>
+  
       <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Клининговая компания Домовёнок"/></a>
   
       <div class="page-header__container">
         <a class="page-header__container-link  page-header__container-link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>
         <a class="page-header__container-link" href="{{buildUrl general.city '/podderzhka'}}">Поддерживающая</a>
-        <a class="page-header__container-link page-header__container-link--tablet-hide" href="{{buildUrl general.city '/generalnaya_uborka'}}">Генеральная</a>
+        <a class="page-header__container-link page-header__container-link--tablet-hide" href="{{buildUrl general.city '/mite_okon'}}">Мойка окон</a>
         <a class="page-header__container-link" href="{{buildUrl general.city '/private/auth'}}">Войти</a>
         <button class="page-header__container-button button" data-name="service-order" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderMenuButton"}'>Заказать</button>
       </div>
@@ -119,14 +120,11 @@
           <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
         </svg>
       </a>
+  
       <!--Main Menu-->
       {{templateTag this 'menu/main-menu.html'}}
       <!--/Main Menu-->
-      <!--
-      <div class="page-header__contact  contact">
-        <a class="contact__callback" href>Свяжитесь со мной</a>
-      </div>
-      -->
+  
       <div class="change-town">
         <p class="change-town__btn">{{general.city.title}}</p>
         <ul class="change-town__list list">
@@ -151,7 +149,7 @@
         <div class="section-ab__wrap">
           <h1 class="section-ab__title  section-ab__title--main  title">Мойка окон</h1>
 
-          <div class="service-calc  service-calc--new" data-name="washwindow" data-service="washwindow" data-schedule="0x_week">
+          <div class="service-calc  service-calc--new" data-name="window_cleaning" data-service="window_cleaning" data-class="window_space" data-features='[{"feature":"side", "quantity":"twoside"}, {"feature":"kind_frame", "quantity":"one-piece"}]' data-schedule="0x_week">
             <div class="service-calc__inner">
               <ul class="service-calc__path list">
                 <li class="service-calc__path-item  service-calc__path-item--arrow  service-calc__path-item--active  item" data-value="1">Шаг 1</li>
@@ -161,136 +159,31 @@
               </ul>
             </div>
             <div class="service-calc__container">
-              <div class="service-calc__inner  service-calc__section  service-calc__section--active" data-section="service">
-                <p class="section-ab__heading text-ab">Какие работы необходимо выполнить?</p>
+              <div class="service-calc__inner  service-calc__section  service-calc__section--active" data-section="square">
+                <p class="section-ab__heading text-ab">Какая площадь Вашей квартиры?</p>
 
-                <div class="service-calc__row  service-calc__row--service service-carousel">
-
-
-                  <button class="service-carousel__button-prev  service-carousel__button-prev--disabled" type="button">
-                    <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
-                  </button>
-
-                  <div class="service-carousel__wrap">
-                    <div class="service-carousel__inner">
-                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="washwindow_1" data-service="washwindow" data-class="window" data-classid="window_1" data-sum="1" data-feature="casement" data-quantity="1" data-price="250" data-features='[{"feature":"side", "quantity":"twoside"},{"feature":"frame", "quantity":"1"}]'>
-                        <div class="service-card-light__wrap">
-                          <img class="service-card-light__image" src="/static/pancake/img/service-window-one-frame.svg" width="50" height="50" alt="Окно">
-                          <p class="service-card-light__text text-ab  text-ab--small">Окно, 1 створка</p>
-                        </div>
-                        <div class="service-counter" data-value="1">
-                          <p class="service-counter__text">Окно, 1 створка</p>
-                          <div class="service-counter__control">
-                            <button class="service-counter__btn  service-counter__btn--minus"></button>
-                            <label class="service-counter__label">
-                              <input class="service-counter__output" min="0" max="99" name="counter" type="number" id="counter" value="1">
-                            </label>
-                            <button class="service-counter__btn  service-counter__btn--plus"></button>
-                          </div>
-                          <p class="service-counter__text">шт</p>
-                        </div>
-                      </div>
-
-                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item"  data-name="washwindow_2" data-service="washwindow" data-class="window" data-classid="window_2" data-sum="1" data-feature="casement" data-quantity="2" data-price="390" data-features='[{"feature":"side", "quantity":"twoside"},{"feature":"frame", "quantity":"1"}]'>
-                        <div class="service-card-light__wrap">
-                          <img class="service-card-light__image" src="/static/pancake/img/service-window-two-frame.svg" width="50" height="50" alt="Окно">
-                          <p class="service-card-light__text  text-ab  text-ab--small">Окно, 2 створки</p>
-                        </div>
-                        <div class="service-counter" data-value="1">
-                          <p class="service-counter__text">Окно, 2 створки</p>
-                          <div class="service-counter__control">
-                            <button class="service-counter__btn  service-counter__btn--minus"></button>
-                            <label class="service-counter__label">
-                              <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
-                            </label>
-                            <button class="service-counter__btn  service-counter__btn--plus"></button>
-                          </div>
-                          <p class="service-counter__text">шт</p>
-                        </div>
-                      </div>
-
-                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="washwindow_3" data-service="washwindow" data-class="window" data-classid="window_2_framuga" data-sum="1" data-feature="casement" data-quantity="3" data-price="550" data-features='[{"feature":"side", "quantity":"twoside"},{"feature":"frame", "quantity":"1"}]'>
-                        <div class="service-card-light__wrap">
-                          <img class="service-card-light__image" src="/static/pancake/img/service-window-two-frame--with.svg" width="50" height="50" alt="Окно">
-                          <p class="service-card-light__text  text-ab  text-ab--small">Окно, 2 створки c фрамугой</p>
-                        </div>
-                        <div class="service-counter" data-value="1">
-                          <p class="service-counter__text">Окно, 2 створки c фрамугой</p>
-                          <div class="service-counter__control">
-                            <button class="service-counter__btn  service-counter__btn--minus"></button>
-                            <label class="service-counter__label">
-                              <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
-                            </label>
-                            <button class="service-counter__btn  service-counter__btn--plus"></button>
-                          </div>
-                          <p class="service-counter__text">шт</p>
-                        </div>
-                      </div>
-
-                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="washwindow_3" data-service="washwindow" data-class="window" data-classid="window_3" data-sum="1" data-feature="casement" data-quantity="3" data-price="550" data-features='[{"feature":"side", "quantity":"twoside"},{"feature":"frame", "quantity":"1"}]'>
-                        <div class="service-card-light__wrap">
-                          <img class="service-card-light__image" src="/static/pancake/img/service-window-three-frame.svg" width="50" height="50" alt="Окно">
-                          <p class="service-card-light__text  text-ab  text-ab--small">Окно, 3 створки</p>
-                        </div>
-                        <div class="service-counter" data-value="1">
-                          <p class="service-counter__text">Окно, 3 створки</p>
-                          <div class="service-counter__control">
-                            <button class="service-counter__btn  service-counter__btn--minus"></button>
-                            <label class="service-counter__label">
-                              <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
-                            </label>
-                            <button class="service-counter__btn  service-counter__btn--plus"></button>
-                          </div>
-                          <p class="service-counter__text">шт</p>
-                        </div>
-                      </div>
-
-                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="balconydoor" data-service="washwindow" data-class="balconydoor" data-classid="balconydoor" data-sum="1" data-price="250" data-features='[{"feature":"side", "quantity":"twoside"},{"feature":"frame", "quantity":"1"}]'>
-                        <div class="service-card-light__wrap">
-                          <img class="service-card-light__image" src="/static/pancake/img/service-door.svg" width="50" height="50" alt="Балкон">
-                          <p class="service-card-light__text  text-ab  text-ab--small">Балконная дверь</p>
-                        </div>
-                        <div class="service-counter" data-value="1">
-                          <p class="service-counter__text">Балконная дверь</p>
-                          <div class="service-counter__control">
-                            <button class="service-counter__btn  service-counter__btn--minus"></button>
-                            <label class="service-counter__label">
-                              <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
-                            </label>
-                            <button class="service-counter__btn  service-counter__btn--plus"></button>
-                          </div>
-                          <p class="service-counter__text">шт</p>
-                        </div>
-                      </div>
-
-                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="balcony" data-service="washwindow" data-class="balcony" data-classid="balcony" data-feature="casement" data-quantity="1" data-features='[{"feature":"side", "quantity":"twoside"}]' data-price="300">
-                        <div class="service-card-light__wrap">
-                          <img class="service-card-light__image" src="/static/pancake/img/service-balcony.svg" width="50" height="50" alt="Балкон">
-                          <p class="service-card-light__text  text-ab  text-ab--small">Балкон по створкам</p>
-                        </div>
-                        <div class="service-counter" data-value="1">
-                          <p class="service-counter__text">Балкон по створкам</p>
-                          <div class="service-counter__control">
-                            <button class="service-counter__btn  service-counter__btn--minus"></button>
-                            <label class="service-counter__label">
-                              <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
-                            </label>
-                            <button class="service-counter__btn  service-counter__btn--plus"></button>
-                          </div>
-                          <p class="service-counter__text">шт</p>
-                        </div>
-                      </div>
-
-                    </div>
+                <div class="service-calc__row  service-calc__row--square">
+                  <div class="service-calc__item service-calc__item--oval  service-calc__item--active"  data-class="window_space" data-feature="square" data-quantity="40" data-value="40">
+                    <button type="button" class="service-calc__radio  service-calc__radio--oval">40 м<sup><small>2</small></sup></button>
                   </div>
 
-                  <button class="service-carousel__button-next" type="button">
-                    <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
-                  </button>
+                  <div class="service-calc__item service-calc__item--oval" data-feature="square" data-class="window_space" data-quantity="50" data-value="50">
+                    <button type="button" class="service-calc__radio  service-calc__radio--oval">50 м<sup><small>2</small></sup></button>
+                  </div>
 
+                  <div class="service-calc__item service-calc__item--oval" data-feature="square" data-class="window_space" data-quantity="60" data-value="60">
+                    <button type="button" class="service-calc__radio  service-calc__radio--oval">60 м<sup><small>2</small></sup></button>
+                  </div>
 
+                  <div class="service-calc__item service-calc__item--oval" data-feature="square" data-class="window_space" data-quantity="70" data-value="70">
+                    <button type="button" class="service-calc__radio  service-calc__radio--oval">70 м<sup><small>2</small></sup></button>
+                  </div>
 
-
+                  <div class="service-calc__item service-calc__item--oval" data-feature="square" data-class="window_space" data-quantity="40" data-value="">
+                    <span class="service-calc__input-label">Укажите:</span>
+                    <input type="number" class="service-calc__input  service-calc__input--oval  service-calc__input--oval-half  input" max="1000">
+                    <span class="service-calc__unit  service-calc__unit--for-oval">м<sup><small>2</small></sup></span>
+                  </div>
                 </div>
               </div>
               <div class="service-calc__inner  service-calc__section" data-section="date">
@@ -336,7 +229,25 @@
 
                   <div class="service-carousel__wrap">
                     <div class="service-carousel__inner">
-                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-service="washwindow" data-class="windowblind" data-classid="windowblind" data-sum="1" data-feature="square" data-quantity="1" data-price="120">
+                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="balcony" data-service="washwindow" data-class="balcony" data-classid="balcony" data-feature="casement" data-quantity="1" data-features='[{"feature":"side", "quantity":"twoside"}]' data-price="300">
+                        <div class="service-card-light__wrap">
+                          <img class="service-card-light__image" src="/static/pancake/img/service-balcony.svg" width="50" height="50" alt="Балкон">
+                          <p class="service-card-light__text  text-ab  text-ab--small">Балкон по створкам</p>
+                        </div>
+                        <div class="service-counter" data-value="1">
+                          <p class="service-counter__text">Балкон по створкам</p>
+                          <div class="service-counter__control">
+                            <button class="service-counter__btn  service-counter__btn--minus"></button>
+                            <label class="service-counter__label">
+                              <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                            </label>
+                            <button class="service-counter__btn  service-counter__btn--plus"></button>
+                          </div>
+                          <p class="service-counter__text">шт</p>
+                        </div>
+                      </div>
+
+                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="windowblind_one" data-service="window_cleaning" data-class="windowblind_one" data-classid="windowblind_one" data-sum="1" data-price="120">
                         <div class="service-card-light__wrap">
                           <img class="service-card-light__image" src="/static/pancake/img/service-window-blinds.svg" width="50" height="50" alt="Жалюзи">
                           <p class="service-card-light__text  text-ab  text-ab--small">Мытьё жалюзи</p>
@@ -350,29 +261,11 @@
                             </label>
                             <button class="service-counter__btn  service-counter__btn--plus"></button>
                           </div>
-                          <p class="service-counter__text">м<sup><small>2</small></sup></p>
+                          <p class="service-counter__text">штук</p>
                         </div>
                       </div>
 
-                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="mosquitonet" data-service="washwindow" data-class="mosquitonet" data-classid="mosquitonet" data-sum="1" data-price="100">
-                        <div class="service-card-light__wrap">
-                          <img class="service-card-light__image" src="/static/pancake/img/service-window-grid.svg" width="50" height="50" alt="Сетка">
-                          <p class="service-card-light__text  text-ab  text-ab--small">Помыть москитную сетку</p>
-                        </div>
-                        <div class="service-counter" data-value="1">
-                          <p class="service-counter__text">Помыть москитную сетку</p>
-                          <div class="service-counter__control">
-                            <button class="service-counter__btn  service-counter__btn--minus"></button>
-                            <label class="service-counter__label">
-                              <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
-                            </label>
-                            <button class="service-counter__btn  service-counter__btn--plus"></button>
-                          </div>
-                          <p class="service-counter__text">шт</p>
-                        </div>
-                      </div>
-
-                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="grate" data-service="washwindow" data-class="grate" data-classid="grate" data-sum="1" data-feature="square" data-quantity="1" data-price="100">
+                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="grate_one_window" data-service="window_cleaning" data-class="grate_one_window" data-classid="grate_one_window" data-sum="1" data-price="100">
                         <div class="service-card-light__wrap">
                           <img class="service-card-light__image" src="/static/pancake/img/service-window-grille.svg" width="50" height="50" alt="Решётка">
                           <p class="service-card-light__text  text-ab  text-ab--small">Оконные решетки</p>
@@ -386,11 +279,11 @@
                             </label>
                             <button class="service-counter__btn  service-counter__btn--plus"></button>
                           </div>
-                          <p class="service-counter__text">м<sup><small>2</small></sup></p>
+                          <p class="service-counter__text">штук</p>
                         </div>
                       </div>
 
-                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="siding" data-service="washwindow" data-class="siding" data-classid="siding" data-sum="1" data-feature="square" data-quantity="1" data-price="100">
+                      <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="siding_balcony" data-service="window_cleaning" data-class="siding_balcony" data-classid="siding_balcony" data-sum="1" data-feature="number_of_balconies" data-quantity="1" data-price="100">
                         <div class="service-card-light__wrap">
                           <img class="service-card-light__image" src="/static/pancake/img/service-window-siding.svg" width="50" height="50" alt="Сайдинг">
                           <p class="service-card-light__text  text-ab  text-ab--small">Помыть сайдинг</p>
@@ -404,7 +297,7 @@
                             </label>
                             <button class="service-counter__btn  service-counter__btn--plus"></button>
                           </div>
-                          <p class="service-counter__text">м<sup><small>2</small></sup></p>
+                          <p class="service-counter__text">количество балконов</p>
                         </div>
                       </div>
                     </div>
@@ -414,15 +307,16 @@
                     <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
                   </button>
 
-
-
-
                 </div>
 
               </div>
               <div class="service-calc__inner  service-calc__section" data-section="output">
                 <p class="section-ab__heading text-ab">Информация о Вашем заказе:</p>
                 <div class="service-calc-ab__column">
+                  <div class="service-calc-ab__data service-calc-ab__row" data-field="square">
+                    <p class="service-calc-ab__data-title">Площадь:</p>
+                    <p class="service-calc-ab__data-value">60 м<small><sup>2</sup></small></p>
+                  </div>
                   <div class="service-calc-ab__data service-calc-ab__row" data-field="date">
                     <p class="service-calc-ab__data-title">Дата:</p>
                     <p class="service-calc-ab__data-value">25 апреля</p>
@@ -718,7 +612,7 @@
                 </svg>
               </a>
             </div>
-            <p class="page-footer-ab__copyright">© <a class="page-footer-ab__link page-footer-ab__link--light link" href="{{buildUrl general.city '/'}}">Клининговая компания ООО «Домовёнок», 2017</a></p>
+            <p class="page-footer-ab__copyright">© <a class="page-footer-ab__link page-footer-ab__link--light link" href="{{buildUrl general.city '/'}}">ООО "Комфорт-сервис "Домовенок", 2018</a></p>
           </div>
         </div>
       </footer>
@@ -939,7 +833,7 @@
 <!-- Java Script -->
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v0.96"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.01"></script>
 <!-- /Java Script -->
 
 </body>

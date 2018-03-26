@@ -52,7 +52,7 @@ const STORE_WWW = {
     preview_pic: "promotion-schedule.svg",
     picture: "promotion-schedule-main.svg",
     id: "schedule",
-    promo: "1 час бесплатно",
+    promo: "",
     preview: "Клиенты, которые обслуживаются по графику, имеют скидки на мытье окон 15% и на генеральную уборку не менее 35%..."
   },
   birthday: {
@@ -100,7 +100,7 @@ const STORE_SPB = {
     preview_pic: "promotion-schedule.svg",
     picture: "promotion-schedule-main.svg",
     id: "schedule",
-    promo: "1 час бесплатно",
+    promo: "",
     preview: "Клиенты, которые обслуживаются по графику, имеют скидки на мытье окон 15% и на генеральную уборку не менее 25%..."
   },
 
