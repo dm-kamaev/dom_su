@@ -8,6 +8,7 @@ const set_app_version = require('/p/pancake/middlewares/set_app_version.js');
 const access_logger = require('/p/pancake/middlewares/access_logger.js');
 const wf = require('/p/pancake/my/wf.js');
 const router_aj_auth = require('/p/pancake/aj_auth/router_aj_auth.js');
+const router_aj_client_error = require('/p/pancake/aj_client_error/router_aj_client_error.js');
 const Context = require('/p/pancake/my/Context.js');
 const {
   errorMiddleware,
@@ -140,6 +141,7 @@ async function run() {
     appUser.use(routerProxyRequestTo1C.routes());
     appUser.use(routerStaffConversation.routes());
     app.use(router_aj_auth.routes());
+    app.use(router_aj_client_error.routes());
     app.use(router.get('/custom_bashrc', async ctx => {
       let res;
       try {
