@@ -240,6 +240,8 @@ function staffUrl(name) {
             return `/staff/message_handler/${arguments[1]}`;
         case 'means_and_materials':
             return `/staff/${arguments[1]}/means_and_materials`;
+        case 'description_services':
+            return `/staff/${arguments[1]}/description_services`;
         case 'clientPA':
             return `/private/`
         default:
