@@ -57,5 +57,5 @@ async function loadCities_new() {
 
 module.exports = {
   CITIES,
-  loadCities: (CONF.env === 'dev3' ? loadCities_new : loadCities),
+  loadCities: (CONF.is_new_dev() ? loadCities_new : loadCities),
 };
