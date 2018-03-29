@@ -40,7 +40,7 @@ const CONF = config;
 // };
 
 module.exports = function() {
-  CONF.is_new_dev = () => CONF.env === 'dev' || CONF.env === 'dev3';
+  CONF.is_new_dev = () => CONF.env === 'dev' || CONF.env === 'dev2';
   switch (CONF.env) {
     case 'dev':
       // CONF.domain = 'https://www.dev.domovenok.su';
