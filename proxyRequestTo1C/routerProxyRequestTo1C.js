@@ -74,7 +74,7 @@ router.post('/proxy_request/Auth.GetCode', async function (ctx) {
   const res = request1C.get();
 
   if (res.ok) {
-    res.data.u_uuid = uuid; // add user uuid, for mobile app
+    res.data['x-dom-auth'] = uuid; // add user uuid, for mobile app
   }
   ctx.body = res;
 });
