@@ -71,9 +71,14 @@ router.post('/proxy_request/Auth.GetCode', async function (ctx) {
     body = JSON.parse(body);
   }
   const user = ctx.state.pancakeUser;
-  const request1C = new Request1Cv3(user.auth1C.token, user.uuid, null, ctx);
+  const uuid = user.uuid;
+  const request1C = new Request1Cv3(user.auth1C.token, uuid, null, ctx);
   await request1C.add('Auth.GetCode', body).do();
   const res = request1C.get();
+
+  if (res.ok) {
+    res.data.u_uuid = uuid; // add user uuid, for mobile app
+  }
   ctx.body = res;
 });
 
