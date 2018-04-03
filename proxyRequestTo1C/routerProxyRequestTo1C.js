@@ -21,9 +21,6 @@ const router = module.exports = new Router();
   "data": {
     "ClientID": "8e0420c8-8c8e-11e7-80e4-00155d594900",
     "cookies": [{
-      "name": "X-Dom-Auth",
-      "value": "556884d4-5cd6-45fc-bb51-dbf4cec9f43c"
-    }, {
       "name": "A",
       "value": "556884d4-5cd6-45fc-bb51-dbf4cec9f43cFggwEaM2GF1513172070394",
       "params": {

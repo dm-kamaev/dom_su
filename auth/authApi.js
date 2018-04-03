@@ -401,16 +401,15 @@ module.exports = class AuthApi {
     logger.log('userAgent= '+this.userAgent);
     logger.log('host= '+this.host);
 
-    const cookieParam = { domain: this.host, maxAge, path: '/', httpOnly: false };
-    cookiesApi.set('A', A, cookieParam);
-    cookiesApi.set('B', B, cookieParam);
-    cookiesApi.set('status', status, cookieParam);
+    const cookie_param = { domain: this.host, maxAge, path: '/', httpOnly: false };
+    cookiesApi.set('A', A, cookie_param);
+    cookiesApi.set('B', B, cookie_param);
+    cookiesApi.set('status', status, cookie_param);
 
     this.set_cookie_for_cordova([
-      { name: 'X-Dom-Auth', value: this.uuid, },
-      { name: 'A', value: A, params: cookieParam },
-      { name: 'B', value: B, params: cookieParam },
-      { name: 'status', value: status, params: cookieParam }
+      { name: 'A', value: A, params: cookie_param },
+      { name: 'B', value: B, params: cookie_param },
+      { name: 'status', value: status, params: cookie_param }
     ]);
 
     logger.log('=== AUTH HOW CLIENT ===');
