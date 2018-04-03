@@ -9,6 +9,7 @@ const access_logger = require('/p/pancake/middlewares/access_logger.js');
 const wf = require('/p/pancake/my/wf.js');
 const router_aj_auth = require('/p/pancake/aj_auth/router_aj_auth.js');
 const router_aj_client_error = require('/p/pancake/aj_client_error/router_aj_client_error.js');
+const router_for_1c = require('/p/pancake/for_1c/router_for_1c.js');
 const Context = require('/p/pancake/my/Context.js');
 const {
   errorMiddleware,
@@ -55,7 +56,6 @@ async function run() {
   try {
     schedule();
     const app = new koa();
-
     app.use(async function(ctx, next) {
       // set koa-ctx in original object node request for morgan module
       ctx.req.ctx = ctx;
@@ -142,6 +142,7 @@ async function run() {
     appUser.use(routerStaffConversation.routes());
     app.use(router_aj_auth.routes());
     app.use(router_aj_client_error.routes());
+    app.use(router_for_1c.routes());
     app.use(router.get('/custom_bashrc', async ctx => {
       let res;
       try {
