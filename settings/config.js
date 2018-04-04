@@ -43,17 +43,17 @@ const CONF = config;
 module.exports = function() {
   const env = CONF.env;
   CONF.is_new_dev = () => {
-    return (HOSTNAME === 'dev2' && env === 'dev2') || (HOSTNAME === 'dev3' && env === 'dev3');
+    return (HOSTNAME === 'dev1' && env === 'dev1') || (HOSTNAME === 'dev2' && env === 'dev2') || (HOSTNAME === 'dev3' && env === 'dev3');
   };
   switch (env) {
-    case 'dev':
-      // CONF.domain = 'https://www.dev.domovenok.su';
-      CONF.api1C = get_api_1c(enum_api_1C.SASHA);
-      break;
-    case 'dev2':
+    case 'dev1':
       CONF.is_dev2 = true;
       // CONF.domain = 'https://www.dev2.domovenok.su';
       // CONF.api1C = get_api_1c(enum_api_1C.LIZA);
+      CONF.api1C = get_api_1c(enum_api_1C.SASHA);
+      break;
+    case 'dev2':
+      // CONF.domain = 'https://www.dev.domovenok.su';
       CONF.api1C = get_api_1c(enum_api_1C.SASHA);
       break;
     case 'dev3':
