@@ -65,7 +65,7 @@
   <meta name="smartbanner:enabled-platforms" content="android,ios">
   <!-- End SmartBanner configuration -->
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.1">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.11">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -104,9 +104,9 @@
       <div class="page-header__top">
         <button class="main-menu__btn  main-menu__btn--open">
           <svg class="main-menu__image" width="31" height="23.9" viewBox="0 0 31 23.9">
-            <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
-            <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
-            <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
+            <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#ffffff"/>
+            <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#ffffff"/>
+            <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#ffffff"/>
           </svg>
         </button>
     
@@ -632,14 +632,23 @@
           <div class="section-ab__wrap">
             <h2 class="section-ab__title  title">Обратите внимание</h2>
             <ul class="service-implement-ab list">
-              <li class="service-implement-ab__item  item  item-ab--circle">
-                <p class="service-implement-ab__text text-ab">«Домовёнок» несет ответственность только за людей одетых в фирменную спецодежду с логотипом компании.</p>
+              <li class="service-implement-ab__img-wrapper  service-implement-ab__img-wrapper--tablet">
+                <img src="/static/pancake/img/map-tablet@1x.png" srcset="/static/pancake/img/map-tablet@2x.png" alt="" width="265">
               </li>
               <li class="service-implement-ab__item  item  item-ab--circle">
-                <p class="service-implement-ab__text text-ab">За выезд за пределы города мы попросим Вас доплатить 60 рублей за километр.</p>
+                <p class="service-implement-ab__text text-ab">«Домовёнок» несет ответственность только за людей одетых в
+                  фирменную спецодежду с логотипом компании.</p>
               </li>
               <li class="service-implement-ab__item  item  item-ab--circle">
-                <p class="service-implement-ab__text text-ab">Команда домовят приезжает с точностью в 30 минут, относительно времени заказа. Мы заранее с Вами свяжемся, если у нас не получается приехать вовремя</p>
+                <p class="service-implement-ab__text text-ab">Выезд в пределах города (отмечено контуром) составляет
+                  1 200 рублей. За выезд за пределы города мы попросим Вас доплатить 60 рублей за километр.</p>
+              </li>
+              <li class="service-implement-ab__img-wrapper  service-implement-ab__img-wrapper--mobile">
+                <img src="/static/pancake/img/map-mobile@1x.png" srcset="/static/pancake/img/map-mobile@2x.png" alt="" width="100%">
+              </li>
+              <li class="service-implement-ab__item  item  item-ab--circle">
+                <p class="service-implement-ab__text text-ab">Команда домовят приезжает с точностью в 30 минут,
+                  относительно времени заказа. Мы заранее с Вами свяжемся, если у нас не получается приехать вовремя</p>
               </li>
             </ul>
           </div>
@@ -1106,7 +1115,7 @@
   <!-- Java Script -->
   
   <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-  <script src="/static/pancake/js/bundle.min.js?v1.03"></script>
+  <script src="/static/pancake/js/bundle.min.js?v1.04"></script>
   <!-- /Java Script -->
 
 </body>
