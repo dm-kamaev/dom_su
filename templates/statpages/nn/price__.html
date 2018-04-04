@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
   <meta charset="UTF-8">
-  <title>Цены (прайс лист) клининговой компании Домовёнок, цены на уборку домов,  квартир, офисов</title>
+  <title>Прайс лист на клининговые услуги. Цены и тарифы на услуги по уборке.</title>
   {{#if noindex}}<meta name="robots" content="noindex,nofollow"> {{else}}<meta name="robots" content="index, follow" /> {{/if}}
-
   {{#if canonical }}<link rel="canonical" href="{{canonicalPath}}"/>{{/if}}
-  <meta name="keywords" content="прайс  лист, цены, клининговая компания, уборка" />
-  <meta name="description" content="На этой странице Вы найдете прайс-лист клининговой компании «Домовёнок»: цены на уборку домов, квартир, офисов. " />
-
+  <meta name="keywords" content="клининговые услуги цены, клининговые услуги прайс лист, цены на уборку" />
+  <meta name="description" content="С ценами клининговой компании «Домовёнок» на уборку домов, квартир, офисов вы сможете ознакомиться на нашем сайте." />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui" />
   <meta name="format-detection" content="telephone=no">
+  <meta name="yandex-verification" content="e5a5b9786a5ac9a3" />
   {{#if general.production}}
     <script>
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -62,8 +60,6 @@
   <meta name="smartbanner:button-url-google" content="https://play.google.com/store/apps/details?id=ru.domovenok.app&hl=ru">
   <meta name="smartbanner:enabled-platforms" content="android,ios">
   <!-- End SmartBanner configuration -->
-
-
   <link rel="stylesheet" href="/static/pancake/css/style.landing_ab.min.css?v0.11">
 
   <script src="//yastatic.net/share2/share.js" async></script>
@@ -88,20 +84,28 @@
     {{/if}}
   
   </script>
-</head>
 
+</head>
 <body class="page">
+{{#if general.production}}
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+{{/if}}
+<div class="page__wrap page__wrap--scroll">
 
   <!-- Page Header -->
+  
   <header class="page-header  page-header--contact">
     <div class="page-header__top">
       <button class="main-menu__btn  main-menu__btn--open">
         <svg class="main-menu__image" width="31" height="23.9" viewBox="0 0 31 23.9">
-          <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#fd8204"/>
-          <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fd8204"/>
-          <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fd8204"/>
+          <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#ffffff"/>
+          <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#ffffff"/>
+          <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#ffffff"/>
         </svg>
       </button>
+  
       <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Клининговая компания Домовёнок"/></a>
   
       <div class="page-header__container">
@@ -111,7 +115,6 @@
         <a class="page-header__container-link" href="{{buildUrl general.city '/private/auth'}}">Войти</a>
         <button class="page-header__container-button button" data-name="service-order" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderMenuButton"}'>Заказать</button>
       </div>
-  
     </div>
     <div class="page-header__wrap">
       <a class="main-menu__icon-close  icon-close" href="#">
@@ -121,7 +124,9 @@
         </svg>
       </a>
   
-      {{templateTag this 'menu/main-menu__new.html'}}
+      <!--Main Menu-->
+      {{templateTag this 'menu/main-menu.html'}}
+      <!--/Main Menu-->
   
       <div class="change-town">
         <p class="change-town__btn">{{general.city.title}}</p>
@@ -142,7 +147,6 @@
   <!-- /Page Header -->
 
   <!-- Main Content -->
-
   <main class="page__main-content main-content main-content--vertical">
     <div class="main-content__wrap">
 
@@ -150,8 +154,8 @@
         <div class="window  window--price">
           <div class="window__inner  window__inner--price">
             <div class="window__content-wrapper  window__content-wrapper--price">
-              <p class="window__title  window__title--price">Цены на уборку квартир и офисов в Москве.<br>
-                <span class="window__title  window__title--bold  window__title--price">Расценки на уборку от 1490 рублей</span>
+              <p class="window__title  window__title--price">Цены на уборку квартир и офисов в Нижним Новгороде.<br>
+                <span class="window__title  window__title--bold  window__title--price">Расценки на уборку от 990 рублей</span>
               </p>
             </div>
           </div>
@@ -230,21 +234,21 @@
                 </div>
 
                 <div class="swiper-slide  cleaning-type__item">
-                  <h3 class="cleaning-type__title">Генеральная</h3>
+                  <h3 class="cleaning-type__title">Легкая</h3>
 
                   <div class="cleaning-type__content">
                     <ul class="cleaning-type__list">
-                      <li class="cleaning-type__list-item">2-4 сотрудника</li>
-                      <li class="cleaning-type__list-item">Удаляются любые загрязнения</li>
-                      <li class="cleaning-type__list-item">На всю высоту</li>
-                      <li class="cleaning-type__list-item">6-8 часов</li>
+                      <li class="cleaning-type__list-item">1 сотрудник</li>
+                      <li class="cleaning-type__list-item">Удаляются легкие загрязнения</li>
+                      <li class="cleaning-type__list-item">Высота до 1.8 м</li>
+                      <li class="cleaning-type__list-item">1-3 часа</li>
                     </ul>
                     <p class="cleaning-type__price">
                       <span class="cleaning-type__price  cleaning-type__price--small">от</span>
-                      6 990
+                      1 390
                       <span class="cleaning-type__price  cleaning-type__price--light">&#x20bd;</span>
                     </p>
-                    <a class="link  link--black  link--without-line  link--with-arrow  cleaning-type__link" href="{{buildUrl general.city '/generalnaya_uborka'}}">
+                    <a class="link  link--black  link--without-line  link--with-arrow  cleaning-type__link" href="{{buildUrl general.city '/lite'}}">
                       <span class="link__text">Подробнее</span>
                       <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
                     </a>
@@ -284,16 +288,61 @@
         </div>
       </section>
 
-      <!--Дополнительные работы-->
+      <!--Цена на мойку окон-->
 
       <section class="page__section  section">
+        <div class="divided-section">
+          <div class="divided-section__img-part  divided-section__img-part--windows"></div>
+          <div class="divided-section__content-part">
+            <h3 class="divided-section__title">Цена на мойку окон</h3>
+            <p class="divided-section__text">Примерная стоимость для стандартной</p>
+            <div class="divided-section__table">
+
+              <div class="divided-section__table-row">
+                <div class="divided-section__table-cell">
+                  <span class="divided-section__name">Однушки</span>
+                </div>
+                <div class="divided-section__table-cell">
+                  <span class="divided-section__price">1 790</span>
+                  <span class="divided-section__price  divided-section__price--light">&#x20bd;</span>
+                </div>
+              </div>
+
+              <div class="divided-section__table-row">
+                <div class="divided-section__table-cell">
+                  <span class="divided-section__name">Двушки</span>
+                </div>
+                <div class="divided-section__table-cell">
+                  <span class="divided-section__price">2 690</span>
+                  <span class="divided-section__price  divided-section__price--light">&#x20bd;</span>
+                </div>
+              </div>
+
+              <div class="divided-section__table-row">
+                <div class="divided-section__table-cell">
+                  <span class="divided-section__name">Трешки</span>
+                </div>
+                <div class="divided-section__table-cell">
+                  <span class="divided-section__price">3 590</span>
+                  <span class="divided-section__price  divided-section__price--light">&#x20bd;</span>
+                </div>
+              </div>
+            </div>
+            <a class="button  button--lg  divided-section__button" href="{{buildUrl general.city '/mite_okon'}}">Рассчитать для себя</a>
+          </div>
+        </div>
+      </section>
+
+      <!--Дополнительные работы-->
+
+      <section class="page__section  section   section--bg-grey">
         <div class="section__wrap">
           <h2 class="section__title  title">Дополнительные работы</h2>
           <div class="swiper-carousel  price-cards">
             <button class="swiper-carousel__button-prev" type="button">
               <svg width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
             </button>
-          
+
             <div class="swiper-container">
               <div class="swiper-wrapper">
                 <div class="swiper-slide  price-cards__item">
@@ -306,20 +355,11 @@
                   </p>
                 </div>
                 <div class="swiper-slide  price-cards__item">
-                  <img class="price-cards__img" src="/static/pancake/img/extra-service-2.svg" width="70" height="70" alt="">
-                  <p class="price-cards__item-title">Мытье посуды<br>
-                    <span class="price-cards__item-title  price-cards__item-title--light">10 минут</span>
-                  </p>
-                  <p class="price-cards__price">100
-                    <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                  </p>
-                </div>
-                <div class="swiper-slide  price-cards__item">
                   <img class="price-cards__img" src="/static/pancake/img/extra-service-3.svg" width="70" height="70" alt="">
                   <p class="price-cards__item-title">Мытье духового<br>
-                    шкафа внутри
+                                                     шкафа внутри
                   </p>
-                  <p class="price-cards__price">350
+                  <p class="price-cards__price">190
                     <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
                   </p>
                 </div>
@@ -353,7 +393,7 @@
                 <div class="swiper-slide  price-cards__item">
                   <img class="price-cards__img" src="/static/pancake/img/extra-service-7.svg" width="70" height="70" alt="">
                   <p class="price-cards__item-title">Холодильник</p>
-                  <p class="price-cards__price">350
+                  <p class="price-cards__price">250
                     <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
                   </p>
                 </div>
@@ -367,125 +407,6 @@
         </div>
       </section>
 
-      <!--Цена на мойку окон-->
-
-      <section class="page__section  section">
-        <div class="divided-section">
-          <div class="divided-section__img-part  divided-section__img-part--windows"></div>
-          <div class="divided-section__content-part">
-            <h3 class="divided-section__title">Цена на мойку окон</h3>
-            <p class="divided-section__text">Примерная стоимость для стандартной</p>
-            <div class="divided-section__table">
-
-              <div class="divided-section__table-row">
-                <div class="divided-section__table-cell">
-                  <span class="divided-section__name">Однушки</span>
-                </div>
-                <div class="divided-section__table-cell">
-                  <span class="divided-section__price">1 990</span>
-                  <span class="divided-section__price  divided-section__price--light">&#x20bd;</span>
-                </div>
-              </div>
-
-              <div class="divided-section__table-row">
-                <div class="divided-section__table-cell">
-                  <span class="divided-section__name">Двушки</span>
-                </div>
-                <div class="divided-section__table-cell">
-                  <span class="divided-section__price">2 990</span>
-                  <span class="divided-section__price  divided-section__price--light">&#x20bd;</span>
-                </div>
-              </div>
-
-              <div class="divided-section__table-row">
-                <div class="divided-section__table-cell">
-                  <span class="divided-section__name">Трешки</span>
-                </div>
-                <div class="divided-section__table-cell">
-                  <span class="divided-section__price">3 990</span>
-                  <span class="divided-section__price  divided-section__price--light">&#x20bd;</span>
-                </div>
-              </div>
-            </div>
-            <a class="button  button--lg  divided-section__button" href="{{buildUrl general.city '/mite_okon'}}">Рассчитать для себя</a>
-          </div>
-        </div>
-      </section>
-
-      <!--Цены на химчистку-->
-
-      <section class="page__section  section  section--bg-white">
-        <div class="section__wrap">
-          <h2 class="section__title  title">Цены на химчистку</h2>
-          <div class="swiper-container" data-client="mobile">
-            <div class="swiper-wrapper  price-cards  price-cards--thin">
-              <div class="swiper-slide  price-cards__item">
-                <img class="price-cards__img" src="/static/pancake/img/dry-cleaning-1.svg" width="95" height="95" alt="">
-                <p class="price-cards__item-title">Ковер</p>
-                <p class="price-cards__price">180
-                  <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                </p>
-              </div>
-              <div class="swiper-slide  price-cards__item">
-                <img class="price-cards__img" src="/static/pancake/img/dry-cleaning-2.svg" width="95" height="95" alt="">
-                <p class="price-cards__item-title">Диван 2-х местный</p>
-                <p class="price-cards__price">1200
-                  <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                </p>
-              </div>
-              <div class="swiper-slide  price-cards__item">
-                <img class="price-cards__img" src="/static/pancake/img/dry-cleaning-3.svg" width="95" height="95" alt="">
-                <p class="price-cards__item-title">Штора однослойная</p>
-                <p class="price-cards__price">220
-                  <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <a class="link  link--black  link--without-line  link--with-arrow" href="{{buildUrl general.city '/himchistka'}}">
-            <span class="link__text">Подробнее</span>
-            <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-          </a>
-        </div>
-      </section>
-
-      <!--Цены на мастеров-->
-
-      <section class="page__section  section  section--bg-grey">
-        <div class="section__wrap">
-          <h2 class="section__title  title">Цены на мастеров</h2>
-          <div class="swiper-container" data-client="mobile">
-            <div class="swiper-wrapper  price-cards  price-cards--thin">
-              <div class="swiper-slide  price-cards__item">
-                <img class="price-cards__img" src="/static/pancake/img/masters-1.svg" width="95" height="95" alt="">
-                <p class="price-cards__item-title">Сбор дивана</p>
-                <p class="price-cards__price">2250
-                  <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                </p>
-              </div>
-              <div class="swiper-slide  price-cards__item">
-                <img class="price-cards__img" src="/static/pancake/img/masters-2.svg" width="95" height="95" alt="">
-                <p class="price-cards__item-title">Установка розетки</p>
-                <p class="price-cards__price">400
-                  <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                </p>
-              </div>
-              <div class="swiper-slide  price-cards__item">
-                <img class="price-cards__img" src="/static/pancake/img/masters-3.svg" width="95" height="95" alt="">
-                <p class="price-cards__item-title">Установка унитаза</p>
-                <p class="price-cards__price">3850
-                  <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <a class="link  link--black  link--without-line  link--with-arrow" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
-            <span class="link__text">Подробнее</span>
-            <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-          </a>
-        </div>
-      </section>
-
       <!--Уборка офиса-->
 
       <section class="page__section  section">
@@ -495,70 +416,20 @@
               <span class="divided-section__img-part-title  divided-section__img-part-title--bold">от 1490 рублей</span>
             </h2>
           </div>
-          <div class="divided-section__content-part">
+          <div class="divided-section__content-part  divided-section__content-part--bg-white">
             <div class="divided-section__content-inner">
-              <h3 class="divided-section__title">Уборка зависит от:</h3>
+              <h3 class="divided-section__title  divided-section__title--black">Уборка зависит от:</h3>
               <ul class="divided-section__list">
-                <li class="divided-section__list-item">График обслуживания</li>
-                <li class="divided-section__list-item">Количество посетителей</li>
-                <li class="divided-section__list-item">Требование заказчика</li>
+                <li class="divided-section__list-item  divided-section__list-item--black">График обслуживания</li>
+                <li class="divided-section__list-item  divided-section__list-item--black">Количество посетителей</li>
+                <li class="divided-section__list-item  divided-section__list-item--black">Требование заказчика</li>
               </ul>
               <button class="button  button--lg  divided-section__button  button--application" data-name="service-order" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderMenuButton"}' type="button">Получить цену</button>
-              <a class="link  link--white  link--without-line  link--with-arrow  divided-section__link" href="{{buildUrl general.city '/uborka_ofisov'}}">
+              <a class="link  link--black  link--without-line  link--with-arrow  divided-section__link" href="{{buildUrl general.city '/uborka_ofisov'}}">
                 <span class="link__text">Подробнее</span>
-                <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
+                <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
               </a>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <!--Юридические лица-->
-
-      <section class="page__section  section  section--bg-grey">
-        <div class="section__wrap">
-          <h2 class="section__title  title">Юридические лица</h2>
-          <div class="swiper-carousel  service-cards">
-            <button class="swiper-carousel__button-prev" type="button">
-              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-            </button>
-
-            <div class="swiper-container">
-              <div class="swiper-wrapper">
-                <a class="swiper-slide  service-cards__item  service-cards__item--small" href="{{buildUrl general.city '/uborka_ofisov'}}">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-1.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Уборка офисов</p>
-                </a>
-                <a class="swiper-slide  service-cards__item  service-cards__item--small" href="{address}}uborka-proizvodstvennyh-pomewenij'}}">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-2.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Производственные<br>
-                                                     помещения</p>
-                </a>
-                <a class="swiper-slide  service-cards__item  service-cards__item--small" href="{{buildUrl general.city '/mite_stekol'}}">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-3.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Мытье стекол</p>
-                </a>
-                <a class="swiper-slide  service-cards__item  service-cards__item--small" href="{{buildUrl general.city '/promyshlennyj-alpinizm'}}">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-4.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Альпинизм</p>
-                </a>
-                <a class="swiper-slide  service-cards__item  service-cards__item--small" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-5.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Обработка поверхностей</p>
-                </a>
-                <a class="swiper-slide  service-cards__item  service-cards__item--small" href="{{buildUrl general.city '/myte-fasadov'}}">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-6.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Фасады</p>
-                </a>
-                <a class="swiper-slide  service-cards__item  service-cards__item--small" href="{{buildUrl general.city '/ofisnyy-master'}}">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-7.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Офисный мастер</p>
-                </a>
-              </div>
-            </div>
-            <button class="swiper-carousel__button-next" type="button">
-              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-            </button>
           </div>
         </div>
       </section>
@@ -630,7 +501,6 @@
       </button>
     </div>
   </main>
-
   <!-- Pop up -->
   <div class="pop-up  pop-up--hide">
   
@@ -823,6 +693,7 @@
   </div>
   <!-- /Pop up -->
 
+</div>
 <script id="calendar" type="text/html">
   {{{{raw}}}}
   {{#each days}}
@@ -835,7 +706,6 @@
   {{/each}}
   {{{{/raw}}}}
 </script>
-
 <script id="order-service" type="text/html">
   <div class="service-card-sm" data-name="mite_posudi">
     <p class="service-card-sm__text">Мытьё посуды<span class="service-card-sm__sign">?<span class="service-card-sm__note">* 10 минут</span></span></p>
@@ -866,297 +736,6 @@
   </div>
 </script>
 
-<!-- Ковёр и ковролин -->
-<script id="carpet" type="text/html">
-  <h2 class="section__title  title">Ковёр и ковролин</h2>
-  <div class="table">
-    <div class="table__row  table__row--head-light">
-      <div class="table__column  table__column--head  table__column--big">Ковры</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">синтетика</div>
-      <div class="table__column  table__column--small  table__column--center">180 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">хлопок</div>
-      <div class="table__column  table__column--small  table__column--center">400 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">вискоза, на клеевой основе</div>
-      <div class="table__column  table__column--small  table__column--center">250 руб</div>
-    </div>
-    <div class="table__row  table__row--head-light">
-      <div class="table__column  table__column--head  table__column--big">Ковролин</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">до 100м<sup><small>2</small></sup></div>
-      <div class="table__column  table__column--small  table__column--center">100 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">до 150м<sup><small>2</small></sup></div>
-      <div class="table__column  table__column--small  table__column--center">90 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">более 150м<sup><small>2</small></sup></div>
-      <div class="table__column  table__column--small  table__column--center">90 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Удаление запаха урины до 5 м<sup><small>2</small></sup></div>
-      <div class="table__column  table__column--small  table__column--center">500 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Удаление запаха урины до 10 м<sup><small>2</small></sup></div>
-      <div class="table__column  table__column--small  table__column--center">1 000 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Удаление запаха урины свыше 10 м<sup><small>2</small></sup></div>
-      <div class="table__column  table__column--small  table__column--center">100 руб/м</div>
-    </div>
-  </div>
-  <button class="button button--application" type="button" data-name="service-order">Заказать химчистку</button>
-</script>
-<!-- /Ковёр и ковролин -->
-
-<!-- Мягкая мебель -->
-<script id="furniture" type="text/html">
-  <h2 class="section__title  title">Мягкая мебель</h2>
-  <div class="table">
-    <div class="table__row  table__row--head-light">
-      <div class="table__column  table__column--head  table__column--big">Диван</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">2 места простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">1 200 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">2 места флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">2 150 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">3 места простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">1 800 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">3 места флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">2 950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Посадочное место 50-60 см</div>
-      <div class="table__column  table__column--small  table__column--center">600 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Посадочное место 50-60 см флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">800 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Спальное место простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">800 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Спальное место флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">1 600 руб</div>
-    </div>
-    <div class="table__row  table__row--head-light">
-      <div class="table__column  table__column--head  table__column--big">Кресло</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">790 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">флок, кожа механич</div>
-      <div class="table__column  table__column--small  table__column--center">1 290 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Кресло-кровать простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">900 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Кресло-кровать флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">1 200 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Полукресло простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">600 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Полукресло флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">950 руб</div>
-    </div>
-    <div class="table__row  table__row--head-light">
-      <div class="table__column  table__column--head  table__column--big">Стул</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">без тканевой спинкой</div>
-      <div class="table__column  table__column--small  table__column--center">170 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">с тканевой спинкой</div>
-      <div class="table__column  table__column--small  table__column--center">270 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Офисный простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">290 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Офисный флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">490 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Пуфик простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">300 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Пуфик флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">500 руб</div>
-    </div>
-    <div class="table__row  table__row--head-light">
-      <div class="table__column  table__column--head  table__column--big">Другое</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Каркас кровати</div>
-      <div class="table__column  table__column--small  table__column--center">950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Кухонный уголок простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Кухонный уголок флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">1 800 руб</div>
-    </div>
-  </div>
-  <button class="button button--application" type="button" data-name="service-order">Заказать химчистку</button>
-</script>
-<!-- /Мягкая мебель -->
-
-<!-- Шторы -->
-<script id="blind" type="text/html">
-  <h2 class="section__title  title">Шторы и Жалюзи</h2>
-  <div class="table">
-    <div class="table__row">
-      <div class="table__column  table__column--big">Портьера однослойная</div>
-      <div class="table__column  table__column--small  table__column--center">220 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Портьера двойная на подкладе</div>
-      <div class="table__column  table__column--small  table__column--center">240 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Ламбрекен</div>
-      <div class="table__column  table__column--small  table__column--center">300 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Римские шторы</div>
-      <div class="table__column  table__column--small  table__column--center">250 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Французские шторы</div>
-      <div class="table__column  table__column--small  table__column--center">250 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Подхваты</div>
-      <div class="table__column  table__column--small  table__column--center">200 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Монтаж/демонтаж</div>
-      <div class="table__column  table__column--small  table__column--center">500 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Жалюзи ткань</div>
-      <div class="table__column  table__column--small  table__column--center">140 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Жалюзи металл</div>
-      <div class="table__column  table__column--small  table__column--center">180 руб</div>
-    </div>
-  </div>
-  <button class="button button--application" type="button" data-name="service-order">Заказать химчистку</button>
-</script>
-<!-- /Шторы -->
-
-<!-- Матрацы -->
-<script id="mattress" type="text/html">
-  <h2 class="section__title  title">Матрац</h2>
-  <div class="table">
-    <div class="table__row">
-      <div class="table__column  table__column--big">односпальный с одной стороны</div>
-      <div class="table__column  table__column--small  table__column--center">700 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">односпальный с двух сторон</div>
-      <div class="table__column  table__column--small  table__column--center">950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">полутораспальный с одной стороны</div>
-      <div class="table__column  table__column--small  table__column--center">800 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">полутораспальный с двух сторон</div>
-      <div class="table__column  table__column--small  table__column--center">1 500 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">двуспальный с одной стороны</div>
-      <div class="table__column  table__column--small  table__column--center">950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">двуспальный с двух сторон</div>
-      <div class="table__column  table__column--small  table__column--center">1 950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">детский</div>
-      <div class="table__column  table__column--small  table__column--center">500 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">детский две стороны</div>
-      <div class="table__column  table__column--small  table__column--center">800 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">для шезлонгов две стороны</div>
-      <div class="table__column  table__column--small  table__column--center">950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">евро две стороны</div>
-      <div class="table__column  table__column--small  table__column--center">2 000 руб</div>
-    </div>
-  </div>
-  <button class="button button--application" type="button" data-name="service-order">Заказать химчистку</button>
-</script>
-<!-- /Матрацы -->
-
-<!-- Доп услуги -->
-<script id="other" type="text/html">
-  <h2 class="section__title  title">Дополнительные услуги</h2>
-  <div class="table">
-    <div class="table__row">
-      <div class="table__column  table__column--big">Пятновыведение до 2 см</div>
-      <div class="table__column  table__column--small  table__column--center">100 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Пятновыведение до 5 см</div>
-      <div class="table__column  table__column--small  table__column--center">150 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Пятновыведение до 10 см</div>
-      <div class="table__column  table__column--small  table__column--center">200 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Пятновыведение более 10 см</div>
-      <div class="table__column  table__column--small  table__column--center">300 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Удаление запаха урины мебель, шторы, мартац. Небольшое пятно в одном месте</div>
-      <div class="table__column  table__column--small  table__column--center">500 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Удаление жвачки</div>
-      <div class="table__column  table__column--small  table__column--center">500 руб</div>
-    </div>
-  </div>
-  <button class="button button--application" type="button" data-name="service-order">Заказать химчистку</button>
-</script>
-
-
 <script id="service-cart" type="text/html">
   {{{{raw}}}}
 
@@ -1182,11 +761,9 @@
   {{{{/raw}}}}
 </script>
 
-
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
 <script src="/static/pancake/js/bundle.min.js?v1.04"></script>
 <!-- /Java Script -->
 
 </body>
-
 </html>

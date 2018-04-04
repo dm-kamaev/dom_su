@@ -4,7 +4,7 @@
 
 // КОНФИГУРАЦИОННЫЙ ФАЙЛ
 
-// const env = require('/p/env/node_env.js');
+const os = require('os');
 const config = require('/p/pancake/settings/config_pancake.json');
 
 if (!config.env) {
@@ -21,6 +21,7 @@ const enum_api_1C = {
   PROD: 'prod'
 };
 
+const HOSTNAME = os.hostname();
 const CONF = config;
 // const CONF = {
 //   env,
@@ -40,8 +41,11 @@ const CONF = config;
 // };
 
 module.exports = function() {
-  CONF.is_new_dev = () => CONF.env === 'dev' || CONF.env === 'dev2';
-  switch (CONF.env) {
+  const env = CONF.env;
+  CONF.is_new_dev = () => {
+    return (HOSTNAME === 'dev2' && env === 'dev2') || (HOSTNAME === 'dev3' && env === 'dev3');
+  };
+  switch (env) {
     case 'dev':
       // CONF.domain = 'https://www.dev.domovenok.su';
       CONF.api1C = get_api_1c(enum_api_1C.SASHA);

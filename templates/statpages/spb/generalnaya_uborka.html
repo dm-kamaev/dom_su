@@ -70,7 +70,7 @@
   <!-- End SmartBanner configuration -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.1">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.11">
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
 
@@ -111,9 +111,9 @@
     <div class="page-header__top">
       <button class="main-menu__btn  main-menu__btn--open">
         <svg class="main-menu__image" width="31" height="23.9" viewBox="0 0 31 23.9">
-          <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
-          <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
-          <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
+          <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#ffffff"/>
+          <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#ffffff"/>
+          <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#ffffff"/>
         </svg>
       </button>
   
@@ -678,6 +678,9 @@
 
           <h2 class="section-ab__title  title">Обратите внимание</h2>
           <ul class="service-implement-ab list">
+            <li class="service-implement-ab__img-wrapper  service-implement-ab__img-wrapper--tablet">
+              <img src="/static/pancake/img/map-tablet@1x.png" srcset="/static/pancake/img/map-tablet@2x.png" alt="" width="265">
+            </li>
             <li class="service-implement-ab__item  item  item-ab--circle">
               <p class="service-implement-ab__text text-ab">Наша компания несёт ответственность только за людей одетых в
                 фирменную спецодежду.</p>
@@ -687,9 +690,13 @@
                 работ следует заранее, чтобы мы могли привезти требуемое оборудование и средства.</p>
             </li>
             <li class="service-implement-ab__item  item  item-ab--circle">
-              <p class="service-implement-ab__text text-ab">Выезд за пределы города добавляется из расчета 60 рублей за 1 км.
-                Бригада может прибыть раньше или позже согласованного срока, но не более чем на 30 минут. Генеральная уборка у
-                постоянных клиентов проводится без выезда транспорта.</p>
+              <p class="service-implement-ab__text text-ab">Выезд в пределах города (отмечено контуром) составляет 1 200
+								рублей. Выезд за пределы города добавляется из расчета 60 рублей за 1 км. Бригада может прибыть раньше
+								или позже согласованного срока, но не более чем на 30 минут. Генеральная уборка у постоянных клиентов
+								проводится без выезда транспорта.</p>
+            </li>
+						<li class="service-implement-ab__img-wrapper  service-implement-ab__img-wrapper--mobile">
+              <img src="/static/pancake/img/map-mobile@1x.png" srcset="/static/pancake/img/map-mobile@2x.png" alt="" width="100%">
             </li>
             <li class="service-implement-ab__item  item  item-ab--circle">
               <p class="service-implement-ab__text text-ab">
@@ -1289,7 +1296,7 @@
 
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.03"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.04"></script>
 <!-- /Java Script -->
 
 </body>
