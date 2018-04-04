@@ -48,3 +48,33 @@ rp.get = function (url, option) {
 // rp.get('https://www.dev2.domovenok.su/private/get_promotion/6ed99ac9-9657-11e2-beb6-1078d2da50b0')
 //    .then(({ response, body }) => console.log(response, body))
 //    .catch(err => console.log('Error= '+err));
+
+
+rp.post = function (url, option) {
+  option = option || {};
+  if (!option.headers) {
+    option.headers = {};
+  }
+  option.method = 'POST';
+  if (option.json) {
+    option.headers['content-type'] = 'application/json';
+  }
+  return new Promise((resolve, reject) => {
+    request(url, option, function (error, response, body) {
+      if (error) {
+        reject(error);
+      } else {
+        const content_type = response.headers['content-type'];
+        // console.log(body);
+        // if (/application\/json/.test(content_type)) {
+        //   body = JSON.parse(body);
+        // }
+        resolve({
+          error,
+          response,
+          body
+        });
+      }
+    });
+  });
+};
