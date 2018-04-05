@@ -71,5 +71,5 @@ async function page_description_services(ctx, next, request1C, GetEmployeeData, 
     ctx.status = 500;
     ctx.body = 'Internal error';
   }
-};
+}
 // =================================================

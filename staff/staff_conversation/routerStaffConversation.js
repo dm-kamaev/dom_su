@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // WORK WITH STAFF CONVERSATION
 
@@ -13,9 +13,9 @@ const config = require('config');
 const { Method1C, Request1C } = require('api1c');
 const { getTemplate } = require('utils');
 const { staffUrl, isMobileVersion, toMoscowISO, staffTemplate } = require('staff/utils.js');
-const uuid4 = require('uuid/v4')
+const uuid4 = require('uuid/v4');
 const parseFormMultipart = require('koa-body')({multipart: true});
-const { loginRequired, getEmployeeHeader } = require('staff/decorators')
+const { loginRequired, getEmployeeHeader } = require('staff/decorators');
 
 const router = module.exports = new Router();
 
@@ -60,28 +60,28 @@ router.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(
 
 
 router.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginRequired(async function(ctx) {
-  let salt = uuid4()
+  let salt = uuid4();
   const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', false, ctx);
   let NewConversation = new Method1C('Employee.NewConversation', {
     'EmployeeID': ctx.state.pancakeUser.auth1C.employee_uuid,
     'Subject': ctx.request.body.fields.subject
-  })
-  request1CAPIV2.add(NewConversation)
-  await request1CAPIV2.do()
+  });
+  request1CAPIV2.add(NewConversation);
+  await request1CAPIV2.do();
   const twoRequest1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', false, ctx);
   let SendMessage = new Method1C('SendMessage', {
-    "Role": 2,
-    "Content": ctx.request.body.fields.content,
-    "Salt": salt.toString(),
-    "AnswerToMessageID": null,
-    "Linked": {
-      "ID": NewConversation.response.ConversationID,
-      "Type": 'Conversation'
+    'Role': 2,
+    'Content': ctx.request.body.fields.content,
+    'Salt': salt.toString(),
+    'AnswerToMessageID': null,
+    'Linked': {
+      'ID': NewConversation.response.ConversationID,
+      'Type': 'Conversation'
     },
-  })
-  twoRequest1CAPIV2.add(SendMessage)
-  await twoRequest1CAPIV2.do()
-  ctx.redirect(staffUrl('conversationDetail', ctx.state.pancakeUser.auth1C.employee_uuid, NewConversation.response.ConversationID))
+  });
+  twoRequest1CAPIV2.add(SendMessage);
+  await twoRequest1CAPIV2.do();
+  ctx.redirect(staffUrl('conversationDetail', ctx.state.pancakeUser.auth1C.employee_uuid, NewConversation.response.ConversationID));
 }));
 
 // set score for conversation
@@ -99,8 +99,8 @@ router.post('/staff/ajax/conversations/:conversationId/score/:score', loginRequi
   let scoreConversation = null;
   if (hashScore[score]) {
     scoreConversation = new Method1C('Employee.ScoreConversation', {
-       'ConversationID': conversationId,
-       'Score': score
+      'ConversationID': conversationId,
+      'Score': score
     });
     const user = ctx.state.pancakeUser;
     const request1C = new Request1C(user.auth1C.token, user.uuid, null, null, null, ctx);
@@ -116,34 +116,34 @@ router.get('/staff/:EmployeeID/conversations/:ConversationID', loginRequired(get
   const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', false, ctx);
   let GetConversationList = new Method1C('Employee.GetConversationList', {
     'EmployeeID': templateCtx.employeeId
-  })
+  });
   let GetMessageList = new Method1C('GetMessageList', {
     'Count': 100,
     'Linked': {
       'ID': ctx.params.ConversationID,
       'Type': 'Conversation'
     }
-  })
-  request1CAPIV2.add(GetConversationList)
-  request1CAPIV2.add(GetEmployeeData)
-  request1CAPIV2.add(GetMessageList)
-  let template
-  let conversationData = {}
-  await request1CAPIV2.do()
+  });
+  request1CAPIV2.add(GetConversationList);
+  request1CAPIV2.add(GetEmployeeData);
+  request1CAPIV2.add(GetMessageList);
+  let template;
+  let conversationData = {};
+  await request1CAPIV2.do();
   for (let conversation of GetConversationList.response.ConversationList) {
     if (conversation.ConversationID == ctx.params.ConversationID) {
-      conversationData.ID = conversation.ConversationID
-      conversationData.Subject = conversation.Subject
-      conversationData.Status = conversation.Status
+      conversationData.ID = conversation.ConversationID;
+      conversationData.Subject = conversation.Subject;
+      conversationData.Status = conversation.Status;
     }
   }
-  templateCtx.conversation = conversationData
-  templateCtx.GetEmployeeData = GetEmployeeData.response
-  templateCtx.GetMessageList = GetMessageList.response
+  templateCtx.conversation = conversationData;
+  templateCtx.GetEmployeeData = GetEmployeeData.response;
+  templateCtx.GetMessageList = GetMessageList.response;
   if (isMobileVersion(ctx)) {
-    template = getTemplate(staffTemplate.mobile.conversationDetail)
+    template = getTemplate(staffTemplate.mobile.conversationDetail);
   } else {
-    template = getTemplate(staffTemplate.desktop.conversationDetail)
+    template = getTemplate(staffTemplate.desktop.conversationDetail);
   }
-  ctx.body = template(ctx.proc(templateCtx, ctx))
+  ctx.body = template(ctx.proc(templateCtx, ctx));
 })));
