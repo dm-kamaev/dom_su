@@ -8,7 +8,7 @@ module.exports = class Aj_error_not_valid_param extends Aj_errors_base {
     this.message = msg;
     this.set_status(422);
     this.set_error({
-      code: -4,
+      code: -5,
       text: 'Not valid param. '+msg
     });
   }

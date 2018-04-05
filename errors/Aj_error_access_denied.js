@@ -7,7 +7,7 @@ module.exports = class Aj_error_access_denied extends Aj_errors_base {
     super();
     this.set_status(403);
     this.set_error({
-      code: -3,
+      code: -4,
       text: 'Access denied'
     });
   }

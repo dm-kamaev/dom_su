@@ -7,7 +7,7 @@ module.exports = class Aj_error extends Error {
     this._body = {
       ok: false,
       error: {
-        code: -1,
+        code: -2,
         text: 'Internal error',
       }
     };

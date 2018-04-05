@@ -20,12 +20,12 @@ const router = module.exports = new Router();
 router.get('/aj/logged_in', async function (ctx) {
   try {
     const authApi = new AuthApi(ctx);
-    const is_login_as_client = await authApi.isLoginAsClient();
+    const loggedIn = await authApi.isLoginAsClient() || await authApi.isLoginAsClientEmployee();
     ctx.status = 200;
     ctx.body = {
       ok: true,
       data: {
-        loggedIn: is_login_as_client
+        loggedIn
       }
     };
   } catch (err) {
