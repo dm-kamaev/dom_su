@@ -58,6 +58,11 @@
             </div>
             <div style=margin-top:20px; data-demo-html="#panel-responsive-page2">{{{total_receivable}}}</div>
 
+            {{#if GetEmployeeData.PhoneTechnicalSupport}}
+              <div style=margin-top:40px;>
+                <a data-ajax=false class=ui-btn href='tel:{{GetEmployeeData.PhoneTechnicalSupport}}'>Позвонить в поддержку</a>
+              </div>
+            {{/if}}
 
             <!-- Address -->
             <div style=margin-top:40px;>
@@ -69,11 +74,11 @@
                    </tr>
                  </table>
                </div>
-              <div id=block_change_employee_adress style=margin-top:24px;font-size:120%; class=ui-widget>
-                <label for=input_employee_address>Введите адрес: </label>
-                <input id=input_employee_address placeholder="Mocква, ул Твeрская д. 11">
-                <p id=input_employee_address_error style=color:red></p>
-                <button id=set_employee_address style=width:100% type=button>Добавить</button>
+                <div id=block_change_employee_adress style=margin-top:24px;font-size:120%; class=ui-widget>
+                  <label for=input_employee_address>Введите адрес: </label>
+                  <input id=input_employee_address placeholder="Mocква, ул Твeрская д. 11">
+                  <p id=input_employee_address_error style=color:red></p>
+                  <button id=set_employee_address style=width:100% type=button>Добавить</button>
               </div>
             </div>
             <!-- END Address  -->

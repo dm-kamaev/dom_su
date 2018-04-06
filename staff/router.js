@@ -551,6 +551,10 @@ staffRouter.get('/staff/:EmployeeID/', loginRequired(getEmployeeHeader(async fun
   request1C.add(GetCurrentWageForEmployee); // https://wiki.domovenok.su/api_employee#GetCurrentWageForEmployee
   request1C.add(GetCurrentDepositForEmployee); //https://wiki.domovenok.su/api_employee#GetCurrentDepositForEmployee
   await request1C.do();
+
+  // TEST
+  // GetEmployeeData.response.PhoneTechnicalSupport = '+79064532314';
+
   templateCtx.GetEmployeeData = GetEmployeeData.response;
   // GetEmployeeDepartures.response = {
   //   DeparturesList: [{
