@@ -50,7 +50,9 @@ router.get('/aj/logout', async function (ctx) {
     ctx.status = 200;
     ctx.body = {
       ok: true,
-      data: null
+      data: {
+        Result: true
+      }
     };
   } catch (err) {
     logger.warn(err);
