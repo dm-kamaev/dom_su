@@ -28,8 +28,8 @@ router.get('/aj/logged_in', async function (ctx) {
       data: {
         loggedIn,
         u_uuid: uuid,
-        clientId: client_id,
-        employeeId: employee_id,
+        ClientID: client_id,
+        EmployeeID: employee_id,
       }
     };
   } catch (err) {
