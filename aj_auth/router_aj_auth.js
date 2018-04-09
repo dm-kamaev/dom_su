@@ -21,11 +21,15 @@ router.get('/aj/logged_in', async function (ctx) {
   try {
     const authApi = new AuthApi(ctx);
     const loggedIn = await authApi.isLoginAsClient() || await authApi.isLoginAsClientEmployee();
+    const { uuid, client_id, employee_id } = authApi.get_auth_data();
     ctx.status = 200;
     ctx.body = {
       ok: true,
       data: {
-        loggedIn
+        loggedIn,
+        u_uuid: uuid,
+        clientId: client_id,
+        employeeId: employee_id,
       }
     };
   } catch (err) {
