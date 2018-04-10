@@ -45,6 +45,10 @@ module.exports = function() {
   CONF.is_new_dev = () => {
     return (HOSTNAME === 'dev1' && env === 'dev1') || (HOSTNAME === 'dev2' && env === 'dev2') || (HOSTNAME === 'dev3' && env === 'dev3');
   };
+  CONF.ws = { // websocket
+    address: 'ws://127.0.0.1:8888/ws',
+    auth_key: 'SNYn4U1OqDWWxSBd1gZR',
+  };
   switch (env) {
     case 'dev1':
       CONF.is_dev2 = true;
@@ -61,10 +65,11 @@ module.exports = function() {
       break;
     case 'prod':
       CONF.is_prod = true;
+      CONF.api1C = get_api_1c(enum_api_1C.PROD);
+      CONF.ws.address = 'ws://ws.domovenok.su/ws';
       // CONF.domain = 'https://www.domovenok.su';
       // CONF.pg.password = 'TQ7Ee3q74F6hPNfp';
       // CONF.pg.database ='domovenok',
-      CONF.api1C = get_api_1c(enum_api_1C.PROD);
       // CONF.analytics = {
       //   google: 'UA-26472404-10'
       // };
