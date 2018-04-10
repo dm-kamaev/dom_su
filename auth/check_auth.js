@@ -13,8 +13,8 @@ check_auth.ajax = function (routerFunc) {
   return async function(ctx, next) {
     const authApi = new AuthApi(ctx);
     let authData;
-    const is_login_client = await authApi.isLoginAsClient();
-    if (is_login_client) {
+    const is_login = await authApi.isLoginAsClient() || await authApi.isLoginAsClientEmployee();
+    if (is_login) {
       authData = authApi.getAuthData();
     }
     const user = ctx.state.pancakeUser;
@@ -30,12 +30,12 @@ check_auth.ajax = function (routerFunc) {
     logger.log('ctx.state.pancakeUser.uuid = ' + user.uuid);
     logger.log('auth1C = ' + JSON.stringify(auth1C, null, 2));
     logger.log('authData= ', +JSON.stringify(authData, null, 2));
-    logger.log('isLoginAsClient= '+is_login_client);
+    logger.log('isLogint= '+is_login);
     await user.setAuth1C(authData);
     // if (!auth1C.token && authData) {
     //   await user.setAuth1C(authData);
     // }
-    if (is_login_client && auth1C.token != null) {
+    if (is_login && auth1C.token != null) {
       await routerFunc(ctx, next);
     } else {
       ctx.status = 200;
