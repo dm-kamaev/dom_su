@@ -30,6 +30,10 @@ const ABTestContainer = {
     //     {name: "control", page: 'mite_okon', ratio: 50, description: "Основная"},
     //     {name: "variation", page: 'mite_okon_ab', ratio: 50, description: "Пробуем новый дизайн"}
     // ]},
+    'contacts': { name: "", key: "contacts_1_new_design", forNewUser: true, variations: [
+        {name: "control", page: 'contacts__', ratio: 50, description: "Основная"},
+        {name: "variation", page: 'contacts_ab__', ratio: 50, description: "Пробуем новый дизайн"}
+    ]},
     main: {
       name: "",
       key: "main_9_new",
@@ -53,22 +57,22 @@ const ABTestContainer = {
         description: ""
       }]
     },
-    'price__': {
-        name: "Изменение дизайна",
-        key: "price_1_new",
-        forNewUser: true,
-        variations: [{
-            name: "control",
-            page: 'price__',
-            ratio: 50,
-            description: "Основная"
-        }, {
-            name: "variation",
-            page: 'price_ab',
-            ratio: 50,
-            description: "Пробуем новый дизайн"
-        }]
-    },
+    // 'price__': {
+    //     name: "Изменение дизайна",
+    //     key: "price_1_new",
+    //     forNewUser: true,
+    //     variations: [{
+    //         name: "control",
+    //         page: 'price__',
+    //         ratio: 50,
+    //         description: "Основная"
+    //     }, {
+    //         name: "variation",
+    //         page: 'price_ab',
+    //         ratio: 50,
+    //         description: "Пробуем новый дизайн"
+    //     }]
+    // },
   }
 }
 
