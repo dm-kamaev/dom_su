@@ -17,33 +17,34 @@ const router = module.exports = new Router();
     loggedIn: true
   }
 }*/
-router.get('/aj/logged_in', async function (ctx) {
-  try {
-    const authApi = new AuthApi(ctx);
-    const loggedIn = await authApi.isLoginAsClient() || await authApi.isLoginAsClientEmployee();
-    const { uuid, client_id, employee_id } = authApi.get_auth_data();
-    ctx.status = 200;
-    ctx.body = {
-      ok: true,
-      data: {
-        loggedIn,
-        u_uuid: uuid,
-        ClientID: client_id,
-        EmployeeID: employee_id,
-      }
-    };
-  } catch (err) {
-    logger.warn(err);
-    ctx.status = 200;
-    ctx.body = {
-      ok: false,
-      error: {
-        code: -2,
-        text: 'Internal error',
-      }
-    };
-  }
-});
+// TODO(2018.04.10): Remove in future
+// router.get('/aj/logged_in', async function (ctx) {
+//   try {
+//     const authApi = new AuthApi(ctx);
+//     const loggedIn = await authApi.isLoginAsClient() || await authApi.isLoginAsClientEmployee();
+//     const { uuid, client_id, employee_id } = authApi.get_auth_data();
+//     ctx.status = 200;
+//     ctx.body = {
+//       ok: true,
+//       data: {
+//         loggedIn,
+//         u_uuid: uuid,
+//         ClientID: client_id,
+//         EmployeeID: employee_id,
+//       }
+//     };
+//   } catch (err) {
+//     logger.warn(err);
+//     ctx.status = 200;
+//     ctx.body = {
+//       ok: false,
+//       error: {
+//         code: -2,
+//         text: 'Internal error',
+//       }
+//     };
+//   }
+// });
 
 
 // logout
