@@ -63,7 +63,7 @@
   <meta name="smartbanner:enabled-platforms" content="android,ios">
   <!-- End SmartBanner configuration -->
 
-  <link rel="stylesheet" href="/static/pancake/css/style.landing_ab.min.css?v0.11">
+  <link rel="stylesheet" href="/static/pancake/css/style.landing_ab.min.css?v0.12">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -100,17 +100,15 @@
 <div class="page__wrap page__wrap--scroll">
 
   <!-- Page Header -->
-  
   <header class="page-header  page-header--contact">
     <div class="page-header__top">
       <button class="main-menu__btn  main-menu__btn--open">
         <svg class="main-menu__image" width="31" height="23.9" viewBox="0 0 31 23.9">
-          <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#ffffff"/>
-          <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#ffffff"/>
-          <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#ffffff"/>
+          <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#fd8204"/>
+          <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fd8204"/>
+          <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fd8204"/>
         </svg>
       </button>
-  
       <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Клининговая компания Домовёнок"/></a>
   
       <div class="page-header__container">
@@ -120,6 +118,7 @@
         <a class="page-header__container-link" href="{{buildUrl general.city '/private/auth'}}">Войти</a>
         <button class="page-header__container-button button" data-name="service-order" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderMenuButton"}'>Заказать</button>
       </div>
+  
     </div>
     <div class="page-header__wrap">
       <a class="main-menu__icon-close  icon-close" href="#">
@@ -129,9 +128,7 @@
         </svg>
       </a>
   
-      <!--Main Menu-->
-      {{templateTag this 'menu/main-menu.html'}}
-      <!--/Main Menu-->
+      {{templateTag this 'menu/main-menu__new.html'}}
   
       <div class="change-town">
         <p class="change-town__btn">{{general.city.title}}</p>
