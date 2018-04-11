@@ -23,6 +23,9 @@ const staff1CTemplateOpts = {
   }
 };
 const staffDesktopTemplateOpts = {
+  error: { // template critical error
+    path: 'staff/templates/desktop/error.html', name: 'error'
+  },
   errors: {
     path: 'staff/templates/desktop/errors.html', name: 'staffErrors'
   },
@@ -98,6 +101,9 @@ const staffDesktopTemplateOpts = {
 
 };
 const staffMobileTemplateOpts = {
+  error: {
+    path: 'staff/templates/mobile/error.html', name: 'error'
+  },
   userIndex: {
     path: 'staff/templates/mobile/userIndex.html', name: 'staffMobileIndex'
   },
@@ -249,9 +255,28 @@ function staffUrl(name) {
   }
 }
 
+// category string –– 'desktop' or 'mobile'
+// template_name string –– 'userIndex'
+function get_template(category, template_name) {
+  let res;
+  switch (category) {
+    case 'desktop':
+      res = staffTemplate.desktop[template_name];
+      break;
+    case 'mobile':
+      res =  staffTemplate.mobile[template_name];
+      break;
+    default:
+      throw new Error(`'${category}' is not valid category templates. Valid:  desktop, mobile`);
+  }
+  return res;
+}
+
+
 module.exports = {
   staffUrl,
   isMobileVersion,
   staffTemplate,
   toMoscowISO,
+  get_template,
 };

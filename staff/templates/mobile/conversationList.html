@@ -94,18 +94,38 @@
             </div>
     </div>
 <script>
-  {{#each conversationList as |conversation|}}
-    mountEvents('{{conversation.indexId}}', '{{conversation.ConversationID}}');
-  {{/each}}
+  void function () {
+    var list_conversation = [
+      {{#each conversationList as |conversation|}}
+        { index_id: '{{conversation.indexId}}', conversation_id: '{{conversation.ConversationID}}' },
+      {{/each}}
+    ];
 
-  function mountEvents(indexId, conversationId) {
-    $("#select_score_"+indexId).on('change', function() {
-      var score = $("input[name='radio-choice-h-2']:checked").val();
-      $('#select_score_'+indexId).hide();
-      $('#show_score_'+indexId).html('<span style=margin-left:10px;font-size:110%>Оценка: '+score+'</span>').show();
-      $.post('/staff/ajax/conversations/'+conversationId+'/score/'+score, {}, function(result, textStatus, jqXHR) { });
-    });
-  }
+    mount_events(list_conversation);
+
+    function mount_events(list_conversation) {
+      for (var i = 0, l = list_conversation.length; i < l; i++) {
+        mount_send_conversation(list_conversation[i]);
+      }
+    }
+
+    function mount_send_conversation(conversation) {
+      var index_id = conversation.index_id;
+      var conversation_id = conversation.conversation_id;
+      var $select_score = $('#select_score_'+index_id);
+      if (!$select_score.get(0)) {
+        return;
+      }
+      $select_score.on('change', function() {
+        var score = $("input[name='radio-choice-h-2']:checked").val();
+        $select_score.hide();
+        $('#show_score_'+index_id).html('<span style=margin-left:10px;font-size:110%>Оценка: '+score+'</span>').show();
+        $.post('/staff/ajax/conversations/'+conversation_id+'/score/'+score, {}, function(result, textStatus, jqXHR) { });
+      });
+    }
+
+
+  }();
 </script>
 </body>
 </html>
