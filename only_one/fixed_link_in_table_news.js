@@ -10,7 +10,7 @@ const sequelize_option = { type: sequelize.QueryTypes.SELECT };
 
 module.exports = async function () {
   try {
-    const news_db = await sequelize.query("SELECT id, preview_text, full_text, url FROM news", sequelize_option);
+    const news_db = await sequelize.query('SELECT id, preview_text, full_text, url FROM news', sequelize_option);
 
     let news_after_clean;
 
@@ -35,7 +35,7 @@ module.exports = async function () {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 // dajngo template {% thumbnail 'pic/9_maya.jpg' 550x1000 quality=100 %}
 // replace to url: https://www.domovenok.su/media/pic/9_maya.jpg

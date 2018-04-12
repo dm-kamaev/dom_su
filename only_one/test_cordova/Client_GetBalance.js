@@ -15,7 +15,7 @@ module.exports = async function (domain, auth_data) {
         status: auth_data.status,
       },
       json: {
-        "ClientID": auth_data.client_id
+        'ClientID': auth_data.client_id
       }
     });
     if (error) {
