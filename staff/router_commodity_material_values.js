@@ -205,9 +205,14 @@ function build_data(Employee_InventoryList) {
     const price = inventory.Price;
     const inventory_id = inventory.InventoryID;
     const package_id = inventory.PackageID;
-    const package_title = inventory.PackageTitle.replace(/\d+/g, '');
+    const package_title = inventory.PackageTitle.replace(/\d+/g, '').trim();
 
+    console.log('package_title=', package_title);
     const quantity = [{ name: 'Не выбрано', value: 0 }];
+    if (package_title === 'лт') {
+      quantity.push({ name: '0.33 лт', value: 0.33 });
+      quantity.push({ name: '0.5 лт', value: 0.5 });
+    }
     for (var j = 1, l = inventory.Balance; j < l; j++) {
       quantity.push({ name: (j+' '+package_title), value: j });
     }
