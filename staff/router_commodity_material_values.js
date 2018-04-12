@@ -205,11 +205,11 @@ function build_data(Employee_InventoryList) {
     const price = inventory.Price;
     const inventory_id = inventory.InventoryID;
     const package_id = inventory.PackageID;
-    const package_title = inventory.PackageTitle.replace(/\d+/g, '').trim();
+    const package_title = inventory.PackageTitle.replace(/[\d\.]+/g, '').toLowerCase().trim();
 
     console.log('package_title=', package_title);
     const quantity = [{ name: 'Не выбрано', value: 0 }];
-    if (package_title === 'лт') {
+    if (package_title === 'л') {
       quantity.push({ name: '0.33 лт', value: 0.33 });
       quantity.push({ name: '0.5 лт', value: 0.5 });
     }
