@@ -208,10 +208,10 @@ function build_data(Employee_InventoryList) {
     const package_title = inventory.PackageTitle.replace(/[\d\.]+/g, '').toLowerCase().trim();
 
     const quantity = [{ name: 'Не выбрано', value: 0 }];
-    // if (package_title === 'л') {
-    //   quantity.push({ name: '0.33 л', value: 0.33 });
-    //   quantity.push({ name: '0.5 л', value: 0.5 });
-    // }
+    if (package_title === 'л') {
+      quantity.push({ name: '0.33 л', value: 0.33 });
+      quantity.push({ name: '0.5 л', value: 0.5 });
+    }
     for (var j = 1, l = inventory.Balance; j < l; j++) {
       quantity.push({ name: (j+' '+package_title), value: j });
     }

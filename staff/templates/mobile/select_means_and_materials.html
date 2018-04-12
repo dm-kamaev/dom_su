@@ -216,7 +216,7 @@
           }
           var value = t.value;
           el = _hash_mean_material[key];
-          el.quantity = parseInt(value, 10);
+          el.quantity = parseFloat(value);
           if (el.quantity > 0) {
             _active_hash[key] = el;
             getById(el.row_id).style.backgroundColor = '#EEE';
