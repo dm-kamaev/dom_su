@@ -13,7 +13,7 @@ module.exports = async function (domain, phone, auth_data) {
       },
       json: {
         'Phone': phone,
-        'Code': "111"
+        'Code': '111'
       }
     });
     if (error) {

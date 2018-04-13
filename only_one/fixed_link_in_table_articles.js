@@ -11,7 +11,7 @@ const sequelize_option = { type: sequelize.QueryTypes.SELECT };
 module.exports = async function () {
   console.log('====== START =====');
   try {
-    const artciles = await sequelize.query("SELECT id, preview_text, full_text, url FROM articles", sequelize_option);
+    const artciles = await sequelize.query('SELECT id, preview_text, full_text, url FROM articles', sequelize_option);
     // console.log(artciles);
     let articles_after_clean;
 
@@ -36,7 +36,7 @@ module.exports = async function () {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 
 function replace_http_to_https(articles) {
