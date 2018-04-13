@@ -12,6 +12,11 @@
            border: none;
            box-shadow: none;
         }
+         .btn-danger{
+            color: #fff !important;
+            background-color: #dc3545 !important;
+            border-color: #dc3545 !important;
+         }
     </style>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -60,7 +65,8 @@
 
             {{#if GetEmployeeData.PhoneTechnicalSupport}}
               <div style=margin-top:40px;>
-                <a data-ajax=false class=ui-btn href='tel:{{GetEmployeeData.PhoneTechnicalSupport}}'>Позвонить в поддержку</a>
+                <p>Позвонить в поддержку:</p>
+                <a data-ajax=false class='ui-btn btn-danger' href='tel:{{GetEmployeeData.PhoneTechnicalSupport}}'>{{GetEmployeeData.PhoneTechnicalSupport}}</a>
               </div>
             {{/if}}
 
