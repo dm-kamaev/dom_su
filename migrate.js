@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 'use strict';
 
 //  node create_migrations.js create_folder_stat
