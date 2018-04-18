@@ -1,5 +1,7 @@
-Nginx:
-```
+# Pancake(site personal account for employee) and cleintPa (personal account for client)
+
+## Nginx:
+```sh
   /etc/nginx/sites-available/default  –– config
   sudo nginx -t  –– check valid config
   sudo service nginx restart
@@ -8,40 +10,40 @@ Nginx:
 
   # old config for production
   cat /etc/nginx/sites-available/domovenok.su
-  
+
   # new config nginx
   cat /etc/nginx/sites-enabled/domovenok.conf
 ```
 
 
-```
-  NODE_ENV=development node auto_config/ecosystemPancake.js
-  NODE_ENV=production node auto_config/ecosystemPancake.js
+## Up project pancake(site)
+
+1. Clone project
+```sh
+  cd /p/; git pull pancake
 ```
 
-Start project via Pm2
+2. Create ecosystem.json for pm2
+```sh
+  cd pancake;
+  node auto_config/ecosystemPancake.js
 ```
+
+4. Start project via Pm2
+```sh
   pm2 start ecosystem.json
   pm2 restart pancake
-  pm2 delete pancake; pm2 start ecosystem.json; –– чтобы pm2 увидел изменения в ecosystem.json
+  # pm2 see change in config
+  pm2 delete pancake; pm2 start ecosystem.json;
 ```
 
-Развертка проектов(корневой путь /p/):
 
 
-1. cd /p/; git pull pancake
+
+1. cd /p/; git pull clientPa
 
 
 2. Для генерации ecosystem.json (pm2)
-```
-  cd /p/pancake; NODE_ENV=development node auto_config/ecosystemPancake.js
-```
-
-
-3. cd /p/; git pull clientPa
-
-
-4. Для генерации ecosystem.json (pm2)
 
 
 ```
@@ -49,13 +51,13 @@ Start project via Pm2
 ```
 
 
-5. Создается файл в /p/pancake/env/node_env.js
+3. Создается файл в /p/pancake/env/node_env.js
 ```
   module.exports = 'dev';
 ```
 
 
-6. В /p/pancake/ делается
+4. В /p/pancake/ делается
 ```
   npm run migrate
 ```
@@ -76,8 +78,8 @@ Start project via Pm2
     root /srv/www/domovenok_su/public_html/static/
   }
   there are two symlinks in this folder:
-  
+
   general -> /srv/www/clientPA/public/static/general
   pancake -> /srv/www/pancake/static/pancake
-  
+
 ```
