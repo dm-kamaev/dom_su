@@ -56,7 +56,15 @@ router.post('/proxy_request/Auth.Login', async function (ctx) {
   }
 
   const authApi = new AuthApi(ctx);
-  const res = await authApi.login(body.Phone, body.Code);
+  let phone = body.Phone || '';
+  let code = body.Code || '';
+  if (phone) {
+    phone = phone.replace(/[^\d]+/g, '');
+  }
+  if (code) {
+    code = code.replace(/[^\d]+/g, '');
+  }
+  const res = await authApi.login(phone, code);
   ctx.status = 200;
   ctx.body = res;
 });
@@ -66,6 +74,9 @@ router.post('/proxy_request/Auth.GetCode', async function (ctx) {
   let body = ctx.request.body;
   if (typeof body === 'string') {
     body = JSON.parse(body);
+  }
+  if (body.Phone) {
+    body.Phone = body.Phone.replace(/[^\d]+/g, '');
   }
   const user = ctx.state.pancakeUser;
   const uuid = user.uuid;
