@@ -1,4 +1,63 @@
-# Pancake(site personal account for employee) and cleintPa (personal account for client)
+# Pancake(site and personal account for employee) and clientPA (personal account for client)
+
+## Required folders
+```sh
+  /p/log/ –––––
+              |
+              | -- access_log/
+              | -- app/
+              | -- pm2/
+```
+
+
+## Up project pancake(site and personal account for employee)
+1. Clone project
+```sh
+  cd /p/;
+  git clone git@bitbucket.org:wwwdomovenoksu/pancake.git
+```
+2. Create ecosystem.json for pm2
+```sh
+  cd pancake;
+  node auto_config/ecosystemPancake.js
+```
+3. В /p/pancake/ делается
+```sh
+  npm run migrate
+```
+4. Start project via Pm2
+```sh
+  pm2 start ecosystem.json
+  pm2 restart pancake
+  # pm2 see change in config
+  pm2 delete pancake; pm2 start ecosystem.json;
+```
+
+
+## Up project clientPA (personal account for client)
+1. Start pancake
+2. Clone project
+```sh
+cd /p/;
+git clone git@bitbucket.org:wwwdomovenoksu/clientpa.git
+```
+4. Rename folder
+```sh
+  mv clientpa clientPA
+```
+3. Create ecosystem.json for pm2
+```sh
+  cd clientPA;
+  node auto_config/ecosystemClientPA.js
+```
+4. Start project via Pm2
+```sh
+  pm2 start ecosystem.json
+  pm2 restart clientPA
+  # pm2 see change in config
+  pm2 delete clientPA; pm2 start ecosystem.json;
+```
+
 
 ## Nginx:
 ```sh
@@ -16,64 +75,8 @@
 ```
 
 
-## Up project pancake(site)
-
-1. Clone project
+## How work serve static in projects
 ```sh
-  cd /p/; git pull pancake
-```
-
-2. Create ecosystem.json for pm2
-```sh
-  cd pancake;
-  node auto_config/ecosystemPancake.js
-```
-
-4. Start project via Pm2
-```sh
-  pm2 start ecosystem.json
-  pm2 restart pancake
-  # pm2 see change in config
-  pm2 delete pancake; pm2 start ecosystem.json;
-```
-
-
-
-
-1. cd /p/; git pull clientPa
-
-
-2. Для генерации ecosystem.json (pm2)
-
-
-```
-  cd /p/clientPA; NODE_ENV=development node auto_config/ecosystemClientPA.js
-```
-
-
-3. Создается файл в /p/pancake/env/node_env.js
-```
-  module.exports = 'dev';
-```
-
-
-4. В /p/pancake/ делается
-```
-  npm run migrate
-```
-
-
-7. Создать каталог c папками
-```
-  /p/log/ –––––
-              |
-              | -- access_log/
-              | -- app/
-              | -- pm2/
-```
-
-Как работает раздача статики в проекте:
-```
   nginx location ~/static {
     root /srv/www/domovenok_su/public_html/static/
   }
