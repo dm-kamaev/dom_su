@@ -21,7 +21,7 @@
   cd pancake;
   node auto_config/ecosystemPancake.js
 ```
-3. В /p/pancake/ делается
+3. Up migrate
 ```sh
   npm run migrate
 ```
@@ -38,8 +38,8 @@
 1. Start pancake
 2. Clone project
 ```sh
-cd /p/;
-git clone git@bitbucket.org:wwwdomovenoksu/clientpa.git
+  cd /p/;
+  git clone git@bitbucket.org:wwwdomovenoksu/clientpa.git
 ```
 4. Rename folder
 ```sh
