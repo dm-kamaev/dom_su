@@ -75,13 +75,13 @@
 ```
 
 
-## How work serve static in projects
+## How work server static in projects
 ```sh
   nginx location ~/static {
     root /srv/www/domovenok_su/public_html/static/
   }
-  there are two symlinks in this folder:
 
+  # there are two symlinks in this folder:
   general -> /srv/www/clientPA/public/static/general
   pancake -> /srv/www/pancake/static/pancake
 
