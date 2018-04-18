@@ -42,8 +42,12 @@ const CONF = config;
 
 module.exports = function() {
   const env = CONF.env;
+  // remove in future
   CONF.is_new_dev = () => {
     return (HOSTNAME === 'dev1' && env === 'dev1') || (HOSTNAME === 'dev2' && env === 'dev2') || (HOSTNAME === 'dev3' && env === 'dev3');
+  };
+  CONF.is_dev = () => {
+    return CONF.env !== 'prod';
   };
   CONF.ws = { // websocket
     address: 'ws://127.0.0.1:8888/ws',
@@ -51,10 +55,10 @@ module.exports = function() {
   };
   switch (env) {
     case 'dev1':
-      CONF.is_dev2 = true;
+      CONF.is_dev1 = true;
       // CONF.domain = 'https://www.dev2.domovenok.su';
-      // CONF.api1C = get_api_1c(enum_api_1C.LIZA);
-      CONF.api1C = get_api_1c(enum_api_1C.SASHA);
+      CONF.api1C = get_api_1c(enum_api_1C.LIZA);
+      // CONF.api1C = get_api_1c(enum_api_1C.SASHA);
       break;
     case 'dev2':
       // CONF.domain = 'https://www.dev.domovenok.su';

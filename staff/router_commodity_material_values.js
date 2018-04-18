@@ -5,6 +5,7 @@ const decorators = require('/p/pancake/staff/decorators.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
 const templates = require('/p/pancake/utils/templates.js');
 const fn = require('/p/pancake/my/fn.js');
+const Error_1C_base = require('/p/pancake/errors/Error_1C_base.js');
 const promise_api = require('/p/pancake/my/promise_api.js');
 const logger = require('/p/pancake/lib/logger.js');
 
@@ -88,65 +89,58 @@ module.exports = function (employee_router) {
 
 // =================================================
 async function page_means_materials(ctx, next, request1C, GetEmployeeData, templateCtx) {
-  try {
-    const { uuid, token } = new AuthApi(ctx).get_auth_data();
-    const employee_id = ctx.params.employee_id;
+  const { uuid, token } = new AuthApi(ctx).get_auth_data();
+  const employee_id = ctx.params.employee_id;
 
-    const req_for_1c = new Request1Cv3(token, uuid, null, ctx);
-    req_for_1c.add('GetEmployeeData', {
-      EmployeeID: employee_id
-    }).add('Employee.InventoryList', {}).add('Employee.GetInventoryRequestList', {
-      EmployeeID: employee_id,
-      Count: 1,
-      From: 1,
-      Filter: {
-        Status: 'Active'
-      }
-    });
-    await req_for_1c.do();
-    const {
-      GetEmployeeData: getEmployeeData,
-      'Employee.GetInventoryRequestList': getInventoryRequestList,
-      'Employee.InventoryList': Employee_InventoryList
-    } = req_for_1c.get_all();
-
-    if (!getEmployeeData.ok) {
-      throw new getEmployeeData.error;
-    } else if (!Employee_InventoryList.ok) {
-      throw Employee_InventoryList.error;
-    } else if (!getInventoryRequestList.ok) {
-      throw getInventoryRequestList.error;
+  const req_for_1c = new Request1Cv3(token, uuid, null, ctx);
+  req_for_1c.add('GetEmployeeData', {
+    EmployeeID: employee_id
+  }).add('Employee.InventoryList', {}).add('Employee.GetInventoryRequestList', {
+    EmployeeID: employee_id,
+    Count: 1,
+    From: 1,
+    Filter: {
+      Status: 'Active'
     }
+  });
+  await req_for_1c.do();
+  const {
+    GetEmployeeData: getEmployeeData,
+    'Employee.GetInventoryRequestList': getInventoryRequestList,
+    'Employee.InventoryList': Employee_InventoryList
+  } = req_for_1c.get_all();
 
-    const inventory_request = fn.deep_value(getInventoryRequestList, 'data.InventoryRequestList.0') || {};
-    const inventory_request_id = inventory_request.InventoryRequestID || null;
-    templateCtx.current_url = ctx.request.url;
-    if (inventory_request_id) { // show view with exist inventory request
-      const info_inventory_request = await view_info_inventory_request(
-        new Request1Cv3(token, uuid, null, ctx),
-        inventory_request_id,
-        employee_id
-      );
-      ctx.status = 200;
-      templateCtx.inventory_request_id = inventory_request_id;
-      templateCtx.getEmployeeData = getEmployeeData.data;
-      templateCtx.info_inventory_request = info_inventory_request;
-      ctx.body = templates.getTemplate(show_current_inventory_request)(ctx.proc(templateCtx, ctx));
-    } else { // show view for select means and materials
-      const data = build_data(Employee_InventoryList);
+  if (getEmployeeData.error) {
+    throw new Error_1C_base(getEmployeeData.error);
+  } else if (Employee_InventoryList.error) {
+    throw new Error_1C_base(Employee_InventoryList.error);
+  } else if (getInventoryRequestList.error) {
+    throw new Error_1C_base(getInventoryRequestList.error);
+  }
 
-      ctx.status = 200;
-      templateCtx.means = data.means;
-      templateCtx.hash_mean_material = JSON.stringify(data.hash_mean_material);
-      templateCtx.materials = data.materials;
-      templateCtx.getEmployeeData = getEmployeeData.data;
-      ctx.body = templates.getTemplate(path_select_means_and_materials)(ctx.proc(templateCtx, ctx));
-    }
+  const inventory_request = fn.deep_value(getInventoryRequestList, 'data.InventoryRequestList.0') || {};
+  const inventory_request_id = inventory_request.InventoryRequestID || null;
+  templateCtx.current_url = ctx.request.url;
+  if (inventory_request_id) { // show view with exist inventory request
+    const info_inventory_request = await view_info_inventory_request(
+      new Request1Cv3(token, uuid, null, ctx),
+      inventory_request_id,
+      employee_id
+    );
+    ctx.status = 200;
+    templateCtx.inventory_request_id = inventory_request_id;
+    templateCtx.getEmployeeData = getEmployeeData.data;
+    templateCtx.info_inventory_request = info_inventory_request;
+    ctx.body = templates.getTemplate(show_current_inventory_request)(ctx.proc(templateCtx, ctx));
+  } else { // show view for select means and materials
+    const data = build_data(Employee_InventoryList);
 
-  } catch (err) {
-    logger.warn(err);
-    ctx.status = 500;
-    ctx.body = 'Internal error';
+    ctx.status = 200;
+    templateCtx.means = data.means;
+    templateCtx.hash_mean_material = JSON.stringify(data.hash_mean_material);
+    templateCtx.materials = data.materials;
+    templateCtx.getEmployeeData = getEmployeeData.data;
+    ctx.body = templates.getTemplate(path_select_means_and_materials)(ctx.proc(templateCtx, ctx));
   }
 }
 
@@ -198,22 +192,26 @@ function build_data(Employee_InventoryList) {
   // }]
 
   const i_list = Employee_InventoryList.data.InventoryList;
-  const means = [];
-  const materials = [];
-  const hash_mean_material = {};
+  const means = []; // for render
+  const materials = []; // for render
+  const hash_mean_material = {}; // for client js
   i_list.forEach((inventory, i) => {
     const price = inventory.Price;
     const inventory_id = inventory.InventoryID;
     const package_id = inventory.PackageID;
     const package_title = inventory.PackageTitle.replace(/[\d\.]+/g, '').toLowerCase().trim();
 
-    const quantity = [{ name: 'Не выбрано', value: 0 }];
+    // const quantity = [{ name: 'Не выбрано', value: 0, }];
+    const quantity = [ 0 ];
     if (package_title === 'л') {
-      quantity.push({ name: '0.33 л', value: 0.33 });
-      quantity.push({ name: '0.5 л', value: 0.5 });
+      // quantity.push({ name: '0.33 л', value: 0.33, });
+      // quantity.push({ name: '0.5 л', value: 0.5, });
+      quantity.push(0.33);
+      quantity.push(0.5);
     }
     for (var j = 1, l = inventory.Balance; j < l; j++) {
-      quantity.push({ name: (j+' '+package_title), value: j });
+      // quantity.push({ name: (j+' '+package_title), value: j, });
+      quantity.push(j);
     }
     var row_id = inventory_id;
     const el = {
@@ -221,7 +219,6 @@ function build_data(Employee_InventoryList) {
       inventory_title: inventory.InventoryTitle,
       inventory_description: inventory.InventoryDescription,
       package_id,
-      quantity,
       price,
       row_id
     };
@@ -235,13 +232,17 @@ function build_data(Employee_InventoryList) {
       materials.push(el);
     }
 
+
     hash_mean_material[el.data_key] = {
       type: el.data_type,
       inventory_id,
       package_id,
       price,
-      checked: false,
-      quantity: 1,
+      api_quantity: { // api for work and increment/decrement number quantity
+        state: { value: 0, index: 0, package_title },
+        list: quantity
+      },
+      current_quantity: 0, // current number quantity
       row_id,
     };
   });

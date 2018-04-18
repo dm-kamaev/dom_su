@@ -2,13 +2,11 @@
 
 // GENERATED ECOSYSTEM.JSON
 
-const ENV = process.env.NODE_ENV;
 const wf = require('/p/pancake/my/wf.js');
 const CONF = require('/p/pancake/settings/config.js');
 
-console.log('===== ENV = ', ENV, '=====');
 let ecosystem;
-if (ENV === 'development') {
+if (CONF.is_dev) {
   ecosystem = {
     apps : [
       {
@@ -24,14 +22,14 @@ if (ENV === 'development') {
       }
     ]
   };
-  if (CONF.is_dev2) {
+  if (CONF.is_dev1) {
     var pancake_ecosytem = ecosystem.apps[0];
     pancake_ecosytem.watch = [ 'staff' ];
-    pancake_ecosytem.ignore_watch = [ 'staff/templates' ];
+    pancake_ecosytem.ignore_watch = [ 'node_modules', 'staff/templates' ];
   }
 
   writeEcosystem(ecosystem);
-} else if (ENV === 'production') {
+} else if (CONF.is_prod) {
   ecosystem = {
     'apps' : [
       {
@@ -50,8 +48,6 @@ if (ENV === 'development') {
     ]
   };
   writeEcosystem(ecosystem);
-} else {
-  console.log('NOT VALID ENV ', ENV);
 }
 
 
@@ -60,6 +56,6 @@ function writeEcosystem(ecosystem) {
   wf.write(path, JSON.stringify(ecosystem, null, 2)).then(() => {
     console.log('SUCCESS write ', path);
   }).catch(err =>
-    console.log('ERROR=', err)
+    console.error('ERROR=', err)
   );
 }
