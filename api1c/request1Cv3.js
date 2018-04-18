@@ -2,7 +2,7 @@
 
 const http = require('http');
 const errors = require('./errors');
-const config = require('config');
+const json = require('/p/pancake/my/json.js');
 const uap = require('node-uap');
 const detect_client_or_employee_method = require('/p/pancake/api1c/detect_client_or_employee_method.js');
 const logger = require('/p/pancake/lib/logger.js');
@@ -23,6 +23,15 @@ module.exports = class Request1Cv3 {
     const app_version = ctx.state.app_version || null;
     const is_mobile = Boolean(ctx.state.is_mobile);
     userUUID = userUUID || null;
+
+    if (!userUUID) {
+      logger.warn(json.str({
+        error: 'Not exist user_id '+userUUID,
+        url: ctx.request.url,
+        headers: ctx.request.headers
+      }));
+    }
+
     oldAPI = oldAPI || false;
     this.methods = [];
     this.response = null;
