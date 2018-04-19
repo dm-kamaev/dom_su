@@ -52,7 +52,7 @@ class PancakeUser {
     this.visit_uuid = null;
     this.request_event_uuid = null;
     this.city = null;
-    this.track = {done: null, waiting: null, numbers: {}};
+    this.track = { done: null, waiting: null, numbers: {}, applicant_numbers: {} };
     this.google_id = null;
     // For fast working AB test
     this.firstVisit = true;
@@ -202,10 +202,17 @@ class PancakeUser {
   }
 
   checkTrackNeed() {
+    // FOR TEST
+    // |
+    // |
+    // V
+    // return true;
+
     if (this.track.waiting === true) {
       return true;
     }
-    if (this.isNew !== true) {
+
+    if (this.isNew !== true) { // false
       return false;
     }
 
@@ -215,10 +222,12 @@ class PancakeUser {
     let referer;
     try{
       referer = new URL(this.ctx.headers.referer);
-    } catch (e){
+    } catch (error){
       return false;
     }
+
     banRefererRegexp.lastIndex = 0;
+
     if (banRefererRegexp.exec(referer.hostname) !== null) {
       return false;
     }
@@ -244,11 +253,20 @@ class PancakeUser {
     });
   }
 
-  async setTrackNumber() {
+  // set track number for client
+  async set_track_number_for_client() {
     if (this.track.numbers && this.track.numbers[this.city.keyword]) {
       return;
     }
-    let phone = await Phone.findOne({where: {city_id: this.city.id, living: false, active: true}});
+
+    const phone = await Phone.findOne({
+      where: {
+        city_id: this.city.id,
+        living: false,
+        active: true,
+        category_type: 'client'
+      }
+    });
     if (phone !== null) {
       this.track.numbers[this.city.keyword] = phone.number;
       this.queue.push(async function (previousResult, pancakeUser) {
@@ -261,6 +279,37 @@ class PancakeUser {
       });
     }
   }
+
+  // set track number for applicant(potenial employee)
+  async set_track_number_for_applicant() {
+    const applicant_numbers = this.track.applicant_numbers;
+    const city_keyword = this.city.keyword; // exmaple: moscow
+    if (applicant_numbers && applicant_numbers[city_keyword]) {
+      return;
+    }
+
+    const phone = await Phone.findOne({
+      where: {
+        city_id: this.city.id,
+        living: false,
+        active: true,
+        category_type: 'applicant'
+      }
+    });
+    if (phone) {
+      applicant_numbers[city_keyword] = phone.number;
+      this.queue.push(async function (previousResult, pancakeUser) {
+        pancakeUser.model.set(`data.track.applicant_numbers.${pancakeUser.city.keyword}`, pancakeUser.track.applicant_numbers[pancakeUser.city.keyword]);
+        await pancakeUser.model.save();
+        phone.user_uuid = pancakeUser.uuid;
+        phone.living = true;
+        await phone.save();
+        return phone;
+      });
+    }
+  }
+
+
   setGoogleId(){
     if (!this.ctx.request.body.data && !this.ctx.request.body.data.google_id){
       return;

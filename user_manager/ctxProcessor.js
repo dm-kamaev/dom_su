@@ -27,7 +27,7 @@ function ctxProcessor(data) {
   const user = this.state.pancakeUser;
 
   // Phone number
-  const number = phone_api.get(this);
+  const number = phone_api.get_for_client(this);
 
   data.general = numberToTemplate(number);
   data.general.city = user.city;
@@ -83,6 +83,7 @@ function ctxProcessor(data) {
   // data for frontend
   const globalData = {
     clientId: user.get_client_id(),
+    applicantPhone: phone_api.get_for_applicant(this),
   };
   data.globalData = JSON.stringify(globalData);
 
