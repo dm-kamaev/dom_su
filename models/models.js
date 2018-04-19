@@ -243,7 +243,14 @@ const Phone = sequelize.define('phones', {
       // deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
     }
   },
-  active: {type: Sequelize.BOOLEAN}
+  active: {
+    type: Sequelize.BOOLEAN
+  },
+  category_type: {
+    type: Sequelize.STRING,
+    defaultValue: 'client', // client or applicant
+    isIn: ['client', 'applicant'] // cleint or employee
+  }
 }, {
   classMethods: {
     attributesInternalAPI: function () {
