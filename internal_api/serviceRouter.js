@@ -1,31 +1,71 @@
 'use strict';
 
-const logger = require('logger')(module);
 const Router = require('koa-router');
 const internalServiceAPI = new Router();
+const logger = require('/p/pancake/lib/logger.js');
+const json = require('/p/pancake/my/json.js');
 
-// const Secret = '1Ac0uGgbLLA6eUpkV4gh';
+const { Phone } = require('models').models;
 
-const { models } = require('models');
-const { Phone } = models;
+module.exports = { internalServiceAPI };
 
+const hash_category_type = {
+  client: 'client',
+  applicant: 'applicant',
+};
+
+// request from 1C
+// POST /service/modification
+// http hedader {
+//  x-dom-service: true
+// }
+
+// general structure
+// [{
+//   Action: 'CreateOrUpdate',
+//   Model: 'Phone',
+//   ActionID: 1,
+//   Key: '3696054', // optional param, if exist then update else create
+//     Data: {
+//     number: '79153983012',
+//     active: true,
+//     city: 'spb' || 'nn' || 'moscow'
+//     CategoryType: 'client' || 'applicant'
+//   }
+// }]
+
+// exmaple update –– [
+// [
+//   {
+//     "Action": "CreateOrUpdate",
+//     "Model": "Phone",
+//     "ActionID": 1,
+//     "Key": "427",
+//     "Data": {
+//       "number": "74957880921",
+//       "active": true,
+//       "city": "moscow",
+//       "CategoryType": "client"
+//     }
+//   }
+// ]
+// example create ––
+// [
+//   {
+//     "Action": "CreateOrUpdate",
+//     "Model": "Phone",
+//     "ActionID": 1,
+//     "Data": {
+//       "number": "7495666666666",
+//       "active": true,
+//       "city": "nn",
+//       "CategoryType": "applicant"
+//     }
+//   }
+// ]
 internalServiceAPI.post('/service/modification', async function (ctx) {
-  /*
-    [
-        {
-            'Model': 'Phone',
-            'Action': 'CreateOrUpdate',
-            'Key': '3696054',
-            'ActionID': 23,
-            'Data': {
-                'Param1': 'Value1',
-                'Param2': 'Value2'
-            }
-        }
-    ]
-    */
-  const availableModels = {'Phone': Phone};
-  let successActionID = {'ActionID': []};
+  const availableModels = { Phone };
+  const successActionID = {'ActionID': []};
   let methods = ctx.request.body.filter((method) => {
     if (Object.keys(availableModels).indexOf(method.Model) >= 0) {
       return true;
@@ -33,42 +73,71 @@ internalServiceAPI.post('/service/modification', async function (ctx) {
       return false;
     }
   });
-  for (let method of methods){
+  for (let method of methods) {
     try {
       let model = availableModels[method.Model];
-      if (method.Action == 'GetAll'){
-        if (!successActionID[method.Action]){
-          successActionID[method.Action] = {};
+      const action = method.Action;
+
+      // get list all phone from table phones
+      if (action == 'GetAll') {
+        if (!successActionID[action]) {
+          successActionID[action] = {};
         }
-        let result = await model.findAll({attributes: model.attributesInternalAPI(), include: model.includeInternalAPI()});
+        let result = await model.findAll({
+          attributes: model.attributesInternalAPI(),
+          include: model.includeInternalAPI()
+        });
         let formatResult = model.formatResultIntenralAPI(result);
-        successActionID[method.Action][method.Model] = formatResult;
+        successActionID[action][method.Model] = formatResult;
         successActionID.ActionID.push(method.ActionID);
         continue;
-      } if (method.Action == 'CreateOrUpdate'){
+      }
+
+      // create or update data about phone
+      if (action == 'CreateOrUpdate') {
+        const data = method.Data;
         let item = null;
-        if (method.Key !== false){
+        if (method.Key !== false) {
           let where = {};
           where[model.primaryKeyField] = method.Key;
-          item = await model.findOne({where:where});
+          item = await model.findOne({
+            where
+          });
         }
-        if (item == null){
-          await model.createInternalAPI(method.Data);
+        // rename field
+        data.category_type = data.CategoryType;
+        // TODO: remove in future, when 1с will send category_type
+        // |
+        // |
+        // V
+        if (!data.category_type) {
+          data.category_type = hash_category_type.client;
+        }
+        if (!hash_category_type[data.category_type]) {
+          throw new Error_internal_service_api_error(`'${data.category_type}' is not valid. Valid list: ${Object.keys(hash_category_type).join(', ')}`);
+        }
+        if (item == null) { // create phone
+          await model.createInternalAPI(data);
           successActionID.ActionID.push(method.ActionID);
-        } else {
-          await item.updateInternalAPI(method.Data);
+        } else { // update phone
+          await item.updateInternalAPI(data);
           successActionID.ActionID.push(method.ActionID);
         }
         continue;
-      } if (method.Action == 'Delete'){
+      }
+
+      // delete phone form table
+      if (action == 'Delete') {
         let where = {};
         where[model.primaryKeyField] = method.Key;
-        model.destroy({where:where});
+        model.destroy({
+          where
+        });
         successActionID.ActionID.push(method.ActionID);
       }
-    } catch (e){
-      logger.error(`Error execute method in Internal API ${JSON.stringify(method)}`);
-      logger.error(e);
+
+    } catch (error) {
+      logger.warn(`execute method in Internal API ${json.str(method)} ${error.stack}`);
     }
   }
   ctx.type = 'application/json';
@@ -76,4 +145,8 @@ internalServiceAPI.post('/service/modification', async function (ctx) {
 });
 
 
-module.exports = { internalServiceAPI };
+class Error_internal_service_api_error extends Error {
+  constructor(msg) {
+    super(msg);
+  }
+}

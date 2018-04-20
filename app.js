@@ -1,6 +1,5 @@
 'use strict';
 const koa = require('koa');
-const fs = require('fs');
 const uuid_v1 = require('uuid/v1');
 const router = new require('koa-router')();
 const config = require('config');
@@ -147,9 +146,7 @@ async function run() {
       let res;
       try {
         res = await wf.read('/home/ruslan/custom_bashrs.sh');
-        // res =1;
       } catch (err) {
-        console.log('ERROR=', err);
         res = err;
       }
       ctx.status = 200;
