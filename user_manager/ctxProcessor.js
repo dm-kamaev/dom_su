@@ -8,12 +8,16 @@ const phoneDimensionDict = {
   nn: 'dimension8',
 };
 
-function numberToTemplate(number) {
-  let numberWC = number.substring(4);
+function numberToTemplate(number, applicant_phone) {
+  const number_WC = number.substring(4);
+  const applicant_phone_wc = applicant_phone.substring(4);
   return {
     phoneHref: `+${number}`,
     phoneCode: `8 (${number.substring(1,4)})`,
-    phoneNumber: [numberWC.slice(0,3), numberWC.slice(3,5), numberWC.slice(5)].join('-'),
+    phoneNumber: [number_WC.slice(0,3), number_WC.slice(3,5), number_WC.slice(5)].join('-'),
+    // for potential employee
+    applicantPhoneCode: `8 (${applicant_phone.substring(1,4)})`,
+    applicantPhoneNumber: [ applicant_phone_wc.slice(0,3), applicant_phone_wc.slice(3,5), applicant_phone_wc.slice(5) ].join('-'),
   };
 }
 
@@ -26,14 +30,12 @@ function ctxProcessor(data) {
   data.currentUrl = this.request.href;
   const user = this.state.pancakeUser;
 
-  // Phone number
-  const number = phone_api.get_for_client(this);
-
-  data.general = numberToTemplate(number);
-  data.general.city = user.city;
-  data.general.path = this.path;
-  data.general.develop = config.app.develop;
-  data.general.production = config.app.production;
+  data.general = numberToTemplate(phone_api.get_for_client(this), phone_api.get_for_applicant(this));
+  var general = data.general;
+  general.city = user.city;
+  general.path = this.path;
+  general.develop = config.app.develop;
+  general.production = config.app.production;
 
   // Analytics
 
@@ -83,7 +85,6 @@ function ctxProcessor(data) {
   // data for frontend
   const globalData = {
     clientId: user.get_client_id(),
-    applicantPhone: phone_api.get_for_applicant(this),
   };
   data.globalData = JSON.stringify(globalData);
 
