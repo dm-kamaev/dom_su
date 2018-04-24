@@ -69,17 +69,17 @@ async function if_error_in_employee_pa(ctx, err, auth_data) {
     const { status, body } = new Aj_error_internal();
     ctx.status = status;
     ctx.body = body;
-    logger.warn('AJAX FAILED url="'+url+'" auth_data='+str_auth_data+' '+err.stack);
+    logger.warn(err.stack+'\nAJAX FAILED url="'+url+'" auth_data='+str_auth_data+' ');
     // if html page
   } else {
     let name_template;
     // по идее еще надо проверит,что url начинается со /staff
     // а то клиент-сотрудник может оказаться в этой секции
     if (staff_utils.isMobileVersion(ctx)) {
-      logger.warn('EMPLOYEE_PA MOBILE PAGE FAILED url="'+url+'" auth_data='+str_auth_data+' '+err.stack);
+      logger.warn(err.stack+'\nEMPLOYEE_PA MOBILE PAGE FAILED url="'+url+'" auth_data='+str_auth_data+' ');
       name_template = staff_utils.get_template('mobile', 'error');
     } else {
-      logger.warn('EMPLOYEE_PA DESKTOP PAGE FAILED url="'+url+'" auth_data='+str_auth_data+' '+err.stack);
+      logger.warn(err.stack+'\nEMPLOYEE_PA DESKTOP PAGE FAILED url="'+url+'" auth_data='+str_auth_data+' ');
       name_template = staff_utils.get_template('desktop', 'error');
     }
     ctx.type = 'text/html';

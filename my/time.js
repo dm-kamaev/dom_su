@@ -57,19 +57,19 @@ function is_me(object) {
   return (object && typeof object === 'object' && object.__its_me === 'time.js') ? true : false;
 }
 
-time.format = function (str, data) {
+time.format = function(str, data) {
   const date = is_me(data) ? data : time.get(data || null);
   return str.replace(/YYYY/g, date.year)
-            .replace(/MM/g, date.double_month)
-            .replace(/DD/g, date.double_day)
+    .replace(/MM/g, date.double_month)
+    .replace(/DD/g, date.double_day)
 
-            .replace(/hh/g, date.double_hour)
-            .replace(/mm/g, date.double_min)
-            .replace(/ss/g, date.double_sec)
+  .replace(/hh/g, date.double_hour)
+    .replace(/mm/g, date.double_min)
+    .replace(/ss/g, date.double_sec)
+    .replace(/in_ms/g, date.in_ms)
 
-            .replace(/month_name/g, time.getMonthName(date.month));
+  .replace(/month_name/g, time.getMonthName(date.month));
 };
-
 
 // number_month –– string
 time.getMonthName = function (numberMonth) {
