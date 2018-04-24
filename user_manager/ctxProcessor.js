@@ -10,14 +10,12 @@ const phoneDimensionDict = {
 
 function numberToTemplate(number, applicant_phone) {
   const number_WC = number.substring(4);
-  const applicant_phone_wc = applicant_phone.substring(4);
   return {
-    phoneHref: `+${number}`,
-    phoneCode: `8 (${number.substring(1,4)})`,
-    phoneNumber: [number_WC.slice(0,3), number_WC.slice(3,5), number_WC.slice(5)].join('-'),
+    phoneHref: `+${number}`, // +74953696050
+    phoneCode: `8 (${number.substring(1,4)})`, // 8 (495)
+    phoneNumber: [number_WC.slice(0,3), number_WC.slice(3,5), number_WC.slice(5)].join('-'),  // 369-60-50
     // for potential employee
-    applicantPhoneCode: `8 (${applicant_phone.substring(1,4)})`,
-    applicantPhoneNumber: [ applicant_phone_wc.slice(0,3), applicant_phone_wc.slice(3,5), applicant_phone_wc.slice(5) ].join('-'),
+    applicantPhoneHref: `+${applicant_phone}`, // +74953696050
   };
 }
 
@@ -32,6 +30,7 @@ function ctxProcessor(data) {
 
   data.general = numberToTemplate(phone_api.get_for_client(this), phone_api.get_for_applicant(this));
   var general = data.general;
+  console.log('general=', general);
   general.city = user.city;
   general.path = this.path;
   general.develop = config.app.develop;
