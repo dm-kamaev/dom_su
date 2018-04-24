@@ -63,7 +63,7 @@
   <meta name="smartbanner:enabled-platforms" content="android,ios">
   <!-- End SmartBanner configuration -->
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.13">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.14">
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
 
@@ -112,11 +112,8 @@
       <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Клининговая компания Домовёнок"/></a>
   
       <div class="page-header__container">
-        <a class="page-header__container-link  page-header__container-link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>
-        <a class="page-header__container-link" href="{{buildUrl general.city '/podderzhka'}}">Поддерживающая</a>
-        <a class="page-header__container-link page-header__container-link--tablet-hide" href="{{buildUrl general.city '/mite_okon'}}">Мойка окон</a>
-        <a class="page-header__container-link" href="{{buildUrl general.city '/private/auth'}}">Войти</a>
-        <button class="page-header__container-button button" data-name="service-order" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderMenuButton"}'>Заказать</button>
+        <a class="page-header__container-link  page-header__container-link--orange" href="tel:{{general.applicantPhoneHref}}">{{general.applicantPhoneCode}} {{general.applicantPhoneNumber}}</a>
+        <button class="page-header__container-button button" data-name="service-order" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderMenuButton"}'>Хочу работать</button>
       </div>
     </div>
     <div class="page-header__wrap">
@@ -614,7 +611,7 @@
       <div class="pop-up__item pop-up__item--hide  service-order">
         <div class="service-order__wrap">
           <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_1"}'>
-            <p class="service-order__title  title">Оформить заказ</p>
+            <p class="service-order__title  title">Оформить заявку</p>
             <div class="service-order__row">
               <label class="service-order__label  label">
                 Как к Вам обращаться?
