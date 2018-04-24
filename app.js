@@ -128,7 +128,7 @@ async function run() {
     appUser.use(initPancakeUser);
 
     // inject this, because log data for POST request
-    app.use(access_logger_for_auth_user);
+    // app.use(access_logger_for_auth_user);
 
     appUser.use(setUserVisit);
     // if POST /living/
