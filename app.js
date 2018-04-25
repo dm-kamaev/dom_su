@@ -5,7 +5,6 @@ const router = new require('koa-router')();
 const config = require('config');
 const set_app_version = require('/p/pancake/middlewares/set_app_version.js');
 const access_logger = require('/p/pancake/middlewares/access_logger.js');
-const access_logger_for_auth_user = require('/p/pancake/middlewares/access_logger_for_auth_user.js');
 const wf = require('/p/pancake/my/wf.js');
 const router_aj_auth = require('/p/pancake/aj_auth/router_aj_auth.js');
 const router_aj_client_error = require('/p/pancake/aj_client_error/router_aj_client_error.js');
@@ -126,9 +125,6 @@ async function run() {
 
     // Pancake User middleware
     appUser.use(initPancakeUser);
-
-    // inject this, because log data for POST request
-    app.use(access_logger_for_auth_user);
 
     appUser.use(setUserVisit);
     // if POST /living/

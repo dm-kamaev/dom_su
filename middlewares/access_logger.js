@@ -4,39 +4,42 @@ const rfs = require('rotating-file-stream');
 const koa_morgan = require('/p/pancake/lib/koa_morgan.js');
 const time = require('/p/pancake/my/time.js');
 const logger_for_auth_user = require('/p/pancake/lib/logger_for_auth_user.js');
+const logger = require('/p/pancake/lib/logger.js');
 
 
-koa_morgan.token('uuid', function(req, res) {
+koa_morgan.token('uuid', function(req) {
   const state = req.ctx.state || {};
   const user = state.pancakeUser || {};
   return user.uuid || '';
 });
 
-koa_morgan.token('hit_id', function(req, res) {
+koa_morgan.token('hit_id', function(req) {
   const context = req.ctx.state.context;
   return context.get('hit_id');
 });
 
-koa_morgan.token('ip', function(req, res) {
+koa_morgan.token('ip', function(req) {
   const header = req.headers;
   return header['x-forwarded-for'] || '';
 });
 
-koa_morgan.token('req_time', function(req, res) {
+koa_morgan.token('req_time', function(req) {
   const context = req.ctx.state.context;
   return context.get('req_time');
 });
 
-koa_morgan.token('req_time_ms', function(req, res) {
+koa_morgan.token('req_time_ms', function(req) {
   const context = req.ctx.state.context;
   return context.get('req_time_ms');
 });
 
 
-// logger for json body
-// write to file with global access_log
-// if auth write to user's file
-koa_morgan.token('request_body', function(req, res) {
+koa_morgan.token('headers', function(req) {
+  return JSON.stringify(req.headers);
+});
+
+
+koa_morgan.token('request_body', function(req) {
   const ctx = req.ctx;
   const body = ctx.request.body;
   return (body instanceof Object) ? JSON.stringify(body) : body;
@@ -46,29 +49,35 @@ koa_morgan.token('request_body', function(req, res) {
 // logger for responce body, ONLY JSON
 // write to file with global access_log
 // if auth write to user's file
-koa_morgan.token('log_responce_body', function(req, res) {
+koa_morgan.token('responce_body_and_log_auth_user', function(req) {
   const ctx = req.ctx;
-  const body = ctx.body;
-  if (!(body instanceof Object)) { // if html or txt
-    return '';
-  }
+  const responce_body = ctx.body;
+
+  // only json
+  const str_responce_body = (responce_body instanceof Object) ? JSON.stringify(responce_body) : '';
   logger_for_auth_user.init(ctx).then(() => {
     const user = ctx.state.pancakeUser || {};
     const context = ctx.state.context;
-    var msg = [
-      '--->',
+
+    const request_body = ctx.request.body;
+    const str_request_body = (request_body instanceof Object) ? JSON.stringify(request_body) : '';
+    const msg = [
       time.format('[YYYY/MM/DD hh:mm:ss]'),
       user.uuid,
       context.get('hit_id'),
+      req.method,
       req.url,
-      JSON.stringify(body)
+      JSON.stringify(req.headers),
+      str_request_body,
+      str_responce_body,
     ].join(' | ');
+
     // if auth write user's file
     logger_for_auth_user.log(msg);
-  }).catch((err) =>{
-    console.error(err);
+  }).catch(err =>{
+    logger.warn(err);
   });
-  return JSON.stringify(body);
+  return str_responce_body;
 });
 
 
@@ -103,9 +112,9 @@ access_logger.to_file = function() {
       tokens.res(req, res, 'content-length'),
       tokens.referrer(req, res),
       'HTTP/' + tokens['http-version'](req, res),
-      tokens['user-agent'](req, res),
+      tokens.headers(req, res), // log to file full headers not only user-agnet
       tokens.request_body(req, res), // log only to file
-      tokens.log_responce_body(req, res), // log only to file
+      tokens.responce_body_and_log_auth_user(req, res), // log only to file
     ].join(' | ');
   }, {
     stream

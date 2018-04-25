@@ -1,8 +1,8 @@
-'use strict'
-const { models, ErrorCodes, ModelsError } = require('models')
-const { ShortUrl } = models
+'use strict';
+const { models } = require('models');
+const { ShortUrl } = models;
 const Router = require('koa-router');
-const logger = require('logger')(module)
+const logger = require('/p/pancake/lib/logger.js');
 const config = require('config');
 
 const serviceShortUrlRouter = new Router();
@@ -38,30 +38,35 @@ function randomAsciiString(length) {
     'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
 }
 
-serviceShortUrlRouter.post('/short_urls/rest/generate', async function (ctx, next) {
-    try {
-        if (!ctx.request.body.Url){
-            ctx.body = {Result: false}
-            return
-        }
-        let key = randomAsciiString(6)
-        let searchFreeKey = true
-        while (searchFreeKey){
-            let tempShortUrl = await ShortUrl.findOne({where: {key: key}})
-            if (tempShortUrl){
-                logger.error(`SHORT URL generate an existing key ${key}`)
-            } else {
-                searchFreeKey = false
-            }
-        }
-        let shortUrl = await ShortUrl.create({url: ctx.request.body.Url, key: key, data: JSON.stringify(ctx.request.body.Data)})
-        ctx.body = {Result: true, Key: key, ShortUrl: `https://${config.serverPath.domain.default}/s/${key}`}
-    } catch (e){
-        logger.error(e)
-        ctx.body = {Result: false}
+serviceShortUrlRouter.post('/short_urls/rest/generate', async function (ctx) {
+  try {
+    if (!ctx.request.body.Url){
+      ctx.body = {Result: false};
+      return;
     }
-})
+    let key = randomAsciiString(6);
+    let searchFreeKey = true;
+    while (searchFreeKey){
+      let tempShortUrl = await ShortUrl.findOne({where: {key: key}});
+      if (tempShortUrl){
+        logger.warn(`SHORT URL generate an existing key ${key}`);
+      } else {
+        searchFreeKey = false;
+      }
+    }
+    await ShortUrl.create({url: ctx.request.body.Url, key: key, data: JSON.stringify(ctx.request.body.Data)});
+    ctx.body = {
+      Result: true,
+      Key: key,
+      ShortUrl: `https://${config.serverPath.domain.default}/s/${key}`
+    };
+  } catch (error){
+    logger.warn(error);
+    ctx.status = 500;
+    ctx.body = {Result: false};
+  }
+});
 
 module.exports = {
-    serviceShortUrlRouter
-}
+  serviceShortUrlRouter
+};
