@@ -162,7 +162,14 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
   }
   templateCtx.is_first_order = get_departure_data.IsFirstOrder;
 
+  // FOR TEST
+  // |
+  // |
+  // V
+  // GetEmployeeData.response.ThemePractice = 'Кухня';
+
   templateCtx.GetEmployeeData = GetEmployeeData.response;
+
   if (GetDepartureData.response) {
     GetDepartureData.response.AllDepartures.sort((a, b)=> {
       return (a.Date > b.Date) ? true : false;
