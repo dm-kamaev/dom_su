@@ -16,7 +16,8 @@ const SERVER_KEY_FOR_EMPLOYEE = '7ZLNfdFg8HVcuNx39dWdqAihmTgTiGjH';
 const HEADER_UUID = 'x-dom-auth';
 const COOKIE_UUID = 'u_uuid';
 
-// TODO: maybe add?
+// TODO(2018.04.25): Create method for detect cleint or employee expressly (isLoginEmployee), but now we use two methods isLoginAsClient or isLoginAsClientEmployee
+// TODO(2017.12.21): maybe add?
 // CREATE UNIQUE INDEX auth_data_ui_uuid ON auth_data (uuid);
 module.exports = class Auth_api {
   /**

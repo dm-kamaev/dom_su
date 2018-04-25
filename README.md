@@ -7,6 +7,8 @@
               | -- access_log/
               | -- app/
               | -- pm2/
+              | -- auth/ # log by auth user
+                      | –– 201801
 ```
 
 
