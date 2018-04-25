@@ -40,7 +40,7 @@ async function errorMiddleware(ctx, next) {
       const url = ctx.request.url;
       const authApi = new AuthApi(ctx);
       // employee or client-employee
-      if (await authApi.isLoginAsClientEmployee()) {
+      if (await authApi.isLoginAsClientEmployee() && (/^\/staff/.test(url) || /^\/aj/.test(url))) {
         await if_error_in_employee_pa(ctx, err, authApi.get_auth_data());
       // other: client or no auth
       } else {
