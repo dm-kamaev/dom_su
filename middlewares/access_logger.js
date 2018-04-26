@@ -72,8 +72,9 @@ koa_morgan.token('responce_body_and_log_auth_user', function(req) {
       str_responce_body,
     ].join(' | ');
 
+    // console.log('HERE', msg);
     // if auth write user's file
-    logger_for_auth_user.log(msg);
+    return logger_for_auth_user.log(msg);
   }).catch(err =>{
     logger.warn(err);
   });
