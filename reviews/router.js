@@ -115,6 +115,8 @@ reviewsRouter.get('reviewItem', /^\/otzivi\/([0-9a-zA-Z_\-]+)\/$/, async functio
   }));
 });
 
+// It's crazy pagination
+// /m/otzivi?direction=-1&key=2477
 reviewsRouter.get('reviewListAjax', /^\/m\/otzivi$/, async function (ctx) {
   try {
     const direction = ctx.query.direction;

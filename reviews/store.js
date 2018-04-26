@@ -37,15 +37,7 @@ async function getReview(id) {
 async function getReviewListScroll(opts) {
   let options = opts || {};
   options.attributes = ['id', 'name', 'date', 'rating', 'answer', 'review'];
-  // try {
-  //   await Review.findAll({ raw:true });
-  // } catch (err) {
-  //   logger.warn(err);
-  // }
-  // return [];
-  const res = await scrollModel(ReviewActive, options);
-  // console.log('length=', res.dataValues);
-  return res;
+  return await scrollModel(ReviewActive, options);
 }
 
 async function saveReview(name, mail, review, rating, city_id) {
