@@ -125,6 +125,7 @@ async function run() {
 
     // Pancake User middleware
     appUser.use(initPancakeUser);
+
     appUser.use(setUserVisit);
     // if POST /living/
     appUser.use(createEvent.routes());
@@ -158,11 +159,15 @@ async function run() {
     applyServiceRouters(appService);
     //appService.use(serviceRouter.routes())
     // End Service
+    app.use(async function (ctx, next) {
+      console.log('===HERE===');
+      await next();
+    });
+
 
     // Throw 404
     app.use(checkSlashEnd);
     app.use(throw404);
-
     logger.log('START ON PORT '+config.app.port);
     app.listen(config.app.port);
   } catch (e) {

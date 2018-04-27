@@ -127,10 +127,20 @@
     {{#if is_first_order }}
         <div style=margin-bottom:16px;font-size:120%;color:red>Подарить клиенту магнит, листовку, письмо от Михаила</div>
     {{/if}}
+
+    {{#if GetEmployeeData.ThemePractice }}
+        <p style=margin-top:16px;font-size:120%>
+            <span style=font-weight:bold>Тема практики:</span>
+            {{ GetEmployeeData.ThemePractice }}
+        </p>
+    {{/if}}
+
+
     <b style="display: block">Примечание:</b> <span style="display: block; margin-bottom: 20px">{{ GetDepartureData.Note }}</span>
     {{#if GetDepartureData.PointNote }}
         <b style="display: block">Место сбора:</b> <span style="display: block; margin-bottom: 20px">{{ GetDepartureData.PointNote }}</span>
     {{/if}}
+
     {{#if isSenior}}
         {{#if GetDepartureData.SeniorNote }}
         <b style="display: block">Примечание для ответственного:</b> <span style="display: block; margin-bottom: 20px">{{ GetDepartureData.SeniorNote }}</span>

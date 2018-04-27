@@ -25,18 +25,18 @@ module.exports = class FactoryLogger {
     return new Logger(this.option);
   }
 
-  rotate_by_restart_app() {
-    const file_path = this.option.fileOne;
-    if (!wf_sync.exist(file_path)) {
-      wf_sync.write(file_path, '');
-      return this;
-    }
-    const file_info = wf_sync.get_file_info(file_path);
-    const mtime = time.format('YYYY_MM_DD_hh_mm_ss', file_info.mtime);
-    wf_sync.rename(file_path, file_path.replace(/\.log$/, '_' + mtime + '.log'));
-    wf_sync.write(file_path, '');
-    return this;
-  }
+  // rotate_by_restart_app() {
+  //   const file_path = this.option.fileOne;
+  //   if (!wf_sync.exist(file_path)) {
+  //     wf_sync.write(file_path, '');
+  //     return this;
+  //   }
+  //   const file_info = wf_sync.get_file_info(file_path);
+  //   const mtime = time.format('YYYY_MM_DD_hh_mm_ss', file_info.mtime);
+  //   wf_sync.rename(file_path, file_path.replace(/\.log$/, '_' + mtime + '.log'));
+  //   wf_sync.write(file_path, '');
+  //   return this;
+  // }
 };
 
 // TODO: check env variable
@@ -55,7 +55,7 @@ class Logger {
   }
 
   log(text) {
-    this.write_(text);
+    // this.write_(text);
     if (this.consoleLog) {
       console.log(text);
     }
@@ -73,7 +73,7 @@ class Logger {
     const prefix_with_color = prefix;
 
     const output = prefix_with_color + text;
-    this.write_(output);
+    // this.write_(output);
     if (this.consoleLog) {
       console.log(output);
     }
@@ -101,7 +101,7 @@ class Logger {
 
     const output = prefix_with_color + error;
     this.sendOrNotEmail_(title, prefix + error);
-    this.write_(output);
+    // this.write_(output);
     if (this.consoleLog) {
       console.log(output);
     }

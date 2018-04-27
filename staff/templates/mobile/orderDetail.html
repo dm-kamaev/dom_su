@@ -200,6 +200,14 @@
         <p><b>Метро:</b><br><span>{{ GetDepartureData.Address.Metro }}</span></p>
         <p><b>Как добраться:</b><br><span>{{ GetDepartureData.Address.Comment }}</span></p>
     </div>
+
+    {{#if GetEmployeeData.ThemePractice }}
+        <p style=margin-top:16px;font-size:120%>
+            <span style=font-weight:bold>Тема практики:</span>
+            {{ GetEmployeeData.ThemePractice }}
+        </p>
+    {{/if}}
+
     {{#if GetDepartureData.Note }}<p><b>Примечание к заказу: </b><br/><span>{{ GetDepartureData.Note }}</span></p>{{/if}}
     {{#if GetDepartureData.PointNote }}<p><b>Место встречи: </b><br/><span>{{ GetDepartureData.PointNote }}</span></p>{{/if}}
     {{#if isSenior }}

@@ -494,4 +494,5 @@ module.exports = {
   EmployeeNews: EmployeeNews,
   ShortUrl: ShortUrl,
   ActionToken: ActionToken,
+  sequelize
 };

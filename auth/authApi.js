@@ -13,26 +13,13 @@ const logger = require('/p/pancake/lib/logger.js');
 const SERVER_KEY_FOR_CLIENT = '2AqeaZezW7ildrOkHwIDvJ1kOEyXiFnV';
 const SERVER_KEY_FOR_EMPLOYEE = '7ZLNfdFg8HVcuNx39dWdqAihmTgTiGjH';
 
-// CREATE TABLE IF NOT EXISTS auth_data(
-//   auth_data_id   SERIAL PRIMARY KEY  NOT NULL,
-//   uuid           VARCHAR(36) NOT NULL,
-//   client_id      VARCHAR(36) NOT NULL,
-//   employee_id    VARCHAR(36),
-//   token          VARCHAR(36) NOT NULL,
-//   timestamp      TIMESTAMP DEFAULT NOW()
-// );
-// CREATE INDEX auth_data_i_uuid ON auth_data (uuid);
-// CREATE TABLE IF NOT EXISTS uuid_phone(
-//   uuid_phone_id   SERIAL PRIMARY KEY NOT NULL,
-//   uuid           VARCHAR(36) NOT NULL,
-//   phone          VARCHAR(50) NOT NULL,
-//   timestamp      TIMESTAMP DEFAULT NOW()
-// );
-// CREATE INDEX uuid_phone_i_uuid ON uuid_phone (uuid);
+const HEADER_UUID = 'x-dom-auth';
+const COOKIE_UUID = 'u_uuid';
 
-// TODO: maybe add?
+// TODO(2018.04.25): Create method for detect cleint or employee expressly (isLoginEmployee), but now we use two methods isLoginAsClient or isLoginAsClientEmployee
+// TODO(2017.12.21): maybe add?
 // CREATE UNIQUE INDEX auth_data_ui_uuid ON auth_data (uuid);
-module.exports = class AuthApi {
+module.exports = class Auth_api {
   /**
    *
    * @param  {object} ctx
@@ -52,18 +39,8 @@ module.exports = class AuthApi {
    * @return {[type]}                [description]
    */
   constructor(ctx, express_or_koa) {
-    if (ctx.state.auth_api) {
-      return ctx.state.auth_api;
-    }
-    ctx.state.auth_api = this;
-
-    this.user = ctx.state.pancakeUser; // { auth1C: {token: null, employee_uuid: null, client_uuid: null, uuid: null, model: null} }
-    this.headers = ctx.request.headers;
-    logger.log('auth_api => uuid: user.uuid='+ this.user.uuid+' x-dom-auth='+ this.headers['x-dom-auth']);
-    this.uuid = this.headers['x-dom-auth'] || this.user.uuid || null;
-    this.ctx = ctx;
-    this.userAgent = this.headers['user-agent'];
-    this.host = this.headers.host;
+    // always before cache
+    // because you call set_empty_cookies_api_set
     if (express_or_koa === 'express') {
       this.cookiesApi = {
         get: function (key) {
@@ -76,6 +53,20 @@ module.exports = class AuthApi {
     } else {
       this.cookiesApi = ctx.cookies;
     }
+
+    if (ctx.state.auth_api) {
+      return ctx.state.auth_api;
+    }
+    // cache module
+    ctx.state.auth_api = this;
+
+    this.user = ctx.state.pancakeUser; // { auth1C: {token: null, employee_uuid: null, client_uuid: null, uuid: null, model: null} }
+    this.headers = ctx.request.headers;
+    logger.log('auth_api => uuid: user.uuid='+ this.user.uuid+' '+HEADER_UUID+'='+ this.headers[HEADER_UUID]);
+    this.uuid = this.headers[HEADER_UUID] || this.user.uuid || null;
+    this.ctx = ctx;
+    this.userAgent = this.headers['user-agent'];
+    this.host = this.headers.host;
 
     // console.log('dom_session=', this.cookiesApi.get('dom_session'));
     // this.cookiesApi.set('TEST', 123, { domain: '.dev2.domovenok.su', maxAge: 100000000 , path: '/', httpOnly: false});
@@ -92,16 +83,8 @@ module.exports = class AuthApi {
       token: null
     };
 
-    // ////
-    // this.test = new Test({ 'login_client': true, first_login: true });
-    // this.test = new Test({ 'login_client': true });
-    // this.test = new Test({ login_client_employee: true, first_login: true });
-    // this.test = new Test({ login_client_employee: true });
-    // db = this.test.REPLACE_DB();
-    // Request1Cv3 = this.test.REPLACE_1C();
-    // ////
-
   }
+
 
   // authData –– { client_id, employee_id, token }
   setAuthData(authData) {
@@ -365,7 +348,7 @@ module.exports = class AuthApi {
     const cookiesApi = this.cookiesApi;
     const params = { domain: this.host, maxAge: 0 , path: '/', httpOnly: false };
     // TODO: Maybe clean session_uuid_dom_dev_t
-    cookiesApi.set('u_uuid', null, params);
+    cookiesApi.set(COOKIE_UUID, null, params);
     cookiesApi.set('session_uid_dom', null, params);
     cookiesApi.set('session_uid_dom_dev', null, params);
     cookiesApi.set('session_uuid_dom_dev_t', null, params);
@@ -495,13 +478,23 @@ module.exports = class AuthApi {
     this.uuid = auth_data.uuid;
     const cookies = (column_name === 'client_id') ? createClientCookie(this, auth_data.client_id) : createClientEmployeeCookie(this, auth_data.employee_id);
     return {
-      u_uuid: auth_data.uuid,
+      [COOKIE_UUID]: auth_data.uuid,
       [CONF.session_uid]: auth_data.uuid, // set old cookie u_uuid
       A: cookies.A,
       B: cookies.B,
       status: cookies.status,
     };
   }
+
+  // делаем cookiesApi.set пустым
+  // например, когда вызывается модуль авторизации для записи логов (end request)
+  // koa2 не выставлял cookie, ибо запрос уже закончен
+  set_empty_cookies_api_set() {
+    this.cookiesApi.set = function () {
+
+    };
+  }
+
 };
 
 
@@ -535,6 +528,8 @@ function extract_cookie(me, cookie_name) {
          me.headers[cookie_name.toLowerCase()] ||
          null;
 }
+
+
 
 // console.log(
 //   '3bdacb77-9a94-47fe-97ab-8c5273875bee',

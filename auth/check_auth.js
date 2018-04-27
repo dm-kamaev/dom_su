@@ -26,11 +26,11 @@ check_auth.ajax = function (routerFunc) {
     //   model: null
     // }
     let auth1C = await user.getAuth1C();
-    logger.log(' === loginRequiredWithoutRedirect === ');
+    logger.log(' === check_auth.ajax === ');
     logger.log('ctx.state.pancakeUser.uuid = ' + user.uuid);
     logger.log('auth1C = ' + JSON.stringify(auth1C, null, 2));
     logger.log('authData= ', +JSON.stringify(authData, null, 2));
-    logger.log('isLogint= '+is_login);
+    logger.log('isLogin= '+is_login);
     await user.setAuth1C(authData);
     // if (!auth1C.token && authData) {
     //   await user.setAuth1C(authData);
