@@ -63,7 +63,7 @@
   <meta name="smartbanner:enabled-platforms" content="android,ios">
   <!-- End SmartBanner configuration -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
-  <link rel="stylesheet" href="/static/pancake/css/style.landing_ab.min.css?v0.14">
+  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.15">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -423,15 +423,17 @@
       </section>
 
       <section class="page__section section">
-        <div class="order-now">
-          <div class="order-now__img-wrapper"></div>
-          <div class="order-now__inner">
-            <h3 class="order-now__title">Заказать уборку сейчас</h3>
-            <form class="order-now__form contact-section__form" action="#" method="post">
-              <input class="order-now__input contact-section__input input  input--md  input--light-grey" type="text" name="name" placeholder="Имя">
-              <input class="order-now__input contact-section__input  input  input--md  input--light-grey" type="tel" name="tel" placeholder="Телефон">
-              <button class="order-now__button contact-section__button  button" type="submit">Заказать уборку</button>
-            </form>
+        <div class="divided-section">
+          <div class="divided-section__img-part  divided-section__img-part--order-now"></div>
+          <div class="divided-section__content-part  divided-section__content-part--order-now">
+            <div class="divided-section__content-inner">
+              <h3 class="divided-section__title  divided-section__title--order-now">Заказать уборку сейчас</h3>
+              <form class="divided-section__form contact-section__form" action="#" method="post">
+                <input class="divided-section__input contact-section__input input  input--md  input--light-grey" type="text" name="name" placeholder="Имя">
+                <input class="divided-section__input contact-section__input  input  input--md  input--light-grey" type="tel" name="tel" placeholder="Телефон">
+                <button class="divided-section__button  divided-section__button--lg  button--lg  button" type="submit">Заказать уборку</button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
@@ -1184,7 +1186,7 @@
 <!-- Java Script -->
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.05"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.06"></script>
 <!-- /Java Script -->
 
 </body>
