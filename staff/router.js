@@ -219,8 +219,6 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
     templateCtx.GetDepartureData = GetDepartureData.response;
     if (isMobileVersion(ctx)) {
       try {
-        // console.log('=== SELF GetDepartureData ===');
-        // console.dir(GetDepartureData, { depth: 20, colors: true });
         // 55.717594 37.776251
         [ templateCtx.lon, templateCtx.lat ] = JSON.parse(GetDepartureData.response['Address']['AddressJson'])['GeoObject']['Point']['pos'].split(' ');
       } catch (e) {
