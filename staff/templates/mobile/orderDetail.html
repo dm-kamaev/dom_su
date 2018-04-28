@@ -192,7 +192,9 @@
     <div data-role="collapsible" data-inset="false">
         <h2>Адрес</h2>
         <p>{{ GetDepartureData.Address.Title }}</p>
-        {{#if lon }}<a class="ui-btn" href="https://maps.yandex.ru/?lon_to={{ lon }}1&lat_to={{ lat }}">Маршрут на Яндекс.Картах</a>{{/if}}
+        {{!-- {{#if lon }}<a class="ui-btn" href="https://maps.yandex.ru/?lon_to={{ lon }}1&lat_to={{ lat }}">Маршрут на Яндекс.Картах</a>{{/if}} --}}
+        {{#if lon }}<a class="ui-btn" href="https://maps.yandex.ru/?mode=search&text={{ GetDepartureData.Address.Title }}">Маршрут на Яндекс.Картах</a>{{/if}}
+
         <p><b>Подъезд:</b><br><span>{{ GetDepartureData.Address.Porch }}</span></p>
         <p><b>Домофон:</b><br><span>{{ GetDepartureData.Address.Intercom }}</span></p>
         <p><b>Этаж:</b><br><span>{{ GetDepartureData.Address.Floor }}</span></p>
