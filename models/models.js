@@ -345,6 +345,9 @@ const Review = sequelize.define('reviews', {
       deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
     }
   },
+  coefficient_for_sort: {
+    type: Sequelize.INTEGER,
+  }
 }, {
   scopes: {active: {where: {active: true}}}
 });

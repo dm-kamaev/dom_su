@@ -141,8 +141,8 @@ async function scrollModel(model, opts, include) {
     //       FROM
     //         reviews
     //       ORDER BY
-    //         rating DESC,
     //         date DESC
+    //         coefficient_for_sort DESC,
     //       LIMIT 20
     //     `, sequelize_option);
     // }
@@ -169,8 +169,8 @@ async function search_prev_reviews(reviews, review_id) {
     FROM
       reviews
     ORDER BY
-      rating DESC,
       date DESC
+      coefficient_for_sort DESC,
   `, sequelize_option);
 
   const review_ids = search_next_reviews_id(reviews_only_id, review_id);
@@ -191,8 +191,8 @@ async function search_prev_reviews(reviews, review_id) {
     WHERE
       id IN('${str_reviews_id}')
     ORDER BY
-      rating DESC,
       date DESC
+      coefficient_for_sort DESC,
   `, sequelize_option);
   return reviews;
 }
