@@ -4,32 +4,9 @@ const { Review } = models;
 const ReviewActive = Review.scope('active');
 const mongoClient = require('mongodb').MongoClient;
 const logger = require('/p/pancake/lib/logger.js');
+const time = require('/p/pancake/my/time.js');
 
 const store = exports;
-
-const hash_coefficient_for_sort = {
-  0: 5,
-  1: 5,
-  2: 4,
-  3: 3,
-  4: 2,
-  5: 1,
-};
-
-/**
- * get_coefficient_for_sort
- * Для отзывов с 1-й звездой при сортировке добавлять 6 месяцев, 2-мя звездами - 4 месяца, с 3-мя звездами - 2 месяца по давности.
- * То есть сверху страницы будут идти отзывы 4 и 5 звезд, а потом начинаться тройки, потом двойки, ну и потом единицы
- * @param  {[Number]} rating
- * @return {[Number || Error]}
- */
-store.get_coefficient_for_sort = function(rating) {
-  const coefficient_for_sort = hash_coefficient_for_sort[rating];
-  if (!coefficient_for_sort && coefficient_for_sort !== 0) {
-    return new Error(`saveReview => input rating ${rating}, coefficient_for_sort ${coefficient_for_sort} `);
-  }
-  return coefficient_for_sort;
-};
 
 
 store.shareReview = async function (share) {
@@ -72,10 +49,6 @@ store.getReviewListScroll = async function (opts) {
 
 store.saveReview = async function (name, mail, review, rating, city_id) {
   let lastId = await getLastId(Review);
-  let coefficient_for_sort = store.get_coefficient_for_sort(rating);
-  if (coefficient_for_sort instanceof Error) {
-    logger.warn(coefficient_for_sort);
-  }
   await Review.create({
     id: lastId + 1,
     name,
@@ -83,6 +56,6 @@ store.saveReview = async function (name, mail, review, rating, city_id) {
     review,
     rating,
     city_id,
-    coefficient_for_sort
+    date_yyyymmdd: time.format('YYYYMMDD')
   });
 };
