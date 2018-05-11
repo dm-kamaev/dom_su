@@ -159,11 +159,6 @@ async function run() {
     applyServiceRouters(appService);
     //appService.use(serviceRouter.routes())
     // End Service
-    app.use(async function (ctx, next) {
-      console.log('===HERE===');
-      await next();
-    });
-
 
     // Throw 404
     app.use(checkSlashEnd);

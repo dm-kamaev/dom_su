@@ -1,6 +1,7 @@
 'use strict';
 const Sequelize = require('sequelize');
 const moment = require('moment');
+const time = require('/p/pancake/my/time.js');
 const config = require('config');
 const opts = {
   timezone: '+03:00',
@@ -345,6 +346,10 @@ const Review = sequelize.define('reviews', {
       deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
     }
   },
+  date_yyyymmdd: {
+    type: Sequelize.INTEGER,
+    defaultValue: time.format('YYYYMMDD'),
+  }
 }, {
   scopes: {active: {where: {active: true}}}
 });

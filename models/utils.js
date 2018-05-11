@@ -62,15 +62,15 @@ async function scrollModel(model, opts, include) {
       WHERE[keyName][getOperator(keyItemInclude, sort, direction)] = keyValue;
       if (model.name === 'reviews') {
         // search previous 20 reviews
-        // modelList = await search_prev_reviews(modelList, keyValue);
+        modelList = await search_prev_reviews(modelList, keyValue);
 
-        modelList = await model.findAll({
-          attributes: attributes,
-          where: WHERE,
-          limit: limit,
-          order: [ [ order, getOrdering(sort * direction)] ],
-          include: include
-        });
+        // modelList = await model.findAll({
+        //   attributes: attributes,
+        //   where: WHERE,
+        //   limit: limit,
+        //   order: [ [ order, getOrdering(sort * direction)] ],
+        //   include: include
+        // });
       } else {
         modelList = await model.findAll({
           attributes: attributes,
@@ -129,23 +129,23 @@ async function scrollModel(model, opts, include) {
       include: include
     });
 
-    // if (model.name === 'reviews') {
-    //   modelList = await sequelize.query(`
-    //       SELECT
-    //         id,
-    //         name,
-    //         date,
-    //         rating,
-    //         answer,
-    //         review
-    //       FROM
-    //         reviews
-    //       ORDER BY
-    //         rating DESC,
-    //         date DESC
-    //       LIMIT 20
-    //     `, sequelize_option);
-    // }
+    if (model.name === 'reviews') {
+      modelList = await sequelize.query(`
+          SELECT
+            id,
+            name,
+            date,
+            rating,
+            answer,
+            review
+          FROM
+            reviews
+          ORDER BY
+            date_yyyymmdd DESC,
+            rating DESC
+          LIMIT 20
+        `, sequelize_option);
+    }
 
     begin = true;
     if (modelList.length < limit){
@@ -169,8 +169,8 @@ async function search_prev_reviews(reviews, review_id) {
     FROM
       reviews
     ORDER BY
-      rating DESC,
-      date DESC
+      date_yyyymmdd DESC,
+      rating DESC
   `, sequelize_option);
 
   const review_ids = search_next_reviews_id(reviews_only_id, review_id);
@@ -191,8 +191,8 @@ async function search_prev_reviews(reviews, review_id) {
     WHERE
       id IN('${str_reviews_id}')
     ORDER BY
-      rating DESC,
-      date DESC
+      date_yyyymmdd DESC,
+      rating DESC
   `, sequelize_option);
   return reviews;
 }
