@@ -5,6 +5,7 @@ const router = new require('koa-router')();
 const config = require('config');
 const set_app_version = require('/p/pancake/middlewares/set_app_version.js');
 const access_logger = require('/p/pancake/middlewares/access_logger.js');
+const detect_browser = require('/p/pancake/middlewares/detect_browser.js');
 const wf = require('/p/pancake/my/wf.js');
 const router_aj_auth = require('/p/pancake/aj_auth/router_aj_auth.js');
 const router_aj_client_error = require('/p/pancake/aj_client_error/router_aj_client_error.js');
@@ -66,6 +67,11 @@ async function run() {
       context.set('hit_id', uuid_v1());
       await next();
     });
+
+    const show_feauture = false;
+    if (show_feauture) {
+      app.use(detect_browser);
+    }
 
     app.use(access_logger.to_file());
     app.use(access_logger.to_out());
