@@ -11,7 +11,11 @@ async function definition_request_type(ctx, next) {
 }
 
 function is_not_user_request(ctx) {
-  return ctx.state.requestType.user !== true;
+  var requestType = ctx.state.requestType;
+  if (!requestType) { // if request option
+    return false;
+  }
+  return requestType.user !== true;
 }
 
 module.exports = {

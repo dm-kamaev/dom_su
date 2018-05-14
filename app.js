@@ -103,15 +103,18 @@ async function run() {
     app.use(set_app_version);
 
     app.use(async function(ctx, next) {
+      const origin = ctx.request.headers.origin || '*';
       const { request: req, response: res } = ctx;
       logger.log('HEADERS= '+JSON.stringify(req.headers, null, 2));
       if (req.method === 'POST' || req.method === 'GET') {
-        res.set('Access-Control-Allow-Origin', '*');
+        // res.set('Access-Control-Allow-Origin', '*');
+        res.set('Access-Control-Allow-Origin', origin);
         res.set('Access-Control-Allow-Credentials', 'true');
       }
       if (req.method === 'OPTIONS') {
         logger.log('set header for OPTIONS');
-        res.set('Access-Control-Allow-Origin', '*');
+        // res.set('Access-Control-Allow-Origin', '*');
+        res.set('Access-Control-Allow-Origin', origin);
         // App-Version –– current version for mobile
         // status, a, b, –– auth cookie
         // X-Dom-Auth –– uuid for auth and etc
@@ -120,6 +123,7 @@ async function run() {
         res.set('Access-Control-Allow-Method', 'PROPFIND, PROPPATCH, COPY, MOVE, DELETE, MKCOL, LOCK, UNLOCK, PUT, GETLIB, VERSION-CONTROL, CHECKIN, CHECKOUT, UNCHECKOUT, REPORT, UPDATE, CANCELUPLOAD, HEAD, OPTIONS, GET, POST');
         res.set('Access-Control-Max-Age', '86400');
         ctx.status = 200;
+        ctx.body = '';
         return;
       }
       await next();
