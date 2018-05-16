@@ -197,8 +197,6 @@ async function getState(paymentId) {
 
 paymentsRouter.get('/payments/success/', async function (ctx, next) {
     try{
-        console.log('request =', console.dir(ctx.request, { depth: 20, colors: true }));
-        console.log('ctx.query =', ctx.query);
         let payment = await Payment.findOne({where: {id: ctx.query.OrderId}})
         let paymentState = await getState(payment.PaymentId)
         if (['CONFIRMING', 'CONFIRMED'].indexOf(paymentState) > 0){
@@ -316,6 +314,22 @@ paymentsRouter.get('/payments/failure/', async function (ctx, next) {
   return;
 });
 
+
+// POST /payments/notification/
+// request {
+//   TerminalKey: 'domovenok3DS',
+//   OrderId: '42008',
+//   Success: 'true',
+//   Status: 'AUTHORIZED',
+//   PaymentId: '20795644',
+//   ErrorCode: '0',
+//   Amount: '376000',
+//   RebillId: '',
+//   CardId: '3157179',
+//   Pan: '530403******8278',
+//   ExpDate: '1219',
+//   Token: '1e05ff157bae80522951f0b462f92c3f5af5b5e561b2557ab56f0fbe5ee0cb10'
+// }
 paymentsRouter.post('/payments/notification/', async function (ctx, next) {
     try {
       const body = ctx.request.body;
