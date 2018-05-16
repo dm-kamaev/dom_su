@@ -6,11 +6,13 @@ const { models, ErrorCodes } = require('models')
 const { Payment } = models
 const crypto = require('crypto')
 const querystring = require('querystring')
+const request_promise = require('/p/pancake/my/request_promise.js');
 const { getTemplate, loadTemplate } = require('utils')
 const https = require('https');
 const paymentsRouter = new Router();
 const moment = require('moment')
 const { SingleRequest1C } = require('api1c')
+const { URLSearchParams } = require('url');
 
 let regExpAmount = new RegExp(/^(:?\d+)((\.|\,)(:?\d{1,2}))?$/, 'g')
 
@@ -195,6 +197,8 @@ async function getState(paymentId) {
 
 paymentsRouter.get('/payments/success/', async function (ctx, next) {
     try{
+        console.log('request =', console.dir(ctx.request, { depth: 20, colors: true }));
+        console.log('ctx.query =', ctx.query);
         let payment = await Payment.findOne({where: {id: ctx.query.OrderId}})
         let paymentState = await getState(payment.PaymentId)
         if (['CONFIRMING', 'CONFIRMED'].indexOf(paymentState) > 0){
@@ -287,34 +291,70 @@ paymentsRouter.get('/payments/', async function (ctx, next) {
     ctx.body = template(ctx.proc(context))
 })
 
+// GET /payments/failure/?Success=false&ErrorCode=102&Message=Попробуйте+повторить+попытку+позже&Details=&Amount=699000&MerchantEmail=marianna%40domovenok.su&MerchantName=domovenok&OrderId=7378&PaymentId=20777328&TranDate=&BackUrl=https%3A%2F%2Fwww.domovenok.su&CompanyName=ООО+«КсД»&EmailReq=marianna%40domovenok.su&PhonesReq=9295302312
+// query params
+// ?Success=false
+// &ErrorCode=102
+// &Message=Попробуйте+повторить+попытку+позже
+// &Details=
+// &Amount=699000
+// &MerchantEmail=marianna%40domovenok.su
+// &MerchantName=domovenok
+// &OrderId=7378
+// &PaymentId=20777328
+// &TranDate=
+// &BackUrl=https%3A%2F%2Fwww.domovenok.su
+// &CompanyName=ООО+«КсД»
+// &EmailReq=marianna%40domovenok.su
+// &PhonesReq=9295302312
 paymentsRouter.get('/payments/failure/', async function (ctx, next) {
-    const template = getTemplate({path: 'templates/payments/failure.html', name: 'paymentsFailure'})
-    ctx.body = template(ctx.proc({'details': ctx.query.Details}))
-    return
-})
+  const template = getTemplate({
+    path: 'templates/payments/failure.html',
+    name: 'paymentsFailure'
+  });
+  ctx.body = template(ctx.proc({'details': ctx.query.Details}));
+  return;
+});
 
 paymentsRouter.post('/payments/notification/', async function (ctx, next) {
     try {
-      const paymentId = ctx.request.body['PaymentId']
+      const body = ctx.request.body;
+      console.log('===PAYMENTS_NOTIFICATION===');
+      console.log('body=', body);
+      console.log('request=', ctx.request, ctx.responce);
+      const paymentId = body['PaymentId']
       const payment = await Payment.findOne({where: {PaymentId: paymentId}})
       let terminalData = await getTerminalData(paymentId)
-      if (payment.id == ctx.request.body['OrderId'] && payment.Amount == ctx.request.body['Amount'] && terminalData.TERMINAL_KEY == ctx.request.body['TerminalKey']){
+      if (
+        payment.id == body['OrderId'] &&
+        payment.Amount == body['Amount'] &&
+        terminalData.TERMINAL_KEY == body['TerminalKey']
+      ) {
           logger.info(`Notification Success OrderId - ${payment.OrderId} | Id - ${payment.id}`)
           console.log(`Notification Success OrderId - ${payment.OrderId} | Id - ${payment.id}`);
           payment.notification = true
           await payment.save()
           ctx.body = 'OK'
       } else {
-          logger.error(`Notification Failure OrderId - ${ctx.request.body['OrderId']} | Id - ${payment.id} | Amount - ${ctx.request.body['Amount']} | TerminalKey - ${terminalData.TERMINAL_KEY}`)
-          console.log(`Notification Failure OrderId - ${ctx.request.body['OrderId']} | Id - ${payment.id} | Amount - ${ctx.request.body['Amount']} | TerminalKey - ${terminalData.TERMINAL_KEY}`);
+          logger.error(`Notification Failure OrderId - ${body['OrderId']} | Id - ${payment.id} | Amount - ${body['Amount']} | TerminalKey - ${terminalData.TERMINAL_KEY}`)
+          console.log(`Notification Failure OrderId - ${body['OrderId']} | Id - ${payment.id} | Amount - ${body['Amount']} | TerminalKey - ${terminalData.TERMINAL_KEY}`);
       }
     } catch (err) {
-      console.log(`FAILED Notification Failure OrderId - ${ctx.request.body['OrderId']}`, err);
+      console.log(`FAILED Notification Failure OrderId - ${body['OrderId']}`, err);
     }
 })
 
 
+// CREATE payment
+// POST /payments/take/
+// request ––
+// {
+//   redirect: true,
+//   order_id: 'ORD-1521872',
+//   amount: 2490
+// }
 paymentsRouter.post('/payments/take/', async function (ctx, next) {
+    console.log('body=', ctx.request.body);
     try{
         logger.info(`Take payment Amount - ${ctx.request.body.amount} | OrderId - ${ctx.request.body.order_id} | Descr - ${ctx.request.body.description} | IP - ${ctx.request.header['x-real-ip']}`)
         let get_param = {}
@@ -413,6 +453,49 @@ paymentsRouter.post('/payments/take/', async function (ctx, next) {
     }
     ctx.body = {"Success": true, "Data": {"redirect": '/payments/failure/'}}
 })
+
+
+class Send_to_1c {
+  constructor() {
+    this._1c_url = 'http://webhooks.domovenok.su/tinkoff';
+    this._logger = function () {
+      return {
+        info: (...str) => {
+          console.log('INFO:', str);
+        },
+        warn: (...str) => {
+          console.log('WARN:', str);
+        }
+      }
+    };
+    this._logger = this._logger();
+    // TODO: init logger
+  }
+
+  async success(query_param) {
+    throw new Error('Not implement')
+  }
+
+  async fail(query_param) {
+    try {
+      const url = this._1c_url +'/?'+ new URLSearchParams(query_param)
+      console.log('HERE', url);
+      // return;
+      const { error, response, body } = await request_promise.get(url);
+      if (error) {
+        // console.log('error writo to file', error, response);
+        this._logger.warn('error writo to file', error, response);
+      } else {
+        // SEND responce to 1c
+        this._logger.info('SEND responce to 1c =', body);
+      }
+    } catch (err) {
+      this._logger.warn('err write to file', err);
+    }
+  }
+
+}
+
 
 module.exports = {
     paymentsRouter,

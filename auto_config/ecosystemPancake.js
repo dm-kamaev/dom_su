@@ -24,7 +24,7 @@ if (CONF.is_dev) {
   };
   if (CONF.is_dev1) {
     var pancake_ecosytem = ecosystem.apps[0];
-    pancake_ecosytem.watch = [ 'staff', 'models', 'reviews', 'middlewares' ];
+    pancake_ecosytem.watch = [ 'staff', 'models', 'reviews', 'middlewares', 'payments' ];
     pancake_ecosytem.ignore_watch = [ 'node_modules', 'staff/templates' ];
   }
 

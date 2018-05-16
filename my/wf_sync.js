@@ -72,3 +72,12 @@ wf_sync.get_file_info = function (path) {
   return fs.statSync(path);
 };
 
+/**
+ * create_dir
+ * @param  {String} dir
+ */
+wf_sync.create_dir = function (dir) {
+  fs.mkdirSync(dir);
+}
+
+
