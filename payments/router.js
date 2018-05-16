@@ -316,7 +316,8 @@ paymentsRouter.get('/payments/failure/', async function (ctx, next) {
 
 
 // POST /payments/notification/
-// request {
+// request body
+// {
 //   TerminalKey: 'domovenok3DS',
 //   OrderId: '42008',
 //   Success: 'true',
@@ -329,6 +330,33 @@ paymentsRouter.get('/payments/failure/', async function (ctx, next) {
 //   Pan: '530403******8278',
 //   ExpDate: '1219',
 //   Token: '1e05ff157bae80522951f0b462f92c3f5af5b5e561b2557ab56f0fbe5ee0cb10'
+// }
+// {
+//   TerminalKey: 'domovenok3DS',
+//   OrderId: '42008',
+//   Success: 'true',
+//   Status: 'CONFIRMED',
+//   PaymentId: '20795644',
+//   ErrorCode: '0',
+//   Amount: '376000',
+//   RebillId: '',
+//   CardId: '3157179',
+//   Pan: '530403******8278',
+//   ExpDate: '1219',
+//   Token: '4c897d2743eefe0ca6c94426b8b71cfd702e14682625266a05315c3930266721'
+// }
+// {
+//   TerminalKey: 'domovenok3DS',
+//   OrderId: '000000003',
+//   Success: true,
+//   Status: 'REVERSED',
+//   PaymentId: 20795528,
+//   ErrorCode: '0',
+//   Amount: 100,
+//   CardId: 4515599,
+//   Pan: '533157******8835',
+//   ExpDate: '0422',
+//   Token: 'dc85d586bfa36cf8b4c249c2d01c7b0ac2ae1856de985782b114a628d9c80aa9'
 // }
 paymentsRouter.post('/payments/notification/', async function (ctx, next) {
     try {
