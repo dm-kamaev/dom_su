@@ -197,8 +197,22 @@ async function getState(paymentId) {
   return false;
 }
 
+
+// GET /payments/success/?Success=true&ErrorCode=0&Message=None&Details=Approved&Amount=313200&MerchantEmail=marianna@domovenok.su&MerchantName=domovenok&OrderId=42108&PaymentId=20862836&TranDate=17.05.2018+10:39:49&BackUrl=https://www.domovenok.su&CompanyName=ООО+«КсД»&EmailReq=marianna@domovenok.su&PhonesReq=9295302312
+// ?Success=true
+// &ErrorCode=0
+// &Message=None
+// &Details=Approved
+// &Amount=313200
+// &MerchantEmail=marianna@domovenok.su
+// &MerchantName=domovenok
+// &OrderId=42108
+// &PaymentId=20862836
+// &TranDate=17.05.2018+10:39:49
+// &BackUrl=https://www.domovenok.su&CompanyName=ООО+«КсД»&EmailReq=marianna@domovenok.su&PhonesReq=9295302312
 paymentsRouter.get('/payments/success/', async function (ctx) {
   const logger_payment = new Logger_payment({ order_id: ctx.query.OrderId });
+  logger.info('/payments/success/ '+ctx.request.url);
   try{
     let payment = await Payment.findOne({where: {id: ctx.query.OrderId}});
     let paymentState = await getState(payment.PaymentId);
