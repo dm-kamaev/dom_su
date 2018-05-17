@@ -284,7 +284,8 @@ async function payment_in_1c(ctx) {
   const logger_payment = new Logger_payment({ order_id: query_param.OrderId });
   try {
     let payment_state = await getState(query_param.PaymentId);
-    if (['CONFIRMING', 'CONFIRMED'].indexOf(payment_state) > 0) {
+    // AUTHORIZED -- two step payments
+    if (['AUTHORIZED', 'CONFIRMING', 'CONFIRMED'].indexOf(payment_state) > 0) {
       // TODO(2018.05.17): WHAT FOR ?
       // if (payment.redirectNewSite){
       //   ctx.redirect(payment.redirectPath);
