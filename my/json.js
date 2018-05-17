@@ -16,3 +16,12 @@ json.str = function (obj) {
     return err;
   }
 };
+
+
+json.parse = function (str) {
+  try {
+    return JSON.parse(str);
+  } catch (err) {
+    return err;
+  }
+};

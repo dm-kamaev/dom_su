@@ -2,6 +2,8 @@
 
 // GENERATED ECOSYSTEM.JSON
 
+// cd /p/pancake; node auto_config/ecosystemPancake.js; pm2 delete pancake; pm2 start ecosystem.json
+
 const wf = require('/p/pancake/my/wf.js');
 const CONF = require('/p/pancake/settings/config.js');
 
@@ -24,7 +26,7 @@ if (CONF.is_dev) {
   };
   if (CONF.is_dev1) {
     var pancake_ecosytem = ecosystem.apps[0];
-    pancake_ecosytem.watch = [ 'staff', 'models', 'reviews', 'middlewares', 'payments' ];
+    pancake_ecosytem.watch = [ 'staff', 'models', 'reviews', 'middlewares', 'payments', 'my' ];
     pancake_ecosytem.ignore_watch = [ 'node_modules', 'staff/templates' ];
   }
 

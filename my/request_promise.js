@@ -5,6 +5,7 @@
 // WRAP FOR MODULE request
 
 const request = require('request');
+const json = require('/p/pancake/my/json.js');
 
 const rp = exports;
 
@@ -65,10 +66,9 @@ rp.post = function (url, option) {
         reject(error);
       } else {
         const content_type = response.headers['content-type'];
-        // console.log(body);
-        // if (/application\/json/.test(content_type)) {
-        //   body = JSON.parse(body);
-        // }
+        if (/application\/json/.test(content_type)) {
+          body = json.parse(body);
+        }
         resolve({
           error,
           response,
@@ -77,4 +77,14 @@ rp.post = function (url, option) {
       }
     });
   });
+};
+
+
+rp.debug_on = function () {
+  request.debug = true;
+};
+
+
+rp.debug_off = function () {
+  request.debug = false;
 };
