@@ -226,7 +226,7 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
     let paymentState = await getState(payment.PaymentId);
     if (['CONFIRMING', 'CONFIRMED'].indexOf(paymentState) > 0) {
       logger.info(`Bank Check State - Success | Status - ${paymentState} | OrderId - ${payment.id} `);
-      logger_payment.info(`bank check state - success | Status - ${paymentState} | OrderId - ${payment.dataValues}`);
+      logger_payment.info(`bank check state - success | Status - ${paymentState} | OrderId - `, payment.dataValues);
       try {
         let data = {};
         data['OrderId'] = payment.OrderId;
