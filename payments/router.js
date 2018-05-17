@@ -284,7 +284,7 @@ async function payment_in_1c(ctx) {
   const query_param = ctx.query;
   const logger_payment = new Logger_payment(ctx, { order_id: query_param.OrderId });
   try {
-    let payment_state = await getState(query_param.PaymentId);
+    let payment_state = await getState(query_param.PaymentId) || '';
     payment_state = payment_state.trim();
     // AUTHORIZED -- two step for payments
     if (payment_state === 'AUTHORIZED' || payment_state === 'CONFIRMING' || payment_state === 'CONFIRMED') {
