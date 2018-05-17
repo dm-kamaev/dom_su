@@ -214,7 +214,7 @@ async function getState(paymentId) {
 //
 paymentsRouter.get('/payments/success/', async function (ctx) {
   const query_param = ctx.query;
-  const logger_payment = new Logger_payment({ order_id: query_param.OrderId });
+  const logger_payment = new Logger_payment(ctx, { order_id: query_param.OrderId });
   logger_payment.info('/payments/success/ '+ctx.request.url);
   try{
     let payment = await Payment.findOne({where: {id: query_param.OrderId}});
@@ -278,31 +278,34 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
   }
 });
 
-
+// TEST URL https://www.domovenok.su/payments/success/?Success=true&ErrorCode=0&Message=None&Details=Approved&Amount=100&MerchantEmail=marianna%40domovenok.su&MerchantName=domovenok&OrderId=000000006&PaymentId=20870717&TranDate=17.05.2018+12%3A34%3A56&BackUrl=https%3A%2F%2Fwww.domovenok.su&CompanyName=%D0%9E%D0%9E%D0%9E+%C2%AB%D0%9A%D1%81%D0%94%C2%BB&EmailReq=marianna%40domovenok.su&PhonesReq=9295302312
+// handle for payment from 1c
 async function payment_in_1c(ctx) {
   const query_param = ctx.query;
-  const logger_payment = new Logger_payment({ order_id: query_param.OrderId });
+  const logger_payment = new Logger_payment(ctx, { order_id: query_param.OrderId });
   try {
     let payment_state = await getState(query_param.PaymentId);
-    // AUTHORIZED -- two step payments
-    if (['AUTHORIZED', 'CONFIRMING', 'CONFIRMED'].indexOf(payment_state) > 0) {
+    payment_state = payment_state.trim();
+    // AUTHORIZED -- two step for payments
+    if (payment_state === 'AUTHORIZED' || payment_state === 'CONFIRMING' || payment_state === 'CONFIRMED') {
       // TODO(2018.05.17): WHAT FOR ?
       // if (payment.redirectNewSite){
       //   ctx.redirect(payment.redirectPath);
       //   return;
       // }
       const template = getTemplate({ path: 'templates/payments/success.html', name: 'paymentsSuccess' });
+      ctx.status = 200;
       ctx.body = template(ctx.proc({'sum': query_param.Amount/100.0}));
       logger_payment.info('payment in 1c: payment success completed');
     } else {
       logger_payment.warn(`payment in 1c: bank check state - Failure | Status - ${payment_state} | OrderId - ${query_param.OrderId}`);
       ctx.status = 302;
-      ctx.redirect('/payments/failure/');
+      ctx.redirect(`/payments/failure/?OrderId=${query_param.OrderId}&Details=`+querystring.escape('Не верный статус платежа'));
     }
   } catch (err) {
     logger_payment.warn('payment in 1c: ', err);
     ctx.status = 302;
-    ctx.redirect('/payments/failure/');
+    ctx.redirect(`/payments/failure/?OrderId=${query_param.OrderId}&Details=`+querystring.escape('Внутреняя ошибка'));
   }
 }
 
@@ -367,12 +370,22 @@ paymentsRouter.get('/payments/', async function (ctx) {
 // &EmailReq=marianna%40domovenok.su
 // &PhonesReq=9295302312
 paymentsRouter.get('/payments/failure/', async function (ctx) {
+  const order_id = ctx.query.OrderId;
+  const details = ctx.query.Details || '';
+  let logger_payment = {
+    info: () => {},
+    warn: () => {}
+  };
+  if (order_id) {
+    logger_payment = new Logger_payment(ctx, { order_id });
+  }
+
   const template = getTemplate({
     path: 'templates/payments/failure.html',
     name: 'paymentsFailure'
   });
-  ctx.body = template(ctx.proc({'details': ctx.query.Details}));
-  new Logger_payment({ order_id: ctx.query.OrderId }).warn(`${ctx.request.url} fail payment`);
+  ctx.body = template(ctx.proc({ details }));
+  logger_payment.warn(`${ctx.request.url} fail payment`);
   return;
 });
 
@@ -422,7 +435,7 @@ paymentsRouter.get('/payments/failure/', async function (ctx) {
 // }
 paymentsRouter.post('/payments/notification/', async function (ctx) {
   const body = ctx.request.body;
-  const logger_payment = new Logger_payment({ order_id: body.OrderId });
+  const logger_payment = new Logger_payment(ctx, { order_id: body.OrderId });
   try {
     logger_payment.info('/payments/notification/', 'request body =', body);
     const paymentId = body['PaymentId'];
