@@ -211,12 +211,20 @@ async function getState(paymentId) {
 // &TranDate=17.05.2018+10:39:49
 // &BackUrl=https://www.domovenok.su&CompanyName=ООО+«КсД»&EmailReq=marianna@domovenok.su&PhonesReq=9295302312
 paymentsRouter.get('/payments/success/', async function (ctx) {
-  const logger_payment = new Logger_payment({ order_id: ctx.query.OrderId });
+  const query_param = ctx.query;
+  const logger_payment = new Logger_payment({ order_id: query_param.OrderId });
   logger.info('/payments/success/ '+ctx.request.url);
   try{
-    let payment = await Payment.findOne({where: {id: ctx.query.OrderId}});
+    let payment = await Payment.findOne({where: {id: query_param.OrderId}});
+
+    // if payment in 1C
+    if (!payment) {
+      await payment_in_1c(ctx);
+      return;
+    }
+
     let paymentState = await getState(payment.PaymentId);
-    if (['CONFIRMING', 'CONFIRMED'].indexOf(paymentState) > 0){
+    if (['CONFIRMING', 'CONFIRMED'].indexOf(paymentState) > 0) {
       logger.info(`Bank Check State - Success | Status - ${paymentState} | OrderId - ${payment.id} `);
       logger_payment.info(`bank check state - success | Status - ${paymentState} | OrderId - ${payment.dataValues}`);
       try {
@@ -268,6 +276,32 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
   }
 });
 
+
+async function payment_in_1c(ctx) {
+  const query_param = ctx.query;
+  const logger_payment = new Logger_payment({ order_id: query_param.OrderId });
+  try {
+    let payment_state = await getState(query_param.PaymentId);
+    if (['CONFIRMING', 'CONFIRMED'].indexOf(payment_state) > 0) {
+      // TODO(2018.05.17): WHAT FOR ?
+      // if (payment.redirectNewSite){
+      //   ctx.redirect(payment.redirectPath);
+      //   return;
+      // }
+      const template = getTemplate({ path: 'templates/payments/success.html', name: 'paymentsSuccess' });
+      ctx.body = template(ctx.proc({'sum': query_param.Amount/100.0}));
+      logger_payment.info('payment in 1c: payment success completed');
+    } else {
+      logger_payment.warn(`payment in 1c: bank check state - Failure | Status - ${payment_state} | OrderId - ${query_param.OrderId}`);
+      ctx.status = 302;
+      ctx.redirect('/payments/failure/');
+    }
+  } catch (err) {
+    logger_payment.warn('payment in 1c: ', err);
+    ctx.status = 302;
+    ctx.redirect('/payments/failure/');
+  }
+}
 
 
 function get_token(get_param) {
