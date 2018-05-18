@@ -46,9 +46,8 @@ module.exports = function() {
   CONF.is_new_dev = () => {
     return (HOSTNAME === 'dev1' && env === 'dev1') || (HOSTNAME === 'dev2' && env === 'dev2') || (HOSTNAME === 'dev3' && env === 'dev3');
   };
-  CONF.is_dev = () => {
-    return CONF.env !== 'prod';
-  };
+  CONF.is_dev = (CONF.env !== 'prod');
+  CONF.is_prod = (CONF.env === 'prod');
   CONF.ws = { // websocket
     address: 'ws://127.0.0.1:8888/ws',
     auth_key: 'SNYn4U1OqDWWxSBd1gZR',
@@ -70,7 +69,6 @@ module.exports = function() {
       CONF.webhook= get_webhook(enum_api_1C.LIZA);
       break;
     case 'prod':
-      CONF.is_prod = true;
       CONF.api1C = get_api_1c(enum_api_1C.PROD);
       CONF.ws.address = 'ws://ws.domovenok.su/ws';
       CONF.webhook= get_webhook(enum_api_1C.PROD);

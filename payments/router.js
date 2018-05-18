@@ -20,20 +20,25 @@ let regExpAmount = new RegExp(/^(:?\d+)((\.|\,)(:?\d{1,2}))?$/, 'g');
 const URL_TINKOFF = 'securepay.tinkoff.ru';
 const DEFAULT_PAYMENT_ORG_TYPE = 'tinkoff_ksd';
 const PaymentOrgType = {
-  'tinkoff_ksd': {
-    'NAME': 'tinkoff_ksd',
-    'TERMINAL_KEY': 'domovenok3DS',
-    'PASSWORD': '1AOJ.Di8b8EwGt,X'
+  tinkoff_ksd: {
+    NAME: 'tinkoff_ksd',
+    TERMINAL_KEY: 'domovenok3DS',
+    PASSWORD: '1AOJ.Di8b8EwGt,X'
     // TEST KSD
     // 'PASSWORD': 'q6YYOi^^jsTo@l1S'
   },
-  'tinkoff_ipatova': {
-    'NAME': 'tinkoff_ipatova',
-    'TERMINAL_KEY': '1487066466356',
-    'PASSWORD': 'f7ydxrgo3c42l9ub'
+  // 'tinkoff_ipatova': {
+  //   'NAME': 'tinkoff_ipatova',
+  //   'TERMINAL_KEY': '1487066466356',
+  //   'PASSWORD': 'f7ydxrgo3c42l9ub'
     // TEST Ipatova
     // 'TERMINAL_KEY': '1487066466356DEMO',
     // 'PASSWORD': 'b85qudmm7bagosat',
+  // },
+  terminal_dev: {
+    NAME: 'terminal_dev',
+    TERMINAL_KEY: 'domovenokDEMO',
+    PASSWORD: '7wp9u3dbl5tv7d51'
   }
 };
 
@@ -61,34 +66,40 @@ loadTemplate({path: 'templates/payments/success.html', name: 'paymentsSuccess'})
 loadTemplate({path: 'templates/payments/failure.html', name: 'paymentsFailure'});
 
 async function getTerminalData(paymentId, orderId, ctx) {
-  if (paymentId) {
-    let payment = await Payment.findOne({where: {PaymentId: paymentId}});
-    if (payment && payment.payment_org_type){
-      return PaymentOrgType[payment.payment_org_type];
-    }
+  if (CONF.is_dev) {
+    return PaymentOrgType.terminal_dev;
+  } else {
+    return PaymentOrgType.tinkoff_ksd;
   }
-  try{
-    if (orderId){
-      let singleRequest = new SingleRequest1C(
-        'Client.GetPaymentOrgType', // name
-        {'OrderID': orderId}, // param
-        null, // token
-        null, // userUUID
-        null, // ip
-        null, // userAgent
-        ctx
-      );
-      let response = await singleRequest.do();
-      if (PaymentOrgType[response.PaymentOrgType]){
-        return PaymentOrgType[response.PaymentOrgType];
-      }
-      logger.error(`PaymentOrgType error ${response}, OrderID - ${orderId}`);
-    }
-  } catch (e){
-    logger.error('Error Get Payment Org Type');
-    logger.error(e);
-  }
-  return PaymentOrgType[DEFAULT_PAYMENT_ORG_TYPE];
+  // TODO(2018.05.18): OLD CODE
+  // if (paymentId) {
+  //   let payment = await Payment.findOne({where: {PaymentId: paymentId}});
+  //   if (payment && payment.payment_org_type){
+  //     return PaymentOrgType[payment.payment_org_type];
+  //   }
+  // }
+  // try{
+  //   if (orderId){
+  //     let singleRequest = new SingleRequest1C(
+  //       'Client.GetPaymentOrgType', // name
+  //       {'OrderID': orderId}, // param
+  //       null, // token
+  //       null, // userUUID
+  //       null, // ip
+  //       null, // userAgent
+  //       ctx
+  //     );
+  //     let response = await singleRequest.do();
+  //     if (PaymentOrgType[response.PaymentOrgType]){
+  //       return PaymentOrgType[response.PaymentOrgType];
+  //     }
+  //     logger.error(`PaymentOrgType error ${response}, OrderID - ${orderId}`);
+  //   }
+  // } catch (e){
+  //   logger.error('Error Get Payment Org Type');
+  //   logger.error(e);
+  // }
+  // return PaymentOrgType[DEFAULT_PAYMENT_ORG_TYPE];
 }
 
 // OLD CODE, REMOVE IN FUTURE
@@ -149,6 +160,7 @@ async function getTerminalData(paymentId, orderId, ctx) {
 async function getState(paymentId) {
   let getParam = {'PaymentId': paymentId};
   let terminalData = await getTerminalData(paymentId);
+  console.log('terminalData=', terminalData);
   getParam['TerminalKey'] = terminalData.TERMINAL_KEY;
   getParam['Password'] = terminalData.PASSWORD;
   getParam['Token'] = get_token(getParam);
