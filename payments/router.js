@@ -1,8 +1,12 @@
 'use strict';
 
+
+// то есть фактически у них 4 набора настроек, рабочий и тестовый терминал на securepay.tinkoff.ru и рабочий и тестовый терминал на rest-api-test.tinkoff.ru
+
 const CONF = require('/p/pancake/settings/config.js');
 const Router = require('koa-router');
 const logger = require('logger')(module, 'pay.log');
+const log = require('/p/pancake/lib/logger.js');
 const { models } = require('models');
 const { Payment } = models;
 const crypto = require('crypto');
@@ -17,8 +21,12 @@ const Logger_payment = require('/p/pancake/lib/logger_payment.js');
 
 let regExpAmount = new RegExp(/^(:?\d+)((\.|\,)(:?\d{1,2}))?$/, 'g');
 
-const URL_TINKOFF = 'securepay.tinkoff.ru';
+// Two url for connection tinkoff
+const URL_TINKOFF = (CONF.is_dev) ? 'rest-api-test.tinkoff.ru' : 'securepay.tinkoff.ru';
+
 const DEFAULT_PAYMENT_ORG_TYPE = 'tinkoff_ksd';
+// Two terminal: dev and prod
+// All worked in tinkoff
 const PaymentOrgType = {
   tinkoff_ksd: {
     NAME: 'tinkoff_ksd',
@@ -167,7 +175,7 @@ async function getState(paymentId) {
   let response = '';
   let body = querystring.stringify(getParam);
   let connectParam = {
-    hostname: URL_TINKOFF,
+    hostname: URL_TINKOFF, //
     port: 443,
     path: '/rest/GetState',
     method: 'POST',
@@ -555,7 +563,11 @@ paymentsRouter.post('/payments/take/', async function (ctx) {
     await payment.save();
     let response = await new Promise((reslove, reject) => {
       // todo request in utils
-      let req = https.get({host: URL_TINKOFF, path: '/rest/Init/?' + querystring.stringify(get_param) }, (res) => {
+
+      let req = https.get({
+        host: URL_TINKOFF,
+        path: '/rest/Init/?'+querystring.stringify(get_param)
+      }, (res) => {
         let response = '';
         res.on('data', (chunk) => {
           response += chunk;
@@ -572,6 +584,7 @@ paymentsRouter.post('/payments/take/', async function (ctx) {
       });
       req.end();
     });
+    console.log('=response', response);
     let parseResponse = JSON.parse(response);
     if (parseResponse['Success'] == true){
       logger.info(`Init Success OrderId - ${payment.OrderId}, Id - ${payment.id}`);
@@ -596,8 +609,9 @@ paymentsRouter.post('/payments/take/', async function (ctx) {
     const template = getTemplate({path: 'templates/payments/failure.html', name: 'paymentsFailure'});
     ctx.body = template(ctx.proc());
     return;
-  } catch (e) {
-    logger.info(e);
+  } catch (err) {
+    logger.info(err);
+    log.warn(err);
   }
   ctx.body = {'Success': true, 'Data': {'redirect': '/payments/failure/'}};
 });
