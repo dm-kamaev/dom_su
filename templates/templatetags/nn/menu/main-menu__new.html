@@ -84,6 +84,11 @@
             Услуги
           </a>
         </li>
+        <li class="main-menu__item-sub {{#if menu.price}}main-menu__item-sub--active{{/if}}">
+          <a class="main-menu__link-sub" href="{{buildUrl general.city '/price/'}}">
+            Цены
+          </a>
+        </li>
         <li class="main-menu__item-sub {{#if menu.vazhno_znat}}main-menu__item-sub--active{{/if}}">
           <a class="main-menu__link-sub" href="{{buildUrl general.city '/vazhno_znat/'}}">
             Важно знать
