@@ -158,6 +158,9 @@ const staffMobileTemplateOpts = {
   conversationDetail: {
     path: 'staff/templates/mobile/conversationDetail.html', name: 'staffMobileConversationDetail'
   },
+  yandex_route_to_order: {
+    path: 'staff/templates/mobile/yandex_route_to_order.html', name: 'yandex_route_to_order'
+  },
 };
 const staffAjaxTemplateOpts = {
   ratingHistory: {

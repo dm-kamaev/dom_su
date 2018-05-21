@@ -26,6 +26,7 @@ const AuthApi = require('/p/pancake/auth/authApi.js');
 const fn = require('/p/pancake/my/fn.js');
 const Request1Cv3 = require('/p/pancake/api1c/request1Cv3.js');
 const UTMCollector = require('/p/pancake/user_manager/middleware/UTMCollector.js');
+const decorators = require('/p/pancake/staff/decorators.js');
 
 const nodemailer = require('nodemailer');
 // create reusable transporter object using the default SMTP transport
@@ -768,6 +769,24 @@ staffRouter.post('/staff/set_employee_adress/:employee_id', loginRequired(getEmp
     ctx.body = 'Internal error';
   }
 })));
+
+
+// GET /staff/fdf74d80-de51-11e7-80e6-00155d594900/yandex_route_to_order/?adress_order=55.717594,37.776251
+// Build route from current postion to adress order on yandex map
+staffRouter.get('/staff/:employee_id/yandex_route_to_order', decorators.login_required, getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
+  const adress_order = ctx.request.query.adress_order;
+  if (!adress_order) {
+    throw new Error('Not exist address '+adress_order);
+  }
+  const [ latitude, longitude ] = adress_order.split(',');
+  if (!latitude || !longitude) {
+    throw new Error('Not exist address '+adress_order);
+  }
+  templateCtx.adress_order = JSON.stringify([ latitude, longitude ]);
+  const template = getTemplate(staffTemplate.mobile.yandex_route_to_order);
+  ctx.status = 200;
+  ctx.body = template(ctx.proc(templateCtx, ctx));
+}));
 
 
 // Order list

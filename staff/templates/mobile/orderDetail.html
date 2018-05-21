@@ -10,6 +10,7 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="/static/js/custom_cookie.js?v=1.01"></script>
+
     <!-- Google Tag Manager -->
 {{#if general.production}}
 
@@ -194,7 +195,10 @@
         <p>{{ GetDepartureData.Address.Title }}</p>
         {{!-- via text --}}
         {{!-- {{#if lon }}<a class="ui-btn" href="https://maps.yandex.ru/?mode=search&text={{ GetDepartureData.Address.Title }}">Маршрут на Яндекс.Картах</a>{{/if}} --}}
-        {{#if lon }}<a class="ui-btn" href="https://maps.yandex.ru/?mode=search&text={{ lat }},{{ lon }}">Маршрут на Яндекс.Картах</a>{{/if}}
+        {{!-- {{#if lon }}<a class="ui-btn" href="https://maps.yandex.ru/?mode=search&text={{ lat }},{{ lon }}">Маршрут на Яндекс.Картах</a>{{/if}} --}}
+        {{#if lon }}
+            <a class=ui-btn data-ajax=false href="/staff/{{selfId}}/yandex_route_to_order/?adress_order={{ lat }},{{ lon }}">Маршрут на Яндекс.Картах</a>
+        {{/if}}
 
         <p><b>Подъезд:</b><br><span>{{ GetDepartureData.Address.Porch }}</span></p>
         <p><b>Домофон:</b><br><span>{{ GetDepartureData.Address.Intercom }}</span></p>
