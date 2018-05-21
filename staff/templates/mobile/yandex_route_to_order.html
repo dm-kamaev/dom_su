@@ -71,7 +71,7 @@
         ymaps.geolocation.get().then(function(res) {
           var current_position = res.geoObjects.position;
 
-          ini_maps(myMap, { from: current_position, to: adress_order });
+          ini_maps(id, { from: current_position, to: adress_order });
 
           // FOR TEST
           // |
