@@ -8,7 +8,7 @@
 
     </style>
     <!-- <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> -->
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=release"></script>
+<!--     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=release"></script> -->
     <script src="/stat/lib/jquery_2.2.3_min.js?v1"></script>
 
     <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -45,7 +45,7 @@
           <li><a href="{{staffUrl 'news' selfId}}">Новости</a></li>
           <li><a data-ajax=false href="{{staffUrl 'means_and_materials' selfId}}">Средства и материалы</a></li>
           <li><a data-ajax=false href="{{staffUrl 'description_services' selfId}}">Услуги</a></li>
-          <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li>
+          <!-- <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li> -->
           <li><a data-ajax="false" href="{{staffUrl 'logout' }}">Выйти</a></li>
         </ul>
       </div>
@@ -55,14 +55,15 @@
     <!-- yandex map route to order -->
     <div id=map style="width:100%;height:100%;padding:0;margin:0"></div>
 
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=release"></script>
     <script>
 
     void function () {
-      var adress_order = {{{adress_order}}};
-      adress_order[0] = parseFloat(adress_order[0]);
-      adress_order[1] = parseFloat(adress_order[1]);
+      var address_order = {{{adress_order}}};
+      address_order[0] = parseFloat(address_order[0]);
+      address_order[1] = parseFloat(address_order[1]);
       // TODO: В opera mobile дико долго грузится...
-      build_route_from_current_position_to('map', adress_order);
+      build_route_from_current_position_to('map', address_order);
     }();
 
     function build_route_from_current_position_to(id, adress_order) {
