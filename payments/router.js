@@ -16,18 +16,19 @@ const { getTemplate, loadTemplate } = require('utils');
 const https = require('https');
 const paymentsRouter = new Router();
 const moment = require('moment');
-const { SingleRequest1C } = require('api1c');
+// const { SingleRequest1C } = require('api1c');
 const Logger_payment = require('/p/pancake/lib/logger_payment.js');
 
 let regExpAmount = new RegExp(/^(:?\d+)((\.|\,)(:?\d{1,2}))?$/, 'g');
 
+// const DEFAULT_PAYMENT_ORG_TYPE = 'tinkoff_ksd';
+
 // Two url for connection tinkoff
 const URL_TINKOFF = (CONF.is_dev) ? 'rest-api-test.tinkoff.ru' : 'securepay.tinkoff.ru';
 
-const DEFAULT_PAYMENT_ORG_TYPE = 'tinkoff_ksd';
-// Two terminal: dev and prod
-// All worked in tinkoff
+// Оба терминала доступны как по dev url, так и по prod url
 const PaymentOrgType = {
+  // продакшен терминал
   tinkoff_ksd: {
     NAME: 'tinkoff_ksd',
     TERMINAL_KEY: 'domovenok3DS',
@@ -35,19 +36,21 @@ const PaymentOrgType = {
     // TEST KSD
     // 'PASSWORD': 'q6YYOi^^jsTo@l1S'
   },
-  // 'tinkoff_ipatova': {
-  //   'NAME': 'tinkoff_ipatova',
-  //   'TERMINAL_KEY': '1487066466356',
-  //   'PASSWORD': 'f7ydxrgo3c42l9ub'
-    // TEST Ipatova
-    // 'TERMINAL_KEY': '1487066466356DEMO',
-    // 'PASSWORD': 'b85qudmm7bagosat',
-  // },
+  // тестовый терминал
   terminal_dev: {
     NAME: 'terminal_dev',
     TERMINAL_KEY: 'domovenokDEMO',
     PASSWORD: '7wp9u3dbl5tv7d51'
-  }
+  },
+  // больше не существует
+  // 'tinkoff_ipatova': {
+  //   'NAME': 'tinkoff_ipatova',
+  //   'TERMINAL_KEY': '1487066466356',
+  //   'PASSWORD': 'f7ydxrgo3c42l9ub'
+  // TEST Ipatova
+  // 'TERMINAL_KEY': '1487066466356DEMO',
+  // 'PASSWORD': 'b85qudmm7bagosat',
+  // },
 };
 
 // OLD CODE
@@ -73,116 +76,40 @@ loadTemplate({path: 'templates/payments/init.html', name: 'paymentsInit'});
 loadTemplate({path: 'templates/payments/success.html', name: 'paymentsSuccess'});
 loadTemplate({path: 'templates/payments/failure.html', name: 'paymentsFailure'});
 
-async function getTerminalData(paymentId, orderId, ctx) {
+// TODO(2018.05.21): Maybe move function to config object
+async function getTerminalData() {
   if (CONF.is_dev) {
     return PaymentOrgType.terminal_dev;
   } else {
     return PaymentOrgType.tinkoff_ksd;
   }
-  // TODO(2018.05.18): OLD CODE
-  // if (paymentId) {
-  //   let payment = await Payment.findOne({where: {PaymentId: paymentId}});
-  //   if (payment && payment.payment_org_type){
-  //     return PaymentOrgType[payment.payment_org_type];
-  //   }
-  // }
-  // try{
-  //   if (orderId){
-  //     let singleRequest = new SingleRequest1C(
-  //       'Client.GetPaymentOrgType', // name
-  //       {'OrderID': orderId}, // param
-  //       null, // token
-  //       null, // userUUID
-  //       null, // ip
-  //       null, // userAgent
-  //       ctx
-  //     );
-  //     let response = await singleRequest.do();
-  //     if (PaymentOrgType[response.PaymentOrgType]){
-  //       return PaymentOrgType[response.PaymentOrgType];
-  //     }
-  //     logger.error(`PaymentOrgType error ${response}, OrderID - ${orderId}`);
-  //   }
-  // } catch (e){
-  //   logger.error('Error Get Payment Org Type');
-  //   logger.error(e);
-  // }
-  // return PaymentOrgType[DEFAULT_PAYMENT_ORG_TYPE];
 }
 
-// OLD CODE, REMOVE IN FUTURE
-// async function confirm(payment) {
-//   let getParam = {'PaymentId': payment.PaymentId};
-//   let terminalData = await getTerminalData(payment.PaymentId);
-//   getParam['TerminalKey'] = terminalData.TERMINAL_KEY;
-//   getParam['Password'] = terminalData.PASSWORD;
-//   getParam['Amount'] = payment.Amount;
-//   getParam['IP'] = payment.IP;
-//   getParam['Token'] = get_token(getParam);
-//   let body = querystring.stringify(getParam);
-//   let response = '';
-//   let connectParam = {
-//     hostname: URL_TINKOFF,
-//     port: 443,
-//     path: '/rest/Confirm',
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/x-www-form-urlencoded'
-//     }
-//   };
-//   if (connectParam.method == 'POST'){
-//     connectParam.headers['Content-length'] = Buffer.from(body).length;
-//   }
-//   let responseTinkoff = await new Promise((reslove, reject) => {
-//     let req = https.request(connectParam, (res) => {
-//       res.setEncoding('utf8');
-//       res.on('data', (chunk) => {
-//         response += chunk;
-//       });
-//       res.on('end', () => {
-//         reslove(response);
-//       });
-//     });
-//     req.setTimeout(1000 * 20, function () {
-//       reject(new Error(`Request timeout error - ${connectParam}`));
-//     });
-//     req.on('error', (e) => {
-//       reject(new Error(`The request ended in failure - ${connectParam}`));
-//     });
-//     if (connectParam.method == 'POST'){
-//       req.write(body);
-//     }
-//     req.end();
-//   });
-//   let parseResponseTinkoff = JSON.parse(responseTinkoff);
-//   logger.info(parseResponseTinkoff);
-//   if (parseResponseTinkoff.Success){
-//     return parseResponseTinkoff.Status;
-//   } else {
-//     logger.error('Check payment state failure');
-//     logger.error(`${responseTinkoff}`);
-//   }
-//   return false;
-// }
-
-async function getState(paymentId) {
+// https://www-dev1.domovenok.su/payments/success?Success=true&ErrorCode=0&Message=None&Details=&Amount=20000&MerchantEmail=marianna%40domovenok.su&MerchantName=domovenok&OrderId=000000071&PaymentId=2309717&TranDate=&BackUrl=https%3A%2F%2Fwww.domovenok.su&CompanyName=%D0%9E%D0%9E%D0%9E+%C2%AB%D0%9A%D1%81%D0%94%C2%BB&EmailReq=marianna%40domovenok.su&PhonesReq=9295302312
+async function getState(paymentId, logger_payment) {
   let getParam = {'PaymentId': paymentId};
   let terminalData = await getTerminalData(paymentId);
-  console.log('terminalData=', terminalData);
+  if (logger_payment) {
+    logger_payment.info('terminalData=', terminalData);
+  }
   getParam['TerminalKey'] = terminalData.TERMINAL_KEY;
   getParam['Password'] = terminalData.PASSWORD;
   getParam['Token'] = get_token(getParam);
   let response = '';
   let body = querystring.stringify(getParam);
   let connectParam = {
-    hostname: URL_TINKOFF, //
+    hostname: URL_TINKOFF,
     port: 443,
     path: '/rest/GetState',
+    // path: '/v2/GetState',
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   };
+  if (logger_payment) {
+    logger_payment.info('getState=', connectParam, getParam);
+  }
   if (connectParam.method == 'POST'){
     connectParam.headers['Content-length'] = Buffer.from(body).length;
   }
@@ -208,11 +135,16 @@ async function getState(paymentId) {
     req.end();
   });
   let parseResponseTinkoff = JSON.parse(responseTinkoff);
+
   if (parseResponseTinkoff.Success){
     return parseResponseTinkoff.Status;
   } else {
     logger.error('Check payment state failure');
     logger.error(`${responseTinkoff}`);
+
+    if (logger_payment) {
+      logger_payment.warn('Check payment state failure', responseTinkoff);
+    }
   }
   return false;
 }
@@ -234,19 +166,23 @@ async function getState(paymentId) {
 //
 paymentsRouter.get('/payments/success/', async function (ctx) {
   const query_param = ctx.query;
-  const logger_payment = new Logger_payment(ctx, { order_id: query_param.OrderId });
-  logger_payment.info('/payments/success/ '+ctx.request.url);
+  let logger_payment;
   try{
-    let payment = await Payment.findOne({where: {id: query_param.OrderId}});
+    logger_payment = new Logger_payment(ctx, { order_id: query_param.OrderId });
+    logger_payment.info('/payments/success/ '+ctx.request.url);
+    let payment = await Payment.findOne({where: { id: query_param.OrderId, PaymentId: query_param.PaymentId }});
+    if (payment) {
+      logger_payment.info(payment);
+    }
 
     // if payment in 1C
-    if (!payment) {
+    if (!payment || !payment.PaymentId) {
       await payment_in_1c(ctx);
       return;
     }
 
-    let paymentState = await getState(payment.PaymentId);
-    if (['CONFIRMING', 'CONFIRMED'].indexOf(paymentState) > 0) {
+    let paymentState = await getState(payment.PaymentId, logger_payment);
+    if (['AUTHORIZED', 'CONFIRMING', 'CONFIRMED'].indexOf(paymentState) > 0) {
       logger.info(`Bank Check State - Success | Status - ${paymentState} | OrderId - ${payment.id} `);
       logger_payment.info(`bank check state - success | Status - ${paymentState} | OrderId - `, payment.dataValues);
       try {
@@ -298,13 +234,13 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
   }
 });
 
-// TEST URL https://www.domovenok.su/payments/success/?Success=true&ErrorCode=0&Message=None&Details=Approved&Amount=100&MerchantEmail=marianna%40domovenok.su&MerchantName=domovenok&OrderId=000000006&PaymentId=20870717&TranDate=17.05.2018+12%3A34%3A56&BackUrl=https%3A%2F%2Fwww.domovenok.su&CompanyName=%D0%9E%D0%9E%D0%9E+%C2%AB%D0%9A%D1%81%D0%94%C2%BB&EmailReq=marianna%40domovenok.su&PhonesReq=9295302312
+
 // handle for payment from 1c
 async function payment_in_1c(ctx) {
   const query_param = ctx.query;
   const logger_payment = new Logger_payment(ctx, { order_id: query_param.OrderId });
   try {
-    let payment_state = await getState(query_param.PaymentId) || '';
+    let payment_state = await getState(query_param.PaymentId, logger_payment) || '';
     payment_state = payment_state.trim();
     // AUTHORIZED -- two step for payments
     if (payment_state === 'AUTHORIZED' || payment_state === 'CONFIRMING' || payment_state === 'CONFIRMED') {
@@ -545,7 +481,16 @@ paymentsRouter.post('/payments/take/', async function (ctx) {
     get_param['IP'] = ctx.request.header['x-real-ip'];
     let terminalData = await getTerminalData(null, ctx.request.body.order_id, ctx);
     let last_payment = await Payment.findOne({order: [['id', 'DESC']]});
-    let create_payment = {'OrderId': ctx.request.body.order_id, 'Amount': Number(get_param['Amount']), 'Description': ctx.request.body.description, 'IP': get_param['IP'], 'redirectNewSite': false, 'redirectPath': '', id: Number(last_payment.id) + 1, 'payment_org_type': terminalData['NAME']};
+    let create_payment = {
+      'OrderId': ctx.request.body.order_id,
+      'Amount': Number(get_param['Amount']),
+      'Description': ctx.request.body.description,
+      'IP': get_param['IP'],
+      'redirectNewSite': false,
+      'redirectPath': '',
+      id: Number(last_payment.id) + 1,
+      'payment_org_type': terminalData['NAME']
+    };
     if (ctx.request.body.redirect){
       create_payment['redirectNewSite'] = true;
       create_payment['redirectPath'] = ctx.request.headers.referer;
@@ -584,7 +529,6 @@ paymentsRouter.post('/payments/take/', async function (ctx) {
       });
       req.end();
     });
-    console.log('=response', response);
     let parseResponse = JSON.parse(response);
     if (parseResponse['Success'] == true){
       logger.info(`Init Success OrderId - ${payment.OrderId}, Id - ${payment.id}`);
@@ -643,6 +587,96 @@ async function send_to_1c(url, data) {
   }
   return body;
 }
+
+
+
+// TODO(2018.05.18): OLD CODE, REMOVE IN FUTURE
+// function getTerminalData(paymentId, orderId, ctx) {
+//   if (paymentId) {
+//     let payment = await Payment.findOne({where: {PaymentId: paymentId}});
+//     if (payment && payment.payment_org_type){
+//       return PaymentOrgType[payment.payment_org_type];
+//     }
+//   }
+//   try{
+//     if (orderId){
+//       let singleRequest = new SingleRequest1C(
+//         'Client.GetPaymentOrgType', // name
+//         {'OrderID': orderId}, // param
+//         null, // token
+//         null, // userUUID
+//         null, // ip
+//         null, // userAgent
+//         ctx
+//       );
+//       let response = await singleRequest.do();
+//       if (PaymentOrgType[response.PaymentOrgType]){
+//         return PaymentOrgType[response.PaymentOrgType];
+//       }
+//       logger.error(`PaymentOrgType error ${response}, OrderID - ${orderId}`);
+//     }
+//   } catch (e){
+//     logger.error('Error Get Payment Org Type');
+//     logger.error(e);
+//   }
+//   return PaymentOrgType[DEFAULT_PAYMENT_ORG_TYPE];
+// }
+
+
+//  TODO(2018.05.18):  OLD CODE, REMOVE IN FUTURE
+// async function confirm(payment) {
+//   let getParam = {'PaymentId': payment.PaymentId};
+//   let terminalData = await getTerminalData(payment.PaymentId);
+//   getParam['TerminalKey'] = terminalData.TERMINAL_KEY;
+//   getParam['Password'] = terminalData.PASSWORD;
+//   getParam['Amount'] = payment.Amount;
+//   getParam['IP'] = payment.IP;
+//   getParam['Token'] = get_token(getParam);
+//   let body = querystring.stringify(getParam);
+//   let response = '';
+//   let connectParam = {
+//     hostname: URL_TINKOFF,
+//     port: 443,
+//     path: '/rest/Confirm',
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/x-www-form-urlencoded'
+//     }
+//   };
+//   if (connectParam.method == 'POST'){
+//     connectParam.headers['Content-length'] = Buffer.from(body).length;
+//   }
+//   let responseTinkoff = await new Promise((reslove, reject) => {
+//     let req = https.request(connectParam, (res) => {
+//       res.setEncoding('utf8');
+//       res.on('data', (chunk) => {
+//         response += chunk;
+//       });
+//       res.on('end', () => {
+//         reslove(response);
+//       });
+//     });
+//     req.setTimeout(1000 * 20, function () {
+//       reject(new Error(`Request timeout error - ${connectParam}`));
+//     });
+//     req.on('error', (e) => {
+//       reject(new Error(`The request ended in failure - ${connectParam}`));
+//     });
+//     if (connectParam.method == 'POST'){
+//       req.write(body);
+//     }
+//     req.end();
+//   });
+//   let parseResponseTinkoff = JSON.parse(responseTinkoff);
+//   logger.info(parseResponseTinkoff);
+//   if (parseResponseTinkoff.Success){
+//     return parseResponseTinkoff.Status;
+//   } else {
+//     logger.error('Check payment state failure');
+//     logger.error(`${responseTinkoff}`);
+//   }
+//   return false;
+// }
 
 
 module.exports = {
