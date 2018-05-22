@@ -36,7 +36,7 @@ window.build_route_from_current_position_to = (function () {
      * }
      */
     function ini_maps(id, options) {
-      console.log(id, options.from, options.to);
+      // console.log(id, options.from, options.to);
       var myMap = new ymaps.Map(id, {
         //       широта, долгота
         center: [55.753994, 37.622093], // moscow

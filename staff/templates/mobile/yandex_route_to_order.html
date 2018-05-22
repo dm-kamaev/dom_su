@@ -31,7 +31,7 @@
       </div>
       <div role="main" class="ui-content jqm-content jqm-fullwidth">
         <script>$(document).unbind('scroll');</script>
-        <p style=margin-top:100px;text-align:center>Загрузка карты...</p>
+        <p style=margin-top:100px;text-align:center>Построение маршрута, может занять некоторое время...</p>
 
       <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel">
         <ul data-role="listview">
@@ -57,10 +57,10 @@
     <div id=map style="width:100%;height:100%;padding:0;margin:0"></div>
 
      <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=release"></script>
-     <script src="/stat/js/build_route_from_current_position_to.js?v2"></script>
+     <script src="/stat/js/build_route_from_current_position_to.js?v4"></script>
     <script>
       void function () {
-        'use strict'
+        'use strict';
         var address_order = {{{adress_order}}};
         address_order[0] = parseFloat(address_order[0]);
         address_order[1] = parseFloat(address_order[1]);
