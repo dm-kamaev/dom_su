@@ -279,7 +279,7 @@
     </p>
 </div>
 <div id="ymaps-map-container"></div>
-<script type="text/javascript" src="https://api-maps.yandex.ru/2.0/?coordorder=longlat&load=package.full&wizard=constructor&lang=ru-RU"></script>
+<!-- <script type="text/javascript" src="https://api-maps.yandex.ru/2.0/?coordorder=longlat&load=package.full&wizard=constructor&lang=ru-RU"></script>
 <script>
     window.address = {
         "object": {{{ GetDepartureData.Address.AddressJson }}},
@@ -287,8 +287,26 @@
         "zoom": "{{{ GetDepartureData.Address.Zoom }}}",
         "metro": {{{ GetDepartureData.Address.MetroJson }}}
     }
+</script> -->
+
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=release"></script>
+<script src="/stat/lib/jquery_2.2.3_min.js?v1"></script>
+<script src="/stat/js/build_route_from_current_position_to.js?v4"></script>
+<script>
+    void function () {
+      var address_order = {{{address_order}}};
+      if (!address_order) {
+        return;
+      }
+      address_order[0] = parseFloat(address_order[0]);
+      address_order[1] = parseFloat(address_order[1]);
+      // TODO: В opera mobile дико долго грузится...
+      build_route_from_current_position_to('ymaps-map-container', address_order);
+    }();
 </script>
-<script src="/static/js/map.js?v=1.001"></script>
+
+
+<!-- <script src="/static/js/map.js?v=1.001"></script> -->
 {{else}}
         <p style="color: red; margin-left: 15px">
             Открыт не ваш заказ!<br>

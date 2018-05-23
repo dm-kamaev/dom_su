@@ -194,7 +194,6 @@
         <h2>Адрес</h2>
         <p>{{ GetDepartureData.Address.Title }}</p>
         {{!-- via text --}}
-        {{!-- {{#if lon }}<a class="ui-btn" href="https://maps.yandex.ru/?mode=search&text={{ GetDepartureData.Address.Title }}">Маршрут на Яндекс.Картах</a>{{/if}} --}}
         {{!-- {{#if lon }}<a class="ui-btn" href="https://maps.yandex.ru/?mode=search&text={{ lat }},{{ lon }}">Маршрут на Яндекс.Картах</a>{{/if}} --}}
         {{#if lon }}
             <a class=ui-btn data-ajax=false href="/staff/{{selfId}}/yandex_route_to_order/?adress_order={{ lat }},{{ lon }}">Маршрут на Яндекс.Картах</a>

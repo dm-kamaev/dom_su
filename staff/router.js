@@ -322,11 +322,23 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
     // Action Token для управления заказами требуется только в мобильной версии
     template = getTemplate(staffTemplate.mobile.orderDetail);
   } else {
+    templateCtx.address_order = JSON.stringify(get_lat_lat(GetDepartureData));
     template = getTemplate(staffTemplate.desktop.orderDetail);
   }
   ctx.body = template(ctx.proc(templateCtx, ctx));
 })));
 
+
+
+function get_lat_lat(GetDepartureData) {
+  try {
+    // 55.717594 37.776251
+    return JSON.parse(GetDepartureData.response['Address']['AddressJson'])['GeoObject']['Point']['pos'].split(' ').reverse();
+  } catch (err) {
+    return null;
+  }
+
+}
 
 staffRouter.get('/staff/ajax/order/management', loginRequired(user_manager.validateActionToken('StaffOrder',
   async function (ctx) {
