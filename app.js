@@ -56,6 +56,20 @@ async function run() {
   try {
     schedule();
     const app = new koa();
+
+    // skip bot
+    app.use(async function (ctx, next) {
+      const request = ctx.request;
+      const url = request.url;
+      const user_agent = request.headers['user-agent'] || '';
+      if (url === '/event-handler' && /bot/ig.test(user_agent)) {
+        ctx.status = 200;
+        ctx.body ='';
+      } else {
+        await  next();
+      }
+    });
+
     app.use(async function(ctx, next) {
       // set koa-ctx in original object node request for morgan module
       ctx.req.ctx = ctx;
