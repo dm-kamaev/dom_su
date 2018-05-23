@@ -94,7 +94,12 @@ access_logger.to_file = function() {
   const stream = rfs('access_log_pancake.log', {
     interval: '1d', // rotate daily
     path: folder,
-    compress: 'gzip'
+    compress: function(source, dest) { // Modified compress function, add extension .gz
+      return 'cat ' + source + ' | gzip -c9 > ' + dest + '.gz;';
+      // Also removes logs older than 30 days
+      // ' rm -f ' + dest +
+      //   '; find ./logs/*server.log.gz -mtime +30 -delete'; // test: -mmin +3
+    }
   });
 
   return koa_morgan(function(tokens, req, res) {
