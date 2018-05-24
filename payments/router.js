@@ -11,6 +11,7 @@ const { models } = require('models');
 const { Payment } = models;
 const crypto = require('crypto');
 const querystring = require('querystring');
+const url_core = require('url');
 const request_promise = require('/p/pancake/my/request_promise.js');
 const { getTemplate, loadTemplate } = require('utils');
 const https = require('https');
@@ -171,6 +172,10 @@ async function getState(paymentId, logger_payment) {
 // &EmailReq=marianna@domovenok.su
 // &PhonesReq=9295302312
 paymentsRouter.get('/payments/success/', async function (ctx) {
+  if (wrong_domain(ctx)) {
+    return;
+  }
+
   const query_param = ctx.query;
   let logger_payment;
   try{
@@ -359,6 +364,10 @@ paymentsRouter.get('/payments/', async function (ctx) {
 // &EmailReq=marianna%40domovenok.su
 // &PhonesReq=9295302312
 paymentsRouter.get('/payments/failure/', async function (ctx) {
+  if (wrong_domain(ctx)) {
+    return;
+  }
+
   const order_id = ctx.query.OrderId;
   const details = ctx.query.Details || '';
   const typePayment = ctx.query.typePayment || '';
@@ -633,6 +642,43 @@ async function send_to_1c(url, data) {
 }
 
 
+// в tinkoff захардкожен url куда редиректить https://www-dev1.domovenok.su/payments/sucess...etc
+// для того чтобы можно было тестить на виртуалках платежи, мы проверяем куку, в которой указан домен (ставим при нажатии 'Привязать карту')
+// и редиректим на нужную виртуалку в случае не совпадения
+function wrong_domain(ctx) {
+  console.log('=== wrong_domain ===');
+
+  // only for dev
+  if (CONF.is_prod) {
+    return false;
+  }
+
+  // example: https://www-dev2.domovenok.su
+  const cookie_host = ctx.cookies.get('payment_domen');
+  if (!cookie_host) {
+    return false;
+  }
+
+  const headers = ctx.request.headers || {};
+  const current_domain = get_url_for_check_domain('https://'+headers.host || '');
+  const cookie_domain = get_url_for_check_domain(cookie_host || '');
+
+  console.log('HERE', current_domain, cookie_domain);
+  if (current_domain === cookie_domain) {
+    console.log('OK');
+    return false;
+  } else {
+    console.log('REDIRECT to '+cookie_domain+ctx.request.url);
+    ctx.redirect(cookie_domain+ctx.request.url);
+    return true;
+  }
+}
+
+
+// https://www-dev1.domovenok.su
+function get_url_for_check_domain(url) {
+  return 'https://'+url_core.parse(url, true).host;
+}
 
 // TODO(2018.05.18): OLD CODE, REMOVE IN FUTURE
 // function getTerminalData(paymentId, orderId, ctx) {
