@@ -663,19 +663,16 @@ function wrong_domain(ctx) {
   const current_domain = get_url_for_check_domain('https://'+headers.host || '');
   const cookie_domain = get_url_for_check_domain(cookie_host || '');
 
-  console.log('HERE', current_domain, cookie_domain);
   if (current_domain === cookie_domain) {
-    console.log('OK');
     return false;
   } else {
-    console.log('REDIRECT to '+cookie_domain+ctx.request.url);
     ctx.redirect(cookie_domain+ctx.request.url);
     return true;
   }
 }
 
 
-// https://www-dev1.domovenok.su
+// url –– https://www-dev1.domovenok.su
 function get_url_for_check_domain(url) {
   return 'https://'+url_core.parse(url, true).host;
 }
