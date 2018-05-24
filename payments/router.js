@@ -72,6 +72,13 @@ const PaymentOrgType = {
 // const PASSWORD = 'b85qudmm7bagosat'
 
 
+const enum_type_payment = {
+  payment_for_bind_card: 'paymentForBindCard',
+  payment_from_1c: 'paymentFrom1c',
+  manual_payment: 'manualPayment',
+};
+
+
 loadTemplate({path: 'templates/payments/init.html', name: 'paymentsInit'});
 loadTemplate({path: 'templates/payments/success.html', name: 'paymentsSuccess'});
 loadTemplate({path: 'templates/payments/failure.html', name: 'paymentsFailure'});
@@ -101,7 +108,6 @@ async function getState(paymentId, logger_payment) {
     hostname: URL_TINKOFF,
     port: 443,
     path: '/rest/GetState',
-    // path: '/v2/GetState',
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -161,23 +167,48 @@ async function getState(paymentId, logger_payment) {
 // &OrderId=42108
 // &PaymentId=20862836
 // &TranDate=17.05.2018+10:39:49
-// &BackUrl=https://www.domovenok.su&CompanyName=ООО+«КсД»&EmailReq=marianna@domovenok.su&PhonesReq=9295302312
-
-//
+// &BackUrl=https://www.domovenok.su&CompanyName=ООО+«КсД»
+// &EmailReq=marianna@domovenok.su
+// &PhonesReq=9295302312
 paymentsRouter.get('/payments/success/', async function (ctx) {
   const query_param = ctx.query;
   let logger_payment;
   try{
-    logger_payment = new Logger_payment(ctx, { order_id: query_param.OrderId });
+    const OrderId = query_param.OrderId;
+    logger_payment = new Logger_payment(ctx, { order_id: OrderId });
     logger_payment.info('/payments/success/ '+ctx.request.url);
-    let payment = await Payment.findOne({where: { id: query_param.OrderId, PaymentId: query_param.PaymentId }});
+
+    // TODO: Maybe check only paymentId in db else payment from 1C
+
+    // payment of 1 rub for bind card, format orderId 'PAY-85'
+    if (/PAY-\d+/.test(OrderId)) {
+      await payment_in_1c(ctx, enum_type_payment.payment_for_bind_card);
+      return;
+    // ORD-1521885-000000079, if payment generate in 1C
+    } else if (/^ORD/.test(OrderId)) {
+      await payment_in_1c(ctx, enum_type_payment.payment_from_1c);
+      return;
+    }
+
+    const payment = await Payment.findOne({
+      where: {
+        id: OrderId, // example: 763267
+        PaymentId: query_param.PaymentId, // exmaple: tinkoff_ksd
+      }
+    });
+    // const payment = await Payment.findOne({
+    //   where: {
+    //     PaymentId: query_param.PaymentId, // example: 763267
+    //     payment_org_type: query_param.payment_org_type,
+    //   }
+    // });
     if (payment) {
       logger_payment.info(payment);
     }
 
-    // if payment in 1C
+    // if payment generate in 1C
     if (!payment || !payment.PaymentId) {
-      await payment_in_1c(ctx);
+      await payment_in_1c(ctx, 'payment_from_1c');
       return;
     }
 
@@ -207,17 +238,23 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
         logger.info(`Payment Success Completed OrderId - ${payment.OrderId} | Id - ${payment.id}`);
         logger_payment.info('payment success completed orderId', payment.dataValues);
         if (payment.redirectNewSite){
+          logger.info(`exist redirectNewSite: redirect to ${payment.redirectPath}`);
           ctx.redirect(payment.redirectPath);
           return;
         }
         const template = getTemplate({path: 'templates/payments/success.html', name: 'paymentsSuccess'});
-        ctx.body = template(ctx.proc({'sum': payment.Amount/100.0}));
+        ctx.body = template(ctx.proc({
+          sum: payment.Amount / 100.0,
+          typePayment: enum_type_payment.manual_payment
+        }));
         return;
       } catch (e){
         logger.error(e);
         logger_payment.warn(e);
-        const template = getTemplate({path: 'templates/payments/success.html', name: 'paymentsSuccess'});
-        ctx.body = template(ctx.proc());
+        const template = getTemplate({path: 'templates/payments/success.html', name: 'paymentsSuccess' });
+        ctx.body = template(ctx.proc({
+          typePayment: enum_type_payment.manual_payment,
+        }));
         return;
       }
     } else {
@@ -235,33 +272,29 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
 });
 
 
-// handle for payment from 1c
-async function payment_in_1c(ctx) {
+/**
+ * payment_in_1c: handle for payment from 1c
+ * @param  {Object} ctx
+ * @param  {String} type_payment:  payment_for_bind_card || payment_from_1c || manual_payment
+ */
+async function payment_in_1c(ctx, type_payment) {
   const query_param = ctx.query;
   const logger_payment = new Logger_payment(ctx, { order_id: query_param.OrderId });
   try {
-    let payment_state = await getState(query_param.PaymentId, logger_payment) || '';
-    payment_state = payment_state.trim();
+    // let payment_state = await getState(query_param.PaymentId, logger_payment) || '';
+    // payment_state = payment_state.trim();
     // AUTHORIZED -- two step for payments
-    if (payment_state === 'AUTHORIZED' || payment_state === 'CONFIRMING' || payment_state === 'CONFIRMED') {
-      // TODO(2018.05.17): WHAT FOR ?
-      // if (payment.redirectNewSite){
-      //   ctx.redirect(payment.redirectPath);
-      //   return;
-      // }
-      const template = getTemplate({ path: 'templates/payments/success.html', name: 'paymentsSuccess' });
-      ctx.status = 200;
-      ctx.body = template(ctx.proc({'sum': query_param.Amount/100.0}));
-      logger_payment.info('payment in 1c: payment success completed');
-    } else {
-      logger_payment.warn(`payment in 1c: bank check state - Failure | Status - ${payment_state} | OrderId - ${query_param.OrderId}`);
-      ctx.status = 302;
-      ctx.redirect(`/payments/failure/?OrderId=${query_param.OrderId}&Details=`+querystring.escape('Не верный статус платежа'));
-    }
+    const template = getTemplate({ path: 'templates/payments/success.html', name: 'paymentsSuccess' });
+    ctx.status = 200;
+    ctx.body = template(ctx.proc({
+      sum: query_param.Amount / 100.0,
+      typePayment: type_payment,
+    }));
+    logger_payment.info('payment in 1c: payment success completed');
   } catch (err) {
     logger_payment.warn('payment in 1c: ', err);
     ctx.status = 302;
-    ctx.redirect(`/payments/failure/?OrderId=${query_param.OrderId}&Details=`+querystring.escape('Внутреняя ошибка'));
+    ctx.redirect(`/payments/failure/?OrderId=${query_param.OrderId}&Details=`+querystring.escape('Внутреняя ошибка')+'&typePayment='+type_payment);
   }
 }
 
@@ -328,6 +361,7 @@ paymentsRouter.get('/payments/', async function (ctx) {
 paymentsRouter.get('/payments/failure/', async function (ctx) {
   const order_id = ctx.query.OrderId;
   const details = ctx.query.Details || '';
+  const typePayment = ctx.query.typePayment || '';
   let logger_payment = {
     info: () => {},
     warn: () => {}
@@ -338,9 +372,12 @@ paymentsRouter.get('/payments/failure/', async function (ctx) {
 
   const template = getTemplate({
     path: 'templates/payments/failure.html',
-    name: 'paymentsFailure'
+    name: 'paymentsFailure',
   });
-  ctx.body = template(ctx.proc({ details }));
+  ctx.body = template(ctx.proc({
+    details,
+    typePayment
+  }));
   logger_payment.warn(`${ctx.request.url} fail payment`);
   return;
 });
@@ -394,8 +431,12 @@ paymentsRouter.post('/payments/notification/', async function (ctx) {
   const logger_payment = new Logger_payment(ctx, { order_id: body.OrderId });
   try {
     logger_payment.info('/payments/notification/', 'request body =', body);
-    const paymentId = body['PaymentId'];
-    const payment = await Payment.findOne({where: {PaymentId: ''+paymentId}});
+    const paymentId = body.PaymentId;
+    const payment = await Payment.findOne({
+      where: {
+        PaymentId: '' + paymentId
+      }
+    });
 
     // send to 1с
     if (!payment) {
@@ -482,17 +523,18 @@ paymentsRouter.post('/payments/take/', async function (ctx) {
     let terminalData = await getTerminalData(null, ctx.request.body.order_id, ctx);
     let last_payment = await Payment.findOne({order: [['id', 'DESC']]});
     let create_payment = {
-      'OrderId': ctx.request.body.order_id,
-      'Amount': Number(get_param['Amount']),
-      'Description': ctx.request.body.description,
-      'IP': get_param['IP'],
-      'redirectNewSite': false,
-      'redirectPath': '',
+      OrderId: ctx.request.body.order_id,
+      Amount: Number(get_param['Amount']),
+      Description: ctx.request.body.description,
+      IP: get_param['IP'],
+      redirectNewSite: false,
+      redirectPath: '',
       id: Number(last_payment.id) + 1,
-      'payment_org_type': terminalData['NAME']
+      payment_org_type: terminalData['NAME']
     };
     if (ctx.request.body.redirect){
       create_payment['redirectNewSite'] = true;
+      // add create
       create_payment['redirectPath'] = ctx.request.headers.referer;
     }
     let payment = await Payment.create(create_payment);
@@ -509,7 +551,7 @@ paymentsRouter.post('/payments/take/', async function (ctx) {
     let response = await new Promise((reslove, reject) => {
       // todo request in utils
 
-      let req = https.get({
+      const req = https.get({
         host: URL_TINKOFF,
         path: '/rest/Init/?'+querystring.stringify(get_param)
       }, (res) => {
@@ -551,7 +593,9 @@ paymentsRouter.post('/payments/take/', async function (ctx) {
       return;
     }
     const template = getTemplate({path: 'templates/payments/failure.html', name: 'paymentsFailure'});
-    ctx.body = template(ctx.proc());
+    ctx.body = template(ctx.proc({
+      typePayment: enum_type_payment.manual_payment
+    }));
     return;
   } catch (err) {
     logger.info(err);
