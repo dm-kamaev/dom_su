@@ -141,8 +141,7 @@ async function scrollModel(model, opts, include) {
           FROM
             reviews
           ORDER BY
-            date_yyyymmdd DESC,
-            rating DESC
+            coefficient_for_sort DESC
           LIMIT 20
         `, sequelize_option);
     }
@@ -161,7 +160,13 @@ async function getLastId(model, key){
   return item.id;
 }
 
-// Currently frontend sends id: (/m/otzivi?direction=-1&key=2477) and we sort ids by rating, date and in cycle found id and make slice(i+1, i+21)
+
+/**
+ * search_prev_reviews: Currently frontend sends id: (/m/otzivi?direction=-1&key=2477) and we sort ids by rating, date and in cycle found id and make slice(i+1, i+21)
+ * @param  {Object} reviews   sequalize
+ * @param  {Number} review_id 252
+ * @return {Object[]} [{ id, name, date, rating, answer, review },]
+ */
 async function search_prev_reviews(reviews, review_id) {
   const reviews_only_id = await sequelize.query(`
     SELECT
@@ -169,8 +174,7 @@ async function search_prev_reviews(reviews, review_id) {
     FROM
       reviews
     ORDER BY
-      date_yyyymmdd DESC,
-      rating DESC
+      coefficient_for_sort DESC
   `, sequelize_option);
 
   const review_ids = search_next_reviews_id(reviews_only_id, review_id);
@@ -191,13 +195,18 @@ async function search_prev_reviews(reviews, review_id) {
     WHERE
       id IN('${str_reviews_id}')
     ORDER BY
-      date_yyyymmdd DESC,
-      rating DESC
+      coefficient_for_sort DESC
   `, sequelize_option);
   return reviews;
 }
 
-// search current review.id (from frnotend) and search previous 20 reviews
+
+/**
+ * search_next_reviews_id: search current review.id (from frnotend) and search previous 20 reviews
+ * @param  {Object} reviews_only_id: [{ id }]
+ * @param  {Number} review_id      : 234, id for start
+ * @return {Array}                 : [272, 262]
+ */
 function search_next_reviews_id(reviews_only_id, review_id) {
   review_id = parseInt(review_id, 10);
   for (var i = 0, l = reviews_only_id.length; i < l; i++) {

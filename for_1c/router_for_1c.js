@@ -3,6 +3,8 @@
 const Router = require('koa-router');
 const logger = require('/p/pancake/lib/logger.js');
 const db = require('/p/pancake/my/db.js');
+
+const store = require('/p/pancake/reviews/store.js')
 const Aj_error_access_denied = require('/p/pancake/errors/Aj_error_access_denied.js');
 const Aj_error_not_valid_param = require('/p/pancake/errors/Aj_error_not_valid_param.js');
 const Aj_error_internal = require('/p/pancake/errors/Aj_error_internal.js');
@@ -42,6 +44,31 @@ router.post('/for_1c/replace_client_id', is_from_1C, async function(ctx){
   ctx.body = {
     ok: true,
   };
+});
+
+
+// POST /for_1c/reviews
+// {
+//  name,
+//  mail,
+//  review,
+//  rating,
+//  city_id
+// }
+router.post('/for_1c/review', is_from_1C, async function(ctx){
+  const body = ctx.request.body;
+  try {
+    store.saveReview_via_1c(body);
+    ctx.status = 200;
+    ctx.body = {
+      ok: true,
+    };
+  } catch (err) {
+    logger.warn(err);
+    const { body, status } = new Aj_error_internal();
+    ctx.status = status;
+    ctx.body = body;
+  }
 });
 
 

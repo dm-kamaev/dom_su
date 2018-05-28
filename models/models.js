@@ -1,8 +1,7 @@
 'use strict';
 const Sequelize = require('sequelize');
 const moment = require('moment');
-const time = require('/p/pancake/my/time.js');
-const config = require('config');
+const CONF = require('/p/pancake/settings/config.js');
 const opts = {
   timezone: '+03:00',
   define: {
@@ -11,7 +10,7 @@ const opts = {
   logging: false,
 };
 
-const sequelize = new Sequelize(`postgres://${config.db.user}:${config.db.password}@${config.db.host}:5432/${config.db.database}`, opts);
+const sequelize = new Sequelize(`postgres://${CONF.pg.user}:${CONF.pg.password}@${CONF.pg.host}:5432/${CONF.pg.database}`, opts);
 
 
 const EmployeeNews = sequelize.define('employee_news', {
@@ -207,16 +206,26 @@ const Ticket = sequelize.define('tickets', {
     defaultValue: false
   }
 }, {
-  instanceMethods: {
-    buildMessage: function () {
-      let textTicket = {action: 'NewOnlineObjects', param: [{type: this.type, data: this.data}]};
-      if (!textTicket.param[0].data.date){
-        textTicket.param[0].data.date = moment.utc(this.createdAt).toISOString();
-      }
-      return JSON.stringify(textTicket);
-    }
-  }
+  // instanceMethods: {
+  //   buildMessage: function () {
+  //     let textTicket = {action: 'NewOnlineObjects', param: [{type: this.type, data: this.data}]};
+  //     if (!textTicket.param[0].data.date){
+  //       textTicket.param[0].data.date = moment.utc(this.createdAt).toISOString();
+  //     }
+  //     return JSON.stringify(textTicket);
+  //   }
+  // }
 });
+
+
+Ticket.prototype.buildMessage = function () {
+  let textTicket = {action: 'NewOnlineObjects', param: [{type: this.type, data: this.data}]};
+  if (!textTicket.param[0].data.date){
+    textTicket.param[0].data.date = moment.utc(this.createdAt).toISOString();
+  }
+  return JSON.stringify(textTicket);
+};
+
 
 const Phone = sequelize.define('phones', {
   key: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
@@ -255,43 +264,81 @@ const Phone = sequelize.define('phones', {
     isIn: ['client', 'applicant'] // cleint or employee
   }
 }, {
-  classMethods: {
-    attributesInternalAPI: function () {
-      return ['key', 'number', 'active'];
-    },
-    includeInternalAPI: function () {
-      return [{model: City, attributes: ['keyword']}];
-    },
-    formatResultIntenralAPI: function (data) {
-      return data.map((item)=>{return {key: item.key, number: item.number, active: item.active, city: item.city.keyword};});
-    },
-    createInternalAPI: async function (data) {
-      let city = await City.findOne({where: {keyword: data.city}});
-      await Phone.create({
-        city_id: city.id,
-        number: data.number,
-        living: false,
-        user_uuid: null,
-        active: data.active,
-        category_type: data.category_type || 'client',
-      });
-    },
-  },
-  instanceMethods: {
-    updateInternalAPI: async function (data){
-      this.number = data.number;
-      this.active = data.active;
-      this.category_type = data.category_type || 'client';
-      let city = await City.findOne({
-        where: {
-          keyword: data.city
-        }
-      });
-      this.city_id = city.id;
-      await this.save();
-    }
-  }
+  // classMethods: {
+  //   attributesInternalAPI: function () {
+  //     return ['key', 'number', 'active'];
+  //   },
+  //   includeInternalAPI: function () {
+  //     return [{model: City, attributes: ['keyword']}];
+  //   },
+  //   formatResultIntenralAPI: function (data) {
+  //     return data.map((item)=>{return {key: item.key, number: item.number, active: item.active, city: item.city.keyword};});
+  //   },
+  //   createInternalAPI: async function (data) {
+  //     let city = await City.findOne({where: {keyword: data.city}});
+  //     await Phone.create({
+  //       city_id: city.id,
+  //       number: data.number,
+  //       living: false,
+  //       user_uuid: null,
+  //       active: data.active,
+  //       category_type: data.category_type || 'client',
+  //     });
+  //   },
+  // },
+  // instanceMethods: {
+  //   updateInternalAPI: async function (data){
+  //     this.number = data.number;
+  //     this.active = data.active;
+  //     this.category_type = data.category_type || 'client';
+  //     let city = await City.findOne({
+  //       where: {
+  //         keyword: data.city
+  //       }
+  //     });
+  //     this.city_id = city.id;
+  //     await this.save();
+  //   }
+  // }
 });
+
+Phone.attributesInternalAPI = function () {
+  return ['key', 'number', 'active'];
+};
+
+Phone.includeInternalAPI = function () {
+  return [{model: City, attributes: ['keyword']}];
+};
+
+Phone.formatResultIntenralAPI = function (data) {
+  return data.map((item)=>{return {key: item.key, number: item.number, active: item.active, city: item.city.keyword};});
+};
+
+Phone.createInternalAPI = async function (data) {
+  let city = await City.findOne({where: {keyword: data.city}});
+  await Phone.create({
+    city_id: city.id,
+    number: data.number,
+    living: false,
+    user_uuid: null,
+    active: data.active,
+    category_type: data.category_type || 'client',
+  });
+},
+
+Phone.prototype.updateInternalAPI = async function(data) {
+  this.number = data.number;
+  this.active = data.active;
+  this.category_type = data.category_type || 'client';
+  let city = await City.findOne({
+    where: {
+      keyword: data.city
+    }
+  });
+  this.city_id = city.id;
+  await this.save();
+};
+
 
 Phone.belongsTo(City, { foreignKey: 'city_id' });
 
@@ -323,7 +370,7 @@ const Review = sequelize.define('reviews', {
   name: Sequelize.STRING,
   date: {
     type: Sequelize.DATE,
-    defaultValue: Sequelize.fn('NOW'),
+    // defaultValue: Sequelize.fn('NOW'),
   },
   age: Sequelize.STRING,
   job: Sequelize.STRING,
@@ -348,9 +395,8 @@ const Review = sequelize.define('reviews', {
       deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
     }
   },
-  date_yyyymmdd: {
+  coefficient_for_sort: {
     type: Sequelize.INTEGER,
-    defaultValue: time.format('YYYYMMDD'),
   }
 }, {
   scopes: {active: {where: {active: true}}}

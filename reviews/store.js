@@ -5,6 +5,7 @@ const ReviewActive = Review.scope('active');
 const mongoClient = require('mongodb').MongoClient;
 const logger = require('/p/pancake/lib/logger.js');
 const time = require('/p/pancake/my/time.js');
+const coefficient_for_sort = require('/p/pancake/reviews/coefficient_for_sort.js');
 
 const store = exports;
 
@@ -17,9 +18,8 @@ store.shareReview = async function (share) {
     if (item === null)
       throw new Error('Item is null');
     return item;
-  } catch (e){
-    logger.warn('ERROR share reviews');
-    logger.warn(e);
+  } catch (err){
+    logger.warn('ERROR share reviews'+err);
     return {};
   }
 };
@@ -49,13 +49,26 @@ store.getReviewListScroll = async function (opts) {
 
 store.saveReview = async function (name, mail, review, rating, city_id) {
   let lastId = await getLastId(Review);
-  await Review.create({
-    id: lastId + 1,
-    name,
-    mail,
-    review,
-    rating,
-    city_id,
-    date_yyyymmdd: time.format('YYYYMMDD')
-  });
+  const date = new Date();
+  try {
+    await Review.create({
+      id: lastId + 1,
+      name,
+      mail,
+      review,
+      rating,
+      city_id,
+      date,
+      coefficient_for_sort: parseInt(coefficient_for_sort.get(date, rating).format('YYYYMMDD'), 10)
+    });
+  } catch (err) {
+    logger.warn(err);
+  }
+};
+
+
+store.saveReview_via_1c = async function (body) {
+  body.date = new Date();
+  body.coefficient_for_sort = coefficient_for_sort.get(body.date, body.rating);
+  await Review.create(body);
 };
