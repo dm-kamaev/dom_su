@@ -14,7 +14,7 @@ function taskEventCreate (opts) {
     return async function (previousResult, pancakeUser) {
 
         if (!pancakeUser.visit_uuid) {
-          logger.log('LOG === ', JSON.stringify(pancakeUser, null, 2));
+          console.log('LOG === ', pancakeUser);
           return;
         }
 
