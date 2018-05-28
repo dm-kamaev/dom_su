@@ -66,7 +66,7 @@
   <meta name="smartbanner:enabled-platforms" content="android,ios">
   <!-- End SmartBanner configuration -->
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.25">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.26">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -91,8 +91,15 @@
   
   </script>
 
+  <script>
+      window.location = window.location.origin + '/private/bind-card-error'
+  </script>
+
 </head>
 <body class="page">
+<script>
+
+</script>
 {{#if general.production}}
 <noscript>
   <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -184,7 +191,7 @@
 
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.15"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.16"></script>
 <!-- /Java Script -->
 
 </body>
