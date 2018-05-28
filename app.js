@@ -43,6 +43,7 @@ const koaBody = require('koa-body');
 const schedule = require('schedule');
 const userAgent = require('koa-useragent');
 const logger = require('/p/pancake/lib/logger.js');
+const robot_user = require('/p/pancake/user_manager/robot_user.js');
 
 process.on('uncaughtException', (err) => {
   logger.warn('ERROR= '+err.stack);
@@ -59,10 +60,7 @@ async function run() {
 
     // skip bot
     app.use(async function (ctx, next) {
-      const request = ctx.request;
-      const url = request.url;
-      const user_agent = request.headers['user-agent'] || '';
-      if (url === '/event-handler' && /bot/ig.test(user_agent)) {
+      if (ctx.request.url === '/event-handler' && robot_user.its_robot(ctx)) {
         ctx.status = 200;
         ctx.body ='';
       } else {

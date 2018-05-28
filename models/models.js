@@ -88,6 +88,8 @@ const User = sequelize.define('users', {
   data: Sequelize.JSON,
   last_action: Sequelize.DATE,
   current_phone: Sequelize.STRING,
+  last_client_id: Sequelize.STRING,
+  its_robot: Sequelize.BOOLEAN,
 });
 
 const Employee = sequelize.define('employees', {
