@@ -57,7 +57,7 @@ class PancakeUser {
     this.google_id = null;
     // For fast working AB test
     this.firstVisit = true;
-    this.its_robot = robot_user.its_robot(ctx);
+    this.is_robot = robot_user.its_robot(ctx);
   }
 
   async sync() {

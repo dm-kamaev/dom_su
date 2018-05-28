@@ -13,8 +13,9 @@ function taskEventCreate (opts) {
     }
     return async function (previousResult, pancakeUser) {
 
-        if (!pancakeUser.visit_uuid) {
-          console.log('LOG === ', pancakeUser);
+        if (pancakeUser.is_robot) {
+          // console.log('LOG === ', pancakeUser.is_robot);
+          // console.log(pancakeUser.ctx.request.headers);
           return;
         }
 
