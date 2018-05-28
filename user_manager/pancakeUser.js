@@ -12,6 +12,7 @@ const validateUUID = require('uuid-validate');
 const moment = require('moment');
 const city_api = require('/p/pancake/cities/city_api.js');
 const db_users = require('/p/pancake/db/db_users.js');
+const robot_user = require('/p/pancake/user_manager/robot_user.js');
 
 // FOR DEV session_uid_dom_dev
 // FOR PROD session_uid_dom
@@ -56,6 +57,7 @@ class PancakeUser {
     this.google_id = null;
     // For fast working AB test
     this.firstVisit = true;
+    this.its_robot = robot_user.its_robot(ctx);
   }
 
   async sync() {

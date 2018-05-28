@@ -4,6 +4,7 @@ const { models, ErrorCodes, ModelsError } = require('models');
 const { Event } = models;
 const uuid4 = require('uuid/v4');
 const { eventType } = require('./event_type')
+const logger = require('/p/pancake/lib/logger.js');
 
 function taskEventCreate (opts) {
     let { type, data} = opts
@@ -11,6 +12,11 @@ function taskEventCreate (opts) {
         throw new Error()
     }
     return async function (previousResult, pancakeUser) {
+
+        if (!pancakeUser.visit_uuid) {
+          logger.log('LOG === ', JSON.stringify(pancakeUser, null, 2));
+          return;
+        }
 
         let event = await Event.create({
             visit_uuid: pancakeUser.visit_uuid,
