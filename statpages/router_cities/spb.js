@@ -56,6 +56,7 @@ const spbTemplates = {
             }
         }
     },
+    'vash-brauzer-ustarel': {name: 'old_browser.html', ServiceName: '', data: {}}
 };
 
 module.exports = {
