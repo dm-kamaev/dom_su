@@ -121,7 +121,7 @@ class PancakeUser {
               ab_test : {},
               first_visit: self.firstVisit,
             },
-            its_robot: this.is_robot
+            its_robot: self.is_robot
           },
           where: {
             uuid: self.uuid
