@@ -28,13 +28,12 @@ if (!list_param.length) {
   throw new Error('Not exist list_param');
 }
 const NODE_ENV = CONF.is_dev ? 'development' : 'production';
-const cmd = `NODE_PATH=$NODE_PATH:/p/pancake NODE_ENV=${NODE_ENV} /p/pancake/node_modules/.bin/node-pg-migrate -f ${config_path} --single-transaction ${list_param.join(' ')}`;
+const cmd = `NODE_PATH=$NODE_PATH:/p/pancake /p/pancake/node_modules/.bin/node-pg-migrate -f ${config_path} --single-transaction ${list_param.join(' ')}`;
 console.log(cmd);
 
 void async function () {
   try {
     const out = await child.exec(cmd);
-    console.log(out);
 
     if (!await robot_user.exist_user_in_db()) {
       await robot_user.create_user_in_db();
@@ -42,7 +41,7 @@ void async function () {
     }
     global.process.exit(0);
   } catch (err) {
-    console.error(err);
+    console.error('ERROR=', err);
     global.process.exit(1);
   }
 }();
