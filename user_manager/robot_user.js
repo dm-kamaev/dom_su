@@ -4,7 +4,7 @@
 // USER FOR ALL ROBOTS
 
 // const db = require('/p/pancake/my/db2.js');
-const { User } = require('models').models;
+const User = require('/p/pancake/models/models.js').User;
 
 const robot_user = exports;
 
