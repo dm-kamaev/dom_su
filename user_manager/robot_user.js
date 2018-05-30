@@ -9,7 +9,7 @@ const { User } = require('models').models;
 const robot_user = exports;
 
 const ROBOT_UUID = '59128f09-7e43-48b1-a35a-593106cff419';
-const ROBOT_USER = null;
+// const ROBOT_USER = null;
 
 // check robots by user-agent
 robot_user.its_robot = function (ctx) {
@@ -51,7 +51,7 @@ robot_user.exist_user_in_db = async function () {
       where: {
         // uuid: ROBOT_UUID
         uuid: '121c1cdc-fca3-415b-856c-fec4d831585f'
-      }
+      },
       limit: 1,
     });
     console.log(User.dataValues);
@@ -65,5 +65,5 @@ robot_user.exist_user_in_db = async function () {
 if (!module.parent) {
   void async function () {
     await robot_user.exist_user_in_db();
-  }());
+  }();
 }
