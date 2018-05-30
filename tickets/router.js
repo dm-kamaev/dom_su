@@ -3,7 +3,7 @@
 const Router = require('koa-router');
 const { saveAndSend } = require('./store');
 const { getServiceName } = require('statpages');
-const logger = require('logger')(module);
+const logger = require('/p/pancake/lib/logger.js');
 
 const ticketRouter = new Router();
 
@@ -12,7 +12,7 @@ const POSSIBLE_TICKET_TYPES = {
     'mail_delivery': {mail: 'string'},
     'CallBack': { name: 'string', phone: 'string'},
     'Order': { phone: 'string'},
-    'applicant_cleaner': { citizenship: 'string', birthdate: 'string', contact: 'string', name: 'string'},
+    'applicant_cleaner': { citizenship: 'string', birthdate: 'string', contact: 'string', name: 'string', city: 'string' },
     'get_contract': {mail: 'string'},
     'get_contract_contact_info': {name: 'string', phone: 'string'}
 };
@@ -51,7 +51,7 @@ ticketRouter.get('/ticket-handler', async function (ctx, next) {
       response.Success = true;
     }
   } catch (e) {
-      logger.error(e);
+      logger.warn(e);
   }
   ctx.body = response;
 });
@@ -64,9 +64,7 @@ ticketRouter.post('/ticket-handler', async function (ctx, next) {
     const body = ctx.request.body;
     // If new type request, then create field data from body (assign because problem with JSON.stringify for circular object)
     // else old type request
-    console.log(ctx.request.data);
     body.data = (!body.data) ? Object.assign({}, body) : body.data;
-    console.log('BEFORE IF');
     if (validation(body)) {
       const { type, data}  = body;
       if (type == 'Order'){
@@ -79,8 +77,7 @@ ticketRouter.post('/ticket-handler', async function (ctx, next) {
       response.Success = true;
     }
   } catch (e) {
-      console.log('CATCH', e);
-      logger.error(e);
+      logger.warn(e);
   }
   ctx.body = JSON.stringify(response);
 });
