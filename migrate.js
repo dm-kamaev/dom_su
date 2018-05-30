@@ -28,7 +28,7 @@ if (!list_param.length) {
   throw new Error('Not exist list_param');
 }
 const NODE_ENV = CONF.is_dev ? 'development' : 'production';
-const cmd = `NODE_PATH=$NODE_PATH:/p/pancake /p/pancake/node_modules/.bin/node-pg-migrate -f ${config_path} --single-transaction ${list_param.join(' ')}`;
+const cmd = `NODE_PATH=$NODE_PATH:/p/pancake /p/pancake/node_modules/.bin/node-pg-migrate -f ${config_path} ${list_param.join(' ')}`;
 console.log(cmd);
 
 void async function () {
