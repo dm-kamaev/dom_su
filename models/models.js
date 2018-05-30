@@ -4,6 +4,7 @@ const moment = require('moment');
 const CONF = require('/p/pancake/settings/config.js');
 const opts = {
   timezone: '+03:00',
+  operatorsAliases: false,
   define: {
     freezeTableName: true,
   },

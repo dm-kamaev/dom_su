@@ -4,11 +4,12 @@
 // USER FOR ALL ROBOTS
 
 // const db = require('/p/pancake/my/db2.js');
-const User = require('/p/pancake/models/models.js').User;
+const { sequelize, User } = require('/p/pancake/models/models.js');
 
 const robot_user = exports;
 
-const ROBOT_UUID = '59128f09-7e43-48b1-a35a-593106cff419';
+// const ROBOT_UUID = '59128f09-7e43-48b1-a35a-593106cff419';
+const ROBOT_UUID = '121c1cdc-fca3-415b-856c-fec4d831585f';
 // const ROBOT_USER = null;
 
 // check robots by user-agent
@@ -47,14 +48,13 @@ robot_user.add_user_in_db = async function () {
 
 robot_user.exist_user_in_db = async function () {
   try {
-    let res = await User.find({
+
+    let res = await User.findOne({
       where: {
-        // uuid: ROBOT_UUID
-        uuid: '121c1cdc-fca3-415b-856c-fec4d831585f'
+        uuid: ROBOT_UUID,
       },
-      limit: 1,
     });
-    console.log(User.dataValues);
+    console.log(res);
     return Boolean(res);
   } catch (err) {
     console.error(err);
