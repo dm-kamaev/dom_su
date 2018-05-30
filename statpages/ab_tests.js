@@ -32,19 +32,19 @@ const ABTestContainer = {
     // ]},
     main: {
       name: "",
-      key: "main_11_top",
+      key: "main_12_services",
       forNewUser: true,
         variations: [
           {
             name: "control",
             page: 'main',
-            ratio: 33,
+            ratio: 50,
             description: ""
           },
           {
             name: "variation",
             page: 'main_ab',
-            ratio: 33,
+            ratio: 50,
             description: ""
           }
       ]

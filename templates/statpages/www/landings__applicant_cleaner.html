@@ -57,7 +57,7 @@
   <meta name="smartbanner:enabled-platforms" content="android,ios">
   <!-- End SmartBanner configuration -->
 
-  <link rel="stylesheet" href="/static/pancake/css/landing.min.css?v0.25">
+  <link rel="stylesheet" href="/static/pancake/css/landing.min.css?v0.26">
 </head>
 <body>
 {{#if general.production}}
@@ -72,15 +72,15 @@
       <a class="landing-header__logo" href="https://www.domovenok.su"><img height="38" width="152" src="/static/landings/applicantCleaner_v1/img/logo.svg" alt="Логотип"></a>
       <div class="landing-contact">
         <div class="landing-contact__wrap landing-contact__wrap--tel">
-          <div class="landing-contact__text landing-contact__text--orange  landing-contact__text--left  landing-contact__text--tel text">
+          <div class="landing-contact__text  landing-contact__text--orange  text  landing-contact__text--tel">
             <p>Москва</p>
             <a class="landing-contact__tel  text" href="tel: +79263606032">8 (926) 360-60-32</a>
           </div>
-          <div class="landing-contact__text landing-contact__text--orange text landing-contact__text--tel">
+          <div class="landing-contact__text  landing-contact__text--orange  text  landing-contact__text--tel">
             <p>Санкт-Петербург</p>
             <a class="landing-contact__tel  text" href="tel: +79214302551">8 (921) 430-25-51</a>
           </div>
-          <div class="landing-contact__text landing-contact__text--orange text landing-contact__text--tel">
+          <div class="landing-contact__text  landing-contact__text--orange  text  landing-contact__text--tel">
             <p>Нижний Новгород</p>
             <a class="landing-contact__tel  text" href="tel: +79306866249">8 (930) 686-62-49</a>
           </div>
@@ -115,11 +115,23 @@
               <input class="landing-advantages__input  landing-advantages__input--name input" type="text" name="ticket_name" placeholder="ФИО" required>
             </div>
             <div class="landing-advantages__row">
-              <input class="landing-advantages__input  landing-advantages__input--citizenship input" name="ticket_citizenship" type="text" placeholder="Гражданство" required>
-              <input class="landing-advantages__input  landing-advantages__input--birthdate input" type="number" name="ticket_birthdate" placeholder="Год рождения" required>
+              <input class="landing-advantages__input  landing-advantages__input--small  input" name="ticket_citizenship" type="text" placeholder="Гражданство" required>
+              <input class="landing-advantages__input  landing-advantages__input--small  input" type="number" name="ticket_birthdate" placeholder="Год рождения" required>
             </div>
             <div class="landing-advantages__row">
-              <input class="landing-advantages__input  landing-advantages__input--phone input" type="tel" pattern="\+7[-0-9() ]{16}" name="ticket_contact" placeholder="Телефон" required>
+              <input class="landing-advantages__input  input" type="tel" pattern="\+7[-0-9() ]{16}" name="ticket_contact" placeholder="Телефон" required>
+              <div class="landing-advantages__selection  selection"
+                   data-option="podderzhka">
+                <button class="selection__btn  landing-advantages__selection-btn" type="button">Москва</button>
+                <ul class="selection__list  landing-advantages__selection-list  scroll-container">
+                  <li class="selection__option  landing-advantages__selection-option" data-option="moscow">Москва
+                  </li>
+                  <li class="selection__option  landing-advantages__selection-option" data-option="spb">Санкт-Петербург
+                  </li>
+                  <li class="selection__option  landing-advantages__selection-option" data-option="nn">Нижний Новгород
+                  </li>
+                </ul>
+              </div>
             </div>
             <button class="landing-advantages__button button" type="submit">Оставить заявку</button>
           </form>
@@ -137,8 +149,8 @@
             </div>
           </div>
           </div>
-        </div>
-        <div class="landing-condition">
+      </div>
+      <div class="landing-condition">
           <div class="landing-condition__wrap landing-condition__wrap--left">
             <p class="landing-condition__title">Обязанности</p>
             <ul class="landing-condition__list">
@@ -163,14 +175,26 @@
       <div class="landing-advantages landing-advantages--group">
         <form class="landing-advantages__form landing-advantages__form--photo" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "applicant-request"}' ya-reach="applicant-request" id="formWorkDuplicate">
           <div class="landing-advantages__row">
-            <input class="landing-advantages__input  landing-advantages__input--name input" type="text" name="ticket_name" placeholder="ФИО" required>
+            <input class="landing-advantages__input  input" type="text" name="ticket_name" placeholder="ФИО" required>
           </div>
           <div class="landing-advantages__row">
-            <input class="landing-advantages__input  landing-advantages__input--citizenship input" type="text" name="ticket_citizenship" placeholder="Гражданство" required>
-            <input class="landing-advantages__input  landing-advantages__input--birthdate input" type="number" name="ticket_birthdate" placeholder="Год рождения" required>
+            <input class="landing-advantages__input  landing-advantages__input--small input" type="text" name="ticket_citizenship" placeholder="Гражданство" required>
+            <input class="landing-advantages__input  landing-advantages__input--small input" type="number" name="ticket_birthdate" placeholder="Год рождения" required>
           </div>
           <div class="landing-advantages__row">
-            <input class="landing-advantages__input  landing-advantages__input--phone input" type="tel"  name="ticket_contact" placeholder="Телефон"  pattern="\+7[-0-9() ]{16}" required>
+            <input class="landing-advantages__input  input" type="tel"  name="ticket_contact" placeholder="Телефон"  pattern="\+7[-0-9() ]{16}" required>
+            <div class="landing-advantages__selection  selection"
+                 data-option="moscow">
+              <button class="selection__btn  landing-advantages__selection-btn" type="button">Москва</button>
+              <ul class="selection__list  landing-advantages__selection-list  scroll-container">
+                <li class="selection__option  landing-advantages__selection-option" data-option="moscow">Москва
+                </li>
+                <li class="selection__option  landing-advantages__selection-option" data-option="spb">Санкт-Петербург
+                </li>
+                <li class="selection__option  landing-advantages__selection-option" data-option="nn">Нижний Новгород
+                </li>
+              </ul>
+            </div>
           </div>
           <button class="landing-advantages__button button" type="submit">Оставить заявку</button>
         </form>
@@ -214,12 +238,12 @@
           <div class="landing-address__wrap">
             <p class="landing-address__text text">Москва</p>
             <p class="landing-address__text text">Тел: <a class="landing-address__text  text" href="tel: +79263606032">8 (926) 360-60-32</a></p>
-            <p class="landing-address__text text">Адрес: Москва, ул. Матросская Тишина, д.23, стр.1, 11 подъезд</p>
+            <p class="landing-address__text text">Адрес: Москва, ул. Проспект Мира, д.102, стр.38</p>
           </div>
           <div class="landing-address__wrap">
             <p class="landing-address__text text">Cанкт-Петербург</p>
             <p class="landing-address__text text">Тел: <a class="landing-address__text  text" href="tel: +79214302551">8 (921) 430-25-51</a></p>
-            <p class="landing-address__text text">Адрес: Санкт-Петербург, Московский проспект 22, БЦ Адмиралтейский, подъезд 3</p>
+            <p class="landing-address__text text">Адрес: Санкт-Петербург, ул. 13-я Красноармейская, д. 11, БЦ Троицкий Двор</p>
           </div>
 
           <div class="landing-address__wrap">
@@ -233,7 +257,7 @@
             <p class="landing-address__text text">E-mail: <a class="landing-address__text text" href="mailto: job@domovenok.su">job@domovenok.su</a></p>
           </div>
           <div class="landing-address__wrap">
-            <p class="landing-address__text text">2007-2016 <a class="landing-address__text text" href="https://www.domovenok.su">domovenok.su</a> Клининговая компания ООО «Комфорт-сервис «Домовёнок», все права защищены</p>
+            <a class="landing-address__text text" href="https://www.domovenok.su/">&copy; Клининговая компания <br>ООО «Домовёнок», 2018</a>
           </div>
         </div>
       </footer>
@@ -259,7 +283,7 @@
       </div>
     </div>
   </div>
-  <script src="/static/pancake/js/landing.min.js?v1.15"></script>
+  <script src="/static/pancake/js/landing.min.js?v1.16"></script>
   <!-- /Java Script -->
 
 
