@@ -120,7 +120,8 @@ class PancakeUser {
               google_id: null,
               ab_test : {},
               first_visit: self.firstVisit,
-            }
+            },
+            its_robot: this.is_robot
           },
           where: {
             uuid: self.uuid
@@ -626,7 +627,7 @@ class PancakeUser {
       httpOnly: false,
       domain: ctx.headers.host,
       maxAge: 9 * 365 * 24 * 60 * 60 * 1000
-    }
+    };
     ctx.cookies.set(USER_COOKIE_KEY, user_uuid, params);
     ctx.cookies.set('u_uuid', user_uuid, params);
   }
