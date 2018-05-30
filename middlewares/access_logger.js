@@ -97,8 +97,9 @@ access_logger.to_file = function() {
     compress: function(source, dest) { // Modified compress function, add extension .gz
       return 'cat ' + source + ' | gzip -c9 > ' + dest + '.gz;';
       // Also removes logs older than 30 days
-      // ' rm -f ' + dest +
-      //   '; find ./logs/*server.log.gz -mtime +30 -delete'; // test: -mmin +3
+      ' rm -f ' + dest +';'+
+      ' find /p/log/access_log/*access_log_pancake.log -mtime +30 -delete;'+
+      ' find /p/log/access_log/*access_log_pancake.log.gz -mtime +30 -delete;'; // test: -mmin +3
     }
   });
 

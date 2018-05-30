@@ -27,7 +27,11 @@
 ```sh
   npm run migrate
 ```
-4. Start project via Pm2
+4. Test
+```sh
+  npm run test
+```
+5. Start project via Pm2
 ```sh
   pm2 start ecosystem.json
   pm2 restart pancake

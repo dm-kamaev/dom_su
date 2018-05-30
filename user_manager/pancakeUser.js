@@ -64,10 +64,21 @@ class PancakeUser {
     let self = this;
     let uuidNext = null;
 
-    let needCreateUser = this.ctx.cookies.get(USER_COOKIE_KEY) === undefined;
+    let user_uuid = this.ctx.cookies.get(USER_COOKIE_KEY);
+
+    let needCreateUser = (user_uuid === undefined);
+
+    if (!user_uuid && this.is_robot) {
+      user_uuid = robot_user.get_user_uuid();
+      needCreateUser = false;
+      this._set_cookies_for_robot(user_uuid);
+      // console.log('THIS.IS_ROBOT', this.is_robot);
+    }
 
     if (!needCreateUser) {
-      let user = await User.findOne({where: {uuid: this.ctx.cookies.get(USER_COOKIE_KEY)}});
+      let user = await User.findOne({where: { uuid: user_uuid }});
+      // console.log(user_uuid);
+      // console.dir(user.dataValues, { depth: 20, colors: true });
       if (user !== null) {
         this.model = user;
         this.uuid = user.uuid;
@@ -109,7 +120,8 @@ class PancakeUser {
               google_id: null,
               ab_test : {},
               first_visit: self.firstVisit,
-            }
+            },
+            its_robot: self.is_robot
           },
           where: {
             uuid: self.uuid
@@ -604,6 +616,25 @@ class PancakeUser {
       // });
     }
   }
+
+  /**
+   * _set_cookies_for_robot: set user uuid for robot
+   * @param {String} user_uuid: '59128f09-7e43-48b1-a35a-593106cff419'
+   */
+  _set_cookies_for_robot(user_uuid) {
+    const ctx = this.ctx;
+    const params = {
+      httpOnly: false,
+      domain: ctx.headers.host,
+      maxAge: 9 * 365 * 24 * 60 * 60 * 1000
+    };
+    ctx.cookies.set(USER_COOKIE_KEY, user_uuid, params);
+    ctx.cookies.set('u_uuid', user_uuid, params);
+  }
 }
+
+
+
+
 
 module.exports = {PancakeUser};
