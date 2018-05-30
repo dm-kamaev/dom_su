@@ -66,9 +66,9 @@ rp.post = function (url, option) {
         reject(error);
       } else {
         const content_type = response.headers['content-type'];
-        if (/application\/json/.test(content_type)) {
-          body = json.parse(body);
-        }
+        // if (/application\/json/.test(content_type)) {
+        //   body = json.parse(body);
+        // }
         resolve({
           error,
           response,
