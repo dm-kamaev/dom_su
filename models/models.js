@@ -2,9 +2,10 @@
 const Sequelize = require('sequelize');
 const moment = require('moment');
 const CONF = require('/p/pancake/settings/config.js');
+
 const opts = {
   timezone: '+03:00',
-  operatorsAliases: false,
+  // operatorsAliases: Sequelize.Op, // if true, call error: String based operators are now deprecate
   define: {
     freezeTableName: true,
   },
