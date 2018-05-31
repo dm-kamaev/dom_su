@@ -13,9 +13,11 @@ module.exports = async function (ctx, next) {
   const headers = ctx.headers;
   const user_agent = headers['user-agent'];
   const ie_10 = (user_agent === 'Mozilla/5.0 (compatible; WOW64; MSIE 10.0; Windows NT 6.2)');
+  const is_not_1c = !(user_agent && /1C/.test(user_agent));
+  const old_browser = ie_10 || its_old_browser(browser_detect(user_agent))
 
   // console.log('user_agent=', ctx.request.url, user_agent);
-  if (ie_10 || its_old_browser(browser_detect(user_agent))) {
+  if (is_not_1c && old_browser) {
     // console.log('OLD BROWSER');
     // console.log('go to vash-brauzer-ustarel \n\n');
     if (is_url_for_update) {
