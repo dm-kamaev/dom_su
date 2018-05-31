@@ -80,10 +80,7 @@ async function run() {
       await next();
     });
 
-    const show_feauture = false;
-    if (show_feauture) {
-      app.use(detect_browser);
-    }
+    app.use(detect_browser);
 
     app.use(access_logger.to_file());
     app.use(access_logger.to_out());
