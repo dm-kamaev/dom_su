@@ -17,7 +17,8 @@ module.exports = async function (ctx, next) {
   const old_browser = ie_10 || its_old_browser(browser_detect(user_agent))
 
   // console.log('user_agent=', ctx.request.url, user_agent);
-  if (is_not_1c && old_browser) {
+  // if (is_not_1c && old_browser) {
+  if (ie_10) {
     // console.log('OLD BROWSER');
     // console.log('go to vash-brauzer-ustarel \n\n');
     if (is_url_for_update) {
