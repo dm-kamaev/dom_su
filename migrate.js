@@ -34,7 +34,7 @@ console.log(cmd);
 void async function () {
   try {
     const out = await child.exec(cmd);
-
+    console.log('OUT ===', out);
     if (!await robot_user.exist_user_in_db()) {
       await robot_user.create_user_in_db();
       console.log('CREATE USER ROBOT');
