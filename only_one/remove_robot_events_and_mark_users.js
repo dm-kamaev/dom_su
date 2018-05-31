@@ -9,13 +9,13 @@ const promise_api = require('/p/pancake/my/promise_api.js');
 
 
 
-
+const NUMBER_ELS = 1000;
 
 void async function () {
 
   const stream = new db.Stream_via_cursor('SELECT uuid, data FROM events_2017_2018');
 
-  await next(stream, await stream.get(100));
+  await next(stream, await stream.get(NUMBER_ELS));
 
   console.log('THE END SUCCESS');
 }();
@@ -36,7 +36,7 @@ async function next(stream, rows) {
   // if (i > 10) {
   //   global.process.exit();
   // }
-  return next(stream, await stream.get(100));
+  return next(stream, await stream.get(NUMBER_ELS));
 }
 
 
