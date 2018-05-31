@@ -408,7 +408,7 @@ const Event = sequelize.define('events', {
   uuid: {type: Sequelize.UUID, primaryKey: true, defaultValue: Sequelize.UUIDV4},
   date: {
     type: Sequelize.DATE,
-    defaultValue: Sequelize.fn('NOW'),
+    // defaultValue: Sequelize.fn('NOW'),
   },
   visit_uuid: {
     allowNull: false,
@@ -429,6 +429,8 @@ const Event = sequelize.define('events', {
   },
   data: Sequelize.JSON,
   type: Sequelize.STRING,
+  createdAt: Sequelize.DATE,
+  updatedAt: Sequelize.DATE,
 });
 
 const UTMS = sequelize.define('utms', {

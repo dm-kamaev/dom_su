@@ -13,8 +13,9 @@ module.exports = async function (ctx, next) {
   const headers = ctx.headers;
   const user_agent = headers['user-agent'];
   const ie_10 = (user_agent === 'Mozilla/5.0 (compatible; WOW64; MSIE 10.0; Windows NT 6.2)');
-  const is_not_1c = !(user_agent && /1C/.test(user_agent));
-  const old_browser = ie_10 || its_old_browser(browser_detect(user_agent))
+  // User agent for injected browser 1c Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0C; .NET4.0E)
+  // const is_not_1c = !(user_agent && /1C/.test(user_agent));
+  // const old_browser = ie_10 || its_old_browser(browser_detect(user_agent))
 
   // console.log('user_agent=', ctx.request.url, user_agent);
   // if (is_not_1c && old_browser) {
@@ -37,7 +38,14 @@ module.exports = async function (ctx, next) {
   }
 };
 
-
+// TODO(2018.05.31):
+// Пример браузера юзер-агент, которого валидный (новый)
+// Mozilla/5.0 (Linux; U; Android 8.0.0; en-US; SM-A320F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.108 UCBrowser/12.5.0.1109 Mobile Safari/537.36
+// но код считает, что он устарел
+// это видимо связанно с тем, что это mobile
+// а firefox требуется > 30, но не проверяется это мобильный или нет
+// а еще есть проблема с Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0C; .NET4.0E) это юзер-агент
+// встроенного браузера в 1с это IE6-7 и его надо пропускать, а не требовать обновлять
 /**
  * its_old_browser
  * @param  {Object} browser
