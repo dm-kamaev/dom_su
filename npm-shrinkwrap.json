@@ -298,6 +298,11 @@
       "version": "https://registry.npmjs.org/content-type/-/content-type-1.0.4.tgz",
       "integrity": "sha1-4TjMdeBAxyexlm/l5fjJruJW/js="
     },
+    "cookie": {
+      "version": "0.3.1",
+      "resolved": "https://registry.npmjs.org/cookie/-/cookie-0.3.1.tgz",
+      "integrity": "sha1-5+Ch+e9DtMi6klxcWpboBtFoc7s="
+    },
     "cookies": {
       "version": "https://registry.npmjs.org/cookies/-/cookies-0.7.1.tgz",
       "integrity": "sha1-fIphX1SBxhq58WyDNzG8uPZjuZs=",

@@ -1,9 +1,9 @@
 'use strict';
 
 // CONNECTOR FOR POSTGRES
-// TODO: add config
 const CONF = require('/p/pancake/settings/config.js');
 const pg = require('pg');
+const Cursor = require('pg-cursor');
 const logger = require('/p/pancake/lib/logger.js');
 
 
@@ -105,6 +105,75 @@ db.edit = async function (query, params) {
     client.release();
     throw err;
   }
+};
+
+
+/**
+ * Stream_via_cursor: for read big table
+ */
+db.Stream_via_cursor = class Stream_via_cursor {
+  /**
+   * @param  {String} query  sql
+   * @param  {Array | null}  params for sql query
+   */
+  constructor(query, params) {
+    this._query = query;
+    this._params = params;
+  }
+
+  /**
+   * _create_cursor
+   * @return {Object} cursor
+   */
+  async _create_cursor() {
+    if (this._cursor) {
+      return this._cursor;
+    }
+
+    const client = await pool.connect();
+    this._cursor = client.query(
+      new Cursor(this._query , this._params)
+    );
+
+    return this._cursor;
+  }
+
+  /**
+   * close_cursor: public method, because, if want break cursor
+   */
+  close_cursor() {
+    const client = this._client;
+    const cursor = this._cursor;
+    cursor.close(() => {
+      client.release();
+    });
+  }
+
+  /**
+   * get
+   * @param  {Number}   number_el: how many elements read
+   * @return {Promise}
+   */
+  async get(number_el) {
+    const cursor = await this._create_cursor();
+    const me = this;
+    return new Promise((resolve, reject) => {
+      // console.log(cursor);
+      cursor.read(number_el, (err, rows) => {
+        // console.log(err, rows);
+        if (err) {
+          me.close_cursor();
+          return reject(err);
+        } else if (rows.length === 0) {
+          me.close_cursor();
+          return resolve();
+        } else {
+          return resolve(rows);
+        }
+      });
+    });
+  }
+
 };
 
 
