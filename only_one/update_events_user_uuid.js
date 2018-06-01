@@ -13,7 +13,7 @@ const NUMBER_ELS = 100000;
 
 void async function () {
 
-  const stream = new db.Stream_via_cursor('SELECT uuid, data, user_uuid, its_robot FROM events_2017_2018');
+  const stream = new db.Stream_via_cursor('SELECT uuid, data, user_uuid FROM events_2017_2018');
 
   await next(stream, await stream.get(NUMBER_ELS));
 
