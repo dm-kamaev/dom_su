@@ -15,32 +15,36 @@ void async function () {
 
   const stream = new db.Stream_via_cursor('SELECT uuid, data, user_uuid, its_robot FROM events_2017_2018');
 
-  await next(stream, await stream.get(NUMBER_ELS));
+  // await next(stream, await stream.get(NUMBER_ELS));
+  var number_iteration = new Array(Math.ceil(55277294 / NUMBER_ELS));
+  await promise_api.queue(number_iteration, async function () {
+    let rows = await stream.get(NUMBER_ELS);
+    // i++;
+    console.log('CALL');
+    if (!rows) {
+      return;
+    }
+    // await update_events_user_id(rows);
+    rows = filter_rows(rows);
+    if (rows) {
+      await timeout(40);
+      await mark_event_user_bots(rows);
+    } else {
+      await timeout(5);
+    }
+    rows = null;
+    // if (i > 10) {
+    //   global.process.exit();
+    // }
+  })
 
   console.log('THE END SUCCESS');
 }();
 
 // let i = 1;
-async function next(stream, rows) {
-  // i++;
-  console.log('CALL');
-  if (!rows) {
-    return;
-  }
-  // await update_events_user_id(rows);
-  rows = filter_rows(rows);
-  if (rows) {
-    await timeout(40);
-    await mark_event_user_bots(rows);
-  } else {
-    await timeout(20);
-  }
-  rows = null;
-  // if (i > 10) {
-  //   global.process.exit();
-  // }
-  return next(stream, await stream.get(NUMBER_ELS));
-}
+// async function next(stream, rows) {
+
+// }
 
 
 
