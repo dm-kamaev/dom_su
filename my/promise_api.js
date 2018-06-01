@@ -30,3 +30,41 @@ promise_api.queue = function (data, promise_handler) {
 //     }, i);
 //   });
 // }).then(res => console.log(res)).catch(err => console.log(err));
+
+
+
+
+/**
+ * wrap: fn to Promise
+ * @param  {Function} fn() => Promise
+ * @return {Promise}
+ */
+const wrap = function(fn) {
+  return new Promise((resolve) => {
+    resolve(fn());
+  });
+}
+
+/**
+ * promise_api.while:
+ * @param  {Function} condition: condition() => boolean, sync action
+ * @param  {Function} action:     action() => Promise
+ * @return {Promise}
+ */
+promise_api.while = function (condition, action) {
+  return wrap(function loop(actionResult) {
+    if (condition(actionResult)) {
+      return wrap(action).then(loop);
+    }
+  });
+}
+
+// EXMAPLE USE:
+/*promise_api.while() => {
+  return count < 5;
+}, () => {
+  count++;
+}).then(() => {
+  console.log(count);
+  //=> 5
+});*/
