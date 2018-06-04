@@ -28,7 +28,7 @@ void async function () {
       await timeout(20);
       await update_events_user_id(rows);
     } else {
-      await timeout(10);
+      await timeout(5);
     }
     rows = await stream.get(NUMBER_ELS);
   });
@@ -104,6 +104,6 @@ function timeout(sec) {
 async function update_events_user_id(rows) {
   await promise_api.queue(rows, async function ({ uuid, user_uuid }) {
     await db.edit(`UPDATE events_2017_2018 SET user_uuid = '${user_uuid}' WHERE uuid = '${uuid}'`);
-    await timeout(3);
+    await timeout(0.1);
   });
 }
