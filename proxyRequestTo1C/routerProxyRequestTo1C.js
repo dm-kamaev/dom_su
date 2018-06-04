@@ -91,6 +91,9 @@ router.post('/proxy_request/Auth.GetCode', async function (ctx) {
 });
 
 
+router.post('/proxy_request/Client.Calculate', get_open_method('Client.Calculate'));
+
+
 // proxy request from frontend to auth1C and return responce
 // url –– /proxy_request/Employee.GetConversationList
 // request –– {
@@ -122,6 +125,20 @@ router.post('/proxy_request/:methodName', check_auth.ajax(async function (ctx) {
   const res = request1C.get();
   ctx.body = res;
 }));
+
+
+// {String} method_name Client.Calculate
+function get_open_method(method_name) {
+  return async function (ctx) {
+    let body = ctx.request.body;
+    const user = ctx.state.pancakeUser;
+    const uuid = user.uuid;
+    const request1C = new Request1Cv3(user.auth1C.token, uuid, null, ctx);
+    await request1C.add(method_name, body).do();
+    const res = request1C.get();
+    ctx.body = res;
+  };
+}
 
 
 // ===========================================================
