@@ -91,8 +91,9 @@ router.post('/proxy_request/Auth.GetCode', async function (ctx) {
 });
 
 
-router.post('/proxy_request/Client.Calculate', get_open_method('Client.Calculate'));
-
+[ 'Client.Calculate', 'Client.GetOrderTimes', 'ServiceOrder.NewOrder' ].forEach(method_name => {
+  router.post('/proxy_request/'+method_name, get_open_method(method_name));
+});
 
 // proxy request from frontend to auth1C and return responce
 // url –– /proxy_request/Employee.GetConversationList
