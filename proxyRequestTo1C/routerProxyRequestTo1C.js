@@ -91,7 +91,7 @@ router.post('/proxy_request/Auth.GetCode', async function (ctx) {
 });
 
 
-[ 'Client.Calculate', 'Client.GetOrderTimes', 'ServiceOrder.NewOrder' ].forEach(method_name => {
+[ 'Client.Calculate', 'Client.GetOrderTimes', 'Client.ServiceOrder.NewOrder' ].forEach(method_name => {
   router.post('/proxy_request/'+method_name, get_open_method(method_name));
 });
 
@@ -131,7 +131,6 @@ router.post('/proxy_request/:methodName', check_auth.ajax(async function (ctx) {
 // {String} method_name Client.Calculate
 function get_open_method(method_name) {
   return async function (ctx) {
-    console.log('method_name=', method_name);
     let body = ctx.request.body;
     const user = ctx.state.pancakeUser;
     const uuid = user.uuid;
