@@ -366,7 +366,6 @@
         var to_utc = Date.UTC(order_time.getFullYear(), order_time.getMonth(), order_time.getDate(), parts[0], parts[1], order_time.getSeconds(), order_time.getMilliseconds());
         var data = {
           DepartureID: '{{departureId}}',
-          orginal: '{{currentDate}}',
           Date: new Date(to_utc).toISOString(),
         };
         $.ajax({
