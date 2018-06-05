@@ -358,7 +358,13 @@
       var start_hh_mm = addPrefixZero(order_time.getHours()) + ':' + addPrefixZero(order_time.getMinutes());
 
       getById('yes_move_order').onclick = function() {
-        var hh_mm = $input_move_order.val();
+        var hh_mm = $input_move_order.val() || '';
+        if (!hh_mm) {
+          return;
+        }
+        if (!/^\d{2}:\d{2}$/.test(hh_mm)) {
+          return;
+        }
         if (start_hh_mm === hh_mm) {
           return;
         }
