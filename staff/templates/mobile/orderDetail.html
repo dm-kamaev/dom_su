@@ -6,10 +6,19 @@
     <style>
       .ui-btn.green-button{background: #478447; color: white; text-shadow: none; }
       .ui-btn.green-button:hover{background: #478447; color: white; text-shadow: none; }
+      .select-quantity{
+        display:inline-block;
+        vertical-align:top;
+        width: 90% !important;
+        opacity: 1;
+        text-align: center !important;
+      }
     </style>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="/static/js/custom_cookie.js?v=1.01"></script>
+
+    <link rel="stylesheet" href="/stat/css/timepicker.css">
 
     <!-- Google Tag Manager -->
 {{#if general.production}}
@@ -172,7 +181,35 @@
                 <p><b>Оплата наличными</b></p>
             {{/if}}
     {{/if}}
-    <p><b>Дата и время: </b><br/><span>{{ formatPartDate currentDate "DD.MM.YYYY HH:mm" }}</span></p>
+    {{!-- <p><b>Дата и время: </b><br/><span>{{ formatPartDate currentDate "DD.MM.YYYY HH:mm" }}</span></p> --}}
+
+    <table>
+        <tr>
+            <td><b>Дата и время:</b><br/> <span>{{ formatPartDate currentDate "DD.MM.YYYY HH:mm" }}</span></td>
+            <td>
+                {{!-- move order by time --}}
+                {{#if GetDepartureData.WaitingMoveOrder }}
+                  <span style=color:red>Уже есть заявка на перенос</span>
+                {{else}}
+                    <a href='#popup_move_order' style=margin-left:15px data-rel=popup data-position-to=window data-transition=pop class='ui-btn ui-btn-inline green-button'>Изменить время</a>
+                    <div data-role=popup id=popup_move_order data-theme=a data-dismissible=false>
+                       <div role=main class=ui-content>
+                         <h2 style=font-size:120% class=ui-title>Перенести на:</h2>
+                         <input id=input_move_order type=text style=text-align:center data-wrapper-class='select-quantity'/>
+                         <p>
+                             <a id=yes_move_order href=# style=width:20%;vertical-align:top class='ui-btn ui-btn-inline' data-rel=back>Да</a>
+                             <a id href=# style=width:20%;vertical-align:top class='ui-btn ui-btn-inline' data-rel=back>Нет</a>
+                         </p>
+                       </div>
+                    </div>
+
+                {{/if}}
+            </td>
+    </table>
+
+
+
+
     {{#if EarningsOrder }}
         <p><b>Заработок с заказа:</b><br/><span style="color: green"><b>{{ toMoney EarningsOrder }}</b> руб.</span></p>
     {{/if}}
@@ -285,8 +322,73 @@
             </div>
     </div>
 
+  <script src='/stat/lib/timepicker.js'></script>
   <script>
     function getById(id) { return document.getElementById(id); }
+
+    // move order
+    void function handler_for_move_order() {
+      var already_move_order = {{GetDepartureData.WaitingMoveOrder}};
+      if (already_move_order) {
+        return;
+      }
+
+      var $input_move_order = $('#input_move_order');
+      $input_move_order.timepicker({
+        timeFormat: 'H:i',
+        step: 15, // step 15 minute
+      });
+
+      // utc date(order time) convert to local time
+      var d = new Date('{{currentDate}}')
+      var localOffset = d.getTimezoneOffset() * 60000;
+      var time = d.getTime() + localOffset;
+
+      var order_time = new Date(time);
+
+      $input_move_order.timepicker('setTime', order_time);
+
+      var addPrefixZero = function(el) {
+        el = el.toString();
+        if (el && el < 10) {
+          el = '0' + el;
+        }
+        return el;
+      };
+      var start_hh_mm = addPrefixZero(order_time.getHours()) + ':' + addPrefixZero(order_time.getMinutes());
+
+      getById('yes_move_order').onclick = function() {
+        var hh_mm = $input_move_order.val();
+        if (start_hh_mm === hh_mm) {
+          return;
+        }
+        var parts = hh_mm.split(':');
+        var to_utc = Date.UTC(order_time.getFullYear(), order_time.getMonth(), order_time.getDate(), parts[0], parts[1], order_time.getSeconds(), order_time.getMilliseconds());
+        var data = {
+          DepartureID: '{{departureId}}',
+          orginal: '{{currentDate}}',
+          Date: new Date(to_utc).toISOString(),
+        };
+        $.ajax({
+          type: 'POST',
+          url: '/proxy_request/Employee.MoveOrder',
+          cache: false,
+          data: JSON.stringify(data),
+          dataType: 'json',
+          contentType: 'application/json',
+          success: function(data) {
+            if (!data.ok) {
+              console.error('Error=', data);
+              console.error('Send data=', data);
+            }
+            console.log('Success=', arguments);
+          },
+          error: function() {
+            console.error('Error=', arguments);
+          }
+        });
+      };
+    }();
 
     void function () {
       // to cent
@@ -326,7 +428,6 @@
         // we submit form after timout
         getById('input_amount').value = '';
       };
-
     }();
 
   </script>
