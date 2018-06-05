@@ -10,7 +10,7 @@ const moscowTemplates = {
     //uborka_ofisov_ab: {name: 'uborka_ofisov_ab.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
     // main_ab2: {hide: true, name: 'main_ab2.html', data: {menu: {index: true}}},
     // price_ab: {name: 'price_ab.html', ServiceName: 'Цены', data:{ menu:{main: true, price: true}}},
-    // podderzhka_ab: {hide: true,name: 'podderzhka_ab.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
+    podderzhka_ab: {hide: true,name: 'podderzhka_ab.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
     //'generalnaya_uborka_ab': {hide: true, name: 'generalnaya_uborka_ab.html', ServiceName: 'Генеральная уборка', data:{ menu:{general: true}}},
     //'posle_remonta_ab': {hide: true, name: 'posle_remonta_ab.html', ServiceName: 'Уборка после ремонта', data:{ menu:{physical: true, posle_remonta: true}}},
     //'mite_okon_ab': {hide: true, name: 'mite_okon_ab.html', ServiceName: 'Мойка окон', data:{ menu:{ mite_okon: true}}},
@@ -77,7 +77,8 @@ const moscowTemplates = {
     'vakansii__domrabotnica__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Домработница', data: { domrabotnica: true, menu:{ main: true, vakansii: true}}},
     'vakansii__uborka-kvartir__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка квартир', data: { uborkaKvartir: true, menu:{ main: true, vakansii: true}}},
     'vakansii__uborka-territorii__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка территории', data: { uborkaTerritorii: true, menu:{ main: true, vakansii: true}}},
-    'vash-brauzer-ustarel': {name: 'old_browser.html', ServiceName: '', data: {}}
+    'vash-brauzer-ustarel': {name: 'old_browser.html', ServiceName: '', data: {}},
+    'order': {name: 'order.html', ServiceName: '', data: {}}
 }
 
 module.exports = {
