@@ -188,7 +188,7 @@
             <td><b>Дата и время:</b><br/> <span>{{ formatPartDate currentDate "DD.MM.YYYY HH:mm" }}</span></td>
             <td>
                 {{!-- move order by time --}}
-                {{#if GetDepartureData.WaitingMoveOrder }}
+                {{!-- {{#if GetDepartureData.WaitingMoveOrder }}
                   <span style=color:red>Уже есть заявка на перенос</span>
                 {{else}}
                     <a href='#popup_move_order' style=margin-left:15px data-rel=popup data-position-to=window data-transition=pop class='ui-btn ui-btn-inline green-button'>Изменить время</a>
@@ -203,7 +203,7 @@
                        </div>
                     </div>
 
-                {{/if}}
+                {{/if}} --}}
             </td>
     </table>
 
@@ -372,6 +372,7 @@
         var to_utc = Date.UTC(order_time.getFullYear(), order_time.getMonth(), order_time.getDate(), parts[0], parts[1], order_time.getSeconds(), order_time.getMilliseconds());
         var data = {
           DepartureID: '{{departureId}}',
+          original: '{{}currentDate}',
           Date: new Date(to_utc).toISOString(),
         };
         $.ajax({
