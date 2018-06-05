@@ -332,20 +332,12 @@
         return;
       }
 
-      var $input_move_order = $('#input_move_order');
-      $input_move_order.timepicker({
-        timeFormat: 'H:i',
-        step: 15, // step 15 minute
-      });
-
       // greenwich date(order time) convert to local time
       var d = new Date('{{currentDate}}')
       var localOffset = d.getTimezoneOffset() * 60000;
       var time = d.getTime() + localOffset;
 
       var order_time = new Date(time);
-
-      $input_move_order.timepicker('setTime', order_time);
 
       var addPrefixZero = function(el) {
         el = el.toString();
@@ -356,6 +348,16 @@
       };
       var start_hh_mm = addPrefixZero(order_time.getHours()) + ':' + addPrefixZero(order_time.getMinutes());
 
+      var $input_move_order = $('#input_move_order');
+      $input_move_order.timepicker({
+        timeFormat: 'H:i',
+        step: 15, // step 15 minute
+        disableTextInput: true,
+        disableTimeRanges: [[ '00:00', start_hh_mm ]]
+      });
+      $input_move_order.timepicker('setTime', order_time);
+
+
       getById('yes_move_order').onclick = function() {
         var hh_mm = $input_move_order.val() || '';
         if (!hh_mm) {
@@ -364,9 +366,11 @@
         if (!/^\d{2}:\d{2}$/.test(hh_mm)) {
           return;
         }
+
         if (start_hh_mm === hh_mm) {
           return;
         }
+
         var parts = hh_mm.split(':');
         var to_utc = new Date(order_time.getFullYear(), order_time.getMonth(), order_time.getDate(), parts[0], parts[1], order_time.getSeconds(), order_time.getMilliseconds());
 
