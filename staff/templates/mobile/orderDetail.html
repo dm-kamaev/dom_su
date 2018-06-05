@@ -385,8 +385,10 @@
             if (!data.ok) {
               console.error('Error=', data);
               console.error('Send data=', data);
+            } else {
+              console.log('Success=', arguments);
+              window.location.reload();
             }
-            console.log('Success=', arguments);
           },
           error: function() {
             console.error('Error=', arguments);
