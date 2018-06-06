@@ -34,7 +34,7 @@ const TIMEZONE = "+03:00"
 // Формат даты
 Handlebars.registerHelper('formatDate', function (date) {
     return moment.parseZone(moment.utc(date).utcOffset(TIMEZONE).format()).format("DD.MM.YYYY")
-})
+});
 
 Handlebars.registerHelper("inc", function(value, options) {
     return parseInt(value) + 1;
