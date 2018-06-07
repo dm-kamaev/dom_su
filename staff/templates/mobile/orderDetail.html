@@ -195,15 +195,17 @@
                     <div data-role=popup id=popup_move_order data-theme=a data-dismissible=false>
                        <div role=main class=ui-content>
                          <h2 style=font-size:120% class=ui-title>Перенести на:</h2>
-                         <input id=input_move_order type=text style=text-align:center data-wrapper-class='select-quantity'/>
+                         <input id=input_move_order style=text-align:center data-wrapper-class='select-quantity'/>
                          <p>
                              <a id=yes_move_order href=# style=width:20%;vertical-align:top class='ui-btn ui-btn-inline' data-rel=back>Да</a>
-                             <a id href=# style=width:20%;vertical-align:top class='ui-btn ui-btn-inline' data-rel=back>Нет</a>
+                             <a id=no_move_order href=# style=width:20%;vertical-align:top class='ui-btn ui-btn-inline' data-rel=back>Нет</a>
                          </p>
                        </div>
                     </div>
                 {{/if}}
             </td>
+        <tr>
+          <td colspan=2><p id=popup_move_order_error style=width:100%;color:red></p></td>
     </table>
 
 
@@ -339,26 +341,24 @@
 
       var order_time = new Date(time);
 
-      var addPrefixZero = function(el) {
-        el = el.toString();
-        if (el && el < 10) {
-          el = '0' + el;
-        }
-        return el;
-      };
-      var start_hh_mm = addPrefixZero(order_time.getHours()) + ':' + addPrefixZero(order_time.getMinutes());
+      var start_hh_mm = get_hh_mm(order_time);
+      var now_hh_mm = get_hh_mm();
 
       var $input_move_order = $('#input_move_order');
       $input_move_order.timepicker({
         timeFormat: 'H:i',
         step: 15, // step 15 minute
         disableTextInput: true,
-        disableTimeRanges: [[ '00:00', start_hh_mm ]]
+        disableTouchKeyboard: true,
+        disableTimeRanges: [[ '00:00', now_hh_mm ]], // block date from start date to now
       });
+      // set current time
       $input_move_order.timepicker('setTime', order_time);
 
+      getById('no_move_order').onclick = hide_error;
 
       getById('yes_move_order').onclick = function() {
+        hide_error();
         var hh_mm = $input_move_order.val() || '';
         if (!hh_mm) {
           return;
@@ -371,14 +371,26 @@
           return;
         }
 
+        if ( parseInt(hh_mm.replace(/:/g, ''), 10) <= parseInt(now_hh_mm.replace(/:/g, ''), 10) ) {
+          show_error('* Можно выбрать только время больше '+now_hh_mm);
+          return;
+        }
+
         var parts = hh_mm.split(':');
-        var to_utc = new Date(order_time.getFullYear(), order_time.getMonth(), order_time.getDate(), parts[0], parts[1], order_time.getSeconds(), order_time.getMilliseconds());
+        var new_time = new Date(order_time.getFullYear(), order_time.getMonth(), order_time.getDate(), parts[0], parts[1], order_time.getSeconds(), order_time.getMilliseconds());
 
         var data = {
           DepartureID: '{{departureId}}',
-          Date: to_utc.toISOString(), // by greenwich time
+          Date: new_time.toISOString(), // by greenwich time
         };
+        // show_error();
+        // return console.log(data);
 
+        send_ajax(data);
+      };
+
+
+      function send_ajax(data) {
         $.ajax({
           type: 'POST',
           url: '/proxy_request/Employee.MoveOrder',
@@ -386,20 +398,55 @@
           data: JSON.stringify(data),
           dataType: 'json',
           contentType: 'application/json',
-          success: function(data) {
-            if (!data.ok) {
-              console.error('Error=', data);
-              console.error('Send data=', data);
+          success: function(res) {
+            if (!res.ok) {
+              // incorrect date
+              if (res.ErrorCode === 34) {
+                show_error('* Некорректное время');
+              } else {
+                // unknow error
+                show_error();
+              }
+              console.error('Error=', res);
+              console.error('Send data=', res);
             } else {
               console.log('Success=', arguments);
               window.location.reload();
             }
           },
           error: function() {
-            console.error('Error=', arguments);
+            show_error();
           }
         });
-      };
+      }
+
+      /**
+       * get_hh_mm:
+       * @param  {Date} date
+       * @return {String}  'hh:mm' '23:15'
+       */
+      function get_hh_mm(date) {
+        var d = date || new Date();
+        return addPrefixZero(d.getHours()) + ':' + addPrefixZero(d.getMinutes());
+      }
+
+      // el 3, return '03'
+      function addPrefixZero(el) {
+        el = el.toString();
+        if (el && el < 10) {
+          el = '0' + el;
+        }
+        return el;
+      }
+
+      function show_error(text) {
+        getById('popup_move_order_error').innerHTML = text || '* Неизвестная ошибка';
+      }
+
+      function hide_error(text) {
+        getById('popup_move_order_error').innerHTML = '';
+      }
+
     }();
 
     void function () {
