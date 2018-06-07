@@ -68,7 +68,7 @@ class PancakeUser {
 
     let needCreateUser = (user_uuid === undefined);
 
-    if (!user_uuid && this.is_robot) {
+    if (!user_uuid && this.its_robot()) {
       user_uuid = robot_user.get_user_uuid();
       needCreateUser = false;
       this._set_cookies_for_robot(user_uuid);
@@ -149,6 +149,10 @@ class PancakeUser {
 
   get_client_id() {
     return this.client_id;
+  }
+
+  its_robot() {
+    return this.is_robot;
   }
 
   // SET key 'u_uuid' in cookie value uuid
@@ -449,8 +453,10 @@ class PancakeUser {
   }
 
   clientConnect(luid) {
-    this.sendTicket('ClientConnect', {luid: luid});
-
+    if (this.its_robot()) {
+      return;
+    }
+    this.sendTicket('ClientConnect', { luid });
   }
 
   sendTicket(type, data) {
