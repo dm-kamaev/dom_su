@@ -61,7 +61,7 @@ module.exports = function() {
       break;
     case 'dev2':
       // CONF.domain = 'https://www.dev.domovenok.su';
-      CONF.api1C = get_api_1c(enum_api_1C.LIZA);
+      CONF.api1C = get_api_1c(enum_api_1C.SASHA);
       CONF.webhook= get_webhook(enum_api_1C.LIZA);
       break;
     case 'dev3':
