@@ -25,7 +25,23 @@ router.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(
   let GetConversationList = new Method1C('Employee.GetConversationList', {
     'EmployeeID': templateCtx.employeeId
   });
+  const GetConversationTypeList = new Method1C('Employee.GetConversationTypeList', {});
+
+  // {
+  //       "EmployeeID": "e7958b5e-360e-11e2-a60e-08edb9b907e8",
+  //       "Begin": true,
+  //       "End": true,
+  //       "ConversationList": [{
+  //           "Date": "2017-11-01T14:53:50Z",
+  //           "TimeZone": "+03:00",
+  //           "ConversationID": "747b480b-bf14-11e7-84bd-1c1b0dc62163",
+  //           "Subject": "gjhgjhg",
+  //           "Status": "Активно",
+  //           "Score": 0
+  //       }]
+
   request1CAPIV2.add(GetConversationList);
+  request1CAPIV2.add(GetConversationTypeList);
   request1CAPIV2.add(GetEmployeeData);
   await request1CAPIV2.do();
   /* templateCtx.GetConversationList –– {
@@ -49,8 +65,13 @@ router.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(
   });
   templateCtx.conversationList = GetConversationList.response.ConversationList;
   templateCtx.GetEmployeeData = GetEmployeeData.response;
+  // [{ ConversationTypeID: 'd32e9be7-5dae-11e8-84d5-1c1b0dc62163', ConversationTypeTitle: 'Вопросы по заработной плате' }]
+  templateCtx.conversation_type_list = GetConversationTypeList.response.ConversationTypeList;
+  console.log('conversation_type_list=', templateCtx.conversation_type_list);
+
   let template;
   if (isMobileVersion(ctx)) {
+    console.log('HERE', staffTemplate.mobile.conversationList);
     template = getTemplate(staffTemplate.mobile.conversationList);
   } else {
     template = getTemplate(staffTemplate.desktop.conversationList);
@@ -60,18 +81,20 @@ router.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(
 
 
 router.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginRequired(async function(ctx) {
+  const fields = ctx.request.body.fields;
   let salt = uuid4();
   const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', false, ctx);
   let NewConversation = new Method1C('Employee.NewConversation', {
-    'EmployeeID': ctx.state.pancakeUser.auth1C.employee_uuid,
-    'Subject': ctx.request.body.fields.subject
+    EmployeeID: ctx.state.pancakeUser.auth1C.employee_uuid,
+    Subject: fields.subject,
+    ConversationTypeID: fields.conversation_type_id
   });
   request1CAPIV2.add(NewConversation);
   await request1CAPIV2.do();
   const twoRequest1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', false, ctx);
   let SendMessage = new Method1C('SendMessage', {
     'Role': 2,
-    'Content': ctx.request.body.fields.content,
+    'Content': fields.content,
     'Salt': salt.toString(),
     'AnswerToMessageID': null,
     'Linked': {

@@ -28,8 +28,19 @@
         <script>$(document).unbind('scroll');</script>
         <div data-role="collapsible" data-content-theme="false">
         <h4>Создать обращение</h4>
-        <form action="" method="POST" enctype="multipart/form-data" data-ajax="false" >
-            <label>Название:<input name="subject" style="" type="text" required></label>
+        <form id=create_conversation action="" method="POST" enctype="multipart/form-data" data-ajax="false" >
+            {{!-- <label>Название:<input name="subject" style="" type="text" required></label> --}}
+            <div class="ui-field-contain">
+              <label for="select-native-1">Вид обращения:</label>
+              <input id=conversation_subject name=subject value='' style="display:none" type=text>
+              <select name="conversation_type_id" id="select-native-1" required>
+                <option value=not_selected selected>Не выбрано</option>
+                {{#each conversation_type_list as |type| }}
+                  <option value='{{type.ConversationTypeID}}'>{{type.ConversationTypeTitle}}</option>
+                {{/each}}
+              </select>
+              <p id=select-native-1_error style=color:red></p>
+            </div>
             <label>Сообщение:<textarea name="content" required style="" type="text"></textarea></label>
             <button type="submit">Создать</button>
         </form>
@@ -94,6 +105,7 @@
             </div>
     </div>
 <script>
+  var getById = function (id) { return document.getElementById(id); };
   void function () {
     var list_conversation = [
       {{#each conversationList as |conversation|}}
@@ -123,6 +135,25 @@
         $.post('/staff/ajax/conversations/'+conversation_id+'/score/'+score, {}, function(result, textStatus, jqXHR) { });
       });
     }
+
+    // check selected type conversation
+    void function () {
+      var subject;
+      $("#select-native-1").change(function(event, ui) {
+        var option_selected = $(this).find('option:selected');
+        subject = option_selected.text();
+      });
+
+      getById('create_conversation').onsubmit = function (e) {
+        var $select_error = getById('select-native-1_error');
+        $select_error.innerHTML = '';
+        if (getById('select-native-1').value === 'not_selected') {
+          $select_error.innerHTML = '* Выберите вид обращения';
+          return e.preventDefault();
+        }
+        getById('conversation_subject').value = subject;
+      };
+    }();
 
 
   }();
