@@ -67,11 +67,9 @@ router.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(
   templateCtx.GetEmployeeData = GetEmployeeData.response;
   // [{ ConversationTypeID: 'd32e9be7-5dae-11e8-84d5-1c1b0dc62163', ConversationTypeTitle: 'Вопросы по заработной плате' }]
   templateCtx.conversation_type_list = GetConversationTypeList.response.ConversationTypeList;
-  console.log('conversation_type_list=', templateCtx.conversation_type_list);
 
   let template;
   if (isMobileVersion(ctx)) {
-    console.log('HERE', staffTemplate.mobile.conversationList);
     template = getTemplate(staffTemplate.mobile.conversationList);
   } else {
     template = getTemplate(staffTemplate.desktop.conversationList);
