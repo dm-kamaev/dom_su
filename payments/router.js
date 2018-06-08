@@ -24,6 +24,16 @@ let regExpAmount = new RegExp(/^(:?\d+)((\.|\,)(:?\d{1,2}))?$/, 'g');
 
 // const DEFAULT_PAYMENT_ORG_TYPE = 'tinkoff_ksd';
 
+const Fast_logger = function (condition) {
+  if (!condition) {
+    return function() {};
+  }
+  return function () {
+    console.log.apply(console.log, arguments);
+  };
+};
+
+
 // Two url for connection tinkoff
 const URL_TINKOFF = (CONF.is_dev) ? 'rest-api-test.tinkoff.ru' : 'securepay.tinkoff.ru';
 
@@ -175,6 +185,8 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
   if (wrong_domain(ctx)) {
     return;
   }
+  const cond = (ctx.request.url === '/payments/success/?Success=true&ErrorCode=0&Message=None&Details=Approved&Amount=996000&MerchantEmail=marianna%40domovenok.su&MerchantName=domovenok&OrderId=45001&PaymentId=23025884&TranDate=08.06.2018+03%3A14%3A18&BackUrl=https%3A%2F%2Fwww.domovenok.su&CompanyName=%D0%9E%D0%9E%D0%9E+%C2%AB%D0%9A%D1%81%D0%94%C2%BB&EmailReq=marianna%40domovenok.su&PhonesReq=9295302312');
+  const flg = Fast_logger(cond);
 
   const query_param = ctx.query;
   let logger_payment;
@@ -216,7 +228,6 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
       await payment_in_1c(ctx, 'payment_from_1c');
       return;
     }
-
     let paymentState = await getState(payment.PaymentId, logger_payment);
     if (['AUTHORIZED', 'CONFIRMING', 'CONFIRMED'].indexOf(paymentState) > 0) {
       logger.info(`Bank Check State - Success | Status - ${paymentState} | OrderId - ${payment.id} `);
@@ -244,6 +255,7 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
         logger_payment.info('payment success completed orderId', payment.dataValues);
         if (payment.redirectNewSite){
           logger.info(`exist redirectNewSite: redirect to ${payment.redirectPath}`);
+          flg('I_AM_TEST_REDIRECT', payment.redirectPath);
           ctx.redirect(payment.redirectPath);
           return;
         }
@@ -252,6 +264,10 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
           sum: payment.Amount / 100.0,
           typePayment: enum_type_payment.manual_payment
         }));
+        flg('RENDER_TEMPLATE', {
+          sum: payment.Amount / 100.0,
+          typePayment: enum_type_payment.manual_payment
+        });
         return;
       } catch (e){
         logger.error(e);
@@ -270,7 +286,9 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
     }
   } catch (e){
     logger.error(e);
-    logger_payment.warn(e);
+    if (logger_payment) {
+      logger_payment.warn(e);
+    }
     ctx.status = 302;
     ctx.redirect('/payments/failure/');
   }
@@ -318,6 +336,8 @@ function get_token(get_param) {
   return token;
 }
 
+
+// GET /payments/?order_id=INV-000012289&amount=2980&autosend=True
 paymentsRouter.get('/payments/', async function (ctx) {
   let context = {};
   if (ctx.query.order_id){
@@ -361,6 +381,22 @@ paymentsRouter.get('/payments/', async function (ctx) {
 // &TranDate=
 // &BackUrl=https%3A%2F%2Fwww.domovenok.su
 // &CompanyName=ООО+«КсД»
+// &EmailReq=marianna%40domovenok.su
+// &PhonesReq=9295302312
+
+// WRONG URL
+// ?Success=true
+// &ErrorCode=0
+// &Message=None
+// &Details=Approved
+// &Amount=996000
+// &MerchantEmail=marianna%40domovenok.su
+// &MerchantName=domovenok
+// &OrderId=45001
+// &PaymentId=23025884
+// &TranDate=08.06.2018+03%3A14%3A18
+// &BackUrl=https%3A%2F%2Fwww.domovenok.su
+// &CompanyName=%D0%9E%D0%9E%D0%9E+%C2%AB%D0%9A%D1%81%D0%94%C2%BB
 // &EmailReq=marianna%40domovenok.su
 // &PhonesReq=9295302312
 paymentsRouter.get('/payments/failure/', async function (ctx) {
@@ -646,8 +682,6 @@ async function send_to_1c(url, data) {
 // для того чтобы можно было тестить на виртуалках платежи, мы проверяем куку, в которой указан домен (ставим при нажатии 'Привязать карту')
 // и редиректим на нужную виртуалку в случае не совпадения
 function wrong_domain(ctx) {
-  console.log('=== wrong_domain ===');
-
   // only for dev
   if (CONF.is_prod) {
     return false;
@@ -676,95 +710,6 @@ function wrong_domain(ctx) {
 function get_url_for_check_domain(url) {
   return 'https://'+url_core.parse(url, true).host;
 }
-
-// TODO(2018.05.18): OLD CODE, REMOVE IN FUTURE
-// function getTerminalData(paymentId, orderId, ctx) {
-//   if (paymentId) {
-//     let payment = await Payment.findOne({where: {PaymentId: paymentId}});
-//     if (payment && payment.payment_org_type){
-//       return PaymentOrgType[payment.payment_org_type];
-//     }
-//   }
-//   try{
-//     if (orderId){
-//       let singleRequest = new SingleRequest1C(
-//         'Client.GetPaymentOrgType', // name
-//         {'OrderID': orderId}, // param
-//         null, // token
-//         null, // userUUID
-//         null, // ip
-//         null, // userAgent
-//         ctx
-//       );
-//       let response = await singleRequest.do();
-//       if (PaymentOrgType[response.PaymentOrgType]){
-//         return PaymentOrgType[response.PaymentOrgType];
-//       }
-//       logger.error(`PaymentOrgType error ${response}, OrderID - ${orderId}`);
-//     }
-//   } catch (e){
-//     logger.error('Error Get Payment Org Type');
-//     logger.error(e);
-//   }
-//   return PaymentOrgType[DEFAULT_PAYMENT_ORG_TYPE];
-// }
-
-
-//  TODO(2018.05.18):  OLD CODE, REMOVE IN FUTURE
-// async function confirm(payment) {
-//   let getParam = {'PaymentId': payment.PaymentId};
-//   let terminalData = await getTerminalData(payment.PaymentId);
-//   getParam['TerminalKey'] = terminalData.TERMINAL_KEY;
-//   getParam['Password'] = terminalData.PASSWORD;
-//   getParam['Amount'] = payment.Amount;
-//   getParam['IP'] = payment.IP;
-//   getParam['Token'] = get_token(getParam);
-//   let body = querystring.stringify(getParam);
-//   let response = '';
-//   let connectParam = {
-//     hostname: URL_TINKOFF,
-//     port: 443,
-//     path: '/rest/Confirm',
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/x-www-form-urlencoded'
-//     }
-//   };
-//   if (connectParam.method == 'POST'){
-//     connectParam.headers['Content-length'] = Buffer.from(body).length;
-//   }
-//   let responseTinkoff = await new Promise((reslove, reject) => {
-//     let req = https.request(connectParam, (res) => {
-//       res.setEncoding('utf8');
-//       res.on('data', (chunk) => {
-//         response += chunk;
-//       });
-//       res.on('end', () => {
-//         reslove(response);
-//       });
-//     });
-//     req.setTimeout(1000 * 20, function () {
-//       reject(new Error(`Request timeout error - ${connectParam}`));
-//     });
-//     req.on('error', (e) => {
-//       reject(new Error(`The request ended in failure - ${connectParam}`));
-//     });
-//     if (connectParam.method == 'POST'){
-//       req.write(body);
-//     }
-//     req.end();
-//   });
-//   let parseResponseTinkoff = JSON.parse(responseTinkoff);
-//   logger.info(parseResponseTinkoff);
-//   if (parseResponseTinkoff.Success){
-//     return parseResponseTinkoff.Status;
-//   } else {
-//     logger.error('Check payment state failure');
-//     logger.error(`${responseTinkoff}`);
-//   }
-//   return false;
-// }
-
 
 module.exports = {
   paymentsRouter,

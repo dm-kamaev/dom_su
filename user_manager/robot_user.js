@@ -19,9 +19,25 @@ robot_user.its_robot = function (ctx) {
   if (!user_agent) {
     return false;
   }
-  return /bot/ig.test(user_agent);
+  return (
+    /bot/ig.test(user_agent) ||
+    /spider/i.test(user_agent) ||
+    /facebookexternal/i.test(user_agent)  ||
+    /ia_archiver/i.test(user_agent) ||
+    /curl/i.test(user_agent)  ||
+    /wget/i.test(user_agent) ||
+    /Python/.test(user_agent)  ||
+    /libwww-perl/i.test(user_agent)  ||
+    /Goofer/ig.test(user_agent)
+  );
 };
-
+// console.log(robot_user.its_robot({
+//   request: {
+//     headers: {
+//       'user-agent': 'curl/7.47.0'
+//     }
+//   }
+// }));
 
 robot_user.get_user_uuid = function () {
   return ROBOT_UUID;

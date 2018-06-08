@@ -14,9 +14,10 @@ clientShortUrlRouter.get('/s/:key', async function(ctx, next) {
   if (shortUrl) {
     if (shortUrl.data) {
       let parseData = JSON.parse(shortUrl.data);
-      if (parseData.Luid) {
-        ctx.state.pancakeUser.sendTicket('ClientConnect', {
-          'luid': parseData.Luid
+      const user = ctx.state.pancakeUser;
+      if (parseData.Luid && !user.its_robot()) {
+        user.sendTicket('ClientConnect', {
+          luid: parseData.Luid
         });
       }
     }
