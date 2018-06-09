@@ -1,13 +1,26 @@
 "use strict";
 
-const { models, ErrorCodes, ModelsError, scrollModel } = require('models')
-const { Ticket } = models
-const { sendTicket } = require('./send')
+const { Ticket } = require('models').models;
+const { sendTicket } = require('./send');
 
 
+/**
+ * saveAndSend
+ * @param  {String} type
+ * @param  {Object} data
+ * @param  {Object} ctx?
+ * @return {sequalezi.model}
+ */
+async function saveAndSend(type, data, ctx) {
 
-async function saveAndSend(type, data) {
-    let ticket = await Ticket.create({type: type, data: data})
+  if (ctx) {
+    data.google_id = ctx.state.pancakeUser.get_google_id();
+  }
+
+  const ticket = await Ticket.create({
+    type,
+    data
+  })
     let response = await sendTicket(ticket.buildMessage())
     if (response.result == 'ok'){
         ticket.isSend = true

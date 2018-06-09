@@ -185,8 +185,8 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
   if (wrong_domain(ctx)) {
     return;
   }
-  const cond = (ctx.request.url === '/payments/success/?Success=true&ErrorCode=0&Message=None&Details=Approved&Amount=996000&MerchantEmail=marianna%40domovenok.su&MerchantName=domovenok&OrderId=45001&PaymentId=23025884&TranDate=08.06.2018+03%3A14%3A18&BackUrl=https%3A%2F%2Fwww.domovenok.su&CompanyName=%D0%9E%D0%9E%D0%9E+%C2%AB%D0%9A%D1%81%D0%94%C2%BB&EmailReq=marianna%40domovenok.su&PhonesReq=9295302312');
-  const flg = Fast_logger(cond);
+  // const cond = (ctx.request.url === '/payments/success/?Success=true&ErrorCode=0&Message=None&Details=Approved&Amount=996000&MerchantEmail=marianna%40domovenok.su&MerchantName=domovenok&OrderId=45001&PaymentId=23025884&TranDate=08.06.2018+03%3A14%3A18&BackUrl=https%3A%2F%2Fwww.domovenok.su&CompanyName=%D0%9E%D0%9E%D0%9E+%C2%AB%D0%9A%D1%81%D0%94%C2%BB&EmailReq=marianna%40domovenok.su&PhonesReq=9295302312');
+  // const flg = Fast_logger(cond);
 
   const query_param = ctx.query;
   let logger_payment;
@@ -255,7 +255,6 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
         logger_payment.info('payment success completed orderId', payment.dataValues);
         if (payment.redirectNewSite){
           logger.info(`exist redirectNewSite: redirect to ${payment.redirectPath}`);
-          flg('I_AM_TEST_REDIRECT', payment.redirectPath);
           ctx.redirect(payment.redirectPath);
           return;
         }
@@ -264,10 +263,6 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
           sum: payment.Amount / 100.0,
           typePayment: enum_type_payment.manual_payment
         }));
-        flg('RENDER_TEMPLATE', {
-          sum: payment.Amount / 100.0,
-          typePayment: enum_type_payment.manual_payment
-        });
         return;
       } catch (e){
         logger.error(e);

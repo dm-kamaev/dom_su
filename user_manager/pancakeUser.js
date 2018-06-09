@@ -342,6 +342,13 @@ class PancakeUser {
     }
   }
 
+  /**
+   * @return {String} 1405044556.1440140825
+   */
+  get_google_id() {
+    return this.google_id;
+  }
+
   setVisit() {
     if (this.isNew === true) {
 
@@ -461,9 +468,10 @@ class PancakeUser {
 
   sendTicket(type, data) {
     // Add UTMS and User UUID in Ticket
-    this.queue.push(async function (previousResult, pancakeUser) {
+    const me = this;
+    me.queue.push(async function (previousResult, pancakeUser) {
       data['user_id'] = pancakeUser.uuid;
-      let ticket = await saveAndSend(type, data);
+      let ticket = await saveAndSend(type, data, me.ctx);
       return ticket;
     });
   }
