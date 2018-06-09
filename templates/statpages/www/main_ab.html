@@ -51,20 +51,21 @@
   <meta name="theme-color" content="#fd8204">
   
   <!-- Start SmartBanner configuration -->
-  <meta name="smartbanner:title" content="Домовенок">
-  <meta name="smartbanner:author" content="Домовёнок всегда<br> под рукой">
-  <meta name="smartbanner:price" content=" ">
-  <meta name="smartbanner:price-suffix-apple" content=" ">
-  <meta name="smartbanner:price-suffix-google" content=" ">
-  <meta name="smartbanner:icon-apple" content="/static/pancake/img/logo-dom.svg">
-  <meta name="smartbanner:icon-google" content="/static/pancake/img/logo-dom.svg">
-  <meta name="smartbanner:button" content="Открыть">
-  <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/app/%D0%B4%D0%BE%D0%BC%D0%BE%D0%B2%D0%B5%D0%BD%D0%BE%D0%BA-%D1%83%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80-%D0%B3%D0%BB%D0%B0%D0%B6%D0%BA%D0%B0-%D1%81%D1%82%D0%B8%D1%80%D0%BA%D0%B0-%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D0%BD%D0%B3/id1274981749?mt=8">
-  <meta name="smartbanner:button-url-google" content="https://play.google.com/store/apps/details?id=ru.domovenok.app&hl=ru">
-  <meta name="smartbanner:enabled-platforms" content="android,ios">
+  <!--<meta name="smartbanner:title" content="Домовенок">-->
+  <!--<meta name="smartbanner:author" content="Домовёнок всегда<br> под рукой">-->
+  <!--<meta name="smartbanner:price" content=" ">-->
+  <!--<meta name="smartbanner:price-suffix-apple" content=" ">-->
+  <!--<meta name="smartbanner:price-suffix-google" content=" ">-->
+  <!--<meta name="smartbanner:icon-apple" content="/static/pancake/img/logo-dom.svg">-->
+  <!--<meta name="smartbanner:icon-google" content="/static/pancake/img/logo-dom.svg">-->
+  <!--<meta name="smartbanner:button" content="Открыть">-->
+  <!--<meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/app/%D0%B4%D0%BE%D0%BC%D0%BE%D0%B2%D0%B5%D0%BD%D0%BE%D0%BA-%D1%83%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80-%D0%B3%D0%BB%D0%B0%D0%B6%D0%BA%D0%B0-%D1%81%D1%82%D0%B8%D1%80%D0%BA%D0%B0-%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D0%BD%D0%B3/id1274981749?mt=8">-->
+  <!--<meta name="smartbanner:button-url-google" content="https://play.google.com/store/apps/details?id=ru.domovenok.app&hl=ru">-->
+  <!--<meta name="smartbanner:enabled-platforms" content="android,ios">-->
   <!-- End SmartBanner configuration -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=cyrillic" rel="stylesheet">
-  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.26">
+  <link href="/static/pancake/vue/css/app.css?v0.29" rel=stylesheet>
+  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.29">
   <base href="" >
 
 
@@ -100,6 +101,13 @@
   <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 {{/if}}
+
+<div class="auth-hint">
+	<a class="auth-hint__link"  href="">Уже клиент?<br>
+		Войти, чтобы заказать в пару кликов</a>
+	<button class="auth-hint__btn-close"  type="button"></button>
+</div>
+<div class="auth-hint-margin"></div>
 <!-- Page wrapper -->
 <div class="page__wrap">
   <!-- Page Header -->
@@ -149,6 +157,7 @@
       </div>
     </div>
   </header>
+  <div id="app" style="height: 0"></div>
 
   <!-- /Page Header -->
 
@@ -231,96 +240,117 @@
               <svg width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
             </button>
 
-            <div class="swiper-container  cleaning-type__inner">
+            <div class="swiper-container  cleaning-type-ab__inner">
               <div class="swiper-wrapper">
 
-                <div class="swiper-slide  cleaning-type__item">
-                  <i class="cleaning-type__icon"></i>
-                  <h3 class="cleaning-type__title">Поддерживающая</h3>
+                <div class="swiper-slide  cleaning-type-ab__item">
+                  <i class="cleaning-type-ab__icon"></i>
+                  <h3 class="cleaning-type-ab__title">Поддерживающая</h3>
 
-                  <div class="cleaning-type__content">
-                    <ul class="cleaning-type__list">
-                      <li class="cleaning-type__list-item">1-2 сотрудника</li>
-                      <li class="cleaning-type__list-item">Удаляются легкие загрязнения</li>
-                      <li class="cleaning-type__list-item">Высота до 1.8 м</li>
-                      <li class="cleaning-type__list-item">2-4 часов</li>
+                  <div class="cleaning-type-ab__content">
+                    <ul class="cleaning-type-ab__list">
+                      <li class="cleaning-type-ab__list-item">1-2 сотрудника</li>
+                      <li class="cleaning-type-ab__list-item">Удаляются легкие загрязнения</li>
+                      <li class="cleaning-type-ab__list-item">Высота до 1.8 м</li>
+                      <li class="cleaning-type-ab__list-item">2-4 часов</li>
                     </ul>
-                    <p class="cleaning-type__price">
-                      <span class="cleaning-type__price  cleaning-type__price--small">от</span>
-                      1 990
-                      <span class="cleaning-type__price">&#x20bd;</span>
-                    </p>
-                    <a class="link  link--black  link--without-line  link--with-arrow  cleaning-type__link" href="{{buildUrl general.city '/podderzhka'}}">
-                      <span class="link__text">Подробнее</span>
-                      <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-                    </a>
+                    <button class="cleaning-type-ab__btn-details" type="button"  data-id="work-list-podderzhka"  data-name="details-list">подробнее...</button>
+                    <div class="cleaning-type-ab__price">
+                      <p class="cleaning-type-ab__price-text">
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--small  cleaning-type-ab__price-text--light">от</span>
+                        1 990
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--light">&#8381;</span>
+                      </p>
+                    </div>
                   </div>
+                  <button class="cleaning-type-ab__btn"  type="button"  data-action="openOrder"  data-service="podderzhka">Выбрать</button>
                 </div>
 
-                <div class="swiper-slide  cleaning-type__item">
-                  <h3 class="cleaning-type__title">Комплексная</h3>
+                <div class="swiper-slide  cleaning-type-ab__item">
+                  <h3 class="cleaning-type-ab__title">Комплексная</h3>
 
-                  <div class="cleaning-type__content">
-                    <ul class="cleaning-type__list">
-                      <li class="cleaning-type__list-item">1-2 сотрудника</li>
-                      <li class="cleaning-type__list-item">Удаляются легкие загрязнения</li>
-                      <li class="cleaning-type__list-item">На всю высоту</li>
-                      <li class="cleaning-type__list-item">4-7 часов</li>
+                  <div class="cleaning-type-ab__content">
+                    <ul class="cleaning-type-ab__list">
+                      <li class="cleaning-type-ab__list-item">1-2 сотрудника</li>
+                      <li class="cleaning-type-ab__list-item">Удаляются легкие загрязнения</li>
+                      <li class="cleaning-type-ab__list-item">На всю высоту</li>
+                      <li class="cleaning-type-ab__list-item">4-7 часов</li>
                     </ul>
-                    <p class="cleaning-type__price">
-                      <span class="cleaning-type__price  cleaning-type__price--small">от</span>
-                      3 590
-                      <span class="cleaning-type__price">&#x20bd;</span>
-                    </p>
-                    <a class="link  link--black  link--without-line  link--with-arrow  cleaning-type__link" href="{{buildUrl general.city '/kompleksnaya_uborka'}}">
-                      <span class="link__text">Подробнее</span>
-                      <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-                    </a>
+                    <button class="cleaning-type-ab__btn-details" type="button"  data-id="work-list-complex"  data-name="details-list">подробнее...</button>
+                    <div class="cleaning-type-ab__price">
+                      <p class="cleaning-type-ab__price-text">
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--small  cleaning-type-ab__price-text--light">от</span>
+                        3 590
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--light">&#8381;</span>
+                      </p>
+                    </div>
                   </div>
+                  <button class="cleaning-type-ab__btn"  type="button"  data-action="openOrder"  data-service="complex">Выбрать</button>
                 </div>
 
-                <div class="swiper-slide  cleaning-type__item">
-                  <h3 class="cleaning-type__title">Генеральная</h3>
+                <div class="swiper-slide  cleaning-type-ab__item">
+                  <h3 class="cleaning-type-ab__title">Генеральная</h3>
 
-                  <div class="cleaning-type__content">
-                    <ul class="cleaning-type__list">
-                      <li class="cleaning-type__list-item">2-4 сотрудника</li>
-                      <li class="cleaning-type__list-item">Удаляются любые загрязнения</li>
-                      <li class="cleaning-type__list-item">На всю высоту</li>
-                      <li class="cleaning-type__list-item">6-8 часов</li>
+                  <div class="cleaning-type-ab__content">
+                    <ul class="cleaning-type-ab__list">
+                      <li class="cleaning-type-ab__list-item">2-4 сотрудника</li>
+                      <li class="cleaning-type-ab__list-item">Удаляются любые загрязнения</li>
+                      <li class="cleaning-type-ab__list-item">На всю высоту</li>
+                      <li class="cleaning-type-ab__list-item">6-8 часов</li>
                     </ul>
-                    <p class="cleaning-type__price">
-                      <span class="cleaning-type__price  cleaning-type__price--small">от</span>
-                      6 990
-                      <span class="cleaning-type__price">&#x20bd;</span>
-                    </p>
-                    <a class="link  link--black  link--without-line  link--with-arrow  cleaning-type__link" href="{{buildUrl general.city '/generalnaya_uborka'}}">
-                      <span class="link__text">Подробнее</span>
-                      <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-                    </a>
+                    <button class="cleaning-type-ab__btn-details" type="button"  data-id="work-list-general"  data-name="details-list">подробнее...</button>
+                    <div class="cleaning-type-ab__price">
+                      <p class="cleaning-type-ab__price-text">
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--small  cleaning-type-ab__price-text--light">от</span>
+                        6 990
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--light">&#8381;</span>
+                      </p>
+                    </div>
                   </div>
+                  <button class="cleaning-type-ab__btn"  type="button"  data-action="openOrder"  data-service="general">Выбрать</button>
                 </div>
 
-                <div class="swiper-slide  cleaning-type__item">
-                  <h3 class="cleaning-type__title">После ремонта</h3>
+                <div class="swiper-slide  cleaning-type-ab__item">
+                  <h3 class="cleaning-type-ab__title">После ремонта</h3>
 
-                  <div class="cleaning-type__content">
-                    <ul class="cleaning-type__list">
-                      <li class="cleaning-type__list-item">2-4 сотрудника</li>
-                      <li class="cleaning-type__list-item">Любые загрязнения и следы стройки</li>
-                      <li class="cleaning-type__list-item">На всю высоту</li>
-                      <li class="cleaning-type__list-item">6-8 часов</li>
+                  <div class="cleaning-type-ab__content">
+                    <ul class="cleaning-type-ab__list">
+                      <li class="cleaning-type-ab__list-item">2-4 сотрудника</li>
+                      <li class="cleaning-type-ab__list-item">Любые загрязнения и следы стройки</li>
+                      <li class="cleaning-type-ab__list-item">На всю высоту</li>
+                      <li class="cleaning-type-ab__list-item">6-8 часов</li>
                     </ul>
-                    <p class="cleaning-type__price">
-                      <span class="cleaning-type__price  cleaning-type__price--small">от</span>
-                      7 690
-                      <span class="cleaning-type__price">&#x20bd;</span>
-                    </p>
-                    <a class="link  link--black  link--without-line  link--with-arrow  cleaning-type__link" href="{{buildUrl general.city '/posle_remonta'}}">
-                      <span class="link__text">Подробнее</span>
-                      <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-                    </a>
+                    <button class="cleaning-type-ab__btn-details" type="button"  data-id="work-list-posle"  data-name="details-list">подробнее...</button>
+                    <div class="cleaning-type-ab__price">
+                      <p class="cleaning-type-ab__price-text">
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--small  cleaning-type-ab__price-text--light">от</span>
+                        7 690
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--light">&#8381;</span>
+                      </p>
+                    </div>
                   </div>
+                  <button class="cleaning-type-ab__btn" type="button"  data-action="openOrder"  data-service="posle">Выбрать</button>
+                </div>
+
+                <div class="swiper-slide  cleaning-type-ab__item">
+                  <h3 class="cleaning-type-ab__title">Мытьё окон</h3>
+
+                  <div class="cleaning-type-ab__content">
+                    <ul class="cleaning-type-ab__list">
+                      <li class="cleaning-type-ab__list-item">1-2 сотрудника</li>
+                      <li class="cleaning-type-ab__list-item">Моем все окна в квартире, рамы, отливы, подоконники, москитные сетки</li>
+                      <li class="cleaning-type-ab__list-item">2-5 часов</li>
+                    </ul>
+                    <button class="cleaning-type-ab__btn-details" type="button"  data-id="work-list-window-cleaning"  data-name="details-list">подробнее...</button>
+                    <div class="cleaning-type-ab__price">
+                      <p class="cleaning-type-ab__price-text">
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--small  cleaning-type-ab__price-text--light">от</span>
+                        1 490
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--light">&#8381;</span>
+                      </p>
+                    </div>
+                  </div>
+                  <button class="cleaning-type-ab__btn"  type="button"  data-action="openOrder"  data-service="window_cleaning">Выбрать</button>
                 </div>
 
               </div>
@@ -330,7 +360,7 @@
               <svg width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
             </button>
           </div>
-          <p class="cleaning-type__text">Цена на Уборку зависит от площади. При обслуживании по графику 1 раз в 2 недели или 1 раз в<br> неделю клиентам предоставляется скидка до 35%</p>
+          <p class="cleaning-type-ab__text">Цена на Уборку зависит от площади. При обслуживании по графику 1 раз в 2 недели или 1 раз в<br> неделю клиентам предоставляется скидка до 35%</p>
         </div>
       </section>
 
@@ -425,7 +455,7 @@
       <section class="page__section section section--bg-grey">
         <div class="section__wrap">
 
-          <h2 class="section__title  title">Топ-5 домовят апреля</h2>
+          <h2 class="section__title  title">Топ-5 домовят мая</h2>
           
           <div class="swiper-carousel">
             <button class="swiper-carousel__button-prev" type="button">
@@ -436,37 +466,37 @@
               <div class="swiper-wrapper">
                 <div class="swiper-slide worker-card">
                   <div class="worker-card__img-wrapper">
-                    <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/ba4f1800-e191-11e3-9402-002590306b4e.jpg" alt="">
-                  </div>
-                  <p class="worker-card__title">Панько Татьяна</p>
-                  <div class="worker-card__text-wrapper">
-                    <span class="worker-card__text">5</span>
-                    <i class="star"></i>
-                    <span class="worker-card__text  worker-card__text--decor">2 470 уборок</span>
-                  </div>
-                </div>
-          
-                <div class="swiper-slide worker-card">
-                  <div class="worker-card__img-wrapper">
-                    <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/7e8508c3-da14-11e4-9450-002590306b4e.jpeg" alt="">
-                  </div>
-                  <p class="worker-card__title">Акматова Бегимай</p>
-                  <div class="worker-card__text-wrapper">
-                    <span class="worker-card__text">5</span>
-                    <i class="star"></i>
-                    <span class="worker-card__text  worker-card__text--decor">1 252 уборок</span>
-                  </div>
-                </div>
-          
-                <div class="swiper-slide worker-card">
-                  <div class="worker-card__img-wrapper">
                     <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/456e809e-cfda-11e5-80de-00155d594900.jpg" alt="">
                   </div>
                   <p class="worker-card__title">Айдаралиева Наргиза</p>
                   <div class="worker-card__text-wrapper">
                     <span class="worker-card__text">5</span>
                     <i class="star"></i>
-                    <span class="worker-card__text  worker-card__text--decor">925 уборок</span>
+                    <span class="worker-card__text  worker-card__text--decor">938 уборок</span>
+                  </div>
+                </div>
+          
+                <div class="swiper-slide worker-card">
+                  <div class="worker-card__img-wrapper">
+                    <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/2462748e-dd36-11e4-9450-002590306b4f.jpeg" alt="">
+                  </div>
+                  <p class="worker-card__title">Кураленко Татьяна</p>
+                  <div class="worker-card__text-wrapper">
+                    <span class="worker-card__text">5</span>
+                    <i class="star"></i>
+                    <span class="worker-card__text  worker-card__text--decor">1 386 уборок</span>
+                  </div>
+                </div>
+          
+                <div class="swiper-slide worker-card">
+                  <div class="worker-card__img-wrapper">
+                    <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/d739e1f7-1099-11e7-80e4-00155d594900.jpg" alt="">
+                  </div>
+                  <p class="worker-card__title">Тулебаева Гулькайыр</p>
+                  <div class="worker-card__text-wrapper">
+                    <span class="worker-card__text">5</span>
+                    <i class="star"></i>
+                    <span class="worker-card__text  worker-card__text--decor">444 уборок</span>
                   </div>
                 </div>
           
@@ -484,13 +514,13 @@
           
                 <div class="swiper-slide worker-card">
                   <div class="worker-card__img-wrapper">
-                    <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/964c321f-f51c-11e6-80e4-00155d594900.jpg" alt="">
+                    <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/119207b4-27a0-11e8-80e6-00155d594900.jpg" alt="">
                   </div>
-                  <p class="worker-card__title">Дорошенко Светлана</p>
+                  <p class="worker-card__title">Мейманбаева Нурзия</p>
                   <div class="worker-card__text-wrapper">
                     <span class="worker-card__text">5</span>
                     <i class="star"></i>
-                    <span class="worker-card__text  worker-card__text--decor">499 уборок</span>
+                    <span class="worker-card__text  worker-card__text--decor">129 уборок</span>
                   </div>
                 </div>
               </div>
@@ -1082,24 +1112,58 @@
           <div class="page-footer__row page-footer__row--justify">
             <div class="page-footer__column">
               <div class="page-footer__social-links  social-links">
-                <a  class="social-link  social-link--grey" href="https://www.facebook.com/uborka.domovenok">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><path d="M18,0A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z" fill="#fff" fill-rule="evenodd"/><path d="M14.9,17.49a2.64,2.64,0,0,1,0,.7V29.27h4.88c0-2.92,0-5.91,0-8.84,0,0,0-2.84,0-2.9a.1.1,0,0,1,0,0s3.11,0,3.22,0l.05,0,.43-4H19.83c0-.6,0-1.21,0-1.81s0-1.22.32-1.52l3.37-.33V5.7c-.64,0-1.39,0-2,0s-1.36,0-2,0a4.17,4.17,0,0,0-3,1.07c-.45.5-1.57,1.13-1.5,6.62H12.46v4.06Z" fill="#263239" fill-rule="evenodd"/></g></g></svg>
+                <a  class="social-link  social-link--fb" href="https://www.facebook.com/uborka.domovenok">
+                  <svg width="36" height="36" viewBox="0 0 36 36">
+                    <g>
+                      <g>
+                        <path d="M14.9,17.49a2.64,2.64,0,0,1,0,.7V29.27h4.88c0-2.92,0-5.91,0-8.84,0,0,0-2.84,0-2.9a.1.1,0,0,1,0,0s3.11,0,3.22,0l.05,0,.43-4H19.83c0-.6,0-1.21,0-1.81s0-1.22.32-1.52l3.37-.33V5.7c-.64,0-1.39,0-2,0s-1.36,0-2,0a4.17,4.17,0,0,0-3,1.07c-.45.5-1.57,1.13-1.5,6.62H12.46v4.06Z" fill-rule="evenodd"/>
+                      </g>
+                    </g>
+                  </svg>
                 </a>
       
-                <a  class="social-link  social-link--grey" href="http://odnoklassniki.ru/group/56701105799224">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><path d="M18.59,6.09c-3.1-.51-6.75,1.3-7.33,4.93C10,19,22.6,20.88,23.79,12.86A6.05,6.05,0,0,0,18.59,6.09Zm1.89,6.32c-.56,3.79-6.52,2.91-5.92-.87A3,3,0,0,1,18,9.21,2.86,2.86,0,0,1,20.48,12.42Z" fill="#263239"/><path d="M23.89,28.76c-1.23,1.2-2.55.1-3.51-.79s-1.81-1.71-2.68-2.36c-2.25,2.27-4.08,5-5.93,3.49-2.21-1.81,2.13-4.47,3.2-6a12.39,12.39,0,0,1-3.84-1.45,1.75,1.75,0,0,1,0-2.84c1.27-.88,2.13.09,3.63.55,5.69,1.75,7.89-3.16,9.57-.28,1.44,2.46-3.45,3.54-4,3.92C22.66,25.13,25.67,27,23.89,28.76Z" fill="#263239"/></g></g></svg>
+                <a  class="social-link  social-link--ok" href="http://odnoklassniki.ru/group/56701105799224">
+                  <svg width="36" height="36" viewBox="0 0 36 36">
+                    <g>
+                      <g>
+                        <path d="M18.59,6.09c-3.1-.51-6.75,1.3-7.33,4.93C10,19,22.6,20.88,23.79,12.86A6.05,6.05,0,0,0,18.59,6.09Zm1.89,6.32c-.56,3.79-6.52,2.91-5.92-.87A3,3,0,0,1,18,9.21,2.86,2.86,0,0,1,20.48,12.42Z"/>
+                        <path d="M23.89,28.76c-1.23,1.2-2.55.1-3.51-.79s-1.81-1.71-2.68-2.36c-2.25,2.27-4.08,5-5.93,3.49-2.21-1.81,2.13-4.47,3.2-6a12.39,12.39,0,0,1-3.84-1.45,1.75,1.75,0,0,1,0-2.84c1.27-.88,2.13.09,3.63.55,5.69,1.75,7.89-3.16,9.57-.28,1.44,2.46-3.45,3.54-4,3.92C22.66,25.13,25.67,27,23.89,28.76Z"/>
+                      </g>
+                    </g>
+                  </svg>
                 </a>
       
-                <a  class="social-link  social-link--grey" href="https://instagram.com/cleaning.domovenok/">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><rect x="8.65" y="8.54" width="18.21" height="18.02" rx="4" ry="4" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2"/><circle cx="17.76" cy="17.55" r="4.16" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2"/><circle cx="23" cy="12.11" r="1.23" fill="#263239"/></g></g></svg>
+                <a  class="social-link  social-link--instagram" href="https://instagram.com/cleaning.domovenok/">
+                  <svg width="36" height="36" viewBox="0 0 36 36">
+                    <g>
+                      <g>
+                        <rect x="8.65" y="8.54" width="18.21" height="18.02" rx="4" ry="4" fill="none" stroke-miterlimit="10" stroke-width="2"/>
+                        <circle cx="17.76" cy="17.55" r="4.16" fill="none" stroke-miterlimit="10" stroke-width="2"/>
+                        <circle cx="23" cy="12.11" r="1.23"/>
+                      </g>
+                    </g>
+                  </svg>
                 </a>
       
-                <a  class="social-link  social-link--grey" href="https://www.youtube.com/channel/UC3KMG4hKopFvk18-69tLsRQ">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><rect x="7.3" y="10.47" width="21.39" height="15.07" rx="3" ry="3" fill="#263239"/><polygon points="15.93 17.93 15.9 14.96 18.49 16.41 21.08 17.87 18.52 19.39 15.97 20.9 15.93 17.93" fill="#fff"/></g></g></svg>
+                <a  class="social-link  social-link--youtube" href="https://www.youtube.com/channel/UC3KMG4hKopFvk18-69tLsRQ">
+                  <svg width="36" height="36" viewBox="0 0 36 36">
+                    <g>
+                      <g>
+                        <rect x="7.3" y="10.47" width="21.39" height="15.07" rx="3" ry="3"/>
+                        <polygon points="15.93 17.93 15.9 14.96 18.49 16.41 21.08 17.87 18.52 19.39 15.97 20.9 15.93 17.93"/>
+                      </g>
+                    </g>
+                  </svg>
                 </a>
       
-                <a  class="social-link  social-link--grey" href="https://vk.com/club43423694">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><path d="M26.93,19.84a22.13,22.13,0,0,1,3.21,3.38,1.39,1.39,0,0,1,.27,1.16.66.66,0,0,1-.7.5l-4,.18a3.09,3.09,0,0,1-2.06-1A8.41,8.41,0,0,1,22,22.27a1.05,1.05,0,0,0-.88-.47.71.71,0,0,0-.82.59l-.12,1.54a1,1,0,0,1-.36.71,1.17,1.17,0,0,1-.51.27l-.7.09a13.2,13.2,0,0,1-2.75-.15A5.51,5.51,0,0,1,13.74,24,12.86,12.86,0,0,1,12.2,22.8q-.57-.53-1.66-1.72a50.43,50.43,0,0,1-4.42-7.17,6.1,6.1,0,0,1-.61-2,1.51,1.51,0,0,1,.91-.3,18.75,18.75,0,0,1,1.94,0l1.51,0a1,1,0,0,1,1,.65,25.57,25.57,0,0,0,3,5.16q1,.89,1.27-.3a13.13,13.13,0,0,0,.12-2.9,2.07,2.07,0,0,0-1.51-2.31q.36-.95,2.54-.95.54,0,1.33.06l.85.06q1.82,0,1.82,1.42,0,.18-.06.86t-.09,1.3q0,.62,0,1.3a3.24,3.24,0,0,0,.18,1.16.94.94,0,0,0,.48.59l.64-.44a2.71,2.71,0,0,0,.64-.68l.51-.71A8.44,8.44,0,0,0,23,15a7.26,7.26,0,0,0,.42-.83q.06-.18.42-.92l.36-.74.09-.18a1.57,1.57,0,0,1,.39-.62,1.9,1.9,0,0,1,.76-.09h3.75a5.41,5.41,0,0,1,.79,0,1,1,0,0,1,.36.27q.42.53-.76,2.31a24.1,24.1,0,0,1-2.27,3Q25.84,18.83,26.93,19.84Z" fill="#263239" fill-rule="evenodd"/></g></g></svg>
+                <a  class="social-link  social-link--vk" href="https://vk.com/club43423694">
+                  <svg width="36" height="36" viewBox="0 0 36 36">
+                    <g>
+                      <g>
+                        <path d="M26.93,19.84a22.13,22.13,0,0,1,3.21,3.38,1.39,1.39,0,0,1,.27,1.16.66.66,0,0,1-.7.5l-4,.18a3.09,3.09,0,0,1-2.06-1A8.41,8.41,0,0,1,22,22.27a1.05,1.05,0,0,0-.88-.47.71.71,0,0,0-.82.59l-.12,1.54a1,1,0,0,1-.36.71,1.17,1.17,0,0,1-.51.27l-.7.09a13.2,13.2,0,0,1-2.75-.15A5.51,5.51,0,0,1,13.74,24,12.86,12.86,0,0,1,12.2,22.8q-.57-.53-1.66-1.72a50.43,50.43,0,0,1-4.42-7.17,6.1,6.1,0,0,1-.61-2,1.51,1.51,0,0,1,.91-.3,18.75,18.75,0,0,1,1.94,0l1.51,0a1,1,0,0,1,1,.65,25.57,25.57,0,0,0,3,5.16q1,.89,1.27-.3a13.13,13.13,0,0,0,.12-2.9,2.07,2.07,0,0,0-1.51-2.31q.36-.95,2.54-.95.54,0,1.33.06l.85.06q1.82,0,1.82,1.42,0,.18-.06.86t-.09,1.3q0,.62,0,1.3a3.24,3.24,0,0,0,.18,1.16.94.94,0,0,0,.48.59l.64-.44a2.71,2.71,0,0,0,.64-.68l.51-.71A8.44,8.44,0,0,0,23,15a7.26,7.26,0,0,0,.42-.83q.06-.18.42-.92l.36-.74.09-.18a1.57,1.57,0,0,1,.39-.62,1.9,1.9,0,0,1,.76-.09h3.75a5.41,5.41,0,0,1,.79,0,1,1,0,0,1,.36.27q.42.53-.76,2.31a24.1,24.1,0,0,1-2.27,3Q25.84,18.83,26.93,19.84Z" fill-rule="evenodd"/>
+                      </g>
+                    </g>
+                  </svg>
                 </a>
               </div>
               <p class="page-footer__address">Телефон:<a class="page-footer__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
@@ -1299,6 +1363,8 @@
   
       <div class="pop-up__item  pop-up__item--hide  price-list"></div>
   
+      <div class="pop-up__item  pop-up__item--hide  details-list"></div>
+  
       <div class="pop-up__item pop-up__item--hide  service-calc-calendar">
           <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_2"}'>
   
@@ -1393,10 +1459,229 @@
 </script>
 
 <!-- /Page wrapper -->
+
+<!-- Подробный перечень работ -->
+<script id="work-list-podderzhka" type="text/html">
+  <div class="list-block">
+    <h3 class="list-block__title">Комната и коридор</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">Удаляем пыль и моем все горизонтальные, вертикальные поверхности;</li>
+      <li class="list-block__item">Моем и пылесосим полы и плинтусы;</li>
+      <li class="list-block__item">Удаляем легкие загрязнения: жир, масло и т.д.;</li>
+      <li class="list-block__item">Удаляем пыль со светильников;</li>
+      <li class="list-block__item">Моем трубы, карнизы, фоторамки, рамы картин и т.д.;</li>
+      <li class="list-block__item">Моем зеркала и стеклянные поверхности;</li>
+      <li class="list-block__item">Ухаживаем за кожаной мебелью;</li>
+      <li class="list-block__item">Меняем постельное белье;</li>
+      <li class="list-block__item">Моем двери и дверные блоки.</li>
+    </ul>
+    <h3 class="list-block__title">Кухня</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">Чистим и дезинфицируем горизонтальные рабочие поверхности;</li>
+      <li class="list-block__item">Моем кухонную плиту и стену над ней;</li>
+      <li class="list-block__item">Моем вытяжку внутри, включая фильтры;</li>
+      <li class="list-block__item">Моем все вертикальные поверхности;</li>
+      <li class="list-block__item">Чистим и обеззараживаем сантехнику;</li>
+      <li class="list-block__item">Моем грязную посуду;</li>
+      <li class="list-block__item">Моем холодильник снаружи;</li>
+      <li class="list-block__item">Моем вытяжку снаружи;</li>
+      <li class="list-block__item">Моем микроволновую печь снаружи и внутри;</li>
+      <li class="list-block__item">Моем и обеззараживаем мусорную корзину, выносим мусор.</li>
+    </ul>
+    <h3 class="list-block__title">Ванная комната</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">Чистим и обеззараживаем сантехнику и раковину;</li>
+      <li class="list-block__item">Моем все зеркальные и стеклянные поверхности;</li>
+      <li class="list-block__item">Моем душевую кабину и ванну (снаружи и внутри);</li>
+      <li class="list-block__item">Моем душевую кабину и ванну (снаружи и внутри);</li>
+      <li class="list-block__item">Очищаем межплиточные швы.</li>
+    </ul>
+  </div>
+</script>
+
+<script id="work-list-complex" type="text/html">
+  <div class="list-block">
+    <h3 class="list-block__title">Комната и коридор</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">пылесосим и моем пол и плинтусы;</li>
+      <li class="list-block__item">пылесосим напольные ковры и коврики;</li>
+      <li class="list-block__item">пылесосим мягкую мебель (кроме подушек);</li>
+      <li class="list-block__item">моем светильники;</li>
+      <li class="list-block__item">моем подоконники, трубы и батареи;</li>
+      <li class="list-block__item">моем двери и дверные блоки;</li>
+      <li class="list-block__item">моем все стеклянные элементы и зеркала;</li>
+      <li class="list-block__item">удаляем пыль с мебели и предметов интерьера;</li>
+      <li class="list-block__item">удаляем пыль с внешней части бытовых приборов;</li>
+      <li class="list-block__item">меняем постельное белье.</li>
+    </ul>
+    <h3 class="list-block__title">Кухня</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">моем плиту и стену над ней;</li>
+      <li class="list-block__item">моем столешницу и мебель снаружи;</li>
+      <li class="list-block__item">моем духовку и холодильник снаружи;</li>
+      <li class="list-block__item">моем микроволновку внутри и снаружи;</li>
+      <li class="list-block__item">устраняем жирные и масляные пятна;</li>
+      <li class="list-block__item">моем кухонную технику снаружи;</li>
+      <li class="list-block__item">моем и обеззараживаем раковину;</li>
+      <li class="list-block__item">моем посуду (в течение 10 минут);</li>
+      <li class="list-block__item">выносим мусор и обеззараживаем корзину.</li>
+    </ul>
+    <h3 class="list-block__title">Ванная комната</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">моем стены на всю высоту;</li>
+      <li class="list-block__item">моем и обеззараживаем всю сантехнику;</li>
+      <li class="list-block__item">моем ванну и душевую кабину;</li>
+      <li class="list-block__item">очищаем плитку от локальных загрязнений.</li>
+    </ul>
+  </div>
+</script>
+
+<script id="work-list-general" type="text/html">
+  <div class="list-block">
+    <h3 class="list-block__title">Общие работы</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">моем и пылесосим полы и плинтусы;</li>
+      <li class="list-block__item">удаляем на всех поверхностях сложные загрязнения: известковый налет, ржавчину, следы
+                                   жира, водный камень</li>
+      <li class="list-block__item">моем мебель снаружи;</li>
+      <li class="list-block__item">моем мебель внутри, где убраны вещи с полок;</li>
+      <li class="list-block__item">удаляем пыль со стен и потолков;</li>
+      <li class="list-block__item">чистим парогенератором труднодоступные места;</li>
+      <li class="list-block__item">удаляем пыль и моем бытовую и кухонную технику;</li>
+      <li class="list-block__item">удаляем пыль и моем все светильники, включая потолочные.</li>
+    </ul>
+    <h3 class="list-block__title">Комната и коридор</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">удаляем пыль с предметов интерьера: ваз, фоторамок, картин;</li>
+      <li class="list-block__item">удаляем пыль с кондиционеров и их фильтров;</li>
+      <li class="list-block__item">моем зеркала и стеклянные поверхности;</li>
+      <li class="list-block__item">моем подоконники, батареи и трубы;</li>
+      <li class="list-block__item">пылесосим мягкую мебель внутри и снаружи;</li>
+      <li class="list-block__item">бережно ухаживаем за кожаной мебелью;</li>
+      <li class="list-block__item">меняем постельное белье;</li>
+      <li class="list-block__item">моем двери и дверные блоки;</li>
+      <li class="list-block__item">моем карнизы.</li>
+    </ul>
+    <h3 class="list-block__title">Кухня</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">чистим и дезинфицируем кухонные рабочиеповерхности;</li>
+      <li class="list-block__item">моем стеновые панели кухонного гарнитура;</li>
+      <li class="list-block__item">моем холодильник снаружи и внутри;</li>
+      <li class="list-block__item">моем вытяжку снаружи и внутри, включая фильтры;</li>
+      <li class="list-block__item">моем кухонную плиту снаружи и внутри;</li>
+      <li class="list-block__item">моем микроволновую печь снаружи и внутри;</li>
+      <li class="list-block__item">чистим и обеззараживаем сантехнику;</li>
+      <li class="list-block__item">моем грязную посуду 10 минут;</li>
+      <li class="list-block__item">моем и обеззараживаем мусорную корзину, выносим мусор.</li>
+    </ul>
+    <h3 class="list-block__title">Ванная комната</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">моем потолок и стены на всю высоту;</li>
+      <li class="list-block__item">моем душевую кабину и ванну (снаружи и внутри);</li>
+      <li class="list-block__item">чистим и обеззараживаем сантехнику;</li>
+      <li class="list-block__item">очищаем межплиточные швы.</li>
+    </ul>
+  </div>
+</script>
+
+<script id="work-list-posle" type="text/html">
+  <div class="list-block">
+    <h3 class="list-block__title">Комната и коридор</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">уборка мусора, замена одноразовых пакетов, мытье корзины изнутри и снаружи;</li>
+      <li class="list-block__item">уборка пыли с поверхности стен и потолков; домовята также могут удалить всевозможные
+                                   загрязнения, если на это рассчитаны используемые отделочные материалы;</li>
+      <li class="list-block__item">мытьё карнизов (в эту услугу не входит уборка жалюзи и штор);</li>
+      <li class="list-block__item">обработка климатической техники, очищение внутренних фильтров устройства;</li>
+      <li class="list-block__item">мытьё всех светильников, используемых в доме (помимо хрустальных изделий);</li>
+      <li class="list-block__item">уборка корпусной мебели: обрабатывается как внутренняя, так и внешняя поверхность
+                                   предметов при условии отсутствия в них вещей;</li>
+      <li class="list-block__item">обработка зеркал и различных стеклянных покрытий и элементов декора с помощью
+                                   специализированных средств (на всю высоту);</li>
+      <li class="list-block__item">очищение аксессуаров и предметов интерьера от пыли и различных загрязнений;</li>
+      <li class="list-block__item">очистка бытовой техники от скопившейся пыли;</li>
+      <li class="list-block__item">уборка пыли на подоконнике и последующая мойка коммуникаций;</li>
+      <li class="list-block__item">уборка пылесосом для очищения внутренней и внешней поверхности мягкой мебели; при
+                                   необходимости «домовята» обязательно уделяют внимание матрасу;</li>
+      <li class="list-block__item">обработка кожаных предметов мебели профессиональными чистящими составами;</li>
+      <li class="list-block__item">замена спального комплекта;</li>
+      <li class="list-block__item">сухая и влажна уборка дверных блоков, а также используемой фурнитуры;</li>
+      <li class="list-block__item">устранение разного рода загрязнений: «домовята» эффективно борются с известковым
+                                   налетом и застарелой ржавчиной;</li>
+      <li class="list-block__item">эко-уборка с помощью парогенератора (для труднодоступных мест в квартире);</li>
+      <li class="list-block__item">мытьё плинтусов и уборка напольных покрытий любого типа.</li>
+    </ul>
+    <h3 class="list-block__title">Кухня</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">влажная уборка фасадов кухонной мебели с обязательным удалением жирных следов;</li>
+      <li class="list-block__item">мытьё внутренней части ящиков и шкафов при том условии, если клиент предварительно
+                                   освободил их от предметов домашнего обихода;</li>
+      <li class="list-block__item">мытьё грязной посуды, стоящей в раковине;</li>
+      <li class="list-block__item">обработка «фартука», удаление различных загрязнений;</li>
+      <li class="list-block__item">влажная уборка вытяжки (с учетом внутренней и внешней поверхности) со снятием
+                                   используемых фильтров;</li>
+      <li class="list-block__item">очищение плиты для приготовления пищи (внутри и снаружи);</li>
+      <li class="list-block__item">комплексная чистка холодильной камеры;</li>
+      <li class="list-block__item">удаление загрязнений с внутренней и внешней части микроволновой печи;</li>
+      <li class="list-block__item">тщательная обработка другой кухонной техники;</li>
+      <li class="list-block__item">мытьё и дезинфекция сантехнического оборудования;</li>
+      <li class="list-block__item">устранение самых сложных загрязнений (включая налет извести, ржавчину);</li>
+      <li class="list-block__item">тщательная обработка труднодоступных мест кухни с помощью парогенератора.</li>
+    </ul>
+    <h3 class="list-block__title">Ванная комната</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">обработка потолка;</li>
+      <li class="list-block__item">влажная уборка керамической плитки на всю имеющуюся высоту помещения;</li>
+      <li class="list-block__item">чистка ванны, джакузи и душевой кабины (учитывается как внешняя, так и внутренняя
+                                   поверхность);</li>
+      <li class="list-block__item">устранение загрязнений с поверхности бытовых приборов;</li>
+      <li class="list-block__item">тщательное очищение от ржавчины, водного камня, следов извести;</li>
+      <li class="list-block__item">очистка раковин, унитазов, биде и смесителей с последующей дезинфекцией;</li>
+      <li class="list-block__item">очищение межплиточных швов от затирки (исключение – двухкомпонентная затирка);</li>
+      <li class="list-block__item">уборка труднодоступных зон помещения с использованием парогенератора.</li>
+    </ul>
+    <h3 class="list-block__title">Устранение загрязнений после ремонта</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">очистку от послестроительной пыли и следов цемента, влажную и сухую уборку стен и
+                                   потолочных покрытий;</li>
+      <li class="list-block__item">устранение засохшего клея и строительного скотча со стекол, зеркал, предметов
+                                   мебели;</li>
+      <li class="list-block__item">удаление пятен краски и уборка после строительства напольных покрытий, паркета,
+                                   подоконников;</li>
+      <li class="list-block__item">стандартные работы по обеспыливанию всех поверхностей в доме (влажную чистку);</li>
+      <li class="list-block__item">очистку квартиры от мелких строительных отходов и мусора;</li>
+      <li class="list-block__item">дезинфицирование места, отведенного под хранение отходов;</li>
+      <li class="list-block__item">влажную и сухую послестроительную уборку корпусной и мягкой мебели, рабочих
+                                   поверхностей, внешних фасадов и стеновых панелей гарнитуров, дверец холодильника, духовой и микроволновой
+                                   печи;</li>
+      <li class="list-block__item">чистку сантехники с последующим дезинфицированием;</li>
+      <li class="list-block__item">чистку душевых кабин и ванн;</li>
+      <li class="list-block__item">сбор и вынос мелкого строительного мусора.</li>
+    </ul>
+  </div>
+</script>
+
+<script id="work-list-window-cleaning" type="text/html">
+  <div class="list-block">
+    <ul class="list-block__list  list">
+      <li class="list-block__item">привозим весь необходимый инвентарь и страховочное оборудование;</li>
+      <li class="list-block__item">моем окна с двух сторон, рамы, отливы и подоконники;</li>
+      <li class="list-block__item">мытье москитных сеток на окнах включено в стоимость мойки окон в квартире;</li>
+      <li class="list-block__item">моем окна на балконе, жалюзи, сайдинг, оконные решётки за дополнительную плату;</li>
+      <li class="list-block__item">мы подготовим участок к работе, уберём и поставим всё на места после мытья окон;</li>
+      <li class="list-block__item">при заказе только мытья окон в квартире или офисе минимальная сумма заказа - 1000 руб.;</li>
+      <li class="list-block__item">моем балконную дверь бесплатно.</li>
+    </ul>
+  </div>
+</script>
+<!-- /Подробный перечень работ -->
+
 <!-- Java Script -->
+<script type=text/javascript src="/static/pancake/vue/js/manifest.js?v1.21"></script>
+<script type=text/javascript src="/static/pancake/vue/js/app.js?v1.21"></script>
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.18"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.21"></script>
 <!-- /Java Script -->
 </body>
 
