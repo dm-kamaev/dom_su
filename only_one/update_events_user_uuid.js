@@ -7,7 +7,7 @@ const db = require('/p/pancake/my/db2.js');
 const promise_api = require('/p/pancake/my/promise_api.js');
 
 
-const NUMBER_ELS = 100000;
+const NUMBER_ELS = 200000;
 
 void async function () {
 
@@ -28,7 +28,7 @@ void async function () {
       await timeout(20);
       await update_events_user_id(rows);
     } else {
-      await timeout(5);
+      await timeout(3);
     }
     rows = await stream.get(NUMBER_ELS);
   });
