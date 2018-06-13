@@ -235,6 +235,9 @@ class PancakeUser {
     // set reffer and use tab chrome in mode incognito
     // this.ctx.headers.referer = 'https://yandex.ru';
 
+    if (me.its_robot()) {
+      return false;
+    }
     var _logger = {
       info: function(str) {
         if (me.ctx.request.url === '/') {
@@ -308,6 +311,18 @@ class PancakeUser {
     }
     logger.log(`${me.uuid} after return`);
 
+    // SELECT
+    //   *
+    // FROM
+    //   phones
+    // WHERE
+    //   city_id=1
+    //   AND
+    //   living=false
+    //   AND
+    //   active=true
+    //   AND
+    //   category_type='client'
     const phone = await Phone.findOne({
       where: {
         city_id: this.city.id,
