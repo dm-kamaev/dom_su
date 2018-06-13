@@ -1,13 +1,16 @@
 'use strict';
 
+
+// node /p/pancake/only_one/update_events_user_uuid.js > ~/update_events_user_uuid.log 2>&1 &
+
 const CONF = require('/p/pancake/settings/config.js');
-const parse_cookie = require('cookie');
+const parse_cookie = require('set-cookie-parser');
 
 const db = require('/p/pancake/my/db2.js');
 const promise_api = require('/p/pancake/my/promise_api.js');
 
 
-const NUMBER_ELS = 100000;
+const NUMBER_ELS = 200000;
 
 void async function () {
 
@@ -28,24 +31,13 @@ void async function () {
       await timeout(20);
       await update_events_user_id(rows);
     } else {
-      await timeout(5);
+      await timeout(3);
     }
     rows = await stream.get(NUMBER_ELS);
   });
-
   console.log('THE END SUCCESS');
+  global.process.exit(0);
 }();
-
-// let i = 1;
-// async function next(stream, rows) {
-//   // i++;
-
-//   // if (i > 10) {
-//   //   global.process.exit();
-//   // }
-//   return next(stream, await stream.get(NUMBER_ELS));
-// }
-
 
 
 function filter_rows(rows) {
@@ -67,6 +59,7 @@ function filter_rows(rows) {
       return false;
     }
 
+    // const cookies = parse_cookie.parse(data.headers.cookie);
     const cookies = parse_cookie.parse(data.headers.cookie);
     if (!cookies.u_uuid && !cookies.session_uid_dom) {
       // console.log('STEP4');

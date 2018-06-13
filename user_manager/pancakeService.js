@@ -81,8 +81,9 @@ class PancakeService {
   }
 
   sendTicket(type, data, user_uuid) {
-    this.queue.push(async function (previousResult, pancakeService) {
-      let ticket = await saveAndSend(type, data);
+    const me = this;
+    me.queue.push(async function (previousResult, pancakeService) {
+      let ticket = await saveAndSend(type, data, me.ctx);
       return ticket;
     });
   }

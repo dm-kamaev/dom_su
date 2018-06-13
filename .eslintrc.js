@@ -29,5 +29,6 @@ module.exports = {
     ],
     'no-extra-boolean-cast': ['off'],
     'no-console': ['off'],
+    'no-useless-escape': ['off']
   }
 };

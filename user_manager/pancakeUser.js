@@ -13,14 +13,15 @@ const moment = require('moment');
 const city_api = require('/p/pancake/cities/city_api.js');
 const db_users = require('/p/pancake/db/db_users.js');
 const robot_user = require('/p/pancake/user_manager/robot_user.js');
+const logger = require('/p/pancake/lib/logger.js');
 
 // FOR DEV session_uid_dom_dev
 // FOR PROD session_uid_dom
 const USER_COOKIE_KEY = config.USER_COOKIE_KEY;
 const PENDING_TOKEN_KEY = config.PENDING_TOKEN_USER_KEY;
-/* eslint-disable */
+
 let banRefererString = '(:?\\w+)' + '\\\.' + config.serverPath.domain.withoutCity.replace(/\./g, '\\\.') + '$';
-/* eslint-enable */
+
 let banRefererRegexp = new RegExp(banRefererString, 'g');
 
 let banIPAddress = [
@@ -225,27 +226,52 @@ class PancakeUser {
     // |
     // V
     // return true;
+    const me = this;
+    const uuid = me.uuid;
+    // FOR TEST
+    // |
+    // |
+    // V
+    // set reffer and use tab chrome in mode incognito
+    // this.ctx.headers.referer = 'https://yandex.ru';
 
+    var _logger = {
+      info: function(str) {
+        if (me.ctx.request.url === '/') {
+          logger.info(str);
+        }
+      }
+    };
+
+    _logger.info(`${uuid} checkTrackNeed => this.track.waiting === true `+((this.track.waiting === true) ? 'return true' : 'skip'));
     if (this.track.waiting === true) {
       return true;
     }
 
-    if (this.isNew !== true) { // false
+    _logger.info(`${uuid} checkTrackNeed => this.isNew !== true `+((this.isNew !== true) ? 'return false' : 'skip'));
+    // is not newest user
+    if (this.isNew !== true) {
       return false;
     }
 
+    _logger.info(`${uuid} checkTrackNeed => this.ctx.headers.referer === undefined `+((this.ctx.headers.referer === undefined) ? 'return false' : 'skip'));
     if (this.ctx.headers.referer === undefined) {
       return false;
     }
+
+
     let referer;
     try{
       referer = new URL(this.ctx.headers.referer);
+      _logger.info(`${uuid} checkTrackNeed => referer = new URL(this.ctx.headers.referer) skip`);
     } catch (error){
+      _logger.info(`${uuid} checkTrackNeed => referer = new URL(this.ctx.headers.referer) return false`);
       return false;
     }
 
     banRefererRegexp.lastIndex = 0;
 
+    _logger.info(`${uuid} checkTrackNeed => banRefererRegexp.exec(referer.hostname) !== null `+((banRefererRegexp.exec(referer.hostname) !== null) ? 'return false' : 'skip'));
     if (banRefererRegexp.exec(referer.hostname) !== null) {
       return false;
     }
@@ -253,9 +279,11 @@ class PancakeUser {
     // Check IP
     for (let filterIP of banIPAddressListRegExp){
       if (filterIP.test(this.ctx.request.header['x-real-ip'])){
+        _logger.info(`${uuid} checkTrackNeed => filterIP.test(this.ctx.request.header['x-real-ip']) return false`);
         return false;
       }
     }
+    _logger.info(`${uuid} checkTrackNeed => the end return true`);
     return true;
   }
 
@@ -273,21 +301,27 @@ class PancakeUser {
 
   // set track number for client
   async set_track_number_for_client() {
+    const me = this;
+    logger.log(`${me.uuid} set_track_number_for_client`);
     if (this.track.numbers && this.track.numbers[this.city.keyword]) {
       return;
     }
+    logger.log(`${me.uuid} after return`);
 
     const phone = await Phone.findOne({
       where: {
         city_id: this.city.id,
-        living: false,
-        active: true,
+        living: false, // don't bind for user
+        active: true, // but we can use him
         category_type: 'client'
       }
     });
-    if (phone !== null) {
+    const phone_log = (phone && phone.dataValues) ? JSON.stringify(phone.dataValues) : null;
+    logger.log(`${me.uuid} phone= ${phone_log}`);
+    if (phone) {
       this.track.numbers[this.city.keyword] = phone.number;
       this.queue.push(async function (previousResult, pancakeUser) {
+        // logger.log(`${me.uuid} client set data.track.numbers.${pancakeUser.city.keyword} `+pancakeUser.track.numbers[pancakeUser.city.keyword]);
         pancakeUser.model.set(`data.track.numbers.${pancakeUser.city.keyword}`, pancakeUser.track.numbers[pancakeUser.city.keyword]);
         await pancakeUser.model.save();
         phone.user_uuid = pancakeUser.uuid;
@@ -340,6 +374,13 @@ class PancakeUser {
         return pancakeUser;
       });
     }
+  }
+
+  /**
+   * @return {String} 1405044556.1440140825
+   */
+  get_google_id() {
+    return this.google_id;
   }
 
   setVisit() {
@@ -461,9 +502,10 @@ class PancakeUser {
 
   sendTicket(type, data) {
     // Add UTMS and User UUID in Ticket
-    this.queue.push(async function (previousResult, pancakeUser) {
+    const me = this;
+    me.queue.push(async function (previousResult, pancakeUser) {
       data['user_id'] = pancakeUser.uuid;
-      let ticket = await saveAndSend(type, data);
+      let ticket = await saveAndSend(type, data, me.ctx);
       return ticket;
     });
   }
