@@ -51,20 +51,21 @@
   <meta name="theme-color" content="#fd8204">
   
   <!-- Start SmartBanner configuration -->
-  <meta name="smartbanner:title" content="Домовенок">
-  <meta name="smartbanner:author" content="Домовёнок всегда<br> под рукой">
-  <meta name="smartbanner:price" content=" ">
-  <meta name="smartbanner:price-suffix-apple" content=" ">
-  <meta name="smartbanner:price-suffix-google" content=" ">
-  <meta name="smartbanner:icon-apple" content="/static/pancake/img/logo-dom.svg">
-  <meta name="smartbanner:icon-google" content="/static/pancake/img/logo-dom.svg">
-  <meta name="smartbanner:button" content="Открыть">
-  <meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/app/%D0%B4%D0%BE%D0%BC%D0%BE%D0%B2%D0%B5%D0%BD%D0%BE%D0%BA-%D1%83%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80-%D0%B3%D0%BB%D0%B0%D0%B6%D0%BA%D0%B0-%D1%81%D1%82%D0%B8%D1%80%D0%BA%D0%B0-%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D0%BD%D0%B3/id1274981749?mt=8">
-  <meta name="smartbanner:button-url-google" content="https://play.google.com/store/apps/details?id=ru.domovenok.app&hl=ru">
-  <meta name="smartbanner:enabled-platforms" content="android,ios">
+  <!--<meta name="smartbanner:title" content="Домовенок">-->
+  <!--<meta name="smartbanner:author" content="Домовёнок всегда<br> под рукой">-->
+  <!--<meta name="smartbanner:price" content=" ">-->
+  <!--<meta name="smartbanner:price-suffix-apple" content=" ">-->
+  <!--<meta name="smartbanner:price-suffix-google" content=" ">-->
+  <!--<meta name="smartbanner:icon-apple" content="/static/pancake/img/logo-dom.svg">-->
+  <!--<meta name="smartbanner:icon-google" content="/static/pancake/img/logo-dom.svg">-->
+  <!--<meta name="smartbanner:button" content="Открыть">-->
+  <!--<meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/app/%D0%B4%D0%BE%D0%BC%D0%BE%D0%B2%D0%B5%D0%BD%D0%BE%D0%BA-%D1%83%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80-%D0%B3%D0%BB%D0%B0%D0%B6%D0%BA%D0%B0-%D1%81%D1%82%D0%B8%D1%80%D0%BA%D0%B0-%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D0%BD%D0%B3/id1274981749?mt=8">-->
+  <!--<meta name="smartbanner:button-url-google" content="https://play.google.com/store/apps/details?id=ru.domovenok.app&hl=ru">-->
+  <!--<meta name="smartbanner:enabled-platforms" content="android,ios">-->
   <!-- End SmartBanner configuration -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=cyrillic" rel="stylesheet">
-  <link rel="stylesheet" href="/static/pancake/css/style.landing_ab.min.css?v0.12">
+  <link href="/static/pancake/vue/css/app.css?v0.30" rel=stylesheet>
+  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.30">
   <base href="" >
 
 
@@ -100,6 +101,13 @@
   <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 {{/if}}
+
+<div class="auth-hint">
+	<a class="auth-hint__link"  href="">Уже клиент?<br>
+		Войти, чтобы заказать в пару кликов</a>
+	<button class="auth-hint__btn-close"  type="button"></button>
+</div>
+<div class="auth-hint-margin"></div>
 <!-- Page wrapper -->
 <div class="page__wrap">
   <!-- Page Header -->
@@ -107,9 +115,9 @@
     <div class="page-header__top">
       <button class="main-menu__btn  main-menu__btn--open">
         <svg class="main-menu__image" width="31" height="23.9" viewBox="0 0 31 23.9">
-          <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#fd8204"/>
-          <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fd8204"/>
-          <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fd8204"/>
+          <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#ff5a19"/>
+          <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#ff5a19"/>
+          <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#ff5a19"/>
         </svg>
       </button>
       <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Клининговая компания Домовёнок"/></a>
@@ -126,8 +134,8 @@
     <div class="page-header__wrap">
       <a class="main-menu__icon-close  icon-close" href="#">
         <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
-          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #ff5a19;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #ff5a19;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
         </svg>
       </a>
   
@@ -149,6 +157,7 @@
       </div>
     </div>
   </header>
+  <div id="app" style="height: 0"></div>
 
   <!-- /Page Header -->
 
@@ -162,7 +171,7 @@
               <p class="window-new__title">Уборка квартир</p>
               <p class="window-new__description window-new__text-mobile text">от  1 490 рублей</p>
               <p class="window-new__title window-new__text-tablet window-new__title--bold">от  1 490 рублей</p>
-              <p class="window-new__description window-new__text-tablet text">Цена частной домработницы с <a class="window-new__link link" href="/garantii/">гарантиями</a> компании</p>
+              <p class="window-new__description window-new__text-tablet text">Стоимость частной домработницы с <a class="window-new__link link" href="/garantii/">гарантиями</a> компании</p>
             </div>
             <form class="window-new-form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "landingFormContact"}'>
               <div class="window-new-form__container window-new-form__container--1">
@@ -224,136 +233,134 @@
       </section>
 
       <section class="page__section  section">
-        <div class="section__wrap  section__wrap--mobile-ab">
-          <p class="section__title  title">Клининговые услуги</p>
-          <!--mobile-->
-          <div class="service-menu  service-menu--mobile-ab  service-menu-carousel" data-class="service-menu-carousel">
-
-            <div class="service-menu__wrap  service-menu-carousel__wrap">
-              <div class="service-menu__inner  service-menu-carousel__inner">
-                <a class="service-menu__item" href="{{buildUrl general.city '/podderzhka'}}">
-                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>поддержка_1</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M40.56,43.2h13A1.83,1.83,0,0,1,55.35,45v3.28" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path><path d="M33,47.88H24a1.81,1.81,0,0,0-1.81,1.8V52A1.81,1.81,0,0,0,24,53.81h2.49L29,91.43a5.25,5.25,0,0,0,5.25,5.24H64.43a5.07,5.07,0,0,0,1.36-.18" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M70.27,47.88H51.54" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><line x1="51.77" y1="53.74" x2="69.41" y2="53.74" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line><line x1="25.73" y1="53.74" x2="32.89" y2="53.74" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line><path d="M50.22,64.59c4,6.53,9.72,13.74,16.57,15.15" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M73.78,38.17c-4.63,10.4-7.87,32.48-8.07,58.28,0,.82,0,1.64,0,2.47,0,.68,0,1.36,0,2a61.08,61.08,0,0,0,14.69,1.5,66.85,66.85,0,0,0,13.44-1.19c0-.78,0-1.56,0-2.35s0-1.86,0-2.78c-.23-26.3-3.62-48.15-8.41-58.09" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><rect x="74.11" y="22.86" width="11.06" height="5.44" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></rect><path d="M72.41,22.84H89.06V13.56H57.4V19.9l2.75,0A24.57,24.57,0,0,1,67.43,21" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><path d="M67.43,21A26,26,0,0,1,65,28.06,26.72,26.72,0,0,1,61,34a15.35,15.35,0,0,0,6.83-3.73,14.61,14.61,0,0,0,4.61-7.41h-.7A19.94,19.94,0,0,0,67.43,21Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><path d="M86,38.26l0-9.88H73.28v9.88h.24S84.48,38.28,86,38.26Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><rect x="33.13" y="43.2" width="18.09" height="21.71" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></rect><line x1="62.07" y1="13.54" x2="62.07" y2="19.94" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line></g></g></svg>
-                  <p class="service-menu__item-name">Поддерживающая <br class="text  text--tablet">уборка</p>
-                </a>
-
-                <a class="service-menu__item" href="{{buildUrl general.city '/kompleksnaya_uborka'}}">
-                  <svg class="service-menu__item-image" width="60" height="60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116 116"><defs><style>.svg-1,.svg-2,.svg-3,.svg-4,.svg-5,.svg-6,.svg-7{fill:none;}.svg-2,.svg-3,.svg-4,.svg-5{stroke:#353535;}.svg-2,.svg-3,.svg-4,.svg-5,.svg-6,.svg-7{stroke-linejoin:round;}.svg-2,.svg-3{stroke-width:2px;}.svg-3,.svg-6{stroke-linecap:round;}.svg-5{stroke-width:1.5px;}.svg-6,.svg-7{stroke:#ff5a19;stroke-width:1.7px;}</style></defs><title>Комплексная-уборка_1</title><g><g><rect class="svg-1" width="116" height="116"></rect><path class="svg-2" d="M77.46,93.28v2.38a1.83,1.83,0,0,0,1.83,1.83h3.84A1.83,1.83,0,0,0,85,95.66V93.28"></path><path class="svg-3" d="M39.88,97.18a1.86,1.86,0,0,0,1,.31h3.84a1.72,1.72,0,0,0,.78-.18"></path><polyline class="svg-2" points="36.2 63.62 36.2 60.31 36.2 56.96 36.2 38.05"></polyline><line class="svg-3" x1="36.2" y1="73.53" x2="36.2" y2="67.34"></line><path class="svg-2" d="M45.87,93.84H39.38"></path><line class="svg-2" x1="57.72" y1="93.84" x2="48.43" y2="93.84"></line><path class="svg-2" d="M36.2,35.69V15.36c0-2.53,2.43-4.59,5.43-4.59H83.32c3,0,5.43,2.06,5.43,4.59V89.24c0,2.54-2.43,4.6-5.43,4.6H59.89"></path><path class="svg-4" d="M65.84,62.35a1.28,1.28,0,1,1,1.27,1.27A1.27,1.27,0,0,1,65.84,62.35Z"></path><path class="svg-4" d="M56.58,62.35a1.27,1.27,0,1,1,1.27,1.27A1.27,1.27,0,0,1,56.58,62.35Z"></path><line class="svg-2" x1="49.48" y1="56.47" x2="87.86" y2="56.47"></line><line class="svg-2" x1="35.94" y1="56.47" x2="46.32" y2="56.47"></line><line class="svg-2" x1="62.47" y1="56.59" x2="62.47" y2="93.61"></line><polyline class="svg-2" points="46.31 56.35 38.92 56.35 38.92 37.73"></polyline><path class="svg-5" d="M38.92,35.65V16.24a2.88,2.88,0,0,1,2.88-2.88H83.23a2.88,2.88,0,0,1,2.88,2.88V56.35H48.71"></path><line class="svg-2" x1="39.29" y1="27.77" x2="85.8" y2="27.77"></line><line class="svg-2" x1="44.07" y1="42.08" x2="85.8" y2="42.08"></line><line class="svg-2" x1="39.29" y1="42.08" x2="41.82" y2="42.08"></line><polygon class="svg-6" points="35.15 66.97 51.71 65.62 47.97 63.11 34.74 64.13 35.15 66.97"></polygon><polygon class="svg-6" points="36.95 79.21 55.52 77.87 51.33 75.36 36.5 76.38 36.95 79.21"></polygon><polygon class="svg-6" points="38.96 93.32 60.65 91.98 56.02 89.45 38.48 90.48 38.96 93.32"></polygon><path class="svg-6" d="M32.46,68.67l-4.91,33.91c-.07.52-.46.91-.86.85l-1.35-.19a.87.87,0,0,1-.6-1l6.17-44.44"></path><line class="svg-6" x1="46.75" y1="75.67" x2="47.12" y2="66.71"></line><line class="svg-7" x1="46.16" y1="90.2" x2="46.66" y2="78.05"></line><path class="svg-6" d="M49,93l-.15,4.47a.78.78,0,0,1-.81.74l-1.42-.06a.76.76,0,0,1-.74-.8l.18-4.48"></path><line class="svg-6" x1="49.51" y1="78.46" x2="49.11" y2="89.86"></line><line class="svg-6" x1="49.83" y1="69.26" x2="49.61" y2="75.47"></line><path class="svg-7" d="M31.13,37.73h7.35c1.85,0,1.87.5,2.34,2.18l7.25,23.51"></path><path class="svg-6" d="M57,92.76l4,13L64,105.6,43.23,38a3.11,3.11,0,0,0-3.3-2.62H33.57a2.89,2.89,0,0,0-2.45,3.26L41.1,109l-2.91.12L28.33,39.53c-.23-1.58.91-2.75,2.45-3.27l2.79-.93"></path><line class="svg-7" x1="52.41" y1="77.71" x2="55.95" y2="89.22"></line><line class="svg-6" x1="48.87" y1="66.19" x2="51.72" y2="75.47"></line></g></g></svg>
-                  <p class="service-menu__item-name">Комплексная уборка</p>
-                </a>
-
-                <a class="service-menu__item" href="{{buildUrl general.city '/mite_okon'}}">
-                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>Окна_2</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M70.85,101.77l-1.67,1.87a24.48,24.48,0,0,1-8-5.62c-3.65-3.64-4.42-6.8-4.42-6.8l1.15-1.1" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2"></path><path d="M69.61,103.39s4.37-6.12,6.83-6.6a25.63,25.63,0,0,0,11.61-6.23l3-3,2.22-2.22,2.9-2.9a2.62,2.62,0,0,0,0-3.69l-.42-.41a2.61,2.61,0,0,0-3.69,0l1.82-1.82a3,3,0,0,0,0-4.26l-.48-.48a3,3,0,0,0-4.26,0l.37-.37a3,3,0,0,0,0-4.27l-.47-.47a3,3,0,0,0-4.27,0L83.5,67.94a3.19,3.19,0,0,0,.24-4.51L83.27,63a3.2,3.2,0,0,0-4.51.25L75,67l-2.82,2.83-.25.25v-.33a1.81,1.81,0,0,0,0-.23l-.69.7L67.07,66a3.82,3.82,0,0,0-2.8,3.67l-.58,14.85L57.11,90.9" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill-rule="evenodd"></path><path d="M19,46.85c1.49,1.37,3,2.77,4.41,4.17l4.38,4.21c2.9,2.82,5.77,5.67,8.63,8.52H35.27l8.36-8.52,8.42-8.45q8.45-8.42,17-16.74v1.19q-4.38-4.65-8.71-9.35c-1.45-1.56-2.86-3.16-4.29-4.73S53.2,14,51.81,12.36q2.36,2.16,4.67,4.36c1.54,1.47,3.11,2.91,4.63,4.4,3.08,2.95,6.11,5.93,9.15,8.92a.83.83,0,0,1,0,1.17l0,0q-8.34,8.54-16.8,17L45,56.58l-8.54,8.33h0a.81.81,0,0,1-1.14,0v0q-4.12-4.44-8.2-8.94l-4-4.53Q21,49.15,19,46.85Z" fill="#263239"></path><line x1="74.26" y1="67.71" x2="68.2" y2="73.76" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></line><path d="M57.49,63.69a8,8,0,0,0,8.9,1.65l4.81,4.82,4.11-4.1-4.82-4.82a8,8,0,0,0-1.65-8.9" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill-rule="evenodd"></path><path d="M40.93,68.92l3.29,3.3a3.35,3.35,0,0,0,4.74,0l28.4-28.4a3.35,3.35,0,0,0,0-4.74l-3.29-3.3" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5" fill-rule="evenodd"></path><polygon points="30.84 34.77 34.9 37.4 38.97 34.77 36.33 38.83 38.96 42.89 34.9 40.25 30.85 42.89 33.48 38.83 30.84 34.77" fill="#ff5a19"></polygon><polygon points="30.84 15.4 34.9 18.04 38.97 15.41 36.33 19.46 38.96 23.52 34.9 20.89 30.85 23.52 33.48 19.46 30.84 15.4" fill="#ff5a19"></polygon><polygon points="45.65 21.04 49.71 23.67 53.77 21.04 51.14 25.1 53.77 29.16 49.71 26.53 45.65 29.16 48.28 25.1 45.65 21.04" fill="#ff5a19"></polygon><path d="M69.84,32.63l2.75,2.76L40.47,67.51l-2.75-2.76L69.84,32.63m0-2.83-34.95,35,5.58,5.58,35-34.94L69.84,29.8Z" fill="#263239"></path></g></g></svg>
-                  <p class="service-menu__item-name">Мытьё окон</p>
-                </a>
-
-                <a class="service-menu__item" href="{{buildUrl general.city '/generalnaya_uborka'}}">
-                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>генералка</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M68.87,64.55h1.61A1.51,1.51,0,0,0,72,63V61.11a1.52,1.52,0,0,0-1.51-1.51H69" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M43.19,100.36H36.67A4.38,4.38,0,0,1,32.29,96h0L30.14,64.55H28.06A1.51,1.51,0,0,1,26.54,63V61.17A1.52,1.52,0,0,1,28,59.6H63.93" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><line x1="63.97" y1="64.2" x2="30.06" y2="64.2" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line><circle cx="53.07" cy="64.84" r="2.92" fill="#263239"></circle><path d="M53.26,64.15S43.74,88.77,30.85,86.23c-9.18-1.81-.71-18-.71-18" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M64.11,78.34V15.12a2.4,2.4,0,0,1,2.41-2.4h0a2.4,2.4,0,0,1,2.4,2.4V78.34" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2.5"></path><path d="M62.38,92.72V81.89a4.14,4.14,0,0,1,4.14-4.14h0a4.14,4.14,0,0,1,4.13,4.14V92.72" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2.5"></path><path d="M48.44,96.35a3.66,3.66,0,0,1,3.66-3.66H80.93a3.66,3.66,0,0,1,3.66,3.66" fill="none" stroke="#263239" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"></path><path d="M89.46,101.69a1.59,1.59,0,0,1-1.59,1.59H45.16a1.59,1.59,0,0,1-1.59-1.59V99.11a1.6,1.6,0,0,1,1.59-1.59H87.87a1.59,1.59,0,0,1,1.59,1.59Z" fill="none" stroke="#ff5a19" stroke-miterlimit="10" stroke-width="2.5"></path></g></g></svg>
-                  <p class="service-menu__item-name">Генеральная<br class="text  text--tablet"> уборка</p>
-                </a>
-
-                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/posle_remonta'}}">
-                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>Уборка после ремонта_1</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M45.61,56.77A47.19,47.19,0,0,0,42.4,46.35" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M33.88,46.44a57.44,57.44,0,0,0-3.46,12.63" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><rect x="34.12" y="35.23" width="8.09" height="3.99" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></rect><path d="M32.87,35.22H45.06v-6.8H21.89v4.65h2a18.2,18.2,0,0,1,5.33.79" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M29.23,33.87A18.78,18.78,0,0,1,27.46,39a19.23,19.23,0,0,1-3,4.33,11.18,11.18,0,0,0,5-2.73,10.65,10.65,0,0,0,3.37-5.42h-.51A14.78,14.78,0,0,0,29.23,33.87Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M42.81,46.51V39.27H33.51V46.5h.18S41.71,46.52,42.81,46.51Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><line x1="25.31" y1="28.41" x2="25.31" y2="33.09" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></line><path d="M86,28H78.3a.8.8,0,0,0-.72.86v4.33h9.15V28.88A.8.8,0,0,0,86,28Z" fill="none" stroke="#353535" stroke-miterlimit="10" stroke-width="2.5"></path><polyline points="71.14 59.33 71.14 45.75 93.17 45.75 93.17 59.33" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></polyline><polygon points="93.16 45.82 71.15 45.82 77.28 33.16 87.03 33.16 93.16 45.82" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></polygon><path d="M49.6,21h6.46a1.15,1.15,0,0,1,1.09,1.21v6.06H48.5V22.23A1.16,1.16,0,0,1,49.6,21Z" fill="none" stroke="#353535" stroke-miterlimit="10" stroke-width="2"></path><path d="M48.67,57.63v-29s6.36,0,8.4,0c0,0,8.94,10.33,14.3,16.55" fill="none" stroke="#353535" stroke-miterlimit="10" stroke-width="2.5"></path><path d="M24.83,66H20.58A1.63,1.63,0,0,1,19,64.33v-3.8a1.63,1.63,0,0,1,1.63-1.63H31.79" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M63.38,58.9H98.87a1.63,1.63,0,0,1,1.63,1.63v3.8A1.63,1.63,0,0,1,98.87,66H63.35" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M25.55,81.54l.9,8.9a4.76,4.76,0,0,0,4.76,4.76h57A4.76,4.76,0,0,0,93,90.44L95.52,66H64" fill="none" stroke="#353535" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><path d="M43.67,75.68c-1.27,2.38-3.23,5.27-5.13,4.26-1.52-.81,1.8-7.46,1.8-7.46l-9.61,9.43A1.94,1.94,0,0,1,28,79.16l-1.6,1.59A1.94,1.94,0,0,1,23.63,78l1.29-1.29a1.94,1.94,0,0,1-2.41-3l2.82-2.82a1.94,1.94,0,0,1-2.75-2.75l8.5-8.5C33.7,57,33,57.71,33,57.71a36.18,36.18,0,0,1,10.62-1,30.69,30.69,0,0,1,5.28.83" fill="none" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill-rule="evenodd"></path><line x1="28.02" y1="79.11" x2="33.82" y2="73.32" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="24.92" y1="76.71" x2="31.48" y2="70.15" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="25.45" y1="70.75" x2="29.06" y2="67.15" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="39.66" y1="73.15" x2="41.98" y2="70.83" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><path d="M49.08,57.82,49,60.33s-3.6,3.87-4.4,6.4c-.47,1.5-3.08,8.42-.12,9.16,1.63.41,3.82-6.64,3.82-6.64l.37,13.22a1.83,1.83,0,0,0,1.94,1.81,2,2,0,0,0,1.88-2l0,2.22a1.83,1.83,0,0,0,1.94,1.81,2,2,0,0,0,1.88-2l0-1.8a1.81,1.81,0,0,0,1.88,1.39,2,2,0,0,0,1.87-2L60,77.94a1.83,1.83,0,0,0,2,1.8,2,2,0,0,0,1.87-2l-.22-11.81c-.07-3.65,0-8.26,0-8.26s-1.52-.49-7-.53A37.76,37.76,0,0,0,49.08,57.82Z" fill="none" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill-rule="evenodd"></path><line x1="52.5" y1="82.2" x2="52.34" y2="74.15" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="56.33" y1="82.48" x2="56.15" y2="73.37" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="60.01" y1="77.77" x2="59.91" y2="72.76" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="48.32" y1="70.18" x2="48.26" y2="66.96" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line></g></g></svg>
-                  <p class="service-menu__item-name">Уборка <br class="text  text--tablet">после ремонта</p>
-                </a>
-
-                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/himchistka'}}">
-                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>Химчистка мебели</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M60,57.58V35.06a2.36,2.36,0,0,0-2.35-2.35H22.85a3.53,3.53,0,0,0-3.52,3.52V51.45" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M60,62.37V35.06a2.36,2.36,0,0,1,2.35-2.35H97.21a3.53,3.53,0,0,1,3.52,3.52V51.35" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M27.32,60H56.44A3.53,3.53,0,0,1,60,63.49v5.89H26.62" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M91.85,69.38H60.06V63.49A3.53,3.53,0,0,1,63.58,60H91.89" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M92.4,88.86l-64.64-.13" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M27,59.71A8.09,8.09,0,1,0,15.45,67V88.38a3.13,3.13,0,0,0,3.12,3.13h5.25A3.13,3.13,0,0,0,27,88.38V59.71Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M92.15,59.7a8.26,8.26,0,0,1,16.52,0A8.06,8.06,0,0,1,103.9,67V88.33a3.15,3.15,0,0,1-3.2,3.12H95.34a3.15,3.15,0,0,1-3.19-3.12V59.7Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M16.75,59.59a2.11,2.11,0,1,1,2.11,2.11A2.12,2.12,0,0,1,16.75,59.59Z" fill="#353535"></path><path d="M98.3,59.59a2.11,2.11,0,1,1,2.11,2.11A2.11,2.11,0,0,1,98.3,59.59Z" fill="#353535"></path><rect x="28.27" y="36.84" width="28.33" height="19.71" rx="3" ry="3" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></rect><rect x="63.6" y="36.84" width="27.12" height="19.71" rx="3" ry="3" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></rect></g></g></svg>
-                  <p class="service-menu__item-name">Химчистка <br class="text  text--tablet">мебели</p>
-                </a>
-
-                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
-                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>домашний мастер</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M84.93,34.38a11.92,11.92,0,1,0-23.83,0m4.45.09a7.63,7.63,0,1,1,15.26,0" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M62.85,87.52H43.05a5.92,5.92,0,0,1-5.92-5.92V76.06" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M37.13,54.94V41.25a5.92,5.92,0,0,1,5.92-5.92H103a5.91,5.91,0,0,1,5.91,5.92V81.6A5.91,5.91,0,0,1,103,87.52H77.13" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M108.89,48.75v-7.5A5.91,5.91,0,0,0,103,35.33H43.05a5.92,5.92,0,0,0-5.92,5.92v7.5" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><line x1="83.79" y1="48.75" x2="108.89" y2="48.75" fill="#fff" stroke="#353535" stroke-linejoin="round" stroke-width="2"></line><line x1="37.13" y1="48.75" x2="62.36" y2="48.75" fill="#fff" stroke="#353535" stroke-linejoin="round" stroke-width="2"></line><path d="M82.22,47.26v3H63.81v-3H82.22m.08-2H63.73a1.92,1.92,0,0,0-1.92,1.92v3.13a1.91,1.91,0,0,0,1.92,1.92H82.3a1.91,1.91,0,0,0,1.92-1.92V47.18a1.92,1.92,0,0,0-1.92-1.92Z" fill="#353535"></path><path d="M63.31,84.48a8.73,8.73,0,0,1-11.89-8.13m4,0a4.66,4.66,0,0,0,7,4" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path><path d="M19.51,66.6H4.63a1.52,1.52,0,0,1-1.52-1.52h0a1.52,1.52,0,0,1,1.52-1.52h14.7" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path><path d="M73.24,61.23a4.66,4.66,0,0,0-.36-1.8,6.91,6.91,0,0,0-6.6-4.9H37l-.47,0-.48,0a10.55,10.55,0,1,0,0,21.09l.48,0,.47,0H61.17l2.34,13.32a4.6,4.6,0,0,0,4.6,4.6h5.4a4.6,4.6,0,0,0,4.6-4.6Z" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2.5"></path><path d="M27.85,58.67a6.44,6.44,0,0,0-1.65-.22,6.63,6.63,0,0,0,0,13.25,6.91,6.91,0,0,0,1.65-.21" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path></g></g></svg>
-                  <p class="service-menu__item-name">Домашний <br class="text  text--tablet">мастер</p>
-                </a>
-
-                <a class="service-menu__item  sservice-menu__item--hide" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
-                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>Обработка поверхностей</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M75.56,61v-43H89.05a3,3,0,0,0,3-3v-.54a3,3,0,0,0-3-3H76a3,3,0,0,0-3,3v36.2" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M55,58.2c.78-3.59,1.34-6.91,4.56-6.91H75.46v6.37" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M75.46,84.48V55.29H58.29c-2,0-2.76,1.77-3.57,3.57-5.49,12.25-9.38,21.73-9.38,21.73C43.79,80.59,33,90.8,28.66,95" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><line x1="75.46" y1="81.17" x2="44.89" y2="81.17" fill="#fff" stroke="#353535" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></line><polyline points="70.1 103.85 23.97 103.85 23.97 95.25 63.25 95.25" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2.5"></polyline><path d="M63.55,94.61a10,10,0,1,1,9.94,10A9.94,9.94,0,0,1,63.55,94.61Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M68.67,94.61a4.83,4.83,0,1,1,4.82,4.82A4.82,4.82,0,0,1,68.67,94.61Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path></g></g></svg>
-                  <p class="service-menu__item-name">Обработка <br class="text  text--tablet">поверхностей</p>
-                </a>
-
-                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/domrabotnica'}}">
-                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>Домработница</title><g><g><rect width="116" height="116" fill="none"></rect><line x1="58.52" y1="53.56" x2="58.52" y2="25.37" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></line><path d="M72,51.19l3-10.58,1.85,3,10.35-6.35S80.34,23.11,76.67,19.44C75.27,18,71,17.12,65.85,16.67c0,.14,0,.27,0,.41a7.87,7.87,0,0,1-15.74,0c0-.12,0-.25,0-.37-5,.46-9.06,1.37-10.45,2.73-3.78,3.67-10.85,17.78-10.85,17.78l10.61,6.35,2-3,3.11,10.58s-8,8.66-8,23.21c0,11.34,4.15,24.93,4.15,24.93h35s4.59-13.59,4.59-24.93A35.25,35.25,0,0,0,72,51.19Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M46,17.6a7.23,7.23,0,0,0,6.47,10.48c2.57,0,4.82-.69,6.1-2.71,1.29,2,3.54,2.71,6.1,2.71a7.24,7.24,0,0,0,6.61-10.19" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M58.23,53.6a41.48,41.48,0,0,1-13.86-2.22,16.58,16.58,0,1,0,27.72,0A39.28,39.28,0,0,1,58.23,53.6Z" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2.5"></path><path d="M87.15,37.22s-6.7-13.86-10.38-17.68c.38,2.74.34,8.81-2,20.86l2,3.17Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><path d="M41.66,40.34C39.35,28.75,39,22.72,39.21,20c-3.87,4.31-10.36,17.26-10.36,17.26l10.61,6.35Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path></g></g></svg>
-                  <p class="service-menu__item-name">Домработница</p>
-                </a>
-
-                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/himchistka_odezhdy'}}">
-                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>Химчистка_1</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M69,10.56H45.71v9.35s8.77-.71,11.73-.71S69,19.91,69,19.91Z" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><path d="M36.9,23.5s6.73-4,21.14-4.06c14.78-.05,21.76,4.33,21.76,4.33" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><path d="M84.61,89.75v12.81a2.89,2.89,0,0,1-2.88,2.88H33.78a2.89,2.89,0,0,1-2.88-2.88V90.33" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><line x1="57.53" y1="11.71" x2="57.53" y2="104.81" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></line><line x1="20.62" y1="80.62" x2="38.42" y2="80.62" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></line><polyline points="39.09 67.48 52.09 67.48 52.09 88.62 35.63 88.62" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></polyline><polyline points="76.75 67.48 63.75 67.48 63.75 88.62 80.21 88.62" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></polyline><path d="M29.43,89.26h-.17c-8.61,0-8.31-.73-8.64-8.64a100.15,100.15,0,0,1,1-16.12C24.46,47.72,28.3,36.63,33,28.4c3.08-5.45,5.75-7.92,5.48.54l-.37,51.68C38.07,88.1,38.56,88.82,29.43,89.26Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M86.57,89.18h.17c8.58,0,8.64-.25,8.64-8.69a101.27,101.27,0,0,0-1-16.21C91.54,47.4,87.57,36.33,83,28c-2.78-5.12-5.75-8-5.48.54l.37,52C77.93,88.69,78.29,89.18,86.57,89.18Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><line x1="77.5" y1="80.69" x2="95.14" y2="80.69" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></line></g></g></svg>
-                  <p class="service-menu__item-name">Химчистка</p>
-                </a>
-
-              </div>
-
-              <button class="service-menu__button">
-                <span class="service-menu__button-text">Другие услуги</span>
-                <svg width="38.54" height="10" viewBox="0 0 38.54 10"><rect x="14.27" y="-14.27" width="10" height="38.54" transform="translate(14.27 24.27) rotate(-90)" fill="none"></rect><polyline points="33.53 1.22 19.27 8.78 5.01 1.22" fill="none" stroke="#cbc9c9" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></svg>
-              </button>
-            </div>
-          </div>
-          <!--tablet-->
-          <div class="swiper-carousel  service-cards  service-cards--mobile-ab">
+        <div class="section__wrap  cleaning-type">
+          <h2 class="section__title  title">Виды уборок</h2>
+          <div class="swiper-carousel">
             <button class="swiper-carousel__button-prev" type="button">
-              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"></rect><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></svg>
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
             </button>
 
-            <div class="swiper-container">
-              <div class="swiper-wrapper  service-cards__inner">
-                <a class="swiper-slide  service-cards__item" href="{{buildUrl general.city '/podderzhka'}}">
-                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>поддержка_1</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M40.56,43.2h13A1.83,1.83,0,0,1,55.35,45v3.28" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path><path d="M33,47.88H24a1.81,1.81,0,0,0-1.81,1.8V52A1.81,1.81,0,0,0,24,53.81h2.49L29,91.43a5.25,5.25,0,0,0,5.25,5.24H64.43a5.07,5.07,0,0,0,1.36-.18" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M70.27,47.88H51.54" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><line x1="51.77" y1="53.74" x2="69.41" y2="53.74" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line><line x1="25.73" y1="53.74" x2="32.89" y2="53.74" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line><path d="M50.22,64.59c4,6.53,9.72,13.74,16.57,15.15" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M73.78,38.17c-4.63,10.4-7.87,32.48-8.07,58.28,0,.82,0,1.64,0,2.47,0,.68,0,1.36,0,2a61.08,61.08,0,0,0,14.69,1.5,66.85,66.85,0,0,0,13.44-1.19c0-.78,0-1.56,0-2.35s0-1.86,0-2.78c-.23-26.3-3.62-48.15-8.41-58.09" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><rect x="74.11" y="22.86" width="11.06" height="5.44" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></rect><path d="M72.41,22.84H89.06V13.56H57.4V19.9l2.75,0A24.57,24.57,0,0,1,67.43,21" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><path d="M67.43,21A26,26,0,0,1,65,28.06,26.72,26.72,0,0,1,61,34a15.35,15.35,0,0,0,6.83-3.73,14.61,14.61,0,0,0,4.61-7.41h-.7A19.94,19.94,0,0,0,67.43,21Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><path d="M86,38.26l0-9.88H73.28v9.88h.24S84.48,38.28,86,38.26Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><rect x="33.13" y="43.2" width="18.09" height="21.71" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></rect><line x1="62.07" y1="13.54" x2="62.07" y2="19.94" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line></g></g></svg>
-                  <p class="service-cards__item-name">Поддерживающая</p>
-                </a>
+            <div class="swiper-container  cleaning-type-ab__inner">
+              <div class="swiper-wrapper">
 
-                <a class="swiper-slide  service-cards__item" href="{{buildUrl general.city '/kompleksnaya_uborka'}}">
-                  <svg class="service-cards__item-image" width="116" height="116" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116 116"><defs><style>.svg-1,.svg-2,.svg-3,.svg-4,.svg-5,.svg-6,.svg-7{fill:none;}.svg-2,.svg-3,.svg-4,.svg-5{stroke:#353535;}.svg-2,.svg-3,.svg-4,.svg-5,.svg-6,.svg-7{stroke-linejoin:round;}.svg-2,.svg-3{stroke-width:2px;}.svg-3,.svg-6{stroke-linecap:round;}.svg-5{stroke-width:1.5px;}.svg-6,.svg-7{stroke:#ff5a19;stroke-width:1.7px;}</style></defs><title>Комплексная-уборка_1</title><g><g><rect class="svg-1" width="116" height="116"></rect><path class="svg-2" d="M77.46,93.28v2.38a1.83,1.83,0,0,0,1.83,1.83h3.84A1.83,1.83,0,0,0,85,95.66V93.28"></path><path class="svg-3" d="M39.88,97.18a1.86,1.86,0,0,0,1,.31h3.84a1.72,1.72,0,0,0,.78-.18"></path><polyline class="svg-2" points="36.2 63.62 36.2 60.31 36.2 56.96 36.2 38.05"></polyline><line class="svg-3" x1="36.2" y1="73.53" x2="36.2" y2="67.34"></line><path class="svg-2" d="M45.87,93.84H39.38"></path><line class="svg-2" x1="57.72" y1="93.84" x2="48.43" y2="93.84"></line><path class="svg-2" d="M36.2,35.69V15.36c0-2.53,2.43-4.59,5.43-4.59H83.32c3,0,5.43,2.06,5.43,4.59V89.24c0,2.54-2.43,4.6-5.43,4.6H59.89"></path><path class="svg-4" d="M65.84,62.35a1.28,1.28,0,1,1,1.27,1.27A1.27,1.27,0,0,1,65.84,62.35Z"></path><path class="svg-4" d="M56.58,62.35a1.27,1.27,0,1,1,1.27,1.27A1.27,1.27,0,0,1,56.58,62.35Z"></path><line class="svg-2" x1="49.48" y1="56.47" x2="87.86" y2="56.47"></line><line class="svg-2" x1="35.94" y1="56.47" x2="46.32" y2="56.47"></line><line class="svg-2" x1="62.47" y1="56.59" x2="62.47" y2="93.61"></line><polyline class="svg-2" points="46.31 56.35 38.92 56.35 38.92 37.73"></polyline><path class="svg-5" d="M38.92,35.65V16.24a2.88,2.88,0,0,1,2.88-2.88H83.23a2.88,2.88,0,0,1,2.88,2.88V56.35H48.71"></path><line class="svg-2" x1="39.29" y1="27.77" x2="85.8" y2="27.77"></line><line class="svg-2" x1="44.07" y1="42.08" x2="85.8" y2="42.08"></line><line class="svg-2" x1="39.29" y1="42.08" x2="41.82" y2="42.08"></line><polygon class="svg-6" points="35.15 66.97 51.71 65.62 47.97 63.11 34.74 64.13 35.15 66.97"></polygon><polygon class="svg-6" points="36.95 79.21 55.52 77.87 51.33 75.36 36.5 76.38 36.95 79.21"></polygon><polygon class="svg-6" points="38.96 93.32 60.65 91.98 56.02 89.45 38.48 90.48 38.96 93.32"></polygon><path class="svg-6" d="M32.46,68.67l-4.91,33.91c-.07.52-.46.91-.86.85l-1.35-.19a.87.87,0,0,1-.6-1l6.17-44.44"></path><line class="svg-6" x1="46.75" y1="75.67" x2="47.12" y2="66.71"></line><line class="svg-7" x1="46.16" y1="90.2" x2="46.66" y2="78.05"></line><path class="svg-6" d="M49,93l-.15,4.47a.78.78,0,0,1-.81.74l-1.42-.06a.76.76,0,0,1-.74-.8l.18-4.48"></path><line class="svg-6" x1="49.51" y1="78.46" x2="49.11" y2="89.86"></line><line class="svg-6" x1="49.83" y1="69.26" x2="49.61" y2="75.47"></line><path class="svg-7" d="M31.13,37.73h7.35c1.85,0,1.87.5,2.34,2.18l7.25,23.51"></path><path class="svg-6" d="M57,92.76l4,13L64,105.6,43.23,38a3.11,3.11,0,0,0-3.3-2.62H33.57a2.89,2.89,0,0,0-2.45,3.26L41.1,109l-2.91.12L28.33,39.53c-.23-1.58.91-2.75,2.45-3.27l2.79-.93"></path><line class="svg-7" x1="52.41" y1="77.71" x2="55.95" y2="89.22"></line><line class="svg-6" x1="48.87" y1="66.19" x2="51.72" y2="75.47"></line></g></g></svg>
-                  <p class="service-cards__item-name">Комплексная уборка</p>
-                </a>
+                <div class="swiper-slide  cleaning-type-ab__item">
+                  <i class="cleaning-type-ab__icon"></i>
+                  <h3 class="cleaning-type-ab__title">Поддерживающая</h3>
 
-                <a class="swiper-slide service-cards__item" href="{{buildUrl general.city '/mite_okon'}}">
-                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>Окна_2</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M70.85,101.77l-1.67,1.87a24.48,24.48,0,0,1-8-5.62c-3.65-3.64-4.42-6.8-4.42-6.8l1.15-1.1" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2"></path><path d="M69.61,103.39s4.37-6.12,6.83-6.6a25.63,25.63,0,0,0,11.61-6.23l3-3,2.22-2.22,2.9-2.9a2.62,2.62,0,0,0,0-3.69l-.42-.41a2.61,2.61,0,0,0-3.69,0l1.82-1.82a3,3,0,0,0,0-4.26l-.48-.48a3,3,0,0,0-4.26,0l.37-.37a3,3,0,0,0,0-4.27l-.47-.47a3,3,0,0,0-4.27,0L83.5,67.94a3.19,3.19,0,0,0,.24-4.51L83.27,63a3.2,3.2,0,0,0-4.51.25L75,67l-2.82,2.83-.25.25v-.33a1.81,1.81,0,0,0,0-.23l-.69.7L67.07,66a3.82,3.82,0,0,0-2.8,3.67l-.58,14.85L57.11,90.9" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill-rule="evenodd"></path><path d="M19,46.85c1.49,1.37,3,2.77,4.41,4.17l4.38,4.21c2.9,2.82,5.77,5.67,8.63,8.52H35.27l8.36-8.52,8.42-8.45q8.45-8.42,17-16.74v1.19q-4.38-4.65-8.71-9.35c-1.45-1.56-2.86-3.16-4.29-4.73S53.2,14,51.81,12.36q2.36,2.16,4.67,4.36c1.54,1.47,3.11,2.91,4.63,4.4,3.08,2.95,6.11,5.93,9.15,8.92a.83.83,0,0,1,0,1.17l0,0q-8.34,8.54-16.8,17L45,56.58l-8.54,8.33h0a.81.81,0,0,1-1.14,0v0q-4.12-4.44-8.2-8.94l-4-4.53Q21,49.15,19,46.85Z" fill="#263239"></path><line x1="74.26" y1="67.71" x2="68.2" y2="73.76" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></line><path d="M57.49,63.69a8,8,0,0,0,8.9,1.65l4.81,4.82,4.11-4.1-4.82-4.82a8,8,0,0,0-1.65-8.9" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill-rule="evenodd"></path><path d="M40.93,68.92l3.29,3.3a3.35,3.35,0,0,0,4.74,0l28.4-28.4a3.35,3.35,0,0,0,0-4.74l-3.29-3.3" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5" fill-rule="evenodd"></path><polygon points="30.84 34.77 34.9 37.4 38.97 34.77 36.33 38.83 38.96 42.89 34.9 40.25 30.85 42.89 33.48 38.83 30.84 34.77" fill="#ff5a19"></polygon><polygon points="30.84 15.4 34.9 18.04 38.97 15.41 36.33 19.46 38.96 23.52 34.9 20.89 30.85 23.52 33.48 19.46 30.84 15.4" fill="#ff5a19"></polygon><polygon points="45.65 21.04 49.71 23.67 53.77 21.04 51.14 25.1 53.77 29.16 49.71 26.53 45.65 29.16 48.28 25.1 45.65 21.04" fill="#ff5a19"></polygon><path d="M69.84,32.63l2.75,2.76L40.47,67.51l-2.75-2.76L69.84,32.63m0-2.83-34.95,35,5.58,5.58,35-34.94L69.84,29.8Z" fill="#263239"></path></g></g></svg>
-                  <p class="service-cards__item-name">Мытьё окон</p>
-                </a>
+                  <div class="cleaning-type-ab__content">
+                    <ul class="cleaning-type-ab__list">
+                      <li class="cleaning-type-ab__list-item">1-2 сотрудника</li>
+                      <li class="cleaning-type-ab__list-item">Удаляются легкие загрязнения</li>
+                      <li class="cleaning-type-ab__list-item">Высота до 1.8 м</li>
+                      <li class="cleaning-type-ab__list-item">2-4 часов</li>
+                    </ul>
+                    <button class="cleaning-type-ab__btn-details" type="button"  data-id="work-list-podderzhka"  data-name="details-list">подробнее...</button>
+                    <div class="cleaning-type-ab__price">
+                      <p class="cleaning-type-ab__price-text">
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--small  cleaning-type-ab__price-text--light">от</span>
+                        1 990
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--light">&#8381;</span>
+                      </p>
+                    </div>
+                  </div>
+                  <button class="cleaning-type-ab__btn"  type="button"  data-action="openOrder"  data-service="podderzhka">Выбрать</button>
+                </div>
 
-                <a class="swiper-slide service-cards__item" href="{{buildUrl general.city '/generalnaya_uborka'}}">
-                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>генералка</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M68.87,64.55h1.61A1.51,1.51,0,0,0,72,63V61.11a1.52,1.52,0,0,0-1.51-1.51H69" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M43.19,100.36H36.67A4.38,4.38,0,0,1,32.29,96h0L30.14,64.55H28.06A1.51,1.51,0,0,1,26.54,63V61.17A1.52,1.52,0,0,1,28,59.6H63.93" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><line x1="63.97" y1="64.2" x2="30.06" y2="64.2" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line><circle cx="53.07" cy="64.84" r="2.92" fill="#263239"></circle><path d="M53.26,64.15S43.74,88.77,30.85,86.23c-9.18-1.81-.71-18-.71-18" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M64.11,78.34V15.12a2.4,2.4,0,0,1,2.41-2.4h0a2.4,2.4,0,0,1,2.4,2.4V78.34" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2.5"></path><path d="M62.38,92.72V81.89a4.14,4.14,0,0,1,4.14-4.14h0a4.14,4.14,0,0,1,4.13,4.14V92.72" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2.5"></path><path d="M48.44,96.35a3.66,3.66,0,0,1,3.66-3.66H80.93a3.66,3.66,0,0,1,3.66,3.66" fill="none" stroke="#263239" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"></path><path d="M89.46,101.69a1.59,1.59,0,0,1-1.59,1.59H45.16a1.59,1.59,0,0,1-1.59-1.59V99.11a1.6,1.6,0,0,1,1.59-1.59H87.87a1.59,1.59,0,0,1,1.59,1.59Z" fill="none" stroke="#ff5a19" stroke-miterlimit="10" stroke-width="2.5"></path></g></g></svg>
-                  <p class="service-cards__item-name">Генеральная</p>
-                </a>
+                <div class="swiper-slide  cleaning-type-ab__item">
+                  <h3 class="cleaning-type-ab__title">Комплексная</h3>
 
-                <a class="swiper-slide service-cards__item  " href="{{buildUrl general.city '/posle_remonta'}}">
-                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>Уборка после ремонта_1</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M45.61,56.77A47.19,47.19,0,0,0,42.4,46.35" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M33.88,46.44a57.44,57.44,0,0,0-3.46,12.63" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><rect x="34.12" y="35.23" width="8.09" height="3.99" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></rect><path d="M32.87,35.22H45.06v-6.8H21.89v4.65h2a18.2,18.2,0,0,1,5.33.79" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M29.23,33.87A18.78,18.78,0,0,1,27.46,39a19.23,19.23,0,0,1-3,4.33,11.18,11.18,0,0,0,5-2.73,10.65,10.65,0,0,0,3.37-5.42h-.51A14.78,14.78,0,0,0,29.23,33.87Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M42.81,46.51V39.27H33.51V46.5h.18S41.71,46.52,42.81,46.51Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><line x1="25.31" y1="28.41" x2="25.31" y2="33.09" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></line><path d="M86,28H78.3a.8.8,0,0,0-.72.86v4.33h9.15V28.88A.8.8,0,0,0,86,28Z" fill="none" stroke="#353535" stroke-miterlimit="10" stroke-width="2.5"></path><polyline points="71.14 59.33 71.14 45.75 93.17 45.75 93.17 59.33" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></polyline><polygon points="93.16 45.82 71.15 45.82 77.28 33.16 87.03 33.16 93.16 45.82" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></polygon><path d="M49.6,21h6.46a1.15,1.15,0,0,1,1.09,1.21v6.06H48.5V22.23A1.16,1.16,0,0,1,49.6,21Z" fill="none" stroke="#353535" stroke-miterlimit="10" stroke-width="2"></path><path d="M48.67,57.63v-29s6.36,0,8.4,0c0,0,8.94,10.33,14.3,16.55" fill="none" stroke="#353535" stroke-miterlimit="10" stroke-width="2.5"></path><path d="M24.83,66H20.58A1.63,1.63,0,0,1,19,64.33v-3.8a1.63,1.63,0,0,1,1.63-1.63H31.79" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M63.38,58.9H98.87a1.63,1.63,0,0,1,1.63,1.63v3.8A1.63,1.63,0,0,1,98.87,66H63.35" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M25.55,81.54l.9,8.9a4.76,4.76,0,0,0,4.76,4.76h57A4.76,4.76,0,0,0,93,90.44L95.52,66H64" fill="none" stroke="#353535" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><path d="M43.67,75.68c-1.27,2.38-3.23,5.27-5.13,4.26-1.52-.81,1.8-7.46,1.8-7.46l-9.61,9.43A1.94,1.94,0,0,1,28,79.16l-1.6,1.59A1.94,1.94,0,0,1,23.63,78l1.29-1.29a1.94,1.94,0,0,1-2.41-3l2.82-2.82a1.94,1.94,0,0,1-2.75-2.75l8.5-8.5C33.7,57,33,57.71,33,57.71a36.18,36.18,0,0,1,10.62-1,30.69,30.69,0,0,1,5.28.83" fill="none" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill-rule="evenodd"></path><line x1="28.02" y1="79.11" x2="33.82" y2="73.32" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="24.92" y1="76.71" x2="31.48" y2="70.15" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="25.45" y1="70.75" x2="29.06" y2="67.15" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="39.66" y1="73.15" x2="41.98" y2="70.83" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><path d="M49.08,57.82,49,60.33s-3.6,3.87-4.4,6.4c-.47,1.5-3.08,8.42-.12,9.16,1.63.41,3.82-6.64,3.82-6.64l.37,13.22a1.83,1.83,0,0,0,1.94,1.81,2,2,0,0,0,1.88-2l0,2.22a1.83,1.83,0,0,0,1.94,1.81,2,2,0,0,0,1.88-2l0-1.8a1.81,1.81,0,0,0,1.88,1.39,2,2,0,0,0,1.87-2L60,77.94a1.83,1.83,0,0,0,2,1.8,2,2,0,0,0,1.87-2l-.22-11.81c-.07-3.65,0-8.26,0-8.26s-1.52-.49-7-.53A37.76,37.76,0,0,0,49.08,57.82Z" fill="none" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill-rule="evenodd"></path><line x1="52.5" y1="82.2" x2="52.34" y2="74.15" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="56.33" y1="82.48" x2="56.15" y2="73.37" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="60.01" y1="77.77" x2="59.91" y2="72.76" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="48.32" y1="70.18" x2="48.26" y2="66.96" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line></g></g></svg>
-                  <p class="service-cards__item-name">Уборка <br class="text  text--tablet">после ремонта</p>
-                </a>
+                  <div class="cleaning-type-ab__content">
+                    <ul class="cleaning-type-ab__list">
+                      <li class="cleaning-type-ab__list-item">1-2 сотрудника</li>
+                      <li class="cleaning-type-ab__list-item">Удаляются легкие загрязнения</li>
+                      <li class="cleaning-type-ab__list-item">На всю высоту</li>
+                      <li class="cleaning-type-ab__list-item">4-7 часов</li>
+                    </ul>
+                    <button class="cleaning-type-ab__btn-details" type="button"  data-id="work-list-complex"  data-name="details-list">подробнее...</button>
+                    <div class="cleaning-type-ab__price">
+                      <p class="cleaning-type-ab__price-text">
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--small  cleaning-type-ab__price-text--light">от</span>
+                        3 590
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--light">&#8381;</span>
+                      </p>
+                    </div>
+                  </div>
+                  <button class="cleaning-type-ab__btn"  type="button"  data-action="openOrder"  data-service="complex">Выбрать</button>
+                </div>
 
-                <a class="swiper-slide service-cards__item  " href="{{buildUrl general.city '/himchistka'}}">
-                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>Химчистка мебели</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M60,57.58V35.06a2.36,2.36,0,0,0-2.35-2.35H22.85a3.53,3.53,0,0,0-3.52,3.52V51.45" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M60,62.37V35.06a2.36,2.36,0,0,1,2.35-2.35H97.21a3.53,3.53,0,0,1,3.52,3.52V51.35" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M27.32,60H56.44A3.53,3.53,0,0,1,60,63.49v5.89H26.62" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M91.85,69.38H60.06V63.49A3.53,3.53,0,0,1,63.58,60H91.89" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M92.4,88.86l-64.64-.13" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M27,59.71A8.09,8.09,0,1,0,15.45,67V88.38a3.13,3.13,0,0,0,3.12,3.13h5.25A3.13,3.13,0,0,0,27,88.38V59.71Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M92.15,59.7a8.26,8.26,0,0,1,16.52,0A8.06,8.06,0,0,1,103.9,67V88.33a3.15,3.15,0,0,1-3.2,3.12H95.34a3.15,3.15,0,0,1-3.19-3.12V59.7Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M16.75,59.59a2.11,2.11,0,1,1,2.11,2.11A2.12,2.12,0,0,1,16.75,59.59Z" fill="#353535"></path><path d="M98.3,59.59a2.11,2.11,0,1,1,2.11,2.11A2.11,2.11,0,0,1,98.3,59.59Z" fill="#353535"></path><rect x="28.27" y="36.84" width="28.33" height="19.71" rx="3" ry="3" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></rect><rect x="63.6" y="36.84" width="27.12" height="19.71" rx="3" ry="3" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></rect></g></g></svg>
-                  <p class="service-cards__item-name">Химчистка <br class="text  text--tablet">мебели</p>
-                </a>
+                <div class="swiper-slide  cleaning-type-ab__item">
+                  <h3 class="cleaning-type-ab__title">Генеральная</h3>
 
-                <a class="swiper-slide service-cards__item  " href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
-                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>домашний мастер</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M84.93,34.38a11.92,11.92,0,1,0-23.83,0m4.45.09a7.63,7.63,0,1,1,15.26,0" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M62.85,87.52H43.05a5.92,5.92,0,0,1-5.92-5.92V76.06" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M37.13,54.94V41.25a5.92,5.92,0,0,1,5.92-5.92H103a5.91,5.91,0,0,1,5.91,5.92V81.6A5.91,5.91,0,0,1,103,87.52H77.13" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M108.89,48.75v-7.5A5.91,5.91,0,0,0,103,35.33H43.05a5.92,5.92,0,0,0-5.92,5.92v7.5" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><line x1="83.79" y1="48.75" x2="108.89" y2="48.75" fill="#fff" stroke="#353535" stroke-linejoin="round" stroke-width="2"></line><line x1="37.13" y1="48.75" x2="62.36" y2="48.75" fill="#fff" stroke="#353535" stroke-linejoin="round" stroke-width="2"></line><path d="M82.22,47.26v3H63.81v-3H82.22m.08-2H63.73a1.92,1.92,0,0,0-1.92,1.92v3.13a1.91,1.91,0,0,0,1.92,1.92H82.3a1.91,1.91,0,0,0,1.92-1.92V47.18a1.92,1.92,0,0,0-1.92-1.92Z" fill="#353535"></path><path d="M63.31,84.48a8.73,8.73,0,0,1-11.89-8.13m4,0a4.66,4.66,0,0,0,7,4" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path><path d="M19.51,66.6H4.63a1.52,1.52,0,0,1-1.52-1.52h0a1.52,1.52,0,0,1,1.52-1.52h14.7" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path><path d="M73.24,61.23a4.66,4.66,0,0,0-.36-1.8,6.91,6.91,0,0,0-6.6-4.9H37l-.47,0-.48,0a10.55,10.55,0,1,0,0,21.09l.48,0,.47,0H61.17l2.34,13.32a4.6,4.6,0,0,0,4.6,4.6h5.4a4.6,4.6,0,0,0,4.6-4.6Z" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2.5"></path><path d="M27.85,58.67a6.44,6.44,0,0,0-1.65-.22,6.63,6.63,0,0,0,0,13.25,6.91,6.91,0,0,0,1.65-.21" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path></g></g></svg>
-                  <p class="service-cards__item-name">Домашний <br class="text  text--tablet">мастер</p>
-                </a>
+                  <div class="cleaning-type-ab__content">
+                    <ul class="cleaning-type-ab__list">
+                      <li class="cleaning-type-ab__list-item">2-4 сотрудника</li>
+                      <li class="cleaning-type-ab__list-item">Удаляются любые загрязнения</li>
+                      <li class="cleaning-type-ab__list-item">На всю высоту</li>
+                      <li class="cleaning-type-ab__list-item">6-8 часов</li>
+                    </ul>
+                    <button class="cleaning-type-ab__btn-details" type="button"  data-id="work-list-general"  data-name="details-list">подробнее...</button>
+                    <div class="cleaning-type-ab__price">
+                      <p class="cleaning-type-ab__price-text">
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--small  cleaning-type-ab__price-text--light">от</span>
+                        6 990
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--light">&#8381;</span>
+                      </p>
+                    </div>
+                  </div>
+                  <button class="cleaning-type-ab__btn"  type="button"  data-action="openOrder"  data-service="general">Выбрать</button>
+                </div>
 
-                <a class="swiper-slide service-cards__item  " href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
-                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>Обработка поверхностей</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M75.56,61v-43H89.05a3,3,0,0,0,3-3v-.54a3,3,0,0,0-3-3H76a3,3,0,0,0-3,3v36.2" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M55,58.2c.78-3.59,1.34-6.91,4.56-6.91H75.46v6.37" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M75.46,84.48V55.29H58.29c-2,0-2.76,1.77-3.57,3.57-5.49,12.25-9.38,21.73-9.38,21.73C43.79,80.59,33,90.8,28.66,95" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><line x1="75.46" y1="81.17" x2="44.89" y2="81.17" fill="#fff" stroke="#353535" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></line><polyline points="70.1 103.85 23.97 103.85 23.97 95.25 63.25 95.25" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2.5"></polyline><path d="M63.55,94.61a10,10,0,1,1,9.94,10A9.94,9.94,0,0,1,63.55,94.61Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M68.67,94.61a4.83,4.83,0,1,1,4.82,4.82A4.82,4.82,0,0,1,68.67,94.61Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path></g></g></svg>
-                  <p class="service-cards__item-name">Обработка <br class="text  text--tablet">поверхностей</p>
-                </a>
+                <div class="swiper-slide  cleaning-type-ab__item">
+                  <h3 class="cleaning-type-ab__title">После ремонта</h3>
 
-                <a class="swiper-slide service-cards__item  " href="{{buildUrl general.city '/domrabotnica'}}">
-                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>Домработница</title><g><g><rect width="116" height="116" fill="none"></rect><line x1="58.52" y1="53.56" x2="58.52" y2="25.37" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></line><path d="M72,51.19l3-10.58,1.85,3,10.35-6.35S80.34,23.11,76.67,19.44C75.27,18,71,17.12,65.85,16.67c0,.14,0,.27,0,.41a7.87,7.87,0,0,1-15.74,0c0-.12,0-.25,0-.37-5,.46-9.06,1.37-10.45,2.73-3.78,3.67-10.85,17.78-10.85,17.78l10.61,6.35,2-3,3.11,10.58s-8,8.66-8,23.21c0,11.34,4.15,24.93,4.15,24.93h35s4.59-13.59,4.59-24.93A35.25,35.25,0,0,0,72,51.19Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M46,17.6a7.23,7.23,0,0,0,6.47,10.48c2.57,0,4.82-.69,6.1-2.71,1.29,2,3.54,2.71,6.1,2.71a7.24,7.24,0,0,0,6.61-10.19" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M58.23,53.6a41.48,41.48,0,0,1-13.86-2.22,16.58,16.58,0,1,0,27.72,0A39.28,39.28,0,0,1,58.23,53.6Z" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2.5"></path><path d="M87.15,37.22s-6.7-13.86-10.38-17.68c.38,2.74.34,8.81-2,20.86l2,3.17Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><path d="M41.66,40.34C39.35,28.75,39,22.72,39.21,20c-3.87,4.31-10.36,17.26-10.36,17.26l10.61,6.35Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path></g></g></svg>
-                  <p class="service-cards__item-name">Домработница</p>
-                </a>
+                  <div class="cleaning-type-ab__content">
+                    <ul class="cleaning-type-ab__list">
+                      <li class="cleaning-type-ab__list-item">2-4 сотрудника</li>
+                      <li class="cleaning-type-ab__list-item">Любые загрязнения и следы стройки</li>
+                      <li class="cleaning-type-ab__list-item">На всю высоту</li>
+                      <li class="cleaning-type-ab__list-item">6-8 часов</li>
+                    </ul>
+                    <button class="cleaning-type-ab__btn-details" type="button"  data-id="work-list-posle"  data-name="details-list">подробнее...</button>
+                    <div class="cleaning-type-ab__price">
+                      <p class="cleaning-type-ab__price-text">
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--small  cleaning-type-ab__price-text--light">от</span>
+                        7 690
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--light">&#8381;</span>
+                      </p>
+                    </div>
+                  </div>
+                  <button class="cleaning-type-ab__btn" type="button"  data-action="openOrder"  data-service="posle">Выбрать</button>
+                </div>
 
-                <a class="swiper-slide service-cards__item  " href="{{buildUrl general.city '/himchistka_odezhdy'}}">
-                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>Химчистка_1</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M69,10.56H45.71v9.35s8.77-.71,11.73-.71S69,19.91,69,19.91Z" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><path d="M36.9,23.5s6.73-4,21.14-4.06c14.78-.05,21.76,4.33,21.76,4.33" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><path d="M84.61,89.75v12.81a2.89,2.89,0,0,1-2.88,2.88H33.78a2.89,2.89,0,0,1-2.88-2.88V90.33" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><line x1="57.53" y1="11.71" x2="57.53" y2="104.81" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></line><line x1="20.62" y1="80.62" x2="38.42" y2="80.62" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></line><polyline points="39.09 67.48 52.09 67.48 52.09 88.62 35.63 88.62" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></polyline><polyline points="76.75 67.48 63.75 67.48 63.75 88.62 80.21 88.62" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></polyline><path d="M29.43,89.26h-.17c-8.61,0-8.31-.73-8.64-8.64a100.15,100.15,0,0,1,1-16.12C24.46,47.72,28.3,36.63,33,28.4c3.08-5.45,5.75-7.92,5.48.54l-.37,51.68C38.07,88.1,38.56,88.82,29.43,89.26Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M86.57,89.18h.17c8.58,0,8.64-.25,8.64-8.69a101.27,101.27,0,0,0-1-16.21C91.54,47.4,87.57,36.33,83,28c-2.78-5.12-5.75-8-5.48.54l.37,52C77.93,88.69,78.29,89.18,86.57,89.18Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><line x1="77.5" y1="80.69" x2="95.14" y2="80.69" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></line></g></g></svg>
-                  <p class="service-cards__item-name">Химчистка</p>
-                </a>
+                <div class="swiper-slide  cleaning-type-ab__item">
+                  <h3 class="cleaning-type-ab__title">Мытьё окон</h3>
+
+                  <div class="cleaning-type-ab__content">
+                    <ul class="cleaning-type-ab__list">
+                      <li class="cleaning-type-ab__list-item">1-2 сотрудника</li>
+                      <li class="cleaning-type-ab__list-item">Моем все окна в квартире, рамы, отливы, подоконники, москитные сетки</li>
+                      <li class="cleaning-type-ab__list-item">2-5 часов</li>
+                    </ul>
+                    <button class="cleaning-type-ab__btn-details" type="button"  data-id="work-list-window-cleaning"  data-name="details-list">подробнее...</button>
+                    <div class="cleaning-type-ab__price">
+                      <p class="cleaning-type-ab__price-text">
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--small  cleaning-type-ab__price-text--light">от</span>
+                        1 490
+                        <span class="cleaning-type-ab__price-text  cleaning-type-ab__price-text--light">&#8381;</span>
+                      </p>
+                    </div>
+                  </div>
+                  <button class="cleaning-type-ab__btn"  type="button"  data-action="openOrder"  data-service="window_cleaning">Выбрать</button>
+                </div>
 
               </div>
             </div>
 
             <button class="swiper-carousel__button-next" type="button">
-              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></svg>
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
             </button>
           </div>
+          <p class="cleaning-type-ab__text">Цена на Уборку зависит от площади. При обслуживании по графику 1 раз в 2 недели или 1 раз в<br> неделю клиентам предоставляется скидка до 35%</p>
         </div>
       </section>
 
@@ -365,29 +372,29 @@
                 <div class="features__img-wrapper">
                   <img class="features__img" src="/static/pancake/img/safety.svg" alt="" width="80" height="80">
                 </div>
-                <p class="features__title">Безопасность</p>
-                <p class="features__text">100% материальная<br> ответственность</p>
+                <p class="features__title">100% страхование</p>
+                <p class="features__text  features__text--ab">Если мы что-то испортим,<br> то быстро восстановим или<br> компенсируем</p>
               </li>
               <li class="swiper-slide features__item">
                 <div class="features__img-wrapper">
                   <img class="features__img" src="/static/pancake/img/constancy.svg" alt="" width="80" height="80">
                 </div>
                 <p class="features__title">Постоянство</p>
-                <p class="features__text">Постоянный сотрудник при<br> регулярной уборке</p>
+                <p class="features__text  features__text--ab">У вас убирается<br> постоянный сотрудник</p>
               </li>
               <li class="swiper-slide features__item">
                 <div class="features__img-wrapper">
                   <img class="features__img" src="/static/pancake/img/professionalism.svg" alt="" width="80" height="80">
                 </div>
-                <p class="features__title">Профессионализм</p>
-                <p class="features__text">Обученные и проверенные<br> сотрудники в штате</p>
+                <p class="features__title">Качество</p>
+                <p class="features__text  features__text--ab">Мы тщательно отбираем и<br> обучаем сотрудников</p>
               </li>
               <li class="swiper-slide features__item">
                 <div class="features__img-wrapper">
                   <img class="features__img" src="/static/pancake/img/service.svg" alt="" width="80" height="80">
                 </div>
                 <p class="features__title">Удобный сервис</p>
-                <p class="features__text">Оплата картой и управление в<br> личном кабинете</p>
+                <p class="features__text  features__text--ab">Оплата картой,<br> сдача ключей в офис,<br> управление в приложении</p>
               </li>
             </ul>
           </div>
@@ -430,22 +437,25 @@
       </section>
 
       <section class="page__section section">
-        <div class="order-now">
-          <div class="order-now__img-wrapper"></div>
-          <div class="order-now__inner">
-            <h3 class="order-now__title">Заказать уборку сейчас</h3>
-            <form class="order-now__form contact-section__form" action="#" method="post">
-              <input class="order-now__input contact-section__input input  input--md  input--light-grey" type="text" name="name" placeholder="Имя">
-              <input class="order-now__input contact-section__input  input  input--md  input--light-grey" type="tel" name="tel" placeholder="Телефон">
-              <button class="order-now__button contact-section__button  button" type="submit">Заказать уборку</button>
-            </form>
+        <div class="divided-section">
+          <div class="divided-section__img-part  divided-section__img-part--order-now"></div>
+          <div class="divided-section__content-part  divided-section__content-part--order-now">
+            <div class="divided-section__content-inner">
+              <h3 class="divided-section__title  divided-section__title--order-now">Заказать уборку сейчас</h3>
+              <form class="divided-section__form contact-section__form" action="#" method="post">
+                <input class="divided-section__input contact-section__input input  input--md  input--light-grey" type="text" name="name" placeholder="Имя">
+                <input class="divided-section__input contact-section__input  input  input--md  input--light-grey" type="tel" name="tel" placeholder="Телефон">
+                <button class="divided-section__button  divided-section__button--lg  button--lg  button" type="submit">Заказать уборку</button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
 
       <section class="page__section section section--bg-grey">
         <div class="section__wrap">
-          <h2 class="section__title  title">Топ-5 домовят февраля</h2>
+
+          <h2 class="section__title  title">Топ-5 домовят мая</h2>
           
           <div class="swiper-carousel">
             <button class="swiper-carousel__button-prev" type="button">
@@ -456,49 +466,37 @@
               <div class="swiper-wrapper">
                 <div class="swiper-slide worker-card">
                   <div class="worker-card__img-wrapper">
-                    <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/9d4c0982-a03a-11e6-80e2-00155d594900.jpg" alt="">
-                  </div>
-                  <p class="worker-card__title">Имашова Айгерим</p>
-                  <div class="worker-card__text-wrapper">
-                    <span class="worker-card__text">5</span>
-                    <i class="star"></i>
-                    <span class="worker-card__text  worker-card__text--decor">530 уборок</span>
-                  </div>
-                </div>
-          
-                <div class="swiper-slide worker-card">
-                  <div class="worker-card__img-wrapper">
-                    <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/650ea53c-7c0b-11e6-80e2-00155d594900.jpg" alt="">
-                  </div>
-                  <p class="worker-card__title">Чиркова Татьяна</p>
-                  <div class="worker-card__text-wrapper">
-                    <span class="worker-card__text">5</span>
-                    <i class="star"></i>
-                    <span class="worker-card__text  worker-card__text--decor">524 уборок</span>
-                  </div>
-                </div>
-          
-                <div class="swiper-slide worker-card">
-                  <div class="worker-card__img-wrapper">
                     <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/456e809e-cfda-11e5-80de-00155d594900.jpg" alt="">
                   </div>
                   <p class="worker-card__title">Айдаралиева Наргиза</p>
                   <div class="worker-card__text-wrapper">
                     <span class="worker-card__text">5</span>
                     <i class="star"></i>
-                    <span class="worker-card__text  worker-card__text--decor">844 уборок</span>
+                    <span class="worker-card__text  worker-card__text--decor">938 уборок</span>
                   </div>
                 </div>
           
                 <div class="swiper-slide worker-card">
                   <div class="worker-card__img-wrapper">
-                    <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/f226debf-ce41-11e4-944e-002590306b4e.jpeg" alt="">
+                    <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/2462748e-dd36-11e4-9450-002590306b4f.jpeg" alt="">
                   </div>
-                  <p class="worker-card__title">Нурматова Сабира</p>
+                  <p class="worker-card__title">Кураленко Татьяна</p>
                   <div class="worker-card__text-wrapper">
                     <span class="worker-card__text">5</span>
                     <i class="star"></i>
-                    <span class="worker-card__text  worker-card__text--decor">1 093 уборок</span>
+                    <span class="worker-card__text  worker-card__text--decor">1 386 уборок</span>
+                  </div>
+                </div>
+          
+                <div class="swiper-slide worker-card">
+                  <div class="worker-card__img-wrapper">
+                    <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/d739e1f7-1099-11e7-80e4-00155d594900.jpg" alt="">
+                  </div>
+                  <p class="worker-card__title">Тулебаева Гулькайыр</p>
+                  <div class="worker-card__text-wrapper">
+                    <span class="worker-card__text">5</span>
+                    <i class="star"></i>
+                    <span class="worker-card__text  worker-card__text--decor">444 уборок</span>
                   </div>
                 </div>
           
@@ -510,7 +508,19 @@
                   <div class="worker-card__text-wrapper">
                     <span class="worker-card__text">5</span>
                     <i class="star"></i>
-                    <span class="worker-card__text  worker-card__text--decor">611 уборок</span>
+                    <span class="worker-card__text  worker-card__text--decor">670 уборок</span>
+                  </div>
+                </div>
+          
+                <div class="swiper-slide worker-card">
+                  <div class="worker-card__img-wrapper">
+                    <img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/119207b4-27a0-11e8-80e6-00155d594900.jpg" alt="">
+                  </div>
+                  <p class="worker-card__title">Мейманбаева Нурзия</p>
+                  <div class="worker-card__text-wrapper">
+                    <span class="worker-card__text">5</span>
+                    <i class="star"></i>
+                    <span class="worker-card__text  worker-card__text--decor">129 уборок</span>
                   </div>
                 </div>
               </div>
@@ -520,6 +530,7 @@
               <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
             </button>
           </div>
+
         </div>
       </section>
 
@@ -812,25 +823,159 @@
         </div>
       </section>
 
+      <section class="page__section  section  section--bg-grey">
+        <div class="section__wrap  section__wrap--mobile-ab">
+          <p class="section__title  title">Услуги от клининговой компании Домовенок</p>
+          <!--mobile-->
+          <div class="service-menu  service-menu--mobile-ab  service-menu-carousel" data-class="service-menu-carousel">
+
+            <div class="service-menu__wrap  service-menu-carousel__wrap">
+              <div class="service-menu__inner  service-menu-carousel__inner">
+                <a class="service-menu__item" href="{{buildUrl general.city '/podderzhka'}}">
+                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>поддержка_1</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M40.56,43.2h13A1.83,1.83,0,0,1,55.35,45v3.28" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path><path d="M33,47.88H24a1.81,1.81,0,0,0-1.81,1.8V52A1.81,1.81,0,0,0,24,53.81h2.49L29,91.43a5.25,5.25,0,0,0,5.25,5.24H64.43a5.07,5.07,0,0,0,1.36-.18" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M70.27,47.88H51.54" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><line x1="51.77" y1="53.74" x2="69.41" y2="53.74" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line><line x1="25.73" y1="53.74" x2="32.89" y2="53.74" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line><path d="M50.22,64.59c4,6.53,9.72,13.74,16.57,15.15" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M73.78,38.17c-4.63,10.4-7.87,32.48-8.07,58.28,0,.82,0,1.64,0,2.47,0,.68,0,1.36,0,2a61.08,61.08,0,0,0,14.69,1.5,66.85,66.85,0,0,0,13.44-1.19c0-.78,0-1.56,0-2.35s0-1.86,0-2.78c-.23-26.3-3.62-48.15-8.41-58.09" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><rect x="74.11" y="22.86" width="11.06" height="5.44" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></rect><path d="M72.41,22.84H89.06V13.56H57.4V19.9l2.75,0A24.57,24.57,0,0,1,67.43,21" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><path d="M67.43,21A26,26,0,0,1,65,28.06,26.72,26.72,0,0,1,61,34a15.35,15.35,0,0,0,6.83-3.73,14.61,14.61,0,0,0,4.61-7.41h-.7A19.94,19.94,0,0,0,67.43,21Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><path d="M86,38.26l0-9.88H73.28v9.88h.24S84.48,38.28,86,38.26Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><rect x="33.13" y="43.2" width="18.09" height="21.71" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></rect><line x1="62.07" y1="13.54" x2="62.07" y2="19.94" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line></g></g></svg>
+                  <p class="service-menu__item-name">Поддерживающая <br class="text  text--tablet">уборка</p>
+                </a>
+
+                <a class="service-menu__item" href="{{buildUrl general.city '/kompleksnaya_uborka'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116 116"><defs><style>.svg-1,.svg-2,.svg-3,.svg-4,.svg-5,.svg-6,.svg-7{fill:none;}.svg-2,.svg-3,.svg-4,.svg-5{stroke:#353535;}.svg-2,.svg-3,.svg-4,.svg-5,.svg-6,.svg-7{stroke-linejoin:round;}.svg-2,.svg-3{stroke-width:2px;}.svg-3,.svg-6{stroke-linecap:round;}.svg-5{stroke-width:1.5px;}.svg-6,.svg-7{stroke:#ff5a19;stroke-width:1.7px;}</style></defs><title>Комплексная-уборка_1</title><g><g><rect class="svg-1" width="116" height="116"></rect><path class="svg-2" d="M77.46,93.28v2.38a1.83,1.83,0,0,0,1.83,1.83h3.84A1.83,1.83,0,0,0,85,95.66V93.28"></path><path class="svg-3" d="M39.88,97.18a1.86,1.86,0,0,0,1,.31h3.84a1.72,1.72,0,0,0,.78-.18"></path><polyline class="svg-2" points="36.2 63.62 36.2 60.31 36.2 56.96 36.2 38.05"></polyline><line class="svg-3" x1="36.2" y1="73.53" x2="36.2" y2="67.34"></line><path class="svg-2" d="M45.87,93.84H39.38"></path><line class="svg-2" x1="57.72" y1="93.84" x2="48.43" y2="93.84"></line><path class="svg-2" d="M36.2,35.69V15.36c0-2.53,2.43-4.59,5.43-4.59H83.32c3,0,5.43,2.06,5.43,4.59V89.24c0,2.54-2.43,4.6-5.43,4.6H59.89"></path><path class="svg-4" d="M65.84,62.35a1.28,1.28,0,1,1,1.27,1.27A1.27,1.27,0,0,1,65.84,62.35Z"></path><path class="svg-4" d="M56.58,62.35a1.27,1.27,0,1,1,1.27,1.27A1.27,1.27,0,0,1,56.58,62.35Z"></path><line class="svg-2" x1="49.48" y1="56.47" x2="87.86" y2="56.47"></line><line class="svg-2" x1="35.94" y1="56.47" x2="46.32" y2="56.47"></line><line class="svg-2" x1="62.47" y1="56.59" x2="62.47" y2="93.61"></line><polyline class="svg-2" points="46.31 56.35 38.92 56.35 38.92 37.73"></polyline><path class="svg-5" d="M38.92,35.65V16.24a2.88,2.88,0,0,1,2.88-2.88H83.23a2.88,2.88,0,0,1,2.88,2.88V56.35H48.71"></path><line class="svg-2" x1="39.29" y1="27.77" x2="85.8" y2="27.77"></line><line class="svg-2" x1="44.07" y1="42.08" x2="85.8" y2="42.08"></line><line class="svg-2" x1="39.29" y1="42.08" x2="41.82" y2="42.08"></line><polygon class="svg-6" points="35.15 66.97 51.71 65.62 47.97 63.11 34.74 64.13 35.15 66.97"></polygon><polygon class="svg-6" points="36.95 79.21 55.52 77.87 51.33 75.36 36.5 76.38 36.95 79.21"></polygon><polygon class="svg-6" points="38.96 93.32 60.65 91.98 56.02 89.45 38.48 90.48 38.96 93.32"></polygon><path class="svg-6" d="M32.46,68.67l-4.91,33.91c-.07.52-.46.91-.86.85l-1.35-.19a.87.87,0,0,1-.6-1l6.17-44.44"></path><line class="svg-6" x1="46.75" y1="75.67" x2="47.12" y2="66.71"></line><line class="svg-7" x1="46.16" y1="90.2" x2="46.66" y2="78.05"></line><path class="svg-6" d="M49,93l-.15,4.47a.78.78,0,0,1-.81.74l-1.42-.06a.76.76,0,0,1-.74-.8l.18-4.48"></path><line class="svg-6" x1="49.51" y1="78.46" x2="49.11" y2="89.86"></line><line class="svg-6" x1="49.83" y1="69.26" x2="49.61" y2="75.47"></line><path class="svg-7" d="M31.13,37.73h7.35c1.85,0,1.87.5,2.34,2.18l7.25,23.51"></path><path class="svg-6" d="M57,92.76l4,13L64,105.6,43.23,38a3.11,3.11,0,0,0-3.3-2.62H33.57a2.89,2.89,0,0,0-2.45,3.26L41.1,109l-2.91.12L28.33,39.53c-.23-1.58.91-2.75,2.45-3.27l2.79-.93"></path><line class="svg-7" x1="52.41" y1="77.71" x2="55.95" y2="89.22"></line><line class="svg-6" x1="48.87" y1="66.19" x2="51.72" y2="75.47"></line></g></g></svg>
+                  <p class="service-menu__item-name">Комплексная уборка</p>
+                </a>
+
+                <a class="service-menu__item" href="{{buildUrl general.city '/mite_okon'}}">
+                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>Окна_2</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M70.85,101.77l-1.67,1.87a24.48,24.48,0,0,1-8-5.62c-3.65-3.64-4.42-6.8-4.42-6.8l1.15-1.1" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2"></path><path d="M69.61,103.39s4.37-6.12,6.83-6.6a25.63,25.63,0,0,0,11.61-6.23l3-3,2.22-2.22,2.9-2.9a2.62,2.62,0,0,0,0-3.69l-.42-.41a2.61,2.61,0,0,0-3.69,0l1.82-1.82a3,3,0,0,0,0-4.26l-.48-.48a3,3,0,0,0-4.26,0l.37-.37a3,3,0,0,0,0-4.27l-.47-.47a3,3,0,0,0-4.27,0L83.5,67.94a3.19,3.19,0,0,0,.24-4.51L83.27,63a3.2,3.2,0,0,0-4.51.25L75,67l-2.82,2.83-.25.25v-.33a1.81,1.81,0,0,0,0-.23l-.69.7L67.07,66a3.82,3.82,0,0,0-2.8,3.67l-.58,14.85L57.11,90.9" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill-rule="evenodd"></path><path d="M19,46.85c1.49,1.37,3,2.77,4.41,4.17l4.38,4.21c2.9,2.82,5.77,5.67,8.63,8.52H35.27l8.36-8.52,8.42-8.45q8.45-8.42,17-16.74v1.19q-4.38-4.65-8.71-9.35c-1.45-1.56-2.86-3.16-4.29-4.73S53.2,14,51.81,12.36q2.36,2.16,4.67,4.36c1.54,1.47,3.11,2.91,4.63,4.4,3.08,2.95,6.11,5.93,9.15,8.92a.83.83,0,0,1,0,1.17l0,0q-8.34,8.54-16.8,17L45,56.58l-8.54,8.33h0a.81.81,0,0,1-1.14,0v0q-4.12-4.44-8.2-8.94l-4-4.53Q21,49.15,19,46.85Z" fill="#263239"></path><line x1="74.26" y1="67.71" x2="68.2" y2="73.76" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></line><path d="M57.49,63.69a8,8,0,0,0,8.9,1.65l4.81,4.82,4.11-4.1-4.82-4.82a8,8,0,0,0-1.65-8.9" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill-rule="evenodd"></path><path d="M40.93,68.92l3.29,3.3a3.35,3.35,0,0,0,4.74,0l28.4-28.4a3.35,3.35,0,0,0,0-4.74l-3.29-3.3" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5" fill-rule="evenodd"></path><polygon points="30.84 34.77 34.9 37.4 38.97 34.77 36.33 38.83 38.96 42.89 34.9 40.25 30.85 42.89 33.48 38.83 30.84 34.77" fill="#ff5a19"></polygon><polygon points="30.84 15.4 34.9 18.04 38.97 15.41 36.33 19.46 38.96 23.52 34.9 20.89 30.85 23.52 33.48 19.46 30.84 15.4" fill="#ff5a19"></polygon><polygon points="45.65 21.04 49.71 23.67 53.77 21.04 51.14 25.1 53.77 29.16 49.71 26.53 45.65 29.16 48.28 25.1 45.65 21.04" fill="#ff5a19"></polygon><path d="M69.84,32.63l2.75,2.76L40.47,67.51l-2.75-2.76L69.84,32.63m0-2.83-34.95,35,5.58,5.58,35-34.94L69.84,29.8Z" fill="#263239"></path></g></g></svg>
+                  <p class="service-menu__item-name">Мытьё окон</p>
+                </a>
+
+                <a class="service-menu__item" href="{{buildUrl general.city '/generalnaya_uborka'}}">
+                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>генералка</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M68.87,64.55h1.61A1.51,1.51,0,0,0,72,63V61.11a1.52,1.52,0,0,0-1.51-1.51H69" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M43.19,100.36H36.67A4.38,4.38,0,0,1,32.29,96h0L30.14,64.55H28.06A1.51,1.51,0,0,1,26.54,63V61.17A1.52,1.52,0,0,1,28,59.6H63.93" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><line x1="63.97" y1="64.2" x2="30.06" y2="64.2" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line><circle cx="53.07" cy="64.84" r="2.92" fill="#263239"></circle><path d="M53.26,64.15S43.74,88.77,30.85,86.23c-9.18-1.81-.71-18-.71-18" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M64.11,78.34V15.12a2.4,2.4,0,0,1,2.41-2.4h0a2.4,2.4,0,0,1,2.4,2.4V78.34" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2.5"></path><path d="M62.38,92.72V81.89a4.14,4.14,0,0,1,4.14-4.14h0a4.14,4.14,0,0,1,4.13,4.14V92.72" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2.5"></path><path d="M48.44,96.35a3.66,3.66,0,0,1,3.66-3.66H80.93a3.66,3.66,0,0,1,3.66,3.66" fill="none" stroke="#263239" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"></path><path d="M89.46,101.69a1.59,1.59,0,0,1-1.59,1.59H45.16a1.59,1.59,0,0,1-1.59-1.59V99.11a1.6,1.6,0,0,1,1.59-1.59H87.87a1.59,1.59,0,0,1,1.59,1.59Z" fill="none" stroke="#ff5a19" stroke-miterlimit="10" stroke-width="2.5"></path></g></g></svg>
+                  <p class="service-menu__item-name">Генеральная<br class="text  text--tablet"> уборка</p>
+                </a>
+
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/posle_remonta'}}">
+                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>Уборка после ремонта_1</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M45.61,56.77A47.19,47.19,0,0,0,42.4,46.35" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M33.88,46.44a57.44,57.44,0,0,0-3.46,12.63" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><rect x="34.12" y="35.23" width="8.09" height="3.99" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></rect><path d="M32.87,35.22H45.06v-6.8H21.89v4.65h2a18.2,18.2,0,0,1,5.33.79" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M29.23,33.87A18.78,18.78,0,0,1,27.46,39a19.23,19.23,0,0,1-3,4.33,11.18,11.18,0,0,0,5-2.73,10.65,10.65,0,0,0,3.37-5.42h-.51A14.78,14.78,0,0,0,29.23,33.87Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M42.81,46.51V39.27H33.51V46.5h.18S41.71,46.52,42.81,46.51Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><line x1="25.31" y1="28.41" x2="25.31" y2="33.09" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></line><path d="M86,28H78.3a.8.8,0,0,0-.72.86v4.33h9.15V28.88A.8.8,0,0,0,86,28Z" fill="none" stroke="#353535" stroke-miterlimit="10" stroke-width="2.5"></path><polyline points="71.14 59.33 71.14 45.75 93.17 45.75 93.17 59.33" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></polyline><polygon points="93.16 45.82 71.15 45.82 77.28 33.16 87.03 33.16 93.16 45.82" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></polygon><path d="M49.6,21h6.46a1.15,1.15,0,0,1,1.09,1.21v6.06H48.5V22.23A1.16,1.16,0,0,1,49.6,21Z" fill="none" stroke="#353535" stroke-miterlimit="10" stroke-width="2"></path><path d="M48.67,57.63v-29s6.36,0,8.4,0c0,0,8.94,10.33,14.3,16.55" fill="none" stroke="#353535" stroke-miterlimit="10" stroke-width="2.5"></path><path d="M24.83,66H20.58A1.63,1.63,0,0,1,19,64.33v-3.8a1.63,1.63,0,0,1,1.63-1.63H31.79" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M63.38,58.9H98.87a1.63,1.63,0,0,1,1.63,1.63v3.8A1.63,1.63,0,0,1,98.87,66H63.35" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M25.55,81.54l.9,8.9a4.76,4.76,0,0,0,4.76,4.76h57A4.76,4.76,0,0,0,93,90.44L95.52,66H64" fill="none" stroke="#353535" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><path d="M43.67,75.68c-1.27,2.38-3.23,5.27-5.13,4.26-1.52-.81,1.8-7.46,1.8-7.46l-9.61,9.43A1.94,1.94,0,0,1,28,79.16l-1.6,1.59A1.94,1.94,0,0,1,23.63,78l1.29-1.29a1.94,1.94,0,0,1-2.41-3l2.82-2.82a1.94,1.94,0,0,1-2.75-2.75l8.5-8.5C33.7,57,33,57.71,33,57.71a36.18,36.18,0,0,1,10.62-1,30.69,30.69,0,0,1,5.28.83" fill="none" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill-rule="evenodd"></path><line x1="28.02" y1="79.11" x2="33.82" y2="73.32" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="24.92" y1="76.71" x2="31.48" y2="70.15" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="25.45" y1="70.75" x2="29.06" y2="67.15" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="39.66" y1="73.15" x2="41.98" y2="70.83" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><path d="M49.08,57.82,49,60.33s-3.6,3.87-4.4,6.4c-.47,1.5-3.08,8.42-.12,9.16,1.63.41,3.82-6.64,3.82-6.64l.37,13.22a1.83,1.83,0,0,0,1.94,1.81,2,2,0,0,0,1.88-2l0,2.22a1.83,1.83,0,0,0,1.94,1.81,2,2,0,0,0,1.88-2l0-1.8a1.81,1.81,0,0,0,1.88,1.39,2,2,0,0,0,1.87-2L60,77.94a1.83,1.83,0,0,0,2,1.8,2,2,0,0,0,1.87-2l-.22-11.81c-.07-3.65,0-8.26,0-8.26s-1.52-.49-7-.53A37.76,37.76,0,0,0,49.08,57.82Z" fill="none" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill-rule="evenodd"></path><line x1="52.5" y1="82.2" x2="52.34" y2="74.15" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="56.33" y1="82.48" x2="56.15" y2="73.37" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="60.01" y1="77.77" x2="59.91" y2="72.76" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="48.32" y1="70.18" x2="48.26" y2="66.96" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line></g></g></svg>
+                  <p class="service-menu__item-name">Уборка <br class="text  text--tablet">после ремонта</p>
+                </a>
+
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/himchistka'}}">
+                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>Химчистка мебели</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M60,57.58V35.06a2.36,2.36,0,0,0-2.35-2.35H22.85a3.53,3.53,0,0,0-3.52,3.52V51.45" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M60,62.37V35.06a2.36,2.36,0,0,1,2.35-2.35H97.21a3.53,3.53,0,0,1,3.52,3.52V51.35" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M27.32,60H56.44A3.53,3.53,0,0,1,60,63.49v5.89H26.62" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M91.85,69.38H60.06V63.49A3.53,3.53,0,0,1,63.58,60H91.89" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M92.4,88.86l-64.64-.13" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M27,59.71A8.09,8.09,0,1,0,15.45,67V88.38a3.13,3.13,0,0,0,3.12,3.13h5.25A3.13,3.13,0,0,0,27,88.38V59.71Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M92.15,59.7a8.26,8.26,0,0,1,16.52,0A8.06,8.06,0,0,1,103.9,67V88.33a3.15,3.15,0,0,1-3.2,3.12H95.34a3.15,3.15,0,0,1-3.19-3.12V59.7Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M16.75,59.59a2.11,2.11,0,1,1,2.11,2.11A2.12,2.12,0,0,1,16.75,59.59Z" fill="#353535"></path><path d="M98.3,59.59a2.11,2.11,0,1,1,2.11,2.11A2.11,2.11,0,0,1,98.3,59.59Z" fill="#353535"></path><rect x="28.27" y="36.84" width="28.33" height="19.71" rx="3" ry="3" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></rect><rect x="63.6" y="36.84" width="27.12" height="19.71" rx="3" ry="3" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></rect></g></g></svg>
+                  <p class="service-menu__item-name">Химчистка <br class="text  text--tablet">мебели</p>
+                </a>
+
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
+                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>домашний мастер</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M84.93,34.38a11.92,11.92,0,1,0-23.83,0m4.45.09a7.63,7.63,0,1,1,15.26,0" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M62.85,87.52H43.05a5.92,5.92,0,0,1-5.92-5.92V76.06" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M37.13,54.94V41.25a5.92,5.92,0,0,1,5.92-5.92H103a5.91,5.91,0,0,1,5.91,5.92V81.6A5.91,5.91,0,0,1,103,87.52H77.13" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M108.89,48.75v-7.5A5.91,5.91,0,0,0,103,35.33H43.05a5.92,5.92,0,0,0-5.92,5.92v7.5" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><line x1="83.79" y1="48.75" x2="108.89" y2="48.75" fill="#fff" stroke="#353535" stroke-linejoin="round" stroke-width="2"></line><line x1="37.13" y1="48.75" x2="62.36" y2="48.75" fill="#fff" stroke="#353535" stroke-linejoin="round" stroke-width="2"></line><path d="M82.22,47.26v3H63.81v-3H82.22m.08-2H63.73a1.92,1.92,0,0,0-1.92,1.92v3.13a1.91,1.91,0,0,0,1.92,1.92H82.3a1.91,1.91,0,0,0,1.92-1.92V47.18a1.92,1.92,0,0,0-1.92-1.92Z" fill="#353535"></path><path d="M63.31,84.48a8.73,8.73,0,0,1-11.89-8.13m4,0a4.66,4.66,0,0,0,7,4" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path><path d="M19.51,66.6H4.63a1.52,1.52,0,0,1-1.52-1.52h0a1.52,1.52,0,0,1,1.52-1.52h14.7" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path><path d="M73.24,61.23a4.66,4.66,0,0,0-.36-1.8,6.91,6.91,0,0,0-6.6-4.9H37l-.47,0-.48,0a10.55,10.55,0,1,0,0,21.09l.48,0,.47,0H61.17l2.34,13.32a4.6,4.6,0,0,0,4.6,4.6h5.4a4.6,4.6,0,0,0,4.6-4.6Z" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2.5"></path><path d="M27.85,58.67a6.44,6.44,0,0,0-1.65-.22,6.63,6.63,0,0,0,0,13.25,6.91,6.91,0,0,0,1.65-.21" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path></g></g></svg>
+                  <p class="service-menu__item-name">Домашний <br class="text  text--tablet">мастер</p>
+                </a>
+
+                <a class="service-menu__item  sservice-menu__item--hide" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
+                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>Обработка поверхностей</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M75.56,61v-43H89.05a3,3,0,0,0,3-3v-.54a3,3,0,0,0-3-3H76a3,3,0,0,0-3,3v36.2" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M55,58.2c.78-3.59,1.34-6.91,4.56-6.91H75.46v6.37" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M75.46,84.48V55.29H58.29c-2,0-2.76,1.77-3.57,3.57-5.49,12.25-9.38,21.73-9.38,21.73C43.79,80.59,33,90.8,28.66,95" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><line x1="75.46" y1="81.17" x2="44.89" y2="81.17" fill="#fff" stroke="#353535" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></line><polyline points="70.1 103.85 23.97 103.85 23.97 95.25 63.25 95.25" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2.5"></polyline><path d="M63.55,94.61a10,10,0,1,1,9.94,10A9.94,9.94,0,0,1,63.55,94.61Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M68.67,94.61a4.83,4.83,0,1,1,4.82,4.82A4.82,4.82,0,0,1,68.67,94.61Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path></g></g></svg>
+                  <p class="service-menu__item-name">Обработка <br class="text  text--tablet">поверхностей</p>
+                </a>
+
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/domrabotnica'}}">
+                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>Домработница</title><g><g><rect width="116" height="116" fill="none"></rect><line x1="58.52" y1="53.56" x2="58.52" y2="25.37" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></line><path d="M72,51.19l3-10.58,1.85,3,10.35-6.35S80.34,23.11,76.67,19.44C75.27,18,71,17.12,65.85,16.67c0,.14,0,.27,0,.41a7.87,7.87,0,0,1-15.74,0c0-.12,0-.25,0-.37-5,.46-9.06,1.37-10.45,2.73-3.78,3.67-10.85,17.78-10.85,17.78l10.61,6.35,2-3,3.11,10.58s-8,8.66-8,23.21c0,11.34,4.15,24.93,4.15,24.93h35s4.59-13.59,4.59-24.93A35.25,35.25,0,0,0,72,51.19Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M46,17.6a7.23,7.23,0,0,0,6.47,10.48c2.57,0,4.82-.69,6.1-2.71,1.29,2,3.54,2.71,6.1,2.71a7.24,7.24,0,0,0,6.61-10.19" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M58.23,53.6a41.48,41.48,0,0,1-13.86-2.22,16.58,16.58,0,1,0,27.72,0A39.28,39.28,0,0,1,58.23,53.6Z" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2.5"></path><path d="M87.15,37.22s-6.7-13.86-10.38-17.68c.38,2.74.34,8.81-2,20.86l2,3.17Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><path d="M41.66,40.34C39.35,28.75,39,22.72,39.21,20c-3.87,4.31-10.36,17.26-10.36,17.26l10.61,6.35Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path></g></g></svg>
+                  <p class="service-menu__item-name">Домработница</p>
+                </a>
+
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/himchistka_odezhdy'}}">
+                  <svg class="service-menu__item-image" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 116 116"><title>Химчистка_1</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M69,10.56H45.71v9.35s8.77-.71,11.73-.71S69,19.91,69,19.91Z" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><path d="M36.9,23.5s6.73-4,21.14-4.06c14.78-.05,21.76,4.33,21.76,4.33" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><path d="M84.61,89.75v12.81a2.89,2.89,0,0,1-2.88,2.88H33.78a2.89,2.89,0,0,1-2.88-2.88V90.33" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><line x1="57.53" y1="11.71" x2="57.53" y2="104.81" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></line><line x1="20.62" y1="80.62" x2="38.42" y2="80.62" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></line><polyline points="39.09 67.48 52.09 67.48 52.09 88.62 35.63 88.62" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></polyline><polyline points="76.75 67.48 63.75 67.48 63.75 88.62 80.21 88.62" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></polyline><path d="M29.43,89.26h-.17c-8.61,0-8.31-.73-8.64-8.64a100.15,100.15,0,0,1,1-16.12C24.46,47.72,28.3,36.63,33,28.4c3.08-5.45,5.75-7.92,5.48.54l-.37,51.68C38.07,88.1,38.56,88.82,29.43,89.26Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M86.57,89.18h.17c8.58,0,8.64-.25,8.64-8.69a101.27,101.27,0,0,0-1-16.21C91.54,47.4,87.57,36.33,83,28c-2.78-5.12-5.75-8-5.48.54l.37,52C77.93,88.69,78.29,89.18,86.57,89.18Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><line x1="77.5" y1="80.69" x2="95.14" y2="80.69" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></line></g></g></svg>
+                  <p class="service-menu__item-name">Химчистка</p>
+                </a>
+
+              </div>
+
+              <button class="service-menu__button">
+                <span class="service-menu__button-text">Другие услуги</span>
+                <svg width="38.54" height="10" viewBox="0 0 38.54 10"><rect x="14.27" y="-14.27" width="10" height="38.54" transform="translate(14.27 24.27) rotate(-90)" fill="none"></rect><polyline points="33.53 1.22 19.27 8.78 5.01 1.22" fill="none" stroke="#cbc9c9" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></svg>
+              </button>
+            </div>
+          </div>
+          <!--tablet-->
+          <div class="swiper-carousel  service-cards  service-cards--mobile-ab">
+            <button class="swiper-carousel__button-prev" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"></rect><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></svg>
+            </button>
+
+            <div class="swiper-container">
+              <div class="swiper-wrapper  service-cards__inner">
+                <a class="swiper-slide  service-cards__item" href="{{buildUrl general.city '/podderzhka'}}">
+                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>поддержка_1</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M40.56,43.2h13A1.83,1.83,0,0,1,55.35,45v3.28" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path><path d="M33,47.88H24a1.81,1.81,0,0,0-1.81,1.8V52A1.81,1.81,0,0,0,24,53.81h2.49L29,91.43a5.25,5.25,0,0,0,5.25,5.24H64.43a5.07,5.07,0,0,0,1.36-.18" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M70.27,47.88H51.54" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><line x1="51.77" y1="53.74" x2="69.41" y2="53.74" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line><line x1="25.73" y1="53.74" x2="32.89" y2="53.74" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line><path d="M50.22,64.59c4,6.53,9.72,13.74,16.57,15.15" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M73.78,38.17c-4.63,10.4-7.87,32.48-8.07,58.28,0,.82,0,1.64,0,2.47,0,.68,0,1.36,0,2a61.08,61.08,0,0,0,14.69,1.5,66.85,66.85,0,0,0,13.44-1.19c0-.78,0-1.56,0-2.35s0-1.86,0-2.78c-.23-26.3-3.62-48.15-8.41-58.09" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><rect x="74.11" y="22.86" width="11.06" height="5.44" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></rect><path d="M72.41,22.84H89.06V13.56H57.4V19.9l2.75,0A24.57,24.57,0,0,1,67.43,21" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><path d="M67.43,21A26,26,0,0,1,65,28.06,26.72,26.72,0,0,1,61,34a15.35,15.35,0,0,0,6.83-3.73,14.61,14.61,0,0,0,4.61-7.41h-.7A19.94,19.94,0,0,0,67.43,21Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><path d="M86,38.26l0-9.88H73.28v9.88h.24S84.48,38.28,86,38.26Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><rect x="33.13" y="43.2" width="18.09" height="21.71" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></rect><line x1="62.07" y1="13.54" x2="62.07" y2="19.94" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line></g></g></svg>
+                  <p class="service-cards__item-name">Поддерживающая</p>
+                </a>
+
+                <a class="swiper-slide  service-cards__item" href="{{buildUrl general.city '/kompleksnaya_uborka'}}">
+                  <svg class="service-cards__item-image" width="116" height="116" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116 116"><defs><style>.svg-1,.svg-2,.svg-3,.svg-4,.svg-5,.svg-6,.svg-7{fill:none;}.svg-2,.svg-3,.svg-4,.svg-5{stroke:#353535;}.svg-2,.svg-3,.svg-4,.svg-5,.svg-6,.svg-7{stroke-linejoin:round;}.svg-2,.svg-3{stroke-width:2px;}.svg-3,.svg-6{stroke-linecap:round;}.svg-5{stroke-width:1.5px;}.svg-6,.svg-7{stroke:#ff5a19;stroke-width:1.7px;}</style></defs><title>Комплексная-уборка_1</title><g><g><rect class="svg-1" width="116" height="116"></rect><path class="svg-2" d="M77.46,93.28v2.38a1.83,1.83,0,0,0,1.83,1.83h3.84A1.83,1.83,0,0,0,85,95.66V93.28"></path><path class="svg-3" d="M39.88,97.18a1.86,1.86,0,0,0,1,.31h3.84a1.72,1.72,0,0,0,.78-.18"></path><polyline class="svg-2" points="36.2 63.62 36.2 60.31 36.2 56.96 36.2 38.05"></polyline><line class="svg-3" x1="36.2" y1="73.53" x2="36.2" y2="67.34"></line><path class="svg-2" d="M45.87,93.84H39.38"></path><line class="svg-2" x1="57.72" y1="93.84" x2="48.43" y2="93.84"></line><path class="svg-2" d="M36.2,35.69V15.36c0-2.53,2.43-4.59,5.43-4.59H83.32c3,0,5.43,2.06,5.43,4.59V89.24c0,2.54-2.43,4.6-5.43,4.6H59.89"></path><path class="svg-4" d="M65.84,62.35a1.28,1.28,0,1,1,1.27,1.27A1.27,1.27,0,0,1,65.84,62.35Z"></path><path class="svg-4" d="M56.58,62.35a1.27,1.27,0,1,1,1.27,1.27A1.27,1.27,0,0,1,56.58,62.35Z"></path><line class="svg-2" x1="49.48" y1="56.47" x2="87.86" y2="56.47"></line><line class="svg-2" x1="35.94" y1="56.47" x2="46.32" y2="56.47"></line><line class="svg-2" x1="62.47" y1="56.59" x2="62.47" y2="93.61"></line><polyline class="svg-2" points="46.31 56.35 38.92 56.35 38.92 37.73"></polyline><path class="svg-5" d="M38.92,35.65V16.24a2.88,2.88,0,0,1,2.88-2.88H83.23a2.88,2.88,0,0,1,2.88,2.88V56.35H48.71"></path><line class="svg-2" x1="39.29" y1="27.77" x2="85.8" y2="27.77"></line><line class="svg-2" x1="44.07" y1="42.08" x2="85.8" y2="42.08"></line><line class="svg-2" x1="39.29" y1="42.08" x2="41.82" y2="42.08"></line><polygon class="svg-6" points="35.15 66.97 51.71 65.62 47.97 63.11 34.74 64.13 35.15 66.97"></polygon><polygon class="svg-6" points="36.95 79.21 55.52 77.87 51.33 75.36 36.5 76.38 36.95 79.21"></polygon><polygon class="svg-6" points="38.96 93.32 60.65 91.98 56.02 89.45 38.48 90.48 38.96 93.32"></polygon><path class="svg-6" d="M32.46,68.67l-4.91,33.91c-.07.52-.46.91-.86.85l-1.35-.19a.87.87,0,0,1-.6-1l6.17-44.44"></path><line class="svg-6" x1="46.75" y1="75.67" x2="47.12" y2="66.71"></line><line class="svg-7" x1="46.16" y1="90.2" x2="46.66" y2="78.05"></line><path class="svg-6" d="M49,93l-.15,4.47a.78.78,0,0,1-.81.74l-1.42-.06a.76.76,0,0,1-.74-.8l.18-4.48"></path><line class="svg-6" x1="49.51" y1="78.46" x2="49.11" y2="89.86"></line><line class="svg-6" x1="49.83" y1="69.26" x2="49.61" y2="75.47"></line><path class="svg-7" d="M31.13,37.73h7.35c1.85,0,1.87.5,2.34,2.18l7.25,23.51"></path><path class="svg-6" d="M57,92.76l4,13L64,105.6,43.23,38a3.11,3.11,0,0,0-3.3-2.62H33.57a2.89,2.89,0,0,0-2.45,3.26L41.1,109l-2.91.12L28.33,39.53c-.23-1.58.91-2.75,2.45-3.27l2.79-.93"></path><line class="svg-7" x1="52.41" y1="77.71" x2="55.95" y2="89.22"></line><line class="svg-6" x1="48.87" y1="66.19" x2="51.72" y2="75.47"></line></g></g></svg>
+                  <p class="service-cards__item-name">Комплексная уборка</p>
+                </a>
+
+                <a class="swiper-slide service-cards__item" href="{{buildUrl general.city '/mite_okon'}}">
+                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>Окна_2</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M70.85,101.77l-1.67,1.87a24.48,24.48,0,0,1-8-5.62c-3.65-3.64-4.42-6.8-4.42-6.8l1.15-1.1" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2"></path><path d="M69.61,103.39s4.37-6.12,6.83-6.6a25.63,25.63,0,0,0,11.61-6.23l3-3,2.22-2.22,2.9-2.9a2.62,2.62,0,0,0,0-3.69l-.42-.41a2.61,2.61,0,0,0-3.69,0l1.82-1.82a3,3,0,0,0,0-4.26l-.48-.48a3,3,0,0,0-4.26,0l.37-.37a3,3,0,0,0,0-4.27l-.47-.47a3,3,0,0,0-4.27,0L83.5,67.94a3.19,3.19,0,0,0,.24-4.51L83.27,63a3.2,3.2,0,0,0-4.51.25L75,67l-2.82,2.83-.25.25v-.33a1.81,1.81,0,0,0,0-.23l-.69.7L67.07,66a3.82,3.82,0,0,0-2.8,3.67l-.58,14.85L57.11,90.9" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill-rule="evenodd"></path><path d="M19,46.85c1.49,1.37,3,2.77,4.41,4.17l4.38,4.21c2.9,2.82,5.77,5.67,8.63,8.52H35.27l8.36-8.52,8.42-8.45q8.45-8.42,17-16.74v1.19q-4.38-4.65-8.71-9.35c-1.45-1.56-2.86-3.16-4.29-4.73S53.2,14,51.81,12.36q2.36,2.16,4.67,4.36c1.54,1.47,3.11,2.91,4.63,4.4,3.08,2.95,6.11,5.93,9.15,8.92a.83.83,0,0,1,0,1.17l0,0q-8.34,8.54-16.8,17L45,56.58l-8.54,8.33h0a.81.81,0,0,1-1.14,0v0q-4.12-4.44-8.2-8.94l-4-4.53Q21,49.15,19,46.85Z" fill="#263239"></path><line x1="74.26" y1="67.71" x2="68.2" y2="73.76" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></line><path d="M57.49,63.69a8,8,0,0,0,8.9,1.65l4.81,4.82,4.11-4.1-4.82-4.82a8,8,0,0,0-1.65-8.9" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill-rule="evenodd"></path><path d="M40.93,68.92l3.29,3.3a3.35,3.35,0,0,0,4.74,0l28.4-28.4a3.35,3.35,0,0,0,0-4.74l-3.29-3.3" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5" fill-rule="evenodd"></path><polygon points="30.84 34.77 34.9 37.4 38.97 34.77 36.33 38.83 38.96 42.89 34.9 40.25 30.85 42.89 33.48 38.83 30.84 34.77" fill="#ff5a19"></polygon><polygon points="30.84 15.4 34.9 18.04 38.97 15.41 36.33 19.46 38.96 23.52 34.9 20.89 30.85 23.52 33.48 19.46 30.84 15.4" fill="#ff5a19"></polygon><polygon points="45.65 21.04 49.71 23.67 53.77 21.04 51.14 25.1 53.77 29.16 49.71 26.53 45.65 29.16 48.28 25.1 45.65 21.04" fill="#ff5a19"></polygon><path d="M69.84,32.63l2.75,2.76L40.47,67.51l-2.75-2.76L69.84,32.63m0-2.83-34.95,35,5.58,5.58,35-34.94L69.84,29.8Z" fill="#263239"></path></g></g></svg>
+                  <p class="service-cards__item-name">Мытьё окон</p>
+                </a>
+
+                <a class="swiper-slide service-cards__item" href="{{buildUrl general.city '/generalnaya_uborka'}}">
+                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>генералка</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M68.87,64.55h1.61A1.51,1.51,0,0,0,72,63V61.11a1.52,1.52,0,0,0-1.51-1.51H69" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M43.19,100.36H36.67A4.38,4.38,0,0,1,32.29,96h0L30.14,64.55H28.06A1.51,1.51,0,0,1,26.54,63V61.17A1.52,1.52,0,0,1,28,59.6H63.93" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><line x1="63.97" y1="64.2" x2="30.06" y2="64.2" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></line><circle cx="53.07" cy="64.84" r="2.92" fill="#263239"></circle><path d="M53.26,64.15S43.74,88.77,30.85,86.23c-9.18-1.81-.71-18-.71-18" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M64.11,78.34V15.12a2.4,2.4,0,0,1,2.41-2.4h0a2.4,2.4,0,0,1,2.4,2.4V78.34" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2.5"></path><path d="M62.38,92.72V81.89a4.14,4.14,0,0,1,4.14-4.14h0a4.14,4.14,0,0,1,4.13,4.14V92.72" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2.5"></path><path d="M48.44,96.35a3.66,3.66,0,0,1,3.66-3.66H80.93a3.66,3.66,0,0,1,3.66,3.66" fill="none" stroke="#263239" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"></path><path d="M89.46,101.69a1.59,1.59,0,0,1-1.59,1.59H45.16a1.59,1.59,0,0,1-1.59-1.59V99.11a1.6,1.6,0,0,1,1.59-1.59H87.87a1.59,1.59,0,0,1,1.59,1.59Z" fill="none" stroke="#ff5a19" stroke-miterlimit="10" stroke-width="2.5"></path></g></g></svg>
+                  <p class="service-cards__item-name">Генеральная</p>
+                </a>
+
+                <a class="swiper-slide service-cards__item  " href="{{buildUrl general.city '/posle_remonta'}}">
+                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>Уборка после ремонта_1</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M45.61,56.77A47.19,47.19,0,0,0,42.4,46.35" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M33.88,46.44a57.44,57.44,0,0,0-3.46,12.63" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><rect x="34.12" y="35.23" width="8.09" height="3.99" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></rect><path d="M32.87,35.22H45.06v-6.8H21.89v4.65h2a18.2,18.2,0,0,1,5.33.79" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M29.23,33.87A18.78,18.78,0,0,1,27.46,39a19.23,19.23,0,0,1-3,4.33,11.18,11.18,0,0,0,5-2.73,10.65,10.65,0,0,0,3.37-5.42h-.51A14.78,14.78,0,0,0,29.23,33.87Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M42.81,46.51V39.27H33.51V46.5h.18S41.71,46.52,42.81,46.51Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><line x1="25.31" y1="28.41" x2="25.31" y2="33.09" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></line><path d="M86,28H78.3a.8.8,0,0,0-.72.86v4.33h9.15V28.88A.8.8,0,0,0,86,28Z" fill="none" stroke="#353535" stroke-miterlimit="10" stroke-width="2.5"></path><polyline points="71.14 59.33 71.14 45.75 93.17 45.75 93.17 59.33" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></polyline><polygon points="93.16 45.82 71.15 45.82 77.28 33.16 87.03 33.16 93.16 45.82" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></polygon><path d="M49.6,21h6.46a1.15,1.15,0,0,1,1.09,1.21v6.06H48.5V22.23A1.16,1.16,0,0,1,49.6,21Z" fill="none" stroke="#353535" stroke-miterlimit="10" stroke-width="2"></path><path d="M48.67,57.63v-29s6.36,0,8.4,0c0,0,8.94,10.33,14.3,16.55" fill="none" stroke="#353535" stroke-miterlimit="10" stroke-width="2.5"></path><path d="M24.83,66H20.58A1.63,1.63,0,0,1,19,64.33v-3.8a1.63,1.63,0,0,1,1.63-1.63H31.79" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M63.38,58.9H98.87a1.63,1.63,0,0,1,1.63,1.63v3.8A1.63,1.63,0,0,1,98.87,66H63.35" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M25.55,81.54l.9,8.9a4.76,4.76,0,0,0,4.76,4.76h57A4.76,4.76,0,0,0,93,90.44L95.52,66H64" fill="none" stroke="#353535" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><path d="M43.67,75.68c-1.27,2.38-3.23,5.27-5.13,4.26-1.52-.81,1.8-7.46,1.8-7.46l-9.61,9.43A1.94,1.94,0,0,1,28,79.16l-1.6,1.59A1.94,1.94,0,0,1,23.63,78l1.29-1.29a1.94,1.94,0,0,1-2.41-3l2.82-2.82a1.94,1.94,0,0,1-2.75-2.75l8.5-8.5C33.7,57,33,57.71,33,57.71a36.18,36.18,0,0,1,10.62-1,30.69,30.69,0,0,1,5.28.83" fill="none" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill-rule="evenodd"></path><line x1="28.02" y1="79.11" x2="33.82" y2="73.32" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="24.92" y1="76.71" x2="31.48" y2="70.15" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="25.45" y1="70.75" x2="29.06" y2="67.15" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="39.66" y1="73.15" x2="41.98" y2="70.83" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><path d="M49.08,57.82,49,60.33s-3.6,3.87-4.4,6.4c-.47,1.5-3.08,8.42-.12,9.16,1.63.41,3.82-6.64,3.82-6.64l.37,13.22a1.83,1.83,0,0,0,1.94,1.81,2,2,0,0,0,1.88-2l0,2.22a1.83,1.83,0,0,0,1.94,1.81,2,2,0,0,0,1.88-2l0-1.8a1.81,1.81,0,0,0,1.88,1.39,2,2,0,0,0,1.87-2L60,77.94a1.83,1.83,0,0,0,2,1.8,2,2,0,0,0,1.87-2l-.22-11.81c-.07-3.65,0-8.26,0-8.26s-1.52-.49-7-.53A37.76,37.76,0,0,0,49.08,57.82Z" fill="none" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill-rule="evenodd"></path><line x1="52.5" y1="82.2" x2="52.34" y2="74.15" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="56.33" y1="82.48" x2="56.15" y2="73.37" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="60.01" y1="77.77" x2="59.91" y2="72.76" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line><line x1="48.32" y1="70.18" x2="48.26" y2="66.96" fill="#fff" stroke="#ff5a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></line></g></g></svg>
+                  <p class="service-cards__item-name">Уборка <br class="text  text--tablet">после ремонта</p>
+                </a>
+
+                <a class="swiper-slide service-cards__item  " href="{{buildUrl general.city '/himchistka'}}">
+                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>Химчистка мебели</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M60,57.58V35.06a2.36,2.36,0,0,0-2.35-2.35H22.85a3.53,3.53,0,0,0-3.52,3.52V51.45" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M60,62.37V35.06a2.36,2.36,0,0,1,2.35-2.35H97.21a3.53,3.53,0,0,1,3.52,3.52V51.35" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M27.32,60H56.44A3.53,3.53,0,0,1,60,63.49v5.89H26.62" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M91.85,69.38H60.06V63.49A3.53,3.53,0,0,1,63.58,60H91.89" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M92.4,88.86l-64.64-.13" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M27,59.71A8.09,8.09,0,1,0,15.45,67V88.38a3.13,3.13,0,0,0,3.12,3.13h5.25A3.13,3.13,0,0,0,27,88.38V59.71Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M92.15,59.7a8.26,8.26,0,0,1,16.52,0A8.06,8.06,0,0,1,103.9,67V88.33a3.15,3.15,0,0,1-3.2,3.12H95.34a3.15,3.15,0,0,1-3.19-3.12V59.7Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M16.75,59.59a2.11,2.11,0,1,1,2.11,2.11A2.12,2.12,0,0,1,16.75,59.59Z" fill="#353535"></path><path d="M98.3,59.59a2.11,2.11,0,1,1,2.11,2.11A2.11,2.11,0,0,1,98.3,59.59Z" fill="#353535"></path><rect x="28.27" y="36.84" width="28.33" height="19.71" rx="3" ry="3" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></rect><rect x="63.6" y="36.84" width="27.12" height="19.71" rx="3" ry="3" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></rect></g></g></svg>
+                  <p class="service-cards__item-name">Химчистка <br class="text  text--tablet">мебели</p>
+                </a>
+
+                <a class="swiper-slide service-cards__item  " href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
+                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>домашний мастер</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M84.93,34.38a11.92,11.92,0,1,0-23.83,0m4.45.09a7.63,7.63,0,1,1,15.26,0" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M62.85,87.52H43.05a5.92,5.92,0,0,1-5.92-5.92V76.06" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M37.13,54.94V41.25a5.92,5.92,0,0,1,5.92-5.92H103a5.91,5.91,0,0,1,5.91,5.92V81.6A5.91,5.91,0,0,1,103,87.52H77.13" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M108.89,48.75v-7.5A5.91,5.91,0,0,0,103,35.33H43.05a5.92,5.92,0,0,0-5.92,5.92v7.5" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><line x1="83.79" y1="48.75" x2="108.89" y2="48.75" fill="#fff" stroke="#353535" stroke-linejoin="round" stroke-width="2"></line><line x1="37.13" y1="48.75" x2="62.36" y2="48.75" fill="#fff" stroke="#353535" stroke-linejoin="round" stroke-width="2"></line><path d="M82.22,47.26v3H63.81v-3H82.22m.08-2H63.73a1.92,1.92,0,0,0-1.92,1.92v3.13a1.91,1.91,0,0,0,1.92,1.92H82.3a1.91,1.91,0,0,0,1.92-1.92V47.18a1.92,1.92,0,0,0-1.92-1.92Z" fill="#353535"></path><path d="M63.31,84.48a8.73,8.73,0,0,1-11.89-8.13m4,0a4.66,4.66,0,0,0,7,4" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path><path d="M19.51,66.6H4.63a1.52,1.52,0,0,1-1.52-1.52h0a1.52,1.52,0,0,1,1.52-1.52h14.7" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path><path d="M73.24,61.23a4.66,4.66,0,0,0-.36-1.8,6.91,6.91,0,0,0-6.6-4.9H37l-.47,0-.48,0a10.55,10.55,0,1,0,0,21.09l.48,0,.47,0H61.17l2.34,13.32a4.6,4.6,0,0,0,4.6,4.6h5.4a4.6,4.6,0,0,0,4.6-4.6Z" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2.5"></path><path d="M27.85,58.67a6.44,6.44,0,0,0-1.65-.22,6.63,6.63,0,0,0,0,13.25,6.91,6.91,0,0,0,1.65-.21" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></path></g></g></svg>
+                  <p class="service-cards__item-name">Домашний <br class="text  text--tablet">мастер</p>
+                </a>
+
+                <a class="swiper-slide service-cards__item  " href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
+                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>Обработка поверхностей</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M75.56,61v-43H89.05a3,3,0,0,0,3-3v-.54a3,3,0,0,0-3-3H76a3,3,0,0,0-3,3v36.2" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2"></path><path d="M55,58.2c.78-3.59,1.34-6.91,4.56-6.91H75.46v6.37" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M75.46,84.48V55.29H58.29c-2,0-2.76,1.77-3.57,3.57-5.49,12.25-9.38,21.73-9.38,21.73C43.79,80.59,33,90.8,28.66,95" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><line x1="75.46" y1="81.17" x2="44.89" y2="81.17" fill="#fff" stroke="#353535" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></line><polyline points="70.1 103.85 23.97 103.85 23.97 95.25 63.25 95.25" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2.5"></polyline><path d="M63.55,94.61a10,10,0,1,1,9.94,10A9.94,9.94,0,0,1,63.55,94.61Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path><path d="M68.67,94.61a4.83,4.83,0,1,1,4.82,4.82A4.82,4.82,0,0,1,68.67,94.61Z" fill="none" stroke="#353535" stroke-linejoin="round" stroke-width="2.5"></path></g></g></svg>
+                  <p class="service-cards__item-name">Обработка <br class="text  text--tablet">поверхностей</p>
+                </a>
+
+                <a class="swiper-slide service-cards__item  " href="{{buildUrl general.city '/domrabotnica'}}">
+                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>Домработница</title><g><g><rect width="116" height="116" fill="none"></rect><line x1="58.52" y1="53.56" x2="58.52" y2="25.37" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></line><path d="M72,51.19l3-10.58,1.85,3,10.35-6.35S80.34,23.11,76.67,19.44C75.27,18,71,17.12,65.85,16.67c0,.14,0,.27,0,.41a7.87,7.87,0,0,1-15.74,0c0-.12,0-.25,0-.37-5,.46-9.06,1.37-10.45,2.73-3.78,3.67-10.85,17.78-10.85,17.78l10.61,6.35,2-3,3.11,10.58s-8,8.66-8,23.21c0,11.34,4.15,24.93,4.15,24.93h35s4.59-13.59,4.59-24.93A35.25,35.25,0,0,0,72,51.19Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M46,17.6a7.23,7.23,0,0,0,6.47,10.48c2.57,0,4.82-.69,6.1-2.71,1.29,2,3.54,2.71,6.1,2.71a7.24,7.24,0,0,0,6.61-10.19" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M58.23,53.6a41.48,41.48,0,0,1-13.86-2.22,16.58,16.58,0,1,0,27.72,0A39.28,39.28,0,0,1,58.23,53.6Z" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2.5"></path><path d="M87.15,37.22s-6.7-13.86-10.38-17.68c.38,2.74.34,8.81-2,20.86l2,3.17Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path><path d="M41.66,40.34C39.35,28.75,39,22.72,39.21,20c-3.87,4.31-10.36,17.26-10.36,17.26l10.61,6.35Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2"></path></g></g></svg>
+                  <p class="service-cards__item-name">Домработница</p>
+                </a>
+
+                <a class="swiper-slide service-cards__item  " href="{{buildUrl general.city '/himchistka_odezhdy'}}">
+                  <svg class="service-cards__item-image" xmlns="http://www.w3.org/2000/svg" width="116" height="116" viewBox="0 0 116 116"><title>Химчистка_1</title><g><g><rect width="116" height="116" fill="none"></rect><path d="M69,10.56H45.71v9.35s8.77-.71,11.73-.71S69,19.91,69,19.91Z" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><path d="M36.9,23.5s6.73-4,21.14-4.06c14.78-.05,21.76,4.33,21.76,4.33" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><path d="M84.61,89.75v12.81a2.89,2.89,0,0,1-2.88,2.88H33.78a2.89,2.89,0,0,1-2.88-2.88V90.33" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path><line x1="57.53" y1="11.71" x2="57.53" y2="104.81" fill="none" stroke="#263239" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></line><line x1="20.62" y1="80.62" x2="38.42" y2="80.62" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></line><polyline points="39.09 67.48 52.09 67.48 52.09 88.62 35.63 88.62" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></polyline><polyline points="76.75 67.48 63.75 67.48 63.75 88.62 80.21 88.62" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="2"></polyline><path d="M29.43,89.26h-.17c-8.61,0-8.31-.73-8.64-8.64a100.15,100.15,0,0,1,1-16.12C24.46,47.72,28.3,36.63,33,28.4c3.08-5.45,5.75-7.92,5.48.54l-.37,51.68C38.07,88.1,38.56,88.82,29.43,89.26Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><path d="M86.57,89.18h.17c8.58,0,8.64-.25,8.64-8.69a101.27,101.27,0,0,0-1-16.21C91.54,47.4,87.57,36.33,83,28c-2.78-5.12-5.75-8-5.48.54l.37,52C77.93,88.69,78.29,89.18,86.57,89.18Z" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></path><line x1="77.5" y1="80.69" x2="95.14" y2="80.69" fill="none" stroke="#263239" stroke-linejoin="round" stroke-width="2.5"></line></g></g></svg>
+                  <p class="service-cards__item-name">Химчистка</p>
+                </a>
+
+              </div>
+            </div>
+
+            <button class="swiper-carousel__button-next" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
       <section class="page__section  section">
         <div class="connection">
           <div class="section__wrap">
             <div class="connection__inner">
               <h2 class="connection__title  title">Свяжитесь с нами</h2>
               <div class="connection__wrap">
-                <a class="connection__item" href="https://m.me/196022577253018" rel="nofollow">
+                <a class="connection__item" href="https://m.me/196022577253018" rel="nofollow" target="_blank">
                   <svg class="connection__img" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"><rect width="21" height="21" fill="none"/><path d="M10.5.41C5,.41.5,4.57.5,9.7a9,9,0,0,0,3.71,7.22c0,1.8,0,3.68,0,3.68s2.2-1.34,3.39-2a10.71,10.71,0,0,0,2.93.4c5.52,0,10-4.16,10-9.29S16,.41,10.5.41Zm1.15,12.36L8.85,9.94,4.34,12.47,9.41,6.88l2.8,2.78L17,6.88Z" fill="#fff"/></svg>
                   <span class="connection__name">Messenger</span>
                 </a>
-                <a class="connection__item" href="https://vk.me/uborkadomovenok" rel="nofollow">
+                <a class="connection__item" href="https://vk.me/uborkadomovenok" rel="nofollow" target="_blank">
                   <svg class="connection__img" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"><rect width="21" height="21" fill="none"/><path d="M17.94,12a18.44,18.44,0,0,1,2.67,2.82,1.16,1.16,0,0,1,.23,1,.55.55,0,0,1-.58.42l-3.33.15a2.58,2.58,0,0,1-1.71-.84,7,7,0,0,1-1.36-1.48.88.88,0,0,0-.73-.4.59.59,0,0,0-.68.49l-.1,1.28A.85.85,0,0,1,12,16a1,1,0,0,1-.43.22l-.58.07a11,11,0,0,1-2.29-.12,4.59,4.59,0,0,1-1.79-.72,10.72,10.72,0,0,1-1.29-1q-.48-.44-1.39-1.43a42,42,0,0,1-3.68-6,5.08,5.08,0,0,1-.5-1.68,1.26,1.26,0,0,1,.76-.25,15.63,15.63,0,0,1,1.61,0l1.26,0a.81.81,0,0,1,.81.54A21.31,21.31,0,0,0,7,10q.81.74,1.06-.25a10.94,10.94,0,0,0,.1-2.42A1.72,1.72,0,0,0,6.9,5.41Q7.2,4.62,9,4.62q.45,0,1.11,0l.71,0q1.51,0,1.51,1.19,0,.15-.05.72t-.08,1.09q0,.52,0,1.09a2.7,2.7,0,0,0,.15,1,.79.79,0,0,0,.4.49l.53-.37a2.25,2.25,0,0,0,.53-.57l.43-.59A7,7,0,0,0,14.69,8,6,6,0,0,0,15,7.29q.05-.15.35-.77l.3-.62.08-.15a1.31,1.31,0,0,1,.33-.52,1.58,1.58,0,0,1,.63-.07h3.13a4.51,4.51,0,0,1,.66,0,.84.84,0,0,1,.3.22q.35.44-.63,1.93a20.08,20.08,0,0,1-1.89,2.47Q17,11.19,17.94,12Z" fill="#fff" fill-rule="evenodd"/></svg>
                   <span class="connection__name">ВКонтакте</span>
                 </a>
-                <a class="connection__item" href="http://t.me/DomovenokChatBot" rel="nofollow">
+                <a class="connection__item" href="http://t.me/DomovenokChatBot" rel="nofollow" target="_blank">
                   <svg class="connection__img" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"><rect width="21" height="21" fill="none"/><path d="M7.67,15.47c.07-.62.14-1.25.22-1.86A2.75,2.75,0,0,1,8.32,13a6.75,6.75,0,0,1,.5-.57L11,10.46l.7-.64.71-.64L15.9,6l-.38.24L5.59,12.58l1.84,5.1c0-.17,0-.34,0-.5C7.54,16.61,7.61,16,7.67,15.47Z" fill="#fff"/><path d="M21,2a.65.65,0,0,0-.55-.58,1.48,1.48,0,0,0-.37,0,8.86,8.86,0,0,0-1.38.43c-.13,0-.48.2-.54.22L14.37,3.51c-.52.21-1.05.41-1.59.6-.26.09-9.15,3.65-9.23,3.68L.6,9.07A.83.83,0,0,0,0,10l.08.16a.25.25,0,0,0,.06.12,1.44,1.44,0,0,0,.73.44L5,12.07c.1-.09.51-.35.55-.38L15.1,5.61l1.49-.95a1.27,1.27,0,0,1,.34-.15.62.62,0,0,1,.58.15.63.63,0,0,1,.17.6.87.87,0,0,1-.27.46l-4.52,4-.7.64L11.5,11,9.35,13l-.48.45-.21.22L8.6,14c0,.34-.08.67-.12,1-.06.5-.11,1-.17,1.5s-.15,1.27-.24,1.9c0,.13,0,.21-.06.38v.06c.23.19.45.15.73-.12l2.7-2.53a.26.26,0,0,1,.13-.09l.33.25c1.28,1,2.57,2,3.85,3a1.2,1.2,0,0,0,.67.23,1.13,1.13,0,0,0,1-.48c.09-.13.39-1.45.5-1.87.14-.73,1.14-5.36,1.27-6,.08,0,0-.14.06-.2h0c.09-.55,1.31-6.67,1.45-7.45C20.76,3.26,21,2.13,21,2Z" fill="#fff"/></svg>
                   <span class="connection__name">Telegram</span>
                 </a>
-                <a class="connection__item" href="http://viber.com/domovenok" target="_blank" rel="nofollow">
+                <a class="connection__item" href="http://viber.com/domovenok" target="_blank" rel="nofollow" target="_blank">
                   <svg class="connection__img" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"><rect width="21" height="21" fill="none"></rect><path d="M.93,4.09a1.82,1.82,0,0,1,.61-1.32,9.24,9.24,0,0,1,2-1.56,1.49,1.49,0,0,1,1.93.34A14.7,14.7,0,0,1,8.05,5a1.49,1.49,0,0,1-.49,2.23c-1.28,1.07-1.42,1.47-.67,3a8.75,8.75,0,0,0,4.78,4.36,1.23,1.23,0,0,0,1.74-.5l.38-.48A1.61,1.61,0,0,1,16,13.13a18.61,18.61,0,0,1,3.68,2.68,1.28,1.28,0,0,1,.27,1.59A5.63,5.63,0,0,1,17.53,20a2.05,2.05,0,0,1-1.83.12A25,25,0,0,1,1.31,5.72,4.29,4.29,0,0,1,.93,4.09Z" fill="#fff"></path><path d="M19.9,9.73c0,.18,0,.37,0,.55,0,.36-.17.64-.55.64a.56.56,0,0,1-.61-.64,10.89,10.89,0,0,0-.35-2.69,7.66,7.66,0,0,0-7-5.69l-.67,0c-.37,0-.61-.2-.6-.58s.27-.59.66-.59a9.67,9.67,0,0,1,3.37.63A8.92,8.92,0,0,1,19.9,9.73Z" fill="#fff"></path><path d="M17.64,9.08c0,.09,0,.19,0,.28,0,.39-.19.66-.59.66s-.57-.29-.59-.67a9.93,9.93,0,0,0-.07-1.11,4.79,4.79,0,0,0-4.09-4c-.24,0-.48-.08-.71-.1-.39,0-.64-.21-.61-.63s.31-.53.7-.53A6.09,6.09,0,0,1,17.1,6.6a7.54,7.54,0,0,1,.4,1.27c.09.39.11.81.16,1.21Z" fill="#fff"></path><path d="M12.37,5.37a3.1,3.1,0,0,1,3,3.27c0,.35-.17.58-.52.61s-.58-.2-.64-.56-.06-.48-.11-.71a1.7,1.7,0,0,0-1.53-1.4l-.33,0c-.41,0-.67-.25-.62-.69S12,5.35,12.37,5.37Z" fill="#fff"></path></svg>
                   <span class="connection__name">Viber</span>
                 </a>
@@ -843,117 +988,117 @@
       <section class="page__section  section  section--bg-white">
         <div class="section__wrap">
           <h2 class="section__title  title">Вопросы и ответы</h2>
-          <div class="question">
-            <h3 class="question__title">Могу ли я заказывать уборку на еженедельной основе?</h3>
-            <svg class="question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
-            <div class="question__wrap">
-              <p class="question__text text">Да. Вы можете заказать регулярную уборку по графику раз в неделю или раз в 2 недели. Так как поддерживать чистоту проще, чем ее наводить, при еженедельном обслуживании Вы получите хорошую скидку. Обычно, мы закрепляем определенный день недели и время, в которое к Вам будет приходить Домовенок, но можем разработать и индивидуальный график.</p>
-              <p class="question__text text">Для больших любителей чистоты, наша клининговая компания может предоставлять услуги по уборке помещений на ежедневной основе.</p>
+          <div class="section-question">
+            <h3 class="section-question__title">Могу ли я заказывать уборку на еженедельной основе?</h3>
+            <svg class="section-question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
+            <div class="section-question__wrap">
+              <p class="section-question__text text">Да. Вы можете заказать регулярную уборку по графику раз в неделю или раз в 2 недели. Так как поддерживать чистоту проще, чем ее наводить, при еженедельном обслуживании Вы получите хорошую скидку. Обычно, мы закрепляем определенный день недели и время, в которое к Вам будет приходить Домовенок, но можем разработать и индивидуальный график.</p>
+              <p class="section-question__text text">Для больших любителей чистоты, наша клининговая компания может предоставлять услуги по уборке помещений на ежедневной основе.</p>
             </div>
           </div>
-          <div class="question">
-            <h3 class="question__title">Могу ли я единоразово заказать генеральную уборку?</h3>
-            <svg class="question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
-            <div class="question__wrap">
-              <p class="question__text text">Да, Вы можете заказать уборку только один раз, без подписки. “Домовенок” является признанным лидером в сложных уборках. У нас большой штат профессиональных клинеров. Поэтому мы легко справимся с любым жилым помещением: квартирой, домом или коттеджем.</p>
+          <div class="section-question">
+            <h3 class="section-question__title">Могу ли я единоразово заказать генеральную уборку?</h3>
+            <svg class="section-question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
+            <div class="section-question__wrap">
+              <p class="section-question__text text">Да, Вы можете заказать уборку только один раз, без подписки. “Домовенок” является признанным лидером в сложных уборках. У нас большой штат профессиональных клинеров. Поэтому мы легко справимся с любым жилым помещением: квартирой, домом или коттеджем.</p>
             </div>
           </div>
-          <div class="question">
-            <h3 class="question__title">Что значит 100% материальная ответственность?</h3>
-            <svg class="question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
-            <div class="question__wrap">
-              <p class="question__text text">От повышенного старания Домовенок может повредить какой-то предмет. Это случается менее чем в 1% уборок. В таком случае, наши мастера либо вернут все в предыдущее состояние, либо, при невозможности, мы компенсируем стоимость данного предмета.</p>
+          <div class="section-question">
+            <h3 class="section-question__title">Что значит 100% материальная ответственность?</h3>
+            <svg class="section-question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
+            <div class="section-question__wrap">
+              <p class="section-question__text text">От повышенного старания Домовенок может повредить какой-то предмет. Это случается менее чем в 1% уборок. В таком случае, наши мастера либо вернут все в предыдущее состояние, либо, при невозможности, мы компенсируем стоимость данного предмета.</p>
             </div>
           </div>
-          <div class="question">
-            <h3 class="question__title">Хочу, чтобы ко мне приходил один и тот же сотрудник. Это возможно?</h3>
-            <svg class="question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
-            <div class="question__wrap">
-              <p class="question__text text">Да. В этом преимущество работы с нами, относительно UBER-оподобных сервисов уборки. При регулярном обслуживании, к Вам будет приходить постоянный сотрудник, который знает где висят рубашки для глажки и как должен лежать коврик в ванной.</p>
+          <div class="section-question">
+            <h3 class="section-question__title">Хочу, чтобы ко мне приходил один и тот же сотрудник. Это возможно?</h3>
+            <svg class="section-question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
+            <div class="section-question__wrap">
+              <p class="section-question__text text">Да. В этом преимущество работы с нами, относительно UBER-оподобных сервисов уборки. При регулярном обслуживании, к Вам будет приходить постоянный сотрудник, который знает где висят рубашки для глажки и как должен лежать коврик в ванной.</p>
             </div>
           </div>
-          <div class="question">
-            <h3 class="question__title">Вы каким-то образом отбираете и обучаете своих сотрудников?</h3>
-            <svg class="question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
-            <div class="question__wrap">
-              <p class="question__text text">Каждый сотрудник проходит трехступенчатый отбор:</p>
+          <div class="section-question">
+            <h3 class="section-question__title">Вы каким-то образом отбираете и обучаете своих сотрудников?</h3>
+            <svg class="section-question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
+            <div class="section-question__wrap">
+              <p class="section-question__text text">Каждый сотрудник проходит трехступенчатый отбор:</p>
               <div class="item">
-                <p class="question__text text">
+                <p class="section-question__text text">
                   <span class="text--orange text--bold">1.</span>
                   Начинается всё с серии интервью на личные и профессиональные качества
                 </p>
               </div>
 
               <div class="item">
-                <p class="question__text text">
+                <p class="section-question__text text">
                   <span class="text--orange text--bold">2.</span>
                   Затем сотрудник проходит многодневное обучение. Мы специально построили модель квартиры, в которой есть все стандартные поверхности. По итогам обучения сдается тест.
                 </p>
               </div>
               <div class="item">
-                <p class="question__text text">
+                <p class="section-question__text text">
                   <span class="text--orange text--bold">3.</span>
                   После чего, каждый сотрудник около месяца ездит на заказы по уборке в качестве дополнительного стажера и проходит еше один курс обучения.
                 </p>
               </div>
-              <p class="question__text text">После прохождения всех трех стадий, стажер начинает носить гордое звание Домовёнка.</p>
+              <p class="section-question__text text">После прохождения всех трех стадий, стажер начинает носить гордое звание Домовёнка.</p>
             </div>
           </div>
-          <div class="question">
-            <h3 class="question__title">Мне нравится как Вы убираетесь у меня дома. Можете ли Вы убраться в офисе?</h3>
-            <svg class="question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
-            <div class="question__wrap">
-              <p class="question__text text">Да, мы также убираемся в коммерческих, производственных и торговых помещениях. Клининговая компания “Домовенок” уникальна в своем роде. Опыт предоставления услуг в офисах помогает нам с легкостью убирать сложные жилые объекты, а опыт уборки в квартирах помогает относится к офису, как к своему дому.</p>
+          <div class="section-question">
+            <h3 class="section-question__title">Мне нравится как Вы убираетесь у меня дома. Можете ли Вы убраться в офисе?</h3>
+            <svg class="section-question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
+            <div class="section-question__wrap">
+              <p class="section-question__text text">Да, мы также убираемся в коммерческих, производственных и торговых помещениях. Клининговая компания “Домовенок” уникальна в своем роде. Опыт предоставления услуг в офисах помогает нам с легкостью убирать сложные жилые объекты, а опыт уборки в квартирах помогает относится к офису, как к своему дому.</p>
             </div>
           </div>
-          <div class="question">
-            <h3 class="question__title">Какие дополнительные клининговые услуги Вы предоставляете в Москве?</h3>
-            <svg class="question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
-            <div class="question__wrap">
+          <div class="section-question">
+            <h3 class="section-question__title">Какие дополнительные клининговые услуги Вы предоставляете в Москве?</h3>
+            <svg class="section-question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
+            <div class="section-question__wrap">
               <div class="item  item-ab--circle">
-                <p class="question__text text"><a class="link" href="/mite_okon">Мытье окон и фасадов</a></p>
+                <p class="section-question__text text"><a class="link" href="/mite_okon">Мытье окон и фасадов</a></p>
               </div>
 
               <div class="item  item-ab--circle">
-                <p class="question__text text"><a class="link" href="/glazhka">Стирка и глажка</a></p>
+                <p class="section-question__text text"><a class="link" href="/glazhka">Стирка и глажка</a></p>
               </div>
 
               <div class="item  item-ab--circle">
-                <p class="question__text text"><a class="link" href="/obrabotka_poverhnostey">Обработка поверхностей, шлифовка и полировка</a></p>
+                <p class="section-question__text text"><a class="link" href="/obrabotka_poverhnostey">Обработка поверхностей, шлифовка и полировка</a></p>
               </div>
 
               <div class="item  item-ab--circle">
-                <p class="question__text text"><a  class="link" href="/vizov_mastera_na_dom">Вызов мастера на дом</a></p>
+                <p class="section-question__text text"><a  class="link" href="/vizov_mastera_na_dom">Вызов мастера на дом</a></p>
               </div>
 
               <div class="item  item-ab--circle">
-                <p class="question__text text"><a class="link" href="/posle_remonta">Услуги по уборке после ремонта</a></p>
+                <p class="section-question__text text"><a class="link" href="/posle_remonta">Услуги по уборке после ремонта</a></p>
               </div>
 
               <div class="item  item-ab--circle">
-                <p class="question__text text"><a class="link" href="/himchistka">Химчистка ковров и мебели</a></p>
+                <p class="section-question__text text"><a class="link" href="/himchistka">Химчистка ковров и мебели</a></p>
               </div>
 
               <div class="item  item-ab--circle">
-                <p class="question__text text"><a class="link" href="/domrabotnica">Домработница от “Домовёнка”</a></p>
+                <p class="section-question__text text"><a class="link" href="/domrabotnica">Домработница от “Домовёнка”</a></p>
               </div>
             </div>
           </div>
-          <div class="question">
-            <h3 class="question__title">От чего зависят расценки на профессиональную уборку</h3>
-            <svg class="question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
-            <div class="question__wrap">
-              <p class="question__text text">Цены на клининговые услуги компании «Домовёнок» зависят от следующих факторов:</p>
+          <div class="section-question">
+            <h3 class="section-question__title">От чего зависят расценки на профессиональную уборку</h3>
+            <svg class="section-question__icon" width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"></rect><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></polyline></g></g></svg>
+            <div class="section-question__wrap">
+              <p class="section-question__text text">Цены на клининговые услуги компании «Домовёнок» зависят от следующих факторов:</p>
               <div class="item  item-ab--circle">
-                <p class="question__text text">От площади дома или офиса - стоимость частной уборки квартиры или офисных площадей зависит от количества комнат и их размера. Чем больше фронт работ для «Домовёнка», тем выше расценки за оказание услуг по уборке.</p>
+                <p class="section-question__text text">От площади дома или офиса - стоимость частной уборки квартиры или офисных площадей зависит от количества комнат и их размера. Чем больше фронт работ для «Домовёнка», тем выше расценки за оказание услуг по уборке.</p>
               </div>
 
               <div class="item  item-ab--circle">
-                <p class="question__text text">От характера клининговых услуг - цены зависят от того, какую работу Вы поручаете «Домовёнку». <a class="link" href="{{buildUrl general.city '/generalnaya_uborka'}}">Генеральная уборка квартир в Москве</a>, <a class="link" href="https://spb.domovenok.su/generalnaya_uborka">Петербурге</a> и <a class="link" href="https://nn.domovenok.su/generalnaya_uborka">Нижнем Новгороде</a> осуществляется профессионально и качественно, но стоит дороже поддерживающей, проведение дополнительных работ (например, выезд мастера на дом, мытьё остекления, химчистка) оплачивается отдельно.</p>
+                <p class="section-question__text text">От характера клининговых услуг - цены зависят от того, какую работу Вы поручаете «Домовёнку». <a class="link" href="{{buildUrl general.city '/generalnaya_uborka'}}">Генеральная уборка квартир в Москве</a>, <a class="link" href="https://spb.domovenok.su/generalnaya_uborka">Петербурге</a> и <a class="link" href="https://nn.domovenok.su/generalnaya_uborka">Нижнем Новгороде</a> осуществляется профессионально и качественно, но стоит дороже поддерживающей, проведение дополнительных работ (например, выезд мастера на дом, мытьё остекления, химчистка) оплачивается отдельно.</p>
               </div>
 
               <div class="item  item-ab--circle">
-                <p class="question__text text">От условий сервиса и работы клининговой компании «Домовёнок» - цены на уборку дома зависят от наличия на убираемой площади мебели и стройматериалов, доступа к холодной и горячей воде, возможности или невозможности ограничить доступ в комнаты посторонних лиц.</p>
+                <p class="section-question__text text">От условий сервиса и работы клининговой компании «Домовёнок» - цены на уборку дома зависят от наличия на убираемой площади мебели и стройматериалов, доступа к холодной и горячей воде, возможности или невозможности ограничить доступ в комнаты посторонних лиц.</p>
               </div>
             </div>
           </div>
@@ -967,37 +1112,70 @@
           <div class="page-footer__row page-footer__row--justify">
             <div class="page-footer__column">
               <div class="page-footer__social-links  social-links">
-                <a  class="social-link  social-link--grey" href="https://www.facebook.com/uborka.domovenok">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><path d="M18,0A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z" fill="#fff" fill-rule="evenodd"/><path d="M14.9,17.49a2.64,2.64,0,0,1,0,.7V29.27h4.88c0-2.92,0-5.91,0-8.84,0,0,0-2.84,0-2.9a.1.1,0,0,1,0,0s3.11,0,3.22,0l.05,0,.43-4H19.83c0-.6,0-1.21,0-1.81s0-1.22.32-1.52l3.37-.33V5.7c-.64,0-1.39,0-2,0s-1.36,0-2,0a4.17,4.17,0,0,0-3,1.07c-.45.5-1.57,1.13-1.5,6.62H12.46v4.06Z" fill="#263239" fill-rule="evenodd"/></g></g></svg>
+                <a  class="social-link  social-link--fb" href="https://www.facebook.com/uborka.domovenok">
+                  <svg width="36" height="36" viewBox="0 0 36 36">
+                    <g>
+                      <g>
+                        <path d="M14.9,17.49a2.64,2.64,0,0,1,0,.7V29.27h4.88c0-2.92,0-5.91,0-8.84,0,0,0-2.84,0-2.9a.1.1,0,0,1,0,0s3.11,0,3.22,0l.05,0,.43-4H19.83c0-.6,0-1.21,0-1.81s0-1.22.32-1.52l3.37-.33V5.7c-.64,0-1.39,0-2,0s-1.36,0-2,0a4.17,4.17,0,0,0-3,1.07c-.45.5-1.57,1.13-1.5,6.62H12.46v4.06Z" fill-rule="evenodd"/>
+                      </g>
+                    </g>
+                  </svg>
                 </a>
       
-                <a  class="social-link  social-link--grey" href="http://odnoklassniki.ru/group/56701105799224">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><path d="M18.59,6.09c-3.1-.51-6.75,1.3-7.33,4.93C10,19,22.6,20.88,23.79,12.86A6.05,6.05,0,0,0,18.59,6.09Zm1.89,6.32c-.56,3.79-6.52,2.91-5.92-.87A3,3,0,0,1,18,9.21,2.86,2.86,0,0,1,20.48,12.42Z" fill="#263239"/><path d="M23.89,28.76c-1.23,1.2-2.55.1-3.51-.79s-1.81-1.71-2.68-2.36c-2.25,2.27-4.08,5-5.93,3.49-2.21-1.81,2.13-4.47,3.2-6a12.39,12.39,0,0,1-3.84-1.45,1.75,1.75,0,0,1,0-2.84c1.27-.88,2.13.09,3.63.55,5.69,1.75,7.89-3.16,9.57-.28,1.44,2.46-3.45,3.54-4,3.92C22.66,25.13,25.67,27,23.89,28.76Z" fill="#263239"/></g></g></svg>
+                <a  class="social-link  social-link--ok" href="http://odnoklassniki.ru/group/56701105799224">
+                  <svg width="36" height="36" viewBox="0 0 36 36">
+                    <g>
+                      <g>
+                        <path d="M18.59,6.09c-3.1-.51-6.75,1.3-7.33,4.93C10,19,22.6,20.88,23.79,12.86A6.05,6.05,0,0,0,18.59,6.09Zm1.89,6.32c-.56,3.79-6.52,2.91-5.92-.87A3,3,0,0,1,18,9.21,2.86,2.86,0,0,1,20.48,12.42Z"/>
+                        <path d="M23.89,28.76c-1.23,1.2-2.55.1-3.51-.79s-1.81-1.71-2.68-2.36c-2.25,2.27-4.08,5-5.93,3.49-2.21-1.81,2.13-4.47,3.2-6a12.39,12.39,0,0,1-3.84-1.45,1.75,1.75,0,0,1,0-2.84c1.27-.88,2.13.09,3.63.55,5.69,1.75,7.89-3.16,9.57-.28,1.44,2.46-3.45,3.54-4,3.92C22.66,25.13,25.67,27,23.89,28.76Z"/>
+                      </g>
+                    </g>
+                  </svg>
                 </a>
       
-                <a  class="social-link  social-link--grey" href="https://instagram.com/cleaning.domovenok/">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><rect x="8.65" y="8.54" width="18.21" height="18.02" rx="4" ry="4" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2"/><circle cx="17.76" cy="17.55" r="4.16" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2"/><circle cx="23" cy="12.11" r="1.23" fill="#263239"/></g></g></svg>
+                <a  class="social-link  social-link--instagram" href="https://instagram.com/cleaning.domovenok/">
+                  <svg width="36" height="36" viewBox="0 0 36 36">
+                    <g>
+                      <g>
+                        <rect x="8.65" y="8.54" width="18.21" height="18.02" rx="4" ry="4" fill="none" stroke-miterlimit="10" stroke-width="2"/>
+                        <circle cx="17.76" cy="17.55" r="4.16" fill="none" stroke-miterlimit="10" stroke-width="2"/>
+                        <circle cx="23" cy="12.11" r="1.23"/>
+                      </g>
+                    </g>
+                  </svg>
                 </a>
       
-                <a  class="social-link  social-link--grey" href="https://www.youtube.com/channel/UC3KMG4hKopFvk18-69tLsRQ">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><rect x="7.3" y="10.47" width="21.39" height="15.07" rx="3" ry="3" fill="#263239"/><polygon points="15.93 17.93 15.9 14.96 18.49 16.41 21.08 17.87 18.52 19.39 15.97 20.9 15.93 17.93" fill="#fff"/></g></g></svg>
+                <a  class="social-link  social-link--youtube" href="https://www.youtube.com/channel/UC3KMG4hKopFvk18-69tLsRQ">
+                  <svg width="36" height="36" viewBox="0 0 36 36">
+                    <g>
+                      <g>
+                        <rect x="7.3" y="10.47" width="21.39" height="15.07" rx="3" ry="3"/>
+                        <polygon points="15.93 17.93 15.9 14.96 18.49 16.41 21.08 17.87 18.52 19.39 15.97 20.9 15.93 17.93"/>
+                      </g>
+                    </g>
+                  </svg>
                 </a>
       
-                <a  class="social-link  social-link--grey" href="https://vk.com/club43423694">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><path d="M26.93,19.84a22.13,22.13,0,0,1,3.21,3.38,1.39,1.39,0,0,1,.27,1.16.66.66,0,0,1-.7.5l-4,.18a3.09,3.09,0,0,1-2.06-1A8.41,8.41,0,0,1,22,22.27a1.05,1.05,0,0,0-.88-.47.71.71,0,0,0-.82.59l-.12,1.54a1,1,0,0,1-.36.71,1.17,1.17,0,0,1-.51.27l-.7.09a13.2,13.2,0,0,1-2.75-.15A5.51,5.51,0,0,1,13.74,24,12.86,12.86,0,0,1,12.2,22.8q-.57-.53-1.66-1.72a50.43,50.43,0,0,1-4.42-7.17,6.1,6.1,0,0,1-.61-2,1.51,1.51,0,0,1,.91-.3,18.75,18.75,0,0,1,1.94,0l1.51,0a1,1,0,0,1,1,.65,25.57,25.57,0,0,0,3,5.16q1,.89,1.27-.3a13.13,13.13,0,0,0,.12-2.9,2.07,2.07,0,0,0-1.51-2.31q.36-.95,2.54-.95.54,0,1.33.06l.85.06q1.82,0,1.82,1.42,0,.18-.06.86t-.09,1.3q0,.62,0,1.3a3.24,3.24,0,0,0,.18,1.16.94.94,0,0,0,.48.59l.64-.44a2.71,2.71,0,0,0,.64-.68l.51-.71A8.44,8.44,0,0,0,23,15a7.26,7.26,0,0,0,.42-.83q.06-.18.42-.92l.36-.74.09-.18a1.57,1.57,0,0,1,.39-.62,1.9,1.9,0,0,1,.76-.09h3.75a5.41,5.41,0,0,1,.79,0,1,1,0,0,1,.36.27q.42.53-.76,2.31a24.1,24.1,0,0,1-2.27,3Q25.84,18.83,26.93,19.84Z" fill="#263239" fill-rule="evenodd"/></g></g></svg>
+                <a  class="social-link  social-link--vk" href="https://vk.com/club43423694">
+                  <svg width="36" height="36" viewBox="0 0 36 36">
+                    <g>
+                      <g>
+                        <path d="M26.93,19.84a22.13,22.13,0,0,1,3.21,3.38,1.39,1.39,0,0,1,.27,1.16.66.66,0,0,1-.7.5l-4,.18a3.09,3.09,0,0,1-2.06-1A8.41,8.41,0,0,1,22,22.27a1.05,1.05,0,0,0-.88-.47.71.71,0,0,0-.82.59l-.12,1.54a1,1,0,0,1-.36.71,1.17,1.17,0,0,1-.51.27l-.7.09a13.2,13.2,0,0,1-2.75-.15A5.51,5.51,0,0,1,13.74,24,12.86,12.86,0,0,1,12.2,22.8q-.57-.53-1.66-1.72a50.43,50.43,0,0,1-4.42-7.17,6.1,6.1,0,0,1-.61-2,1.51,1.51,0,0,1,.91-.3,18.75,18.75,0,0,1,1.94,0l1.51,0a1,1,0,0,1,1,.65,25.57,25.57,0,0,0,3,5.16q1,.89,1.27-.3a13.13,13.13,0,0,0,.12-2.9,2.07,2.07,0,0,0-1.51-2.31q.36-.95,2.54-.95.54,0,1.33.06l.85.06q1.82,0,1.82,1.42,0,.18-.06.86t-.09,1.3q0,.62,0,1.3a3.24,3.24,0,0,0,.18,1.16.94.94,0,0,0,.48.59l.64-.44a2.71,2.71,0,0,0,.64-.68l.51-.71A8.44,8.44,0,0,0,23,15a7.26,7.26,0,0,0,.42-.83q.06-.18.42-.92l.36-.74.09-.18a1.57,1.57,0,0,1,.39-.62,1.9,1.9,0,0,1,.76-.09h3.75a5.41,5.41,0,0,1,.79,0,1,1,0,0,1,.36.27q.42.53-.76,2.31a24.1,24.1,0,0,1-2.27,3Q25.84,18.83,26.93,19.84Z" fill-rule="evenodd"/>
+                      </g>
+                    </g>
+                  </svg>
                 </a>
               </div>
-              <p class="page-footer__address">Адрес:<a class="page-footer__link" href="{{buildUrl general.city '/contacts/'}}#mymap">Москва, ул. Матросская Тишина, 16Г</a></p>
               <p class="page-footer__address">Телефон:<a class="page-footer__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
               <p class="page-footer__copyright">© <a class="page-footer__link" href="{{buildUrl general.city '/'}}">Клининговая компания <br>ООО «Домовёнок», 2018</a></p>
             </div>
       
             <div class="page-footer__column page-footer__column--right page-footer__column--mobile">
               <div class="page-footer__apps-wrapper">
-                <a class="page-footer__app">
+                <a class="page-footer__app" href="https://play.google.com/store/apps/details?id=ru.domovenok.app&hl=ru" target="_blank">
                   <svg xmlns="http://www.w3.org/2000/svg" width="125.8" height="37" viewBox="0 0 125.8 37"><title>Google Play</title><g><g><path d="M119.1,1.3a3.8,3.8,0,0,1,3.8,3.8v27a3.8,3.8,0,0,1-3.8,3.8H6.6a3.8,3.8,0,0,1-3.8-3.8V5.1A3.8,3.8,0,0,1,6.6,1.3H119.1m0-.8H6.6A4.55,4.55,0,0,0,2.1,5V32a4.48,4.48,0,0,0,4.5,4.5H119.1a4.48,4.48,0,0,0,4.5-4.5V5A4.55,4.55,0,0,0,119.1.5Z" fill="#fff"/><path d="M63.4,20.2a3.78,3.78,0,0,0-3.9,3.9A3.84,3.84,0,0,0,63.4,28a3.78,3.78,0,0,0,3.9-3.9A3.73,3.73,0,0,0,63.4,20.2Zm0,6.1A2.24,2.24,0,0,1,61.2,24a2.2,2.2,0,1,1,4.4,0A2.24,2.24,0,0,1,63.4,26.3ZM55,20.2a3.78,3.78,0,0,0-3.9,3.9A3.84,3.84,0,0,0,55,28a3.78,3.78,0,0,0,3.9-3.9A3.73,3.73,0,0,0,55,20.2Zm0,6.1A2.24,2.24,0,0,1,52.8,24a2.2,2.2,0,1,1,4.4,0A2.24,2.24,0,0,1,55,26.3Zm-10-5v1.6h3.9A3.4,3.4,0,0,1,48,25a4,4,0,0,1-3,1.2,4.18,4.18,0,0,1-4.2-4.3A4.25,4.25,0,0,1,45,17.6a4.13,4.13,0,0,1,3,1.2l1.2-1.2a5.84,5.84,0,0,0-4-1.6,6.06,6.06,0,0,0-6,5.9,6.06,6.06,0,0,0,6,5.9,4.9,4.9,0,0,0,4.1-1.7,5.31,5.31,0,0,0,1.4-3.8,3.08,3.08,0,0,0-.1-1Zm40.9,1.3a3.55,3.55,0,0,0-3.2-2.4,3.66,3.66,0,0,0-3.6,3.9A3.76,3.76,0,0,0,82.9,28a3.94,3.94,0,0,0,3.2-1.7l-1.3-.9a2.37,2.37,0,0,1-1.9,1.1A2.06,2.06,0,0,1,81,25.3l5.1-2.2-.2-.5Zm-5.2,1.2a2.29,2.29,0,0,1,2-2.3,1.55,1.55,0,0,1,1.4.8l-3.4,1.5Zm-4.2,3.7h1.7V16.2H76.5ZM73.8,21a2.93,2.93,0,0,0-2.1-.9A3.87,3.87,0,0,0,68,24a3.71,3.71,0,0,0,3.7,3.8,2.89,2.89,0,0,0,2-.9h.1v.5a2.05,2.05,0,0,1-2.1,2.3,2,2,0,0,1-1.9-1.4l-1.4.6a3.64,3.64,0,0,0,3.4,2.3c2,0,3.6-1.2,3.6-4V20.4H73.8V21Zm-2,5.3A2.24,2.24,0,0,1,69.6,24a2.15,2.15,0,1,1,4.3,0A2.3,2.3,0,0,1,71.8,26.3Zm21.9-10H89.6V27.6h1.7V23.4h2.3a3.55,3.55,0,1,0,.1-7.1Zm.1,5.4H91.4V17.8h2.4a2,2,0,0,1,2,1.9,2.07,2.07,0,0,1-2,2Zm10.4-1.6a3,3,0,0,0-3,1.7l1.5.6a1.84,1.84,0,0,1,3.3.6v.1a3.43,3.43,0,0,0-1.7-.5c-1.6,0-3.2.9-3.2,2.5a2.61,2.61,0,0,0,2.8,2.5,2.51,2.51,0,0,0,2.2-1.1h.1v.9h1.6V23.1a3.35,3.35,0,0,0-3.6-3Zm-.2,6.2c-.5,0-1.4-.3-1.4-1,0-.9,1-1.2,1.8-1.2a3,3,0,0,1,1.5.4A1.94,1.94,0,0,1,104,26.3Zm9.4-6-1.9,4.9h-.1l-2-4.9h-1.8l3,6.8-1.7,3.8h1.7l4.6-10.6ZM98.3,27.5H100V16.2H98.3Z" fill="#fff"/><text transform="translate(40.23 10.82)" font-size="7.16" fill="#fff" font-family="HelveticaNeueLTW1G-Bd, Helvetica Neue LT W1G" font-weight="700" style="isolation:isolate"><tspan x="0" y="0" letter-spacing="0.05em">Загрузите в</tspan></text><path d="M31.8,18.3a1.71,1.71,0,0,0-.9-1L27,15.1l-3.7,3.7,3.5,3.5,4.1-2.2Q32.1,19.2,31.8,18.3Z" fill="#fff"/><path d="M11.9,30.1a1.81,1.81,0,0,0,1.4-.2L26,22.6l-3.3-3.3Z" fill="#fff"/><path d="M11.2,7.7a2,2,0,0,0-.1.8V28.7a1.88,1.88,0,0,0,.2.8L22.1,18.7Z" fill="#fff"/><path d="M26.2,14.6,13.3,7.3a1.6,1.6,0,0,0-1.6-.2l10.9,11Z" fill="#fff"/><rect width="125.8" height="37" fill="none"/></g></g></svg>
                 </a>
-                <a class="page-footer__app">
+                <a class="page-footer__app" href="https://itunes.apple.com/ru/app/домовенок-уборка-квартир/id1274981749?mt=8" target="_blank">
                   <svg xmlns="http://www.w3.org/2000/svg" width="125.8" height="37" viewBox="0 0 125.8 37"><title>App Store</title><g><g><rect width="125.8" height="37" fill="none"/><path d="M119.51,36.5H6.48a4.35,4.35,0,0,1-4.33-4.29V4.69A4.27,4.27,0,0,1,6.48.5h113a4.11,4.11,0,0,1,4.14,4.19V32.21a4.24,4.24,0,0,1-4.2,4.29Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="0.75"/><path d="M29.36,18.26a5.23,5.23,0,0,1,2.49-4.38,5.33,5.33,0,0,0-4.21-2.28c-1.78-.19-3.49,1.06-4.4,1.06s-2.31-1-3.8-1a5.63,5.63,0,0,0-4.73,2.88c-2,3.53-.51,8.73,1.44,11.58,1,1.4,2.12,3,3.62,2.91s2-.93,3.78-.93,2.26.93,3.79.89,2.56-1.4,3.5-2.81a11.37,11.37,0,0,0,1.6-3.27A5,5,0,0,1,29.36,18.26Z" fill="#fff"/><path d="M26.48,9.72A5.11,5.11,0,0,0,27.66,6a5.25,5.25,0,0,0-3.39,1.75,4.91,4.91,0,0,0-1.21,3.55A4.35,4.35,0,0,0,26.48,9.72Z" fill="#fff"/><path d="M50.55,28.82h-2L47.38,25.3H43.49l-1.07,3.52h-2l3.86-12h2.38Zm-3.51-5-1-3.13c-.11-.32-.31-1.07-.6-2.26h0c-.12.51-.31,1.26-.57,2.26l-1,3.13Z" fill="#fff"/><path d="M60.47,24.39a4.91,4.91,0,0,1-1.19,3.49A3.5,3.5,0,0,1,56.63,29a2.64,2.64,0,0,1-2.45-1.22h0v4.55H52.22V23c0-.92,0-1.87-.07-2.85h1.69L54,21.54h0a3.42,3.42,0,0,1,5.47-.33A4.74,4.74,0,0,1,60.47,24.39Zm-1.95.07A3.57,3.57,0,0,0,58,22.38a2,2,0,0,0-1.67-.85A1.94,1.94,0,0,0,55,22a2.14,2.14,0,0,0-.76,1.23,2.57,2.57,0,0,0-.09.59v1.44a2.28,2.28,0,0,0,.58,1.59,1.89,1.89,0,0,0,1.5.65,2,2,0,0,0,1.69-.83A3.73,3.73,0,0,0,58.52,24.46Z" fill="#fff"/><path d="M70.42,24.39a4.92,4.92,0,0,1-1.2,3.49A3.5,3.5,0,0,1,66.57,29a2.65,2.65,0,0,1-2.45-1.22h0v4.55H62.16V23c0-.92,0-1.87-.07-2.85h1.69l.11,1.37h0a3.42,3.42,0,0,1,5.47-.33A4.75,4.75,0,0,1,70.42,24.39Zm-2,.07a3.57,3.57,0,0,0-.57-2.08,2,2,0,0,0-1.67-.85,1.94,1.94,0,0,0-1.29.47,2.14,2.14,0,0,0-.76,1.23,2.57,2.57,0,0,0-.09.59v1.44a2.32,2.32,0,0,0,.58,1.59,1.91,1.91,0,0,0,1.51.65,2,2,0,0,0,1.68-.83A3.66,3.66,0,0,0,68.46,24.46Z" fill="#fff"/><path d="M81.53,25.46A3.19,3.19,0,0,1,80.47,28,4.72,4.72,0,0,1,77.2,29a5.67,5.67,0,0,1-3.1-.75l.44-1.6a5.26,5.26,0,0,0,2.78.76A2.62,2.62,0,0,0,79,26.92a1.59,1.59,0,0,0,.6-1.31,1.67,1.67,0,0,0-.5-1.23,4.57,4.57,0,0,0-1.65-.92c-2.1-.79-3.15-1.93-3.15-3.44a3,3,0,0,1,1.1-2.42,4.38,4.38,0,0,1,2.94-1,5.8,5.8,0,0,1,2.72.57l-.48,1.57a4.7,4.7,0,0,0-2.29-.55,2.35,2.35,0,0,0-1.59.49,1.43,1.43,0,0,0-.48,1.09A1.49,1.49,0,0,0,76.78,21a6,6,0,0,0,1.75.93,5.75,5.75,0,0,1,2.27,1.46A3,3,0,0,1,81.53,25.46Z" fill="#fff"/><path d="M87.88,21.62H85.77v4.19c0,1.07.37,1.6,1.12,1.6a3.35,3.35,0,0,0,.85-.09l.05,1.46A4.11,4.11,0,0,1,86.3,29a2.32,2.32,0,0,1-1.78-.7A3.38,3.38,0,0,1,83.88,26V21.62H82.62V20.17h1.26V18.59L85.77,18v2.15h2.11Z" fill="#fff"/><path d="M97.44,24.43A4.76,4.76,0,0,1,96.3,27.7,4.06,4.06,0,0,1,93.13,29a3.86,3.86,0,0,1-3-1.26A4.6,4.6,0,0,1,89,24.57a4.72,4.72,0,0,1,1.16-3.29A4,4,0,0,1,93.27,20a4,4,0,0,1,3.06,1.26A4.54,4.54,0,0,1,97.44,24.43Zm-2,.06a3.92,3.92,0,0,0-.51-2,2,2,0,0,0-3.49,0,4,4,0,0,0-.51,2.08,3.92,3.92,0,0,0,.51,2.05,2,2,0,0,0,1.74,1,1.93,1.93,0,0,0,1.73-1.05A4,4,0,0,0,95.44,24.49Z" fill="#fff"/><path d="M103.68,21.86a3.86,3.86,0,0,0-.61-.05,1.81,1.81,0,0,0-1.56.77,2.87,2.87,0,0,0-.48,1.7v4.54H99.11V22.9c0-1,0-1.91-.07-2.73h1.68l.07,1.66h0a2.9,2.9,0,0,1,1-1.37A2.32,2.32,0,0,1,103.2,20a3.43,3.43,0,0,1,.48,0Z" fill="#fff"/><path d="M112.27,24.09a4.37,4.37,0,0,1-.07.87h-5.76a2.52,2.52,0,0,0,.83,2,2.87,2.87,0,0,0,1.89.6,6.44,6.44,0,0,0,2.33-.41l.3,1.33a7.18,7.18,0,0,1-2.9.54,4.24,4.24,0,0,1-3.16-1.18,4.4,4.4,0,0,1-1.15-3.18,5,5,0,0,1,1.07-3.25,3.69,3.69,0,0,1,3-1.39,3.2,3.2,0,0,1,2.82,1.39A4.64,4.64,0,0,1,112.27,24.09Zm-1.83-.5a2.66,2.66,0,0,0-.38-1.48,1.68,1.68,0,0,0-1.53-.8,1.81,1.81,0,0,0-1.53.79,2.76,2.76,0,0,0-.56,1.49Z" fill="#fff"/><text transform="translate(41.8 11.5)" font-size="7.09" fill="#fff" font-family="HelveticaNeueLTW1G-Bd, Helvetica Neue LT W1G" font-weight="700" letter-spacing="0.06em">Заг<tspan x="13.17" y="0" letter-spacing="0.05em">р</tspan><tspan x="17.84" y="0" letter-spacing="0.06em">узи</tspan><tspan x="30.78" y="0" letter-spacing="0.04em">т</tspan><tspan x="34.62" y="0" letter-spacing="0.06em">е в</tspan></text></g></g></svg>
                 </a>
               </div>
@@ -1072,7 +1250,7 @@
       <div class="pop-up__item pop-up__item--hide  service-order">
         <div class="service-order__wrap">
           <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_1"}'>
-            <p class="service-order__title  title">Оформить заказ</p>
+            <p class="service-order__title  title">Оформить заявку</p>
             <div class="service-order__row">
               <label class="service-order__label  label">
                 Как к Вам обращаться?
@@ -1185,6 +1363,8 @@
   
       <div class="pop-up__item  pop-up__item--hide  price-list"></div>
   
+      <div class="pop-up__item  pop-up__item--hide  details-list"></div>
+  
       <div class="pop-up__item pop-up__item--hide  service-calc-calendar">
           <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_2"}'>
   
@@ -1279,10 +1459,229 @@
 </script>
 
 <!-- /Page wrapper -->
+
+<!-- Подробный перечень работ -->
+<script id="work-list-podderzhka" type="text/html">
+  <div class="list-block">
+    <h3 class="list-block__title">Комната и коридор</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">Удаляем пыль и моем все горизонтальные, вертикальные поверхности;</li>
+      <li class="list-block__item">Моем и пылесосим полы и плинтусы;</li>
+      <li class="list-block__item">Удаляем легкие загрязнения: жир, масло и т.д.;</li>
+      <li class="list-block__item">Удаляем пыль со светильников;</li>
+      <li class="list-block__item">Моем трубы, карнизы, фоторамки, рамы картин и т.д.;</li>
+      <li class="list-block__item">Моем зеркала и стеклянные поверхности;</li>
+      <li class="list-block__item">Ухаживаем за кожаной мебелью;</li>
+      <li class="list-block__item">Меняем постельное белье;</li>
+      <li class="list-block__item">Моем двери и дверные блоки.</li>
+    </ul>
+    <h3 class="list-block__title">Кухня</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">Чистим и дезинфицируем горизонтальные рабочие поверхности;</li>
+      <li class="list-block__item">Моем кухонную плиту и стену над ней;</li>
+      <li class="list-block__item">Моем вытяжку внутри, включая фильтры;</li>
+      <li class="list-block__item">Моем все вертикальные поверхности;</li>
+      <li class="list-block__item">Чистим и обеззараживаем сантехнику;</li>
+      <li class="list-block__item">Моем грязную посуду;</li>
+      <li class="list-block__item">Моем холодильник снаружи;</li>
+      <li class="list-block__item">Моем вытяжку снаружи;</li>
+      <li class="list-block__item">Моем микроволновую печь снаружи и внутри;</li>
+      <li class="list-block__item">Моем и обеззараживаем мусорную корзину, выносим мусор.</li>
+    </ul>
+    <h3 class="list-block__title">Ванная комната</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">Чистим и обеззараживаем сантехнику и раковину;</li>
+      <li class="list-block__item">Моем все зеркальные и стеклянные поверхности;</li>
+      <li class="list-block__item">Моем душевую кабину и ванну (снаружи и внутри);</li>
+      <li class="list-block__item">Моем душевую кабину и ванну (снаружи и внутри);</li>
+      <li class="list-block__item">Очищаем межплиточные швы.</li>
+    </ul>
+  </div>
+</script>
+
+<script id="work-list-complex" type="text/html">
+  <div class="list-block">
+    <h3 class="list-block__title">Комната и коридор</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">пылесосим и моем пол и плинтусы;</li>
+      <li class="list-block__item">пылесосим напольные ковры и коврики;</li>
+      <li class="list-block__item">пылесосим мягкую мебель (кроме подушек);</li>
+      <li class="list-block__item">моем светильники;</li>
+      <li class="list-block__item">моем подоконники, трубы и батареи;</li>
+      <li class="list-block__item">моем двери и дверные блоки;</li>
+      <li class="list-block__item">моем все стеклянные элементы и зеркала;</li>
+      <li class="list-block__item">удаляем пыль с мебели и предметов интерьера;</li>
+      <li class="list-block__item">удаляем пыль с внешней части бытовых приборов;</li>
+      <li class="list-block__item">меняем постельное белье.</li>
+    </ul>
+    <h3 class="list-block__title">Кухня</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">моем плиту и стену над ней;</li>
+      <li class="list-block__item">моем столешницу и мебель снаружи;</li>
+      <li class="list-block__item">моем духовку и холодильник снаружи;</li>
+      <li class="list-block__item">моем микроволновку внутри и снаружи;</li>
+      <li class="list-block__item">устраняем жирные и масляные пятна;</li>
+      <li class="list-block__item">моем кухонную технику снаружи;</li>
+      <li class="list-block__item">моем и обеззараживаем раковину;</li>
+      <li class="list-block__item">моем посуду (в течение 10 минут);</li>
+      <li class="list-block__item">выносим мусор и обеззараживаем корзину.</li>
+    </ul>
+    <h3 class="list-block__title">Ванная комната</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">моем стены на всю высоту;</li>
+      <li class="list-block__item">моем и обеззараживаем всю сантехнику;</li>
+      <li class="list-block__item">моем ванну и душевую кабину;</li>
+      <li class="list-block__item">очищаем плитку от локальных загрязнений.</li>
+    </ul>
+  </div>
+</script>
+
+<script id="work-list-general" type="text/html">
+  <div class="list-block">
+    <h3 class="list-block__title">Общие работы</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">моем и пылесосим полы и плинтусы;</li>
+      <li class="list-block__item">удаляем на всех поверхностях сложные загрязнения: известковый налет, ржавчину, следы
+                                   жира, водный камень</li>
+      <li class="list-block__item">моем мебель снаружи;</li>
+      <li class="list-block__item">моем мебель внутри, где убраны вещи с полок;</li>
+      <li class="list-block__item">удаляем пыль со стен и потолков;</li>
+      <li class="list-block__item">чистим парогенератором труднодоступные места;</li>
+      <li class="list-block__item">удаляем пыль и моем бытовую и кухонную технику;</li>
+      <li class="list-block__item">удаляем пыль и моем все светильники, включая потолочные.</li>
+    </ul>
+    <h3 class="list-block__title">Комната и коридор</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">удаляем пыль с предметов интерьера: ваз, фоторамок, картин;</li>
+      <li class="list-block__item">удаляем пыль с кондиционеров и их фильтров;</li>
+      <li class="list-block__item">моем зеркала и стеклянные поверхности;</li>
+      <li class="list-block__item">моем подоконники, батареи и трубы;</li>
+      <li class="list-block__item">пылесосим мягкую мебель внутри и снаружи;</li>
+      <li class="list-block__item">бережно ухаживаем за кожаной мебелью;</li>
+      <li class="list-block__item">меняем постельное белье;</li>
+      <li class="list-block__item">моем двери и дверные блоки;</li>
+      <li class="list-block__item">моем карнизы.</li>
+    </ul>
+    <h3 class="list-block__title">Кухня</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">чистим и дезинфицируем кухонные рабочиеповерхности;</li>
+      <li class="list-block__item">моем стеновые панели кухонного гарнитура;</li>
+      <li class="list-block__item">моем холодильник снаружи и внутри;</li>
+      <li class="list-block__item">моем вытяжку снаружи и внутри, включая фильтры;</li>
+      <li class="list-block__item">моем кухонную плиту снаружи и внутри;</li>
+      <li class="list-block__item">моем микроволновую печь снаружи и внутри;</li>
+      <li class="list-block__item">чистим и обеззараживаем сантехнику;</li>
+      <li class="list-block__item">моем грязную посуду 10 минут;</li>
+      <li class="list-block__item">моем и обеззараживаем мусорную корзину, выносим мусор.</li>
+    </ul>
+    <h3 class="list-block__title">Ванная комната</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">моем потолок и стены на всю высоту;</li>
+      <li class="list-block__item">моем душевую кабину и ванну (снаружи и внутри);</li>
+      <li class="list-block__item">чистим и обеззараживаем сантехнику;</li>
+      <li class="list-block__item">очищаем межплиточные швы.</li>
+    </ul>
+  </div>
+</script>
+
+<script id="work-list-posle" type="text/html">
+  <div class="list-block">
+    <h3 class="list-block__title">Комната и коридор</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">уборка мусора, замена одноразовых пакетов, мытье корзины изнутри и снаружи;</li>
+      <li class="list-block__item">уборка пыли с поверхности стен и потолков; домовята также могут удалить всевозможные
+                                   загрязнения, если на это рассчитаны используемые отделочные материалы;</li>
+      <li class="list-block__item">мытьё карнизов (в эту услугу не входит уборка жалюзи и штор);</li>
+      <li class="list-block__item">обработка климатической техники, очищение внутренних фильтров устройства;</li>
+      <li class="list-block__item">мытьё всех светильников, используемых в доме (помимо хрустальных изделий);</li>
+      <li class="list-block__item">уборка корпусной мебели: обрабатывается как внутренняя, так и внешняя поверхность
+                                   предметов при условии отсутствия в них вещей;</li>
+      <li class="list-block__item">обработка зеркал и различных стеклянных покрытий и элементов декора с помощью
+                                   специализированных средств (на всю высоту);</li>
+      <li class="list-block__item">очищение аксессуаров и предметов интерьера от пыли и различных загрязнений;</li>
+      <li class="list-block__item">очистка бытовой техники от скопившейся пыли;</li>
+      <li class="list-block__item">уборка пыли на подоконнике и последующая мойка коммуникаций;</li>
+      <li class="list-block__item">уборка пылесосом для очищения внутренней и внешней поверхности мягкой мебели; при
+                                   необходимости «домовята» обязательно уделяют внимание матрасу;</li>
+      <li class="list-block__item">обработка кожаных предметов мебели профессиональными чистящими составами;</li>
+      <li class="list-block__item">замена спального комплекта;</li>
+      <li class="list-block__item">сухая и влажна уборка дверных блоков, а также используемой фурнитуры;</li>
+      <li class="list-block__item">устранение разного рода загрязнений: «домовята» эффективно борются с известковым
+                                   налетом и застарелой ржавчиной;</li>
+      <li class="list-block__item">эко-уборка с помощью парогенератора (для труднодоступных мест в квартире);</li>
+      <li class="list-block__item">мытьё плинтусов и уборка напольных покрытий любого типа.</li>
+    </ul>
+    <h3 class="list-block__title">Кухня</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">влажная уборка фасадов кухонной мебели с обязательным удалением жирных следов;</li>
+      <li class="list-block__item">мытьё внутренней части ящиков и шкафов при том условии, если клиент предварительно
+                                   освободил их от предметов домашнего обихода;</li>
+      <li class="list-block__item">мытьё грязной посуды, стоящей в раковине;</li>
+      <li class="list-block__item">обработка «фартука», удаление различных загрязнений;</li>
+      <li class="list-block__item">влажная уборка вытяжки (с учетом внутренней и внешней поверхности) со снятием
+                                   используемых фильтров;</li>
+      <li class="list-block__item">очищение плиты для приготовления пищи (внутри и снаружи);</li>
+      <li class="list-block__item">комплексная чистка холодильной камеры;</li>
+      <li class="list-block__item">удаление загрязнений с внутренней и внешней части микроволновой печи;</li>
+      <li class="list-block__item">тщательная обработка другой кухонной техники;</li>
+      <li class="list-block__item">мытьё и дезинфекция сантехнического оборудования;</li>
+      <li class="list-block__item">устранение самых сложных загрязнений (включая налет извести, ржавчину);</li>
+      <li class="list-block__item">тщательная обработка труднодоступных мест кухни с помощью парогенератора.</li>
+    </ul>
+    <h3 class="list-block__title">Ванная комната</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">обработка потолка;</li>
+      <li class="list-block__item">влажная уборка керамической плитки на всю имеющуюся высоту помещения;</li>
+      <li class="list-block__item">чистка ванны, джакузи и душевой кабины (учитывается как внешняя, так и внутренняя
+                                   поверхность);</li>
+      <li class="list-block__item">устранение загрязнений с поверхности бытовых приборов;</li>
+      <li class="list-block__item">тщательное очищение от ржавчины, водного камня, следов извести;</li>
+      <li class="list-block__item">очистка раковин, унитазов, биде и смесителей с последующей дезинфекцией;</li>
+      <li class="list-block__item">очищение межплиточных швов от затирки (исключение – двухкомпонентная затирка);</li>
+      <li class="list-block__item">уборка труднодоступных зон помещения с использованием парогенератора.</li>
+    </ul>
+    <h3 class="list-block__title">Устранение загрязнений после ремонта</h3>
+    <ul class="list-block__list  list">
+      <li class="list-block__item">очистку от послестроительной пыли и следов цемента, влажную и сухую уборку стен и
+                                   потолочных покрытий;</li>
+      <li class="list-block__item">устранение засохшего клея и строительного скотча со стекол, зеркал, предметов
+                                   мебели;</li>
+      <li class="list-block__item">удаление пятен краски и уборка после строительства напольных покрытий, паркета,
+                                   подоконников;</li>
+      <li class="list-block__item">стандартные работы по обеспыливанию всех поверхностей в доме (влажную чистку);</li>
+      <li class="list-block__item">очистку квартиры от мелких строительных отходов и мусора;</li>
+      <li class="list-block__item">дезинфицирование места, отведенного под хранение отходов;</li>
+      <li class="list-block__item">влажную и сухую послестроительную уборку корпусной и мягкой мебели, рабочих
+                                   поверхностей, внешних фасадов и стеновых панелей гарнитуров, дверец холодильника, духовой и микроволновой
+                                   печи;</li>
+      <li class="list-block__item">чистку сантехники с последующим дезинфицированием;</li>
+      <li class="list-block__item">чистку душевых кабин и ванн;</li>
+      <li class="list-block__item">сбор и вынос мелкого строительного мусора.</li>
+    </ul>
+  </div>
+</script>
+
+<script id="work-list-window-cleaning" type="text/html">
+  <div class="list-block">
+    <ul class="list-block__list  list">
+      <li class="list-block__item">привозим весь необходимый инвентарь и страховочное оборудование;</li>
+      <li class="list-block__item">моем окна с двух сторон, рамы, отливы и подоконники;</li>
+      <li class="list-block__item">мытье москитных сеток на окнах включено в стоимость мойки окон в квартире;</li>
+      <li class="list-block__item">моем окна на балконе, жалюзи, сайдинг, оконные решётки за дополнительную плату;</li>
+      <li class="list-block__item">мы подготовим участок к работе, уберём и поставим всё на места после мытья окон;</li>
+      <li class="list-block__item">при заказе только мытья окон в квартире или офисе минимальная сумма заказа - 1000 руб.;</li>
+      <li class="list-block__item">моем балконную дверь бесплатно.</li>
+    </ul>
+  </div>
+</script>
+<!-- /Подробный перечень работ -->
+
 <!-- Java Script -->
+<script type=text/javascript src="/static/pancake/vue/js/manifest.js?v1.22"></script>
+<script type=text/javascript src="/static/pancake/vue/js/app.js?v1.22"></script>
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.04"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.22"></script>
 <!-- /Java Script -->
 </body>
 
