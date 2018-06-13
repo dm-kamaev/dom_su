@@ -284,12 +284,12 @@ class PancakeUser {
 
   // set track number for client
   async set_track_number_for_client() {
-    // const me = this;
-    // logger.log(`${me.uuid} set_track_number_for_client`);
+    const me = this;
+    logger.log(`${me.uuid} set_track_number_for_client`);
     if (this.track.numbers && this.track.numbers[this.city.keyword]) {
       return;
     }
-    // logger.log(`${me.uuid} after return`);
+    logger.log(`${me.uuid} after return`);
 
     const phone = await Phone.findOne({
       where: {
@@ -299,8 +299,9 @@ class PancakeUser {
         category_type: 'client'
       }
     });
-    // logger.log(`${me.uuid} phone= ${JSON.stringify(phone.dataValues, null, 2)}`);
-    if (phone !== null) {
+    const phone_log = (phone && phone.dataValues) ? phone.dataValues : null;
+    logger.log(`${me.uuid} phone= ${phone_log}`);
+    if (phone) {
       this.track.numbers[this.city.keyword] = phone.number;
       this.queue.push(async function (previousResult, pancakeUser) {
         // logger.log(`${me.uuid} client set data.track.numbers.${pancakeUser.city.keyword} `+pancakeUser.track.numbers[pancakeUser.city.keyword]);
