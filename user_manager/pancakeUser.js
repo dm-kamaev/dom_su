@@ -226,18 +226,35 @@ class PancakeUser {
     // |
     // V
     // return true;
-    const uuid = this.uuid;
-    logger.info(`${uuid} checkTrackNeed => this.track.waiting === true `+((this.track.waiting === true) ? 'return true' : 'skip'));
+    const me = this;
+    const uuid = me.uuid;
+    // FOR TEST
+    // |
+    // |
+    // V
+    // set reffer and use tab chrome in mode incognito
+    // this.ctx.headers.referer = 'https://yandex.ru';
+
+    var _logger = {
+      info: function(str) {
+        if (me.ctx.request.url === '/') {
+          logger.info(str);
+        }
+      }
+    };
+
+    _logger.info(`${uuid} checkTrackNeed => this.track.waiting === true `+((this.track.waiting === true) ? 'return true' : 'skip'));
     if (this.track.waiting === true) {
       return true;
     }
 
-    logger.info(`${uuid} checkTrackNeed => this.isNew !== true `+((this.isNew !== true) ? 'return false' : 'skip'));
-    if (this.isNew !== true) { // false
+    _logger.info(`${uuid} checkTrackNeed => this.isNew !== true `+((this.isNew !== true) ? 'return false' : 'skip'));
+    // is not newest user
+    if (this.isNew !== true) {
       return false;
     }
 
-    logger.info(`${uuid} checkTrackNeed => this.ctx.headers.referer === undefined `+((this.ctx.headers.referer === undefined) ? 'return false' : 'skip'));
+    _logger.info(`${uuid} checkTrackNeed => this.ctx.headers.referer === undefined `+((this.ctx.headers.referer === undefined) ? 'return false' : 'skip'));
     if (this.ctx.headers.referer === undefined) {
       return false;
     }
@@ -246,15 +263,15 @@ class PancakeUser {
     let referer;
     try{
       referer = new URL(this.ctx.headers.referer);
-      logger.info(`${uuid} checkTrackNeed => referer = new URL(this.ctx.headers.referer) skip`);
+      _logger.info(`${uuid} checkTrackNeed => referer = new URL(this.ctx.headers.referer) skip`);
     } catch (error){
-      logger.info(`${uuid} checkTrackNeed => referer = new URL(this.ctx.headers.referer) return false`);
+      _logger.info(`${uuid} checkTrackNeed => referer = new URL(this.ctx.headers.referer) return false`);
       return false;
     }
 
     banRefererRegexp.lastIndex = 0;
 
-    logger.info(`${uuid} checkTrackNeed => banRefererRegexp.exec(referer.hostname) !== null `+((banRefererRegexp.exec(referer.hostname) !== null) ? 'return false' : 'skip'));
+    _logger.info(`${uuid} checkTrackNeed => banRefererRegexp.exec(referer.hostname) !== null `+((banRefererRegexp.exec(referer.hostname) !== null) ? 'return false' : 'skip'));
     if (banRefererRegexp.exec(referer.hostname) !== null) {
       return false;
     }
@@ -262,11 +279,11 @@ class PancakeUser {
     // Check IP
     for (let filterIP of banIPAddressListRegExp){
       if (filterIP.test(this.ctx.request.header['x-real-ip'])){
-        logger.info(`${uuid} checkTrackNeed => filterIP.test(this.ctx.request.header['x-real-ip']) return false`);
+        _logger.info(`${uuid} checkTrackNeed => filterIP.test(this.ctx.request.header['x-real-ip']) return false`);
         return false;
       }
     }
-    logger.info(`${uuid} checkTrackNeed => the end return true`);
+    _logger.info(`${uuid} checkTrackNeed => the end return true`);
     return true;
   }
 
@@ -299,7 +316,7 @@ class PancakeUser {
         category_type: 'client'
       }
     });
-    const phone_log = (phone && phone.dataValues) ? phone.dataValues : null;
+    const phone_log = (phone && phone.dataValues) ? JSON.stringify(phone.dataValues) : null;
     logger.log(`${me.uuid} phone= ${phone_log}`);
     if (phone) {
       this.track.numbers[this.city.keyword] = phone.number;
