@@ -19,8 +19,8 @@ function get_cron_file() {
     # every 10:00
     00 10 * * * root $NODE /p/pancake/cron/create_folder_for_log_auth_user.js
 
-    # every 2 minute
-    */2 * * * * root $NODE /p/pancake/cron/free_phones.js > ~/free_phones.log 2>&1 &
+    # every 1 minute
+    * * * * * domovenok $NODE /p/pancake/cron/free_phones.js > ~/free_phones.log 2>&1 &
 
   `;
   return str;
