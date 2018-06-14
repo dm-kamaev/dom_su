@@ -64,7 +64,7 @@
   <!-- End SmartBanner configuration -->
 
 
-  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.30">
+  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.31">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
@@ -150,9 +150,10 @@
         <div class="window  window--price">
           <div class="window__inner  window__inner--price">
             <div class="window__content-wrapper  window__content-wrapper--price">
-              <p class="window__title  window__title--price">Цены на уборку квартир и офисов в Москве.<br>
+              <div class="window__title-wrapper">
+                <h1 class="window__title  window__title--price">Цены на уборку квартир и офисов в Москве.</h1><br>
                 <span class="window__title  window__title--bold  window__title--price">Расценки на уборку от 1490 рублей</span>
-              </p>
+              </div>
             </div>
           </div>
 
@@ -529,7 +530,7 @@
                   <img class="service-cards__item-img" src="/static/pancake/img/legal-person-1.svg" width="105" height="105" alt="">
                   <p class="service-cards__item-name">Уборка офисов</p>
                 </a>
-                <a class="swiper-slide  service-cards__item  service-cards__item--small" href="{address}}uborka-proizvodstvennyh-pomewenij'}}">
+                <a class="swiper-slide  service-cards__item  service-cards__item--small" href="{{buildUrl general.city '/uborka-proizvodstvennyh-pomewenij'}}">
                   <img class="service-cards__item-img" src="/static/pancake/img/legal-person-2.svg" width="105" height="105" alt="">
                   <p class="service-cards__item-name">Производственные<br>
                                                      помещения</p>
@@ -1219,7 +1220,7 @@
 
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.22"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.23"></script>
 <!-- /Java Script -->
 
 </body>
