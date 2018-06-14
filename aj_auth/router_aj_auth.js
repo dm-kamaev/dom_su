@@ -5,7 +5,7 @@
 const Router = require('koa-router');
 const AuthApi = require('/p/pancake/auth/authApi.js');
 const logger = require('/p/pancake/lib/logger.js');
-const Aj_error_no_phone_for_calltracking = require('/p/pancake/errors/Aj_error_no_phone_for_calltracking.js');
+const Aj_error_phone_for_calltracking = require('/p/pancake/errors/Aj_error_phone_for_calltracking.js');
 
 const router = module.exports = new Router();
 // 5.101.61.62
@@ -23,15 +23,21 @@ router.get('/aj/logout', async function (ctx) {
   };
 });
 
-
+// GET /aj/calltracking
+// responce –– {
+//   ok: true,
+//   data: {
+//     clientPhone: '74957893224',
+//     applicantPhone: '7495666666666'
+//   }
+// }
 router.get('/aj/calltracking', async function (ctx) {
-  const error = null;
-
   let client_phone;
   let applicant_phone;
 
   const user = ctx.state.pancakeUser;
-  if (user.checkTrackNeed()) {
+  const track_need = user.checkTrackNeed();
+  if (track_need) {
     user.setTrackWaiting(true);
     client_phone = await user.set_track_number_for_client();
     applicant_phone = await user.set_track_number_for_applicant();
@@ -39,12 +45,17 @@ router.get('/aj/calltracking', async function (ctx) {
     user.setTrackWaiting(false);
   }
 
-  if (client_phone instanceof Aj_error_no_phone_for_calltracking) {
-    status = client_phone.status;
-    body = error.get_responce();
-  } else if (applicant_phone instanceof Aj_error_no_phone_for_calltracking) {
-    status = applicant_phone.status;
-    body = applicant_phone.get_responce();
+  let status;
+  let body;
+  if (!track_need) {
+    const aj_error = new Aj_error_phone_for_calltracking('Not need tracking');
+    status = aj_error.status;
+    body = aj_error.get_body();
+  } else if (client_phone instanceof Error || applicant_phone instanceof Error) {
+    const error = client_phone instanceof Error ? client_phone : applicant_phone;
+    const aj_error = new Aj_error_phone_for_calltracking(error.message);
+    status = aj_error.status;
+    body = aj_error.get_body();
   } else {
     status = 200;
     body = {
@@ -55,8 +66,11 @@ router.get('/aj/calltracking', async function (ctx) {
       }
     };
   }
+
   ctx.status = status;
   ctx.body = body;
+
+  logger.info(ctx.body);
 });
 
 

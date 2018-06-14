@@ -2,9 +2,11 @@
 
 const Aj_errors_base = require('/p/pancake/errors/Aj_errors_base.js');
 
-module.exports = class Aj_error_no_phone_for_calltracking extends Aj_errors_base {
-  constructor() {
-    const message = 'There are no availables phones';
+module.exports = class Aj_error_phone_for_calltracking extends Aj_errors_base {
+  /**
+   * @param  {String} message
+   */
+  constructor(message) {
     super(message);
     this.message = message;
     this.set_status(422);

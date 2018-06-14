@@ -151,7 +151,9 @@ async function run() {
     // return response
     appUser.use(createEventRequest);
     appUser.use(accessSectionCity);
+
     appUser.use(callTracking);
+
     appUser.use(UTMCollector);
     appUser.use(LUIDHandler);
 

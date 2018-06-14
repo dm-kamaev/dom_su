@@ -1,8 +1,6 @@
 'use strict';
 
 
-// node /p/pancake/only_one/update_events_user_uuid.js > ~/update_events_user_uuid.log 2>&1 &
-
 const CONF = require('/p/pancake/settings/config.js');
 
 const db = require('/p/pancake/my/db2.js');
@@ -30,10 +28,10 @@ void async function () {
   var for_enables = [];
 
   // var MINUTE_3 = 180000;
-  var MINUTE_3 = 20000;
+  var MINUTE_1 = 1000 * 60 * 1; // every 1 minute
   phones.forEach(phone => {
-    console.log(new Date(phone.last_action), date, new Date(phone.last_action).getTime() < (date.getTime() - MINUTE_3));
-    if (new Date(phone.last_action).getTime() < (date.getTime() - MINUTE_3)) {
+    console.log(new Date(phone.last_action), date, new Date(phone.last_action).getTime() < (date.getTime() - MINUTE_1));
+    if (new Date(phone.last_action).getTime() < (date.getTime() - MINUTE_1)) {
       for_enables.push(phone);
     }
   });

@@ -24,14 +24,21 @@ module.exports = class Aj_error extends Error {
     return this._status;
   }
 
+  /**
+   * get_responce:
+   * @return {Object} { ok: false, { code: -1, text: '....text....' }}
+   */
   get body() {
     return this._body;
   }
 
-  get_responce() {
-    return {
-      ok: false,
-      error: this._body,
-    }
+
+  /**
+   * get_responce:
+   * @return {Object} { ok: false, { code: -1, text: '....text....' }}
+   */
+  get_body() {
+    return this._body;
   }
+
 };
