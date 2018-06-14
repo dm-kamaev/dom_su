@@ -114,7 +114,7 @@
       <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Клининговая компания Домовёнок"/></a>
   
       <div class="page-header__container">
-        <a class="page-header__container-link  page-header__container-link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>
+        <a class="page-header__container-link  page-header__container-link--orange" href="tel:{{ general.phoneHref }}" data-track-phone>{{ general.phoneCode }}  {{ general.phoneNumber }}</a>
         <a class="page-header__container-link" href="{{buildUrl general.city '/podderzhka'}}">Поддерживающая</a>
         <a class="page-header__container-link page-header__container-link--tablet-hide" href="{{buildUrl general.city '/mite_okon'}}">Мойка окон</a>
         <a class="page-header__container-link" href="{{buildUrl general.city '/private/auth'}}">Войти</a>
@@ -703,7 +703,7 @@
           <p class="section-ab__paragraph text-ab">Наш Домовёнок любит рассказывать, что в прежние-то времена хозяюшки целыми днями сидели в горнице, крестиком вышивали да чистоту в доме наводили. Времена изменились, а вот привычки почему-то нет. Для многих людей, которые ищут домработницу в Москве, — это по-прежнему что-то заморское, диковинное, непривычное. Да и от родных помощи по дому можно ждать неделями — у всех теперь свои дела. Вот и крутится хозяйка как белка в колесе — надо ведь быть и красивой, и успешной, и разносторонней личностью, и отдыхать со вкусом, и дом вести безупречно... Но на самом деле, хорошая домработница в Москве — не такое уж редкое явление. И встречается оно не только где-нибудь на Рублевке в хороших теремах за белокаменными заборами. Ведь для хорошего помощника по дому, которого Вы ищете, помощь по уборке квартиры, стирка, Глажка и мытье посуды — это вопрос одного рабочего дня!</p>
           <p class="section-ab__paragraph text-ab">Чтобы раз и навсегда решить квест под названием «Ищу домработницу в Москве», обратитесь в «Домовёнок» - мы поможем Вам её найти. Вам понравится позитивный настрой наших сотрудниц, их энтузиазм и искреннее желание сделать Вашу жизнь проще. В команде «Домовёнка» нет ни одной домомучительницы — есть лишь приветливые, доброжелательные помощницы!</p>
           <p class="section-ab__paragraph text-ab">Домработница на дом выполнит любые работы, не требующие специального оборудования и удаления сложных загрязнений. Услуги домработницы — это, прежде всего, помощь по дому. Поэтому, если Вам требуется Химчистка мебели или Мытьё окон в Москве — просто обратитесь в «Домовёнок»!</p>
-          <p class="section-ab__paragraph text-ab">Остались вопросы по услуге "Помощник по хозяйству"? Вы можете посоветоваться с «Домовенком», позвонив по телефону <a class="link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>.</p>
+          <p class="section-ab__paragraph text-ab">Остались вопросы по услуге "Помощник по хозяйству"? Вы можете посоветоваться с «Домовенком», позвонив по телефону <a class="link" href="tel:{{ general.phoneHref }}" data-track-phone>{{ general.phoneCode }}  {{ general.phoneNumber }}</a>.</p>
         </div>
       </section>
 
@@ -735,7 +735,7 @@
       
         <div class="page-footer-ab__row">
           <div class="page-footer-ab__column">
-            <p class="page-footer-ab__tel"><b class="text-ab text-ab--bold text-ab--lg-brown">Телефон:</b><a class="page-footer-ab__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
+            <p class="page-footer-ab__tel"><b class="text-ab text-ab--bold text-ab--lg-brown">Телефон:</b><a class="page-footer-ab__link  link" href="tel:{{ general.phoneHref }}" data-track-phone>{{ general.phoneCode }}  {{ general.phoneNumber }}</a></p>
             <div class="page-footer-ab__social-links  social-links">
               <a  class="social-link-ab  social-link-ab--grey" href="https://www.facebook.com/uborka.domovenok">
                 <svg  class="social-link-ab__icon  social-link-ab__icon--facebook" width="9.28" height="19.76" viewBox="0 0 9.28 19.76">
@@ -1056,7 +1056,7 @@
 
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.22"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.23"></script>
 <!-- /Java Script -->
 
 </body>

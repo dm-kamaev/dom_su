@@ -113,7 +113,7 @@
           <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Клининговая компания Домовёнок"/></a>
       
           <div class="page-header__container">
-            <a class="page-header__container-link  page-header__container-link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>
+            <a class="page-header__container-link  page-header__container-link--orange" href="tel:{{ general.phoneHref }}" data-track-phone>{{ general.phoneCode }}  {{ general.phoneNumber }}</a>
             <a class="page-header__container-link" href="{{buildUrl general.city '/podderzhka'}}">Поддерживающая</a>
             <a class="page-header__container-link page-header__container-link--tablet-hide" href="{{buildUrl general.city '/mite_okon'}}">Мойка окон</a>
             <a class="page-header__container-link" href="{{buildUrl general.city '/private/auth'}}">Войти</a>
@@ -290,7 +290,7 @@
                 </li>
               </ul>
               <p class="section__paragraph text">Детали, важные для Вас, никогда не ускользают от нашего внимания. Вот почему уборка производственных помещений в Санкт-Петербурге от клининговой компании «Домовёнок» приносит отличные результаты!</p>
-              <p class="section__paragraph text">Все виды услуг по уборке производств, квартир и офисов, предлагаемых компанией «Домовенок», можно уточнить на сайте или у наших менеджеров. Если Вы хотите заказать услуги профессиональной уборки промышленных помещений, обратитесь к «Домовенку». Опытные специалисты, оперативный сервис и невысокая стоимость уборки – преимущества, которые не оставят Вас равнодушными. Вы можете заказать услуги по уборке производственных цехов, квартир, офисов по телефону <a class="link link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>.</p>
+              <p class="section__paragraph text">Все виды услуг по уборке производств, квартир и офисов, предлагаемых компанией «Домовенок», можно уточнить на сайте или у наших менеджеров. Если Вы хотите заказать услуги профессиональной уборки промышленных помещений, обратитесь к «Домовенку». Опытные специалисты, оперативный сервис и невысокая стоимость уборки – преимущества, которые не оставят Вас равнодушными. Вы можете заказать услуги по уборке производственных цехов, квартир, офисов по телефону <a class="link link--orange" href="tel:{{ general.phoneHref }}" data-track-phone>{{ general.phoneCode }}  {{ general.phoneNumber }}</a>.</p>
               <p class="section__paragraph text"><b class="text text--bold text--lg-brown">«Домовёнок» - лучшая компания по уборке помещений!</b></p>
             </div>
           </section>
@@ -336,7 +336,7 @@
           
             <div class="page-footer-ab__row">
               <div class="page-footer-ab__column">
-                <p class="page-footer__tel"><b class="text text--bold text--lg-brown">Телефон:</b><a class="page-footer__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
+                <p class="page-footer__tel"><b class="text text--bold text--lg-brown">Телефон:</b><a class="page-footer__link  link" href="tel:{{ general.phoneHref }}" data-track-phone>{{ general.phoneCode }}  {{ general.phoneNumber }}</a></p>
                 <div class="page-footer-ab__social-links  social-links">
                   <a  class="social-link-ab  social-link-ab--grey" href="https://www.facebook.com/uborka.domovenok">
                     <svg  class="social-link-ab__icon  social-link-ab__icon--facebook" width="9.28" height="19.76" viewBox="0 0 9.28 19.76">
@@ -585,7 +585,7 @@
 
     
     <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-    <script src="/static/pancake/js/bundle.min.js?v1.22"></script>
+    <script src="/static/pancake/js/bundle.min.js?v1.23"></script>
 <!-- /Java Script -->
 
 </body>
