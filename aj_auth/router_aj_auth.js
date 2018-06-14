@@ -27,10 +27,12 @@ router.get('/aj/logout', async function (ctx) {
 // responce –– {
 //   ok: true,
 //   data: {
-//     clientPhone: '74957893224',
-//     applicantPhone: '7495666666666'
+//     clientPhone: '4957893224',
+//     applicantPhone: '495666666666'
 //   }
 // }
+// responce ––  {\"ok\":false,\"error\":{\"code\":-6,\"text\":\"Already exist phone\"}
+// responce –– {\"ok\":false,\"error\":{\"code\":-6,\"text\":\"Over the phones\"}}
 router.get('/aj/calltracking', async function (ctx) {
   let client_phone;
   let applicant_phone;
@@ -82,6 +84,6 @@ router.get('/aj/calltracking', async function (ctx) {
 function format_phone(phone) {
   phone = phone+'';
   // order is imortant
-  return phone.replace(/^8{1}/, '').replace(/\+7/, '');
+  return phone.replace(/^\+/, '').replace(/^8{1}/, '').replace(/^7{1}/, '');
 }
 

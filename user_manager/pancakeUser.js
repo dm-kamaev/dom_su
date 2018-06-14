@@ -1,4 +1,6 @@
 'use strict';
+
+const CONF = require('/p/pancake/settings/config.js');
 const {QueueAsync} = require('./queue');
 const { models } = require('models');
 const {User, UTMS, Visit, Phone, Token, PendingToken, Employee, Client, ActionToken} = models;
@@ -230,16 +232,12 @@ class PancakeUser {
     const me = this;
     const uuid = me.uuid;
     const headers = this.ctx.headers;
-    // FOR TEST
-    // |
-    // |
-    // V
-    // set reffer and use tab chrome in mode incognito
-    // this.ctx.headers.referer = 'https://yandex.ru';
 
     if (me.its_robot()) {
+      _logger.info(`${uuid} checkTrackNeed => its_robot return false`);
       return false;
     }
+
     var _logger = {
       info: function(str) {
         const url = me.ctx.request.url;
@@ -261,10 +259,10 @@ class PancakeUser {
     }
 
     let referer = headers.referer;
-    // _logger.info(`${uuid} checkTrackNeed => !referer || !/domovenok/.test(referer) `+((!referer || !/domovenok/.test(referer)) ? 'return false' : 'skip'));
-    _logger.info(`${uuid} checkTrackNeed => !referer `+((!referer) ? 'return false' : 'skip'));
-    // if (!referer || !/domovenok/.test(referer)) {
-    if (!referer) {
+    _logger.info(`${uuid} checkTrackNeed => !referer || !/domovenok/.test(referer) `+((!referer || !/domovenok/.test(referer)) ? 'return false' : 'skip'));
+    // _logger.info(`${uuid} checkTrackNeed => !referer `+((!referer) ? 'return false' : 'skip'));
+    if (!referer || !/domovenok/.test(referer)) {
+    // if (!referer) {
       return false;
     }
 
@@ -276,8 +274,11 @@ class PancakeUser {
       return false;
     }
 
-    const ip = headers['x-real-ip'];
-    // FOR TEST
+    let ip = headers['x-real-ip'];
+    if (CONF.is_dev) {
+      ip = '79.137.213.2'; // mocha for test
+    }
+    // FOR TEST DEV
     //      |
     //      V
     // const ip = '79.137.213.2';
