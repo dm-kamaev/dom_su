@@ -232,12 +232,18 @@ class PancakeUser {
     const me = this;
     const uuid = me.uuid;
     const headers = this.ctx.headers;
+    const cookies = this.ctx.cookies
+    const v_id = cookies.get('v_id');
+    // FOR TEST
+    // |
+    // |
+    // V
+    // set reffer and use tab chrome in mode incognito
+    // this.ctx.headers.referer = 'https://yandex.ru';
 
     if (me.its_robot()) {
-      _logger.info(`${uuid} checkTrackNeed => its_robot return false`);
       return false;
     }
-
     var _logger = {
       info: function(str) {
         const url = me.ctx.request.url;
@@ -252,17 +258,26 @@ class PancakeUser {
       return true;
     }
 
-    _logger.info(`${uuid} checkTrackNeed => this.isNew !== true `+((this.isNew !== true) ? 'return false' : 'skip'));
+    // _logger.info(`${uuid} checkTrackNeed => this.isNew !== true `+((this.isNew !== true) ? 'return false' : 'skip'));
+    _logger.info(`${uuid} checkTrackNeed => first_visit `+((v_id) ? 'return false' : 'skip'));
     // is not newest user
-    if (this.isNew !== true) {
+    if (v_id) {
+    // if (this.isNew !== true) {
       return false;
+    } else {
+      // set cookie for first visit
+      cookies.set('v_id', Date.now()+'__'+headers['x-real-ip'], {
+        httpOnly: false,
+        domain: headers.host,
+        maxAge: 9 * 365 * 24 * 60 * 60 * 1000
+      });
     }
 
     let referer = headers.referer;
-    _logger.info(`${uuid} checkTrackNeed => !referer || !/domovenok/.test(referer) `+((!referer || !/domovenok/.test(referer)) ? 'return false' : 'skip'));
-    // _logger.info(`${uuid} checkTrackNeed => !referer `+((!referer) ? 'return false' : 'skip'));
-    if (!referer || !/domovenok/.test(referer)) {
-    // if (!referer) {
+    // _logger.info(`${uuid} checkTrackNeed => !referer || !/domovenok/.test(referer) `+((!referer || !/domovenok/.test(referer)) ? 'return false' : 'skip'));
+    _logger.info(`${uuid} checkTrackNeed => !referer `+((!referer) ? 'return false' : 'skip'));
+    // if (!referer || !/domovenok/.test(referer)) {
+    if (!referer) {
       return false;
     }
 
@@ -275,13 +290,13 @@ class PancakeUser {
     }
 
     let ip = headers['x-real-ip'];
-    if (CONF.is_dev) {
-      ip = '79.137.213.2'; // mocha for test
-    }
-    // FOR TEST DEV
+    // FOR TEST
     //      |
     //      V
-    // const ip = '79.137.213.2';
+    if (CONF.is_dev) {
+      ip = '79.137.213.2';
+    }
+
     _logger.info(`${uuid} checkTrackNeed => !ip `+((!ip) ? 'return false': 'skip'));
     if (!ip) {
       return false;
@@ -324,6 +339,18 @@ class PancakeUser {
     }
     _logger.info(`${uuid} checkTrackNeed => the end return true`);
     return true;
+  }
+
+  setTrackWaiting(waiting) {
+    if (this.track.waiting === waiting) {
+      return;
+    }
+    this.queue.push(async function (previousResult, pancakeUser) {
+      pancakeUser.track.waiting = waiting;
+      pancakeUser.model.set('data.track.waiting', waiting);
+      await pancakeUser.model.save();
+      return pancakeUser.model;
+    });
   }
 
   setTrackWaiting(waiting) {
