@@ -8,6 +8,7 @@ const {taskEventCreate} = require('./task');
 const {saveAndSend} = require('tickets');
 const {URL} = require('url');
 const validateUUID = require('uuid-validate');
+const geo_ip = require('geo-from-ip');
 // const logger = require('logger')(module);
 const moment = require('moment');
 const city_api = require('/p/pancake/cities/city_api.js');
@@ -228,6 +229,7 @@ class PancakeUser {
     // return true;
     const me = this;
     const uuid = me.uuid;
+    const headers = this.ctx.headers;
     // FOR TEST
     // |
     // |
@@ -235,9 +237,13 @@ class PancakeUser {
     // set reffer and use tab chrome in mode incognito
     // this.ctx.headers.referer = 'https://yandex.ru';
 
+    if (me.its_robot()) {
+      return false;
+    }
     var _logger = {
       info: function(str) {
-        if (me.ctx.request.url === '/') {
+        const url = me.ctx.request.url;
+        if (url === '/' || url === '/aj/calltracking') {
           logger.info(str);
         }
       }
@@ -254,20 +260,52 @@ class PancakeUser {
       return false;
     }
 
-    _logger.info(`${uuid} checkTrackNeed => this.ctx.headers.referer === undefined `+((this.ctx.headers.referer === undefined) ? 'return false' : 'skip'));
-    if (this.ctx.headers.referer === undefined) {
+    let referer = headers.referer;
+    // _logger.info(`${uuid} checkTrackNeed => !referer || !/domovenok/.test(referer) `+((!referer || !/domovenok/.test(referer)) ? 'return false' : 'skip'));
+    _logger.info(`${uuid} checkTrackNeed => !referer `+((!referer) ? 'return false' : 'skip'));
+    // if (!referer || !/domovenok/.test(referer)) {
+    if (!referer) {
       return false;
     }
 
-
-    let referer;
-    try{
-      referer = new URL(this.ctx.headers.referer);
+    try {
+      referer = new URL(referer);
       _logger.info(`${uuid} checkTrackNeed => referer = new URL(this.ctx.headers.referer) skip`);
     } catch (error){
       _logger.info(`${uuid} checkTrackNeed => referer = new URL(this.ctx.headers.referer) return false`);
       return false;
     }
+
+    const ip = headers['x-real-ip'];
+    // FOR TEST
+    //      |
+    //      V
+    // const ip = '79.137.213.2';
+    _logger.info(`${uuid} checkTrackNeed => !ip `+((!ip) ? 'return false': 'skip'));
+    if (!ip) {
+      return false;
+    }
+
+    try {
+      // {"code":{"state":null,"country":"RU","continent":"EU"},"city":null,"state":null,"country":"Russia","continent":"Europe","location":{"accuracy_radius":1000,"latitude":55.7386,"longitude":37.6068}}
+      // OR
+      // { code: {}, error: 'NA', ip: '192.168.2.6' }
+      const geo_data = geo_ip.allData(ip);
+      _logger.info(`${uuid} checkTrackNeed => !/Russia/.test(data.country) `+((!/Russia/.test(geo_data.country)) ? 'return false': 'skip'));
+      _logger.info(`${uuid} geoData= ${JSON.stringify(geo_data)}`);
+      if (geo_data.error) {
+        _logger.info(`${uuid} geo_data.error = ${JSON.stringify(geo_data)}`);
+        return false;
+      }
+      if (!/Russia/.test(geo_data.country)) {
+        return false;
+      }
+    } catch (err) {
+      logger.warn(err);
+      _logger.info(`${uuid} checkTrackNeed => ERROR !/Russia/.test(geo_data.country) return false`);
+      return false;
+    }
+
 
     banRefererRegexp.lastIndex = 0;
 
@@ -278,7 +316,7 @@ class PancakeUser {
 
     // Check IP
     for (let filterIP of banIPAddressListRegExp){
-      if (filterIP.test(this.ctx.request.header['x-real-ip'])){
+      if (filterIP.test(headers['x-real-ip'])){
         _logger.info(`${uuid} checkTrackNeed => filterIP.test(this.ctx.request.header['x-real-ip']) return false`);
         return false;
       }
@@ -299,15 +337,30 @@ class PancakeUser {
     });
   }
 
-  // set track number for client
+  /**
+   * set_track_number_for_client: set track number for client
+   * @return {Number || Error_track_number} +79067893421 || error
+   */
   async set_track_number_for_client() {
     const me = this;
     logger.log(`${me.uuid} set_track_number_for_client`);
     if (this.track.numbers && this.track.numbers[this.city.keyword]) {
-      return;
+      return new Error_track_number('Already exist phone');
     }
     logger.log(`${me.uuid} after return`);
 
+    // SELECT
+    //   *
+    // FROM
+    //   phones
+    // WHERE
+    //   city_id=1
+    //   AND
+    //   living=false
+    //   AND
+    //   active=true
+    //   AND
+    //   category_type='client'
     const phone = await Phone.findOne({
       where: {
         city_id: this.city.id,
@@ -319,7 +372,8 @@ class PancakeUser {
     const phone_log = (phone && phone.dataValues) ? JSON.stringify(phone.dataValues) : null;
     logger.log(`${me.uuid} phone= ${phone_log}`);
     if (phone) {
-      this.track.numbers[this.city.keyword] = phone.number;
+      const phone_number = phone.number;
+      this.track.numbers[this.city.keyword] = phone_number;
       this.queue.push(async function (previousResult, pancakeUser) {
         // logger.log(`${me.uuid} client set data.track.numbers.${pancakeUser.city.keyword} `+pancakeUser.track.numbers[pancakeUser.city.keyword]);
         pancakeUser.model.set(`data.track.numbers.${pancakeUser.city.keyword}`, pancakeUser.track.numbers[pancakeUser.city.keyword]);
@@ -329,15 +383,21 @@ class PancakeUser {
         await phone.save();
         return phone;
       });
+      return phone_number;
+    } else {
+      return new Error_track_number('Over the phones');
     }
   }
 
-  // set track number for applicant(potenial employee)
+  /**
+   * set_track_number_for_client: set track number for applicant(potenial employee)
+   * @return {Number || Error_track_number} +79067893421 || error
+   */
   async set_track_number_for_applicant() {
     const applicant_numbers = this.track.applicant_numbers;
     const city_keyword = this.city.keyword; // exmaple: moscow
     if (applicant_numbers && applicant_numbers[city_keyword]) {
-      return;
+      new Error_track_number('Already exist phone');
     }
 
     const phone = await Phone.findOne({
@@ -349,7 +409,8 @@ class PancakeUser {
       }
     });
     if (phone) {
-      applicant_numbers[city_keyword] = phone.number;
+      const phone_number = phone.number;
+      applicant_numbers[city_keyword] = phone_number;
       this.queue.push(async function (previousResult, pancakeUser) {
         pancakeUser.model.set(`data.track.applicant_numbers.${pancakeUser.city.keyword}`, pancakeUser.track.applicant_numbers[pancakeUser.city.keyword]);
         await pancakeUser.model.save();
@@ -358,6 +419,9 @@ class PancakeUser {
         await phone.save();
         return phone;
       });
+      return phone_number;
+    } else {
+      return new Error_track_number('Over the phones');
     }
   }
 
@@ -681,6 +745,15 @@ class PancakeUser {
   }
 }
 
+class Error_track_number extends Error {
+  /**
+   * @param {String} msg
+   */
+  constructor(msg)  {
+    super(msg);
+    this.message = msg;
+  }
+}
 
 
 

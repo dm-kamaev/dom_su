@@ -524,7 +524,7 @@ paymentsRouter.post('/payments/notification/', async function (ctx) {
 // request ––
 // {
 //   redirect: true,
-//   order_id: 'ORD-1521872',
+//   order_id: 'ORD-1521872' || 'INV-000014035',
 //   amount: 2490
 // }
 paymentsRouter.post('/payments/take/', async function (ctx) {

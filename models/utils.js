@@ -140,6 +140,8 @@ async function scrollModel(model, opts, include) {
             review
           FROM
             reviews
+          WHERE
+            active = true
           ORDER BY
             coefficient_for_sort DESC
           LIMIT 20
@@ -173,6 +175,8 @@ async function search_prev_reviews(reviews, review_id) {
       id
     FROM
       reviews
+    WHERE
+      active = true
     ORDER BY
       coefficient_for_sort DESC
   `, sequelize_option);

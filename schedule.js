@@ -18,7 +18,10 @@ const { getState } = require('payments');
 const moment = require('moment');
 
 const MAX_STAGNATION_VISIT_MINUTE = 15;
-const MAX_STAGNATION_TAKE_NUMBER_MINUTE = 10;
+
+// const MAX_STAGNATION_TAKE_NUMBER_MINUTE = 10;
+const MAX_STAGNATION_TAKE_NUMBER_MINUTE = 5;
+
 const MAX_STAGNATION_ACTION_TOKEN_MINUTE = 2 * 24 * 60;
 // const CRON_VISIT = 1;
 const CRON_NUMBER = 1;
@@ -118,7 +121,9 @@ function setVisitFinish() {
     });
 }
 
+
 function cleanPhoneNumber() {
+  console.log('===cleanPhoneNumber===');
   sequelize.query(
     'UPDATE phones ' +
         // 'SET (living) = (false) ' +
@@ -131,6 +136,7 @@ function cleanPhoneNumber() {
         'RETURNING phones.user_uuid'
   )
     .spread(async function(results, metadata) {
+      console.log('results=', results);
       if (results.length > 0){
         let user_uuid_list = [];
         for (let item of results){
