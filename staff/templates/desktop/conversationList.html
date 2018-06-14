@@ -53,15 +53,29 @@
 <div>
     <button class="openForm" type="button" style="background: none; border:none; border-bottom: 1px dashed; font-size: 14px; font-style:italic; cursor:pointer;">Создать обращение</button>
 </div>
-<form action="" method="POST" enctype="multipart/form-data" class="form" style="z-index:2; display: none;position: fixed; top:200px;right:50%;transform: translateX(50%);width: 500px; background-color: #fff;padding:30px;">
+<form  id=create_conversation action="" method="POST" enctype="multipart/form-data" class="form" style="z-index:2; display: none;position: fixed; top:200px;right:50%;transform: translateX(50%);width: 500px; background-color: #fff;padding:30px;">
 <svg class="form__close" style="cursor:pointer;position:absolute; right: 20px; top: 20px;" width="19" height="19" viewBox="0 0 19 19">
           <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"></line>
           <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"></line>
         </svg>
 <h2 style="font-size:24px;margin-bottom: 20px;">Новое обращение</h2>
-	<label  style="font-size: 14px;display: flex;margin-bottom: 20px;">Название:<input name="subject" style="margin-left: 29px;     width: 100%; padding: 10px 30px;border-radius: 3px; border: 1px solid #d2b093;" type="text" required></label>
-	<label style="font-size: 14px;display: flex;margin-bottom: 20px;">Сообщение:<textarea name="content" required rows="7" cols="47" style="margin-left: 15px;     width: 100%;padding: 10px 30px; border-radius: 3px;border: 1px solid #d2b093;" type="text"></textarea></label>
-	<button style="margin: auto;display: flex;justify-content: center;background-color: #fd8204;border: none;color: #fff;padding: 10px 30px;cursor:pointer;" type="submit">Создать</button>
+    <label  style="font-size: 14px;display: flex;margin-bottom: 20px;">
+        Название:
+        <input id=conversation_subject name=subject value='' style="display:none" type=text>
+        <select name="conversation_type_id" id="select-native-1" style=margin-left:8px required>
+          <option value=not_selected selected>Не выбрано</option>
+          {{#each conversation_type_list as |type| }}
+            <option value='{{type.ConversationTypeID}}'>{{type.ConversationTypeTitle}}</option>
+          {{/each}}
+        </select>
+      <!-- <input name="subject" style="margin-left: 29px;width: 100%; padding: 10px 30px;border-radius: 3px; border: 1px solid #d2b093;" type="text" required> -->
+    </label>
+    <p id=select-native-1_error style=color:red></p>
+    <label style="font-size: 14px;display: flex;margin-bottom: 20px;">
+      Сообщение:
+      <textarea name="content" required rows="7" cols="47" style="margin-left: 15px;     width: 100%;padding: 10px 30px; border-radius: 3px;border: 1px solid #d2b093;" type="text"></textarea>
+    </label>
+  <button style="margin: auto;display: flex;justify-content: center;background-color: #fd8204;border: none;color: #fff;padding: 10px 30px;cursor:pointer;" type="submit">Создать</button>
 </form>
 <div class="form__back" style="display: none;cursor: pointer; position: fixed;top: 0;right: 0; bottom: 0;left: 0;z-index: 1;background-color: rgba(0,0,0,.6);"></div>
         <script>
@@ -71,24 +85,24 @@ var formClose = form.querySelector('.form__close');
 var formBack = document.querySelector('.form__back');
 if (formClose) {
 formClose.addEventListener('click', function(e){
-		e.preventDefault();
-		form.style.display = 'none';
-		formBack.style.display = 'none';
+    e.preventDefault();
+    form.style.display = 'none';
+    formBack.style.display = 'none';
 })
 }
 if (formBack) {
 formBack.addEventListener('click', function(e){
-		e.preventDefault();
-		form.style.display = 'none';
-		formBack.style.display = 'none';
+    e.preventDefault();
+    form.style.display = 'none';
+    formBack.style.display = 'none';
 })
 }
 if (btnOpenForm) {
-	btnOpenForm.addEventListener('click', function(e){
-		e.preventDefault();
-		form.style.display = 'block';
-		formBack.style.display = 'block';
-	})
+  btnOpenForm.addEventListener('click', function(e){
+    e.preventDefault();
+    form.style.display = 'block';
+    formBack.style.display = 'block';
+  })
 }})();
     </script>
     {{#each conversationList as |conversation|}}
@@ -142,6 +156,7 @@ if (btnOpenForm) {
 <!--.main-->
 
     <script>
+    var getById = function (id) { return document.getElementById(id); };
     (function() {
         function getTarget(e) {
             return e && e.target || e.srcElement;
@@ -177,7 +192,28 @@ if (btnOpenForm) {
             };
         }
 
-    }())
+    }());
+
+    // check selected type conversation
+    void function () {
+
+      var subject;
+      $("#select-native-1").change(function(event, ui) {
+        var option_selected = $(this).find('option:selected');
+        subject = option_selected.text();
+      });
+
+      getById('create_conversation').onsubmit = function (e) {
+        var $select_error = getById('select-native-1_error');
+        $select_error.innerHTML = '';
+        if (getById('select-native-1').value === 'not_selected') {
+          $select_error.innerHTML = '* Выберите вид обращения';
+          return e.preventDefault();
+        }
+        getById('conversation_subject').value = subject;
+      };
+
+   }();
     </script>
 </body>
 </html>
