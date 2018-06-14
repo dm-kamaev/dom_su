@@ -1,5 +1,7 @@
 'use strict';
 const {QueueAsync} = require('./queue');
+const logger = require('/p/pancake/lib/logger.js');
+const json = require('/p/pancake/my/json.js');
 const {models} = require('models');
 const {User, UTMS, Phone} = models;
 const {saveAndSend} = require('tickets');
@@ -17,10 +19,13 @@ class PancakeService {
   async setTrackDone(data) {
     let phone = await Phone.findOne({where: {number: data.phone}});
     if (phone == null) {
+      // logger.log(`handler_tracking_call5:: Post call tracking | Phone - ${data.phone} - not found`);
       throw new Error(`Post call tracking | Phone - ${data.phone} - not found`);
     }
+
     let user = await User.findOne({where: {uuid: phone.user_uuid}});
     if (user == null){
+      // logger.log(`handler_tracking_call5:: Post call tracking | On Phone - ${phone.number + ' | User uuid - ' + phone.uuid} - not found`);
       throw new Error(`Post call tracking | On Phone - ${phone.number + ' | User uuid - ' + phone.uuid} - not found`);
     }
     let ticket = {
@@ -30,6 +35,7 @@ class PancakeService {
       user_id: user.uuid,
     };
     if (user == null){
+      // logger.log(`handler_tracking_call5:: Post call tracking | User on Phone - ${data.phone} - not found`);
       throw new Error(`Post call tracking | User on Phone - ${data.phone} - not found`);
     }
     // {
@@ -44,6 +50,7 @@ class PancakeService {
     //         }
     //     }]
     // }
+    // logger.log(`handler_tracking_call5:: NewTrackingCall ${JSON.stringify(ticket)}`);
     this.sendTicket('NewTrackingCall', ticket);
     this.sendDataGA({
       'v': 1,
@@ -65,9 +72,11 @@ class PancakeService {
     });
   }
 
-  sendDataGA(data){
-    this.queue.push(async function (previousResult, pancakeService) {
-      let connectParam = {
+  async sendDataGA(data){
+    const me = this;
+    try {
+      // logger.log(`handler_tracking_call5:: sendDataGA: ${JSON.stringify(data)}`);
+      const connectParam = {
         hostname: 'www.google-analytics.com',
         port: 80,
         path: '/collect',
@@ -76,8 +85,42 @@ class PancakeService {
           'User-Agent': 'AstDom'
         }
       };
-      await pancakeService.sendRequest(connectParam, querystring.stringify(data), 20);
-    });
+      const res = await me.sendRequest(connectParam, querystring.stringify(data), 20);
+      // logger.log(`handler_tracking_call5:: connectParam: ${JSON.stringify(connectParam)}`);
+      // logger.log(`handler_tracking_call5:: data: ${JSON.stringify(data)}`);
+      // logger.log(`handler_tracking_call5:: send to Google analytics: `);
+      // logger.log(`handler_tracking_call5::`+JSON.stringify(res));
+    } catch (err) {
+      me.sendRequest(connectParam, querystring.stringify(data), 20).catch((err) => {
+        logger.warn('handler_tracking_call5:: Error send to Google analytics '+err);
+      });
+    }
+
+    // const me = this;
+    // me.queue.push(async function (previousResult, pancakeService) {
+    //   try {
+    //     logger.log(`handler_tracking_call5:: sendDataGA: ${JSON.stringify(data)}`);
+    //     const connectParam = {
+    //       hostname: 'www.google-analytics.com',
+    //       port: 80,
+    //       path: '/collect',
+    //       method: 'POST',
+    //       headers: {
+    //         'User-Agent': 'AstDom'
+    //       }
+    //     };
+    //     const res = await me.sendRequest(connectParam, querystring.stringify(data), 20);
+    //     logger.log(`handler_tracking_call5:: connectParam: ${JSON.stringify(connectParam)}`);
+    //     logger.log(`handler_tracking_call5:: data: ${JSON.stringify(data)}`);
+    //     logger.log(`handler_tracking_call5:: send to Google analytics: `);
+    //     logger.log(`handler_tracking_call5::`+JSON.stringify(res));
+    //   } catch (err) {
+    //     me.sendRequest(connectParam, querystring.stringify(data), 20).catch((err) => {
+    //       logger.warn('handler_tracking_call5:: Error send to Google analytics '+err);
+    //     });
+    //   }
+    //   return res;
+    // });
   }
 
   sendTicket(type, data, user_uuid) {

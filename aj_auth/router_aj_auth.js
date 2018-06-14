@@ -27,8 +27,8 @@ router.get('/aj/logout', async function (ctx) {
 // responce –– {
 //   ok: true,
 //   data: {
-//     clientPhone: '74957893224',
-//     applicantPhone: '7495666666666'
+//     clientPhone: '4957893224',
+//     applicantPhone: '495666666666'
 //   }
 // }
 router.get('/aj/calltracking', async function (ctx) {

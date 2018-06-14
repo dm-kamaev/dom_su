@@ -17,6 +17,14 @@ json.str = function (obj) {
   }
 };
 
+// in one str without format
+json.one_str = function (obj) {
+  try {
+    return JSON.stringify(obj);
+  } catch (err) {
+    return err;
+  }
+};
 
 json.parse = function (str) {
   try {
