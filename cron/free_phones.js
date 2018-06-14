@@ -30,7 +30,8 @@ void async function () {
     var for_enables = [];
 
     // var MINUTE_3 = 180000;
-    var MINUTE_1 = 1000 * 60 * 1; // every 1 minute
+    // var MINUTE_1 = 1000 * 60 * 1; // every 1 minute
+    var MINUTE_1 = 1000 * 40; // every 40 sec
     phones.forEach(phone => {
       console.log(new Date(phone.last_action), date, new Date(phone.last_action).getTime() < (date.getTime() - MINUTE_1));
       if (new Date(phone.last_action).getTime() < (date.getTime() - MINUTE_1)) {
