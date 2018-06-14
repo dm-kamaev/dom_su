@@ -260,11 +260,13 @@ class PancakeUser {
 
     // _logger.info(`${uuid} checkTrackNeed => this.isNew !== true `+((this.isNew !== true) ? 'return false' : 'skip'));
     _logger.info(`${uuid} checkTrackNeed => first_visit `+((v_id) ? 'return false' : 'skip'));
+    console.log('v_id=', v_id);
     // is not newest user
     if (v_id) {
     // if (this.isNew !== true) {
       return false;
     } else {
+      console.log('Set_cookie', headers.host);
       // set cookie for first visit
       cookies.set('v_id', Date.now()+'__'+headers['x-real-ip'], {
         httpOnly: false,
@@ -276,8 +278,7 @@ class PancakeUser {
     let referer = headers.referer;
     // _logger.info(`${uuid} checkTrackNeed => !referer || !/domovenok/.test(referer) `+((!referer || !/domovenok/.test(referer)) ? 'return false' : 'skip'));
     _logger.info(`${uuid} checkTrackNeed => !referer `+((!referer) ? 'return false' : 'skip'));
-    // if (!referer || !/domovenok/.test(referer)) {
-    if (!referer) {
+    if (!referer || !/domovenok/.test(referer)) {
       return false;
     }
 
@@ -290,9 +291,6 @@ class PancakeUser {
     }
 
     let ip = headers['x-real-ip'];
-    // FOR TEST
-    //      |
-    //      V
     if (CONF.is_dev) {
       ip = '79.137.213.2';
     }
