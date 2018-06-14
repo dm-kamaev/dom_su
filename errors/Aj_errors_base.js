@@ -27,4 +27,11 @@ module.exports = class Aj_error extends Error {
   get body() {
     return this._body;
   }
+
+  get_responce() {
+    return {
+      ok: false,
+      error: this._body,
+    }
+  }
 };
