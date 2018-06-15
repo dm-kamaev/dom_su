@@ -55,29 +55,29 @@ koa_morgan.token('responce_body_and_log_auth_user', function(req) {
 
   // only json
   const str_responce_body = (responce_body instanceof Object) ? JSON.stringify(responce_body) : '';
-  logger_for_auth_user.init(ctx).then(() => {
-    const user = ctx.state.pancakeUser || {};
-    const context = ctx.state.context;
+  // logger_for_auth_user.init(ctx).then(() => {
+  //   const user = ctx.state.pancakeUser || {};
+  //   const context = ctx.state.context;
 
-    const request_body = ctx.request.body;
-    const str_request_body = (request_body instanceof Object) ? JSON.stringify(request_body) : '';
-    const msg = [
-      time.format('[YYYY/MM/DD hh:mm:ss]'),
-      user.uuid,
-      context.get('hit_id'),
-      req.method,
-      req.url,
-      JSON.stringify(req.headers),
-      str_request_body,
-      str_responce_body,
-    ].join(' | ');
+  //   const request_body = ctx.request.body;
+  //   const str_request_body = (request_body instanceof Object) ? JSON.stringify(request_body) : '';
+  //   const msg = [
+  //     time.format('[YYYY/MM/DD hh:mm:ss]'),
+  //     user.uuid,
+  //     context.get('hit_id'),
+  //     req.method,
+  //     req.url,
+  //     JSON.stringify(req.headers),
+  //     str_request_body,
+  //     str_responce_body,
+  //   ].join(' | ');
 
-    // console.log('HERE', msg);
-    // if auth write user's file
-    return logger_for_auth_user.log(msg);
-  }).catch(err =>{
-    logger.warn(err);
-  });
+  //   // console.log('HERE', msg);
+  //   // if auth write user's file
+  //   return logger_for_auth_user.log(msg);
+  // }).catch(err =>{
+  //   logger.warn(err);
+  // });
   return str_responce_body;
 });
 
@@ -95,7 +95,7 @@ access_logger.to_file = function() {
     interval: '1d', // rotate daily
     path: folder,
     compress: function(source, dest) { // Modified compress function, add extension .gz
-      return 'cat ' + source + ' | gzip -c9 > ' + dest + '.gz;';
+      return 'cat ' + source + ' | gzip -c9 > ' + dest + '.gz;'+
       // Also removes logs older than 30 days
       ' rm -f ' + dest +';'+
       ' find /p/log/access_log/*access_log_pancake.log -mtime +30 -delete;'+

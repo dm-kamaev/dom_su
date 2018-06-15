@@ -113,7 +113,7 @@
         <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Клининговая компания Домовёнок"/></a>
     
         <div class="page-header__container">
-          <a class="page-header__container-link  page-header__container-link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>
+          <a class="page-header__container-link  page-header__container-link--orange" href="tel:{{ general.phoneHref }}" data-track-phone>{{ general.phoneCode }}  {{ general.phoneNumber }}</a>
           <a class="page-header__container-link" href="{{buildUrl general.city '/podderzhka'}}">Поддерживающая</a>
           <a class="page-header__container-link page-header__container-link--tablet-hide" href="{{buildUrl general.city '/mite_okon'}}">Мойка окон</a>
           <a class="page-header__container-link" href="{{buildUrl general.city '/private/auth'}}">Войти</a>
@@ -201,7 +201,7 @@
 
                     <div class="service-condition__paragraph">
                         <h3 class="service-condition__heading title">Пример №2</h3>
-                        <p class="service-condition__text text">Однажды Иван-царевич заказал в нашей компании мытьё окон и застеклённого балкона своего терема. К сожалению, домовёнок, приехавший выполнить заказ, в этот день плохо себя чувствовал. По словам хозяина, работа была выполнена на твёрдую «четвёрку». Именно так он и сказал менеджеру, в тот же день позвонив по телефону: <a class="link link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>. Но домовята — отличники, а не хорошисты! Поэтому на место происшествия был вызван ещё один домовёнок, на сей раз — полный сил и энтузиазма. Окна были помыты на «пять с плюсом» — разумеется, безо всякой доплаты со стороны клиента!</p>
+                        <p class="service-condition__text text">Однажды Иван-царевич заказал в нашей компании мытьё окон и застеклённого балкона своего терема. К сожалению, домовёнок, приехавший выполнить заказ, в этот день плохо себя чувствовал. По словам хозяина, работа была выполнена на твёрдую «четвёрку». Именно так он и сказал менеджеру, в тот же день позвонив по телефону: <a class="link link--orange" href="tel:{{ general.phoneHref }}" data-track-phone>{{ general.phoneCode }}  {{ general.phoneNumber }}</a>. Но домовята — отличники, а не хорошисты! Поэтому на место происшествия был вызван ещё один домовёнок, на сей раз — полный сил и энтузиазма. Окна были помыты на «пять с плюсом» — разумеется, безо всякой доплаты со стороны клиента!</p>
                     </div>
                     <p class="section__paragraph text">Никто не может гарантировать, что люди всегда будут работать идеально. Не ошибается лишь тот, кто ничего не делает! Зато, в свою очередь, мы можем дать 100% гарантию, что любые недосмотры и недочёты будут бесплатно исправлены. Компания несёт полную ответственность за все выполненные работы: в этом наше серьёзное конкурентное преимущество. Просто не забудьте сообщить о проблеме не более, чем через 24 часа после оказания услуг. Мы приложим все усилия, чтобы порадовать Вас результатами нашего труда!</p>
                 </div>
@@ -273,7 +273,7 @@
             
               <div class="page-footer-ab__row">
                 <div class="page-footer-ab__column">
-                  <p class="page-footer__tel"><b class="text text--bold text--lg-brown">Телефон:</b><a class="page-footer__link  link" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a></p>
+                  <p class="page-footer__tel"><b class="text text--bold text--lg-brown">Телефон:</b><a class="page-footer__link  link" href="tel:{{ general.phoneHref }}" data-track-phone>{{ general.phoneCode }}  {{ general.phoneNumber }}</a></p>
                   <div class="page-footer-ab__social-links  social-links">
                     <a  class="social-link-ab  social-link-ab--grey" href="https://www.facebook.com/uborka.domovenok">
                       <svg  class="social-link-ab__icon  social-link-ab__icon--facebook" width="9.28" height="19.76" viewBox="0 0 9.28 19.76">
@@ -522,7 +522,7 @@
 
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.22"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.24"></script>
 <!-- /Java Script -->
 
 </body>
