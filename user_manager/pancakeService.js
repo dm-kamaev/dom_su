@@ -63,7 +63,7 @@ class PancakeService {
     });
 
     // Clean Track Phone Number
-    user.track = {done: true, waiting: false, numbers: null};
+    user.track = {done: true, waiting: false, numbers: null, applicant_numbers: null };
     this.queue.push(async function (previousResult, pancakeService) {
       user.set('data.track', user.track);
       await user.save();

@@ -394,6 +394,9 @@ class PancakeUser {
     logger.log(`${me.uuid} phone= ${phone_log}`);
     if (phone) {
       const phone_number = phone.number;
+      if (!this.track.numbers) {
+        this.track.numbers = {};
+      }
       this.track.numbers[this.city.keyword] = phone_number;
       this.queue.push(async function (previousResult, pancakeUser) {
         const user = await User.findOne({
@@ -447,6 +450,12 @@ class PancakeUser {
     });
     if (phone) {
       const phone_number = phone.number;
+
+      if (!this.track.applicant_numbers) {
+        this.track.applicant_numbers = {};
+        applicant_numbers = this.track.applicant_numbers;
+      }
+
       applicant_numbers[city_keyword] = phone_number;
       this.queue.push(async function (previousResult, pancakeUser) {
         const user = await User.findOne({
