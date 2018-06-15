@@ -132,7 +132,7 @@ module.exports = class Request1Cv3 {
           reslove(this.response);
         });
       });
-      req.setTimeout(1000 * 20, function() {
+      req.setTimeout(1000 * 30, function() {
         reject(new errors.API1CError('The request ended in failure', this.token, 'Timeout response', 500));
       });
       req.on('error', (e) => {
