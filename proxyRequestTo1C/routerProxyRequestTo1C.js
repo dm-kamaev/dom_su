@@ -131,10 +131,16 @@ router.post('/proxy_request/:methodName', check_auth.ajax(async function (ctx) {
 // {String} method_name Client.Calculate
 function get_open_method(method_name) {
   return async function (ctx) {
+    const authApi = new AuthApi(ctx);
+    let token;
+    if (await authApi.isLoginAsClient() || await authApi.isLoginAsClientEmployee()) {
+      token = authApi.get_auth_data().token;
+    }
+
     let body = ctx.request.body;
     const user = ctx.state.pancakeUser;
     const uuid = user.uuid;
-    const request1C = new Request1Cv3(null, uuid, null, ctx);
+    const request1C = new Request1Cv3(token, uuid, null, ctx);
     await request1C.add(method_name, body).do();
     const res = request1C.get();
     ctx.body = res;
