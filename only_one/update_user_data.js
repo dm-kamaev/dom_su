@@ -12,7 +12,7 @@ void async function () {
     throw user;
   }
   // user.data.google_id = '1015888472.1520088631';
-  user.data.track.waiting = false;
+  user.data.track.waiting = true;
   await db.edit(`UPDATE users SET data=$1 WHERE uuid='${uuid}'`, [ user.data ]);
   console.log(user);
   // await update_news();

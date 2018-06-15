@@ -244,6 +244,7 @@ class PancakeUser {
     if (me.its_robot()) {
       return false;
     }
+
     var _logger = {
       info: function(str) {
         const url = me.ctx.request.url;
@@ -253,12 +254,6 @@ class PancakeUser {
       }
     };
 
-    // TODO: Возможно надо будет заменить на first_visit через v_id
-    _logger.info(`${uuid} checkTrackNeed => this.track.waiting === true `+((this.track.waiting === true) ? 'return true' : 'skip'));
-    if (this.track.waiting === true) {
-      return true;
-    }
-
     _logger.info(`${uuid} checkTrackNeed => first_visit `+((v_id) ? 'return false' : 'skip'));
     // is not newest user
     if (v_id) {
@@ -266,13 +261,18 @@ class PancakeUser {
     // if (this.isNew !== true) {
       return false;
     } else {
-      console.log('headers.host====', headers.host);
       // set cookie for first visit
       cookies.set('v_id', Date.now()+'__'+headers['x-real-ip'], {
         httpOnly: false,
         domain: headers.host,
         maxAge: 9 * 365 * 24 * 60 * 60 * 1000
       });
+    }
+
+    // TODO: Возможно надо будет заменить на first_visit через v_id
+    _logger.info(`${uuid} checkTrackNeed => this.track.waiting === true `+((this.track.waiting === true) ? 'return true' : 'skip'));
+    if (this.track.waiting === true) {
+      return true;
     }
 
     let referer = headers.referer;

@@ -62,11 +62,12 @@ class PancakeService {
       'ds': 'call center'
     });
 
-    // Clean Track Phone Number
+    // Clean Track Phone Number^ maybe in script free_phone set waiting false
     user.track = {done: true, waiting: false, numbers: null, applicant_numbers: null };
     this.queue.push(async function (previousResult, pancakeService) {
       user.set('data.track', user.track);
       await user.save();
+      logger.warn('user save ===', querystring.stringify(data));
       await phone.update({living: false});
       return phone;
     });
@@ -90,6 +91,7 @@ class PancakeService {
       // logger.log(`handler_tracking_call5:: data: ${JSON.stringify(data)}`);
       // logger.log(`handler_tracking_call5:: send to Google analytics: `);
       // logger.log(`handler_tracking_call5::`+JSON.stringify(res));
+      logger.warn('TO GA ===', querystring.stringify(data));
     } catch (err) {
       me.sendRequest(connectParam, querystring.stringify(data), 20).catch((err) => {
         logger.warn('handler_tracking_call5:: Error send to Google analytics '+err);
