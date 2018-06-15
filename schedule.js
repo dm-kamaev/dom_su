@@ -123,7 +123,6 @@ function setVisitFinish() {
 
 
 function cleanPhoneNumber() {
-  console.log('===cleanPhoneNumber===');
   sequelize.query(
     'UPDATE phones ' +
         // 'SET (living) = (false) ' +
@@ -136,7 +135,6 @@ function cleanPhoneNumber() {
         'RETURNING phones.user_uuid'
   )
     .spread(async function(results, metadata) {
-      console.log('results=', results);
       if (results.length > 0){
         let user_uuid_list = [];
         for (let item of results){

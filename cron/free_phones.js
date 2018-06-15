@@ -3,6 +3,7 @@
 
 const CONF = require('/p/pancake/settings/config.js');
 
+const { User } = require('/p/pancake/models/models.js');
 const db = require('/p/pancake/my/db2.js');
 const logger = require('/p/pancake/lib/logger.js');
 const promise_api = require('/p/pancake/my/promise_api.js');
@@ -41,6 +42,15 @@ void async function () {
 
     await promise_api.queue(for_enables, async function ({ user_uuid }) {
       await db.edit(`UPDATE phones SET living = false, "updatedAt" = NOW() WHERE user_uuid = '${user_uuid}'`);
+      const user = await User.findOne({
+        where: {
+          uuid: user_uuid
+        }
+      });
+      user.set('data.track.numbers', {});
+      user.set('data.track.applicant_numbers', {});
+      await user.save();
+
       await timeout(0.1);
     });
 

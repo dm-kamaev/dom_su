@@ -48,12 +48,13 @@ router.get('/aj/logout', async function (ctx) {
 
 router.get('/aj/calltracking', async function (ctx) {
   const user = ctx.state.pancakeUser;
-  const track_need = user.checkTrackNeed();
-  if (track_need) {
+  let client_phone;
+  let applicant_phone;
+
+  if (user.checkTrackNeed()) {
     user.setTrackWaiting(true);
-    let client_phone = await user.set_track_number_for_client();
-    let applicant_phone = await user.set_track_number_for_applicant();
-    console.log('CALLTRACKING=', track_need, client_phone, applicant_phone);
+    client_phone = await user.set_track_number_for_client();
+    applicant_phone = await user.set_track_number_for_applicant();
     ctx.status = 200;
     ctx.body = {
       ok: true,
@@ -63,12 +64,17 @@ router.get('/aj/calltracking', async function (ctx) {
       }
     };
   } else {
-    console.log('NOT NEED CALLTRACKING=');
-    const aj_error = new Aj_error_phone_for_calltracking('Not need tracking');
-    ctx.status = aj_error.status;
-    ctx.body = aj_error.get_body();
+    ctx.status = 200;
+    ctx.body = {
+      ok: true,
+      data: {
+        clientPhone: get_wrap2(user.get_track_number_for_client()),
+        applicantPhone: get_wrap2(user.get_track_number_for_applicant()),
+      }
+    };
     user.setTrackWaiting(false);
   }
+
   logger.info(ctx.body);
 });
 
@@ -99,4 +105,28 @@ function get_wrap(data) {
   }
 }
 
+
+function get_wrap2(data) {
+  if (!data) {
+    return {
+      ok: false,
+      data: 'Not need tracking'
+    }
+  } else {
+    return {
+      ok: true,
+      data: format_phone(data)
+    }
+  }
+}
+
+// first visit
+// |
+// V go the base
+
+
+// second visit
+// |
+// V
+// check in db || return track ||
 

@@ -232,7 +232,7 @@ class PancakeUser {
     const me = this;
     const uuid = me.uuid;
     const headers = this.ctx.headers;
-    const cookies = this.ctx.cookies
+    const cookies = this.ctx.cookies;
     const v_id = cookies.get('v_id');
     // FOR TEST
     // |
@@ -258,15 +258,14 @@ class PancakeUser {
       return true;
     }
 
-    // _logger.info(`${uuid} checkTrackNeed => this.isNew !== true `+((this.isNew !== true) ? 'return false' : 'skip'));
     _logger.info(`${uuid} checkTrackNeed => first_visit `+((v_id) ? 'return false' : 'skip'));
-    console.log('v_id=', v_id);
     // is not newest user
     if (v_id) {
+    // LEGACY
     // if (this.isNew !== true) {
       return false;
     } else {
-      console.log('Set_cookie', headers.host);
+      console.log('headers.host====', headers.host);
       // set cookie for first visit
       cookies.set('v_id', Date.now()+'__'+headers['x-real-ip'], {
         httpOnly: false,
@@ -351,17 +350,6 @@ class PancakeUser {
     });
   }
 
-  setTrackWaiting(waiting) {
-    if (this.track.waiting === waiting) {
-      return;
-    }
-    this.queue.push(async function (previousResult, pancakeUser) {
-      pancakeUser.track.waiting = waiting;
-      pancakeUser.model.set('data.track.waiting', waiting);
-      await pancakeUser.model.save();
-      return pancakeUser.model;
-    });
-  }
 
   /**
    * set_track_number_for_client: set track number for client
@@ -370,9 +358,16 @@ class PancakeUser {
   async set_track_number_for_client() {
     const me = this;
     logger.log(`${me.uuid} set_track_number_for_client`);
-    if (this.track.numbers && this.track.numbers[this.city.keyword]) {
-      return new Error_track_number('Already exist phone');
+    const client_number = this.get_track_number_for_client();
+    if (client_number) {
+      return client_number;
     }
+
+    // const client_numbers = this.track.numbers;
+    // const city_keyword = this.city.keyword;
+    // if (client_numbers && client_numbers[city_keyword]) {
+    //   return client_numbers[city_keyword];
+    // }
     logger.log(`${me.uuid} after return`);
 
     // SELECT
@@ -401,12 +396,23 @@ class PancakeUser {
       const phone_number = phone.number;
       this.track.numbers[this.city.keyword] = phone_number;
       this.queue.push(async function (previousResult, pancakeUser) {
-        // logger.log(`${me.uuid} client set data.track.numbers.${pancakeUser.city.keyword} `+pancakeUser.track.numbers[pancakeUser.city.keyword]);
-        pancakeUser.model.set(`data.track.numbers.${pancakeUser.city.keyword}`, pancakeUser.track.numbers[pancakeUser.city.keyword]);
-        await pancakeUser.model.save();
-        phone.user_uuid = pancakeUser.uuid;
+        const user = await User.findOne({
+          where: {
+            uuid: me.uuid
+          }
+        });
+        user.set(`data.track.numbers.${pancakeUser.city.keyword}`, pancakeUser.track.numbers[pancakeUser.city.keyword]);
+        await user.save();
+
+        phone.user_uuid = me.uuid;
+
+        // pancakeUser.model.set(`data.track.numbers.${pancakeUser.city.keyword}`, pancakeUser.track.numbers[pancakeUser.city.keyword]);
+        // await pancakeUser.model.save();
+        // phone.user_uuid = pancakeUser.uuid;
+
         phone.living = true;
         await phone.save();
+        console.log(`\n\n SET DATA  data.track.numbers.${pancakeUser.city.keyword}`, pancakeUser.track.numbers[pancakeUser.city.keyword]);
         return phone;
       });
       return phone_number;
@@ -420,11 +426,16 @@ class PancakeUser {
    * @return {Number || Error_track_number} +79067893421 || error
    */
   async set_track_number_for_applicant() {
-    const applicant_numbers = this.track.applicant_numbers;
-    const city_keyword = this.city.keyword; // exmaple: moscow
-    if (applicant_numbers && applicant_numbers[city_keyword]) {
-      new Error_track_number('Already exist phone');
+    const me = this;
+    const applicant_number = this.get_track_number_for_applicant();
+    if (applicant_number) {
+      return applicant_number;
     }
+    const applicant_numbers = this.track.applicant_numbers;
+    const city_keyword = this.city.keyword; // example: moscow
+    // if (applicant_numbers && applicant_numbers[city_keyword]) {
+    //   return applicant_numbers[city_keyword];
+    // }
 
     const phone = await Phone.findOne({
       where: {
@@ -438,11 +449,24 @@ class PancakeUser {
       const phone_number = phone.number;
       applicant_numbers[city_keyword] = phone_number;
       this.queue.push(async function (previousResult, pancakeUser) {
-        pancakeUser.model.set(`data.track.applicant_numbers.${pancakeUser.city.keyword}`, pancakeUser.track.applicant_numbers[pancakeUser.city.keyword]);
-        await pancakeUser.model.save();
-        phone.user_uuid = pancakeUser.uuid;
+        const user = await User.findOne({
+          where: {
+            uuid: me.uuid
+          }
+        });
+        console.log('pancakeUser=', pancakeUser);
+        user.set(`data.track.applicant_numbers.${pancakeUser.city.keyword}`, pancakeUser.track.applicant_numbers[pancakeUser.city.keyword]);
+        await user.save();
+
+        phone.user_uuid = me.uuid;
+
+        // pancakeUser.model.set(`data.track.applicant_numbers.${pancakeUser.city.keyword}`, pancakeUser.track.applicant_numbers[pancakeUser.city.keyword]);
+        // await pancakeUser.model.save();
+        // phone.user_uuid = pancakeUser.uuid;
+
         phone.living = true;
         await phone.save();
+        console.log(`SET DATA data.track.applicant_numbers.${pancakeUser.city.keyword}`, pancakeUser.track.applicant_numbers[pancakeUser.city.keyword]);
         return phone;
       });
       return phone_number;
@@ -451,6 +475,29 @@ class PancakeUser {
     }
   }
 
+  /**
+   * get_track_number_for_applicant: get personal calltracking number for client
+   * @return {String | null}
+   */
+  get_track_number_for_client() {
+    const client_numbers = this.track.numbers;
+    const city_keyword = this.city.keyword;
+    if (client_numbers && client_numbers[city_keyword]) {
+      return client_numbers[city_keyword];
+    }
+  }
+
+  /**
+   * get_track_number_for_applicant: get personal calltracking number for employee(potentional)
+   * @return {String | null}
+   */
+  get_track_number_for_applicant() {
+    const applicant_numbers = this.track.applicant_numbers;
+    const city_keyword = this.city.keyword; // exmaple: moscow
+    if (applicant_numbers && applicant_numbers[city_keyword]) {
+      return applicant_numbers[city_keyword];
+    }
+  }
 
   setGoogleId(){
     if (!this.ctx.request.body.data && !this.ctx.request.body.data.google_id){
