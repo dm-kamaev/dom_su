@@ -270,10 +270,10 @@ class PancakeUser {
     }
 
     // TODO: Возможно надо будет заменить на first_visit через v_id
-    _logger.info(`${uuid} checkTrackNeed => this.track.waiting === true `+((this.track.waiting === true) ? 'return true' : 'skip'));
-    if (this.track.waiting === true) {
-      return true;
-    }
+    // _logger.info(`${uuid} checkTrackNeed => this.track.waiting === true `+((this.track.waiting === true) ? 'return true' : 'skip'));
+    // if (this.track.waiting === true) {
+    //   return true;
+    // }
 
     let referer = headers.referer;
     // _logger.info(`${uuid} checkTrackNeed => !referer || !/domovenok/.test(referer) `+((!referer || !/domovenok/.test(referer)) ? 'return false' : 'skip'));
