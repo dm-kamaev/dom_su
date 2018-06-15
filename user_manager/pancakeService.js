@@ -91,7 +91,7 @@ class PancakeService {
       // logger.log(`handler_tracking_call5:: data: ${JSON.stringify(data)}`);
       // logger.log(`handler_tracking_call5:: send to Google analytics: `);
       // logger.log(`handler_tracking_call5::`+JSON.stringify(res));
-      logger.warn('TO GA ===', querystring.stringify(data));
+      // logger.warn('TO GA ===', querystring.stringify(data));
     } catch (err) {
       me.sendRequest(connectParam, querystring.stringify(data), 20).catch((err) => {
         logger.warn('handler_tracking_call5:: Error send to Google analytics '+err);

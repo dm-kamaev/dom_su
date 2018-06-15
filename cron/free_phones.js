@@ -32,7 +32,7 @@ void async function () {
 
     // var MINUTE_3 = 180000;
     // var MINUTE_1 = 1000 * 60 * 1; // every 1 minute
-    var MINUTE_1 = (CONF.is_dev) ? (1000 * 40) : (1000 * 55); // every 40 || 55 sec
+    var MINUTE_1 = (CONF.is_dev) ? (1000 * 40) : (1000 * 60 * 2); // every 40 || 2 min
     phones.forEach(phone => {
       console.log(new Date(phone.last_action), date, new Date(phone.last_action).getTime() < (date.getTime() - MINUTE_1));
       if (new Date(phone.last_action).getTime() < (date.getTime() - MINUTE_1)) {
