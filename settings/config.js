@@ -18,6 +18,7 @@ const enum_api_1C = {
   SASHA: 'sasha',
   PASHA: 'pasha',
   LIZA: 'liza',
+  MASHA: 'masha',
   PROD: 'prod'
 };
 
@@ -113,6 +114,15 @@ function get_api_1c(developer_name) {
     case enum_api_1C.PASHA:
       api_1C = { // Паша
         ip: '192.168.1.50',
+        url: '/domovenok/hs/api/v2/',
+        oldAPI: '/domovenok/hs/api/',
+        port: 80,
+        ticket_url: '/domovenok/hs/rq'
+      };
+      break;
+    case enum_api_1C.MASHA:
+      api_1C = { // Маша
+        ip: '192.168.1.119',
         url: '/domovenok/hs/api/v2/',
         oldAPI: '/domovenok/hs/api/',
         port: 80,
