@@ -64,7 +64,7 @@
   <!-- End SmartBanner configuration -->
 
 
-  <link rel="stylesheet" href="/static/pancake/css/style.landing_ab.min.css?v0.1">
+  <link rel="stylesheet" href="/static/pancake/css/style.price.min.css?v0.89">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="">
@@ -88,9 +88,16 @@
     {{/if}}
   
   </script>
+
 </head>
 
 <body class="page">
+{{#if general.production}}
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+{{/if}}
+<div class="page__wrap">
 
   <!-- Page Header -->
   <header class="page-header  page-header--contact">
@@ -107,7 +114,7 @@
       <div class="page-header__container">
         <a class="page-header__container-link  page-header__container-link--orange" href="tel:{{ general.phoneHref }}">{{ general.phoneCode }} {{ general.phoneNumber }}</a>
         <a class="page-header__container-link" href="{{buildUrl general.city '/podderzhka'}}">Поддерживающая</a>
-        <a class="page-header__container-link page-header__container-link--tablet-hide" href="{{buildUrl general.city '/mite_okon'}}">Мойка окон</a>
+        <a class="page-header__container-link page-header__container-link--tablet-hide" href="{{buildUrl general.city '/generalnaya_uborka'}}">Генеральная</a>
         <a class="page-header__container-link" href="{{buildUrl general.city '/private/auth'}}">Войти</a>
         <button class="page-header__container-button button" data-name="service-order" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderMenuButton"}'>Заказать</button>
       </div>
@@ -143,398 +150,960 @@
 
   <!-- Main Content -->
 
-  <main class="page__main-content main-content main-content--vertical">
+  <main class="page__main-content  main-content">
     <div class="main-content__wrap">
 
       <section class="page__section  section">
-        <div class="window  window--price">
-          <div class="window__inner  window__inner--price">
-            <div class="window__content-wrapper  window__content-wrapper--price">
-              <p class="window__title  window__title--price">Цены на уборку квартир и офисов в Москве.<br>
-                <span class="window__title  window__title--bold  window__title--price">Расценки на уборку от 1490 рублей</span>
-              </p>
-            </div>
-          </div>
+        <div class="section__wrap">
+          <h1 class="section__title section__title--main title">Цены на уборку квартир и офисов в Москве.<br> Расценки на уборку.</h1>
+          <p class="section__text text">Для того чтобы Вам было удобней ориентироваться на нашем сайте, мы на этой странице разместили прайс-лист на все клининговые услуги нашей компании.</p>
+          <div class="service-menu  service-menu-carousel" data-class="service-menu-carousel">
+            <button class="service-menu-carousel__button-prev  service-menu-carousel__button-prev--disabled" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+            </button>
 
-          <a class="window__link  window__link--price">
-            <span class="window__link-text"></span>
-            <svg width="38.54" height="10" viewBox="0 0 38.54 10">
-              <rect x="14.27" y="-14.27" width="10" height="38.54" transform="translate(14.27 24.27) rotate(-90)"
-                    fill="none"/>
-              <polyline points="33.53 1.22 19.27 8.78 5.01 1.22" fill="none" stroke="#ffffff" stroke-linecap="round"
-                        stroke-miterlimit="10" stroke-width="1.5"/>
-            </svg>
-          </a>
+            <div class="service-menu__wrap  service-menu-carousel__wrap">
+              <div class="service-menu__inner  service-menu-carousel__inner">
+                <a class="service-menu__item" href="{{buildUrl general.city '/podderzhka'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M34.3,57.45V29.83s-15.23-3-23,9.21c-7.34,11.47,2.59,29.2,2.59,29.2H30.12" fill="none" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7" fill-rule="evenodd"/><circle cx="30.78" cy="62.15" r="6.09" fill="none" stroke="#fd8204" stroke-miterlimit="10" stroke-width="1.7"/><circle cx="30.78" cy="62.15" r="3.5" fill="none" stroke="#fd8204" stroke-linejoin="round"/><path d="M21.89,30.79A16.43,16.43,0,0,1,9.82,58.37" fill="none" stroke="#fd8204" stroke-linejoin="round" fill-rule="evenodd"/><path d="M55.11,61.21H51.66l-7.24-45.5c-.87-4.06-3-6.6-6.59-6.6a6.6,6.6,0,0,0-6.59,6.6V26.52H27.79V15.71a10.06,10.06,0,0,1,10-10.05c5.54,0,9,4.1,10,10.05Z" fill="none" stroke="#fd8204" stroke-linejoin="round"/><path d="M26.25,29.51h0a3,3,0,0,1,3-3h1a3,3,0,0,1,3,3h0" fill="none" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M64.27,64.14H60.4a2.69,2.69,0,0,0-2.66-2.36H49a2.69,2.69,0,0,0-2.67,2.36H42.51a1.16,1.16,0,0,0-1.16,1.16v1.88a1.16,1.16,0,0,0,1.16,1.16H64.27a1.16,1.16,0,0,0,1.16-1.16V65.3A1.16,1.16,0,0,0,64.27,64.14Z" fill="none" stroke="#fd8204" stroke-miterlimit="10" stroke-width="1.7"/><line x1="45.8" y1="64.46" x2="60.83" y2="64.46" fill="#e1dcd2" stroke="#fd8204" stroke-linejoin="round"/><polygon points="49.97 51.11 51.66 61.77 55.11 61.77 53.42 51.11 49.97 51.11" fill="none" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/></svg>
+                  <p class="service-menu__item-name">Поддерживающая <br class="text  text--tablet">уборка</p>
+                </a>
+
+                <a class="service-menu__item" href="{{buildUrl general.city '/generalnaya_uborka'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M40.92,11.09v-3a.19.19,0,0,1,.19-.19h4.06a.19.19,0,0,1,.19.19v3Z" fill="#fff"/><path d="M44.87,8.42v2.17H41.42V8.42h3.45m.31-1H41.11a.69.69,0,0,0-.69.69v3.47h5.45V8.12a.69.69,0,0,0-.69-.69Z" fill="#fd8204"/><path d="M29.85,51.32a3,3,0,0,1-3-3v-21c0-.86.33-2.1,3.21-3,9.09-2.83,10.75-8.84,11.05-10.94H45v35a3,3,0,0,1-3,3Z" fill="#fff"/><path d="M44.17,14.23V48.36a2.11,2.11,0,0,1-2.11,2.11H29.85a2.11,2.11,0,0,1-2.11-2.11v-21c0-.38,0-1.37,2.62-2.19C39,22.44,41.26,17,41.86,14.23h2.3m1.69-1.7H40.39a1.08,1.08,0,0,0,0,.11s-.11,7.62-10.53,10.86c-2,.63-3.81,1.71-3.81,3.81v21a3.81,3.81,0,0,0,3.81,3.81h12.2a3.81,3.81,0,0,0,3.81-3.81V12.64a.93.93,0,0,0,0-.11Z" fill="#fd8204"/><rect x="9.96" y="12.64" width="3.19" height="2.8" rx="0.44" ry="0.44" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M30.36,34.07a9.18,9.18,0,1,0-18.36,0s0,0,0,.06,0,0,0,.06V49.3a3.81,3.81,0,0,0,3.81,3.81H26.55a3.81,3.81,0,0,0,3.81-3.81V34.19s0,0,0-.06S30.36,34.09,30.36,34.07Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10" stroke-width="1.7"/><path d="M25.15,12.53H12.91a.92.92,0,0,0-.92.92V15.6a.92.92,0,0,0,.92.92h4.64l1.74,5.13h3.77V16.51h2.09a.92.92,0,0,0,.92-.92V13.44A.92.92,0,0,0,25.15,12.53Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M23.09,21.37H19.27a.65.65,0,0,0-.65.65v3.26h5.12V22A.65.65,0,0,0,23.09,21.37Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M15,16.51a7,7,0,0,1-2.3,5.75,22.73,22.73,0,0,1-3,2.13l.47.5A13.22,13.22,0,0,0,15.3,22c2.74-2.74,2.25-5.47,2.25-5.47Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M60.78,31.5c-.44-5.84-4.5-10.42-9.44-10.42s-9,4.58-9.44,10.42a1.52,1.52,0,0,0,0,.35v19.3A1.55,1.55,0,0,0,43.4,52.7H59.27a1.55,1.55,0,0,0,1.55-1.55V31.85A1.59,1.59,0,0,0,60.78,31.5Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10" stroke-width="1.7"/><path d="M54.36,17.86h-6a.56.56,0,0,0-.56.56v2.82h7.16V18.42A.56.56,0,0,0,54.36,17.86Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10"/><path d="M10.23,44.71,13.12,63a3.56,3.56,0,0,0,3.56,3.56H57.32A3.56,3.56,0,0,0,60.88,63l2.88-18.3Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><rect x="6.51" y="39.43" width="60.98" height="5.28" rx="1.22" ry="1.22" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M31.26,39.43,26.8,44.34s0,3.95-.88,5.74c-.52,1.07-2.69,6.18-4.76,5.08-1.14-.6,1.34-5.58,1.34-5.58l-7.18,7.05a1.45,1.45,0,0,1-2.06-2.06l-1.19,1.19A1.46,1.46,0,0,1,10,53.71l1-1a1.45,1.45,0,0,1-1.8-2.26l2.11-2.11a1.46,1.46,0,0,1-2.06-2.06L15.58,40c2-2,1.42-1.43,1.42-1.43a27.15,27.15,0,0,1,7.94-.7C29.79,38.21,31.26,39.43,31.26,39.43Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" fill-rule="evenodd"/><line x1="13.29" y1="54.54" x2="17.63" y2="50.21" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="10.97" y1="52.75" x2="15.88" y2="47.84" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="11.37" y1="48.29" x2="14.07" y2="45.6" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="22" y1="50.08" x2="23.73" y2="48.35" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><path d="M29,38.62,29,40.5s-2.69,2.89-3.29,4.78c-.36,1.13-2.31,6.3-.09,6.85,1.21.3,2.85-5,2.85-5l.28,9.89a1.37,1.37,0,0,0,1.45,1.35,1.49,1.49,0,0,0,1.4-1.51l0,1.66a1.37,1.37,0,0,0,1.45,1.35,1.49,1.49,0,0,0,1.4-1.51l0-1.34a1.37,1.37,0,0,0,1.41,1,1.49,1.49,0,0,0,1.4-1.51l-.06-2.93A1.37,1.37,0,0,0,38.67,55a1.49,1.49,0,0,0,1.4-1.51l-.17-8.83c-.05-2.73,0-6.18,0-6.18a21.44,21.44,0,0,0-5.2-.39A28.43,28.43,0,0,0,29,38.62Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" fill-rule="evenodd"/><line x1="31.59" y1="56.86" x2="31.48" y2="50.83" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="34.46" y1="57.06" x2="34.33" y2="50.25" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="37.21" y1="53.54" x2="37.14" y2="49.79" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="28.48" y1="47.86" x2="28.43" y2="45.45" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <p class="service-menu__item-name">Генеральная <br class="text  text--tablet">уборка</p>
+                </a>
+
+                <a class="service-menu__item" href="{{buildUrl general.city '/mite_okon'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M44.88,69.06a17.23,17.23,0,0,1-5.62-3.94,11.47,11.47,0,0,1-3.1-4.78l.81-.78,9.09,8.18Z" fill="#fff" stroke="#fd8204" stroke-miterlimit="10" stroke-width="0.75"/><path d="M45.18,68.89s3.07-4.3,4.8-4.64a18,18,0,0,0,8.16-4.38l2.14-2.14,1.56-1.56,2-2a1.84,1.84,0,0,0,0-2.59l-.29-.29a1.83,1.83,0,0,0-2.59,0L62.27,50a2.12,2.12,0,0,0,0-3l-.33-.33a2.12,2.12,0,0,0-3,0l.26-.26a2.12,2.12,0,0,0,0-3l-.33-.33a2.12,2.12,0,0,0-3,0l-.93.93a2.25,2.25,0,0,0,.17-3.17l-.33-.33a2.25,2.25,0,0,0-3.17.17L49,43.3l-2,2-.18.18v-.23c0-.05,0-.1,0-.16l-.48.49-2.9-2.9a2.68,2.68,0,0,0-2,2.58L41,55.66,36.4,60.11" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" fill-rule="evenodd"/><path d="M9.59,29.24q1.56,1.46,3.09,2.95l3.07,3,6.06,6h-.76l11.81-12,12-11.8v.77l-6.13-6.58c-1-1.09-2-2.22-3-3.33s-2-2.22-3-3.35Q34.31,6.46,35.93,8c1.08,1,2.18,2.06,3.25,3.11l6.42,6.29a.54.54,0,0,1,0,.76h0L33.78,30.14l-12,11.79h0a.52.52,0,0,1-.73,0h0l-5.78-6.29-2.85-3.18Q11,30.85,9.59,29.24Z" fill="#fd8204"/><line x1="48.45" y1="43.82" x2="44.19" y2="48.07" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M36.67,41a5.62,5.62,0,0,0,6.25,1.16l3.38,3.38,2.88-2.88L45.8,39.28A5.62,5.62,0,0,0,44.64,33" fill="none" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" fill-rule="evenodd"/><path d="M25,44.67,27.35,47a2.35,2.35,0,0,0,3.33,0l20-20a2.35,2.35,0,0,0,0-3.33l-2.31-2.32" fill="none" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7" fill-rule="evenodd"/><polygon points="17.95 20.68 20.8 22.53 23.65 20.68 21.8 23.53 23.65 26.38 20.8 24.53 17.95 26.38 19.8 23.53 17.95 20.68" fill="#fd8204"/><polygon points="17.95 7.08 20.8 8.92 23.65 7.08 21.8 9.93 23.65 12.78 20.8 10.93 17.95 12.78 19.8 9.93 17.95 7.08" fill="#fd8204"/><polygon points="28.35 11.03 31.2 12.88 34.06 11.03 32.2 13.89 34.05 16.74 31.2 14.89 28.35 16.74 30.2 13.89 28.35 11.03" fill="#fd8204"/><path d="M45.34,18.61l2.51,2.51L24.76,44.2,22.25,41.7,45.34,18.61m0-1.41L20.84,41.7l3.92,3.92L49.26,21.11l-3.92-3.92Z" fill="#fd8204"/></svg>
+                  <p class="service-menu__item-name">Мытьё окон</p>
+                </a>
+
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/posle_remonta'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M13.09,56.14a3,3,0,0,0,0,4.22L19,66.29a3,3,0,0,0,4.23,0l6.21-6.21a3,3,0,0,0,0-4.23l-8-8Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="2"/><path d="M65.5,11.59l0,0a1.38,1.38,0,0,0-.13-.15l-3-1.91a2,2,0,0,0-2.81.23l-38.16,38L29.64,56l-.09-1.69,1.67-.11-.11-1.65,1.67-.11-.11-1.74,1.61-.1-.11-1.69,1.76-.11-.11-1.69L37.5,47l-.1-1.6L39,45.32l-.11-1.74,1.72-.11-.11-1.67,1.67-.11L42.1,40l1.69-.11-.1-1.62,1.6-.1-.11-1.74,1.69-.11-.11-1.62,1.69-.11h0l-.09-1.69,1.67-.11-.11-1.65L51.62,31l-.11-1.74,1.61-.11L53,27.51l1.76-.11-.11-1.69,1.67-.11-.1-1.6,1.65-.11-.11-1.74L59.48,22l-.11-1.67L61,20.27l-.11-1.69,1.69-.11-.11-1.62,1.6-.1L64,15l1.69-.11-.1-1.62,1.54-.57Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M13.09,56.14a3,3,0,0,0,0,4.22L19,66.29a3,3,0,0,0,4.23,0l6.21-6.21a3,3,0,0,0,0-4.23l-8-8ZM27.7,57a1.35,1.35,0,0,1,0,1.91l-5.6,5.61a1.35,1.35,0,0,1-1.91,0l-5.35-5.35a1.35,1.35,0,0,1,0-1.91l5.6-5.6a1.35,1.35,0,0,1,1.91,0Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M36.78,17h0a5.86,5.86,0,0,0-1.39-.61L16.43,8.05l0,0a5.89,5.89,0,0,0-8.28,8.28l8.26,19a5.9,5.9,0,0,0,9.85,2.56L37.91,26.2A5.88,5.88,0,0,0,36.78,17Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><rect x="35.25" y="26.55" width="2.36" height="19.7" transform="translate(-15.07 36.42) rotate(-45)" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M61.94,64.51a2.59,2.59,0,0,1-1.84-.76l-16-16a.85.85,0,0,0-.6-.25h-.13a5.18,5.18,0,0,1-.82.07,5,5,0,0,1-1.5-.23.67.67,0,0,0-.25-.18.41.41,0,0,1-.13-.09.41.41,0,0,1,0-.59l5.87-5.87a.41.41,0,0,1,.68.14.85.85,0,0,0,.19.28,5.11,5.11,0,0,1,.15,2.29.85.85,0,0,0,.24.73l16,16a2.61,2.61,0,0,1-1.84,4.45Z" fill="#fff"/><path d="M46.63,41.63a4.3,4.3,0,0,1,0,1.53,1.7,1.7,0,0,0,.48,1.47l16,16a1.76,1.76,0,0,1-2.48,2.48l-16-16a1.7,1.7,0,0,0-1.2-.5l-.27,0a4.41,4.41,0,0,1-.69.05,4.19,4.19,0,0,1-.84-.08l5-5m.14-2a1.26,1.26,0,0,0-.9.37L40,45.85a1.26,1.26,0,0,0,0,1.79,1.25,1.25,0,0,0,.41.28l-.07.07a5.81,5.81,0,0,0,2.15.41,6.1,6.1,0,0,0,1-.08l16,16a3.46,3.46,0,0,0,4.89-4.89l-16-16a5.91,5.91,0,0,0-.33-3.1l-.07.07a1.26,1.26,0,0,0-1.17-.78Z" fill="#fd8204"/><line x1="43.45" y1="48.31" x2="48.34" y2="43.42" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/></svg>
+                  <p class="service-menu__item-name">Уборка <br class="text  text--tablet">после ремонта</p>
+                </a>
+
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/himchistka'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><ellipse cx="37" cy="55.44" rx="35.47" ry="10.96" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><ellipse cx="37" cy="54.51" rx="29.59" ry="8.21" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M54.15,14.92H50.94a16.92,16.92,0,0,0-27.87,0H19.85a4,4,0,0,0-3.95,3.94V43.52a4,4,0,0,0,3.95,3.95h34.3a4,4,0,0,0,3.95-3.95V18.87A3.94,3.94,0,0,0,54.15,14.92Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><ellipse cx="37" cy="37.57" rx="21.73" ry="5.34" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M57,49.93c0,2.32-1.25,4.19-2.79,4.19L19.78,54C18.24,54,17,52.16,17,49.84v-5.3c0-2.32,1.25-4.19,2.79-4.19l34.42.07c1.54,0,2.78,1.88,2.77,4.2Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><path d="M20.08,33.79a5.65,5.65,0,1,0-8,5.11V53.8A2.18,2.18,0,0,0,14.23,56H17.9a2.18,2.18,0,0,0,2.18-2.18V33.92s0,0,0-.06S20.08,33.81,20.08,33.79Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><path d="M54.77,33.78a5.77,5.77,0,0,1,11.53,0A5.63,5.63,0,0,1,63,38.89V53.77a2.2,2.2,0,0,1-2.23,2.18H57a2.2,2.2,0,0,1-2.23-2.18V33.91s0,0,0-.06S54.77,33.8,54.77,33.78Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.5"/><circle cx="14.43" cy="33.71" r="1.47" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><circle cx="60.54" cy="33.71" r="1.47" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M48.72,26a59.6,59.6,0,0,1,.4-7c-3.18-1.6-7.47,1-12.18,1s-8.89-2.61-12.06-1a59.52,59.52,0,0,1,.4,7,59.53,59.53,0,0,1-.4,7c3.17,1.57,7.41-.21,12.06-.21s9,1.75,12.18.15A59.6,59.6,0,0,1,48.72,26Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/></svg>
+                  <p class="service-menu__item-name">Химчистка <br class="text  text--tablet">мебели</p>
+                </a>
+
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/vizov_mastera_na_dom'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M45.59,28.5a7.65,7.65,0,1,1,7.65-7.65A7.66,7.66,0,0,1,45.59,28.5Zm.06-13.11a5.54,5.54,0,1,0,5.54,5.54A5.55,5.55,0,0,0,45.65,15.38Z" fill="#fff"/><path d="M45.59,13.7a7.15,7.15,0,1,1-7.15,7.15,7.15,7.15,0,0,1,7.15-7.15M45.65,27a6,6,0,1,0-6-6,6,6,0,0,0,6,6M45.59,12.7a8.15,8.15,0,1,0,8.15,8.15,8.15,8.15,0,0,0-8.15-8.15ZM45.65,26a5,5,0,1,1,5-5,5,5,0,0,1-5,5Z" fill="#fd8204"/><rect x="21.06" y="21.5" width="49.06" height="35.68" rx="4.05" ry="4.05" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M70.12,30.67V25.55a4,4,0,0,0-4-4h-41a4,4,0,0,0-4,4v5.13" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><line x1="21.06" y1="30.67" x2="70.12" y2="30.67" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><rect x="38.43" y="28.79" width="14.32" height="3.77" rx="0.81" ry="0.81" fill="#fff"/><path d="M51.94,29.29a.31.31,0,0,1,.31.31v2.14a.31.31,0,0,1-.31.31H39.24a.31.31,0,0,1-.31-.31V29.6a.31.31,0,0,1,.31-.31h12.7m0-1H39.24a1.31,1.31,0,0,0-1.31,1.31v2.14a1.31,1.31,0,0,0,1.31,1.31h12.7a1.31,1.31,0,0,0,1.31-1.31V29.6a1.31,1.31,0,0,0-1.31-1.31Z" fill="#fd8204"/><path d="M42.78,55.45a6,6,0,1,1,6-6A6,6,0,0,1,42.78,55.45Zm0-9.15A3.19,3.19,0,1,0,46,49.49,3.19,3.19,0,0,0,42.78,46.3Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M3.25,41.84a1,1,0,0,1,1-1H31.89a1,1,0,0,1,1,1h0a1,1,0,0,1-1,1H4.29a1,1,0,0,1-1-1Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M51.21,39.21A3.14,3.14,0,0,0,51,38a4.72,4.72,0,0,0-4.51-3.35h-20l-.33,0-.32,0a7.21,7.21,0,0,0,0,14.42l.32,0,.33,0H43l1.6,9.1a3.14,3.14,0,0,0,3.14,3.14h3.7a3.14,3.14,0,0,0,3.14-3.14Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M20.17,37.45a4.53,4.53,0,1,0,0,8.77Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/></svg>
+                  <p class="service-menu__item-name">Домашний <br class="text  text--tablet">мастер</p>
+                </a>
+
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/obrabotka_poverhnostey'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M57.95,7.49H50.34a1.73,1.73,0,0,0-1.73,1.73V41.3H50.1v-30h7.85a1.73,1.73,0,0,0,1.73-1.73V9.22A1.73,1.73,0,0,0,57.95,7.49Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round"/><path d="M37.81,39.55c.46-2.09.78-4,2.66-4h9.29v3.7" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M49.78,55.73V37.86h-10c-1.14,0-1.6,1-2.07,2.07-3.2,7.12-5.46,12.63-5.46,12.63-1,0-7.73,6.42-9.52,8.15H16.87a1,1,0,0,0-1,1v3.18a1,1,0,0,0,1,1H47.66" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><line x1="49.78" y1="52.91" x2="32" y2="52.91" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><line x1="22.74" y1="61.06" x2="43.52" y2="61.06" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/><circle cx="48.64" cy="60.72" r="5.79" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><circle cx="48.64" cy="60.72" r="2.81" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <p class="service-menu__item-name">Обработка <br class="text  text--tablet">поверхностей</p>
+                </a>
+
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/domrabotnica'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><path d="M46.8,32.22l2.1-7.43,1.3,2.08,7.26-4.46s-4.78-9.9-7.35-12.48c-1-1-4-1.63-7.59-1.94,0,.1,0,.19,0,.29a5.52,5.52,0,0,1-11,0c0-.09,0-.17,0-.26-3.49.32-6.35,1-7.33,1.91-2.65,2.58-7.61,12.48-7.61,12.48L24,26.88l1.38-2.08,2.19,7.43A25.41,25.41,0,0,0,22,48.5c0,8,2.92,17.5,2.92,17.5H49.46s3.22-9.54,3.22-17.5A24.72,24.72,0,0,0,46.8,32.22Z" fill="none" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M29,8.33a5.08,5.08,0,1,0,8.34,5.78,5.08,5.08,0,1,0,8.39-5.7c-1-.17-2.09-.31-3.25-.41,0,.1,0,.19,0,.29a5.52,5.52,0,0,1-11,0c0-.09,0-.17,0-.26C30.63,8.11,29.8,8.21,29,8.33Z" fill="none" stroke="#fd8204" stroke-linejoin="round"/><path d="M37.16,33.91a27.7,27.7,0,0,1-9.72-1.55,11.63,11.63,0,1,0,19.45,0A27.7,27.7,0,0,1,37.16,33.91Z" fill="none" stroke="#fd8204" stroke-linejoin="round"/><line x1="37.37" y1="33.88" x2="37.37" y2="14.11" fill="none" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M57.45,22.42s-4.7-9.73-7.28-12.4c.27,1.92.24,6.18-1.37,14.63l1.39,2.23Z" fill="none" stroke="#fd8204" stroke-linejoin="round"/><path d="M25.53,24.61c-1.62-8.13-1.89-12.37-1.72-14.3-2.71,3-7.27,12.11-7.27,12.11L24,26.88Z" fill="none" stroke="#fd8204" stroke-linejoin="round"/></svg>
+                  <p class="service-menu__item-name">Домработница</p>
+                </a>
+
+                <a class="service-menu__item  service-menu__item--hide" href="{{buildUrl general.city '/himchistka_odezhdy'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 74 74"><rect width="74" height="74" fill="none"/><rect x="29.96" y="9.81" width="13.32" height="5.36" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M49.49,17.39,53.39,50V62.54a1.66,1.66,0,0,1-1.65,1.65H22a1.66,1.66,0,0,1-1.65-1.65V49.89l4.58-32.66S28.76,14.93,37,14.9C45.49,14.88,49.49,17.39,49.49,17.39Z" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><line x1="36.73" y1="10.47" x2="36.73" y2="62.94" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M21.2,54.91h-.67c-4.94,0-4.76-.42-5-5a57.85,57.85,0,0,1,.57-9.24C17.78,31.11,20.06,24.8,22.65,20c1.59-2.92,3.87-4.54,3.71.31L26.15,50C26.15,54.25,26.43,54.66,21.2,54.91Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><path d="M52.8,54.65h.67c4.91,0,5-.15,5-5a57.85,57.85,0,0,0-.57-9.24c-1.64-9.62-3.91-15.93-6.51-20.69-1.59-2.92-3.87-4.54-3.71.31l.21,29.61C47.85,54.37,48.05,54.65,52.8,54.65Z" fill="#fff" stroke="#fd8204" stroke-linejoin="round" stroke-width="1.7"/><line x1="15.58" y1="49.96" x2="26.15" y2="49.96" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><line x1="47.87" y1="50" x2="58.28" y2="50" fill="#fff" stroke="#fd8204" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/></svg>
+                  <p class="service-menu__item-name">Химчистка</p>
+                </a>
+
+              </div>
+
+              <button class="service-menu__button">
+                <span class="service-menu__button-text">Другие услуги</span>
+                <svg width="38.54" height="10" viewBox="0 0 38.54 10"><rect x="14.27" y="-14.27" width="10" height="38.54" transform="translate(14.27 24.27) rotate(-90)" fill="none"/><polyline points="33.53 1.22 19.27 8.78 5.01 1.22" fill="none" stroke="#cbc9c9" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+              </button>
+            </div>
+
+            <button class="service-menu-carousel__button-next" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+            </button>
+          </div>
         </div>
-        <a href="{{buildUrl general.city '/uborka_ofisov'}}" class="window__offer">
+
+        <a  href="{{buildUrl general.city '/uborka_ofisov'}}" class="window__offer">
           <p class="window__offer-text  text">Интересует уборка офиса?</p>
         </a>
       </section>
 
-      <!--Виды уборок-->
+      <section class="page__section  section">
+        <div class="section__wrap">
+          <h2 class="section__title title">Поддерживающая уборка</h2>
+          <div class="service-calc" data-name="podderzhka" data-service="podderzhka" data-class="space">
+            <p class="service-calc__heading text">Выберите вашу площадь помещения:</p>
+
+            <div class="service-calc__row  service-calc__row--center  service-calc__row--square">
+
+              <div class="service-calc__item service-calc__item--square service-calc__item--active" data-feature="square" data-quantity="40" data-value="40">
+                <button type="button" class="service-calc__radio"><span>40 м<sup><small>2</small></sup></span></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="50" data-value="50">
+                <button type="button" class="service-calc__radio"><span>50 м<sup><small>2</small></sup></span></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="60" data-value="60">
+                <button type="button" class="service-calc__radio"><span>60 м<sup><small>2</small></sup></span></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="70" data-value="70">
+                <button type="button" class="service-calc__radio"><span>70 м<sup><small>2</small></sup></span></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="80" data-value="80">
+                <button type="button" class="service-calc__radio"><span>80 м<sup><small>2</small></sup></span></button>
+              </div>
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="40" data-value>
+                <input type="number" class="service-calc__input service-calc__input--half input" max="200">
+                <span class="service-calc__unit">м<sup><small>2</small></sup></span>
+              </div>
+
+            </div>
+
+            <p class="service-calc__heading text">Выберите желаемый график:</p>
+
+            <div class="service-calc__row  service-calc__row--center  service-calc__row--price">
+
+              <div class="service-calc__item service-calc__item--price" data-name="podderzhka" data-service="podderzhka" data-price="1990" data-option="0x_week" data-schedule="0x_week">
+                <p class="service-calc__text text text-center">По обращению</p>
+                <div class="service-calc__output">
+                  1 990 руб
+                </div>
+              </div>
+
+              <div class="service-calc__item service-calc__item--price" data-name="podderzhka" data-service="podderzhka" data-price="1490" data-option="1x_week" data-schedule="1x_week">
+                <p class="service-calc__text text text-center">Pаз в неделю<span class="service-calc__sign">?<span class="service-menu-card__note">* по графику</span></span></p>
+                <div class="service-calc__output">
+                  1 490 руб
+                </div>
+              </div>
+
+              <div class="service-calc__item service-calc__item--price" data-name="podderzhka" data-service="podderzhka" data-price="1680" data-option="2x_week" data-schedule="2x_week">
+                <p class="service-calc__text text text-center">Раз в 2 недели<span class="service-calc__sign">?<span class="service-menu-card__note">* по графику</span></span></span></p>
+                <div class="service-calc__output">
+                  1 680 руб
+                </div>
+              </div>
+
+              <div class="service-calc__item service-calc__item--price" data-name="podderzhka" data-service="podderzhka" data-price="1790" data-option="4x_week" data-schedule="4x_week">
+                <p class="service-calc__text text text-center">Pаз в месяц<span class="service-calc__sign">?<span class="service-menu-card__note">* по графику</span></span></span></p>
+                <div class="service-calc__output">
+                  1 790 руб
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <button class="section__button button button--application" type="button" data-name="service-order">Заказать уборку</button>
+
+          <div class="service-implement-ab">
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">С увеличением площади более 100 м<sup><small>2</small></sup>, цена на Уборку по Обращению составляет 33 рубля за 1 м<sup><small>2</small></sup> для Уборки по Графику 1 раз/2 недели составляет 27,5 рублей, а для Уборки по Графику 1 раз/1 неделя составляет 25,3 рубля за 1 м<sup><small>2</small></sup>.</p>
+            </div>
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">При проведении Поддерживающей уборки разово необходимо предоставить 2 ведра, пылесос и швабру.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
 
       <section class="page__section  section">
-        <div class="section__wrap  cleaning-type">
-          <h2 class="section__title  title">Виды уборок</h2>
-          <div class="swiper-carousel">
-            <div class="swiper-container  cleaning-type__inner">
-              <div class="swiper-wrapper">
-        
-                <div class="swiper-slide  cleaning-type__item">
-                  <i class="cleaning-type__icon"></i>
-                  <h3 class="cleaning-type__title">Поддерживающая</h3>
-        
-                  <div class="cleaning-type__content">
-                    <ul class="cleaning-type__list">
-                      <li class="cleaning-type__list-item">1-2 сотрудника</li>
-                      <li class="cleaning-type__list-item">Удаляются легкие загрязнения</li>
-                      <li class="cleaning-type__list-item">Высота до 1.8 м</li>
-                      <li class="cleaning-type__list-item">2-4 часов</li>
-                    </ul>
-                    <p class="cleaning-type__price">
-                      <span class="cleaning-type__price  cleaning-type__price--small">от</span>
-                      1 990
-                      <span class="cleaning-type__price  cleaning-type__price--light">&#x20bd;</span>
-                    </p>
-                    <a class="link  link--black  link--without-line  link--with-arrow  cleaning-type__link" href="https://www.domovenok.su/podderzhka">
-                      <span class="link__text">Подробнее</span>
-                      <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-                    </a>
+        <div class="section__wrap">
+          <h2 class="section__title title">Глажка</h2>
+          <div class="service-cards service-cards--full">
+
+            <div class="service-menu-card">
+              <div class="service-menu-card__wrap">
+                <p class="service-menu-card__text text">С уборкой<span class="service-menu-card__sign">?<span class="service-menu-card__note">* 1 час 500 руб</span></span></p>
+                <img class="service-menu-card__image" src="/static/pancake/img/service-ironing.svg" width="80" height="80" alt="Утюг">
+                <p class="service-menu-card__mark">30 мин</p>
+                <p class="service-menu-card__price">250 руб</p>
+              </div>
+            </div>
+
+            <div class="service-menu-card">
+              <div class="service-menu-card__wrap">
+                <p class="service-menu-card__text text">Без уборки<span class="service-menu-card__sign">?<span class="service-menu-card__note">* далее каждый час 550 руб</span></span></p>
+                <img class="service-menu-card__image" src="/static/pancake/img/service-ironing.svg" width="80" height="80" alt="Утюг">
+                <p class="service-menu-card__mark">минимум 3 часа</p>
+                <p class="service-menu-card__price">1 650 руб</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-implement-ab">
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Также Вы можете воспользоваться дополнительной услугой стирка белья. Стирка белья (загрузка одной машинки) включает: фасовку, загрузку, выгрузку, развешивание белья.</p>
+            </div>
+          </div>
+          <button class="section__button button button--application" type="button" data-name="service-order">Заказать услугу</button>
+        </div>
+      </section>
+
+      <section class="page__section  section">
+        <div class="section__wrap">
+          <p class="section__title  title">Дополнительные работы</p>
+
+          <div class="service-menu  service-menu-carousel" data-class="service-menu-carousel">
+            <button class="service-menu-carousel__button-prev  service-menu-carousel__button-prev--disabled" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+            </button>
+
+            <div class="service-menu__wrap  service-menu-carousel__wrap">
+              <div class="service-menu__inner  service-menu-carousel__inner">
+
+
+                <div class="service-menu-card">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Почасовая работа сотрудника</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-hour-work.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 час</p>
+                    <p class="service-menu-card__price">650 руб</p>
                   </div>
                 </div>
-        
-                <div class="swiper-slide  cleaning-type__item">
-                  <h3 class="cleaning-type__title">Генеральная</h3>
-        
-                  <div class="cleaning-type__content">
-                    <ul class="cleaning-type__list">
-                      <li class="cleaning-type__list-item">2-4 сотрудника</li>
-                      <li class="cleaning-type__list-item">Удаляются любые загрязнения</li>
-                      <li class="cleaning-type__list-item">На всю высоту</li>
-                      <li class="cleaning-type__list-item">6-8 часов</li>
-                    </ul>
-                    <p class="cleaning-type__price">
-                      <span class="cleaning-type__price  cleaning-type__price--small">от</span>
-                      6 990
-                      <span class="cleaning-type__price  cleaning-type__price--light">&#x20bd;</span>
-                    </p>
-                    <a class="link  link--black  link--without-line  link--with-arrow  cleaning-type__link" href="https://www.domovenok.su/generalnaya_uborka">
-                      <span class="link__text">Подробнее</span>
-                      <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-                    </a>
+
+                <div class="service-menu-card">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Мытьё посуды</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-washing-dishes.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">10 мин</p>
+                    <p class="service-menu-card__price">100 руб</p>
                   </div>
                 </div>
-        
-                <div class="swiper-slide  cleaning-type__item">
-                  <h3 class="cleaning-type__title">После ремонта</h3>
-        
-                  <div class="cleaning-type__content">
-                    <ul class="cleaning-type__list">
-                      <li class="cleaning-type__list-item">2-4 сотрудника</li>
-                      <li class="cleaning-type__list-item">Любые загрязнения и следы стройки</li>
-                      <li class="cleaning-type__list-item">На всю высоту</li>
-                      <li class="cleaning-type__list-item">6-8 часов</li>
-                    </ul>
-                    <p class="cleaning-type__price">
-                      <span class="cleaning-type__price  cleaning-type__price--small">от</span>
-                      7 690
-                      <span class="cleaning-type__price  cleaning-type__price--light">&#x20bd;</span>
-                    </p>
-                    <a class="link  link--black  link--without-line  link--with-arrow  cleaning-type__link" href="https://www.domovenok.su/posle_remonta">
-                      <span class="link__text">Подробнее</span>
-                      <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-                    </a>
+
+                <div class="service-menu-card">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Мытьё духового шкафа внутри</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-cleaning-oven.svg" width="80" height="80">
+                    <p class="service-menu-card__price">350 руб</p>
                   </div>
                 </div>
-        
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Мытьё холодильника внутри</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-refrigerator.svg" width="80" height="80">
+                    <p class="service-menu-card__price">350 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Мытьё кухонных шкафчиков внутри</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-kitchen-shelves.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">За всю кухню</p>
+                    <p class="service-menu-card__price">500 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Стирка белья<span class="service-menu-card__sign">?<span class="service-menu-card__note">* загрузка, выгрузка, развесить</span></span></p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-washing-machine.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">Одна стиральная машина</p>
+                    <p class="service-menu-card__price">200 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Влажная уборка верхних поверхностей</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-top-surface.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">40 м<sup><small>2</small></sup></p>
+                    <p class="service-menu-card__price">525 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Мытьё хрустальных<br> люстр</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-lamp.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 шт</p>
+                    <p class="service-menu-card__price">990 руб</p>
+                  </div>
+                </div>
+
               </div>
+
+              <button class="service-menu__button">
+                <span class="service-menu__button-text">Другие услуги</span>
+                <svg width="38.54" height="10" viewBox="0 0 38.54 10"><rect x="14.27" y="-14.27" width="10" height="38.54" transform="translate(14.27 24.27) rotate(-90)" fill="none"/><polyline points="33.53 1.22 19.27 8.78 5.01 1.22" fill="none" stroke="#cbc9c9" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+              </button>
             </div>
+
+            <button class="service-menu-carousel__button-next" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+            </button>
           </div>
-          <p class="cleaning-type__text">Цена на Уборку зависит от площади. При обслуживании по графику 1 раз в 2 недели или 1 раз в<br> неделю клиентам предоставляется скидка до 35%</p>
+
+          <button class="section__button button button--application" type="button" data-name="service-order">Заказать работы</button>
         </div>
       </section>
-
-      <!--Дополнительные работы-->
 
       <section class="page__section  section">
         <div class="section__wrap">
-          <h2 class="section__title  title">Дополнительные работы</h2>
-          <div class="swiper-carousel  price-cards">
-            <button class="swiper-carousel__button-prev" type="button">
-              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-            </button>
-          
-            <div class="swiper-container">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide  price-cards__item">
-                  <img class="price-cards__img" src="/static/pancake/img/extra-service-1.svg" width="70" height="70" alt="">
-                  <p class="price-cards__item-title">Почасовая работа<br>
-                    <span class="price-cards__item-title  price-cards__item-title--light">1 час</span>
-                  </p>
-                  <p class="price-cards__price">650
-                    <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                  </p>
-                </div>
-                <div class="swiper-slide  price-cards__item">
-                  <img class="price-cards__img" src="/static/pancake/img/extra-service-2.svg" width="70" height="70" alt="">
-                  <p class="price-cards__item-title">Мытье посуды<br>
-                    <span class="price-cards__item-title  price-cards__item-title--light">10 минут</span>
-                  </p>
-                  <p class="price-cards__price">100
-                    <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                  </p>
-                </div>
-                <div class="swiper-slide  price-cards__item">
-                  <img class="price-cards__img" src="/static/pancake/img/extra-service-3.svg" width="70" height="70" alt="">
-                  <p class="price-cards__item-title">Мытье духового<br>
-                    шкафа внутри
-                  </p>
-                  <p class="price-cards__price">350
-                    <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                  </p>
-                </div>
-                <div class="swiper-slide  price-cards__item">
-                  <img class="price-cards__img" src="/static/pancake/img/extra-service-4.svg" width="70" height="70" alt="">
-                  <p class="price-cards__item-title">Глажка<br>
-                    <span class="price-cards__item-title  price-cards__item-title--light">1 час</span>
-                  </p>
-                  <p class="price-cards__price">500
-                    <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                  </p>
-                </div>
-                <div class="swiper-slide  price-cards__item">
-                  <img class="price-cards__img" src="/static/pancake/img/extra-service-5.svg" width="70" height="70" alt="">
-                  <p class="price-cards__item-title">Люстра<br>
-                    <span class="price-cards__item-title  price-cards__item-title--light">1 штука</span>
-                  </p>
-                  <p class="price-cards__price">990
-                    <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                  </p>
-                </div>
-                <div class="swiper-slide  price-cards__item">
-                  <img class="price-cards__img" src="/static/pancake/img/extra-service-6.svg" width="70" height="70" alt="">
-                  <p class="price-cards__item-title">Стирка<br>
-                    <span class="price-cards__item-title  price-cards__item-title--light">1 стиральная машина</span>
-                  </p>
-                  <p class="price-cards__price">200
-                    <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                  </p>
-                </div>
-                <div class="swiper-slide  price-cards__item">
-                  <img class="price-cards__img" src="/static/pancake/img/extra-service-7.svg" width="70" height="70" alt="">
-                  <p class="price-cards__item-title">Холодильник</p>
-                  <p class="price-cards__price">350
-                    <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                  </p>
+          <h2 class="section__title title">Генеральная уборка</h2>
+          <div class="service-calc" data-name="general" data-service="general" data-class="space">
+            <p class="service-calc__heading text">Выберите вашу площадь помещения:</p>
+
+            <div class="service-calc__row  service-calc__row--center  service-calc__row--square">
+
+              <div class="service-calc__item service-calc__item--square service-calc__item--active"  data-feature="square" data-quantity="40" data-value="40">
+                <button type="button" class="service-calc__radio">40 м<sup><small>2</small></sup></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="50" data-value="50">
+                <button type="button" class="service-calc__radio">50 м<sup><small>2</small></sup></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="60" data-value="60">
+                <button type="button" class="service-calc__radio">60 м<sup><small>2</small></sup></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="70" data-value="70">
+                <button type="button" class="service-calc__radio">70 м<sup><small>2</small></sup></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="80" data-value="80">
+                <button type="button" class="service-calc__radio">80 м<sup><small>2</small></sup></button>
+              </div>
+
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="40" data-value="">
+                <input type="number" class="service-calc__input service-calc__input--half input" max="200">
+
+                <span class="service-calc__unit">м<sup><small>2</small></sup></span>
+              </div>
+
+            </div>
+
+            <p class="service-calc__heading text">Выберите желаемый график:</p>
+
+            <div class="service-calc__row  service-calc__row--center  service-calc__row--price">
+
+              <div class="service-calc__item service-calc__item--price"  data-name="general" data-service="general" data-price="6590" data-option="0x_week" data-schedule="0x_week">
+                <p class="service-calc__text text text-center">По обращению</p>
+                <div class="service-calc__output">
+                  6 590 руб
                 </div>
               </div>
+
+              <div class="service-calc__item service-calc__item--price"  data-name="general" data-service="general" data-price="4280" data-option="1x_week" data-schedule="1x_week">
+                <p class="service-calc__text text text-center">Постоянным клиентам<span class="service-calc__sign  service-calc__sign-popup" data-name="notification">?<span class="service-menu-card__note">Постоянные клиенты - те, кто пользуется услугами нашей компании по уборке своего дома не реже чем 1 раз в 2 недели.</span></span></p>
+                <div class="service-calc__output">
+                  4 280 руб
+                </div>
+              </div>
+
             </div>
-            <button class="swiper-carousel__button-next" type="button">
-              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-            </button>
+
+            <div class="service-calc__row  service-calc__row--center">
+              <button class="button button--application" type="button" data-name="service-order">Заказать уборку</button>
+            </div>
           </div>
-          <button class="button  button--lg  button--center  button--application" data-name="service-order" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderMenuButton"}' type="button">Заказать</button>
+
+          <div class="service-implement-ab">
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Обращаем Ваше внимание, что при сложных случаях генеральной уборки предупреждать и обговаривать объём работ следует заранее в индивидуальном порядке, т.к. для каждой работы существует допустимый предел по времени.</p>
+            </div>
+          </div>
         </div>
       </section>
-
-      <!--Цена на мойку окон-->
 
       <section class="page__section  section">
-        <div class="divided-section">
-          <div class="divided-section__img-part  divided-section__img-part--windows"></div>
-          <div class="divided-section__content-part">
-            <h3 class="divided-section__title">Цена на мойку окон</h3>
-            <p class="divided-section__text">Примерная стоимость для стандартной</p>
-            <div class="divided-section__table">
-
-              <div class="divided-section__table-row">
-                <div class="divided-section__table-cell">
-                  <span class="divided-section__name">Однушки</span>
-                </div>
-                <div class="divided-section__table-cell">
-                  <span class="divided-section__price">1 990</span>
-                  <span class="divided-section__price  divided-section__price--light">&#x20bd;</span>
-                </div>
-              </div>
-
-              <div class="divided-section__table-row">
-                <div class="divided-section__table-cell">
-                  <span class="divided-section__name">Двушки</span>
-                </div>
-                <div class="divided-section__table-cell">
-                  <span class="divided-section__price">2 990</span>
-                  <span class="divided-section__price  divided-section__price--light">&#x20bd;</span>
-                </div>
-              </div>
-
-              <div class="divided-section__table-row">
-                <div class="divided-section__table-cell">
-                  <span class="divided-section__name">Трешки</span>
-                </div>
-                <div class="divided-section__table-cell">
-                  <span class="divided-section__price">3 990</span>
-                  <span class="divided-section__price  divided-section__price--light">&#x20bd;</span>
-                </div>
-              </div>
-            </div>
-            <a class="button  button--lg  divided-section__button" href="https://www.domovenok.su/mite_okon">Рассчитать для себя</a>
-          </div>
-        </div>
-      </section>
-
-      <!--Цены на химчистку-->
-
-      <section class="page__section  section  section--bg-white">
         <div class="section__wrap">
-          <h2 class="section__title  title">Цены на химчистку</h2>
-          <div class="swiper-container" data-client="mobile">
-            <div class="swiper-wrapper  price-cards  price-cards--thin">
-              <div class="swiper-slide  price-cards__item">
-                <img class="price-cards__img" src="/static/pancake/img/dry-cleaning-1.svg" width="95" height="95" alt="">
-                <p class="price-cards__item-title">Ковер</p>
-                <p class="price-cards__price">180
-                  <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                </p>
+          <h2 class="section__title title">Уборка после ремонта</h2>
+          <div class="service-calc" data-name="posle"  data-service="posle"  data-class="space">
+            <p class="service-calc__heading text">Выберите вашу площадь помещения:</p>
+
+            <div class="service-calc__row  service-calc__row--center  service-calc__row--square">
+
+              <div class="service-calc__item service-calc__item--square service-calc__item--active" data-feature="square" data-quantity="40" data-value="40">
+                <button type="button" class="service-calc__radio">40 м<sup><small>2</small></sup></button>
               </div>
-              <div class="swiper-slide  price-cards__item">
-                <img class="price-cards__img" src="/static/pancake/img/dry-cleaning-2.svg" width="95" height="95" alt="">
-                <p class="price-cards__item-title">Диван 2-х местный</p>
-                <p class="price-cards__price">1200
-                  <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                </p>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="50" data-value="50">
+                <button type="button" class="service-calc__radio">50 м<sup><small>2</small></sup></button>
               </div>
-              <div class="swiper-slide  price-cards__item">
-                <img class="price-cards__img" src="/static/pancake/img/dry-cleaning-3.svg" width="95" height="95" alt="">
-                <p class="price-cards__item-title">Штора однослойная</p>
-                <p class="price-cards__price">220
-                  <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                </p>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="60" data-value="60">
+                <button type="button" class="service-calc__radio">60 м<sup><small>2</small></sup></button>
               </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="70" data-value="70">
+                <button type="button" class="service-calc__radio">70 м<sup><small>2</small></sup></button>
+              </div>
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="80" data-value="80">
+                <button type="button" class="service-calc__radio">80 м<sup><small>2</small></sup></button>
+              </div>
+
+
+              <div class="service-calc__item service-calc__item--square" data-feature="square" data-quantity="40" data-value="">
+                <input type="number" class="service-calc__input service-calc__input--half input" max="200">
+
+                <span class="service-calc__unit">м<sup><small>2</small></sup></span>
+              </div>
+
+            </div>
+
+            <p class="service-calc__heading text">Выберите желаемый график:</p>
+
+            <div class="service-calc__row  service-calc__row--center  service-calc__row--price">
+
+              <div class="service-calc__item service-calc__item--price" data-name="posle" data-service="posle" data-price="5600" data-option="without_furniture" data-feature="furniture" data-quantity="without" data-value="without">
+                <p class="service-calc__text text text-center">Без мебели, <b class="text text--orange text--bold">скидка 15%</b></p>
+                <div class="service-calc__output">
+                  5 600 руб
+                </div>
+              </div>
+
+              <div class="service-calc__item service-calc__item--price" data-name="posle" data-service="posle" data-price="6590" data-option="furniture" data-feature="furniture" data-quantity="with" data-value="with">
+                <p class="service-calc__text text text-center">С мебелью</p>
+                <div class="service-calc__output">
+                  6 590 руб
+                </div>
+              </div>
+
             </div>
           </div>
-          <a class="link  link--black  link--without-line  link--with-arrow" href="https://www.domovenok.su/himchistka">
-            <span class="link__text">Подробнее</span>
-            <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-          </a>
+
+          <button class="section__button button button--application" type="button" data-name="service-order">Заказать уборку</button>
+          <p class="section__heading heading">На увеличение стоимости клининговой услуги могут повлиять следующие факторы:</p>
+          <ul class="service-list list">
+            <li class="service-list__item item">
+              <span class="service-list__marker">1</span>
+              <p class="service-list__text text">убираемая площадь заставлена мебелью, которую необходимо передвигать, строительными материалами</p>
+            </li>
+            <li class="service-list__item item">
+              <span class="service-list__marker">2</span>
+              <p class="service-list__text text">продолжение строительных или ремонтных работ, невозможность ограничить доступ людей (строители, сотрудники, покупатели и т.д.)</p>
+            </li>
+            <li class="service-list__item item">
+              <span class="service-list__marker">3</span>
+              <p class="service-list__text text">труднодоступный источник водоснабжения</p>
+            </li>
+            <li class="service-list__item item">
+              <span class="service-list__marker">4</span>
+              <p class="service-list__text text">вынужденное ожидание клиента</p>
+            </li>
+          </ul>
+
         </div>
       </section>
-
-      <!--Цены на мастеров-->
-
-      <section class="page__section  section  section--bg-grey">
-        <div class="section__wrap">
-          <h2 class="section__title  title">Цены на мастеров</h2>
-          <div class="swiper-container" data-client="mobile">
-            <div class="swiper-wrapper  price-cards  price-cards--thin">
-              <div class="swiper-slide  price-cards__item">
-                <img class="price-cards__img" src="/static/pancake/img/masters-1.svg" width="95" height="95" alt="">
-                <p class="price-cards__item-title">Сбор дивана</p>
-                <p class="price-cards__price">2250
-                  <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                </p>
-              </div>
-              <div class="swiper-slide  price-cards__item">
-                <img class="price-cards__img" src="/static/pancake/img/masters-2.svg" width="95" height="95" alt="">
-                <p class="price-cards__item-title">Установка розетки</p>
-                <p class="price-cards__price">400
-                  <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                </p>
-              </div>
-              <div class="swiper-slide  price-cards__item">
-                <img class="price-cards__img" src="/static/pancake/img/masters-3.svg" width="95" height="95" alt="">
-                <p class="price-cards__item-title">Установка унитаза</p>
-                <p class="price-cards__price">3850
-                  <span class="price-cards__price  price-cards__price--light">&#x20bd;</span>
-                </p>
-              </div>
-            </div>
-          </div>
-          <a class="link  link--black  link--without-line  link--with-arrow" href="https://www.domovenok.su/vizov_mastera_na_dom">
-            <span class="link__text">Подробнее</span>
-            <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-          </a>
-        </div>
-      </section>
-
-      <!--Уборка офиса-->
 
       <section class="page__section  section">
-        <div class="divided-section">
-          <div class="divided-section__img-part  divided-section__img-part--office">
-            <h2 class="divided-section__img-part-title">Уборка офиса<br>
-              <span class="divided-section__img-part-title  divided-section__img-part-title--bold">от 1490 рублей</span>
-            </h2>
-          </div>
-          <div class="divided-section__content-part">
-            <div class="divided-section__content-inner">
-              <h3 class="divided-section__title">Уборка зависит от:</h3>
-              <ul class="divided-section__list">
-                <li class="divided-section__list-item">График обслуживания</li>
-                <li class="divided-section__list-item">Количество посетителей</li>
-                <li class="divided-section__list-item">Требование заказчика</li>
-              </ul>
-              <button class="button  button--lg  divided-section__button  button--application" data-name="service-order" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderMenuButton"}' type="button">Получить цену</button>
-              <a class="link  link--white  link--without-line  link--with-arrow  divided-section__link" href="https://www-dev3.domovenok.su/uborka_ofisov">
-                <span class="link__text">Подробнее</span>
-                <svg width="10.54" height="15" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!--Юридические лица-->
-
-      <section class="page__section  section  section--bg-grey">
         <div class="section__wrap">
-          <h2 class="section__title  title">Юридические лица</h2>
-          <div class="swiper-carousel  service-cards">
-            <button class="swiper-carousel__button-prev" type="button">
-              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
-            </button>
+          <h2 class="section__title title">Уборка коттеджей</h2>
+          <div class="service-calc" data-name="uborka_kottedzhej" data-service="uborka_kottedzhej" data-class="space">
+            <p class="service-calc__heading text">Выберите вашу площадь помещения:</p>
+            <div class="service-calc__row  service-calc__row--center  service-calc__row--square">
+              <div class="service-calc__item service-calc__item--square service-calc__item--active" data-feature="square" data-quantity="40" data-value="1">
+                <input type="number" class="service-calc__input service-calc__input--half input" min="1" max="400">
 
-            <div class="swiper-container">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide  service-cards__item  service-cards__item--small">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-1.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Уборка офисов</p>
+                <span class="service-calc__unit">м<sup><small>2</small></sup></span>
+              </div>
+            </div>
+            <p class="service-calc__heading text">Выберите желаемый график:</p>
+            <div class="service-calc__row  service-calc__row--center  service-calc__row--price">
+
+              <div class="service-calc__item service-calc__item--price"  data-name="uborka_kottedzhej" data-service="uborka_kottedzhej" data-price="6590" data-option="0x_week" data-schedule="0x_week">
+                <p class="service-calc__text text text-center">По обращению</p>
+                <div class="service-calc__output">
+                  6 590 руб
                 </div>
-                <div class="swiper-slide  service-cards__item  service-cards__item--small">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-2.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Производственные<br>
-                                                     помещения</p>
-                </div>
-                <div class="swiper-slide  service-cards__item  service-cards__item--small">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-3.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Мытье стекол</p>
-                </div>
-                <div class="swiper-slide  service-cards__item  service-cards__item--small">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-4.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Альпинизм</p>
-                </div>
-                <div class="swiper-slide  service-cards__item  service-cards__item--small">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-5.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Обработка поверхностей</p>
-                </div>
-                <div class="swiper-slide  service-cards__item  service-cards__item--small">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-6.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Фасады</p>
-                </div>
-                <div class="swiper-slide  service-cards__item  service-cards__item--small">
-                  <img class="service-cards__item-img" src="/static/pancake/img/legal-person-7.svg" width="105" height="105" alt="">
-                  <p class="service-cards__item-name">Офисный мастер</p>
+              </div>
+
+              <div class="service-calc__item service-calc__item--price"  data-name="uborka_kottedzhej" data-service="uborka_kottedzhej" data-price="4280" data-option="1x_week" data-schedule="1x_week">
+                <p class="service-calc__text text text-center">Постоянным клиентам<span class="service-calc__sign  service-calc__sign-popup" data-name="notification">?<span class="service-menu-card__note">Постоянные клиенты - те, кто пользуется услугами нашей компании по уборке своего дома не реже чем 1 раз в 2 недели.</span></span></p>
+                <div class="service-calc__output">
+                  4 280 руб
                 </div>
               </div>
             </div>
-            <button class="swiper-carousel__button-next" type="button">
-              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
+          </div>
+          <button class="section__button button button--application" type="button" data-name="service-order">Заказать уборку</button>
+
+          <div class="service-implement-ab">
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Цена будет выше при наличии сложных загрязнений и редких материалов поверхностей</p>
+            </div>
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Стоимость уборки коттеджа или загородного дома определяется индивидуально, после выезда нашего представителя на объект составляется калькуляция и коммерческое предложение, которые согласовываются с Клиентом.</p>
+            </div>
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Выезд представителя «Домовёнка» на объект для оценки объёма и стоимости работ осуществляется бесплатно!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page__section  section">
+        <div class="section__wrap">
+          <p class="section__title  title">Мытьё окон</p>
+          <div class="service-menu  service-menu-carousel" data-class="service-menu-carousel">
+            <button class="service-menu-carousel__button-prev  service-menu-carousel__button-prev--disabled" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+            </button>
+
+            <div class="service-menu__wrap  service-menu-carousel__wrap">
+              <div class="service-menu__inner  service-menu-carousel__inner">
+                <div class="service-menu-card">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Одна створка<span class="service-menu-card__sign">?<span class="service-menu-card__note">* с форточкой</span></span></p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-window-one-frame.svg" width="auto" height="80">
+                    <p class="service-menu-card__price">250 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Две створки<span class="service-menu-card__sign">?<span class="service-menu-card__note">* с форточкой</span></span></p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-window-two-frame.svg" width="auto" height="80">
+                    <p class="service-menu-card__price">390 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Две створки с фрамугой</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-window-two-frame--with.svg" width="auto" height="80">
+                    <p class="service-menu-card__price">550 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Три створки<span class="service-menu-card__sign">?<span class="service-menu-card__note">* с форточкой</span></span></p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-window-three-frame.svg" width="auto" height="80">
+                    <p class="service-menu-card__price">550 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Балконная дверь<span class="service-menu-card__sign">?<span class="service-menu-card__note">* стеклянная</span></span></p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-door.svg" width="auto" height="80">
+                    <p class="service-menu-card__price">250 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Балкон по створкам</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-balcony.svg" width="auto" height="80">
+                    <p class="service-menu-card__price">1190 руб</p>
+                  </div>
+                </div>
+
+              </div>
+
+              <button class="service-menu__button">
+                <span class="service-menu__button-text">Другие услуги</span>
+                <svg width="38.54" height="10" viewBox="0 0 38.54 10"><rect x="14.27" y="-14.27" width="10" height="38.54" transform="translate(14.27 24.27) rotate(-90)" fill="none"/><polyline points="33.53 1.22 19.27 8.78 5.01 1.22" fill="none" stroke="#cbc9c9" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+              </button>
+            </div>
+
+            <button class="service-menu-carousel__button-next" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+            </button>
+          </div>
+
+          <button class="section__button button button--application" type="button" data-name="service-order">Заказать работы</button>
+
+          <div class="service-implement-ab">
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">При заказе только мытья окон в квартире или офисе минимальная сумма заказа - 1000 руб</p>
+            </div>
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Цены мытья окон указаны за обработку двух поверхностей (внутренней и внешней) и включают мойку рам и подоконников оконной конструкции, отлива снаружи.</p>
+            </div>
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Возможно увеличение стоимости при наличии сложных загрязнений: цемент, краска, скотч и трудноотделяемая пленка.</p>
+            </div>
+          </div>
+
+
+        </div>
+      </section>
+
+      <section class="page__section  section">
+        <div class="section__wrap">
+          <p class="section__title  title">Химчистка</p>
+          <div class="service-menu  service-menu-carousel" data-class="service-menu-carousel">
+            <button class="service-menu-carousel__button-prev  service-menu-carousel__button-prev--disabled" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+            </button>
+
+            <div class="service-menu__wrap  service-menu-carousel__wrap">
+              <div class="service-menu__inner  service-menu-carousel__inner">
+
+                <div class="service-menu-card">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Стул</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-chair.svg" width="80" height="80">
+
+                    <div class="service-menu-card__price">200 руб</div>
+                  </div>
+                </div>
+
+                <div class="service-menu-card">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Кресло</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-armchair.svg" width="80" height="80">
+                    <p class="service-menu-card__price">790 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text  text">Диван</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-sofa.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">2 места</p>
+                    <p class="service-menu-card__price">1350 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Диван</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-sofa.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">3 места</p>
+                    <p class="service-menu-card__price">1870 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Диван<span class="service-menu-card__sign">?<span class="service-menu-card__note">* далее 450 руб. за каждое посадочное место</span></span></p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-furniture.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">4 места</p>
+                    <span class="service-menu-card__price">2320 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Матрас<span class="service-menu-card__sign">?<span class="service-menu-card__note">* одна сторона</span></span></p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-mattress.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 спальное место</p>
+                    <p class="service-menu-card__price">500 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Матрас<span class="service-menu-card__sign">?<span class="service-menu-card__note">* одна сторона</span></span></p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-mattress.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">2 спальных места</p>
+                    <p class="service-menu-card__price">900 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Основание кровати<span class="service-menu-card__sign">?<span class="service-menu-card__note">* четыре стороны + изголовье</span></span></p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-bed-frame.svg" width="80" height="80">
+
+                    <p class="service-menu-card__mark">1-спальная кровать</p>
+                    <p class="service-menu-card__price">750 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Основания кровати<span class="service-menu-card__sign">?<span class="service-menu-card__note">* четыре стороны + изголовье</span></span></p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-bed-frame.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">2-спальная кровать</p>
+                    <p class="service-menu-card__price">1050 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Жалюзи</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-blinds.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 м<small><sup>2</sup></small></p>
+                    <p class="service-menu-card__price">140 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Римские шторы</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-roman-blinds.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 м<small><sup>2</sup></small></p>
+                    <p class="service-menu-card__price">120 руб</p>
+                </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Шторы</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-curtains.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 м<small><sup>2</sup></small></p>
+                    <p class="service-menu-card__price">170 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Тюль</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-tulle.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 м<small><sup>2</sup></small></p>
+                    <p class="service-menu-card__price">140 руб</p>
+                  </div>
+                </div>
+              </div>
+
+              <button class="service-menu__button">
+                <span class="service-menu__button-text">Другие услуги</span>
+                <svg width="38.54" height="10" viewBox="0 0 38.54 10"><rect x="14.27" y="-14.27" width="10" height="38.54" transform="translate(14.27 24.27) rotate(-90)" fill="none"/><polyline points="33.53 1.22 19.27 8.78 5.01 1.22" fill="none" stroke="#cbc9c9" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+              </button>
+            </div>
+
+            <button class="service-menu-carousel__button-next" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+            </button>
+          </div>
+
+          <button class="section__button button button--application" type="button" data-name="service-order">Заказать химчистку</button>
+
+          <div class="service-implement-ab">
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Минимальный заказ при проведении Химчистки 3500 р.</p>
+            </div>
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Химчистка диванов на дому не включает в себя химчистку спального матраса</p>
+            </div>
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Скидка 15%, при заказе Генеральной уборки</p>
+            </div>
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">При наличии сложных загрязнений: пятна крови и вина, лака, краски, а также шерсти и следов урины домашних животных; стоимость химчистки увеличивается на 30%</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page__section  section">
+        <div class="section__wrap">
+          <h2 class="section__title title">Домашний мастер</h2>
+          <div class="service-cards service-cards--full">
+            <div class="service-menu-card">
+              <div class="service-menu-card__wrap">
+                <p class="service-menu-card__text text">Домашний мастер<span class="service-menu-card__sign">?<span class="service-menu-card__note">* каждый следующий час 750 руб</span></span></p>
+                <img class="service-menu-card__image" src="/static/pancake/img/service-master.svg" width="80" height="80">
+                <p class="service-menu-card__mark">Первый час</p>
+                <p class="service-menu-card__price">1450 руб</p>
+              </div>
+            </div>
+
+            <div class="service-menu-card">
+              <div class="service-menu-card__wrap">
+                <p class="service-menu-card__text text">Закупка материалов</p>
+                <img class="service-menu-card__image" src="/static/pancake/img/service-buy-materials.svg" width="80" height="80">
+                <p class="service-menu-card__mark">1 час</p>
+                <p class="service-menu-card__price">500 руб</p>
+              </div>
+            </div>
+
+            <div class="service-menu-card">
+              <div class="service-menu-card__wrap">
+                <p class="service-menu-card__text text">Выезд мастера на осмотр</p>
+                <img class="service-menu-card__image" src="/static/pancake/img/service-exit-master.svg" width="80" height="80">
+                <p class="service-menu-card__price">700 руб</p>
+              </div>
+            </div>
+          </div>
+
+          <button class="section__button button button--application" type="button" data-name="service-order">Заказать услугу</button>
+
+          <div class="service-implement-ab">
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Минимальный заказ при проведении Химчистки 3500 р.</p>
+            </div>
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Вызов мастера на дом для осмотра и оценки работ оплачивается только в том случае, если не было произведено никаких работ.</p>
+            </div>
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Если Вы не уверены в выборе материалов для ремонта, домашний мастер сам купит и доставит их Вам. В таком случае желательно сообщить, где находится ближайший строительный или хозяйственный магазин и приготовить деньги. Услуги по закупке материалов оплачиваются отдельно.</p>
+            </div>
+            <div class="service-implement-ab__item  item  item-ab--circle">
+              <p class="service-implement-ab__text  text-ab text">Чтобы избежать дополнительных расходов, старайтесь заранее спланировать необходимые домашние дела и работы, подготовить материалы и сообщить мастеру, чтобы он взял нужные инструменты (все инструменты мастер привозит сам).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page__section  section">
+        <div class="section__wrap">
+          <p class="section__title  title">Обработка поверхностей и спецработы</p>
+          <div class="service-menu  service-menu-carousel" data-class="service-menu-carousel">
+            <button class="service-menu-carousel__button-prev  service-menu-carousel__button-prev--disabled" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+            </button>
+
+            <div class="service-menu__wrap  service-menu-carousel__wrap">
+              <div class="service-menu__inner  service-menu-carousel__inner">
+
+                <div class="service-menu-card">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Полировка паркета, ламината</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-polish-floors.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 м<sup><small>2</small></sup></p>
+                    <p class="service-menu-card__price">80 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Очистка межплиточных швов</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-clean-tiles.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 м<sup><small>2</small></sup></p>
+                    <p class="service-menu-card__price">120 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Обеспыливание стен и потолков</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-dedusting.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 м<sup><small>2</small></sup> (по площади пола)</p>
+                    <p class="service-menu-card__price">15 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Мытьё стен,<br> потолков<span class="service-menu-card__sign">?<span class="service-menu-card__note">* учитывается степень загрязнения</span></span></p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-wash-wall.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 м<sup><small>2</small></sup> (по площади пола)</p>
+                    <p class="service-menu-card__price">25 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Мытьё фасадов<span class="service-menu-card__sign">?<span class="service-menu-card__note">* учитывается степень загрязнения</span></span></p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-wash-facades.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 м<sup><small>2</small></sup></p>
+                    <p class="service-menu-card__price">30 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Очистка труднодоступных мест</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-arduous-clean.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 час</p>
+                    <p class="service-menu-card__price">500 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Размывка полов</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-blur-floors.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 м<sup><small>2</small></sup></p>
+                    <p class="service-menu-card__price">50 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Полировка мебели</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-polish-furniture.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 час</p>
+                    <p class="service-menu-card__price">450 руб</p>
+                  </div>
+                </div>
+
+                <div class="service-menu-card service-menu-card--hide">
+                  <div class="service-menu-card__wrap">
+                    <p class="service-menu-card__text text">Нанесение защитных покрытий</p>
+                    <img class="service-menu-card__image" src="/static/pancake/img/service-shield-surface.svg" width="80" height="80">
+                    <p class="service-menu-card__mark">1 м<sup><small>2</small></sup></p>
+                    <p class="service-menu-card__price">80 руб</p>
+                  </div>
+                </div>
+
+              </div>
+
+              <button class="service-menu__button">
+                <span class="service-menu__button-text">Другие услуги</span>
+                <svg width="38.54" height="10" viewBox="0 0 38.54 10"><rect x="14.27" y="-14.27" width="10" height="38.54" transform="translate(14.27 24.27) rotate(-90)" fill="none"/><polyline points="33.53 1.22 19.27 8.78 5.01 1.22" fill="none" stroke="#cbc9c9" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+              </button>
+            </div>
+
+            <button class="service-menu-carousel__button-next" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+            </button>
+          </div>
+
+          <button class="section__button button button--application" type="button" data-name="service-order">Заказать работы</button>
+        </div>
+      </section>
+
+      <section class="page__section  section">
+        <div class="section__wrap">
+          <h2 class="section__title section__title--main title">Юридическим лицам</h2>
+          <div class="service-menu  service-menu-carousel" data-class="service-menu-carousel">
+            <button class="service-menu-carousel__button-prev  service-menu-carousel__button-prev--disabled" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+            </button>
+
+            <div class="service-menu__wrap  service-menu-carousel__wrap">
+              <div class="service-menu__inner  service-menu-carousel__inner">
+                <a class="service-menu__item" href="{{buildUrl general.city '/uborka_ofisov'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 70 70"><title>офис</title><g id="Слой_2" data-name="Слой 2"><g id="Слой_1-2" data-name="Слой 1"><rect width="70" height="70" fill="none"/><rect x="13.19" y="9.96" width="9.86" height="46.06" fill="#d9d6cc" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><rect x="15.45" y="12.76" width="5.34" height="21.73" fill="#f5f4f0" stroke="#692f17" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75"/><circle cx="18.12" cy="50.67" r="2.09" fill="#fd8204" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><rect x="23.05" y="9.96" width="9.86" height="46.06" fill="#d9d6cc" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><rect x="25.3" y="12.76" width="5.34" height="21.73" fill="#f5f4f0" stroke="#692f17" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75"/><circle cx="27.97" cy="50.67" r="2.09" fill="#fd8204" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><rect x="32.9" y="9.96" width="9.86" height="46.06" fill="#d9d6cc" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><rect x="35.16" y="12.76" width="5.34" height="21.73" fill="#f5f4f0" stroke="#692f17" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75"/><circle cx="37.83" cy="50.67" r="2.09" fill="#fd8204" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><rect x="42.76" y="9.96" width="9.86" height="46.06" fill="#d9d6cc" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><rect x="45.01" y="12.76" width="5.34" height="21.73" fill="#f5f4f0" stroke="#692f17" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75"/><circle cx="47.69" cy="50.67" r="2.09" fill="#fd8204" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><rect x="52.61" y="9.96" width="9.86" height="46.06" fill="#d9d6cc" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><rect x="54.87" y="12.76" width="5.34" height="21.73" fill="#f5f4f0" stroke="#692f17" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75"/><circle cx="57.54" cy="50.67" r="2.09" fill="#fd8204" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><rect x="7.55" y="26.89" width="28.8" height="33.15" rx="1.69" ry="1.69" fill="#f5f4f0" stroke="#692f17" stroke-miterlimit="10" stroke-width="1.5"/><path d="M34.64,27H9.22a1.69,1.69,0,0,0-1.69,1.69v4h28.8v-4A1.69,1.69,0,0,0,34.64,27Z" fill="#fd8204" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><path d="M11.26,33.66a.89.89,0,0,1-.9.89h0a.89.89,0,0,1-.89-.89V31.22a.9.9,0,0,1,.89-.9h0a.9.9,0,0,1,.9.9Z" fill="#f5f4f0" stroke="#692f17" stroke-miterlimit="10" stroke-width="0.75"/><path d="M34.24,33.66a.89.89,0,0,1-.9.89h0a.89.89,0,0,1-.9-.89V31.22a.9.9,0,0,1,.9-.9h0a.9.9,0,0,1,.9.9Z" fill="#f5f4f0" stroke="#692f17" stroke-miterlimit="10" stroke-width="0.75"/><path d="M17.13,46.14c.93-.66,2.25-1.3,2.25-2.61a1.54,1.54,0,0,0-1.6-1.65c-1.28,0-1.7,1.33-1.7,2.46H14C13.92,41.89,15.31,40,17.88,40a3.41,3.41,0,0,1,3.67,3.35c0,3.24-3.44,3.5-5,5.7h5.06v1.86H13.75C13.75,48.43,15.28,47.41,17.13,46.14Z" fill="#fd8204"/><path d="M24.38,47.74a1.71,1.71,0,0,0,1.76,1.6A1.94,1.94,0,0,0,28,47.28a1.84,1.84,0,0,0-1.85-2,1.77,1.77,0,0,0-1.64.86h-2l1.05-5.91h6V42H25.16l-.43,2.43,0,0a2.72,2.72,0,0,1,2.09-.83c2.11,0,3.3,1.64,3.3,3.64a3.87,3.87,0,0,1-4,3.85c-2.08,0-3.93-1.15-4-3.39Z" fill="#fd8204"/></g></g></svg>
+                  <p class="service-menu__item-name">Уборка офисов</p>
+                </a>
+
+                <a class="service-menu__item" href="{{buildUrl general.city '/uborka-proizvodstvennyh-pomewenij'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 70 70"><title>прооиз-помешения</title><g id="Слой_2" data-name="Слой 2"><g id="Слой_1-2" data-name="Слой 1"><rect width="70" height="70" fill="none"/><path d="M55.91,9.63H46.83a2.07,2.07,0,0,0-2.07,2.07v5.47h1.78v-3h9.37A2.07,2.07,0,0,0,58,12.07v-.38A2.07,2.07,0,0,0,55.91,9.63Z" fill="#f7e8d2" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><path d="M32.17,20.76c.55-2.5.94-4.8,3.2-4.8H46.56v4.42" fill="#d9d6cc" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><path d="M46.52,50.5V18.71H34.61C22.72,21.3,13.2,50.48,13.2,50.48A1.17,1.17,0,0,0,12,51.66v6.78a1.18,1.18,0,0,0,1.17,1.18H44" fill="#fd8204" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><line x1="40.54" y1="50.64" x2="12.75" y2="50.64" fill="none" stroke="#692f17" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75"/><path d="M39.68,58.86H13.12a.35.35,0,0,1-.35-.35l0-1.86H39.7Z" fill="#d9d6cc"/><circle cx="43.69" cy="54.94" r="5.44" fill="#dfdbd1" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><circle cx="43.69" cy="54.94" r="2.64" fill="#f5f4f0" stroke="#692f17" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75"/><line x1="12.36" y1="56.27" x2="38.23" y2="56.27" fill="none" stroke="#692f17" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75"/><line x1="14.56" y1="56.23" x2="14.56" y2="59.4" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="17.41" y1="56.23" x2="17.41" y2="59.4" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="20.25" y1="56.23" x2="20.25" y2="59.4" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="23.1" y1="56.23" x2="23.1" y2="59.4" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/></g></g></svg>
+                  <p class="service-menu__item-name">Уборка<br class="text  text--tablet"> производственных<br class="text  text--tablet">помещений</p>
+                </a>
+
+                <a class="service-menu__item" href="{{buildUrl general.city '/ofisnyy-master'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 70 70"><title>офисный-мастер_1</title><g id="Слой_2" data-name="Слой 2"><g id="Слой_1-2" data-name="Слой 1"><rect width="70" height="70" fill="none"/><path d="M45.22,27.59A6.79,6.79,0,1,1,52,20.81,6.79,6.79,0,0,1,45.22,27.59Zm0-12.22a5.43,5.43,0,1,0,5.43,5.43A5.44,5.44,0,0,0,45.22,15.37Z" fill="#fd8204"/><path d="M45.22,14.4a6.41,6.41,0,1,1-6.41,6.41,6.42,6.42,0,0,1,6.41-6.41m0,12.22a5.81,5.81,0,1,0-5.81-5.81,5.81,5.81,0,0,0,5.81,5.81m0-13a7.16,7.16,0,1,0,7.16,7.16,7.16,7.16,0,0,0-7.16-7.16Zm0,12.22a5.06,5.06,0,1,1,5.06-5.06,5.06,5.06,0,0,1-5.06,5.06Z" fill="#692f17"/><rect x="23.66" y="21.38" width="43.12" height="31.36" rx="3.56" ry="3.56" fill="#fd8204" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><path d="M66.79,29.44V24.93a3.56,3.56,0,0,0-3.56-3.56h-36a3.56,3.56,0,0,0-3.56,3.56v4.51" fill="#f7e8d2" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><line x1="23.66" y1="29.44" x2="66.79" y2="29.44" fill="#dfdbd1" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><rect x="38.87" y="27.72" width="12.72" height="3.44" rx="0.78" ry="0.78" fill="#f8f3ee"/><path d="M50.8,28.09a.4.4,0,0,1,.4.4v1.88a.4.4,0,0,1-.4.4H39.64a.4.4,0,0,1-.4-.4V28.5a.4.4,0,0,1,.4-.4H50.8m0-.75H39.64a1.15,1.15,0,0,0-1.15,1.15v1.88a1.15,1.15,0,0,0,1.15,1.15H50.8A1.15,1.15,0,0,0,52,30.38V28.5a1.15,1.15,0,0,0-1.15-1.15Z" fill="#692f17"/><path d="M38,51.22A5.24,5.24,0,1,1,43.2,46,5.25,5.25,0,0,1,38,51.22Zm0-8a2.8,2.8,0,1,0,2.8,2.8A2.81,2.81,0,0,0,38,43.17Z" fill="#dfdbd1" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><path d="M3.21,39.25a.91.91,0,0,1,.91-.91H28.38a.91.91,0,0,1,.91.91h0a.91.91,0,0,1-.91.91H4.13a.91.91,0,0,1-.91-.91Z" fill="#dfdbd1" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><path d="M45.36,36.94a2.76,2.76,0,0,0-.22-1.08,4.15,4.15,0,0,0-4-2.95H23a6.34,6.34,0,0,0,0,12.68h15.1l1.41,8a2.76,2.76,0,0,0,2.76,2.76h3.25a2.76,2.76,0,0,0,2.76-2.76Z" fill="#dfdbd1" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><path d="M18.08,35.4a4,4,0,1,0,0,7.71Z" fill="#fd8204" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/></g></g></svg>
+                  <p class="service-menu__item-name">Офисный мастер</p>
+                </a>
+
+                <a class="service-menu__item service-menu__item--hide" href="{{buildUrl general.city '/mite_stekol'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 70 70"><title>мытье-окон</title><g id="Слой_2" data-name="Слой 2"><g id="Слой_1-2" data-name="Слой 1"><rect width="70" height="70" fill="none"/><path d="M44.83,67.84a17,17,0,0,1-5.55-3.9,11.34,11.34,0,0,1-3.07-4.72l.8-.77,9,8.09Z" fill="#f7e8d2" stroke="#692f17" stroke-miterlimit="10" stroke-width="0.75"/><path d="M45.13,67.67s3-4.25,4.74-4.58a17.83,17.83,0,0,0,8.06-4.33L60,56.64l1.54-1.54,2-2a1.81,1.81,0,0,0,0-2.56l-.29-.28a1.81,1.81,0,0,0-2.56,0L62,49a2.09,2.09,0,0,0,0-3l-.33-.33a2.09,2.09,0,0,0-3,0l.26-.26a2.09,2.09,0,0,0,0-3l-.33-.33a2.1,2.1,0,0,0-3,0l-.92.92a2.22,2.22,0,0,0,.17-3.13l-.33-.33a2.23,2.23,0,0,0-3.13.17l-2.62,2.62-2,2-.18.18v-.23c0-.05,0-.1,0-.16l-.48.48-2.87-2.87a2.65,2.65,0,0,0-1.95,2.55L41,54.59,36.45,59" fill="#f7e8d2" stroke="#692f17" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/><path d="M10,28.48q1.53,1.4,3,2.85l3,2.87L21.88,40H21q5.8-6,11.7-11.83T44.58,16.54v.89L38.6,11c-1-1.07-2-2.17-2.94-3.26s-2-2.18-2.91-3.29c1.09,1,2.16,2,3.23,3s2.15,2,3.2,3l6.31,6.1a.62.62,0,0,1,0,.87h0l0,0q-5.82,5.95-11.72,11.81T21.87,40.89l0,0a.6.6,0,0,1-.84,0h0l-5.58-6.14-2.74-3.11Q11.29,30.07,10,28.48Z" fill="#692f17"/><line x1="48.35" y1="42.89" x2="44.15" y2="47.1" fill="none" stroke="#692f17" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M36.71,40.1a5.55,5.55,0,0,0,6.18,1.15l3.34,3.34,2.85-2.85L45.74,38.4a5.55,5.55,0,0,0-1.15-6.18" fill="#dfdbd1" stroke="#692f17" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/><path d="M25.21,43.73,27.5,46a2.33,2.33,0,0,0,3.29,0L50.51,26.3a2.33,2.33,0,0,0,0-3.29l-2.29-2.29" fill="#dfdbd1" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/><polygon points="18.21 20.02 21.03 21.85 23.85 20.02 22.02 22.84 23.85 25.66 21.03 23.83 18.21 25.66 20.04 22.84 18.21 20.02" fill="#dbc19f"/><polygon points="18.21 6.58 21.03 8.4 23.85 6.58 22.02 9.39 23.85 12.21 21.03 10.38 18.21 12.21 20.04 9.39 18.21 6.58" fill="#dbc19f"/><polygon points="28.49 10.49 31.31 12.31 34.13 10.49 32.3 13.31 34.13 16.13 31.31 14.3 28.49 16.13 30.32 13.31 28.49 10.49" fill="#dbc19f"/><rect x="18.47" y="28.25" width="33.3" height="4.73" transform="translate(-11.36 33.8) rotate(-45)" fill="#fd8204"/><path d="M45.22,17.7,48,20.51l-23,23L22.2,40.72l23-23m0-1.06L21.14,40.72,25,44.59,49.1,20.51l-3.87-3.87Z" fill="#692f17"/></g></g></svg>
+                  <p class="service-menu__item-name">Мытьё стёкол</p>
+                </a>
+
+                <a class="service-menu__item service-menu__item--hide" href="{{buildUrl general.city '/myte-fasadov'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 70 70"><title>мытье-фасада</title><g id="Слой_2" data-name="Слой 2"><g id="Слой_1-2" data-name="Слой 1"><rect width="70" height="70" fill="none"/><polygon points="50.07 16.61 41.81 17.57 41.81 19.52 50.07 18.57 50.07 16.61" fill="#eaeaea" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><ellipse cx="25.64" cy="19.94" rx="7.38" ry="7.29" fill="#d9d6cc" stroke="#692f17" stroke-miterlimit="10" stroke-width="1.5"/><path d="M33.73,32.6c-2.32-.83-5.62-1.49-6.17-5.61L26,7.33a1.17,1.17,0,0,0-1.16-1.08H22.38a1.17,1.17,0,0,0-1.17,1.17v43h0c0,7.31,0,13.36,0,13.36H40.11l3.5-8.93.06-10.92S43.45,36.09,33.73,32.6Z" fill="#fd8204" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/><polygon points="51.74 14.43 40.47 15.57 40.27 15.57 40.27 15.59 40.23 15.59 40.23 18.36 40.27 45.14 42.02 45.14 42.02 18.18 51.74 17.19 51.74 14.43" fill="#eaeaea" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><rect x="39.06" y="43.94" width="4.48" height="8.49" fill="#f4f4f4" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><ellipse cx="39.62" cy="57.7" rx="6.13" ry="6.05" fill="#d9d6cc" stroke="#692f17" stroke-miterlimit="10" stroke-width="1.5"/><ellipse cx="39.62" cy="57.7" rx="3.52" ry="3.48" fill="#f4f4f4" stroke="#692f17" stroke-miterlimit="10" stroke-width="0.75"/><path d="M23.08,55.58" fill="none" stroke="#692f17" stroke-miterlimit="10" stroke-width="0.5" fill-rule="evenodd"/><path d="M21.36,51.85c0-9.73,7.83-17.54,15.57-17.54" fill="none" stroke="#692f17" stroke-miterlimit="10" stroke-width="0.75" fill-rule="evenodd"/><path d="M51.66,17.08l0,1.47a1.52,1.52,0,0,1-1.39,1.62L42.05,21" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/></g></g></svg>
+                  <p class="service-menu__item-name">Мытьё фасадов</p>
+                </a>
+
+                <a class="service-menu__item service-menu__item--hide" href="{{buildUrl general.city '/promyshlennyj-alpinizm'}}">
+                  <svg class="service-menu__item-image" width="60" height="60" viewBox="0 0 70 70"><title>альпенизм_1</title><g id="Слой_2" data-name="Слой 2"><g id="Слой_1-2" data-name="Слой 1"><rect width="70" height="70" fill="none"/><rect x="31.57" y="4.53" width="5.45" height="54.17" rx="2" ry="2" transform="translate(61.18 -6.5) rotate(82.52)" fill="#f7e8d2" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><line x1="55.08" y1="26.1" x2="59.77" y2="30.96" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="51.14" y1="26.61" x2="55.83" y2="31.48" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="47.2" y1="27.13" x2="51.89" y2="32" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="43.26" y1="27.65" x2="47.95" y2="32.51" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="39.32" y1="28.16" x2="44.01" y2="33.03" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="35.38" y1="28.68" x2="40.07" y2="33.55" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="31.44" y1="29.2" x2="36.13" y2="34.07" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="27.5" y1="29.72" x2="32.19" y2="34.58" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="23.56" y1="30.23" x2="28.25" y2="35.1" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="19.62" y1="30.75" x2="24.31" y2="35.62" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="15.68" y1="31.27" x2="20.37" y2="36.14" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="11.74" y1="31.78" x2="16.43" y2="36.65" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="8.11" y1="32.67" x2="12.49" y2="37.17" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.8"/><rect x="32.27" y="9.94" width="5.45" height="54.17" rx="2" ry="2" transform="translate(67.15 -2.5) rotate(82.52)" fill="#f7e8d2" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><line x1="55.79" y1="31.5" x2="60.48" y2="36.37" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="51.85" y1="32.02" x2="56.54" y2="36.88" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="47.91" y1="32.53" x2="52.6" y2="37.4" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="43.97" y1="33.05" x2="48.66" y2="37.92" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="40.03" y1="33.57" x2="44.72" y2="38.44" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="36.09" y1="34.09" x2="40.78" y2="38.95" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="32.15" y1="34.6" x2="36.84" y2="39.47" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="28.21" y1="35.12" x2="32.9" y2="39.99" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="24.27" y1="35.64" x2="28.96" y2="40.51" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="20.33" y1="36.15" x2="25.02" y2="41.02" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="16.39" y1="36.67" x2="21.08" y2="41.54" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="12.45" y1="37.19" x2="17.14" y2="42.06" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="8.82" y1="38.08" x2="13.19" y2="42.57" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><rect x="32.98" y="15.34" width="5.45" height="54.17" rx="2" ry="2" transform="translate(73.13 1.5) rotate(82.52)" fill="#f7e8d2" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><line x1="56.5" y1="36.9" x2="61.19" y2="41.77" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.8"/><line x1="52.56" y1="37.42" x2="57.25" y2="42.29" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.8"/><line x1="48.62" y1="37.94" x2="53.31" y2="42.81" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.8"/><line x1="44.68" y1="38.46" x2="49.37" y2="43.32" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="40.74" y1="38.97" x2="45.43" y2="43.84" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="36.8" y1="39.49" x2="41.49" y2="44.36" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="32.86" y1="40.01" x2="37.55" y2="44.87" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="28.92" y1="40.52" x2="33.61" y2="45.39" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="24.98" y1="41.04" x2="29.67" y2="45.91" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="21.04" y1="41.56" x2="25.73" y2="46.43" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="17.1" y1="42.08" x2="21.79" y2="46.94" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="13.15" y1="42.59" x2="17.84" y2="47.46" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="9.53" y1="43.48" x2="13.9" y2="47.98" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><path d="M47.81,21.93c-.33-1.63-2.05-4-4.67-5.64a9.59,9.59,0,0,0-5.82-1.23s-7,1.85-9.22,3a8.56,8.56,0,0,0-3.62,3.35A10,10,0,0,0,23.16,25s0,21.12,0,21.56,2.47,8.53,9.52,8.47a9.27,9.27,0,0,0,8.82-6.61s3.51-12.3,5.16-17.9S48.14,23.56,47.81,21.93Zm-3.6,3.9L38.05,47.55h0a5.75,5.75,0,0,1-11.2-1.83c-.18-1.59.09-21,.09-21a3.41,3.41,0,0,1,2-3.1,62.35,62.35,0,0,1,8.68-2.94,8.87,8.87,0,0,1,1.08-.16,5.74,5.74,0,0,1,5.54,7.3Z" fill="#d9d6cc" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><rect x="22.2" y="24.86" width="5.25" height="18.43" fill="#fd8204" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><line x1="22.19" y1="29.11" x2="27.44" y2="25.22" fill="#dfdbd1" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="22.19" y1="32.66" x2="27.44" y2="28.77" fill="#dfdbd1" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="22.19" y1="36.21" x2="27.44" y2="32.32" fill="#dfdbd1" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="22.19" y1="39.76" x2="27.44" y2="35.87" fill="#dfdbd1" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="22.19" y1="43.3" x2="27.44" y2="39.41" fill="#dfdbd1" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><path d="M36.37,34.1l22.47-2.95a2.73,2.73,0,1,0-.71-5.4L33.19,29" fill="#f7e8d2" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><line x1="55.13" y1="26.1" x2="59.82" y2="30.96" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="51.19" y1="26.61" x2="55.88" y2="31.48" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="47.24" y1="27.13" x2="51.94" y2="32" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="43.3" y1="27.65" x2="47.99" y2="32.51" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="39.36" y1="28.16" x2="44.05" y2="33.03" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="35.42" y1="28.68" x2="40.11" y2="33.55" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><path d="M38.86,39.27l20.69-2.72a2.73,2.73,0,0,0-.71-5.4L36,34.08" fill="#f7e8d2" stroke="#692f17" stroke-linejoin="round" stroke-width="1.5"/><line x1="55.84" y1="31.5" x2="60.53" y2="36.37" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="51.89" y1="32.02" x2="56.59" y2="36.88" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="47.95" y1="32.53" x2="52.64" y2="37.4" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="44.01" y1="33.05" x2="48.7" y2="37.92" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="40.07" y1="33.57" x2="44.76" y2="38.44" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><path d="M37.54,35.55,40.82,39" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><path d="M38.87,44.68,60.26,42a2.73,2.73,0,0,0-.71-5.4L37.68,39.41" fill="#f7e8d2" stroke="#692f17" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><line x1="56.54" y1="36.9" x2="61.24" y2="41.77" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="52.6" y1="37.42" x2="57.29" y2="42.29" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="48.66" y1="37.94" x2="53.35" y2="42.81" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="44.72" y1="38.46" x2="49.41" y2="43.32" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="40.78" y1="38.97" x2="45.47" y2="43.84" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="36.85" y1="39.65" x2="41.54" y2="44.51" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.75"/><line x1="31.77" y1="29.55" x2="36.46" y2="34.41" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.8"/><line x1="36.3" y1="34.26" x2="40.99" y2="39.12" fill="none" stroke="#692f17" stroke-linejoin="round" stroke-width="0.8"/><path d="M38.08,44.1l2-.33-1.45-.86S37.46,43.34,38.08,44.1Z" fill="#f8f3ee"/></g></g></svg>
+                  <p class="service-menu__item-name">Промышленный<br class="text  text--tablet"> альпинизм</p>
+                </a>
+              </div>
+
+              <button class="service-menu__button">
+                <span class="service-menu__button-text">Другие услуги</span>
+                <svg width="38.54" height="10" viewBox="0 0 38.54 10"><rect x="14.27" y="-14.27" width="10" height="38.54" transform="translate(14.27 24.27) rotate(-90)" fill="none"/><polyline points="33.53 1.22 19.27 8.78 5.01 1.22" fill="none" stroke="#cbc9c9" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
+              </button>
+            </div>
+
+            <button class="service-menu-carousel__button-next" type="button">
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
             </button>
           </div>
         </div>
       </section>
 
-      <!--Main Footer-->
-
+      <!-- Page Footer -->
       <footer class="page-footer">
         <div class="page-footer__wrap">
           {{templateTag this 'footer/footer-menu__new.html'}}
@@ -543,50 +1112,39 @@
             <div class="page-footer__column">
               <div class="page-footer__social-links  social-links">
                 <a  class="social-link  social-link--grey" href="https://www.facebook.com/uborka.domovenok">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><path d="M18,0A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z" fill="#fff" fill-rule="evenodd"/><path d="M14.9,17.49a2.64,2.64,0,0,1,0,.7V29.27h4.88c0-2.92,0-5.91,0-8.84,0,0,0-2.84,0-2.9a.1.1,0,0,1,0,0s3.11,0,3.22,0l.05,0,.43-4H19.83c0-.6,0-1.21,0-1.81s0-1.22.32-1.52l3.37-.33V5.7c-.64,0-1.39,0-2,0s-1.36,0-2,0a4.17,4.17,0,0,0-3,1.07c-.45.5-1.57,1.13-1.5,6.62H12.46v4.06Z" fill="#263239" fill-rule="evenodd"/></g></g></svg>
+                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><path d="M18,0A18,18,0,1,1,0,18,18,18,0,0,1,18,0Z" fill="#fff" fill-rule="evenodd"/><path d="M14.9,17.49a2.64,2.64,0,0,1,0,.7V29.27h4.88c0-2.92,0-5.91,0-8.84,0,0,0-2.84,0-2.9a.1.1,0,0,1,0,0s3.11,0,3.22,0l.05,0,.43-4H19.83c0-.6,0-1.21,0-1.81s0-1.22.32-1.52l3.37-.33V5.7c-.64,0-1.39,0-2,0s-1.36,0-2,0a4.17,4.17,0,0,0-3,1.07c-.45.5-1.57,1.13-1.5,6.62H12.46v4.06Z" fill="#434343" fill-rule="evenodd"/></g></g></svg>
                 </a>
       
                 <a  class="social-link  social-link--grey" href="http://odnoklassniki.ru/group/56701105799224">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><path d="M18.59,6.09c-3.1-.51-6.75,1.3-7.33,4.93C10,19,22.6,20.88,23.79,12.86A6.05,6.05,0,0,0,18.59,6.09Zm1.89,6.32c-.56,3.79-6.52,2.91-5.92-.87A3,3,0,0,1,18,9.21,2.86,2.86,0,0,1,20.48,12.42Z" fill="#263239"/><path d="M23.89,28.76c-1.23,1.2-2.55.1-3.51-.79s-1.81-1.71-2.68-2.36c-2.25,2.27-4.08,5-5.93,3.49-2.21-1.81,2.13-4.47,3.2-6a12.39,12.39,0,0,1-3.84-1.45,1.75,1.75,0,0,1,0-2.84c1.27-.88,2.13.09,3.63.55,5.69,1.75,7.89-3.16,9.57-.28,1.44,2.46-3.45,3.54-4,3.92C22.66,25.13,25.67,27,23.89,28.76Z" fill="#263239"/></g></g></svg>
+                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><path d="M18.59,6.09c-3.1-.51-6.75,1.3-7.33,4.93C10,19,22.6,20.88,23.79,12.86A6.05,6.05,0,0,0,18.59,6.09Zm1.89,6.32c-.56,3.79-6.52,2.91-5.92-.87A3,3,0,0,1,18,9.21,2.86,2.86,0,0,1,20.48,12.42Z" fill="#434343"/><path d="M23.89,28.76c-1.23,1.2-2.55.1-3.51-.79s-1.81-1.71-2.68-2.36c-2.25,2.27-4.08,5-5.93,3.49-2.21-1.81,2.13-4.47,3.2-6a12.39,12.39,0,0,1-3.84-1.45,1.75,1.75,0,0,1,0-2.84c1.27-.88,2.13.09,3.63.55,5.69,1.75,7.89-3.16,9.57-.28,1.44,2.46-3.45,3.54-4,3.92C22.66,25.13,25.67,27,23.89,28.76Z" fill="#434343"/></g></g></svg>
                 </a>
       
                 <a  class="social-link  social-link--grey" href="https://instagram.com/cleaning.domovenok/">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><rect x="8.65" y="8.54" width="18.21" height="18.02" rx="4" ry="4" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2"/><circle cx="17.76" cy="17.55" r="4.16" fill="none" stroke="#263239" stroke-miterlimit="10" stroke-width="2"/><circle cx="23" cy="12.11" r="1.23" fill="#263239"/></g></g></svg>
+                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><rect x="8.65" y="8.54" width="18.21" height="18.02" rx="4" ry="4" fill="none" stroke="#434343" stroke-miterlimit="10" stroke-width="2"/><circle cx="17.76" cy="17.55" r="4.16" fill="none" stroke="#434343" stroke-miterlimit="10" stroke-width="2"/><circle cx="23" cy="12.11" r="1.23" fill="#434343"/></g></g></svg>
                 </a>
       
                 <a  class="social-link  social-link--grey" href="https://www.youtube.com/channel/UC3KMG4hKopFvk18-69tLsRQ">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><rect x="7.3" y="10.47" width="21.39" height="15.07" rx="3" ry="3" fill="#263239"/><polygon points="15.93 17.93 15.9 14.96 18.49 16.41 21.08 17.87 18.52 19.39 15.97 20.9 15.93 17.93" fill="#fff"/></g></g></svg>
+                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><rect x="7.3" y="10.47" width="21.39" height="15.07" rx="3" ry="3" fill="#434343"/><polygon points="15.93 17.93 15.9 14.96 18.49 16.41 21.08 17.87 18.52 19.39 15.97 20.9 15.93 17.93" fill="#fff"/></g></g></svg>
                 </a>
       
                 <a  class="social-link  social-link--grey" href="https://vk.com/club43423694">
-                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><path d="M26.93,19.84a22.13,22.13,0,0,1,3.21,3.38,1.39,1.39,0,0,1,.27,1.16.66.66,0,0,1-.7.5l-4,.18a3.09,3.09,0,0,1-2.06-1A8.41,8.41,0,0,1,22,22.27a1.05,1.05,0,0,0-.88-.47.71.71,0,0,0-.82.59l-.12,1.54a1,1,0,0,1-.36.71,1.17,1.17,0,0,1-.51.27l-.7.09a13.2,13.2,0,0,1-2.75-.15A5.51,5.51,0,0,1,13.74,24,12.86,12.86,0,0,1,12.2,22.8q-.57-.53-1.66-1.72a50.43,50.43,0,0,1-4.42-7.17,6.1,6.1,0,0,1-.61-2,1.51,1.51,0,0,1,.91-.3,18.75,18.75,0,0,1,1.94,0l1.51,0a1,1,0,0,1,1,.65,25.57,25.57,0,0,0,3,5.16q1,.89,1.27-.3a13.13,13.13,0,0,0,.12-2.9,2.07,2.07,0,0,0-1.51-2.31q.36-.95,2.54-.95.54,0,1.33.06l.85.06q1.82,0,1.82,1.42,0,.18-.06.86t-.09,1.3q0,.62,0,1.3a3.24,3.24,0,0,0,.18,1.16.94.94,0,0,0,.48.59l.64-.44a2.71,2.71,0,0,0,.64-.68l.51-.71A8.44,8.44,0,0,0,23,15a7.26,7.26,0,0,0,.42-.83q.06-.18.42-.92l.36-.74.09-.18a1.57,1.57,0,0,1,.39-.62,1.9,1.9,0,0,1,.76-.09h3.75a5.41,5.41,0,0,1,.79,0,1,1,0,0,1,.36.27q.42.53-.76,2.31a24.1,24.1,0,0,1-2.27,3Q25.84,18.83,26.93,19.84Z" fill="#263239" fill-rule="evenodd"/></g></g></svg>
+                  <svg width="36" height="36" viewBox="0 0 36 36"><g><g><circle cx="18" cy="18" r="18" fill="#fff"/><path d="M26.93,19.84a22.13,22.13,0,0,1,3.21,3.38,1.39,1.39,0,0,1,.27,1.16.66.66,0,0,1-.7.5l-4,.18a3.09,3.09,0,0,1-2.06-1A8.41,8.41,0,0,1,22,22.27a1.05,1.05,0,0,0-.88-.47.71.71,0,0,0-.82.59l-.12,1.54a1,1,0,0,1-.36.71,1.17,1.17,0,0,1-.51.27l-.7.09a13.2,13.2,0,0,1-2.75-.15A5.51,5.51,0,0,1,13.74,24,12.86,12.86,0,0,1,12.2,22.8q-.57-.53-1.66-1.72a50.43,50.43,0,0,1-4.42-7.17,6.1,6.1,0,0,1-.61-2,1.51,1.51,0,0,1,.91-.3,18.75,18.75,0,0,1,1.94,0l1.51,0a1,1,0,0,1,1,.65,25.57,25.57,0,0,0,3,5.16q1,.89,1.27-.3a13.13,13.13,0,0,0,.12-2.9,2.07,2.07,0,0,0-1.51-2.31q.36-.95,2.54-.95.54,0,1.33.06l.85.06q1.82,0,1.82,1.42,0,.18-.06.86t-.09,1.3q0,.62,0,1.3a3.24,3.24,0,0,0,.18,1.16.94.94,0,0,0,.48.59l.64-.44a2.71,2.71,0,0,0,.64-.68l.51-.71A8.44,8.44,0,0,0,23,15a7.26,7.26,0,0,0,.42-.83q.06-.18.42-.92l.36-.74.09-.18a1.57,1.57,0,0,1,.39-.62,1.9,1.9,0,0,1,.76-.09h3.75a5.41,5.41,0,0,1,.79,0,1,1,0,0,1,.36.27q.42.53-.76,2.31a24.1,24.1,0,0,1-2.27,3Q25.84,18.83,26.93,19.84Z" fill="#434343" fill-rule="evenodd"/></g></g></svg>
                 </a>
               </div>
-              <p class="page-footer__address">Адрес:<a class="page-footer__link" href="{{buildUrl general.city '/contacts/'}}#mymap">Москва, ул. Матросская Тишина, 16Г</a></p>
-              <p class="page-footer__address">Телефон: 8 (495) 668-04-68</p>
-              <p class="page-footer__copyright">© <a class="page-footer__link" href="{{buildUrl general.city '/'}}">Клининговая компания <br>ООО «Домовёнок», 2018</a></p>
+              <p class="page-footer__address">Адрес:<a class="page-footer__link  link" href="{{buildUrl general.city '/contacts/'}}#mymap">Москва, ул. Матросская Тишина, 16Г</a></p>
+              <p class="page-footer__copyright">© <a class="page-footer__link  link" href="{{buildUrl general.city '/'}}">ООО «Комфорт-сервис «Домовёнок», 2017</a></p>
             </div>
       
             <div class="page-footer__column page-footer__column--right page-footer__column--mobile">
-              <div class="page-footer__apps-wrapper">
-                <a class="page-footer__app">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="125.8" height="37" viewBox="0 0 125.8 37"><title>Google Play</title><g><g><path d="M119.1,1.3a3.8,3.8,0,0,1,3.8,3.8v27a3.8,3.8,0,0,1-3.8,3.8H6.6a3.8,3.8,0,0,1-3.8-3.8V5.1A3.8,3.8,0,0,1,6.6,1.3H119.1m0-.8H6.6A4.55,4.55,0,0,0,2.1,5V32a4.48,4.48,0,0,0,4.5,4.5H119.1a4.48,4.48,0,0,0,4.5-4.5V5A4.55,4.55,0,0,0,119.1.5Z" fill="#fff"/><path d="M63.4,20.2a3.78,3.78,0,0,0-3.9,3.9A3.84,3.84,0,0,0,63.4,28a3.78,3.78,0,0,0,3.9-3.9A3.73,3.73,0,0,0,63.4,20.2Zm0,6.1A2.24,2.24,0,0,1,61.2,24a2.2,2.2,0,1,1,4.4,0A2.24,2.24,0,0,1,63.4,26.3ZM55,20.2a3.78,3.78,0,0,0-3.9,3.9A3.84,3.84,0,0,0,55,28a3.78,3.78,0,0,0,3.9-3.9A3.73,3.73,0,0,0,55,20.2Zm0,6.1A2.24,2.24,0,0,1,52.8,24a2.2,2.2,0,1,1,4.4,0A2.24,2.24,0,0,1,55,26.3Zm-10-5v1.6h3.9A3.4,3.4,0,0,1,48,25a4,4,0,0,1-3,1.2,4.18,4.18,0,0,1-4.2-4.3A4.25,4.25,0,0,1,45,17.6a4.13,4.13,0,0,1,3,1.2l1.2-1.2a5.84,5.84,0,0,0-4-1.6,6.06,6.06,0,0,0-6,5.9,6.06,6.06,0,0,0,6,5.9,4.9,4.9,0,0,0,4.1-1.7,5.31,5.31,0,0,0,1.4-3.8,3.08,3.08,0,0,0-.1-1Zm40.9,1.3a3.55,3.55,0,0,0-3.2-2.4,3.66,3.66,0,0,0-3.6,3.9A3.76,3.76,0,0,0,82.9,28a3.94,3.94,0,0,0,3.2-1.7l-1.3-.9a2.37,2.37,0,0,1-1.9,1.1A2.06,2.06,0,0,1,81,25.3l5.1-2.2-.2-.5Zm-5.2,1.2a2.29,2.29,0,0,1,2-2.3,1.55,1.55,0,0,1,1.4.8l-3.4,1.5Zm-4.2,3.7h1.7V16.2H76.5ZM73.8,21a2.93,2.93,0,0,0-2.1-.9A3.87,3.87,0,0,0,68,24a3.71,3.71,0,0,0,3.7,3.8,2.89,2.89,0,0,0,2-.9h.1v.5a2.05,2.05,0,0,1-2.1,2.3,2,2,0,0,1-1.9-1.4l-1.4.6a3.64,3.64,0,0,0,3.4,2.3c2,0,3.6-1.2,3.6-4V20.4H73.8V21Zm-2,5.3A2.24,2.24,0,0,1,69.6,24a2.15,2.15,0,1,1,4.3,0A2.3,2.3,0,0,1,71.8,26.3Zm21.9-10H89.6V27.6h1.7V23.4h2.3a3.55,3.55,0,1,0,.1-7.1Zm.1,5.4H91.4V17.8h2.4a2,2,0,0,1,2,1.9,2.07,2.07,0,0,1-2,2Zm10.4-1.6a3,3,0,0,0-3,1.7l1.5.6a1.84,1.84,0,0,1,3.3.6v.1a3.43,3.43,0,0,0-1.7-.5c-1.6,0-3.2.9-3.2,2.5a2.61,2.61,0,0,0,2.8,2.5,2.51,2.51,0,0,0,2.2-1.1h.1v.9h1.6V23.1a3.35,3.35,0,0,0-3.6-3Zm-.2,6.2c-.5,0-1.4-.3-1.4-1,0-.9,1-1.2,1.8-1.2a3,3,0,0,1,1.5.4A1.94,1.94,0,0,1,104,26.3Zm9.4-6-1.9,4.9h-.1l-2-4.9h-1.8l3,6.8-1.7,3.8h1.7l4.6-10.6ZM98.3,27.5H100V16.2H98.3Z" fill="#fff"/><text transform="translate(40.23 10.82)" font-size="7.16" fill="#fff" font-family="HelveticaNeueLTW1G-Bd, Helvetica Neue LT W1G" font-weight="700" style="isolation:isolate"><tspan x="0" y="0" letter-spacing="0.05em">Загрузите в</tspan></text><path d="M31.8,18.3a1.71,1.71,0,0,0-.9-1L27,15.1l-3.7,3.7,3.5,3.5,4.1-2.2Q32.1,19.2,31.8,18.3Z" fill="#fff"/><path d="M11.9,30.1a1.81,1.81,0,0,0,1.4-.2L26,22.6l-3.3-3.3Z" fill="#fff"/><path d="M11.2,7.7a2,2,0,0,0-.1.8V28.7a1.88,1.88,0,0,0,.2.8L22.1,18.7Z" fill="#fff"/><path d="M26.2,14.6,13.3,7.3a1.6,1.6,0,0,0-1.6-.2l10.9,11Z" fill="#fff"/><rect width="125.8" height="37" fill="none"/></g></g></svg>
-                </a>
-                <a class="page-footer__app">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="125.8" height="37" viewBox="0 0 125.8 37"><title>App Store</title><g><g><rect width="125.8" height="37" fill="none"/><path d="M119.51,36.5H6.48a4.35,4.35,0,0,1-4.33-4.29V4.69A4.27,4.27,0,0,1,6.48.5h113a4.11,4.11,0,0,1,4.14,4.19V32.21a4.24,4.24,0,0,1-4.2,4.29Z" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="0.75"/><path d="M29.36,18.26a5.23,5.23,0,0,1,2.49-4.38,5.33,5.33,0,0,0-4.21-2.28c-1.78-.19-3.49,1.06-4.4,1.06s-2.31-1-3.8-1a5.63,5.63,0,0,0-4.73,2.88c-2,3.53-.51,8.73,1.44,11.58,1,1.4,2.12,3,3.62,2.91s2-.93,3.78-.93,2.26.93,3.79.89,2.56-1.4,3.5-2.81a11.37,11.37,0,0,0,1.6-3.27A5,5,0,0,1,29.36,18.26Z" fill="#fff"/><path d="M26.48,9.72A5.11,5.11,0,0,0,27.66,6a5.25,5.25,0,0,0-3.39,1.75,4.91,4.91,0,0,0-1.21,3.55A4.35,4.35,0,0,0,26.48,9.72Z" fill="#fff"/><path d="M50.55,28.82h-2L47.38,25.3H43.49l-1.07,3.52h-2l3.86-12h2.38Zm-3.51-5-1-3.13c-.11-.32-.31-1.07-.6-2.26h0c-.12.51-.31,1.26-.57,2.26l-1,3.13Z" fill="#fff"/><path d="M60.47,24.39a4.91,4.91,0,0,1-1.19,3.49A3.5,3.5,0,0,1,56.63,29a2.64,2.64,0,0,1-2.45-1.22h0v4.55H52.22V23c0-.92,0-1.87-.07-2.85h1.69L54,21.54h0a3.42,3.42,0,0,1,5.47-.33A4.74,4.74,0,0,1,60.47,24.39Zm-1.95.07A3.57,3.57,0,0,0,58,22.38a2,2,0,0,0-1.67-.85A1.94,1.94,0,0,0,55,22a2.14,2.14,0,0,0-.76,1.23,2.57,2.57,0,0,0-.09.59v1.44a2.28,2.28,0,0,0,.58,1.59,1.89,1.89,0,0,0,1.5.65,2,2,0,0,0,1.69-.83A3.73,3.73,0,0,0,58.52,24.46Z" fill="#fff"/><path d="M70.42,24.39a4.92,4.92,0,0,1-1.2,3.49A3.5,3.5,0,0,1,66.57,29a2.65,2.65,0,0,1-2.45-1.22h0v4.55H62.16V23c0-.92,0-1.87-.07-2.85h1.69l.11,1.37h0a3.42,3.42,0,0,1,5.47-.33A4.75,4.75,0,0,1,70.42,24.39Zm-2,.07a3.57,3.57,0,0,0-.57-2.08,2,2,0,0,0-1.67-.85,1.94,1.94,0,0,0-1.29.47,2.14,2.14,0,0,0-.76,1.23,2.57,2.57,0,0,0-.09.59v1.44a2.32,2.32,0,0,0,.58,1.59,1.91,1.91,0,0,0,1.51.65,2,2,0,0,0,1.68-.83A3.66,3.66,0,0,0,68.46,24.46Z" fill="#fff"/><path d="M81.53,25.46A3.19,3.19,0,0,1,80.47,28,4.72,4.72,0,0,1,77.2,29a5.67,5.67,0,0,1-3.1-.75l.44-1.6a5.26,5.26,0,0,0,2.78.76A2.62,2.62,0,0,0,79,26.92a1.59,1.59,0,0,0,.6-1.31,1.67,1.67,0,0,0-.5-1.23,4.57,4.57,0,0,0-1.65-.92c-2.1-.79-3.15-1.93-3.15-3.44a3,3,0,0,1,1.1-2.42,4.38,4.38,0,0,1,2.94-1,5.8,5.8,0,0,1,2.72.57l-.48,1.57a4.7,4.7,0,0,0-2.29-.55,2.35,2.35,0,0,0-1.59.49,1.43,1.43,0,0,0-.48,1.09A1.49,1.49,0,0,0,76.78,21a6,6,0,0,0,1.75.93,5.75,5.75,0,0,1,2.27,1.46A3,3,0,0,1,81.53,25.46Z" fill="#fff"/><path d="M87.88,21.62H85.77v4.19c0,1.07.37,1.6,1.12,1.6a3.35,3.35,0,0,0,.85-.09l.05,1.46A4.11,4.11,0,0,1,86.3,29a2.32,2.32,0,0,1-1.78-.7A3.38,3.38,0,0,1,83.88,26V21.62H82.62V20.17h1.26V18.59L85.77,18v2.15h2.11Z" fill="#fff"/><path d="M97.44,24.43A4.76,4.76,0,0,1,96.3,27.7,4.06,4.06,0,0,1,93.13,29a3.86,3.86,0,0,1-3-1.26A4.6,4.6,0,0,1,89,24.57a4.72,4.72,0,0,1,1.16-3.29A4,4,0,0,1,93.27,20a4,4,0,0,1,3.06,1.26A4.54,4.54,0,0,1,97.44,24.43Zm-2,.06a3.92,3.92,0,0,0-.51-2,2,2,0,0,0-3.49,0,4,4,0,0,0-.51,2.08,3.92,3.92,0,0,0,.51,2.05,2,2,0,0,0,1.74,1,1.93,1.93,0,0,0,1.73-1.05A4,4,0,0,0,95.44,24.49Z" fill="#fff"/><path d="M103.68,21.86a3.86,3.86,0,0,0-.61-.05,1.81,1.81,0,0,0-1.56.77,2.87,2.87,0,0,0-.48,1.7v4.54H99.11V22.9c0-1,0-1.91-.07-2.73h1.68l.07,1.66h0a2.9,2.9,0,0,1,1-1.37A2.32,2.32,0,0,1,103.2,20a3.43,3.43,0,0,1,.48,0Z" fill="#fff"/><path d="M112.27,24.09a4.37,4.37,0,0,1-.07.87h-5.76a2.52,2.52,0,0,0,.83,2,2.87,2.87,0,0,0,1.89.6,6.44,6.44,0,0,0,2.33-.41l.3,1.33a7.18,7.18,0,0,1-2.9.54,4.24,4.24,0,0,1-3.16-1.18,4.4,4.4,0,0,1-1.15-3.18,5,5,0,0,1,1.07-3.25,3.69,3.69,0,0,1,3-1.39,3.2,3.2,0,0,1,2.82,1.39A4.64,4.64,0,0,1,112.27,24.09Zm-1.83-.5a2.66,2.66,0,0,0-.38-1.48,1.68,1.68,0,0,0-1.53-.8,1.81,1.81,0,0,0-1.53.79,2.76,2.76,0,0,0-.56,1.49Z" fill="#fff"/><text transform="translate(41.8 11.5)" font-size="7.09" fill="#fff" font-family="HelveticaNeueLTW1G-Bd, Helvetica Neue LT W1G" font-weight="700" letter-spacing="0.06em">Заг<tspan x="13.17" y="0" letter-spacing="0.05em">р</tspan><tspan x="17.84" y="0" letter-spacing="0.06em">узи</tspan><tspan x="30.78" y="0" letter-spacing="0.04em">т</tspan><tspan x="34.62" y="0" letter-spacing="0.06em">е в</tspan></text></g></g></svg>
-                </a>
-              </div>
-              <div class="page-footer__payment-wrapper">
-                <a class="page-footer__payment" target="_blank" href="https://sovest.ru/?utm_source=domovenok.su&utm_medium=affiliate&utm_campaign=16_10_17&utm_content=main">
-                  <svg width="146.25" height="30" viewBox="0 0 146.25 30"><g><g><g><rect width="146.25" height="30" fill="none"/><path d="M60.54,10h2.1c1.41,0,2.39.59,2.39,1.85,0,1.56-1.24,2-2.42,2H60.54V10Zm77.2,5.64h2.08c2.24,0,2.71,1.16,2.71,2.15,0,2.11-2.18,2.11-2.77,2.11h-2V15.68Zm-77.2.08h2.14c1.84,0,2.71.65,2.71,2.05,0,1.95-1.78,2.16-3.32,2.16H60.54V15.75Zm66-5.72V8.11h-10V10h3.93V21.9h2.12V10h3.92ZM104.4,9.8a5.68,5.68,0,0,1,3.9,1.52V8.87a8.35,8.35,0,0,0-4-1A7,7,0,0,0,97,15a7,7,0,0,0,7.32,7.13,8.37,8.37,0,0,0,4-1V18.69a5.69,5.69,0,0,1-3.9,1.51A4.94,4.94,0,0,1,99.22,15a4.94,4.94,0,0,1,5.18-5.2ZM79.18,21.9H87V20H81.3V15.78h5.24v-2H81.3V10H87V8.11H79.18V21.9Zm56.44,0H140c2.61,0,4.65-1.4,4.65-4.09s-2.18-4.16-4.65-4.16h-2.24V8.11h-2.12V21.9ZM40.54,20.25a4.92,4.92,0,0,1-5-5.24,5,5,0,1,1,10,0,4.91,4.91,0,0,1-5,5.24ZM58.42,21.9h4.12c2.67,0,5-1,5-3.82a3.11,3.11,0,0,0-2.43-3.35,3.08,3.08,0,0,0,2-3.08c0-2.66-2.25-3.55-4.51-3.55H58.42V21.9Zm-17.88-14A7,7,0,0,0,33.32,15a7,7,0,0,0,7.22,7.13A7,7,0,0,0,47.73,15a7,7,0,0,0-7.18-7.14Zm-26.69-3A10.15,10.15,0,1,1,3.75,15,10.14,10.14,0,0,1,13.85,4.85ZM1.63,15A12.09,12.09,0,0,0,13.85,27a12,12,0,1,0,0-24A12.11,12.11,0,0,0,1.63,15Zm12.91,5.2a5.69,5.69,0,0,0,3.91-1.52v2.44a8.38,8.38,0,0,1-4,1A7,7,0,0,1,7.16,15a7,7,0,0,1,7.32-7.14,8.36,8.36,0,0,1,4,1v2.45a5.68,5.68,0,0,0-3.9-1.52A4.94,4.94,0,0,0,9.36,15a4.94,4.94,0,0,0,5.18,5.2Z" fill="#fff"/></g></g></g></svg>
-                </a>
-                <a class="page-footer__payment"  target="_blank" href="https://www.mastercard.ru/ru-ru.html">
-                  <svg width="51.38" height="30" viewBox="0 0 51.38 30"><defs><linearGradient id="Безымянный_градиент_4" x1="2.39" y1="6.48" x2="31" y2="6.48" gradientTransform="matrix(1, 0, 0, -1, 0, 21.48)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#626262"/><stop offset="1" stop-color="#4b4b4b"/></linearGradient><linearGradient id="Безымянный_градиент_2" x1="20.13" y1="6.48" x2="31.22" y2="6.48" gradientTransform="matrix(1, 0, 0, -1, 0, 21.48)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#7a7a7a"/><stop offset="1" stop-color="#5a5a5a"/></linearGradient><linearGradient id="Безымянный_градиент_3" x1="20.01" y1="6.48" x2="49.32" y2="6.48" gradientTransform="matrix(1, 0, 0, -1, 0, 21.48)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#747474"/><stop offset="1" stop-color="#d5d5d5"/></linearGradient></defs><title>мастеркарт</title><g><g><g><rect width="51.38" height="30" fill="none"/><path id="path3010" d="M20.16,15A14.47,14.47,0,0,1,25.66,3.63a14.5,14.5,0,1,0,0,22.74A14.47,14.47,0,0,1,20.16,15" fill="url(#Безымянный_градиент_4)"/><path id="path3012" d="M20.16,15a14.47,14.47,0,0,0,5.51,11.37,14.49,14.49,0,0,0,0-22.74A14.47,14.47,0,0,0,20.16,15" fill="url(#Безымянный_градиент_2)"/><path id="path3014" d="M48.17,22.87v-.42H48v-.12h.47v.12H48.3v.42Zm.91,0v-.38l-.12.32h-.13l-.12-.32v.37h-.13v-.54h.18l.13.35.13-.35h.18v.54h-.13Z" fill="silver"/><path id="path3016" d="M34.66.5a14.43,14.43,0,0,0-9,3.13,14.49,14.49,0,0,1,0,22.74A14.5,14.5,0,1,0,34.66.5" fill="url(#Безымянный_градиент_3)"/></g></g></g></svg>
-                </a>
-                <a class="page-footer__payment" target="_blank" href="https://www.visa.com.ru">
-                  <svg width="100.38" height="30" viewBox="0 0 100.38 30"><g><g><g><polygon points="36.19 29.07 41 0.96 48.67 0.96 43.87 29.07 36.19 29.07 36.19 29.07" fill="#fff" fill-rule="evenodd"/><path d="M71.67,1.66A20.57,20.57,0,0,0,64.8.5C57.2.5,51.89,4.3,51.85,9.77c0,4,3.8,6.28,6.71,7.64s4,2.25,4,3.49c0,1.9-2.36,2.75-4.57,2.75a16.12,16.12,0,0,1-7.21-1.47l-1-.47-1,6.28A23.52,23.52,0,0,0,57.2,29.5c8.06,0,13.26-3.76,13.34-9.61,0-3.18-2-5.62-6.44-7.64C61.43,11,59.8,10.11,59.8,8.8s1.4-2.44,4.38-2.44a13.82,13.82,0,0,1,5.74,1.09l.7.31,1-6.09Z" fill="#fff" fill-rule="evenodd"/><path d="M91.32,1H85.39c-1.82,0-3.22.5-4,2.33L70,29.11h8s1.32-3.49,1.63-4.23h9.81c.23,1,.93,4.23.93,4.23h7.09ZM81.86,19.11l3.06-7.83c-.08.08.62-1.63,1-2.68l.5,2.4s1.47,6.71,1.78,8.1Z" fill="#fff" fill-rule="evenodd"/><path d="M29.79,1,22.27,20.16l-.78-3.88c-1.4-4.5-5.78-9.34-10.62-11.79l6.86,24.58h8.1L37.9,1Z" fill="#fff" fill-rule="evenodd"/><path d="M15.33,1H3l-.08.62c9.58,2.33,16,7.95,18.61,14.69L18.78,3.37C18.32,1.59,17,1,15.33,1Z" fill="#fff" fill-rule="evenodd"/><rect width="100.38" height="30" fill="none"/></g></g></g></svg>
-                </a>
-              </div>
+              <a class="page-footer__payment" target="_blank" href="https://sovest.ru/?utm_source=domovenok.su&utm_medium=affiliate&utm_campaign=16_10_17&utm_content=main">
+                <svg width="146.25" height="30" viewBox="0 0 146.25 30"><g id="Слой_2" data-name="Слой 2"><g id="Page_1" data-name="Page 1"><g id="Layer_1" data-name="Layer 1"><rect width="146.25" height="30" fill="none"/><path d="M60.54,10h2.1c1.41,0,2.39.59,2.39,1.85,0,1.56-1.24,2-2.42,2H60.54V10Zm77.2,5.64h2.08c2.24,0,2.71,1.16,2.71,2.15,0,2.11-2.18,2.11-2.77,2.11h-2V15.68Zm-77.2.08h2.14c1.84,0,2.71.65,2.71,2.05,0,1.95-1.78,2.16-3.32,2.16H60.54V15.75Zm66-5.72V8.11h-10V10h3.93V21.9h2.12V10h3.92ZM104.4,9.8a5.68,5.68,0,0,1,3.9,1.52V8.87a8.35,8.35,0,0,0-4-1A7,7,0,0,0,97,15a7,7,0,0,0,7.32,7.13,8.37,8.37,0,0,0,4-1V18.69a5.69,5.69,0,0,1-3.9,1.51A4.94,4.94,0,0,1,99.22,15a4.94,4.94,0,0,1,5.18-5.2ZM79.18,21.9H87V20H81.3V15.78h5.24v-2H81.3V10H87V8.11H79.18V21.9Zm56.44,0H140c2.61,0,4.65-1.4,4.65-4.09s-2.18-4.16-4.65-4.16h-2.24V8.11h-2.12V21.9ZM40.54,20.25a4.92,4.92,0,0,1-5-5.24,5,5,0,1,1,10,0,4.91,4.91,0,0,1-5,5.24ZM58.42,21.9h4.12c2.67,0,5-1,5-3.82a3.11,3.11,0,0,0-2.43-3.35,3.08,3.08,0,0,0,2-3.08c0-2.66-2.25-3.55-4.51-3.55H58.42V21.9Zm-17.88-14A7,7,0,0,0,33.32,15a7,7,0,0,0,7.22,7.13A7,7,0,0,0,47.73,15a7,7,0,0,0-7.18-7.14Zm-26.69-3A10.15,10.15,0,1,1,3.75,15,10.14,10.14,0,0,1,13.85,4.85ZM1.63,15A12.09,12.09,0,0,0,13.85,27a12,12,0,1,0,0-24A12.11,12.11,0,0,0,1.63,15Zm12.91,5.2a5.69,5.69,0,0,0,3.91-1.52v2.44a8.38,8.38,0,0,1-4,1A7,7,0,0,1,7.16,15a7,7,0,0,1,7.32-7.14,8.36,8.36,0,0,1,4,1v2.45a5.68,5.68,0,0,0-3.9-1.52A4.94,4.94,0,0,0,9.36,15a4.94,4.94,0,0,0,5.18,5.2Z" fill="#fff"/></g></g></g></svg>
+              </a>
+              <a class="page-footer__payment"  target="_blank" href="https://www.mastercard.ru/ru-ru.html">
+                <svg width="51.38" height="30" viewBox="0 0 51.38 30"><defs><linearGradient id="Безымянный_градиент_4" x1="2.39" y1="6.48" x2="31" y2="6.48" gradientTransform="matrix(1, 0, 0, -1, 0, 21.48)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#626262"/><stop offset="1" stop-color="#4b4b4b"/></linearGradient><linearGradient id="Безымянный_градиент_2" x1="20.13" y1="6.48" x2="31.22" y2="6.48" gradientTransform="matrix(1, 0, 0, -1, 0, 21.48)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#7a7a7a"/><stop offset="1" stop-color="#5a5a5a"/></linearGradient><linearGradient id="Безымянный_градиент_3" x1="20.01" y1="6.48" x2="49.32" y2="6.48" gradientTransform="matrix(1, 0, 0, -1, 0, 21.48)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#747474"/><stop offset="1" stop-color="#d5d5d5"/></linearGradient></defs><title>мастеркарт</title><g id="Слой_2" data-name="Слой 2"><g id="Page_1" data-name="Page 1"><g id="Layer_1" data-name="Layer 1"><rect width="51.38" height="30" fill="none"/><path id="path3010" d="M20.16,15A14.47,14.47,0,0,1,25.66,3.63a14.5,14.5,0,1,0,0,22.74A14.47,14.47,0,0,1,20.16,15" fill="url(#Безымянный_градиент_4)"/><path id="path3012" d="M20.16,15a14.47,14.47,0,0,0,5.51,11.37,14.49,14.49,0,0,0,0-22.74A14.47,14.47,0,0,0,20.16,15" fill="url(#Безымянный_градиент_2)"/><path id="path3014" d="M48.17,22.87v-.42H48v-.12h.47v.12H48.3v.42Zm.91,0v-.38l-.12.32h-.13l-.12-.32v.37h-.13v-.54h.18l.13.35.13-.35h.18v.54h-.13Z" fill="silver"/><path id="path3016" d="M34.66.5a14.43,14.43,0,0,0-9,3.13,14.49,14.49,0,0,1,0,22.74A14.5,14.5,0,1,0,34.66.5" fill="url(#Безымянный_градиент_3)"/></g></g></g></svg>
+              </a>
+              <a class="page-footer__payment" target="_blank" href="https://www.visa.com.ru">
+                <svg width="100.38" height="30" viewBox="0 0 100.38 30"><g id="Слой_2" data-name="Слой 2"><g id="Page_1" data-name="Page 1"><g id="Layer_1" data-name="Layer 1"><polygon points="36.19 29.07 41 0.96 48.67 0.96 43.87 29.07 36.19 29.07 36.19 29.07" fill="#fff" fill-rule="evenodd"/><path d="M71.67,1.66A20.57,20.57,0,0,0,64.8.5C57.2.5,51.89,4.3,51.85,9.77c0,4,3.8,6.28,6.71,7.64s4,2.25,4,3.49c0,1.9-2.36,2.75-4.57,2.75a16.12,16.12,0,0,1-7.21-1.47l-1-.47-1,6.28A23.52,23.52,0,0,0,57.2,29.5c8.06,0,13.26-3.76,13.34-9.61,0-3.18-2-5.62-6.44-7.64C61.43,11,59.8,10.11,59.8,8.8s1.4-2.44,4.38-2.44a13.82,13.82,0,0,1,5.74,1.09l.7.31,1-6.09Z" fill="#fff" fill-rule="evenodd"/><path d="M91.32,1H85.39c-1.82,0-3.22.5-4,2.33L70,29.11h8s1.32-3.49,1.63-4.23h9.81c.23,1,.93,4.23.93,4.23h7.09ZM81.86,19.11l3.06-7.83c-.08.08.62-1.63,1-2.68l.5,2.4s1.47,6.71,1.78,8.1Z" fill="#fff" fill-rule="evenodd"/><path d="M29.79,1,22.27,20.16l-.78-3.88c-1.4-4.5-5.78-9.34-10.62-11.79l6.86,24.58h8.1L37.9,1Z" fill="#fff" fill-rule="evenodd"/><path d="M15.33,1H3l-.08.62c9.58,2.33,16,7.95,18.61,14.69L18.78,3.37C18.32,1.59,17,1,15.33,1Z" fill="#fff" fill-rule="evenodd"/><rect width="100.38" height="30" fill="none"/></g></g></g></svg>
+              </a>
             </div>
         </div>
         </div>
@@ -793,6 +1351,9 @@
   </div>
   <!-- /Pop up -->
 
+  </main>
+</div>
+
 <script id="calendar" type="text/html">
   {{{{raw}}}}
   {{#each days}}
@@ -812,7 +1373,7 @@
     <div class="service-card-sm__wrap">
       <img class="service-card-sm__image" src="/static/pancake/img/service-washing-dishes.svg" width="50" height="50" alt="Посуда">
       <div class="service-card-sm__btn-wrap">
-        <span class="service-card-sm__price">100</span> руб
+        <p class="service-card-sm__price">100 руб</p>
       </div>
     </div>
   </div>
@@ -821,7 +1382,7 @@
     <div class="service-card-sm__wrap">
       <img class="service-card-sm__image" src="/static/pancake/img/service-top-surface.svg" width="50" height="50" alt="Шкаф">
       <div class="service-card-sm__btn-wrap">
-        <span class="service-card-sm__price">350</span> руб
+        <p class="service-card-sm__price">350 руб</p>
       </div>
     </div>
   </div>
@@ -830,300 +1391,10 @@
     <div class="service-card-sm__wrap">
       <img class="service-card-sm__image" src="/static/pancake/img/service-ironing.svg" width="50" height="50" alt="Утюг">
       <div class="service-card-sm__btn-wrap">
-        <span class="service-card-sm__price">500</span> руб
+        <p class="service-card-sm__price">500 руб</p>
       </div>
     </div>
   </div>
-</script>
-
-<!-- Ковёр и ковролин -->
-<script id="carpet" type="text/html">
-  <h2 class="section__title  title">Ковёр и ковролин</h2>
-  <div class="table">
-    <div class="table__row  table__row--head-light">
-      <div class="table__column  table__column--head  table__column--big">Ковры</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">синтетика</div>
-      <div class="table__column  table__column--small  table__column--center">180 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">хлопок</div>
-      <div class="table__column  table__column--small  table__column--center">400 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">вискоза, на клеевой основе</div>
-      <div class="table__column  table__column--small  table__column--center">250 руб</div>
-    </div>
-    <div class="table__row  table__row--head-light">
-      <div class="table__column  table__column--head  table__column--big">Ковролин</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">до 100м<sup><small>2</small></sup></div>
-      <div class="table__column  table__column--small  table__column--center">100 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">до 150м<sup><small>2</small></sup></div>
-      <div class="table__column  table__column--small  table__column--center">90 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">более 150м<sup><small>2</small></sup></div>
-      <div class="table__column  table__column--small  table__column--center">90 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Удаление запаха урины до 5 м<sup><small>2</small></sup></div>
-      <div class="table__column  table__column--small  table__column--center">500 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Удаление запаха урины до 10 м<sup><small>2</small></sup></div>
-      <div class="table__column  table__column--small  table__column--center">1 000 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Удаление запаха урины свыше 10 м<sup><small>2</small></sup></div>
-      <div class="table__column  table__column--small  table__column--center">100 руб/м</div>
-    </div>
-  </div>
-  <button class="button button--application" type="button" data-name="service-order">Заказать химчистку</button>
-</script>
-<!-- /Ковёр и ковролин -->
-
-<!-- Мягкая мебель -->
-<script id="furniture" type="text/html">
-  <h2 class="section__title  title">Мягкая мебель</h2>
-  <div class="table">
-    <div class="table__row  table__row--head-light">
-      <div class="table__column  table__column--head  table__column--big">Диван</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">2 места простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">1 200 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">2 места флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">2 150 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">3 места простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">1 800 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">3 места флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">2 950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Посадочное место 50-60 см</div>
-      <div class="table__column  table__column--small  table__column--center">600 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Посадочное место 50-60 см флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">800 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Спальное место простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">800 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Спальное место флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">1 600 руб</div>
-    </div>
-    <div class="table__row  table__row--head-light">
-      <div class="table__column  table__column--head  table__column--big">Кресло</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">790 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">флок, кожа механич</div>
-      <div class="table__column  table__column--small  table__column--center">1 290 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Кресло-кровать простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">900 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Кресло-кровать флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">1 200 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Полукресло простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">600 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Полукресло флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">950 руб</div>
-    </div>
-    <div class="table__row  table__row--head-light">
-      <div class="table__column  table__column--head  table__column--big">Стул</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">без тканевой спинкой</div>
-      <div class="table__column  table__column--small  table__column--center">170 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">с тканевой спинкой</div>
-      <div class="table__column  table__column--small  table__column--center">270 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Офисный простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">290 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Офисный флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">490 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Пуфик простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">300 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Пуфик флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">500 руб</div>
-    </div>
-    <div class="table__row  table__row--head-light">
-      <div class="table__column  table__column--head  table__column--big">Другое</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Каркас кровати</div>
-      <div class="table__column  table__column--small  table__column--center">950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Кухонный уголок простые ткани</div>
-      <div class="table__column  table__column--small  table__column--center">950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Кухонный уголок флок, кожа</div>
-      <div class="table__column  table__column--small  table__column--center">1 800 руб</div>
-    </div>
-  </div>
-  <button class="button button--application" type="button" data-name="service-order">Заказать химчистку</button>
-</script>
-<!-- /Мягкая мебель -->
-
-<!-- Шторы -->
-<script id="blind" type="text/html">
-  <h2 class="section__title  title">Шторы и Жалюзи</h2>
-  <div class="table">
-    <div class="table__row">
-      <div class="table__column  table__column--big">Портьера однослойная</div>
-      <div class="table__column  table__column--small  table__column--center">220 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Портьера двойная на подкладе</div>
-      <div class="table__column  table__column--small  table__column--center">240 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Ламбрекен</div>
-      <div class="table__column  table__column--small  table__column--center">300 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Римские шторы</div>
-      <div class="table__column  table__column--small  table__column--center">250 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Французские шторы</div>
-      <div class="table__column  table__column--small  table__column--center">250 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Подхваты</div>
-      <div class="table__column  table__column--small  table__column--center">200 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Монтаж/демонтаж</div>
-      <div class="table__column  table__column--small  table__column--center">500 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Жалюзи ткань</div>
-      <div class="table__column  table__column--small  table__column--center">140 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Жалюзи металл</div>
-      <div class="table__column  table__column--small  table__column--center">180 руб</div>
-    </div>
-  </div>
-  <button class="button button--application" type="button" data-name="service-order">Заказать химчистку</button>
-</script>
-<!-- /Шторы -->
-
-<!-- Матрацы -->
-<script id="mattress" type="text/html">
-  <h2 class="section__title  title">Матрац</h2>
-  <div class="table">
-    <div class="table__row">
-      <div class="table__column  table__column--big">односпальный с одной стороны</div>
-      <div class="table__column  table__column--small  table__column--center">700 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">односпальный с двух сторон</div>
-      <div class="table__column  table__column--small  table__column--center">950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">полутораспальный с одной стороны</div>
-      <div class="table__column  table__column--small  table__column--center">800 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">полутораспальный с двух сторон</div>
-      <div class="table__column  table__column--small  table__column--center">1 500 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">двуспальный с одной стороны</div>
-      <div class="table__column  table__column--small  table__column--center">950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">двуспальный с двух сторон</div>
-      <div class="table__column  table__column--small  table__column--center">1 950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">детский</div>
-      <div class="table__column  table__column--small  table__column--center">500 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">детский две стороны</div>
-      <div class="table__column  table__column--small  table__column--center">800 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">для шезлонгов две стороны</div>
-      <div class="table__column  table__column--small  table__column--center">950 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">евро две стороны</div>
-      <div class="table__column  table__column--small  table__column--center">2 000 руб</div>
-    </div>
-  </div>
-  <button class="button button--application" type="button" data-name="service-order">Заказать химчистку</button>
-</script>
-<!-- /Матрацы -->
-
-<!-- Доп услуги -->
-<script id="other" type="text/html">
-  <h2 class="section__title  title">Дополнительные услуги</h2>
-  <div class="table">
-    <div class="table__row">
-      <div class="table__column  table__column--big">Пятновыведение до 2 см</div>
-      <div class="table__column  table__column--small  table__column--center">100 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Пятновыведение до 5 см</div>
-      <div class="table__column  table__column--small  table__column--center">150 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Пятновыведение до 10 см</div>
-      <div class="table__column  table__column--small  table__column--center">200 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Пятновыведение более 10 см</div>
-      <div class="table__column  table__column--small  table__column--center">300 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Удаление запаха урины мебель, шторы, мартац. Небольшое пятно в одном месте</div>
-      <div class="table__column  table__column--small  table__column--center">500 руб</div>
-    </div>
-    <div class="table__row">
-      <div class="table__column  table__column--big">Удаление жвачки</div>
-      <div class="table__column  table__column--small  table__column--center">500 руб</div>
-    </div>
-  </div>
-  <button class="button button--application" type="button" data-name="service-order">Заказать химчистку</button>
 </script>
 
 
@@ -1154,7 +1425,7 @@
 
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.03"></script>
+<script src="/static/pancake/js/bundle.min.js?v0.94"></script>
 <!-- /Java Script -->
 
 </body>
