@@ -65,7 +65,7 @@
   <!-- End SmartBanner configuration -->
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
-  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.33">
+  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.35">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -104,12 +104,12 @@
     <div class="page-header__top">
       <button class="main-menu__btn  main-menu__btn--open">
         <svg class="main-menu__image" width="31" height="23.9" viewBox="0 0 31 23.9">
-          <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#ff5a19"/>
-          <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#ff5a19"/>
-          <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#ff5a19"/>
+          <rect width="31" height="1.64" rx="0.82" ry="0.82"/>
+          <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82"/>
+          <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82"/>
         </svg>
       </button>
-      <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="152" src="/static/pancake/img/logo.svg" alt="Клининговая компания Домовёнок"/></a>
+      <a class="page-header__logo" href="{{buildUrl general.city '/'}}"><img height="38" width="80" src="/static/pancake/img/logo-new.svg" alt="Клининговая компания Домовёнок"/></a>
   
       <div class="page-header__container">
         <a class="page-header__container-link  page-header__container-link--orange" href="tel:{{ general.phoneHref }}" data-track-phone>{{ general.phoneCode }}  {{ general.phoneNumber }}</a>
@@ -123,8 +123,8 @@
     <div class="page-header__wrap">
       <a class="main-menu__icon-close  icon-close" href="#">
         <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
-          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #ff5a19;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
-          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #ff5a19;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none; stroke-linecap: round; stroke-miterlimit: 10; stroke-width: 2px"/>
+          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none; stroke-linecap: round; stroke-miterlimit: 10; stroke-width: 2px"/>
         </svg>
       </a>
   
@@ -199,6 +199,8 @@
               </li>
             </ul>
           
+            <!--Офис-->
+          
             <div class="office-services__section  office-services__section--active" data-option="office" data-client="mobile-tablet">
               <div class="swiper-wrapper">
                 <div class="swiper-slide  office-services__item">
@@ -222,7 +224,7 @@
               </div>
             </div>
           
-            <!--общественные-->
+            <!--Общественные учреждения-->
           
             <div class="office-services__section" data-option="public_institution" data-client="mobile-tablet">
               <div class="swiper-wrapper">
@@ -247,7 +249,7 @@
               </div>
             </div>
           
-            <!--питание-->
+            <!--Питание-->
           
             <div class="office-services__section" data-option="food" data-client="mobile-tablet">
               <div class="swiper-wrapper">
@@ -272,7 +274,7 @@
               </div>
             </div>
           
-            <!--студии-->
+            <!--Студии-->
           
             <div class="office-services__section" data-option="loft" data-client="mobile-tablet">
               <div class="swiper-wrapper">
@@ -589,7 +591,14 @@
           <h2 class="section__title  title">Отзывы клиентов</h2>
           <div class="swiper-carousel  review-swiper">
             <button class="swiper-carousel__button-prev  review-swiper__btn" type="button">
-              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#515151" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24">
+                <g>
+                  <g>
+                    <rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/>
+                    <polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#515151" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                  </g>
+                </g>
+              </svg>
             </button>
           
             <div class="swiper-container">
@@ -604,7 +613,7 @@
           
                 <a href='https://www.hafele.ru/' class="swiper-slide  review-swiper__item" target="_blank">
                   <div class="banner-review">
-                    <img class="banner-review__logo" src="/static/pancake/img/hafele.svg" width="165" height="70"   alt="">
+                    <img class="banner-review__logo" src="/static/pancake/img/hafele.svg" width="165" height="70" alt="">
                     <p class="banner-review__title">ООО “Хефеле”</p>
                     <p class="banner-review__text">ООО "Хефеле" сотрудничает с ООО "КсД" третий год. Очень довольны качеством услуг, своевременным предоставлением ТМЦ, менеджментом.</p>
                   </div>
@@ -613,7 +622,7 @@
                 <a href='http://edf-cryoptima.ru/' class="swiper-slide  review-swiper__item" target="_blank">
                   <div class="banner-review">
                     <img class="banner-review__logo" src="/static/pancake/img/cryoptima@1x.png"
-                                                     srcset="/static/pancake/img/cryoptima@2x.png" width="129" height="70"  alt="">
+                                                     srcset="/static/pancake/img/cryoptima@2x.png" width="129" height="70" alt="">
                     <p class="banner-review__title">ООО "Криоптима РУС"</p>
                     <p class="banner-review__text">Выражает благодарность за качественное исполнение своих обязательств по ежедневной уборке. Клиентская служба на высоте, хорошая организация процесса, профессиональные сотрудники.
                     </p>
@@ -623,7 +632,14 @@
             </div>
           
             <button class="swiper-carousel__button-next  review-swiper__btn" type="button">
-              <svg width="10.54" height="24" viewBox="0 0 10.54 24"><g><g><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#515151" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></g></g></svg>
+              <svg width="10.54" height="24" viewBox="0 0 10.54 24">
+                <g>
+                  <g>
+                    <rect width="10.54" height="24" fill="none"/>
+                    <polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#515151" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                  </g>
+                </g>
+              </svg>
             </button>
           </div>
         </div>
@@ -1085,7 +1101,7 @@
 
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.27"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.29"></script>
 <!-- /Java Script -->
 
 </body>
