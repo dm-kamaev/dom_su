@@ -1,6 +1,7 @@
 'use strict';
 const config = require('config');
 const phone_api = require('/p/pancake/lib/phone_api.js');
+const time = require('/p/pancake/my/time.js');
 
 const phoneDimensionDict = {
   moscow: 'dimension2',
@@ -37,6 +38,7 @@ function ctxProcessor(data) {
   general.path = this.path;
   general.develop = config.app.develop;
   general.production = config.app.production;
+  general.currentRusMonth = time.get_month_name(time.get().double_month);
 
   // Analytics
 

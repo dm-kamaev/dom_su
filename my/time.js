@@ -106,7 +106,7 @@ time.format = function(str, data) {
 };
 
 // number_month –– string
-time.getMonthName = function (numberMonth) {
+time.get_month_name = time.getMonthName = function (numberMonth) {
   numberMonth = parseInt(numberMonth, 10);
   const listMonthName = [
     null,
