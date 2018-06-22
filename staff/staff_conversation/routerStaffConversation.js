@@ -2,17 +2,15 @@
 
 // WORK WITH STAFF CONVERSATION
 
-const util = require('util');
-const { models } = require('models');
-const { EmployeeNews, Token, PendingToken } = models;
+
 const Router = require('koa-router');
-const logger = require('logger')(module, 'staff.log');
-const loggerProblems = require('logger')(module, 'problems.log');
-const config = require('config');
+const logger = require('/p/pancake/lib/logger.js');
+
+
 
 const { Method1C, Request1C } = require('api1c');
 const { getTemplate } = require('utils');
-const { staffUrl, isMobileVersion, toMoscowISO, staffTemplate } = require('staff/utils.js');
+const { staffUrl, isMobileVersion, staffTemplate } = require('staff/utils.js');
 const uuid4 = require('uuid/v4');
 const parseFormMultipart = require('koa-body')({multipart: true});
 const { loginRequired, getEmployeeHeader } = require('staff/decorators');
@@ -57,7 +55,15 @@ router.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(
           "Score": 0
       }]
   }*/
-  GetConversationList.response.ConversationList.forEach((conversation, i) => {
+  if (GetConversationList.error) {
+    if (GetConversationList.error.code === 2) {
+      throw new Error(`employeeId = ${templateCtx.employeeId}, dismissed`);
+    } else {
+      throw new Error(JSON.stringify(GetConversationList.error));
+    }
+  }
+  const ConversationList = GetConversationList.response.ConversationList || [];
+  ConversationList.forEach((conversation, i) => {
     const score = parseInt(conversation.Score, 10) || 0;
     conversation.renderSelectScore = conversation.Status === 'Завершено' && score === 0;
     conversation.indexId = i + 1;
