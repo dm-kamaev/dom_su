@@ -41,7 +41,7 @@
               </select>
               <p id=select-native-1_error style=color:red></p>
             </div>
-            <label>Сообщение:<textarea name="content" required style="" type="text"></textarea></label>
+            <label>Сообщение:<textarea id=conversation_message name="content" required style="" type="text"></textarea></label>
             <button type="submit">Создать</button>
         </form>
         </div>
@@ -147,7 +147,10 @@
       getById('create_conversation').onsubmit = function (e) {
         var $select_error = getById('select-native-1_error');
         $select_error.innerHTML = '';
-        if (getById('select-native-1').value === 'not_selected') {
+        if (
+          !getById('conversation_message').value ||
+          getById('select-native-1').value === 'not_selected'
+        ) {
           $select_error.innerHTML = '* Выберите вид обращения';
           return e.preventDefault();
         }
