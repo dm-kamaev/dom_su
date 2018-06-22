@@ -1,5 +1,7 @@
 'use strict';
 
+const random = require("random-js")();
+
 const ABTestContainer = {
   'moscow': {
     // 'generalnaya_uborka': { name: "Тестирование 3-го шага на рассчете стоимости", key: "generalnaya_uborka_1_3step", forNewUser: true, variations: [
@@ -86,7 +88,9 @@ function choiceTest(variations) {
   let maxNumber = variations.reduce((perValue, item) => {
     return perValue + item.ratio
   }, 0)
-  let choiceNumber = Math.round(Math.random() * maxNumber)
+  // let choiceNumber = Math.round(Math.random() * maxNumber)
+  // determine random
+  let choiceNumber = Math.round(random.real(0, 1) * maxNumber);
   let index = 0
   for (let variation of variations) {
     index += variation.ratio

@@ -5,7 +5,7 @@ const config = require('config');
 
 let regexpString;
 // new logic for dev machine
-if (CONF.is_new_dev()) {
+if (CONF.is_dev) {
   // example: ^(:?\w+)-dev3\.domovenok\.su$
   regexpString = '^(:?\\w+)' + '-' + config.serverPath.domain.withoutCity.replace(/\./g,'\\\.') + '$';
 } else { // old logic and for prod

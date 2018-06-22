@@ -13,7 +13,7 @@ function getCityByDomain(domain) {
 }
 
 function _getUrlSchemaHost(city) {
-  if (CONF.is_new_dev()) {
+  if (CONF.is_dev) {
     return  config.serverPath.schema + '://' + city.domain + '-' + config.serverPath.domain.withoutCity;
   } else { // old logic
     return config.serverPath.schema + '://' + city.domain + '.' + config.serverPath.domain.withoutCity;
@@ -35,7 +35,7 @@ function getUrlHost(cityKW) {
     throw new Error(`City keyword incorrect - ${cityKW}`);
   }
   let url;
-  if (CONF.is_new_dev()) {
+  if (CONF.is_dev) {
     url = city.domain + '-' + config.serverPath.domain.withoutCity;
   } else { // old logic
     url = city.domain + '.' + config.serverPath.domain.withoutCity;

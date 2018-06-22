@@ -101,6 +101,9 @@ const staffDesktopTemplateOpts = {
 
 };
 const staffMobileTemplateOpts = {
+  index_vue: {
+    path: '/p/pancake/stat/employee-pa/index.html',
+  },
   error: {
     path: 'staff/templates/mobile/error.html', name: 'error'
   },

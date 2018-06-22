@@ -8,7 +8,7 @@ const CONF = require('/p/pancake/settings/config.js');
 const city_api = exports;
 
 city_api.get_via_host = function(ctx) {
-  if (CONF.is_new_dev()) {
+  if (CONF.is_dev) {
     const host = ctx.headers.host || '';
     const cities = ctx.cities;
     if (/^nn-/.test(host)) {
@@ -49,7 +49,7 @@ city_api.get_via_host = function(ctx) {
 // Нижний Новгород
 city_api.is_nn = function (ctx) {
   const host = ctx.headers.host || '';
-  if (CONF.is_new_dev()) {
+  if (CONF.is_dev) {
     return host && /^nn-/.test(host);
   } else { // old logic for dev machine and for prod
     return host && /^nn\./.test(host);
@@ -60,7 +60,7 @@ city_api.is_nn = function (ctx) {
 // Питер
 city_api.is_spb = function (ctx) {
   const host = ctx.headers.host || '';
-  if (CONF.is_new_dev()) {
+  if (CONF.is_dev) {
     return host && /^spb-/.test(host);
   } else { // old logic for dev machine and for prod
     return host && /^spb\./.test(host);
