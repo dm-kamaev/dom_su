@@ -16,3 +16,5 @@ config/default.json
 
 /stat/employee_photo/*
 !/stat/employee_photo/*.gitkeep
+# vue build for employee-pa
+/stat/employee-pa/

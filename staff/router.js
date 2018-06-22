@@ -1011,6 +1011,37 @@ staffRouter.get('/staff/:EmployeeID/rating', loginRequired(getEmployeeHeader(asy
   ctx.body = template(ctx.proc(templateCtx, ctx));
 })));
 
+
+// Rating index
+staffRouter.get('/staff/:EmployeeID/rating2', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
+  let GetRatingInfo = new Method1C('GetRatingInfo', {'EmployeeID': templateCtx.employeeId});
+  let GetSavingFundInfo = new Method1C('GetSavingFundInfo', {'EmployeeID': templateCtx.employeeId});
+  let template;
+  request1C.add(GetRatingInfo);
+  request1C.add(GetSavingFundInfo);
+  await request1C.do();
+  templateCtx.GetRatingInfo = GetRatingInfo.response;
+  templateCtx.GetSavingFundInfo = GetSavingFundInfo.response;
+  templateCtx.GetEmployeeData = GetEmployeeData.response;
+
+  if (templateCtx.GetRatingInfo && templateCtx.GetRatingInfo.Details){
+    for (let detail of templateCtx.GetRatingInfo.Details){
+      if (detail.Rating == 'Оценка'){
+        detail.Value = (detail.Value/20).toFixed(1);
+      } else {
+        detail.Value = detail.Value.toString() + ' %';
+      }
+      detail.DailyChangesJSON = JSON.stringify(detail.DailyChanges);
+    }
+  }
+  if (isMobileVersion(ctx)){
+    template = getTemplate(staffTemplate.mobile.index_vue);
+  } else {
+    template = getTemplate(staffTemplate.mobile.index_vue);
+  }
+  ctx.body = template(ctx.proc(templateCtx, ctx));
+})));
+
 // Rating history
 staffRouter.get('/staff/:EmployeeID/rating_history', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx){
   let from_item = 1;
