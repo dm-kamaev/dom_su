@@ -38,7 +38,12 @@ function ctxProcessor(data) {
   general.path = this.path;
   general.develop = config.app.develop;
   general.production = config.app.production;
-  general.currentRusMonth = time.get_month_name(time.get().double_month);
+  /**
+   * prev_month: '01'
+   * @type {String}
+   */
+  const prev_month = time.minus_month(time.get()).double_month;
+  general.currentRusMonth = time.get_month_name(prev_month);
 
   // Analytics
 
