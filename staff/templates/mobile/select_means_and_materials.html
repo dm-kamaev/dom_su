@@ -76,6 +76,7 @@
               <thead>
                 <tr>
                   <th></th>
+                  <th></th>
                   <th>Название:</th>
                   <th></th>
                   <th>Цена:</th>
@@ -84,6 +85,7 @@
               <tbody>
                 {{#each means as |mean| }}
                   <tr id='{{mean.row_id}}' {{#ifCond @index '!=' '0' }} class=table-row {{/ifCond}}>
+                    <td style=text-align:center><img src="{{mean.photo_src}}" style=max-width:100%;width:100px;height:auto alt=""/></td>
                     <td>
                       <div style="width:100%;margin-top:0;" class="ui-field-contain">
                         <button id='minus_{{mean.data_key}}' data-action=minus data-key={{mean.data_key}} data-input-id='quantity_{{mean.data_key}}' class=btn-minus>&minus;</button>
@@ -124,6 +126,7 @@
              <tbody>
                {{#each materials as |material| }}
                  <tr id='{{material.row_id}}' {{#ifCond @index '!=' '0' }} class=table-row {{/ifCond}}>
+                  <td style=text-align:center><img src="{{material.photo_src}}" style=max-width:100%;width:100px;height:auto alt=""/></td>
                    <td>
                      <div style="width:100%;margin-top:0;" class="ui-field-contain">
                        <button id='minus_{{material.data_key}}' data-action=minus data-key={{material.data_key}} data-input-id='quantity_{{material.data_key}}' class=btn-minus>&minus;</button>

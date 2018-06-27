@@ -19,7 +19,7 @@ const parseFormMultipart = require('koa-body')({multipart: true});
 const { loginRequired, getEmployeeHeader } = require('./decorators');
 const moneyStaff = require('./money');
 const examsStaff = require('./exams');
-const router_employee_photo = require('/p/pancake/staff/router_employee_photo.js');
+const router_employee_pa_photo = require('/p/pancake/staff/router_employee_pa_photo.js');
 const router_commodity_material_values = require('/p/pancake/staff/router_commodity_material_values.js');
 const router_description_services = require('/p/pancake/staff/router_description_services.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
@@ -1230,7 +1230,7 @@ staffRouter.get('/staff/', loginRequired(async function (ctx) {
   ctx.redirect(staffUrl('news', ctx.state.pancakeUser.auth1C.employee_uuid));
 }));
 
-router_employee_photo(staffRouter);
+router_employee_pa_photo(staffRouter);
 router_commodity_material_values(staffRouter);
 router_description_services(staffRouter);
 

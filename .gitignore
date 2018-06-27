@@ -14,7 +14,12 @@ config/default.json
 /only_one/*.xlsx
 /only_one/.*
 
+
+/stat/mean_and_material_photo/*
+!/stat/mean_and_material_photo/*.gitkeep
+
 /stat/employee_photo/*
 !/stat/employee_photo/*.gitkeep
+
 # vue build for employee-pa
 /stat/employee-pa/
