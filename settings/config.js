@@ -16,6 +16,7 @@ const enum_api_1C = {
   PASHA: 'pasha',
   LIZA: 'liza',
   MASHA: 'masha',
+  DAMIR: 'damir',
   STAGING: 'staging',
   PROD: 'prod'
 };
@@ -60,7 +61,7 @@ module.exports = function() {
       CONF.webhook= get_webhook(enum_api_1C.LIZA);
       break;
     case 'dev3':
-      CONF.api1C = get_api_1c(enum_api_1C.SASHA);
+      CONF.api1C = get_api_1c(enum_api_1C.DAMIR);
       CONF.webhook= get_webhook(enum_api_1C.LIZA);
       break;
     case 'prod':
@@ -117,6 +118,15 @@ function get_api_1c(developer_name) {
     case enum_api_1C.MASHA:
       api_1C = { // Маша
         ip: '192.168.1.119',
+        url: '/domovenok/hs/api/v2/',
+        oldAPI: '/domovenok/hs/api/',
+        port: 80,
+        ticket_url: '/domovenok/hs/rq'
+      };
+      break;
+    case enum_api_1C.DAMIR:
+      api_1C = { // Дамир
+        ip: '172.16.151.228',
         url: '/domovenok/hs/api/v2/',
         oldAPI: '/domovenok/hs/api/',
         port: 80,
