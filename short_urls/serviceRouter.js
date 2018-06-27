@@ -3,6 +3,7 @@ const { models } = require('models');
 const { ShortUrl } = models;
 const Router = require('koa-router');
 const logger = require('/p/pancake/lib/logger.js');
+const promise_api = require('/p/pancake/my/promise_api.js');
 const config = require('config');
 
 const serviceShortUrlRouter = new Router();
@@ -39,22 +40,50 @@ function randomAsciiString(length) {
 }
 
 serviceShortUrlRouter.post('/short_urls/rest/generate', async function (ctx) {
+  const body = ctx.request.body;
   try {
-    if (!ctx.request.body.Url){
-      ctx.body = {Result: false};
+    if (!body.Url){
+      ctx.body = {
+        Result: false
+      };
       return;
     }
+
     let key = randomAsciiString(6);
     let searchFreeKey = true;
-    while (searchFreeKey){
-      let tempShortUrl = await ShortUrl.findOne({where: {key: key}});
-      if (tempShortUrl){
-        logger.warn(`SHORT URL generate an existing key ${key}`);
+    let count_try = 0;
+    await promise_api.while(function () {
+      return searchFreeKey === true;
+    }, async function() {
+      let tempShortUrl = await ShortUrl.findOne({
+        where: {
+          key
+        }
+      });
+      if (tempShortUrl) {
+        logger.info(`SHORT URL generate an existing key ${key}, try=${count_try++}`);
       } else {
         searchFreeKey = false;
       }
-    }
-    await ShortUrl.create({url: ctx.request.body.Url, key: key, data: JSON.stringify(ctx.request.body.Data)});
+    });
+
+    // while (searchFreeKey){
+    //   let tempShortUrl = await ShortUrl.findOne({
+    //     where: {
+    //       key
+    //     }
+    //   });
+    //   if (tempShortUrl){
+    //     logger.warn(`SHORT URL generate an existing key ${key}`);
+    //   } else {
+    //     searchFreeKey = false;
+    //   }
+    // }
+    await ShortUrl.create({
+      url: body.Url,
+      key,
+      data: JSON.stringify(body.Data)
+    });
     ctx.body = {
       Result: true,
       Key: key,
@@ -63,7 +92,9 @@ serviceShortUrlRouter.post('/short_urls/rest/generate', async function (ctx) {
   } catch (error){
     logger.warn(error);
     ctx.status = 500;
-    ctx.body = {Result: false};
+    ctx.body = {
+      Result: false
+    };
   }
 });
 
