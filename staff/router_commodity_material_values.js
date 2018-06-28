@@ -1,5 +1,6 @@
 'use strict';
 
+const CONF = require('/p/pancake/settings/config.js');
 const Request1Cv3 = require('/p/pancake/api1c/request1Cv3.js');
 const decorators = require('/p/pancake/staff/decorators.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
@@ -7,6 +8,7 @@ const templates = require('/p/pancake/utils/templates.js');
 const fn = require('/p/pancake/my/fn.js');
 const Error_1C_base = require('/p/pancake/errors/Error_1C_base.js');
 const promise_api = require('/p/pancake/my/promise_api.js');
+const request_promise = require('/p/pancake/my/request_promise.js');
 const logger = require('/p/pancake/lib/logger.js');
 
 const path_select_means_and_materials= { path: '/p/pancake/staff/templates/mobile/select_means_and_materials.html' };
@@ -133,7 +135,7 @@ async function page_means_materials(ctx, next, request1C, GetEmployeeData, templ
     templateCtx.info_inventory_request = info_inventory_request;
     ctx.body = templates.getTemplate(show_current_inventory_request)(ctx.proc(templateCtx, ctx));
   } else { // show view for select means and materials
-    const data = build_data(Employee_InventoryList);
+    const data = await build_data(Employee_InventoryList);
 
     ctx.status = 200;
     templateCtx.means = data.means;
@@ -173,8 +175,57 @@ async function view_info_inventory_request(req_for_1c, InventoryRequestID, emplo
   return view_one_inventory_request(fn.deep_value(get_inventory_request, 'data.InventoryList') || []);
 }
 
-
-function build_data(Employee_InventoryList) {
+/**
+ * build_data
+ * @param  {Object} Employee_InventoryList:]
+ * @return {Object}
+ * {
+   means: [{
+     inventory_id: 'c49b85fd-0c94-11e2-bdd6-002590306b4e',
+     inventory_title: 'Губка 5 в 1 Русалочка',
+     inventory_description: '',
+     package_id: null,
+     photo_id: 'd5796cf0-79f3-11e8-84d8-1c1b0dc62163',
+     price: 14,
+     row_id: 'c49b85fd-0c94-11e2-bdd6-002590306b4e',
+     data_type: 'material',
+     data_key: 'material_42',
+     photo_src: '/stat/mean_and_material_photo/d5796cf0-79f3-11e8-84d8-1c1b0dc62163.jpg'
+   }],
+   materials: [{
+     inventory_id: '219b85fd-0c94-11e2-bdd6-002590306b4e',
+     inventory_title: 'перчатки',
+     inventory_description: '',
+     package_id: null,
+     photo_id: '',
+     price: 14,
+     row_id: 'c49b85fd-0c94-11e2-bdd6-002590306b4e',
+     data_type: 'material',
+     data_key: 'material_42',
+     photo_src: ''
+   }],
+   hash_mean_material: {
+    material_13: {
+      type: 'material',
+      inventory_id: 'f00d0b58-576e-11e7-80e4-00155d594900',
+      package_id: null,
+      price: 25,
+      api_quantity: {
+        state: {
+          value: 0,
+          index: 0,
+          package_title: 'пара'
+        },
+        list: [ 0, 1, 2, 3, 4, 5, 6, ]
+      },
+      current_quantity: 0,
+      row_id: 'f00d0b58-576e-11e7-80e4-00155d594900'
+    },
+   }
+ }
+ *
+ */
+async function build_data(Employee_InventoryList) {
   // InventoryList: [{
   //   InventoryID: "63666f19-d76a-11e2-8286-002590306b4e",
   //   InventoryTitle: "Моп 18003 (40*12) абразив",
@@ -197,6 +248,10 @@ function build_data(Employee_InventoryList) {
   const hash_mean_material = {}; // for client js
   i_list.forEach((inventory, i) => {
     const price = inventory.Price;
+    /**
+     * photo_id:  PhotoID: 'd5796cf0-79f3-11e8-84d8-1c1b0dc62163',
+     */
+    const photo_id = inventory.PhotoID;
     const inventory_id = inventory.InventoryID;
     const package_id = inventory.PackageID;
     const package_title = inventory.PackageTitle.replace(/[\d\.]+/g, '').toLowerCase().trim();
@@ -219,6 +274,7 @@ function build_data(Employee_InventoryList) {
       inventory_title: inventory.InventoryTitle,
       inventory_description: inventory.InventoryDescription,
       package_id,
+      photo_id,
       price,
       row_id
     };
@@ -246,6 +302,9 @@ function build_data(Employee_InventoryList) {
       row_id,
     };
   });
+
+  await add_photos(means);
+  await add_photos(materials);
 
   return {
     means,
@@ -424,3 +483,37 @@ function view_one_inventory_request(data_inventory_request) {
   });
 }
 
+
+/**
+ * add_photos: make request for get photo link from 1c and in material or means
+ * @param {Object[]} means_or_materials:
+ [{
+   inventory_id: '80ab0f29-0019-11e6-80de-00155d594900',
+   inventory_title: 'Перчатки Дермагрип  универсальные М',
+   inventory_description: '',
+   package_id: null,
+   photo_id: '',
+   price: 25,
+   row_id: '80ab0f29-0019-11e6-80de-00155d594900',
+   data_type: 'material',
+   data_key: 'material_3'
+ }]
+ * modify: add field photo_src '/stat/mean_and_material_photo/d5796cf0-79f3-11e8-84d8-1c1b0dc62163.jpg'
+ */
+async function add_photos(means_or_materials) {
+  await promise_api.queue(means_or_materials, async function (el) {
+    const photo_id = el.photo_id;
+    if (!el.photo_id) {
+      return;
+    }
+    const { error, response, body } = await request_promise.get(CONF.domain+'/staff/mean_and_material_photo/'+photo_id, { rejectUnauthorized: false });
+    if (error || response.statusCode !== 200 || !body.ok) {
+      return;
+    }
+    const file_path = body.data.file_path;
+    if (!file_path) {
+      return;
+    }
+    el.photo_src = file_path;
+  });
+}
