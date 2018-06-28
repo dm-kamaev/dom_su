@@ -61,7 +61,7 @@ module.exports = function() {
       CONF.webhook= get_webhook(enum_api_1C.LIZA);
       break;
     case 'dev3':
-      CONF.api1C = get_api_1c(enum_api_1C.DAMIR);
+      CONF.api1C = get_api_1c(enum_api_1C.PASHA);
       CONF.webhook= get_webhook(enum_api_1C.LIZA);
       break;
     case 'prod':
