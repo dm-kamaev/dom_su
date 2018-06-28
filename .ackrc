@@ -1,2 +1,4 @@
 --ignore-dir=static
 --ignore-dir=node_modules
+--ignore-dir=stat/employee_photo
+--ignore-dir=stat/employee-pa
