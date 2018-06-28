@@ -56,7 +56,7 @@
   <!--<meta name="smartbanner:enabled-platforms" content="android,ios">-->
   <!-- End SmartBanner configuration -->
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.35">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.37">
 
   <script src="//yastatic.net/share2/share.js" async></script>
   <base href="" >
@@ -158,7 +158,7 @@
       <div class="left-side__top  left-side__top--static">
         <h1 class="left-side__title  title">Отзывы</h1>
         <p class="left-side__description text">На этой странице Вы можете оставить свой отзыв об уборке квартиры или других предоставляемых компанией услугах.</p>
-        <button class="left-side__button button">Оставить отзыв</button>
+        <a href="{{buildUrl general.city '/private/auth'}}" class="left-side__button-link button">Оставить отзыв</a>
       </div>
 
       <!-- Orders -->
@@ -203,62 +203,6 @@
     </div>
     <div class="right-side  right-side--hide {{#HasRightSide}}right-side--mobile{{/HasRightSide}} scroll-container-unstable">
 
-      {{#if RightForm}}
-      <div class="right-side__wrap right-side__form" data-id="form">
-        <button class="right-side__btn right-side__btn--close  icon-close" type="button">
-          <svg class="icon-close__image" width="22.47" height="22.47" viewBox="0 0 22.47 22.47">
-            <rect class="icon-close__element" x="182.81" y="107.75" width="31" height="1.64" rx="0.82" ry="0.82" transform="translate(-205.73 74.73) rotate(-45)" fill="#fd8204"/>
-            <rect class="icon-close__element" x="182.74" y="107.68" width="31" height="1.64" rx="0.82" ry="0.82" transform="translate(-52.26 -205.7) rotate(45)" fill="#fd8204"/>
-          </svg>
-        </button>
-
-        <h2 class="right-side__title title">Оставить отзыв</h2>
-
-
-        <form class="review-form">
-          <div class="review-form__row">
-            <label class="review-form__label label">ФИО:<span class="label__required">*</span></label>
-            <input type="text" class="review-form__input input" name="title" required>
-          </div>
-        
-          <div class="review-form__row">
-            <label class="review-form__label label">E-mail:<span class="label__required">*</span></label>
-            <input type="email" class="review-form__input input" name="email" required>
-          </div>
-        
-          <div class="review-form__row">
-            <p class="review-form__label label">Оценка:<span class="label__required">*</span></p>
-        
-            <div class="review-form__stars stars">
-              <input class="stars__input  stars__input--quality" id="star-34" type="radio" name="Quality" value="5">
-              <label class="stars__label  stars__label--md  stars__label--quality" title="gorgeous" for="star-34"></label>
-        
-              <input class="stars__input  stars__input--quality" id="star-33" type="radio" name="Quality" value="4">
-              <label class="stars__label  stars__label--md stars__label--quality" title="good" for="star-33"></label>
-        
-              <input class="stars__input  stars__input--quality" id="star-32" type="radio" name="Quality" value="3">
-              <label class="stars__label  stars__label--md  stars__label--quality" title="regular" for="star-32"></label>
-        
-              <input class="stars__input  stars__input--quality" id="star-31" type="radio" name="Quality" value="2">
-              <label class="stars__label  stars__label--md  stars__label--quality" title="poor" for="star-31"></label>
-        
-              <input class="stars__input  stars__input--quality" id="star-30" type="radio" name="Quality" value="1">
-              <label class="stars__label  stars__label--md  stars__label--quality" title="bad" for="star-30"></label>
-            </div>
-          </div>
-        
-          <div class="review-form__row">
-            <label class="review-form__label label">Отзыв:<span class="label__required">*</span></label>
-            <textarea class="review-form__textarea  textarea" required></textarea>
-          </div>
-        
-          <div class="review-form__row">
-            <button type="submit" class="review-form__button button">Отправить отзыв</button>
-          </div>
-        </form>
-      </div>
-      {{ else }}
-
       {{#with Item}}
       <div class="right-side__wrap" data-id="{{id}}">
 
@@ -298,8 +242,6 @@
 
       </div>
       {{/with}}
-
-      {{/if}}
 
 
 
@@ -574,64 +516,10 @@
 
   {{{{/raw}}}}
 </script>
-<!-- /Template Active Order -->
-
-<script id="right-side__form" type="text/html">
-  <button class="right-side__btn right-side__btn--close  icon-close" type="button">
-    <svg class="icon-close__image" width="22.47" height="22.47" viewBox="0 0 22.47 22.47">
-      <rect class="icon-close__element" x="182.81" y="107.75" width="31" height="1.64" rx="0.82" ry="0.82" transform="translate(-205.73 74.73) rotate(-45)" fill="#fd8204"/>
-      <rect class="icon-close__element" x="182.74" y="107.68" width="31" height="1.64" rx="0.82" ry="0.82" transform="translate(-52.26 -205.7) rotate(45)" fill="#fd8204"/>
-    </svg>
-  </button>
-
-  <h2 class="right-side__title title">Оставить отзыв</h2>
-
-  <form class="review-form">
-    <div class="review-form__row">
-      <label class="review-form__label label">ФИО:<span class="label__required">*</span></label>
-      <input type="text" class="review-form__input input" name="title" required>
-    </div>
-  
-    <div class="review-form__row">
-      <label class="review-form__label label">E-mail:<span class="label__required">*</span></label>
-      <input type="email" class="review-form__input input" name="email" required>
-    </div>
-  
-    <div class="review-form__row">
-      <p class="review-form__label label">Оценка:<span class="label__required">*</span></p>
-  
-      <div class="review-form__stars stars">
-        <input class="stars__input  stars__input--quality" id="star-34" type="radio" name="Quality" value="5">
-        <label class="stars__label  stars__label--md  stars__label--quality" title="gorgeous" for="star-34"></label>
-  
-        <input class="stars__input  stars__input--quality" id="star-33" type="radio" name="Quality" value="4">
-        <label class="stars__label  stars__label--md stars__label--quality" title="good" for="star-33"></label>
-  
-        <input class="stars__input  stars__input--quality" id="star-32" type="radio" name="Quality" value="3">
-        <label class="stars__label  stars__label--md  stars__label--quality" title="regular" for="star-32"></label>
-  
-        <input class="stars__input  stars__input--quality" id="star-31" type="radio" name="Quality" value="2">
-        <label class="stars__label  stars__label--md  stars__label--quality" title="poor" for="star-31"></label>
-  
-        <input class="stars__input  stars__input--quality" id="star-30" type="radio" name="Quality" value="1">
-        <label class="stars__label  stars__label--md  stars__label--quality" title="bad" for="star-30"></label>
-      </div>
-    </div>
-  
-    <div class="review-form__row">
-      <label class="review-form__label label">Отзыв:<span class="label__required">*</span></label>
-      <textarea class="review-form__textarea  textarea" required></textarea>
-    </div>
-  
-    <div class="review-form__row">
-      <button type="submit" class="review-form__button button">Отправить отзыв</button>
-    </div>
-  </form>
-</script>
 
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.29"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.31"></script>
 <!-- /Java Script -->
 
 </body>
