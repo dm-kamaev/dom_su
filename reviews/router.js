@@ -2,7 +2,7 @@
 
 const Router = require('koa-router');
 const { getReview, getReviewListScroll, saveReview, shareReview } = require('./store');
-const logger = require('logger')(module);
+const logger = require('/p/pancake/lib/logger.js');
 const { getTemplate, loadTemplate } = require('utils');
 
 const reviewsTemplateOpts = {
@@ -19,30 +19,30 @@ loadTemplate(reviewsTemplateOpts);
 
 const reviewsRouter = new Router();
 
-reviewsRouter.post('reviewsFormHandler', /^\/otzivi\/form\/$/, async function (ctx) {
-  ctx.type = 'application/json';
-  let response = { Success: false };
-  // Validation
-  if (ctx.request.body){
-    if (typeof ctx.request.body.name == 'string' && ctx.request.body.name.length > 0)
-      if (typeof ctx.request.body.mail == 'string' && ctx.request.body.mail.length > 0)
-        if (typeof ctx.request.body.review == 'string' && ctx.request.body.review.length > 0)
-          if (isNaN(ctx.request.body.rating) == false && Number(ctx.request.body.rating) > 0 && Number(ctx.request.body.rating) <= 5){
-            await saveReview(ctx.request.body.name, ctx.request.body.mail, ctx.request.body.review, Number(ctx.request.body.rating), ctx.state.pancakeUser.city.id);
-            response.Success = true;
-            ctx.state.pancakeUser.sendTicket('Review', {
-              rating: ctx.request.body.rating,
-              name: ctx.request.body.name,
-              mail: ctx.request.body.mail,
-              review: ctx.request.body.review
-            });
-          }
-  }
-  ctx.body = JSON.stringify(response);
-});
+// TODO(2018.06.28): Remove in future
+// reviewsRouter.post('reviewsFormHandler', /^\/otzivi\/form\/$/, async function (ctx) {
+//   ctx.type = 'application/json';
+//   let response = { Success: false };
+//   // Validation
+//   if (ctx.request.body){
+//     if (typeof ctx.request.body.name == 'string' && ctx.request.body.name.length > 0)
+//       if (typeof ctx.request.body.mail == 'string' && ctx.request.body.mail.length > 0)
+//         if (typeof ctx.request.body.review == 'string' && ctx.request.body.review.length > 0)
+//           if (isNaN(ctx.request.body.rating) == false && Number(ctx.request.body.rating) > 0 && Number(ctx.request.body.rating) <= 5){
+//             await saveReview(ctx.request.body.name, ctx.request.body.mail, ctx.request.body.review, Number(ctx.request.body.rating), ctx.state.pancakeUser.city.id);
+//             response.Success = true;
+//             ctx.state.pancakeUser.sendTicket('Review', {
+//               rating: ctx.request.body.rating,
+//               name: ctx.request.body.name,
+//               mail: ctx.request.body.mail,
+//               review: ctx.request.body.review
+//             });
+//           }
+//   }
+//   ctx.body = JSON.stringify(response);
+// });
 
 reviewsRouter.get('reviewsList', /^\/otzivi\/$/, async function (ctx) {
-  // console.log('=== HERE ===');
   const {modelList, begin, end} = await getReviewListScroll({
     where: {
       $or: [{
@@ -125,7 +125,7 @@ reviewsRouter.get('reviewListAjax', /^\/m\/otzivi$/, async function (ctx) {
     ctx.type = 'application/json';
     ctx.body = JSON.stringify(response);
   } catch (e) {
-    logger.info(e);
+    logger.warn(e);
     ctx.type = 'application/json';
     ctx.body = JSON.stringify({ Success: false });
   }
@@ -138,7 +138,7 @@ reviewsRouter.get('reviewItemAjax', /^\/m\/otzivi\/([0-9a-zA-Z_\-]+)$/, async fu
     ctx.type = 'application/json';
     ctx.body = response;
   } catch (e){
-    logger.info(e);
+    logger.warn(e);
     ctx.type = 'application/json';
     ctx.body = JSON.stringify({ Success: false });
   }
