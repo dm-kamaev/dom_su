@@ -1221,6 +1221,15 @@ staffRouter.get('/staff/ajax/orderList', loginRequired(async function (ctx) {
   }
 }));
 
+
+// study
+staffRouter.get('/staff/:employee_id/study', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
+  let template = getTemplate(staffTemplate.mobile.study);
+  ctx.body = template(ctx.proc(templateCtx, ctx));
+})));
+
+
+
 // Deposit List Ajax
 staffRouter.get('/staff/ajax/depositList', moneyStaff.ajaxDepositList);
 

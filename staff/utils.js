@@ -101,6 +101,9 @@ const staffDesktopTemplateOpts = {
 
 };
 const staffMobileTemplateOpts = {
+  study: {
+    path: '/p/pancake/staff/templates/mobile/study.html',
+  },
   index_vue: {
     path: '/p/pancake/stat/employee-pa/index.html',
   },
