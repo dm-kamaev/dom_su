@@ -12,21 +12,17 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui"/>
   <meta name="format-detection" content="telephone=no">
-  {{#if general.production}}
-    <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PHD7WW');
-    </script>
-  {{/if}}
   <meta property="og:title" content="Клининговая компания Домовёнок."/>
   <meta property="og:site" content="//www.domovenok.su/"/>
   <meta property="og:description" content="Клининговая компания Домовёнок - верный помощник в решении бытовых вопросов и уборки дома."/>
   <meta property="og:image" content="//www.domovenok.su/static/img/domovenok-banner.png"/>
   <meta property="og:url" content="//www.domovenok.su/?utm_source=vk&utm_campaign=site_share"/>
-
+  <meta name="apple-mobile-web-app-title" content="Domovenok">
+  <meta name="application-name" content="Domovenok">
+  <meta name="msapplication-TileColor" content="#fd8204">
+  <meta name="msapplication-TileImage" content="/static/pancake/img/mstile-144x144.png?v=1.0">
+  <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
+  <meta name="theme-color" content="#fd8204">
   <link rel="apple-touch-icon" sizes="57x57" href="/static/pancake/img/apple-touch-icon-57x57.png?v=1.0">
   <link rel="apple-touch-icon" sizes="60x60" href="/static/pancake/img/apple-touch-icon-60x60.png?v=1.0">
   <link rel="apple-touch-icon" sizes="72x72" href="/static/pancake/img/apple-touch-icon-72x72.png?v=1.0">
@@ -43,30 +39,18 @@
   <link rel="manifest" href="/static/pancake/manifest.json?v=1.02">
   <link rel="mask-icon" href="/static/pancake/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
   <link rel="yandex-tableau-widget" href="/yandex/manifest.json" />
-  <meta name="apple-mobile-web-app-title" content="Domovenok">
-  <meta name="application-name" content="Domovenok">
-  <meta name="msapplication-TileColor" content="#fd8204">
-  <meta name="msapplication-TileImage" content="/static/pancake/img/mstile-144x144.png?v=1.0">
-  <meta name="msapplication-config" content="/static/pancake/browserconfig.xml?v=1.02">
-  <meta name="theme-color" content="#fd8204">
-  
-  <!-- Start SmartBanner configuration -->
-  <!--<meta name="smartbanner:title" content="Домовенок">-->
-  <!--<meta name="smartbanner:author" content="Домовёнок всегда<br> под рукой">-->
-  <!--<meta name="smartbanner:price" content=" ">-->
-  <!--<meta name="smartbanner:price-suffix-apple" content=" ">-->
-  <!--<meta name="smartbanner:price-suffix-google" content=" ">-->
-  <!--<meta name="smartbanner:icon-apple" content="/static/pancake/img/logo-dom.svg">-->
-  <!--<meta name="smartbanner:icon-google" content="/static/pancake/img/logo-dom.svg">-->
-  <!--<meta name="smartbanner:button" content="Открыть">-->
-  <!--<meta name="smartbanner:button-url-apple" content="https://itunes.apple.com/us/app/%D0%B4%D0%BE%D0%BC%D0%BE%D0%B2%D0%B5%D0%BD%D0%BE%D0%BA-%D1%83%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-%D0%BA%D0%B2%D0%B0%D1%80%D1%82%D0%B8%D1%80-%D0%B3%D0%BB%D0%B0%D0%B6%D0%BA%D0%B0-%D1%81%D1%82%D0%B8%D1%80%D0%BA%D0%B0-%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D0%BD%D0%B3/id1274981749?mt=8">-->
-  <!--<meta name="smartbanner:button-url-google" content="https://play.google.com/store/apps/details?id=ru.domovenok.app&hl=ru">-->
-  <!--<meta name="smartbanner:enabled-platforms" content="android,ios">-->
-  <!-- End SmartBanner configuration -->
+  {{#if general.production}}
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PHD7WW');
+    </script>
+  {{/if}}
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
 
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.38">
-  <script src="//yastatic.net/share2/share.js" async></script>
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.39">
   <base href="">
 
   <script>
@@ -869,7 +853,11 @@
     
     <div class="contact-btn" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderButton"}'>
       <button class="contact-btn__btn contact-btn__btn--main" type="button" data-name="service-order">
-        <svg class="contact-btn__image" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><rect width="30" height="30" fill="none"/><line x1="15" y1="1.5" x2="15" y2="28.5" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/><line x1="1.5" y1="15" x2="28.5" y2="15" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/></svg>
+        <svg class="contact-btn__image" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <rect width="30" height="30" fill="none"/>
+          <line x1="15" y1="1.5" x2="15" y2="28.5" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
+          <line x1="1.5" y1="15" x2="28.5" y2="15" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/>
+        </svg>
       </button>
     </div>
   </main>
@@ -900,7 +888,7 @@
   
       <div class="pop-up__item  pop-up__item--hide  get-document">
         <div class="get-document__wrap">
-          <form class="get-document__form" ga-send='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "getContract"}'  ya-reach="order_applic">
+          <form class="get-document__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "getContract"}'  data-ya="order_applic">
             <p class="get-document__title  title">Получить экземпляр договора</p>
   
             <div class="get-document__row">
@@ -1088,7 +1076,7 @@
 
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.31"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.32"></script>
 <!-- /Java Script -->
 
 </body>

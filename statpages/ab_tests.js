@@ -32,37 +32,37 @@ const ABTestContainer = {
     //     {name: "control", page: 'mite_okon', ratio: 50, description: "Основная"},
     //     {name: "variation", page: 'mite_okon_ab', ratio: 50, description: "Пробуем новый дизайн"}
     // ]},
-    main: {
-      name: "",
-      key: "main_13_order",
-      forNewUser: false,
-        variations: [
-          {
-            name: "control",
-            page: 'main',
-            ratio: 70,
-            description: ""
-          },
-          {
-            name: "variation",
-            page: 'main_ab',
-            ratio: 10,
-            description: ""
-          },
-          {
-            name: "variation1",
-            page: 'main_ab1',
-            ratio: 10,
-            description: ""
-          },
-          {
-            name: "variation2",
-            page: 'main_ab2',
-            ratio: 10,
-            description: ""
-          }
-      ]
-    },
+    // main: {
+    //   name: "",
+    //   key: "main_13_order",
+    //   forNewUser: false,
+    //     variations: [
+    //       {
+    //         name: "control",
+    //         page: 'main',
+    //         ratio: 70,
+    //         description: ""
+    //       },
+    //       {
+    //         name: "variation",
+    //         page: 'main_ab',
+    //         ratio: 10,
+    //         description: ""
+    //       },
+    //       {
+    //         name: "variation1",
+    //         page: 'main_ab1',
+    //         ratio: 10,
+    //         description: ""
+    //       },
+    //       {
+    //         name: "variation2",
+    //         page: 'main_ab2',
+    //         ratio: 10,
+    //         description: ""
+    //       }
+    //   ]
+    // },
     // 'price__': {
     //     name: "Изменение дизайна",
     //     key: "price_1_new",
