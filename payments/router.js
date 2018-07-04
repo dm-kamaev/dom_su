@@ -481,21 +481,12 @@ paymentsRouter.post('/payments/notification/', async function (ctx) {
     // send to 1с
     if (!payment) {
       const res = await send_to_1c_payment(body, logger_payment);
-      // TEMPORARY
-      // |
-      // V
-      if (res instanceof Error || CONF.is_dev) {
-        ctx.status = 200;
-        ctx.body = 'OK';
-        return;
-      }
-
       if (res instanceof Error) {
         ctx.status = 500;
         ctx.body = res.toString();
       } else {
         ctx.status = 200;
-        ctx.body = res;
+        ctx.body = res; // 'OK'
       }
       logger_payment.info('/payments/notification/ responce ', ctx.body);
       return;
