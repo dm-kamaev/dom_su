@@ -95,7 +95,7 @@
 
 ```sh
   pg_dump -s domovenok > ~/20180705_schema_domovenok.sql
-  pg_dump --data-only -d domovenok -t articles -t cities -t phones -t employee_news -t news -t payments -t pgmigrations -t pictures -t reviews -t short_url > ~/20180705_data_domovenok.sql
+  pg_dump --data-only -d domovenok -t articles -t cities -t phones -t employee_news -t news -t payments -t pictures -t reviews -t short_url > ~/20180705_data_domovenok.sql
   scp ~/Downloads/20180705_data_domovenok.sql dmitrijd@174.138.10.72:~/20180705_data_domovenok.sql;
   scp ~/Downloads/20180705_schema_domovenok.sql dmitrijd@174.138.10.72:~/20180705_schema_domovenok.sql;
   psql -U domovenok -W  -h localhost -d postgres -c 'ALTER DATABASE pancake_new RENAME TO pancake'
