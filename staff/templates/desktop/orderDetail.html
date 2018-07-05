@@ -278,6 +278,8 @@
         <i>Как добраться:</i><br /> {{ GetDepartureData.Address.Comment}}
     </p>
 </div>
+
+<div id=text_about_part_route></div>
 <div id="ymaps-map-container"></div>
 <!-- <script type="text/javascript" src="https://api-maps.yandex.ru/2.0/?coordorder=longlat&load=package.full&wizard=constructor&lang=ru-RU"></script>
 <script>
@@ -301,7 +303,12 @@
       address_order[0] = parseFloat(address_order[0]);
       address_order[1] = parseFloat(address_order[1]);
       // TODO: В opera mobile дико долго грузится...
-      build_route_from_current_position_to('ymaps-map-container', address_order);
+      build_route_from_current_position_to({
+        map_id: 'ymaps-map-container',
+        address_order: address_order,
+        id_text_about_part_route: 'text_about_part_route',
+        turn_off_margin: true
+      });
     }();
 </script>
 
