@@ -29,6 +29,7 @@ clientShortUrlRouter.get('/s/:key', async function(ctx, next) {
       ctx.body = h_open_link_1c(shortUrl.url);
     } else {
       ctx.status = 301;
+      // maybe this: http://www.domovenok.su/payments/?order_id=INV-000000786&amount=12345
       ctx.redirect(shortUrl.url);
 
       // render page with text about for redirect to client_pa
