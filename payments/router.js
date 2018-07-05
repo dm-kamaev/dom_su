@@ -486,7 +486,7 @@ paymentsRouter.post('/payments/notification/', async function (ctx) {
         ctx.body = res.toString();
       } else {
         ctx.status = 200;
-        ctx.body = res;
+        ctx.body = res; // 'OK'
       }
       logger_payment.info('/payments/notification/ responce ', ctx.body);
       return;
