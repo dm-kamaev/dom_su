@@ -4,7 +4,7 @@ const nnTemplates = {
     'dir': 'templates/statpages/nn/',
     'key': 'nn',
     'price__': {name: 'price__.html', ServiceName: 'Цены', data:{ menu:{main: true, price: true}}},
-    'googleb8984dcdbac1d5fd.html': {name: 'googleb8984dcdbac1d5fd.html', data: {}},
+    'googlea5773af570de90bb.html': {name: 'googlea5773af570de90bb.html', data: {}},
     'yandex_ab95734ac8baf184.html': {name: 'yandex_ab95734ac8baf184.html', data: {}},
     'user_agreement__': {name: 'user_agreement__.html', data: { menu:{main: true, user_agreement: true}}},
     'compare_service': {name: 'compare_service.html', ServiceName: 'Сравнение услуг', data:{ menu:{physical: true}}},
