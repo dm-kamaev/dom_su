@@ -1,6 +1,6 @@
 'use strict';
-const { models } = require('models');
-const { ShortUrl } = models;
+
+const { ShortUrl } = require('/p/pancake/models/models.js');
 const Router = require('koa-router');
 
 const clientShortUrlRouter = new Router();
@@ -28,9 +28,10 @@ clientShortUrlRouter.get('/s/:key', async function(ctx, next) {
       ctx.type = 'text/html; charset=utf-8';
       ctx.body = h_open_link_1c(shortUrl.url);
     } else {
+      var url = fix_url(shortUrl.url);
       ctx.status = 301;
       // maybe this: http://www.domovenok.su/payments/?order_id=INV-000000786&amount=12345
-      ctx.redirect(shortUrl.url);
+      ctx.redirect(url);
 
       // render page with text about for redirect to client_pa
       // ctx.status = 200;
@@ -69,34 +70,13 @@ function h_open_link_1c(url) {
   return html;
 }
 
-
-function render_page_for_redirect_to_client_pa() {
-  const html = `
-    <!DOCTYPE html>
-      <html lang="RU">
-      <head>
-        <meta charset="UTF-8"/>
-        <title>Привяжите карты</title>
-        <style>
-          html{margin:0;padding:0;color:#333;hyphens:auto;-webkit-hyphens:auto;-moz-hyphens:auto;-ms-hyphens:auto;}
-          body {font-family:Helvetica,Arial,sans-serif;font-size:120%;margin:0}
-          a{color:#1A0DAB;text-decoration:underline;}
-          a:active, a:focus, img{outline:0}
-          a:visited{color:#1A0DAB}
-          a:hover{color:#FF6633}
-          p{margin:0;padding:0;line-height:1.5}
-        </style>
-      </head>
-      <body>
-        <div style="margin:100px auto 0 auto;text-align:center">
-          <p style="margin:0 auto">К сожалению, ссылка устарела.</p>
-          <p style="margin:0 auto">Перейдите в личный кабинет для <a href="/private/profile">оплаты</a>.</p>
-          <p style="margin:0 auto">Приносим свои извинения.</p>
-        </div>
-      </body>
-    </html>
-  `;
-  return html;
+// console.log(fix_url('https://www.domovenok.su/private/psm201807?=&luid=f8028052-f053-4bad-a716-896bdcbf1fd5 ')); // rigth url
+// console.log(fix_url('https://www.domovenok.su/private/psm201807.?=&luid=f8028052-f053-4bad-a716-896bdcbf1fd5 ')); // wrong url
+function fix_url(url) {
+  if (/\.su\/private\/psm\d{6}\./.test(url)) {
+    url = url.replace(/(psm\d{6})\./g, '$1');
+  }
+  return url;
 }
 
 module.exports = {
