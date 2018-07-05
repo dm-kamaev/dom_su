@@ -1,6 +1,12 @@
 User-agent: *
-Disallow: /search
-Disallow: /?page=1
+Disallow: /private
+Disallow: /?*
 Crawl-delay: 1
-Host: https://nn.domovenok.su/
 Sitemap: https://nn.domovenok.su/sitemap.xml
+
+User-agent: Yandex
+Disallow: /private/*
+Disallow: /?*
+Crawl-delay: 1
+Sitemap: https://nn.domovenok.su/sitemap.xml
+Host: https://nn.domovenok.su/
