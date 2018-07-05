@@ -28,12 +28,12 @@ clientShortUrlRouter.get('/s/:key', async function(ctx, next) {
       ctx.type = 'text/html; charset=utf-8';
       ctx.body = h_open_link_1c(shortUrl.url);
     } else {
-      // ctx.status = 301;
-      // ctx.redirect(shortUrl.url);
+      ctx.status = 301;
+      ctx.redirect(shortUrl.url);
 
       // render page with text about for redirect to client_pa
-      ctx.status = 200;
-      ctx.body = render_page_for_redirect_to_client_pa();
+      // ctx.status = 200;
+      // ctx.body = render_page_for_redirect_to_client_pa();
     }
   }
   await next();
