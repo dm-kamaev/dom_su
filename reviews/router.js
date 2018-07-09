@@ -3,6 +3,7 @@
 const Router = require('koa-router');
 const { getReview, getReviewListScroll, saveReview, shareReview } = require('./store');
 const logger = require('/p/pancake/lib/logger.js');
+const db = require('/p/pancake/my/db2.js');
 const { getTemplate, loadTemplate } = require('utils');
 
 const reviewsTemplateOpts = {
@@ -53,7 +54,12 @@ reviewsRouter.get('reviewsList', /^\/otzivi\/$/, async function (ctx) {
     },
     raw: true,
   });
-  // console.dir(modelList);
+
+  const reviews_average_rating = await db.read_one('SELECT average_rating FROM reviews_average_rating');
+  const average_rating = (reviews_average_rating) ? reviews_average_rating.average_rating : null;
+
+  const reviews_rating_count = await db.read('SELECT rating, percent FROM reviews_count ORDER BY rating DESC');
+
   const template = getTemplate(reviewsTemplateOpts);
   ctx.body = template(ctx.proc({
     ItemList: modelList,
@@ -61,7 +67,10 @@ reviewsRouter.get('reviewsList', /^\/otzivi\/$/, async function (ctx) {
     End: end,
     RightForm: false,
     HasRightSide: false,
-    menu: menu
+    menu: menu,
+    // 4.2
+    averageRating: average_rating,
+    reviewsRatingCount: reviews_rating_count
   }));
 });
 

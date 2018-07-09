@@ -22,6 +22,9 @@ function get_cron_file() {
     # every 1 minute
     * * * * * domovenok $NODE /p/pancake/cron/free_phones.js > ~/free_phones.log 2>&1 &
 
+    # every 01:00
+    00 01 * * * domovenok $NODE /p/pancake/cron/calc_count_for_reviews.js > /dev/null 2>&1 &
+
   `;
   return str;
 }
