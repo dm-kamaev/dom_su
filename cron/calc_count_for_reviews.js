@@ -20,16 +20,22 @@ void async function () {
 
     const average_rating = (total_sum_rating / review_count).toFixed(1);
     console.log('average_rating=', average_rating);
-    const query = `
-      INSERT INTO
-        reviews_average_rating (reviews_average_rating_id, average_rating, timestamp)
-      VALUES
-        (DEFAULT, $1, $2)
-      ON CONFLICT (average_rating) DO UPDATE SET
-        average_rating = $1,
-        timestamp = $2;
-    `;
-    await db.edit(query, [ average_rating, new Date() ]);
+    // const query = `
+    //   INSERT INTO
+    //     reviews_average_rating (reviews_average_rating_id, average_rating, timestamp)
+    //   VALUES
+    //     (DEFAULT, $1, $2)
+    //   ON CONFLICT (average_rating) DO UPDATE SET
+    //     average_rating = $1,
+    //     timestamp = $2;
+    // `;
+    // await db.edit(query, [ average_rating, new Date() ]);
+    const reviews_average_rating = await db.read_one(`SELECT reviews_average_rating_id FROM reviews_average_rating`);
+    if (reviews_average_rating) {
+      await db.edit('UPDATE reviews_average_rating SET average_rating = $1, timestamp = $2 WHERE reviews_average_rating_id = $3 ', [ average_rating, new Date(), reviews_average_rating.reviews_average_rating_id]);
+    } else {
+      await db.edit('INSERT INTO reviews_average_rating (reviews_average_rating_id, average_rating, timestamp)  VALUES (DEFAULT, $1, $2)', [ average_rating, new Date() ]);
+    }
 
     let reviews_group_by_rating = await db.read(`SELECT rating, COUNT(rating) as count FROM reviews GROUP BY rating`);
     const review_with_percent = reviews_group_by_rating.filter(review => {
@@ -43,16 +49,22 @@ void async function () {
 
     await promise_api.queue(review_with_percent, async function ({ rating, percent }) {
       const d = new Date();
-      const query = `
-        INSERT INTO
-          reviews_count (reviews_count_id, rating, percent, timestamp)
-        VALUES
-          (DEFAULT, $1, $2, $3)
-        ON CONFLICT (rating) DO UPDATE SET
-          percent = $2,
-          timestamp = $3;
-      `;
-      await db.edit(query, [ parseInt(rating, 10), parseInt(percent, 10), new Date() ]);
+      const reviews_rating_count = await db.read_one(`SELECT rating FROM reviews_count WHERE rating = `+rating);
+      if (reviews_rating_count) {
+        await db.edit('UPDATE reviews_count SET percent = $1, timestamp = $2 WHERE rating = $3 ', [ parseInt(percent, 10), new Date(), reviews_rating_count.rating ]);
+      } else {
+        await db.edit('INSERT INTO reviews_count (reviews_count_id, rating, percent, timestamp) VALUES (DEFAULT, $1, $2, $3)', [ parseInt(rating, 10), parseInt(percent, 10), new Date() ]);
+      }
+      // const query = `
+      //   INSERT INTO
+      //     reviews_count (reviews_count_id, rating, percent, timestamp)
+      //   VALUES
+      //     (DEFAULT, $1, $2, $3)
+      //   ON CONFLICT (rating) DO UPDATE SET
+      //     percent = $2,
+      //     timestamp = $3;
+      // `;
+      // await db.edit(query, [ parseInt(rating, 10), parseInt(percent, 10), new Date() ]);
     });
 
     console.log('review_with_percent=', review_with_percent);
