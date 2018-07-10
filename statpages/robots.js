@@ -35,7 +35,7 @@ function addRobotsFileInRouting(statpagesRouter) {
     };
     const host = ctx.request.headers.host;
     // www-dev3.domovenok.su
-    if (/\w+-\w+\.domovenok\.su/.test(host)) {
+    if (/\w+-\w+\.domovenok\.su/.test(host) || /promyshlennyj-alpinizm\.domovenok\.su/.test(host) || /family.domovenok\.su/.test(host)) {
       ctx.type = 'text/plain';
       ctx.body = await wf.read(`templates/file/robots_dev.txt`, 'utf-8');
     } else {

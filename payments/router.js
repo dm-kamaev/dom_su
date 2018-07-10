@@ -334,32 +334,65 @@ function get_token(get_param) {
 
 // GET /payments/?order_id=INV-000012289&amount=2980&autosend=True
 paymentsRouter.get('/payments/', async function (ctx) {
-  let context = {};
-  if (ctx.query.order_id){
-    context['order_id'] = ctx.query.order_id;
-  }
-  if (ctx.query.amount){
-    regExpAmount.lastIndex = 0;
-    let match = regExpAmount.exec(ctx.query.amount);
-    if (match === null){
-      const template = getTemplate({path: 'templates/payments/failure.html', name: 'paymentsFailure'});
-      ctx.body = template(ctx.proc());
-      return;
-    }
-    context['amount'] = ctx.query.amount;
-  }
-  if (ctx.query.description){
-    context['description'] = ctx.query.description;
-  }
-  if (ctx.query.autosend){
-    context['autosend'] = true;
-  }
-  if (ctx.query.redirect){
-    context['redirect'] = ctx.request.headers.referer;
-  }
-  const template = getTemplate({path: 'templates/payments/init.html', name: 'paymentsInit'});
-  ctx.body = template(ctx.proc(context));
+  ctx.status = 200;
+  ctx.body = render_page_for_redirect_to_client_pa();
+
+  // let context = {};
+  // if (ctx.query.order_id){
+  //   context['order_id'] = ctx.query.order_id;
+  // }
+  // if (ctx.query.amount){
+  //   regExpAmount.lastIndex = 0;
+  //   let match = regExpAmount.exec(ctx.query.amount);
+  //   if (match === null){
+  //     const template = getTemplate({path: 'templates/payments/failure.html', name: 'paymentsFailure'});
+  //     ctx.body = template(ctx.proc());
+  //     return;
+  //   }
+  //   context['amount'] = ctx.query.amount;
+  // }
+  // if (ctx.query.description){
+  //   context['description'] = ctx.query.description;
+  // }
+  // if (ctx.query.autosend){
+  //   context['autosend'] = true;
+  // }
+  // if (ctx.query.redirect){
+  //   context['redirect'] = ctx.request.headers.referer;
+  // }
+  // const template = getTemplate({path: 'templates/payments/init.html', name: 'paymentsInit'});
+  // ctx.body = template(ctx.proc(context));
 });
+
+
+function render_page_for_redirect_to_client_pa() {
+  const html = `
+    <!DOCTYPE html>
+      <html lang="RU">
+      <head>
+        <meta charset="UTF-8"/>
+        <title>Привяжите карты</title>
+        <style>
+          html{margin:0;padding:0;color:#333;hyphens:auto;-webkit-hyphens:auto;-moz-hyphens:auto;-ms-hyphens:auto;}
+          body {font-family:Helvetica,Arial,sans-serif;font-size:120%;margin:0}
+          a{color:#1A0DAB;text-decoration:underline;}
+          a:active, a:focus, img{outline:0}
+          a:visited{color:#1A0DAB}
+          a:hover{color:#FF6633}
+          p{margin:0;padding:0;line-height:1.5}
+        </style>
+      </head>
+      <body>
+        <div style="margin:100px auto 0 auto;text-align:center">
+          <p style="margin:0 auto">К сожалению, ссылка устарела.</p>
+          <p style="margin:0 auto">Перейдите в личный кабинет для <a href="/private/profile">оплаты</a>.</p>
+          <p style="margin:0 auto">Приносим свои извинения.</p>
+        </div>
+      </body>
+    </html>
+  `;
+  return html;
+}
 
 
 // GET /payments/failure/?Success=false&ErrorCode=102&Message=Попробуйте+повторить+попытку+позже&Details=&Amount=699000&MerchantEmail=marianna%40domovenok.su&MerchantName=domovenok&OrderId=7378&PaymentId=20777328&TranDate=&BackUrl=https%3A%2F%2Fwww.domovenok.su&CompanyName=ООО+«КсД»&EmailReq=marianna%40domovenok.su&PhonesReq=9295302312

@@ -191,7 +191,7 @@
                 {{#if GetDepartureData.WaitingMoveOrder }}
                   <span style=color:red>Уже есть заявка на перенос</span>
                 {{else}}
-                    <a href='#popup_move_order' style=margin-left:15px data-rel=popup data-position-to=window data-transition=pop class='ui-btn ui-btn-inline green-button'>Изменить время</a>
+                    <a href='#popup_move_order' style=margin-left:15px data-rel=popup data-position-to=window data-transition=pop class='ui-btn ui-btn-inline green-button'>Время прибытия</a>
                     <div data-role=popup id=popup_move_order data-theme=a data-dismissible=false>
                        <div role=main class=ui-content>
                          <h2 style=font-size:120% class=ui-title>Перенести на:</h2>
@@ -235,10 +235,10 @@
         {{!-- {{#if lon }}<a class="ui-btn" href="https://maps.yandex.ru/?mode=search&text={{ lat }},{{ lon }}">Маршрут на Яндекс.Картах</a>{{/if}} --}}
         {{#if lon }}
             {{!-- <a class=ui-btn data-ajax=false href="/staff/{{selfId}}/yandex_route_to_order/?adress_order={{ lat }},{{ lon }}">Маршрут на Яндекс.Картах</a> --}}
-            {{!-- <a id=go_to_app_yandex_map class=ui-btn data-ajax=false href="/staff/{{selfId}}/yandex_route_to_order/?adress_order={{ lat }},{{ lon }}">Маршрут в приложении Яндекс.Карты</a> --}}
-            <span id=go_to_app_yandex_map>
+            <a id=go_to_app_yandex_map class=ui-btn data-ajax=false href="/staff/{{selfId}}/yandex_route_to_order/?adress_order={{ lat }},{{ lon }}">Маршрут на Яндекс.Картах</a>
+            {{!-- <span id=go_to_app_yandex_map>
               Загрузка...
-            </span>
+            </span> --}}
         {{/if}}
 
         <p><b>Подъезд:</b><br><span>{{ GetDepartureData.Address.Porch }}</span></p>
@@ -328,8 +328,7 @@
     </div>
 
   <script src='/stat/lib/timepicker.js'></script>
-  <!-- get current GSP via yandex -->
-  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=release&load=geolocation"></script>
+  <!-- get current GSP via yandex <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&mode=release&load=geolocation"></script> -->
   <script>
     function getById(id) { return document.getElementById(id); }
 
@@ -495,25 +494,25 @@
       };
     }();
 
-    void function () {
+    // void function () {
 
-      var lat = '{{ lat }}';
-      var lon = '{{ lon }}';
-      if (!lat || !lon) {
-        return;
-      }
-      ymaps.ready(function() {
-        ymaps.geolocation.get().then(function(res) {
-          var current_position = res.geoObjects.position;
-          // https://tech.yandex.ru/yandex-apps-launch/maps/doc/concepts/yandexmaps-ios-app-docpage/#buildroute
-          var link = 'yandexmaps://maps.yandex.ru/?rtext='+current_position.join(',')+'~'+lat+','+lon+'&rtt=mt';
-          getById('go_to_app_yandex_map').innerHTML = '<a class=ui-btn data-ajax=false href="'+link+'">Маршрут в приложении Яндекс.Карты</a>';
-        }, function(e) {
-          console.error(e);
-        });
-      });
+    //   var lat = '{{ lat }}';
+    //   var lon = '{{ lon }}';
+    //   if (!lat || !lon) {
+    //     return;
+    //   }
+    //   ymaps.ready(function() {
+    //     ymaps.geolocation.get().then(function(res) {
+    //       var current_position = res.geoObjects.position;
+    //       // https://tech.yandex.ru/yandex-apps-launch/maps/doc/concepts/yandexmaps-ios-app-docpage/#buildroute
+    //       var link = 'yandexmaps://maps.yandex.ru/?rtext='+current_position.join(',')+'~'+lat+','+lon+'&rtt=mt';
+    //       getById('go_to_app_yandex_map').innerHTML = '<a class=ui-btn data-ajax=false href="'+link+'">Маршрут в приложении Яндекс.Карты</a>';
+    //     }, function(e) {
+    //       console.error(e);
+    //     });
+    //   });
 
-    }();
+    // }();
 
   </script>
 </body>
