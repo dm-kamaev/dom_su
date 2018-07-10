@@ -4,7 +4,8 @@ const { Review } = models;
 const ReviewActive = Review.scope('active');
 const mongoClient = require('mongodb').MongoClient;
 const logger = require('/p/pancake/lib/logger.js');
-const time = require('/p/pancake/my/time.js');
+const AuthApi = require('/p/pancake/auth/authApi.js');
+const Request1Cv3 = require('/p/pancake/api1c/request1Cv3.js');
 const coefficient_for_sort = require('/p/pancake/reviews/coefficient_for_sort.js');
 
 const store = exports;
@@ -37,7 +38,7 @@ store.getReview = async function (id) {
     return await ReviewActive.findOne({attributes: attributes, where: {id: id}});
   }
   throw new Error();
-}
+};
 
 
 store.getReviewListScroll = async function (opts) {
@@ -47,9 +48,13 @@ store.getReviewListScroll = async function (opts) {
 };
 
 
-store.saveReview = async function (name, mail, review, rating, city_id) {
+// TODO(2018.07.10): OLD CODE
+store.saveReview = async function (name, mail, review, rating, city_id, active) {
   let lastId = await getLastId(Review);
   const date = new Date();
+  if (!mail) {
+    throw new Error('Not found mail');
+  }
   try {
     await Review.create({
       id: lastId + 1,
@@ -59,7 +64,8 @@ store.saveReview = async function (name, mail, review, rating, city_id) {
       rating,
       city_id,
       date,
-      coefficient_for_sort: parseInt(coefficient_for_sort.get(date, rating).format('YYYYMMDD'), 10)
+      coefficient_for_sort: parseInt(coefficient_for_sort.get(date, rating).format('YYYYMMDD'), 10),
+      active: active || false
     });
   } catch (err) {
     logger.warn(err);
@@ -71,4 +77,87 @@ store.saveReview_via_1c = async function (body) {
   body.date = new Date();
   body.coefficient_for_sort = coefficient_for_sort.get(body.date, body.rating);
   await Review.create(body);
+};
+
+/**
+ * create review via client_pa
+ * @param  {Object} ctx  [description]
+ * @param  {Object} body:
+   {
+     ClientID: '86bab174-1ea7-11e7-80e4-00155d594900',
+     DepartureID: '3dab0b03-835d-11e8-8314-40167eadd993',
+     Note: 'ОХОЗО',
+     Scores: [{
+       Param: 'quality',
+       Value: 3
+     }],
+     SubmitObject: 'form',
+     Publish: true
+   }
+ */
+store.create_review = async function (ctx, body) {
+  try {
+    // console.dir(body, { depth: 20, colors: true });
+    // name, mail, review, rating, city_id
+    const city_id = null  ;
+    const departure_id = body.DepartureID;
+    const review = body.Note;
+    const active = body.Publish;
+    const rating = body.Scores[0].Value;
+
+    const authApi = new AuthApi(ctx);
+    const { token, uuid, client_id } = authApi.get_auth_data();
+
+    const req_for_1c = new Request1Cv3(token, uuid, null, ctx);
+
+    const data = { ClientID: client_id };
+    req_for_1c.add('Client.GetCommon', data).add('Client.GetContactInfo', data);
+    await req_for_1c.do();
+    /**
+      common: {
+        ok: true,
+        data: {
+          ...
+          FullTitle: 'Никита Тест',
+          ...
+        }
+      }
+      contact_info: {
+        ok: true,
+        data: [{
+          Type: 'phone',
+          Title: '+7 (111) 111-11-11',
+          ContactID: 'ae3e85b0-889d-11e6-80e2-00155d594900'
+        }]
+      }
+     */
+    const { 'Client.GetCommon': common, 'Client.GetContactInfo': contact_info, } = req_for_1c.get_all();
+
+    if (!common.ok) {
+      throw new Error(JSON.stringify(common));
+    } else if (!contact_info.ok) {
+      throw new Error(JSON.stringify(contact_info));
+    }
+    console.dir(common, { depth: 20, colors: true });
+    console.dir(contact_info, { depth: 20, colors: true });
+    const name = common.data.FullTitle;
+    console.log(name, review, rating, city_id, active);
+    global.process.exit();
+
+    let lastId = await getLastId(Review);
+    const date = new Date();
+    await Review.create({
+      id: lastId + 1,
+      departure_id,
+      name,
+      review,
+      rating,
+      city_id,
+      date,
+      coefficient_for_sort: parseInt(coefficient_for_sort.get(date, rating).format('YYYYMMDD'), 10),
+      active
+    });
+  } catch (err) {
+    logger.warn(err);
+  }
 };
