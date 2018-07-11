@@ -6,6 +6,7 @@ const Router = require('koa-router');
 const Request1Cv3 = require('api1c/request1Cv3.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
 const check_auth = require('/p/pancake/auth/check_auth.js');
+const review_store = require('/p/pancake/reviews/store.js');
 // const logger = require('/p/pancake/lib/logger.js');
 
 const router = module.exports = new Router();
@@ -111,14 +112,14 @@ router.post('/proxy_request/:methodName', check_auth.ajax(async function (ctx) {
   }
 
   const user = ctx.state.pancakeUser;
-  // console.log('user', user);
-
 
   if (method_name === 'Client.GetDepartureList') {
     const authApi = new AuthApi(ctx);
     const auth_data = authApi.get_auth_data();
     const client_id = auth_data.client_id;
     body.ClientID = client_id;
+  } else if (method_name === 'Client.SetOrderReview') {
+    await review_store.create_review(ctx, body);
   }
 
   const request1C = new Request1Cv3(user.auth1C.token, user.uuid, null, ctx);
