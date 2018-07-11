@@ -100,7 +100,7 @@ store.create_review = async function (ctx, body) {
   try {
     const departure_id = body.DepartureID;
     const review = body.Note;
-    const active = body.Publish;
+    const active = body.Publish || false;
     const rating = body.Scores[0].Value;
 
     const authApi = new AuthApi(ctx);
@@ -170,6 +170,17 @@ store.create_review = async function (ctx, body) {
 
     let lastId = await getLastId(Review);
     const date = new Date();
+    console.dir({
+      id: lastId + 1,
+      departure_id,
+      name,
+      review,
+      rating,
+      city_id,
+      date,
+      coefficient_for_sort: parseInt(coefficient_for_sort.get(date, rating).format('YYYYMMDD'), 10),
+      active
+    }, { depth: 20, colors: true });
     await Review.create({
       id: lastId + 1,
       departure_id,
