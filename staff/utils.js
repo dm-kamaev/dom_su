@@ -101,6 +101,9 @@ const staffDesktopTemplateOpts = {
 
 };
 const staffMobileTemplateOpts = {
+  faq: {
+    path: '/p/pancake/staff/templates/mobile/faq.html',
+  },
   study: {
     path: '/p/pancake/staff/templates/mobile/study.html',
   },
@@ -259,6 +262,8 @@ function staffUrl(name) {
       return `/staff/${arguments[1]}/description_services`;
     case 'clientPA':
       return '/private/';
+    case 'faq':
+      return `/staff/${arguments[1]}/faq`;
     default:
       return `${name}, ${this.arguments}`;
   }
