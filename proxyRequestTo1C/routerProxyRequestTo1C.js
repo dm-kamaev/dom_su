@@ -120,7 +120,6 @@ router.post('/proxy_request/:methodName', check_auth.ajax(async function (ctx) {
     body.ClientID = client_id;
   } else if (method_name === 'Client.SetOrderReview') {
     await review_store.create_review(ctx, body);
-    global.process.exit();
   }
 
   const request1C = new Request1Cv3(user.auth1C.token, user.uuid, null, ctx);

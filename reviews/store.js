@@ -4,6 +4,7 @@ const { Review } = models;
 const ReviewActive = Review.scope('active');
 const mongoClient = require('mongodb').MongoClient;
 const logger = require('/p/pancake/lib/logger.js');
+const db = require('/p/pancake/my/db2.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
 const Request1Cv3 = require('/p/pancake/api1c/request1Cv3.js');
 const coefficient_for_sort = require('/p/pancake/reviews/coefficient_for_sort.js');
@@ -86,7 +87,7 @@ store.saveReview_via_1c = async function (body) {
    {
      ClientID: '86bab174-1ea7-11e7-80e4-00155d594900',
      DepartureID: '3dab0b03-835d-11e8-8314-40167eadd993',
-     Note: 'ОХОЗО',
+     Note: 'Все хорошо',
      Scores: [{
        Param: 'quality',
        Value: 3
@@ -97,9 +98,6 @@ store.saveReview_via_1c = async function (body) {
  */
 store.create_review = async function (ctx, body) {
   try {
-    // console.dir(body, { depth: 20, colors: true });
-    // name, mail, review, rating, city_id
-    const city_id = null  ;
     const departure_id = body.DepartureID;
     const review = body.Note;
     const active = body.Publish;
@@ -108,10 +106,16 @@ store.create_review = async function (ctx, body) {
     const authApi = new AuthApi(ctx);
     const { token, uuid, client_id } = authApi.get_auth_data();
 
-    const req_for_1c = new Request1Cv3(token, uuid, null, ctx);
+    let req_for_1c = new Request1Cv3(token, uuid, null, ctx);
 
     const data = { ClientID: client_id };
-    req_for_1c.add('Client.GetCommon', data).add('Client.GetContactInfo', data);
+    req_for_1c.add(
+      'Client.GetCommon', data
+    ).add(
+      'Client.GetContactInfo', data
+    ).add(
+      'Client.GetDeparture', { DepartureID: departure_id }
+    );
     await req_for_1c.do();
     /**
       common: {
@@ -119,6 +123,14 @@ store.create_review = async function (ctx, body) {
         data: {
           ...
           FullTitle: 'Никита Тест',
+          "ObjectsList": [
+            {
+             "ObjectID": "87ef26f6-0429-11e5-9454-002590306b4f",
+              ...
+             "City": "moscow",
+             ...
+            }
+          ]
           ...
         }
       }
@@ -130,19 +142,31 @@ store.create_review = async function (ctx, body) {
           ContactID: 'ae3e85b0-889d-11e6-80e2-00155d594900'
         }]
       }
+      departure: {
+          "ObjectID": "93e2d628-16a5-11e6-80e2-00155d594900",
+          .....
+      }
      */
-    const { 'Client.GetCommon': common, 'Client.GetContactInfo': contact_info, } = req_for_1c.get_all();
+    const { 'Client.GetCommon': common, 'Client.GetContactInfo': contact_info, 'Client.GetDeparture': departure  } = req_for_1c.get_all();
 
     if (!common.ok) {
       throw new Error(JSON.stringify(common));
     } else if (!contact_info.ok) {
       throw new Error(JSON.stringify(contact_info));
+    } else if (!departure.ok) {
+      throw new Error(JSON.stringify(departure));
     }
-    console.dir(common, { depth: 20, colors: true });
-    console.dir(contact_info, { depth: 20, colors: true });
+    const object_id = departure.data.ObjectID;
+    const object = common.data.ObjectsList.find(el => el.ObjectID === object_id);
+    const keyword = object.City; // moscow || nn || spb
+    const city = await db.read_one(`SELECT id FROM cities WHERE keyword = '${keyword}'`);
+    if (!city) {
+      throw new Error('Not found city');
+    }
+
+    const city_id = city.id;
     const name = common.data.FullTitle;
-    console.log(name, review, rating, city_id, active);
-    global.process.exit();
+    // console.log('name=', name, 'review=', review, 'rating=', rating, 'city_id=', city_id, 'active=', active);
 
     let lastId = await getLastId(Review);
     const date = new Date();
