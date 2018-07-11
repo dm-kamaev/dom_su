@@ -1,7 +1,7 @@
 'use strict';
 
 const Router = require('koa-router');
-const { getReview, getReviewListScroll, saveReview, shareReview } = require('./store');
+const { getReview, getReviewListScroll, shareReview } = require('./store');
 const logger = require('/p/pancake/lib/logger.js');
 const db = require('/p/pancake/my/db2.js');
 const { getTemplate, loadTemplate } = require('utils');
@@ -70,6 +70,7 @@ reviewsRouter.get('reviewsList', /^\/otzivi\/$/, async function (ctx) {
     menu: menu,
     // 4.2
     averageRating: average_rating,
+    // [ { rating, percent } ]
     reviewsRatingCount: reviews_rating_count
   }));
 });

@@ -399,7 +399,8 @@ const Review = sequelize.define('reviews', {
   },
   coefficient_for_sort: {
     type: Sequelize.INTEGER,
-  }
+  },
+  departure_id: Sequelize.STRING,
 }, {
   scopes: {active: {where: {active: true}}}
 });
