@@ -1228,6 +1228,12 @@ staffRouter.get('/staff/:employee_id/study', loginRequired(getEmployeeHeader(asy
   ctx.body = template(ctx.proc(templateCtx, ctx));
 })));
 
+// ЧАВО
+staffRouter.get('/staff/:employee_id/faq', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
+  let template = getTemplate(staffTemplate.mobile.faq);
+  ctx.body = template(ctx.proc(templateCtx, ctx));
+})));
+
 
 
 // Deposit List Ajax

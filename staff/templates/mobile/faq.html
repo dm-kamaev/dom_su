@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang=RU>
+  <head>
+    <title>Создание заявки на средства и материалы</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
+    <style>
+      html{hyphens:auto;-webkit-hyphens:auto;-moz-hyphens:auto;-ms-hyphens:auto;font-size:110%}
+    </style>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <!-- Google Tag Manager -->
+    {{#if general.production}}
+    <noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PHD7WW');</script>
+    {{/if}}
+    <!-- End Google Tag Manager -->
+  </head>
+  <body class="">
+    <div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage" data-title="ЧАВО">
+      <div class=my-title data-role="header" data-position="fixed" data-tap-toggle="false">
+        <h1>ЧАВО</h1>
+        <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+      </div>
+      <div role="main" class="ui-content jqm-content jqm-fullwidth">
+        <script>$(document).unbind('scroll');</script>
+
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              1. Когда Домовенок получает заказы?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>Вы можете увидеть свой заказ на следующий день в ЛК, после 19-00 текущего дня.</p>
+            <p>Если вы не получили заказ вечером, заказ может появиться в течение дня в любое время, поэтому если у Вас рабочий день, то нужно ждать заказы.</p>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              2.Как подготовиться к следующему рабочему дню?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>
+              <ul data-role="listview">
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Подготовить форму;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Проверить наличие хим.средств/расходных материалов;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Построить маршрут до заказов на следующий рабочий день.</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              3.Как взять дополнительный выходной?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>Необходимо позвонить в Поддержку Домовят за сутки и попросить выходной.</p>
+            <p>При графике 5/2 вы можете получить выходной только по уважительной причине.</p>
+            <p>При графике 6/1 вы можете 1 раз в месяц взять выходной без уважительной причины.</p>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+             4. Нужен въезд-выезд, кого предупредить?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>
+              Если Вам необходимо сделать въезд-выезд, необходимо позвонить Поддержке Домовят за 3 суток и предупредить об этом.
+            </p>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+             5. Кого предупредить если Вы заболели?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>
+              Если Вы по причине болезни не можете выйти на работу, то нужно позвонить в Поддержку Домовят и предупредить об этом. Обязательно после выздоровления необходимо принести в офис справку из больницы, как подтверждение болезни.
+            </p>
+            <p>              Если вы планируете долгое лечение, то необходимо написать обращение через ЛК Ларисе Шатохиной.</p>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+             6. Как быстро вступает в силу Дисциплинарное нарушение (ДН)?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>
+              Дисциплинарное нарушение вступает в силу через 7 дней.
+            </p>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              7. Как оспорить Дисциплинарное нарушение (ДН)?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>
+              Для того, чтобы оспорить Дисциплинарное нарушение необходимо зайти в Личном кабинете в нужное ДН и написать комментарий с описанием того почему ДН необходимо снять. Вам ответят в течение 3х дней.
+            </p>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              8. Что делать, если клиент хочет изменить форму оплаты?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>
+              Если клиент хочет изменить форму оплаты заказа необходимо позвонить в Поддержку Домовят и сообщить об этом.
+            </p>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              9. График работы кассы.
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>с Понедельника по среду с 9-30 до 21-30</p>
+            <p>с Четверга по воскресенье с 9-30 до 18-30</p>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              10.  Лимиты по сдаче отчетности?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>Сдавать необходимо только разницу между суммой, которая находится на руках и вашей заработной платой.</p>
+            <p>Лимит у Домовят 8 000 рублей</p>
+            <p>Лимит у Домовых 30 000 рублей</p>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              11.  Как посчитать сколько необходимо сдать денег в кассу?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>
+              Можно посмотреть в ЛК, если сумма подсвечивается <span style=color:green>зеленым</span> – это сумма к получению в кассе, если <span style="color:red">красным</span>, то – это сумма к сдаче отчетности в кассу.
+            </p>
+            Сделать это можно в <a data-ajax="false" href="{{staffUrl 'employeeDetail' selfId }}?profile=true">Профиле</a>
+            <img src="/stat/img/faq_11.png" style='max-width:100%;height:auto'/>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              12. Как написать в IT – поддержку, если плохо работает Личный кабинет?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>
+              Сделать это можно если зайти на полную версию сайта и нажать на кнопку «Нашли ошибку?».
+            </p>
+            Сделать это можно в <a data-ajax="false" href="/staff/errors_and_problems">Нашли ошибку</a>
+            <img src="/stat/img/faq_12.png" style='max-width:100%;height:auto'/>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              13. Как написать обращение?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            Сделать это можно в <a data-ajax="false" href="{{staffUrl 'conversationList' selfId }}">Обращениях</a>
+            <img src="/stat/img/faq_13_1.png" style='max-width:100%;height:auto'/>
+            <img src="/stat/img/faq_13_2.png" style='max-width:100%;height:auto'/>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              14. Список вопросов, по которым необходимо писать обращения?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>
+              <ul data-role="listview">
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если у вас есть вопросы по Дисциплинарному нарушению;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если у вас есть вопросы по заработной плате;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если у Вас мало заказов;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если вам нужен выходной, отпуск или больничный;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если вы хотите уволиться;</li>
+              </ul>
+            </p>
+            <p>Также вы можете написать обращение, в случае если вы столкнулись со сложностями и не знаете, что делать.</p>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              15. Список срочных вопросов, по которым необходимо звонить в Поддержку Домовят.
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>
+              <ul data-role="listview">
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если вы опаздываете на заказ;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если хотите зайти на заказ пораньше;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если на заказе появились изменения;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если вы не можете найти дорогу;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если не можете попасть в квартиру;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если необходимо по начислить проезд;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если вам нужен выходной;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если вы заболели;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если необходимо изменить форму оплаты заказа;</li>
+                <li style=white-space:normal;overflow:hidden;word-wrap:break-word;>- Если у вас проблемы с полицией;</li>
+              </ul>
+            </p>
+            <p style=color:red>По другим несрочным вопросам, просьба писать в <a data-ajax="false" href="{{staffUrl 'conversationList' selfId }}">обращения</a>!!!</p>
+          </div>
+        </div>
+
+
+        <div style=margin-top:20px></div>
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              16. Срок рассмотрения обращений?
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <p>Срок рассмотрения обращений составляет 3 дня. </p>
+          </div>
+        </div>
+
+        <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel">
+          <ul data-role="listview">
+            <li data-icon="delete"><a href="#" data-rel="close">Закрыть Меню</a></li>
+            <li><a data-ajax="false" href="{{staffUrl 'employeeDetail' selfId }}?profile=true">Профиль</a></li>
+            <li><a href="{{staffUrl 'creditsCurrent' selfId }}">Заработано</a></li>
+            <li><a href="{{staffUrl 'depositCurrent' selfId }}">Необходимо сдать</a></li>
+            <li><a href="{{staffUrl 'employeeDetail' selfId }}?orders=true">Заказы</a></li>
+            <li><a data-ajax="false" href="{{staffUrl 'rating' selfId }}">Рейтинг</a></li>
+            <li><a href="{{staffUrl 'disciplinaryList' selfId }}">Нарушения</a></li>
+            <li><a href="{{staffUrl 'conversationList' selfId }}">Обращения</a></li>
+            <li><a href="{{staffUrl 'news' selfId}}">Новости</a></li>
+            <li><a data-ajax=false href="{{staffUrl 'means_and_materials' selfId}}">Средства и материалы</a></li>
+            <li><a data-ajax=false href="{{staffUrl 'description_services' selfId}}">Услуги</a></li>
+            <li><a data-ajax=false href="{{staffUrl 'faq' selfId}}" class="ui-btn ui-btn-active" >ЧАВО</a></li>
+            <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li>
+            <li><a data-ajax="false" href="{{staffUrl 'logout' }}">Выйти</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script>
+
+    </script>
+  </body>
+</html>
