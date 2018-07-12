@@ -93,11 +93,25 @@
 
 ```
 
-## Make template dump for dev postgres
+## Make template dump for dev postgres and insert
 ```sh
-  pg_dump -s domovenok > ~/20180705_schema_domovenok.sql
-  pg_dump --data-only -d domovenok -t articles -t cities -t phones -t employee_news -t news -t payments -t pictures -t reviews -t reviews_count -t reviews_average_rating  -t short_url > ~/20180705_data_domovenok.sql
-  scp ~/Downloads/20180705_data_domovenok.sql dmitrijd@174.138.10.72:~/20180705_data_domovenok.sql;
-  scp ~/Downloads/20180705_schema_domovenok.sql dmitrijd@174.138.10.72:~/20180705_schema_domovenok.sql;
-  psql -U domovenok -W  -h localhost -d postgres -c 'ALTER DATABASE pancake_new RENAME TO pancake'
+scp ~/Downloads/20180705_schema_domovenok.sql dmitrijd@192.168.1.145:~/20180705_schema_domovenok.sql;
+scp ~/Downloads/20180705_data_domovenok.sql dmitrijd@192.168.1.145:~/20180705_data_domovenok.sql;
+
+dropdb -U domovenok -h localhost pancake
+createdb -U domovenok -h localhost pancake
+password for dev: domovenokPG
+
+psql -U domovenok -h localhost -d pancake < /home/dmitrijd/20180705_shema_domovenok.sql
+psql -U domovenok -h localhost -d pancake < /home/dmitrijd/20180705_data_domovenok.sql
 ```
+
+## Cron script
+```sh
+ # update tables with  average review rating and number rating
+ node /p/pancake/cron/calc_count_for_reviews.js
+
+ # to decouple the users phone number
+ node /p/pancake/cron/calc_count_for_reviews.js
+```
+
