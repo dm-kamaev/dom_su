@@ -34,22 +34,40 @@ const ABTestContainer = {
     // ]},
     main: {
       name: "",
-      key: "main_14",
+      key: "main_14_20180712_17:04:20",
       forNewUser: true,
-        variations: [
-          {
-            name: "control",
-            page: 'main',
-            ratio: 50,
-            description: ""
-          },
-          {
-            name: "variation",
-            page: 'main_ab',
-            ratio: 50,
-            description: ""
-          }
-      ]
+      variations: [{
+        name: "control",
+        page: 'main',
+        ratio: 50,
+        description: "",
+        visited: 0
+      }, {
+        name: "variation",
+        page: 'main_ab',
+        ratio: 50,
+        description: "",
+        visited: 0
+      }]
+      // variations: [{
+      //   name: "control",
+      //   page: 'main',
+      //   ratio: 20,
+      //   description: "",
+      //   visited: 0
+      // }, {
+      //   name: "variation",
+      //   page: 'main_ab',
+      //   ratio: 30,
+      //   description: "",
+      //   visited: 0
+      // }, {
+      //   name: "variation",
+      //   page: 'main_ab1',
+      //   ratio: 50,
+      //   description: "",
+      //   visited: 0
+      // }]
     },
     // 'price__': {
     //     name: "Изменение дизайна",
