@@ -81,7 +81,7 @@ store.saveReview_via_1c = async function (body) {
 };
 
 /**
- * create review via client_pa
+ * create review via client_pa: Создание отзыва через ЛК клиента, когда пользвоатель выбирает оценку(но не нажал кнопку), то уже идут все данные(кроме Publish) в backend
  * @param  {Object} ctx  [description]
  * @param  {Object} body:
    {
@@ -100,7 +100,9 @@ store.create_review = async function (ctx, body) {
   try {
     const departure_id = body.DepartureID;
     const review = body.Note;
-    const active = body.Publish;
+    // const active = body.Publish || false;
+    // Always false, because becomes true, after check support
+    const active = false;
     const rating = body.Scores[0].Value;
 
     const authApi = new AuthApi(ctx);
@@ -166,11 +168,11 @@ store.create_review = async function (ctx, body) {
 
     const city_id = city.id;
     const name = common.data.FullTitle;
-    // console.log('name=', name, 'review=', review, 'rating=', rating, 'city_id=', city_id, 'active=', active);
 
     let lastId = await getLastId(Review);
     const date = new Date();
-    await Review.create({
+    const int_coefficient_for_sort = parseInt(coefficient_for_sort.get(date, rating).format('YYYYMMDD'), 10);
+    console.dir({
       id: lastId + 1,
       departure_id,
       name,
@@ -178,9 +180,45 @@ store.create_review = async function (ctx, body) {
       rating,
       city_id,
       date,
-      coefficient_for_sort: parseInt(coefficient_for_sort.get(date, rating).format('YYYYMMDD'), 10),
+      coefficient_for_sort: int_coefficient_for_sort,
       active
+    }, { depth: 20, colors: true });
+
+    const already_exist = await Review.findOne({
+      where: {
+        departure_id,
+      }
     });
+
+    if (already_exist) {
+      console.log('UPDATE');
+      await Review.update({
+        name,
+        review,
+        rating,
+        city_id,
+        date,
+        coefficient_for_sort: int_coefficient_for_sort,
+        active
+      }, {
+        where: {
+          departure_id
+        }
+      });
+    } else {
+      console.log('CREATE');
+      await Review.create({
+        id: lastId + 1,
+        departure_id,
+        name,
+        review,
+        rating,
+        city_id,
+        date,
+        coefficient_for_sort: int_coefficient_for_sort,
+        active
+      });
+    }
   } catch (err) {
     logger.warn(err);
   }
