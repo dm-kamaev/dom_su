@@ -116,7 +116,7 @@ psql -U domovenok -h localhost -d pancake < /home/dmitrijd/20180705_data_domoven
 ```
 
 ## How create a/b test
-```js
+```sh
 file /p/pancake/statpages/ab_tests.js
 
 const ABTestContainer = {
