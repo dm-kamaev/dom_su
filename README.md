@@ -115,3 +115,29 @@ psql -U domovenok -h localhost -d pancake < /home/dmitrijd/20180705_data_domoven
  node /p/pancake/cron/calc_count_for_reviews.js
 ```
 
+## How create a/b test
+```js
+file /p/pancake/statpages/ab_tests.js
+
+const ABTestContainer = {
+  moscow: {
+    main: { // create a/b test for page main
+      name: "",
+      key: "main_14_20180716_11:52:22", # required, unique name
+      forNewUser: true, // default: false
+      variations: [{
+        name: "control", // required, unique name in this array
+        page: 'main',
+        ratio: 50, // required
+        description: "",
+        visited: 0, // required, for start
+      }, {
+        name: "variation", // required, unique name in this array
+        page: 'main_ab',
+        ratio: 50,  // required
+        description: "",
+        visited: 0, // required, for start
+      }]
+    },
+  };
+```
