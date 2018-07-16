@@ -8,7 +8,7 @@ exports.up = (pgm) => {
       key          VARCHAR NOT NULL,
       for_new_user  BOOLEAN DEFAULT False,
       variations    VARCHAR NOT NULL,
-      timestamp     TIMESTAMP DEFAULT NOW()
+      timestamp     TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
     );
   `);
 };

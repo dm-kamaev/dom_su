@@ -34,7 +34,7 @@ const ABTestContainer = {
     // ]},
     main: {
       name: "",
-      key: "main_14_20180712_17:04:20",
+      key: "main_14_20180716_11:52:22",
       forNewUser: true,
       variations: [{
         name: "control",
@@ -49,25 +49,6 @@ const ABTestContainer = {
         description: "",
         visited: 0
       }]
-      // variations: [{
-      //   name: "control",
-      //   page: 'main',
-      //   ratio: 20,
-      //   description: "",
-      //   visited: 0
-      // }, {
-      //   name: "variation",
-      //   page: 'main_ab',
-      //   ratio: 30,
-      //   description: "",
-      //   visited: 0
-      // }, {
-      //   name: "variation",
-      //   page: 'main_ab1',
-      //   ratio: 50,
-      //   description: "",
-      //   visited: 0
-      // }]
     },
     // 'price__': {
     //     name: "Изменение дизайна",
