@@ -6,7 +6,7 @@ const moscowTemplates = {
 
 
     // AB test page
-    main_ab: {hide: true, name: 'main_ab4.html', data: {menu: {index: true}}},
+    // main_ab: {hide: true, name: 'main_ab4.html', data: {menu: {index: true}}},
     // main_ab1: {hide: true, name: 'main_ab1.html', data: {menu: {index: true}}},
     // main_ab2: {hide: true, name: 'main_ab2.html', data: {menu: {index: true}}},
     //uborka_ofisov_ab: {name: 'uborka_ofisov_ab.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
