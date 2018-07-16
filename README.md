@@ -121,7 +121,7 @@ const ABTestContainer = {
   moscow: {
     main: { // create a/b test for page main
       name: "",
-      key: "main_14_20180716_11:52:22", # required, unique name
+      key: "main_14_20180716_11:52:22", // required, unique name
       forNewUser: true, // default: false
       variations: [{
         name: "control", // required, unique name in this array
