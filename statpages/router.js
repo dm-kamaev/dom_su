@@ -8,6 +8,7 @@ const { CITIES } = require('cities');
 const { citiesTemplate } = require('./router_cities');
 const { ABTestContainer, choiceTest, checkForOnlyFirstVisit, yaBotsRegExp } = require('./ab_tests');
 const { addRobotsFileInRouting } = require('./robots');
+const ab_test_api = require('/p/pancake/statpages/ab_test_api.js');
 
 /* eslint-disable */
 const re_slash = new RegExp('\/', 'g');
@@ -83,7 +84,9 @@ async function getPageWithABTest(ctx, page) {
     let testData = user.getABTest(ABTest);
     if (!testData) {
       const variations = ABTest.variations;
-      let ABTestVariant = choiceTest(variations);
+      // OLD CODE
+      // let ABTestVariant = choiceTest(variations);
+      let ABTestVariant = ab_test_api.choice(city, ABTest);
       testData = {page: ABTestVariant.page, name: ABTestVariant.name};
       const current_page =  ABTestVariant;
       user.setABTest(ABTest.key, testData, current_page, variations);

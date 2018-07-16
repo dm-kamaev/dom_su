@@ -100,9 +100,11 @@ store.create_review = async function (ctx, body) {
   try {
     const departure_id = body.DepartureID;
     const review = body.Note;
-    // const active = body.Publish || false;
-    // Always false, because becomes true, after check support
-    const active = false;
+    // if false, skip add in db
+    const active = body.Publish || false;
+    if (!active) {
+      return;
+    }
     const rating = body.Scores[0].Value;
 
     const authApi = new AuthApi(ctx);
@@ -199,7 +201,7 @@ store.create_review = async function (ctx, body) {
         city_id,
         date,
         coefficient_for_sort: int_coefficient_for_sort,
-        active
+        active: false, // Always false, because becomes true, after check support
       }, {
         where: {
           departure_id
@@ -216,7 +218,7 @@ store.create_review = async function (ctx, body) {
         city_id,
         date,
         coefficient_for_sort: int_coefficient_for_sort,
-        active
+        active: false, // Always false, because becomes true, after check support
       });
     }
   } catch (err) {
