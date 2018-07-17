@@ -13,7 +13,7 @@ const { sendTicket } = require('./send');
  */
 async function saveAndSend(type, data, ctx) {
 
-  if (ctx) {
+  if (ctx && ctx.state.pancakeUser) {
     data.google_id = ctx.state.pancakeUser.get_google_id();
   }
 
