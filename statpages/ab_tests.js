@@ -32,24 +32,24 @@ const ABTestContainer = {
     //     {name: "control", page: 'mite_okon', ratio: 50, description: "Основная"},
     //     {name: "variation", page: 'mite_okon_ab', ratio: 50, description: "Пробуем новый дизайн"}
     // ]},
-    // main: {
-    //   name: "",
-    //   key: "main_14_20180716_11:52:22",
-    //   forNewUser: true,
-    //   variations: [{
-    //     name: "control",
-    //     page: 'main',
-    //     ratio: 50,
-    //     description: "",
-    //     visited: 0
-    //   }, {
-    //     name: "variation",
-    //     page: 'main_ab',
-    //     ratio: 50,
-    //     description: "",
-    //     visited: 0
-    //   }]
-    // },
+    main: {
+      name: "",
+      key: "main_15_20180717_16:43:22",
+      forNewUser: true,
+      variations: [{
+        name: "control",
+        page: 'main',
+        ratio: 50,
+        description: "",
+        visited: 0
+      }, {
+        name: "variation",
+        page: 'main_ab',
+        ratio: 50,
+        description: "",
+        visited: 0
+      }]
+    },
     // 'price__': {
     //     name: "Изменение дизайна",
     //     key: "price_1_new",
