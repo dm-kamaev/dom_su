@@ -34,7 +34,7 @@ const ABTestContainer = {
     // ]},
     main: {
       name: "",
-      key: "main_14_20180716_11:52:22",
+      key: "main_15_20180717_16:43:22",
       forNewUser: true,
       variations: [{
         name: "control",
