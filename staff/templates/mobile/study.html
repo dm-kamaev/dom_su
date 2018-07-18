@@ -2,7 +2,7 @@
 <html lang=RU>
   <head>
     <title>Создание заявки на средства и материалы</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=yes">
     <link rel="stylesheet" href="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
     <style>
       html{hyphens:auto;-webkit-hyphens:auto;-moz-hyphens:auto;-ms-hyphens:auto;}
@@ -20,13 +20,14 @@
     <!-- End Google Tag Manager -->
   </head>
   <body class="">
-    <div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage" data-title="Обучение">
-      <div class=my-title data-role="header" data-position="fixed" data-tap-toggle="false">
+    <div style=overflow:scroll data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage" data-title="Обучение">
+      <div style=overflow:scroll class=my-title data-role="header">
         <h1>Обучение</h1>
         <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
       </div>
-      <div role="main" class="ui-content jqm-content jqm-fullwidth">
-        <script>$(document).unbind('scroll');</script>
+
+      <div style=overflow:scroll role="main" class="ui-content jqm-content jqm-fullwidth">
+        <!-- <script>$(document).unbind('scroll');</script> -->
 
         <!-- <div style=margin-top:20px></div> -->
         <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
@@ -36,7 +37,7 @@
             </a>
           </h2>
           <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
-            <iframe src ="/stat/js/ViewerJS/#/stat/docs/training_presentation.pptx.pdf" width='389' height='550'></iframe>
+            <iframe src="/stat/js/ViewerJS/#/stat/docs/training_presentation.pptx.pdf" style=overflow:scroll width='800' height='600'></iframe>
             <a data-ajax=false href="/stat/docs/training_presentation.pptx.pdf" download>Скачать</a>
           </div>
         </div>
@@ -62,8 +63,16 @@
         </div>
       </div>
     </div>
-    <script>
 
-    </script>
+  <!-- <script src=/stat/js/pdfjs-1.9.426-dist/build/pdf.js></script> -->
+  <!-- <script src=/stat/js/pdfjs-1.9.426-dist/build/pdf.worker.js></script> -->
+   <!-- <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+   <script>
+      // PDFJS.getDocument('/stat/docs/training_presentation.pptx.pdf').then(function (res) {
+      //   console.log('Result=', res);
+      // }).catch(function (err) {
+      //   console.log('Error=', err);
+      // });
+   </script>
   </body>
 </html>
