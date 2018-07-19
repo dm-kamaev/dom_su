@@ -93,6 +93,7 @@ class Request1C {
 
   // {"ok": true/false, "data": ..., "error": {"code": ..., "text": "..."}
   do(){
+    const me = this;
     const { hostname, port, path } = this.connectParam;
     logger.log(`${hostname} ${port} ${path}`);
     logger.info('Request1C request => '+ JSON.stringify(this.body, null, 2));
@@ -119,7 +120,7 @@ class Request1C {
           } catch (e) {
             reject(e);
             response_json = response_json ? JSON.stringify(response_json, null, 2) : '';
-            logger.warn('Parse JSON error response - '+response_json);
+            logger.warn('Parse JSON error response - '+response_json + '\nrequest body= '+me.body);
             return;
           }
           this.routing_response();
