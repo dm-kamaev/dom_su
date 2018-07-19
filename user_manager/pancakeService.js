@@ -125,10 +125,26 @@ class PancakeService {
     // });
   }
 
-  sendTicket(type, data, user_uuid) {
+  /**
+   * sendTicket:
+   * @param  {[type]} type: 'NewTrackingCall'
+   * @param  {Object} data:
+   * {
+      channel: number ,
+      google_id: string,
+      active: boolean,
+      user_id: uuid,
+    }
+   */
+  sendTicket(type, data) {
     const me = this;
     me.queue.push(async function (previousResult, pancakeService) {
-      let ticket = await saveAndSend(type, data, me.ctx);
+      let ticket;
+      try {
+        ticket = await saveAndSend(type, data, me.ctx);
+      } catch (err) {
+        logger.warn(err);
+      }
       return ticket;
     });
   }
