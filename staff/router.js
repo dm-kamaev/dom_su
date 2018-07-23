@@ -243,6 +243,7 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
             {name: 'Начать заказ', action: 'StartDeparture', color: 'white', background: '#478447'},
             {name: 'Отменить заказ', action: 'CancelOrder', color: 'white', background: '#b50000'},
           ];
+          console.log('======MY-LOG=====', JSON.stringify(templateCtx.buttons));
           break;
         case 'ОжидаетсяПодтверждениеОтмены':
           ctx.status = 302;
