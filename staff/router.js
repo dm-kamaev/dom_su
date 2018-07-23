@@ -226,7 +226,6 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
         templateCtx.lat = null;
         templateCtx.lon = null;
       }
-      console.log('======MY-LOG=====', 'ctx.uuid', ctx.uuid, JSON.stringify(GetDepartureData.response));
       switch (GetDepartureData.response.Management.Status) {
         case 'ОжиданиеНачалаВыезда':
           templateCtx.status = 'Ожидание начала';
@@ -243,7 +242,6 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
             {name: 'Начать заказ', action: 'StartDeparture', color: 'white', background: '#478447'},
             {name: 'Отменить заказ', action: 'CancelOrder', color: 'white', background: '#b50000'},
           ];
-          console.log('======MY-LOG=====', JSON.stringify(templateCtx.buttons));
           break;
         case 'ОжидаетсяПодтверждениеОтмены':
           ctx.status = 302;
