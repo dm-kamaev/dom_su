@@ -67,7 +67,6 @@ class PancakeService {
     this.queue.push(async function (previousResult, pancakeService) {
       user.set('data.track', user.track);
       await user.save();
-      logger.warn('user save ===', querystring.stringify(data));
       await phone.update({living: false});
       return phone;
     });

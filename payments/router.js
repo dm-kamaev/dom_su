@@ -700,7 +700,7 @@ async function send_to_1c(url, data) {
     throw error;
   }
   if (response.statusCode !== 200) {
-    throw new Error(`statusCode ${response.statusCode} ${body}`);
+    throw new Error(`statusCode = ${response.statusCode} responce_body=${body} data=${JSON.stringify(data)}`);
   }
   return body;
 }
