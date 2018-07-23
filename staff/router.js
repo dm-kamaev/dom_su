@@ -226,7 +226,7 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
         templateCtx.lat = null;
         templateCtx.lon = null;
       }
-
+      console.log('======MY-LOG=====', 'ctx.uuid', ctx.uuid, JSON.stringify(GetDepartureData.response));
       switch (GetDepartureData.response.Management.Status) {
         case 'ОжиданиеНачалаВыезда':
           templateCtx.status = 'Ожидание начала';
