@@ -44,6 +44,7 @@ const schedule = require('schedule');
 const userAgent = require('koa-useragent');
 const logger = require('/p/pancake/lib/logger.js');
 const robot_user = require('/p/pancake/user_manager/robot_user.js');
+const ab_test_api = require('/p/pancake/statpages/ab_test_api.js');
 
 process.on('uncaughtException', (err) => {
   logger.warn('ERROR= '+err.stack);
@@ -93,6 +94,9 @@ async function run() {
     let appUser = {
       use: (middleware) => app.use(onlyUser(middleware))
     };
+
+    // load visits for a/b test form db
+    await ab_test_api.sync_with_db();
 
     // Task
     app.context.cities = await loadCities();

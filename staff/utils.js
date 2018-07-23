@@ -264,6 +264,8 @@ function staffUrl(name) {
       return '/private/';
     case 'faq':
       return `/staff/${arguments[1]}/faq`;
+    case 'study':
+      return `/staff/${arguments[1]}/study`;
     default:
       return `${name}, ${this.arguments}`;
   }

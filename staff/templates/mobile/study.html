@@ -2,7 +2,7 @@
 <html lang=RU>
   <head>
     <title>Создание заявки на средства и материалы</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=yes">
     <link rel="stylesheet" href="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
     <style>
       html{hyphens:auto;-webkit-hyphens:auto;-moz-hyphens:auto;-ms-hyphens:auto;}
@@ -20,15 +20,28 @@
     <!-- End Google Tag Manager -->
   </head>
   <body class="">
-    <div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage" data-title="Обучение">
-      <div class=my-title data-role="header" data-position="fixed" data-tap-toggle="false">
+    <div style=overflow:scroll data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage" data-title="Обучение">
+      <div style=overflow:scroll class=my-title data-role="header">
         <h1>Обучение</h1>
         <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
       </div>
-      <div role="main" class="ui-content jqm-content jqm-fullwidth">
-        <script>$(document).unbind('scroll');</script>
 
-        <img src="/stat/img/surdy_test.png" style='max-width:100%;height:auto'/>
+      <div style=overflow:scroll role="main" class="ui-content jqm-content jqm-fullwidth">
+        <!-- <script>$(document).unbind('scroll');</script> -->
+
+        <!-- <div style=margin-top:20px></div> -->
+        <div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-corner-all ui-collapsible-collapsed" data-inset="false">
+          <h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+            <a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-plus" style=white-space:normal;overflow:hidden;word-wrap:break-word;>
+              Обучающая презентация
+            </a>
+          </h2>
+          <div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+            <iframe src="/stat/js/ViewerJS/#/stat/docs/training_presentation.pptx.pdf" style=overflow:scroll width='800' height='600'></iframe>
+            <a data-ajax=false href="/stat/docs/training_presentation.pptx.pdf" download>Скачать</a>
+          </div>
+        </div>
+
         <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel">
           <ul data-role="listview">
             <li data-icon="delete"><a href="#" data-rel="close">Закрыть Меню</a></li>
@@ -40,17 +53,26 @@
             <li><a href="{{staffUrl 'disciplinaryList' selfId }}">Нарушения</a></li>
             <li><a href="{{staffUrl 'conversationList' selfId }}">Обращения</a></li>
             <li><a href="{{staffUrl 'news' selfId}}">Новости</a></li>
-            <li><a data-ajax=false href="{{staffUrl 'means_and_materials' selfId}}" class='ui-btn ui-btn-active'>Средства и материалы</a></li>
+            <li><a data-ajax=false href="{{staffUrl 'means_and_materials' selfId}}">Средства и материалы</a></li>
+            <li><a data-ajax=false href="{{staffUrl 'study' selfId}}" class='ui-btn ui-btn-active'>Обучение</a></li>
             <li><a data-ajax=false href="{{staffUrl 'description_services' selfId}}">Услуги</a></li>
-            <li><a data-ajax=false href="{{staffUrl 'faq' selfId}}">ЧАВО</a></li>
+            <li><a data-ajax=false href="{{staffUrl 'faq' selfId}}">Часто задаваемые<br/> вопросы</a></li>
             <li><a data-ajax="false" onclick="mobile_view(false)" href="">Полная версия</a></li>
             <li><a data-ajax="false" href="{{staffUrl 'logout' }}">Выйти</a></li>
           </ul>
         </div>
       </div>
     </div>
-    <script>
 
-    </script>
+  <!-- <script src=/stat/js/pdfjs-1.9.426-dist/build/pdf.js></script> -->
+  <!-- <script src=/stat/js/pdfjs-1.9.426-dist/build/pdf.worker.js></script> -->
+   <!-- <script src="/static/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+   <script>
+      // PDFJS.getDocument('/stat/docs/training_presentation.pptx.pdf').then(function (res) {
+      //   console.log('Result=', res);
+      // }).catch(function (err) {
+      //   console.log('Error=', err);
+      // });
+   </script>
   </body>
 </html>

@@ -34,22 +34,21 @@ const ABTestContainer = {
     // ]},
     main: {
       name: "",
-      key: "main_14",
+      key: "main_15_20180717_16:43:22",
       forNewUser: true,
-        variations: [
-          {
-            name: "control",
-            page: 'main',
-            ratio: 50,
-            description: ""
-          },
-          {
-            name: "variation",
-            page: 'main_ab',
-            ratio: 50,
-            description: ""
-          }
-      ]
+      variations: [{
+        name: "control",
+        page: 'main',
+        ratio: 50,
+        description: "",
+        visited: 0
+      }, {
+        name: "variation",
+        page: 'main_ab',
+        ratio: 50,
+        description: "",
+        visited: 0
+      }]
     },
     // 'price__': {
     //     name: "Изменение дизайна",
