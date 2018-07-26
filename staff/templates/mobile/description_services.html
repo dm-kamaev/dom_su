@@ -122,6 +122,33 @@
             </table>
          </div>
 
+
+        <div class="ui-body ui-body-a ui-corner-all">
+          <h3>Легкая</h3>
+            <table>
+              <tr>
+                <td><p class=table-block__marker-circle></p></td>
+                <td><b>1,5-3</b> часов работы</td>
+              </tr>
+              <tr>
+                <td><p class=table-block__marker-circle></p></td>
+                <td><b>1-2</b> сотрудника</td>
+              </tr>
+              <tr>
+                <td><p class=table-block__marker-circle></p></td>
+                <td>работы <b>до 1,8 м</b> от пола</td>
+              </tr>
+              <tr>
+                <td><p class=table-block__marker-circle></p></td>
+                <td>удаляются <b>легкие</b> загрязнения</td>
+              </tr>
+              <tr>
+                <td><p class=table-block__marker-circle></p></td>
+                <td><b>только горизонтальные</b> поверхности</td>
+              </tr>
+            </table>
+         </div>
+
       <table style=margin-top:32px; data-role=table data-mode=reflow class='ui-responsive custom-table'>
         <thead>
           <tr>
@@ -129,6 +156,7 @@
             <th data-priority=1>Поддерж. уборка</th>
             <th data-priority=2>Компл. уборка</th>
             <th data-priority=3>Генерал. уборка</th>
+            <th data-priority=4>Легкая уборка</th>
           </tr>
         </thead>
           <tbody>
@@ -137,11 +165,12 @@
               <td>(все работы делаются на высоту ниже 1,8м)</td>
               <td>(все работы на всю высоту помещения)</td>
               <td>(все работы на всю высоту помещения)</td>
+              <td>(до 1,8 м от пола)</td>
             </tr>
             {{#each table_info_services as |part| }}
               <tr style=height:24px></tr>
               <tr>
-                <td colspan=4 class=table_part-name>{{part.name}}</td>
+                <td colspan=5 class=table_part-name>{{part.name}}</td>
               </tr>
               {{#each part.list as |items|}}
               <tr>

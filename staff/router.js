@@ -226,7 +226,6 @@ staffRouter.get('/staff/order/:DepartureID', loginRequired(getEmployeeHeader(asy
         templateCtx.lat = null;
         templateCtx.lon = null;
       }
-
       switch (GetDepartureData.response.Management.Status) {
         case 'ОжиданиеНачалаВыезда':
           templateCtx.status = 'Ожидание начала';
