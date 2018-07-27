@@ -47,8 +47,8 @@
 	  })(window,document,'script','dataLayer','GTM-PHD7WW');
 	  </script>
 	{{/if}}
-
-	<link class="stylesheet" rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.49">
+	<link href="/static/pancake/vue/css/app.css?v0.49" rel=stylesheet>
+	<link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.49">
 	<base href="" >
 
 	<script>
@@ -173,7 +173,7 @@
 	<main class="page__main-content  main-content">
 		<div class="main-content__wrap">
 			<section class="page__section section">
-				<div class="window-new  window-new--no-bg">
+				<div class="window-new">
 					<div class="window-new__wrap">
 						<div class="window-new__hgroup">
 							<p class="window-new__title">Уборка квартир</p>
@@ -197,64 +197,70 @@
 											<li class="service-calc__option  selection__option" data-option="general" data-name="general"
 													data-service="general" data-schedule="0x_week">Генеральная уборка
 											</li>
+											<li class="service-calc__option  selection__option" data-option="posle" data-name="posle"
+												data-service="posle" data-schedule="0x_week">После уборка
+											</li>
 											<li class="service-calc__option  selection__option" data-option="window_cleaning" data-name="window_cleaning" data-features='[{"feature":"side", "quantity":"twoside"}, {"feature":"kind_frame", "quantity":"one-piece"}]'
 													data-service="window_cleaning" data-class="window_space" data-schedule="0x_week">Мытье окон
 											</li>
 										</ul>
 									</div>
 									<div class="window-new-form__wrap">
-                                        <div class="window-new-form__section"><p class="window-new-form__heading">Площадь квартиры</p><div class="switch" data-class="switch">
-                                            <div class="switch__item  switch__item--round switch__item--active" data-class="space" data-feature="square" data-quantity="40" data-value="40">
-                                                <button type="button" class="switch__radio switch__radio--round">40</button>
-                                            </div>
+										<div class="window-new-form__section">
+											<p class="window-new-form__heading">Площадь квартиры</p>
+											<div class="switch" data-class="switch">
+												<div class="switch__item  switch__item--round switch__item--active" data-class="space" data-feature="square" data-quantity="40" data-value="40">
+													<button type="button" class="switch__radio switch__radio--round">40</button>
+												</div>
 
-                                            <div class="switch__item  switch__item--round" data-class="space" data-feature="square" data-quantity="50" data-value="50">
-                                                <button type="button" class="switch__radio switch__radio--round">50</button>
-                                            </div>
+												<div class="switch__item  switch__item--round" data-class="space" data-feature="square" data-quantity="50" data-value="50">
+													<button type="button" class="switch__radio switch__radio--round">50</button>
+												</div>
 
-                                            <div class="switch__item  switch__item--round" data-class="space" data-feature="square" data-quantity="60" data-value="60">
-                                                <button type="button" class="switch__radio switch__radio--round">60</button>
-                                            </div>
+												<div class="switch__item  switch__item--round" data-class="space" data-feature="square" data-quantity="60" data-value="60">
+													<button type="button" class="switch__radio switch__radio--round">60</button>
+												</div>
 
-                                            <div class="switch__item switch__item--round" data-class="space" data-feature="square" data-quantity="70" data-value="70">
-                                                <button type="button" class="switch__radio switch__radio--round">70</button>
-                                            </div>
+												<div class="switch__item switch__item--round" data-class="space" data-feature="square" data-quantity="70" data-value="70">
+													<button type="button" class="switch__radio switch__radio--round">70</button>
+												</div>
 
-                                            <div class="switch__item switch__item--round" data-class="space" data-feature="square" data-quantity="40" data-value="">
-                                                <input type="number" class="switch__input  switch__input--round  input" max="1000">
-                                                <span class="switch__unit  switch__unit--for-oval">м<sup><small>2</small></sup></span>
-                                            </div>
-                                        </div></div>
+												<div class="switch__item switch__item--round" data-class="space" data-feature="square" data-quantity="40" data-value="">
+													<input type="number" class="switch__input  switch__input--round  input" max="1000">
+													<span class="switch__unit  switch__unit--for-oval">м<sup><small>2</small></sup></span>
+												</div>
+											</div>
+										</div>
 
-                                        <div class="window-new-form__section">
-                                            <p class="window-new-form__heading">Частота уборки</p>
-                                            <div class="window-new-form__radios">
-												<label class="window-new-form__radio">
-													<input type="radio" class="window-new-form__radio-input" name="periodicity" value="0x_week">
-													<span class="window-new-form__radio-text">По обращению</span>
-													<span class="window-new-form__radio-indicator--active"></span>
-													<span class="window-new-form__radio-indicator"></span>
-                                        		</label>
-												<label class="window-new-form__radio">
-													<input type="radio" class="window-new-form__radio-input" name="periodicity" value="1x_week">
-													<span class="window-new-form__radio-text">Раз в неделю</span>
-													<span class="window-new-form__radio-indicator--active"></span>
-													<span class="window-new-form__radio-indicator"></span>
-												</label>
-												<label class="window-new-form__radio">
-													<input type="radio" class="window-new-form__radio-input" name="periodicity" value="2x_week">
-													<span class="window-new-form__radio-text">Раз в 2 недели</span>
-													<span class="window-new-form__radio-indicator--active"></span>
-													<span class="window-new-form__radio-indicator"></span>
-												</label>
+										<div class="window-new-form__section">
+											<p class="window-new-form__heading">Частота уборки</p>
+											<div class="window-new-form__radios">
+											<label class="window-new-form__radio">
+												<input type="radio" class="window-new-form__radio-input" name="periodicity" value="0x_week">
+												<span class="window-new-form__radio-text">По обращению</span>
+												<span class="window-new-form__radio-indicator--active"></span>
+												<span class="window-new-form__radio-indicator"></span>
+																					</label>
+											<label class="window-new-form__radio">
+												<input type="radio" class="window-new-form__radio-input" name="periodicity" value="1x_week">
+												<span class="window-new-form__radio-text">Раз в неделю</span>
+												<span class="window-new-form__radio-indicator--active"></span>
+												<span class="window-new-form__radio-indicator"></span>
+											</label>
+											<label class="window-new-form__radio">
+												<input type="radio" class="window-new-form__radio-input" name="periodicity" value="2x_week">
+												<span class="window-new-form__radio-text">Раз в 2 недели</span>
+												<span class="window-new-form__radio-indicator--active"></span>
+												<span class="window-new-form__radio-indicator"></span>
+											</label>
 											</div>
 										</div>
                                     </div>
 								</div>
 								<footer class="window-new-form__footer">
 									<div class="window-new-form__section window-new-form__section--price">
-											<p class="window-new-form__price">от 1990 ₽</p>
-											<p class="window-new-form__add-price">Раз в неделю от 1490 ₽</p>
+										<p class="window-new-form__price">от 1990 ₽</p>
+										<p class="window-new-form__add-price">Раз в неделю от 1490 ₽</p>
 									</div>
 									<button class="window-new-form__button button button--md" type="button">Заказать</button>
 								</footer>
@@ -744,7 +750,6 @@
 
 			<section class="page__section section section--bg-grey">
 				<div class="section__wrap">
-
 					<h2 class="section__title  title">Топ домовят {{general.currentRusMonth}}</h2>
 					
 					<div class="swiper-carousel">
@@ -811,82 +816,122 @@
 					    <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
 					  </button>
 					</div>
-
 				</div>
 			</section>
 
 			<section class="page__section  section  section--bg-white">
-				<div class="section__wrap">
-					<h2 class="section__title  title">Отзывы</h2>
-					<div class="swiper-carousel">
-					  <button class="swiper-carousel__button-prev" type="button">
-					    <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/><polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
-					  </button>
+					<div class="divided-section  divided-section--reverse  review-preview-new">
 					
-					  <div class="swiper-container">
-					    <div class="swiper-wrapper">
+					  <!--content-part-->
+					  <div class="divided-section__content-part">
 					
-					      <div class="swiper-slide review-preview">
-					        <div class="review-preview__header">
-					          <div class="review-preview__img-wrapper" data-src="/static/pancake/img/NatashaPavlenko@1x.jpg"></div>
+					    <div class="divided-section__content-inner  review-preview-new__inner">
 					
-					          <div class="review-preview__header-inner">
-					            <p class="review-preview__title">Наталья <br>Павленко</p>
-					            <div class="review-preview__stars-wrapper">
-					              <i class="star"></i>
-					              <i class="star"></i>
-					              <i class="star"></i>
-					              <i class="star"></i>
-					              <i class="star"></i>
+					      <h3 class="divided-section__title  review-preview-new__title">Отзывы</h3>
+					      <div class="rating  review-preview-new__rating">
+					        <div class="rating__inner">
+					          <span class="rating__text">Средняя оценка</span>
+					          <span class="rating__score">3,4</span>
+					          <i class="rating__star  star  star--orange"></i>
+					        </div>
+					
+					        <div class="rating__details  rating__details--open">
+					          <div class="rating__details-item">
+					            <div class="rating__details-title">
+					              <span class="rating__details-text">5</span>
+					              <i class="rating__details-star  star  star--orange"></i>
+					            </div>
+					            <div class="rating__details-scale">
+					              <div class="rating__details-scale-fill" style="width: 79%"></div>
+					            </div>
+					            <div class="rating__details-score">
+					              <span class="rating__details-text">79%</span>
+					            </div>
+					          </div>
+					          <div class="rating__details-item">
+					            <div class="rating__details-title">
+					              <span class="rating__details-text">4</span>
+					              <i class="rating__details-star  star  star--orange"></i>
+					            </div>
+					            <div class="rating__details-scale">
+					              <div class="rating__details-scale-fill" style="width: 12%"></div>
+					            </div>
+					            <div class="rating__details-score">
+					              <span class="rating__details-text">12%</span>
+					            </div>
+					          </div>
+					          <div class="rating__details-item">
+					            <div class="rating__details-title">
+					              <span class="rating__details-text">3</span>
+					              <i class="rating__details-star  star  star--orange"></i>
+					            </div>
+					            <div class="rating__details-scale">
+					              <div class="rating__details-scale-fill" style="width: 2%"></div>
+					            </div>
+					            <div class="rating__details-score">
+					              <span class="rating__details-text">2%</span>
+					            </div>
+					          </div>
+					          <div class="rating__details-item">
+					            <div class="rating__details-title">
+					              <span class="rating__details-text">2</span>
+					              <i class="rating__details-star  star  star--orange"></i>
+					            </div>
+					            <div class="rating__details-scale">
+					              <div class="rating__details-scale-fill" style="width: 0"></div>
+					            </div>
+					            <div class="rating__details-score">
+					              <span class="rating__details-text">0%</span>
+					            </div>
+					          </div>
+					          <div class="rating__details-item">
+					            <div class="rating__details-title">
+					              <span class="rating__details-text">1</span>
+					              <i class="rating__details-star  star  star--orange"></i>
+					            </div>
+					            <div class="rating__details-scale">
+					              <div class="rating__details-scale-fill" style="width: 0"></div>
+					            </div>
+					            <div class="rating__details-score">
+					              <span class="rating__details-text">0%</span>
 					            </div>
 					          </div>
 					        </div>
-					        <p class="review-preview__text">Отличный сервис, быстро, удобно и чисто! Клиентская служба на высоте, учитывают все пожелания! Рекомендуем!</p>
 					      </div>
 					
-					      <div class="swiper-slide review-preview">
-					        <div class="review-preview__header">
-					          <div class="review-preview__img-wrapper" data-src="/static/pancake/img/MarinaPrilebskaya@1x.jpg"></div>
-					
-					          <div class="review-preview__header-inner">
-					            <p class="review-preview__title">Марина <br>Прилебская</p>
-					            <div class="review-preview__stars-wrapper">
-					              <i class="star"></i>
-					              <i class="star"></i>
-					              <i class="star"></i>
-					              <i class="star"></i>
-					              <i class="star"></i>
+					      <div class="review  review-preview-new__review">
+					        <!--review-->
+					        <div class="review__inner">
+					          <div class="review__header">
+					            <div class="review__img-wrapper">
+					              <img class="review__img" src="/static/pancake/img/no-img.svg" height="47" alt="">
+					            </div>
+					            <div class="review__inner">
+					              <p class="review__name">Игорь</p>
+					              <div class="review__stars-wrapper">
+					                <i class="star  star--orange"></i>
+					                <i class="star  star--orange"></i>
+					                <i class="star  star--orange"></i>
+					                <i class="star  star--orange"></i>
+					                <i class="star  star--orange"></i>
+					              </div>
 					            </div>
 					          </div>
+					          <p class="review__text">Огромное спасибо Александру Лаврину за отличное выполнение заказа. Александр и
+					            его помощницы качественно выполнили генеральную уборку, а после мытья окон даже на улице кажется стало
+					            теплее и светлее!</p>
 					        </div>
-					        <p class="review-preview__text">"Домовенок" убирается у меня с недавних пор. В итоге ванная сверкает, посуда блестит, ни пылинки на полу. Довольна на 100%!</p>
 					      </div>
 					
-					      <div class="swiper-slide review-preview">
-					        <div class="review-preview__header">
-					          <div class="review-preview__img-wrapper" data-src="/static/pancake/img/AnnaBelova@1x.jpg"></div>
-					          <div class="review-preview__header-inner">
-					            <p class="review-preview__title">Анна <br>Белова</p>
-					            <div class="review-preview__stars-wrapper">
-					              <i class="star"></i>
-					              <i class="star"></i>
-					              <i class="star"></i>
-					              <i class="star"></i>
-					              <i class="star"></i>
-					            </div>
-					          </div>
-					        </div>
-					        <p class="review-preview__text">Отличное качество работы. Даже если и были минусы, то их быстренько исправили. Спасибо. Буду и дальше пользоваться!</p>
-					      </div>
-					
+					      <a class="review-preview-new__btn  button" href="https://www.domovenok.su/otzivi/">Все отзывы</a>
 					    </div>
 					  </div>
 					
-					  <button class="swiper-carousel__button-next" type="button">
-					    <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
-					  </button>
+					
+					  <!--img-part-->
+					  <div class="divided-section__img-part  review-preview-new__img">
+					  </div>
 					</div>
-				</div>
 			</section>
 
 			<section class="page__section  section  section--bg-grey">
@@ -1597,23 +1642,11 @@
 
 <!-- /Page wrapper -->
 <!-- Java Script -->
-<script type=text/javascript src="/static/pancake/vue/js/manifest.js?v1.42" async></script>
-<script type=text/javascript src="/static/pancake/vue/js/app.js?v1.42" async></script>
-
+<script type=text/javascript src="/static/pancake/vue/js/manifest.js?v1.42"></script>
+<script type=text/javascript src="/static/pancake/vue/js/app.js?v1.42"></script>
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
 <script src="/static/pancake/js/bundle.min.js?v1.42"></script>
-
-<script type="text/javascript">
-  const head = document.head;
-  const existLink = head.querySelector('.stylesheet');
-  const link = document.createElement('link');
-
-  link.type = 'text/css';
-  link.rel = 'stylesheet';
-  link.href = '/static/pancake/vue/css/app.css?v0.49';
-  head.insertBefore(link, existLink);
-</script>
 <!-- /Java Script -->
 </body>
 
