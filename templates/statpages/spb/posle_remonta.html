@@ -49,7 +49,7 @@
     })(window,document,'script','dataLayer','GTM-PHD7WW');
     </script>
   {{/if}}
-  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.49">
+  <link rel="stylesheet" href="/static/pancake/css/style.min.css?v0.50">
 
   <base href="" >
 
@@ -1082,6 +1082,19 @@
   </div>
   <!-- /Page wrapper -->
 
+  <script id="calendar" type="text/html">
+    {{{{raw}}}}
+    {{#each days}}
+    <a class="calendar__item {{#if active}}calendar__item--active{{/if}} {{#if selected}}calendar__item--selected{{/if}} {{#if inComplete}}calendar__item--incomplete{{/if}}" data-date="{{date}}" data-fulldate="{{fulldate}}">
+      <svg class="calendar__image" width="34" height="34" viewBox="0 0 34 34">
+        <circle class="calendar__circle" cx="17" cy="17" r="15" stroke-width="1"/>
+        <text class="calendar__day" font-size="14" fill="white" font-family="Helvetica Neue" text-anchor="middle" x="17" y="22">{{day}}</text>
+      </svg>
+    </a>
+    {{/each}}
+    {{{{/raw}}}}
+  </script>
+
   
   <script id="service-cart" type="text/html">
     {{{{raw}}}}
@@ -1111,7 +1124,7 @@
   <!-- Java Script -->
   
   <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-  <script src="/static/pancake/js/bundle.min.js?v1.42"></script>
+  <script src="/static/pancake/js/bundle.min.js?v1.43"></script>
   <!-- /Java Script -->
 
 </body>
