@@ -14,7 +14,8 @@ const POSSIBLE_TICKET_TYPES = {
     'Order': { phone: 'string'},
     'applicant_cleaner': { citizenship: 'string', birthdate: 'string', contact: 'string', name: 'string', city: 'string' },
     'get_contract': {mail: 'string'},
-    'get_contract_contact_info': {name: 'string', phone: 'string'}
+    'get_contract_contact_info': {name: 'string', phone: 'string'},
+    'Survey': {luid: 'string', 'survey_title': 'string', 'survey_answers': 'object'}
 };
 
 

@@ -78,7 +78,8 @@ const moscowTemplates = {
     'vakansii__uborka-kvartir__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка квартир', data: { uborkaKvartir: true, menu:{ main: true, vakansii: true}}},
     'vakansii__uborka-territorii__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка территории', data: { uborkaTerritorii: true, menu:{ main: true, vakansii: true}}},
     'vash-brauzer-ustarel': {name: 'old_browser.html', ServiceName: '', data: {}},
-    'order': {name: 'order.html', ServiceName: '', data: {}}
+    'order': {name: 'order.html', ServiceName: '', data: {}},
+    'survey': {name: 'survey.html', ServiceName: '', data: {}}
 }
 
 module.exports = {
