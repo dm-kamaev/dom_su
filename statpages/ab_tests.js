@@ -39,12 +39,30 @@ const ABTestContainer = {
       variations: [{
         name: "control",
         page: 'main',
-        ratio: 50,
+        ratio: 80,
         description: "",
         visited: 0
       }, {
         name: "variation",
         page: 'main_ab',
+        ratio: 20,
+        description: "",
+        visited: 0
+      }]
+    },
+    himchistka: {
+      name: "",
+      key: "him_1_20180806_10:16:22",
+      forNewUser: true,
+      variations: [{
+        name: "control",
+        page: 'himchistka',
+        ratio: 50,
+        description: "",
+        visited: 0
+      }, {
+        name: "variation",
+        page: 'himchistka_ab',
         ratio: 50,
         description: "",
         visited: 0
