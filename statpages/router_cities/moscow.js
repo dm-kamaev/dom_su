@@ -7,6 +7,7 @@ const moscowTemplates = {
 
     // AB test page
     main_ab: {hide: true, name: 'main_ab.html', data: {menu: {index: true}}},
+    himchistka_ab : {name: 'himchistka_ab.html', ServiceName: 'Химчистка', data:{ menu:{physical: true, himchistka: true}}},
     //uborka_ofisov_ab: {name: 'uborka_ofisov_ab.html', ServiceName: 'Уборка офисов', data:{ menu:{legal: true, uborka_ofisov: true}}},
     // main_ab2: {hide: true, name: 'main_ab2.html', data: {menu: {index: true}}},
     // price_ab: {name: 'price_ab.html', ServiceName: 'Цены', data:{ menu:{main: true, price: true}}},
@@ -78,7 +79,8 @@ const moscowTemplates = {
     'vakansii__uborka-kvartir__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка квартир', data: { uborkaKvartir: true, menu:{ main: true, vakansii: true}}},
     'vakansii__uborka-territorii__': {name: 'vakansii__.html', ServiceName: 'Вакансии - Уборка территории', data: { uborkaTerritorii: true, menu:{ main: true, vakansii: true}}},
     'vash-brauzer-ustarel': {name: 'old_browser.html', ServiceName: '', data: {}},
-    'order': {name: 'order.html', ServiceName: '', data: {}}
+    'order': {name: 'order.html', ServiceName: '', data: {}},
+    'survey': {name: 'survey.html', ServiceName: '', data: {}}
 }
 
 module.exports = {
