@@ -205,6 +205,10 @@ paymentsRouter.get('/payments/success/', async function (ctx) {
     } else if (/^ORD/.test(OrderId)) {
       await payment_in_1c(ctx, enum_type_payment.payment_from_1c);
       return;
+    // INV-19265-10422, if payment via email link in 1C
+    } else if (/^INV/.test(OrderId)) {
+      await payment_in_1c(ctx, enum_type_payment.payment_from_1c);
+      return;
     }
 
     const payment = await Payment.findOne({
