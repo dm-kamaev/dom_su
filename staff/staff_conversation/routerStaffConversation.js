@@ -12,7 +12,10 @@ const { Method1C, Request1C } = require('api1c');
 const { getTemplate } = require('utils');
 const { staffUrl, isMobileVersion, staffTemplate } = require('staff/utils.js');
 const uuid4 = require('uuid/v4');
-const parseFormMultipart = require('koa-body')({multipart: true});
+const parseFormMultipart = require('koa-body')({
+  multipart: true,
+  maxFileSize: 200 * 1024 * 1024, // 20Mb
+});
 const { loginRequired, getEmployeeHeader } = require('staff/decorators');
 
 const router = module.exports = new Router();
@@ -84,8 +87,45 @@ router.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(
 })));
 
 
+// Request {
+//   fields: {
+//     subject: 'Вопросы по заработной плате',
+//     conversation_type_id: '1132f434-5f0b-11e8-80ea-00155d594900',
+//     content: 'asdsada'
+//   },
+//   files: {
+//     file: File {
+//       domain: null,
+//       _events: {},
+//       _eventsCount: 0,
+//       _maxListeners: undefined,
+//       size: 3339,
+//       path: '/tmp/upload_8deb6050df640398404ae2799957261c',
+//       name: 'result.xlsx',
+//       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+//       hash: null,
+//       lastModifiedDate: 2018 - 08 - 09 T08: 55: 20.512 Z,
+//       _writeStream: [Object]
+//     }
+//   }
+// }
 router.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginRequired(async function(ctx) {
-  const fields = ctx.request.body.fields;
+  const body = ctx.request.body;
+  console.log('Body=', ctx.request.body);
+  const fields = body.fields;
+
+  const file = body.files && body.files.file;
+  console.log('file=', file);
+  if (file) {
+    var check_ext = has_extension(file.name, [ 'jpg', 'png', 'xlsx', 'txt', 'pdf', 'avi', 'mov', 'mkv', 'mp4', 'avchd', 'flv' ]);
+    if (check_ext instanceof Error) {
+      throw new Error(check_ext);
+    }
+    console.log('check_ext=', check_ext);
+    // require('fs').renameSync(file.path, '/p/pancake/result.xlsx');
+    console.log('AFTER renameSync ', file.path, '/p/pancake/result.xlsx');
+  }
+
   let salt = uuid4();
   const request1CAPIV2 = new Request1C(ctx.state.pancakeUser.auth1C.token, ctx.state.pancakeUser.uuid, '', '', false, ctx);
   let NewConversation = new Method1C('Employee.NewConversation', {
@@ -110,6 +150,24 @@ router.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginRequir
   await twoRequest1CAPIV2.do();
   ctx.redirect(staffUrl('conversationDetail', ctx.state.pancakeUser.auth1C.employee_uuid, NewConversation.response.ConversationID));
 }));
+
+
+
+/**
+ * hasExtension:
+ * @param  {filename}  inputID: result.xlsx
+ * @param  {String[]}  exts: [ 'jpg', 'png', ]
+ * @return {Boolean | Error}
+ */
+function has_extension(filename, exts) {
+  var res = (new RegExp('(' + exts.join('|').replace(/\./g, '\\.') + ')$')).test(filename);
+  if (res) {
+    return true;
+  } else {
+    var err = new Error('Разрешенные расширения файлов: '+exts.join(', '))
+    return err;
+  }
+}
 
 // set score for conversation
 // url –– /staff/ajax/conversations/747b480b-bf14-11e7-84bd-1c1b0dc62163/score/2'
