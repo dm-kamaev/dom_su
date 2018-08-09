@@ -52,7 +52,7 @@ module.exports = function() {
     case 'dev1':
       CONF.is_dev1 = true;
       // CONF.domain = 'https://www.dev2.domovenok.su';
-      CONF.api1C = get_api_1c(enum_api_1C.SASHA);
+      CONF.api1C = get_api_1c(enum_api_1C.LIZA);
       CONF.webhook = get_webhook(enum_api_1C.LIZA);
       break;
     case 'dev2':

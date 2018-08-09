@@ -32,7 +32,8 @@ const {
   onlyUser,
   onlyService,
   initPancakeService
-} = require('user_manager');
+} = require('/p/pancake/user_manager/index.js');
+const invite_collector = require('/p/pancake/user_manager/middleware/invite_collector.js');
 const {
   accessSectionCity,
   loadCities
@@ -159,6 +160,7 @@ async function run() {
     // appUser.use(callTracking);
 
     appUser.use(UTMCollector);
+    appUser.use(invite_collector.send_to_1c);
     appUser.use(LUIDHandler);
 
     // Add routers Pancake User
