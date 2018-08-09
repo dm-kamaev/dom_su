@@ -74,10 +74,10 @@
   <p id=select-native-1_error style=color:red></p>
   <label style="font-size: 14px;display: flex;margin-bottom: 20px;">
     Сообщение:
-    <textarea id=conversation_message name="content" rows="7" cols="47" style="margin-left: 15px;     width: 100%;padding: 10px 30px; border-radius: 3px;border: 1px solid #d2b093;" type="text"></textarea>
+    <textarea id=conversation_message required name="content" rows="7" cols="47" style="margin-left: 15px;     width: 100%;padding: 10px 30px; border-radius: 3px;border: 1px solid #d2b093;" type="text"></textarea>
   </label>
   <input id=conversation_upload name=file type="file"/>
-  <p id=conversation_upload_error style=margin-top:10px;color:red></p>
+  <p id=conversation_upload_error style=width:100%;margin-top:10px;color:red></p>
   <button style="margin:16px auto 0 auto;display: flex;justify-content: center;background-color: #fd8204;border: none;color: #fff;padding: 10px 30px;cursor:pointer;" type="submit">Создать</button>
 </form>
 
@@ -257,19 +257,6 @@ if (btnOpenForm) {
         }
         getById('conversation_subject').value = subject;
       };
-
-      // function check_extension(ext) {
-      //   var hash_exts = {
-      //     jpg: true,
-      //     png: true,
-      //     txt: true,
-      //     xlsx: true,
-      //   };
-      //   if (hash_exts[ext]) {
-      //     return true;
-      //   }
-      //   return new Error('Разрешенные расширения файлов: '+Object.keys(hash_exts).join(', '));
-      // }
 
       /**
        * hasExtension:

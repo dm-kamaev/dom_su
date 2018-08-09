@@ -42,6 +42,11 @@
               <p id=select-native-1_error style=color:red></p>
             </div>
             <label>Сообщение:<textarea id=conversation_message name="content" required style="" type="text"></textarea></label>
+
+            {{!-- <label for="file-1"></label> --}}
+            <input id=conversation_upload type="file" data-clear-btn="true" name="file" value=""/>
+            <p id=conversation_upload_error style=margin-top:8px;color:red></p>
+
             <button type="submit">Создать</button>
         </form>
         </div>
@@ -146,6 +151,39 @@
         subject = option_selected.text();
       });
 
+      // VALIDATE UPLOAD FILE
+      var $conversation_upload = getById('conversation_upload');
+      var IS_VALID_FILE = true;
+      $conversation_upload.onchange = function () {
+        getById('conversation_upload_error').innerHTML = '';
+        IS_VALID_FILE = true;
+
+        var files = $conversation_upload.files;
+        if (!files.length) {
+          return;
+        }
+
+        var errors = [];
+        var check_ext = has_extension(files[0].name, [ 'jpg', 'png', 'xlsx', 'txt', 'pdf', 'avi', 'mov', 'mkv', 'mp4', 'avchd', 'flv' ]);
+        if (check_ext instanceof Error) {
+          errors.push(check_ext);
+        }
+
+        var valid_size = validate_size(files[0])
+        if (valid_size instanceof Error) {
+          errors.push(valid_size);
+        }
+
+        if (errors.length) {
+          IS_VALID_FILE = false;
+          console.error(errors);
+          getById('conversation_upload_error').innerHTML = errors.map(function (error) { return error.toString().replace(/^Error:/g, ''); }).join('<br/>');
+        } else {
+          console.log('OK');
+        }
+
+      };
+
       getById('create_conversation').onsubmit = function (e) {
         var $select_error = getById('select-native-1_error');
         $select_error.innerHTML = '';
@@ -158,6 +196,39 @@
         }
         getById('conversation_subject').value = subject;
       };
+
+
+      /**
+       * hasExtension:
+       * @param  {filename}  inputID: result.xlsx
+       * @param  {String[]}  exts: [ 'jpg', 'png', ]
+       * @return {Boolean | Error}
+       */
+      function has_extension(filename, exts) {
+        var res = (new RegExp('(' + exts.join('|').replace(/\./g, '\\.') + ')$')).test(filename);
+        if (res) {
+          return true;
+        } else {
+          var err = new Error('Разрешенные расширения файлов: '+exts.join(', '))
+          return err;
+        }
+      }
+
+      // var MAX_FILE_SIZE_MB = 0.001;
+      var MAX_FILE_SIZE_MB = 20;
+      /**
+       * validate_size:
+       * @param  {File} file { lastModified: Number, lastModifiedDate: String, name: "large_corporative_loans.xls", size: Number }
+       * @return {Boolean | Error}
+       */
+      function validate_size(file) {
+        var size = file.size / 1024 / 1024; // in MB
+        if (size < MAX_FILE_SIZE_MB) {
+          return true;
+        }
+        return new Error('Максимальный размер файла '+MAX_FILE_SIZE_MB+' Mb');
+      }
+
     }();
 
 
