@@ -6,7 +6,7 @@ const { saveAndSend } = require('/p/pancake/tickets/index.js');
 const moment = require('moment');
 
 async function send_one_payment_to_1c(where) {
-  const payment = await Payment.findAll({
+  const payment = await Payment.find({
     where
   });
   if (!payment) {
