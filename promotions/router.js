@@ -3,7 +3,7 @@
 const CONF = require('/p/pancake/settings/config.js');
 const Router = require('koa-router');
 const { getPromotion, getPromotionList } = require('./store');
-const { getTemplate, loadTemplate } = require('utils');
+const { getTemplate, loadTemplate } = require('/p/pancake/utils/index.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
 const logger = require('/p/pancake/lib/logger.js');
 const rp = require('/p/pancake/my/request_promise.js');

@@ -1,6 +1,6 @@
 "use strict";
 
-const { Ticket } = require('models').models;
+const { Ticket } = require('/p/pancake/models/models.js');
 const { sendTicket } = require('./send');
 
 

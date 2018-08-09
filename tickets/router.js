@@ -2,7 +2,7 @@
 
 const Router = require('koa-router');
 const { saveAndSend } = require('./store');
-const { getServiceName } = require('statpages');
+const { getServiceName } = require('/p/pancake/statpages/index.js');
 const logger = require('/p/pancake/lib/logger.js');
 
 const ticketRouter = new Router();

@@ -1,8 +1,7 @@
 'use strict';
 
-const { models } = require('models');
-const { City } = models;
 const CONF = require('/p/pancake/settings/config.js');
+const { City } = require('/p/pancake/models/models.js');
 const config = require('config');
 const DEFAULT_CITY_KW = 'moscow';
 

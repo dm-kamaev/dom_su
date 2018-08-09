@@ -3,8 +3,8 @@
 const { moscowTemplates } = require('./moscow');
 const { nnTemplates } = require('./nn');
 const { spbTemplates } = require('./spb');
-const { loadTemplate } = require('utils');
-const logger = require('logger')(module);
+const { loadTemplate } = require('/p/pancake/utils/index.js');
+const logger = require('/p/pancake/logger/index.js')(module);
 
 const citiesTemplate = {
   'moscow': moscowTemplates,

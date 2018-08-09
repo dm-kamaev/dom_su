@@ -1,10 +1,10 @@
 'use strict';
 
 const Router = require('koa-router');
-const { getTemplate } = require('utils');
+const { getTemplate } = require('/p/pancake/utils/index.js');
 const {URL} = require('url');
-const { checkPromotionUrl } = require('promotions');
-const { CITIES } = require('cities');
+const { checkPromotionUrl } = require('/p/pancake/promotions/index.js');
+const { CITIES } = require('/p/pancake/cities/index.js');
 const { citiesTemplate } = require('./router_cities');
 const { ABTestContainer, choiceTest, checkForOnlyFirstVisit, yaBotsRegExp } = require('./ab_tests');
 const { addRobotsFileInRouting } = require('./robots');

@@ -91,16 +91,7 @@ function setVisitFinish() {
               $6,
               $7,
               $8
-            )`, [
-              visit.uuid,
-              visit.user_uuid,
-              visit.active,
-              visit.begin,
-              visit.end,
-              visit.data,
-              visit.createdAt,
-              visit.updatedAt,
-            ]);
+            )`, [ visit.uuid, visit.user_uuid, visit.active, visit.begin, visit.end, visit.data, visit.createdAt, visit.updatedAt, ]);
           if (insert_res instanceof Error) {
             return log.warn(insert_res);
           }
@@ -134,7 +125,7 @@ function cleanPhoneNumber() {
             `users.last_action < (NOW() - INTERVAL '${MAX_STAGNATION_TAKE_NUMBER_MINUTE} minutes') ` +
         'RETURNING phones.user_uuid'
   )
-    .spread(async function(results, metadata) {
+    .spread(async function(results) {
       if (results.length > 0){
         let user_uuid_list = [];
         for (let item of results){
@@ -151,6 +142,7 @@ function cleanPhoneNumber() {
     });
 }
 
+
 async function checkPayments() {
   let payments;
   try{
@@ -159,8 +151,8 @@ async function checkPayments() {
       notification: true,
       success: false,
       createdAt: {
-        // last 3 hour
-        $gt: new Date(new Date() - 1000*60*60*3)
+        // last 5 hour
+        $gt: new Date(new Date() - 1000*60*60*5)
       }}
     });
     if (payments !== null){
