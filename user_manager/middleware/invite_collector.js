@@ -10,7 +10,6 @@ const invite_collector = module.exports;
 
 // /?invite=:uuid
 invite_collector.send_to_1c = async function (ctx, next) {
-  console.log('ctx.query=', ctx.query);
   const invite = ctx.query.invite
   if (!invite){
     return await next();
