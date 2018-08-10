@@ -5,6 +5,7 @@
 
 const Router = require('koa-router');
 const logger = require('/p/pancake/lib/logger.js');
+const wf = require('/p/pancake/my/wf.js');
 
 
 
@@ -111,19 +112,20 @@ router.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(
 // }
 router.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginRequired(async function(ctx) {
   const body = ctx.request.body;
-  console.log('Body=', ctx.request.body);
   const fields = body.fields;
 
   const file = body.files && body.files.file;
-  console.log('file=', file);
-  if (file) {
+  let Attachments;
+  if (file && file.size > 0) {
     var check_ext = has_extension(file.name, [ 'jpg', 'png', 'xlsx', 'txt', 'pdf', 'avi', 'mov', 'mkv', 'mp4', 'avchd', 'flv' ]);
     if (check_ext instanceof Error) {
       throw new Error(check_ext);
     }
-    console.log('check_ext=', check_ext);
-    // require('fs').renameSync(file.path, '/p/pancake/result.xlsx');
-    console.log('AFTER renameSync ', file.path, '/p/pancake/result.xlsx');
+    Attachments = [{
+      FileB64: await wf.read_base64(file.path),
+      Name: file.name,
+      Type: file.name.match(/\.(\w+)$/)[1]
+    }];
   }
 
   let salt = uuid4();
@@ -145,6 +147,7 @@ router.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginRequir
       'ID': NewConversation.response.ConversationID,
       'Type': 'Conversation'
     },
+    Attachments
   });
   twoRequest1CAPIV2.add(SendMessage);
   await twoRequest1CAPIV2.do();

@@ -232,10 +232,7 @@ if (btnOpenForm) {
 
         if (errors.length) {
           IS_VALID_FILE = false;
-          console.error(errors);
           getById('conversation_upload_error').innerHTML = errors.map(function (error) { return error.toString().replace(/^Error:/g, ''); }).join('<br/>');
-        } else {
-          console.log('OK');
         }
 
       };
@@ -243,7 +240,6 @@ if (btnOpenForm) {
       // SUBMIT FORM WITH CONVERSATION
       getById('create_conversation').onsubmit = function (e) {
         if (!IS_VALID_FILE) {
-          console.error('NOT IS_VALID_FILE');
           return e.preventDefault();
         }
         var $select_error = getById('select-native-1_error');
