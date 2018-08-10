@@ -13,7 +13,7 @@ const loggerPay = require('logger')(module, 'pay.log');
 const log = require('/p/pancake/lib/logger.js');
 const { models } = require('models');
 const { User, Ticket, UTMS, Payment } = models;
-const { sendTicket, saveAndSend } = require('tickets');
+const { sendTicket, saveAndSend } = require('/p/pancake/tickets/index.js');
 const { getState } = require('payments');
 const moment = require('moment');
 
