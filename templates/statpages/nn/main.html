@@ -49,7 +49,7 @@
     </script>
   {{/if}}
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
-  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.57">
+  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.58">
 
   <base href="" >
 
@@ -636,7 +636,13 @@
           		<div class="swiper-wrapper">
           			<div class="swiper-slide worker-card">
           				<div class="worker-card__img-wrapper">
-          					<img class="worker-card__img  worker-card__img--nn-2" src="https://www.domovenok.su/stat/employee_photo/076bff2c-3d83-11e8-80ea-00155d594900.jpg" alt="Домовенок">
+          					<span data-class="worker-card__img"
+          								data-style="width: 250px;margin-left: -60px;"
+          								data-action="get-image"
+          								data-width="120"
+          								data-height="160"
+          								data-alt="Домовенок"
+          								data-src="https://www.domovenok.su/stat/employee_photo/076bff2c-3d83-11e8-80ea-00155d594900.jpg"></span>
           				</div>
           				<p class="worker-card__title">Царевская Юлия</p>
           				<div class="worker-card__text-wrapper">
@@ -648,7 +654,12 @@
           
           			<div class="swiper-slide worker-card">
           				<div class="worker-card__img-wrapper">
-          					<img class="worker-card__img" src="https://www.domovenok.su/stat/employee_photo/34573a7d-e966-11e7-80e6-00155d594900.jpg" alt="Домовенок">
+          					<span data-class="worker-card__img"
+          								data-action="get-image"
+          								data-width="120"
+          								data-height="160"
+          								data-alt="Домовенок"
+          								data-src="https://www.domovenok.su/stat/employee_photo/34573a7d-e966-11e7-80e6-00155d594900.jpg"></span>
           				</div>
           				<p class="worker-card__title">Завацкая Анастасия</p>
           				<div class="worker-card__text-wrapper">
@@ -660,7 +671,13 @@
           
           			<div class="swiper-slide worker-card">
           				<div class="worker-card__img-wrapper">
-          					<img class="worker-card__img  worker-card__img--nn" src="https://www.domovenok.su/stat/employee_photo/d59ce205-4943-11e8-80ea-00155d594900.jpg" alt="Домовенок">
+          						<span data-class="worker-card__img"
+          									data-style="width: 250px;margin-left: -88px;"
+          									data-action="get-image"
+          									data-width="120"
+          									data-height="160"
+          									data-alt="Домовенок"
+          									data-src="https://www.domovenok.su/stat/employee_photo/d59ce205-4943-11e8-80ea-00155d594900.jpg"></span>
           				</div>
           				<p class="worker-card__title">Мурадян Гаргаш</p>
           				<div class="worker-card__text-wrapper">
@@ -692,7 +709,16 @@
           
                 <div class="swiper-slide review-preview">
                   <div class="review-preview__header">
-                    <div class="review-preview__img-wrapper" data-src="/static/pancake/img/NatashaPavlenko@1x.jpg"></div>
+                    <div class="review-preview__img-wrapper">
+                      <span data-class="review-preview__img"
+                            data-action="get-image"
+                            data-width="59"
+                            data-height="59"
+                            data-alt="Домовенок"
+                            data-src="/static/pancake/img/NatashaPavlenko@1x.jpg"
+                            data-srcset="/static/pancake/img/NatashaPavlenko@2x.jpg 2x"
+                      ></span>
+                    </div>
           
                     <div class="review-preview__header-inner">
                       <p class="review-preview__title">Наталья <br>Павленко</p>
@@ -710,7 +736,15 @@
           
                 <div class="swiper-slide review-preview">
                   <div class="review-preview__header">
-                    <div class="review-preview__img-wrapper" data-src="/static/pancake/img/MarinaPrilebskaya@1x.jpg"></div>
+                    <div class="review-preview__img-wrapper">
+                       <span data-class="review-preview__img"
+                             data-action="get-image"
+                             data-width="59"
+                             data-height="59"
+                             data-alt="Домовенок"
+                             data-src="/static/pancake/img/MarinaPrilebskaya@1x.jpg"
+                             data-srcset="/static/pancake/img/MarinaPrilebskaya@2x.jpg 2x"></span>
+                    </div>
           
                     <div class="review-preview__header-inner">
                       <p class="review-preview__title">Марина <br>Прилебская</p>
@@ -728,7 +762,15 @@
           
                 <div class="swiper-slide review-preview">
                   <div class="review-preview__header">
-                    <div class="review-preview__img-wrapper" data-src="/static/pancake/img/AnnaBelova@1x.jpg"></div>
+                    <div class="review-preview__img-wrapper">
+                      <span data-class="review-preview__img"
+                            data-action="get-image"
+                            data-width="59"
+                            data-height="59"
+                            data-alt="Домовенок"
+                            data-src="/static/pancake/img/AnnaBelova@1x.jpg"
+                            data-srcset="/static/pancake/img/AnnaBelova@2x.jpg 2x"></span>
+                    </div>
                     <div class="review-preview__header-inner">
                       <p class="review-preview__title">Анна <br>Белова</p>
                       <div class="review-preview__stars-wrapper">
@@ -1514,7 +1556,7 @@
 <!-- Java Script -->
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.50"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.51"></script>
 <!-- /Java Script -->
 
 </body>
