@@ -9,6 +9,7 @@ exports.up = (pgm) => {
       timestamp     TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
     );
   `);
+  // GRANT ALL ON departure_service_departure_service_id_seq  TO nastya;
 };
 
 exports.down = (pgm) => {

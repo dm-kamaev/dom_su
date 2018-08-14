@@ -159,7 +159,7 @@
             <div>
                 <h3 style="color: #38c">Время</h3>
 
-                <div>
+{{!--                 <div>
 
                     <div data-role="navbar">
                         <label for="">Начала работы:</label>
@@ -182,9 +182,9 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
 
-                <div>
+{{!--                 <div>
 
                     <div data-role="navbar">
                         <label for="">Конца работы:</label>
@@ -208,7 +208,7 @@
                         </ul>
                     </div>
                 </div>
-
+ --}}
                 <div>
                     <label for="">Приезда машины</label>
                     <div data-role="navbar">
@@ -271,9 +271,9 @@
             $('input.radio-validate, select.select-validate').each(function (i, item) {
                 item.parentElement.parentElement.previousElementSibling.style.color = 'black';
             })
-            $('select.select-validate-time').each(function (i, item) {
-                item.parentElement.parentElement.parentElement.parentElement.previousElementSibling.style.color = 'black';
-            })
+            // $('select.select-validate-time').each(function (i, item) {
+            //     item.parentElement.parentElement.parentElement.parentElement.previousElementSibling.style.color = 'black';
+            // })
         })
 
             $(document).ready(function () {
@@ -284,18 +284,18 @@
                     'select-validate': {
                         required: true,
                     },
-                    'select-validate-time': {
-                        required: true,
-                    }
+                    // 'select-validate-time': {
+                    //     required: true,
+                    // }
                 });
                 $("#set_card_form").validate({
                     errorPlacement: function (error, element) {
                         if (element.hasClass('radio-validate') || element.hasClass('select-validate')) {
                             element.parent().parent().prev().css('color', 'red')
                         }
-                        if (element.hasClass('select-validate-time')) {
-                            element.parent().parent().parent().parent().prev().css('color', 'red');
-                        }
+                        // if (element.hasClass('select-validate-time')) {
+                        //     element.parent().parent().parent().parent().prev().css('color', 'red');
+                        // }
                     },
                     invalidHandler: function(form, validator) {
                         $('html, body').animate({scrollTop: $(validator.errorList[0].element).offset().top - 100}, 0);
