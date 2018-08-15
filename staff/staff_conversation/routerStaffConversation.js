@@ -66,15 +66,22 @@ router.get('/staff/:EmployeeID/conversations/', loginRequired(getEmployeeHeader(
       throw new Error(JSON.stringify(GetConversationList.error));
     }
   }
+  let number_conversation_without_score = 0;
   const ConversationList = GetConversationList.response.ConversationList || [];
   ConversationList.forEach((conversation, i) => {
     const score = parseInt(conversation.Score, 10) || 0;
-    conversation.renderSelectScore = conversation.Status === 'Завершено' && score === 0;
+    const renderSelectScore = conversation.Status === 'Завершено' && score === 0;
+    conversation.renderSelectScore = renderSelectScore;
     conversation.indexId = i + 1;
     conversation.Score = (score) ? score : null;
+
+    if (renderSelectScore) {
+      number_conversation_without_score++;
+    }
   });
   templateCtx.conversationList = GetConversationList.response.ConversationList;
   templateCtx.GetEmployeeData = GetEmployeeData.response;
+  templateCtx.number_conversation_without_score = number_conversation_without_score;
   // [{ ConversationTypeID: 'd32e9be7-5dae-11e8-84d5-1c1b0dc62163', ConversationTypeTitle: 'Вопросы по заработной плате' }]
   templateCtx.conversation_type_list = GetConversationTypeList.response.ConversationTypeList;
 
@@ -153,7 +160,6 @@ router.post('/staff/:EmployeeID/conversations/', parseFormMultipart, loginRequir
   await twoRequest1CAPIV2.do();
   ctx.redirect(staffUrl('conversationDetail', ctx.state.pancakeUser.auth1C.employee_uuid, NewConversation.response.ConversationID));
 }));
-
 
 
 /**
