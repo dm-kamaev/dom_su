@@ -39,7 +39,6 @@ void async function () {
         for_enables.push(phone);
       }
     });
-
     await promise_api.queue(for_enables, async function ({ user_uuid }) {
       await db.edit(`UPDATE phones SET living = false, "updatedAt" = NOW() WHERE user_uuid = '${user_uuid}'`);
       const user = await User.findOne({
@@ -47,13 +46,15 @@ void async function () {
           uuid: user_uuid
         }
       });
+      if (!user) {
+        return;
+      }
       user.set('data.track.numbers', {});
       user.set('data.track.applicant_numbers', {});
       await user.save();
 
       await timeout(0.1);
     });
-
     console.log('for_enables.length=', for_enables.length);
     console.log('THE END SUCCESS');
     global.process.exit(0);

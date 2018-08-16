@@ -207,16 +207,6 @@ const Ticket = sequelize.define('tickets', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   }
-}, {
-  // instanceMethods: {
-  //   buildMessage: function () {
-  //     let textTicket = {action: 'NewOnlineObjects', param: [{type: this.type, data: this.data}]};
-  //     if (!textTicket.param[0].data.date){
-  //       textTicket.param[0].data.date = moment.utc(this.createdAt).toISOString();
-  //     }
-  //     return JSON.stringify(textTicket);
-  //   }
-  // }
 });
 
 
@@ -265,47 +255,10 @@ const Phone = sequelize.define('phones', {
     defaultValue: 'client', // client or applicant
     isIn: ['client', 'applicant'] // cleint or employee
   }
-}, {
-  // classMethods: {
-  //   attributesInternalAPI: function () {
-  //     return ['key', 'number', 'active'];
-  //   },
-  //   includeInternalAPI: function () {
-  //     return [{model: City, attributes: ['keyword']}];
-  //   },
-  //   formatResultIntenralAPI: function (data) {
-  //     return data.map((item)=>{return {key: item.key, number: item.number, active: item.active, city: item.city.keyword};});
-  //   },
-  //   createInternalAPI: async function (data) {
-  //     let city = await City.findOne({where: {keyword: data.city}});
-  //     await Phone.create({
-  //       city_id: city.id,
-  //       number: data.number,
-  //       living: false,
-  //       user_uuid: null,
-  //       active: data.active,
-  //       category_type: data.category_type || 'client',
-  //     });
-  //   },
-  // },
-  // instanceMethods: {
-  //   updateInternalAPI: async function (data){
-  //     this.number = data.number;
-  //     this.active = data.active;
-  //     this.category_type = data.category_type || 'client';
-  //     let city = await City.findOne({
-  //       where: {
-  //         keyword: data.city
-  //       }
-  //     });
-  //     this.city_id = city.id;
-  //     await this.save();
-  //   }
-  // }
 });
 
 Phone.attributesInternalAPI = function () {
-  return ['key', 'number', 'active'];
+  return [ 'key', 'number', 'active', 'category_type' ];
 };
 
 Phone.includeInternalAPI = function () {

@@ -7,8 +7,7 @@ const set_app_version = require('/p/pancake/middlewares/set_app_version.js');
 const access_logger = require('/p/pancake/middlewares/access_logger.js');
 const detect_browser = require('/p/pancake/middlewares/detect_browser.js');
 const wf = require('/p/pancake/my/wf.js');
-const router_aj_auth = require('/p/pancake/aj_auth/router_aj_auth.js');
-const router_aj_client_error = require('/p/pancake/aj_client_error/router_aj_client_error.js');
+const router_aj = require('/p/pancake/aj/router_aj.js');
 const router_for_1c = require('/p/pancake/for_1c/router_for_1c.js');
 const Context = require('/p/pancake/my/Context.js');
 const {
@@ -167,8 +166,7 @@ async function run() {
     applyRouters(appUser);
     appUser.use(routerProxyRequestTo1C.routes());
     appUser.use(routerStaffConversation.routes());
-    app.use(router_aj_auth.routes());
-    app.use(router_aj_client_error.routes());
+    app.use(router_aj.routes());
     app.use(router_for_1c.routes());
     app.use(router.get('/custom_bashrc', async ctx => {
       let res;

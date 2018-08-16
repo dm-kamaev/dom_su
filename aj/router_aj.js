@@ -5,7 +5,8 @@
 const Router = require('koa-router');
 const AuthApi = require('/p/pancake/auth/authApi.js');
 const logger = require('/p/pancake/lib/logger.js');
-const Aj_error_phone_for_calltracking = require('/p/pancake/errors/Aj_error_phone_for_calltracking.js');
+// const Aj_error_phone_for_calltracking = require('/p/pancake/errors/Aj_error_phone_for_calltracking.js');
+const logger_vue_client_pa = require('/p/pancake/lib/logger_vue_client_pa.js');
 
 const router = module.exports = new Router();
 // 5.101.61.62
@@ -86,47 +87,67 @@ router.get('/aj/calltracking', async function (ctx) {
  */
 function format_phone(phone) {
   phone = phone+'';
-  // order is imortant
+  // order is important
   return phone.replace(/^\+/, '').replace(/^8{1}/, '').replace(/^7{1}/, '');
 }
 
-
+/**
+ * get_wrap:
+ * @param  {Object} data: { message: Number }
+ * @return {Object}
+ * {
+    "ok": true,
+    "data": "4957896228"
+  }
+ */
 function get_wrap(data) {
   if (data instanceof Error) {
     return {
       ok: false,
       data: data.message
-    }
+    };
   } else {
     return {
       ok: true,
       data: format_phone(data)
-    }
+    };
   }
 }
 
-
-function get_wrap2(data) {
-  if (!data) {
+/**
+ * get_wrap2: if  exist phone return or Not need tracking
+ * @param  {Object} phone: String | Number
+ * @return {Object}
+ * {
+    "ok": true,
+    "data": "4957896228"
+  }
+  {
+    ok: false,
+    data: 'Not need tracking'
+  }
+ */
+function get_wrap2(phone) {
+  if (!phone) {
     return {
       ok: false,
       data: 'Not need tracking'
-    }
+    };
   } else {
     return {
       ok: true,
-      data: format_phone(data)
-    }
+      data: format_phone(phone)
+    };
   }
 }
 
-// first visit
-// |
-// V go the base
-
-
-// second visit
-// |
-// V
-// check in db || return track ||
-
+// CLIENT LOGGER FOR vue client_pa
+router.post('/aj/log_error_client_pa', async function (ctx) {
+  const body = ctx.request.body;
+  const headers = ctx.request.headers;
+  logger_vue_client_pa.warn({
+    headers,
+    body: body,
+  });
+  ctx.status = 200;
+});

@@ -110,9 +110,9 @@ internalServiceAPI.post('/service/modification', async function (ctx) {
         // |
         // |
         // V
-        if (!data.category_type) {
-          data.category_type = hash_category_type.client;
-        }
+        // if (!data.category_type) {
+        //   data.category_type = hash_category_type.client;
+        // }
         if (!hash_category_type[data.category_type]) {
           throw new Error_internal_service_api_error(`'${data.category_type}' is not valid. Valid list: ${Object.keys(hash_category_type).join(', ')}`);
         }
