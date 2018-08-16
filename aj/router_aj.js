@@ -9,7 +9,6 @@ const logger = require('/p/pancake/lib/logger.js');
 const logger_vue_client_pa = require('/p/pancake/lib/logger_vue_client_pa.js');
 
 const router = module.exports = new Router();
-// 5.101.61.62
 
 // logout
 // GET /aj/logout
@@ -46,34 +45,99 @@ router.get('/aj/logout', async function (ctx) {
 //     "text": "Not need tracking"
 //   }
 // }
+// router.get('/aj/calltracking', async function (ctx) {
+//   const user = ctx.state.pancakeUser;
+//   let client_phone;
+//   let applicant_phone;
 
-router.get('/aj/calltracking', async function (ctx) {
+//   if (user._checkTrackNeed('v_id')) {
+//     user.setTrackWaiting(true);
+//     client_phone = await user.set_track_number_for_client();
+//     applicant_phone = await user.set_track_number_for_applicant();
+//     ctx.status = 200;
+//     ctx.body = {
+//       ok: true,
+//       data: {
+//         clientPhone: get_wrap(client_phone),
+//         applicantPhone: get_wrap(applicant_phone),
+//       }
+//     };
+//   } else {
+//     ctx.status = 200;
+//     ctx.body = {
+//       ok: true,
+//       data: {
+//         clientPhone: get_wrap2(user.get_track_number_for_client()),
+//         applicantPhone: get_wrap2(user.get_track_number_for_applicant()),
+//       }
+//     };
+//     user.setTrackWaiting(false);
+//   }
+
+//   logger.info(ctx.body);
+// });
+
+
+// GET /aj/calltracking_client
+// responce
+// {
+//   "ok": true,
+//   "data": {
+//      phone: '4957894810'
+//   }
+// }
+// {
+//   "ok": false,
+//   "error": {
+//     "text": "Over the phones"
+//   }
+router.get('/aj/calltracking_client', async function (ctx) {
   const user = ctx.state.pancakeUser;
-  let client_phone;
-  let applicant_phone;
 
-  if (user.checkTrackNeed()) {
-    user.setTrackWaiting(true);
-    client_phone = await user.set_track_number_for_client();
-    applicant_phone = await user.set_track_number_for_applicant();
+  if (user.check_track_need_for_client()) {
+    await user.setTrackWaiting(true);
+    const client_phone = await user.set_track_number_for_client();
     ctx.status = 200;
-    ctx.body = {
-      ok: true,
-      data: {
-        clientPhone: get_wrap(client_phone),
-        applicantPhone: get_wrap(applicant_phone),
-      }
-    };
+    ctx.body = get_wrap(client_phone);
   } else {
     ctx.status = 200;
-    ctx.body = {
-      ok: true,
-      data: {
-        clientPhone: get_wrap2(user.get_track_number_for_client()),
-        applicantPhone: get_wrap2(user.get_track_number_for_applicant()),
-      }
-    };
-    user.setTrackWaiting(false);
+    ctx.body = get_wrap2(user.get_track_number_for_client());
+    await user.setTrackWaiting(false);
+  }
+
+  logger.info(ctx.body);
+});
+
+// GET /aj/calltracking_applicant
+// responce
+// {
+//   "ok": true,
+//   "data": {
+//    "applicantPhone": {
+//       "ok": false,
+//       "data": "Over the phones"
+//     }
+//   }
+// }
+// {
+//   "ok": false,
+//   "error": {
+//     "code": -6,
+//     "text": "Not need tracking"
+//   }
+// }
+router.get('/aj/calltracking_applicant', async function (ctx) {
+  const user = ctx.state.pancakeUser;
+
+  if (user.check_track_need_for_applicant()) {
+    await user.set_track_waiting_applicant(true);
+    const applicant_phone = await user.set_track_number_for_applicant();
+    ctx.status = 200;
+    ctx.body = get_wrap(applicant_phone);
+  } else {
+    ctx.status = 200;
+    ctx.body = get_wrap2(user.get_track_number_for_applicant());
+    await user.set_track_waiting_applicant(false);
   }
 
   logger.info(ctx.body);
@@ -97,19 +161,31 @@ function format_phone(phone) {
  * @return {Object}
  * {
     "ok": true,
-    "data": "4957896228"
+    "data": {
+      phone: "4957896228"
+    }
+  }
+  {
+    ok: false
+    error: {
+      text: 'Over the phones'
+    }
   }
  */
 function get_wrap(data) {
   if (data instanceof Error) {
     return {
       ok: false,
-      data: data.message
+      error: {
+        text: data.message
+      }
     };
   } else {
     return {
       ok: true,
-      data: format_phone(data)
+      data: {
+        phone: format_phone(data)
+      }
     };
   }
 }
@@ -120,23 +196,31 @@ function get_wrap(data) {
  * @return {Object}
  * {
     "ok": true,
-    "data": "4957896228"
+    "data": {
+      phone: "4957896228"
+    }
   }
   {
     ok: false,
-    data: 'Not need tracking'
+    error: {
+      text: 'Not need tracking'
+    }
   }
  */
 function get_wrap2(phone) {
   if (!phone) {
     return {
       ok: false,
-      data: 'Not need tracking'
+      error: {
+        text: 'Not need tracking'
+      }
     };
   } else {
     return {
       ok: true,
-      data: format_phone(phone)
+      data: {
+        phone: format_phone(phone)
+      }
     };
   }
 }
