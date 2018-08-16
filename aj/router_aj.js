@@ -122,7 +122,6 @@ router.get('/aj/calltracking_client', async function (ctx) {
 // {
 //   "ok": false,
 //   "error": {
-//     "code": -6,
 //     "text": "Not need tracking"
 //   }
 // }
