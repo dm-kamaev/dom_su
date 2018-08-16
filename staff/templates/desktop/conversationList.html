@@ -50,7 +50,13 @@
 <section class="content">
     <h1>Список обращений</h1>
 
-<div>
+  {{#if number_conversation_without_score}}
+    <div style=color:red;margin-top:16px;font-size:140%>
+      У вас {{number_conversation_without_score}} неоцененных обращения!
+    </div>
+  {{/if}}
+
+<div style=margin-top:16px;>
     <button class="openForm" type="button" style="background: none; border:none; border-bottom: 1px dashed; font-size: 14px; font-style:italic; cursor:pointer;">Создать обращение</button>
 </div>
 

@@ -25,7 +25,14 @@
             <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
         </div>
         <div role="main" class="ui-content jqm-content jqm-fullwidth">
-        <script>$(document).unbind('scroll');</script>
+          <script>$(document).unbind('scroll');</script>
+
+          {{#if number_conversation_without_score}}
+            <div style=color:red>
+              У вас {{number_conversation_without_score}} неоцененных обращения!
+            </div>
+          {{/if}}
+
         <div data-role="collapsible" data-content-theme="false">
         <h4>Создать обращение</h4>
         <form id=create_conversation action="" method="POST" enctype="multipart/form-data" data-ajax="false" >
@@ -50,6 +57,7 @@
             <button type="submit">Создать</button>
         </form>
         </div>
+
         {{#each conversationList as |conversation|}}
             <a class="ui-btn" href="{{staffUrl 'conversationDetail' ../employeeId conversation.ConversationID }}">
               <div class="ui-block-a">

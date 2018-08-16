@@ -173,26 +173,26 @@
                 <td colspan=5 class=table_part-name>{{part.name}}</td>
               </tr>
               {{#each part.list as |items|}}
-              <tr>
-                {{!-- Custom margin for row, because jquery mobile add title for table add for every row, if screen width less 640px --}}
-                {{#ifCond @index '==' '0' }}
-                  <td style=padding-top:32px;font-size:110%>{{items.name}}</td>
-                {{/ifCond}}
-                {{#ifCond @index '!=' '0' }}
-                  <td style=padding-top:32px>
-                    <div style='border-top:2px solid #EEE'>
-                      <p style=margin-top:8px;font-size:110%>{{items.name}}</p>
-                    </div>
-                  </td>
-                {{/ifCond}}
-                {{#each items.list as |list|}}
-                   {{#ifCond . '===' true }}
-                    <td><span class=table__tick>&#10003;</span></td>
+                <tr>
+                  {{!-- Custom margin for row, because jquery mobile add title for table add for every row, if screen width less 640px --}}
+                  {{#ifCond @index '==' '0' }}
+                    <td style=padding-top:32px;font-size:110%>{{items.name}}</td>
                   {{/ifCond}}
-                   {{#ifCond . '===' false }}
-                    <td><span class=table__cross>x</span></td>
+                  {{#ifCond @index '!=' '0' }}
+                    <td style=padding-top:32px>
+                      <div style='border-top:2px solid #EEE'>
+                        <p style=margin-top:8px;font-size:110%>{{items.name}}</p>
+                      </div>
+                    </td>
                   {{/ifCond}}
-                 {{/each}}
+                  {{#each items.list as |list|}}
+                    {{#ifCond list.status '===' true }}
+                      <td><span class=table__tick>&#10003;</span></td>
+                    {{/ifCond}}
+                    {{#ifCond list.status '===' false }}
+                      <td><span class=table__cross>x</span> <span style=margin-left:2px;>{{list.comment}}</span></td>
+                    {{/ifCond}}
+                  {{/each}}
                 </tr>
               {{/each}}
             {{/each}}

@@ -15,63 +15,57 @@ module.exports = function (employee_router) {
 
 // =================================================
 async function page_description_services(ctx, next, request1C, GetEmployeeData, templateCtx) {
-  try {
-    const enum_part = { general_work: 'Общие работы:', kitchen: 'Кухня:', bathroom: 'Ванная комната:' };
-    const hash_table = {
-      [enum_part.general_work]: [
-        { name: 'моем и пылесосим полы и плинтусы', list: [ true, true, true, true], },
-        { name: 'удаляем легкие загрязнения: жир, масло и т.д.', list: [ true, true, true, false], },
-        { name: 'удаляем сложные загрязнения', list: [false, false, true, false] },
-        { name: 'удаляем пыль и моем все горизонтальные поверхности', list: [true, true, true, false] },
-        { name: 'удаляем пыль и моем все вертикальные поверхности', list: [true, true, true, false] },
-        { name: 'удаляем пыль и паутину со стен', list: [false, false, true, false] },
-        { name: 'удаляем пыль со светильников', list: [true, true, true, false] },
-        { name: 'удаляем пыль и моем бытовую и кухонную технику', list: [true, true, true, false] },
-        { name: 'моем кондиционеры снаружи и внутри, включая фильтры', list: [false, false, true, false] },
-        { name: 'пылесосим мягкую мебель внутри', list: [false, false, true, false] },
-        { name: 'моем зеркала и стеклянные поверхности', list: [true, true, true, false] },
-        { name: 'моем трубы, карнизы, фоторамки, рамы картин и т.д.', list: [true, true, true, true] },
-        { name: 'пылесосим мягкую мебель снаружи', list: [true, true, true, false] },
-        { name: 'ухаживаем за кожаной мебелью', list: [true, true, true, false]},
-        { name: 'меняем постельное белье', list: [true, true, true, false] },
-        { name: 'моем двери и дверные блоки', list: [true, true, true, false] }
-      ],
-      [enum_part.kitchen]: [
-        { name: 'чистим и дезинфицируем горизонтальные рабочие поверхности', list: [true, true, true, true], },
-        { name: 'моем кухонную плиту и стену над ней', list: [true, true, true, true], },
-        { name: 'моем вытяжку внутри, включая фильтры', list: [false, false, true, false], },
-        { name: 'моем все вертикальные поверхности', list: [true, true, true, false], },
-        { name: 'чистим и обеззараживаем сантехнику', list: [true, true, true, false], },
-        { name: 'моем грязную посуду', list: [true, true, true, false], },
-        { name: 'моем холодильник снаружи', list: [true, true, true, true], },
-        { name: 'моем вытяжку снаружи', list: [true, true, true, false], },
-        { name: 'моем микроволновую печь снаружи и внутри', list: [true, true, true, false], },
-        { name: 'моем и обеззараживаем мусорную корзину, выносим мусор', list: [true, true, true, true], },
-      ],
-      [enum_part.bathroom]: [
-        { name: 'чистим и обеззараживаем сантехнику и раковину', list: [true, true, true, true], },
-        { name: 'моем все зеркальные и стеклянные поверхности', list: [true, true, true, true], },
-        { name: 'моем душевую кабину и ванну (снаружи и внутри)', list: [true, true, true, false], },
-        { name: 'очищаем межплиточные швы', list: [false, false, true, false], },
-      ]
-    };
+  const enum_part = { general_work: 'Общие работы:', kitchen: 'Кухня:', bathroom: 'Ванная комната:' };
+  const hash_table = {
+    [enum_part.general_work]: [
+      { name: 'моем и пылесосим полы и плинтусы', list: [ { status: true }, { status: true }, { status: true }, { status: true }], },
+      { name: 'удаляем легкие загрязнения: жир, масло и т.д.', list: [ { status: true }, { status: true }, { status: true }, { status: false }], },
+      { name: 'удаляем сложные загрязнения', list: [{ status: false }, { status: false }, { status: true }, { status: false }] },
+      { name: 'удаляем пыль и моем все горизонтальные поверхности', list: [{ status: true }, { status: true }, { status: true }, { status: false }] },
+      { name: 'удаляем пыль и моем все вертикальные поверхности', list: [{ status: true }, { status: true }, { status: true }, { status: false }] },
+      { name: 'удаляем пыль и паутину со стен', list: [{ status: false }, { status: false }, { status: true }, { status: false }] },
+      { name: 'удаляем пыль со светильников', list: [{ status: true }, { status: true }, { status: true }, { status: false }] },
+      { name: 'удаляем пыль и моем бытовую и кухонную технику', list: [{ status: true }, { status: true }, { status: true }, { status: false }] },
+      { name: 'моем кондиционеры снаружи и внутри, включая фильтры', list: [{ status: false }, { status: false }, { status: true }, { status: false }] },
+      { name: 'пылесосим мягкую мебель внутри', list: [{ status: false }, { status: false }, { status: true }, { status: false }] },
+      { name: 'моем зеркала и стеклянные поверхности', list: [{ status: true }, { status: true }, { status: true }, { status: false }] },
+      { name: 'моем трубы, карнизы, фоторамки, рамы картин и т.д.', list: [{ status: true }, { status: true }, { status: true }, { status: true }] },
+      { name: 'пылесосим мягкую мебель снаружи', list: [{ status: true }, { status: true }, { status: true }, { status: false }] },
+      { name: 'ухаживаем за кожаной мебелью', list: [{ status: true }, { status: true }, { status: true }, { status: false }]},
+      { name: 'меняем постельное белье', list: [{ status: true }, { status: true }, { status: true }, { status: false }] },
+      { name: 'моем двери и дверные блоки', list: [{ status: true }, { status: true }, { status: true }, { status: false }] }
+    ],
+    [enum_part.kitchen]: [
+      { name: 'чистим и дезинфицируем горизонтальные рабочие поверхности', list: [{ status: true }, { status: true }, { status: true }, { status: true }], },
+      { name: 'моем кухонную плиту и стену над ней', list: [{ status: true }, { status: true }, { status: true }, { status: true }], },
+      { name: 'моем вытяжку внутри, включая фильтры', list: [{ status: false }, { status: false }, { status: true }, { status: false }], },
+      { name: 'моем все вертикальные поверхности', list: [{ status: true }, { status: true }, { status: true }, { status: false }], },
+      { name: 'чистим и обеззараживаем сантехнику', list: [{ status: true }, { status: true }, { status: true }, { status: false }], },
+      { name: 'моем грязную посуду', list: [{ status: true }, { status: true }, { status: true }, { status: false }], },
+      { name: 'моем холодильник снаружи', list: [{ status: true }, { status: true }, { status: true }, { status: true }], },
+      { name: 'моем вытяжку снаружи', list: [{ status: true }, { status: true }, { status: true }, { status: false }], },
+      { name: 'моем микроволновую печь снаружи и внутри', list: [{ status: true }, { status: true }, { status: true }, { status: false }], },
+      { name: 'моем и обеззараживаем мусорную корзину, выносим мусор', list: [{ status: true }, { status: true }, { status: true }, { status: true }], },
+    ],
+    [enum_part.bathroom]: [
+      { name: 'чистим и обеззараживаем сантехнику и раковину', list: [{ status: true }, { status: true }, { status: true }, { status: true }], },
+      { name: 'моем все зеркальные и стеклянные поверхности', list: [{ status: true }, { status: true }, { status: true }, { status: true }], },
+      { name: 'моем душевую кабину и ванну (снаружи и внутри)', list: [{ status: true }, { status: true }, { status: true }, { status: false, comment: '(кроме душевых кабин и стеклянных перегородок)' }], },
+      { name: 'очищаем межплиточные швы', list: [{ status: false }, { status: false }, { status: true }, { status: false }], },
+    ]
+  };
 
-    templateCtx.table_info_services = [{
-      name: enum_part.general_work,
-      list: hash_table[enum_part.general_work]
-    }, {
-      name: enum_part.kitchen,
-      list: hash_table[enum_part.kitchen],
-    }, {
-      name: enum_part.bathroom,
-      list: hash_table[enum_part.bathroom],
-    }];
-    ctx.body = templates.getTemplate(path_description_services)(ctx.proc(templateCtx, ctx));
-  } catch (err) {
-    logger.warn(err);
-    ctx.status = 500;
-    ctx.body = 'Internal error';
-  }
+  templateCtx.table_info_services = [{
+    name: enum_part.general_work,
+    list: hash_table[enum_part.general_work]
+  }, {
+    name: enum_part.kitchen,
+    list: hash_table[enum_part.kitchen],
+  }, {
+    name: enum_part.bathroom,
+    list: hash_table[enum_part.bathroom],
+  }];
+  ctx.body = templates.getTemplate(path_description_services)(ctx.proc(templateCtx, ctx));
 }
 // =================================================
 
