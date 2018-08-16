@@ -63,12 +63,19 @@
             </div>
             <div style=margin-top:20px; data-demo-html="#panel-responsive-page2">{{{total_receivable}}}</div>
 
-            {{#if GetEmployeeData.PhoneTechnicalSupport}}
+            {{!-- {{#if GetEmployeeData.PhoneTechnicalSupport}}
               <div style=margin-top:40px;>
                 <p>Позвонить в поддержку:</p>
                 <a data-ajax=false class='ui-btn btn-danger' href='tel:{{GetEmployeeData.PhoneTechnicalSupport}}'>{{GetEmployeeData.PhoneTechnicalSupport}}</a>
               </div>
-            {{/if}}
+            {{/if}} --}}
+
+            <div style=margin-top:40px;>
+              <p>Позвонить в поддержку:</p>
+              <button id=post_callback class='ui-btn btn-danger'>Обратный звонок</button>
+              <p id=post_callback_error style=color:red></p>
+              <p id=post_callback_success style=color:green></p>
+            </div>
 
             <!-- Address -->
             <div style=margin-top:40px;>
@@ -121,6 +128,10 @@
     </div>
 
   <script>
+
+var getById = function (id) {
+  return document.getElementById(id);
+};
 // copy link to clipboard
 void function () {
   /* eslint-disable */
@@ -267,6 +278,53 @@ void function () {
     }
     return res;
   }
+
+}();
+
+// post callback
+void function () {
+
+  getById('post_callback').onclick = function() {
+    hide_success();
+    hide_error();
+    $.ajax({
+      url: '/proxy_request/Employee.PostCallBack',
+      type: 'POST',
+      data: JSON.stringify({
+        EmployeeID: '{{selfId}}'
+      }),
+      dataType: 'json',
+      contentType: 'application/json',
+      success: function(res) {
+        if (!res.ok) {
+          show_error();
+        } else if (!res.data.Result) {
+          show_error('* Звонок уже был создан, вам перезвонят в течении 20 мин.');
+        } else {
+          show_success();
+        }
+      },
+      error: function() {
+        show_error();
+      }
+    });
+
+    function show_error(text) {
+      getById('post_callback_error').innerHTML = text || '* Неизвестная ошибка';
+    }
+
+    function hide_error() {
+      getById('post_callback_error').innerHTML = '';
+    }
+
+    function show_success() {
+      getById('post_callback_success').innerHTML = 'Вам перезвонят в течении 20 мин';
+    }
+
+    function hide_success() {
+      getById('post_callback_success').innerHTML = '';
+    }
+  };
 
 }();
 
