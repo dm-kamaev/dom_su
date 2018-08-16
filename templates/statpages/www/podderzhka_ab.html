@@ -51,7 +51,7 @@
   <link rel="yandex-tableau-widget" href="/yandex/manifest.json" />
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,400,700&amp;subset=cyrillic" rel="stylesheet">
-  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.58">
+  <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.59">
 
 
   <base href="">
@@ -143,17 +143,16 @@
   <!-- Main Content -->
   <main class="page__main-content  main-content">
     <div class="main-content__wrap">
+
       <section class="page__section  section">
-        <div class="window  window--services  window--support">
-          <div class="window__inner  window__inner--services">
-            <div class="window__content-wrapper  window__content-wrapper--services">
-              <p class="window__title  window__title--services">Поддерживающая уборка<br>
-                <span class="window__title  window__title--services  window__title--bold">от  1 490 рублей</span>
-              </p>
-              <p class="window__text  window__text--services">Поддерживающая уборка нужна для поддержания чистоты и порядка в доме.</p>
-              <button class="window__button  window__button--services  button" data-action="openOrder" data-name="podderzhka" type="button">Заказать</button>
-            </div>
-          </div>
+        <div class="window  window--services">
+					<div class="window__content-wrapper  window__content-wrapper--services">
+						<p class="window__title  window__title--services">Поддерживающая уборка<br>
+							<span class="window__title  window__title--services  window__title--bold">от  1 490 рублей</span>
+						</p>
+						<p class="window__text  window__text--services">Поддерживающая уборка нужна для поддержания чистоты и порядка в доме.</p>
+						<button class="window__button  window__button--services  button--application  button" data-name="service-order" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderMenuButton"}'>Заказать</button>
+					</div>
         </div>
         <a href="{{buildUrl general.city '/mite_okon'}}" class="window__offer">
           <p class="window__offer-text  text">Интересует мытье окон?</p>
@@ -162,11 +161,301 @@
 
       <section class="page__section section">
         <div class="section__wrap">
+          <div class="service-calc  service-calc--new" data-name="podderzhka" data-service="podderzhka"  data-schedule="0x_week">
+            <div class="service-calc__content-wrapper">
+              <div class="service-calc__inner">
+                <ul class="service-calc__path list">
+                  <li class="service-calc__path-item  service-calc__path-item--arrow  service-calc__path-item--active  item" data-value="1">Шаг 1</li>
+                  <li class="service-calc__path-item  service-calc__path-item--arrow  item" data-value="2">Шаг 2</li>
+                  <li class="service-calc__path-item  service-calc__path-item--arrow  item" data-value="3">Шаг 3</li>
+                  <li class="service-calc__path-item  item" data-value="4">Готово!</li>
+                </ul>
+              </div>
+              <div class="service-calc__container">
+                <div class="service-calc__inner  service-calc__section  service-calc__section--active" data-section="square">
+                  <p class="service-calc__text">Какая площадь Вашей квартиры?</p>
+                  <div class="service-calc__row  service-calc__row--square">
+                    <div class="service-calc__item service-calc__item--oval  service-calc__item--active"  data-class="space" data-feature="square" data-quantity="40" data-value="40">
+                      <button type="button" class="service-calc__radio  service-calc__radio--oval">40 м
+                        <sup>
+                          <small>2</small>
+                        </sup>
+                      </button>
+                    </div>
+                    <div class="service-calc__item service-calc__item--oval" data-class="space" data-feature="square" data-quantity="50" data-value="50">
+                      <button type="button" class="service-calc__radio  service-calc__radio--oval">50 м
+                        <sup>
+                          <small>2</small>
+                        </sup>
+                      </button>
+                    </div>
+                    <div class="service-calc__item service-calc__item--oval" data-class="space" data-feature="square" data-quantity="60" data-value="60">
+                      <button type="button" class="service-calc__radio  service-calc__radio--oval">60 м
+                        <sup>
+                          <small>2</small>
+                        </sup>
+                      </button>
+                    </div>
+                    <div class="service-calc__item service-calc__item--oval" data-class="space" data-feature="square" data-quantity="70" data-value="70">
+                      <button type="button" class="service-calc__radio  service-calc__radio--oval">70 м
+                        <sup>
+                          <small>2</small>
+                        </sup>
+                      </button>
+                    </div>
+                    <div class="service-calc__item service-calc__item--oval" data-class="space" data-feature="square" data-quantity="40" data-value="">
+                      <span class="service-calc__input-label">Укажите:</span>
+                      <input type="number" class="service-calc__input  service-calc__input--oval  service-calc__input--oval-half  input" max="1000">
+                      <span class="service-calc__unit  service-calc__unit--for-oval">м
+                      <sup>
+                        <small>2</small>
+                      </sup>
+                    </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="service-calc__inner  service-calc__section" data-section="date">
+                  <p class="service-calc__text">Выберите дату и время уборки:</p>
+                  <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_2"}'>
+                    <div class="service-calc-ab__row">
+                      <div class="service-calc__time  button-date  button-date--round button-date--dark-grey">
+                        <button class="button-date__btn" data-name="service-calc-calendar">27 апреля 2017 г.</button>
+                        <div class="button-date__switch">
+                          <span class="button-date__plus">Следующая</span>
+                          <span class="button-date__minus">Предыдущая</span>
+                        </div>
+                      </div>
+                      <div class="service-calc__info">
+                        <div class="service-calc__selection  selection  selection--lg  selection--dark-grey" data-option="9">
+                          <button class="selection__btn  selection__btn--dark-grey  service-calc__selection-btn" type="button">09:00</button>
+                          <ul class="service-calc__list  selection__list  scroll-container">
+                            <li class="service-calc__option  selection__option" data-option="9">09:00</li>
+                            <li class="service-calc__option  selection__option" data-option="10">10:00</li>
+                            <li class="service-calc__option  selection__option" data-option="11">11:00</li>
+                            <li class="service-calc__option  selection__option" data-option="12">12:00</li>
+                            <li class="service-calc__option  selection__option" data-option="13">13:00</li>
+                            <li class="service-calc__option  selection__option" data-option="14">14:00</li>
+                            <li class="service-calc__option  selection__option" data-option="15">15:00</li>
+                            <li class="service-calc__option  selection__option" data-option="16">16:00</li>
+                            <li class="service-calc__option  selection__option" data-option="17">17:00</li>
+                            <li class="service-calc__option  selection__option" data-option="18">18:00</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="service-calc__inner  service-calc__section" data-section="addition">
+                  <p class="service-calc__text">Какие дополнительные работы необходимо выполнить?</p>
+                  <div class="service-calc__row  service-calc__row--service service-carousel">
+                    <button class="service-carousel__button-prev  service-carousel__button-prev--disabled" type="button">
+                      <svg width="10.54" height="24" viewBox="0 0 10.54 24">
+                        <rect width="10.54" height="24" transform="translate(10.54 24) rotate(-180)" fill="none"/>
+                        <polyline points="9.05 21.25 1.49 12 9.05 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                      </svg>
+                    </button>
+                    <div class="service-carousel__wrap">
+                      <div class="service-carousel__inner">
+                        <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="glazhka" data-service="glazhka" data-class="linen_glazhaka" data-classid="linen_glazhaka" data-feature="hour" data-quantity="1" data-price="500">
+                          <div class="service-card-light__wrap">
+                            <img class="service-card-light__image" src="/static/pancake/img/service-ironing-new.svg" width="50" height="50" alt="Утюг">
+                            <p class="service-card-light__text text-ab  text-ab--small">Погладить</p>
+                          </div>
+                          <div class="service-counter" data-value="1">
+                            <p class="service-counter__text">Погладить</p>
+                            <div class="service-counter__control">
+                              <button class="service-counter__btn  service-counter__btn--minus"></button>
+                              <label class="service-counter__label">
+                                <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                              </label>
+                              <button class="service-counter__btn  service-counter__btn--plus"></button>
+                            </div>
+                            <p class="service-counter__text">1 час</p>
+                          </div>
+                        </div>
+                        <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="wash_oven" data-service="individual_work" data-class="wash_oven" data-sum="1" data-classid="wash_oven" data-feature="" data-quantity="" data-price="350">
+                          <div class="service-card-light__wrap">
+                            <img class="service-card-light__image" src="/static/pancake/img/service-cleaning-oven-new.svg" width="50" height="50" alt="Плита">
+                            <p class="service-card-light__text  text-ab  text-ab--small">Помыть духовку внутри</p>
+                          </div>
+                          <div class="service-counter" data-value="1">
+                            <p class="service-counter__text">Помыть духовку внутри</p>
+                            <div class="service-counter__control">
+                              <button class="service-counter__btn  service-counter__btn--minus"></button>
+                              <label class="service-counter__label">
+                                <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                              </label>
+                              <button class="service-counter__btn  service-counter__btn--plus"></button>
+                            </div>
+                            <p class="service-counter__text">шт</p>
+                          </div>
+                        </div>
+                        <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="individual_work" data-service="individual_work" data-class="hourly" data-classid="hourly" data-feature="hour" data-quantity="1" data-price="650">
+                          <div class="service-card-light__wrap">
+                            <img class="service-card-light__image" src="/static/pancake/img/service-hour-work-new.svg" width="50" height="50" alt="Швабра">
+                            <p class="service-card-light__text  text-ab  text-ab--small">Почасовая работа</p>
+                          </div>
+                          <div class="service-counter" data-value="1">
+                            <p class="service-counter__text">Почасовая работа</p>
+                            <div class="service-counter__control">
+                              <button class="service-counter__btn  service-counter__btn--minus"></button>
+                              <label class="service-counter__label">
+                                <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                              </label>
+                              <button class="service-counter__btn  service-counter__btn--plus"></button>
+                            </div>
+                            <p class="service-counter__text">1 час</p>
+                          </div>
+                        </div>
+                        <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="individual_work" data-service="individual_work" data-class="refrigerator_cleaning" data-sum="1" data-classid="refrigerator_cleaning" data-feature="" data-quantity="" data-price="350">
+                          <div class="service-card-light__wrap">
+                            <img class="service-card-light__image" src="/static/pancake/img/service-refrigerator-new.svg" width="50" height="50" alt="Холодильник">
+                            <p class="service-card-light__text  text-ab  text-ab--small">Мытьё холодильника внутри</p>
+                          </div>
+                          <div class="service-counter" data-value="1">
+                            <p class="service-counter__text">Мытьё холодильника внутри</p>
+                            <div class="service-counter__control">
+                              <button class="service-counter__btn  service-counter__btn--minus"></button>
+                              <label class="service-counter__label">
+                                <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                              </label>
+                              <button class="service-counter__btn  service-counter__btn--plus"></button>
+                            </div>
+                            <p class="service-counter__text">1 час</p>
+                          </div>
+                        </div>
+                        <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="individual_work" data-service="individual_work" data-class="wash_cupboard_inside" data-classid="wash_cupboard_inside" data-sum="1" data-feature="" data-quantity="" data-price="500">
+                          <div class="service-card-light__wrap">
+                            <img class="service-card-light__image" src="/static/pancake/img/service-kitchen-shelves-new.svg" width="50" height="50" alt="Шкафчик">
+                            <p class="service-card-light__text text-ab  text-ab--small">Помыть шкафчики на кухне внутри</p>
+                          </div>
+                          <div class="service-counter" data-value="1">
+                            <p class="service-counter__text">Помыть шкафчики на кухне внутри</p>
+                            <div class="service-counter__control">
+                              <button class="service-counter__btn  service-counter__btn--minus"></button>
+                              <label class="service-counter__label">
+                                <input class="service-counter__output" min="0" max="1" name="counter" type="number" value="1">
+                              </label>
+                              <button class="service-counter__btn  service-counter__btn--plus"></button>
+                            </div>
+                            <p class="service-counter__text">1 кухня</p>
+                          </div>
+                        </div>
+                        <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="individual_work" data-service="individual_work" data-class="linen_wash" data-classid="linen_wash" data-feature="load_washer" data-quantity="1" data-price="200">
+                          <div class="service-card-light__wrap">
+                            <img class="service-card-light__image" src="/static/pancake/img/service-washing-machine-new.svg" width="50" height="50" alt="Плита">
+                            <p class="service-card-light__text  text-ab  text-ab--small">Постирать</p>
+                          </div>
+                          <div class="service-counter" data-value="1">
+                            <p class="service-counter__text">Постирать</p>
+                            <div class="service-counter__control">
+                              <button class="service-counter__btn  service-counter__btn--minus"></button>
+                              <label class="service-counter__label">
+                                <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                              </label>
+                              <button class="service-counter__btn  service-counter__btn--plus"></button>
+                            </div>
+                            <p class="service-counter__text">шт</p>
+                          </div>
+                        </div>
+                        <div class="service-calc__item service-carousel__item service-cards-ab__item service-card-light item" data-name="individual_work" data-service="individual_work" data-class="washing_chandelier" data-classid="washing_chandelier" data-sum="1" data-feature="" data-quantity="" data-price="990">
+                          <div class="service-card-light__wrap">
+                            <img class="service-card-light__image" src="/static/pancake/img/service-lamp-new.svg" width="50" height="50" alt="Плита">
+                            <p class="service-card-light__text  text-ab  text-ab--small">Помыть люстру</p>
+                          </div>
+                          <div class="service-counter" data-value="1">
+                            <p class="service-counter__text">Помыть люстру</p>
+                            <div class="service-counter__control">
+                              <button class="service-counter__btn  service-counter__btn--minus"></button>
+                              <label class="service-counter__label">
+                                <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+                              </label>
+                              <button class="service-counter__btn  service-counter__btn--plus"></button>
+                            </div>
+                            <p class="service-counter__text">шт</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="service-carousel__button-next" type="button">
+                      <svg width="10.54" height="24" viewBox="0 0 10.54 24">
+                        <rect width="10.54" height="24" fill="none"/>
+                        <polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="service-calc__inner  service-calc__section" data-section="output">
+                  <p class="service-calc__text">Информация о Вашем заказе:</p>
+                  <div class="service-calc-ab__column">
+                    <div class="service-calc-ab__data service-calc-ab__row" data-field="square">
+                      <p class="service-calc-ab__data-title">Площадь:</p>
+                      <p class="service-calc-ab__data-value">45 м<small><sup>2</sup></small></p>
+                    </div>
+                    <div class="service-calc-ab__data service-calc-ab__row" data-field="date">
+                      <p class="service-calc-ab__data-title">Дата:</p>
+                      <p class="service-calc-ab__data-value">25 апреля</p>
+                    </div>
+                    <div class="service-calc-ab__data service-calc-ab__row service-calc-ab__row--mobile"  data-field="service">
+                      <p class="service-calc-ab__data-title">Доп. работы:</p>
+                      <ul class="service-calc-ab__data-value service-calc-ab__data-list list">
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="service-calc-ab__data" data-field="schedule">
+                    <p class="service-calc-ab__data-title service-calc-ab__row">По графику:</p>
+                    <label class="window-form__checkbox service-calc-ab__row checkbox checkbox--dark-grey checkbox--lg">
+                      <input type="checkbox" class="checkbox__input  checkbox__input" name="schedule" data-name="podderzhka" data-service="podderzhka" data-class="space" data-schedule="1x_week">
+                      <span class="checkbox__indicator checkbox__indicator--new-orange"></span>
+                      <span class="checkbox__text checkbox__text--brown">раз в неделю</span>
+                    </label>
+                    <label class="window-form__checkbox service-calc-ab__row checkbox checkbox--dark-grey checkbox--lg">
+                      <input type="checkbox" class="checkbox__input  checkbox__input" name="schedule" data-name="podderzhka" data-service="podderzhka" data-class="space" data-schedule="2x_week">
+                      <span class="checkbox__indicator checkbox__indicator--new-orange"></span>
+                      <span class="checkbox__text checkbox__text--brown">раз в 2 недели</span>
+                    </label>
+                  </div>
+                  <div class="service-calc-ab__column">
+                    <div class="service-calc-ab__data  service-calc-ab__row" data-field="price">
+                      <p class="service-calc-ab__data-title">Стоимость:</p>
+                      <p class="service-calc-ab__data-value"></p>
+                    </div>
+                    <div class="service-calc-ab__data  service-calc-ab__row" data-field="comment">
+                      <div class="service-calc-ab__comment" data-name="podderzhka" data-service="podderzhka" data-class="space" data-schedule="1x_week"><span class="service-calc-ab__price-value"></span> при уборке раз в неделю</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="service-calc__inner  service-calc__control">
+                <button class="service-calc__calc-btn  button  button--square  button--application" type="button" data-name="service-order">Рассчитать по телефону</button>
+                <div class="service-calc__buttons">
+                  <button class="service-calc__button  service-calc__button--arrow-previous  button  button--square" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                      <polyline points="6.36 18.91 13.64 10 6.36 1.09" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+                      <rect width="20" height="20" fill="none"/>
+                    </svg>
+                  </button>
+                  <button class="service-calc__button  service-calc__button--arrow  button  button--square" type="button">
+                    <span>Узнать цену</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                      <polyline points="6.36 18.91 13.64 10 6.36 1.09" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+                      <rect width="20" height="20" fill="none"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page__section section">
+        <div class="section__wrap">
           <p class="section__title  title">Как оказывается услуга?</p>
           <div class="menu-block">
 
             <div class="menu-block__menu-select  selection  selection--lg selection--light-grey" data-option="room">
-              <button class="selection__btn  service-calc__selection-btn" type="button">Комнаты и коридоры</button>
+              <button class="selection__btn  selection__btn--dark-grey  service-calc__selection-btn" type="button">Комнаты и коридоры</button>
               <ul class="service-calc__list  selection__list  scroll-container">
                 <li class="service-calc__option  selection__option" data-option="room">Комнаты и коридоры</li>
                 <li class="service-calc__option  selection__option" data-option="kitchen">Кухня</li>
@@ -237,7 +526,6 @@
       </section>
 
       <section class="page__section section">
-
         <div class="details">
           <p class="details__text  text">Поддерживающая уборка длится от 2 до 5 часов и содержит более 20 видов работ.</p>
           <button class="details__button  button" type="button" data-name="details-list" data-id="work-list">Подробный перечень работ</button>
@@ -245,7 +533,7 @@
       </section>
 
       <section class="page__section section">
-        <div class="section__wrap">
+        <div class="section__wrap  section__wrap--for-swiper">
           <div class="swiper-container" data-client="mobile">
             <ul class="swiper-wrapper features">
               <li class="swiper-slide features__item">
@@ -339,40 +627,85 @@
         </div>
       </section>
 
-      <section class="page__section  section">
-        <div class="section__wrap">
-          <h2 class="section__title  title">«Домовёнок» в цифрах</h2>
-          <ul class="statistics  list">
-            <li class="statistics__item  item">
-              <div class="statistics__wrap-image">
-                <img class="statistics__image" height="80" width="80" src="/static/pancake/img/experience.svg" alt="Календарь">
-              </div>
-              <div class="statistics__wrap-text">
-                <p class="statistics__number">10</p>
-                <p class="statistics__text  text">лет опыта</p>
-              </div>
-            </li>
-            <li class="statistics__item  item">
-              <div class="statistics__wrap-image">
-                <img class="statistics__image" height="80" width="80" src="/static/pancake/img/assessment.svg" alt="Клиент">
-              </div>
-              <div class="statistics__wrap-text">
-                <p class="statistics__number">4,89</p>
-                <p class="statistics__text  text">средняя оценка от клиентов</p>
-              </div>
-            </li>
-            <li class="statistics__item  item">
-              <div class="statistics__wrap-image">
-                <img class="statistics__image" height="80" width="80" src="/static/pancake/img/orders.svg" alt="Рука с тряпкой">
-              </div>
-              <div class="statistics__wrap-text">
-                <p class="statistics__number">250 000</p>
-                <p class="statistics__text  text">выполненных заказов</p>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </section>
+			<section class="page__section  section">
+				<div class="section__wrap">
+					<h2 class="section__title  title">«Домовёнок» в цифрах</h2>
+					<div class="statistics">
+						<ul class="statistics__list  list">
+						<li class="statistics__item">
+							<div class="statistics__img-wrapper">
+								<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 70 70">
+									<path d="M14.52,24.74V54.81A2.28,2.28,0,0,0,17,56.91H53.12a2.33,2.33,0,0,0,2.45-2.1h0V24.74" fill="none" stroke="#ff5722" stroke-miterlimit="10" stroke-width="1.5"/>
+									<line x1="46.03" y1="15.71" x2="23.45" y2="15.71" fill="none" stroke="#ff5722" stroke-miterlimit="10" stroke-width="1.5"/>
+									<path d="M19.86,15.71H17.32a2.93,2.93,0,0,0-2.89,2.9h0v6h41v-6a2.92,2.92,0,0,0-2.89-2.9H49.35" fill="none" stroke="#ff5722" stroke-miterlimit="10" stroke-width="1.5"/>
+									<path d="M21.43,32.81H48.57a.69.69,0,0,1,.7.7v.35a.69.69,0,0,1-.7.7H21.43a.69.69,0,0,1-.7-.7v-.35C20.65,33.16,21,32.81,21.43,32.81Z" fill="#ff5722"/>
+									<path d="M21.43,37.36H48.57a.69.69,0,0,1,.7.7v.44a.69.69,0,0,1-.7.7H21.43a.69.69,0,0,1-.7-.7v-.35A.68.68,0,0,1,21.43,37.36Z" fill="#ff5722"/>
+									<path d="M21.43,41.92H48.57a.69.69,0,0,1,.7.7V43a.69.69,0,0,1-.7.7H21.43a.69.69,0,0,1-.7-.7v-.35C20.65,42.27,21,41.92,21.43,41.92Z" fill="#ff5722"/>
+									<path d="M23.36,19.4a1.66,1.66,0,0,1-1.66,1.66h0A1.66,1.66,0,0,1,20,19.4V14.75a1.67,1.67,0,0,1,1.67-1.67h0a1.66,1.66,0,0,1,1.66,1.67Z" fill="none" stroke="#ff5722" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M49.18,19.4a1.66,1.66,0,0,1-1.67,1.66h0a1.66,1.66,0,0,1-1.66-1.66h0V14.75a1.67,1.67,0,0,1,1.66-1.67h0a1.67,1.67,0,0,1,1.67,1.67h0Z" fill="none" stroke="#ff5722" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</div>
+							<div class="statistics__content-wrapper">
+								<p class="statistics__number">10</p>
+								<p class="statistics__text  text">лет опыта</p>
+							</div>
+						</li>
+						<li class="statistics__item">
+							<div class="statistics__img-wrapper">
+								<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 70 70">
+									<path d="M25.29,49.78a31.23,31.23,0,0,1-10-4A62.49,62.49,0,0,1,14.3,35s-3.1-28.39,20-28.17c23.48.32,21.56,28.27,21.56,28.27A67.67,67.67,0,0,1,55,46.47c-2.77,1.82-5.76,2.56-10.14,3.42" fill="none" stroke="#ff5722" stroke-linejoin="round" stroke-width="1.5"/>
+									<path d="M31.05,48.29c-8.22,1.06-14.3,5.76-14.3,11.2V60A52.86,52.86,0,0,0,53,60v-.53c0-5.55-6.08-10.14-14.3-11.2" fill="none" stroke="#ff5722" stroke-miterlimit="10" stroke-width="1.5"/>
+									<path d="M31.05,46.69v1.49c0,1.39,1.71,2.56,3.84,2.56s3.84-1.17,3.84-2.56V46.69" fill="none" stroke="#ff5722" stroke-miterlimit="10"/>
+									<path d="M50.36,32.39c.32-3.31.32-6.51.32-9.82-5.33,1.6-7.25-3.84-7.25-3.84s-3,4.91-8.33,6.08A29.55,29.55,0,0,1,19,23.74a37.94,37.94,0,0,0,.32,8.54c1.07,8,6,14.73,15.58,14.83C44.28,47.11,49.94,40.07,50.36,32.39Z" fill="none" stroke="#ff5722" stroke-miterlimit="10"/>
+									<path d="M39.69,39.11a14.21,14.21,0,0,1-5.23,1,15.5,15.5,0,0,1-4.91-.85" fill="none" stroke="#ff5722" stroke-linecap="round" stroke-miterlimit="10" stroke-width="0.8"/>
+									<path d="M36.92,41.88a6.1,6.1,0,0,1-2.35.43A8.25,8.25,0,0,1,32.33,42" fill="none" stroke="#ff5722" stroke-linecap="round" stroke-miterlimit="10" stroke-width="0.7"/>
+									<path d="M36.6,36a6,6,0,0,1-2,.32A5.86,5.86,0,0,1,32.65,36" fill="none" stroke="#ff5722" stroke-linecap="round" stroke-miterlimit="10" stroke-width="0.7"/>
+									<path d="M29.77,30.47a5.93,5.93,0,0,0-4.06-2,5.91,5.91,0,0,0-4.05,2" fill="none" stroke="#ff5722" stroke-linecap="round" stroke-miterlimit="10"/>
+									<path d="M25.71,32.28a1.76,1.76,0,1,1,1.82-1.81,1.74,1.74,0,0,1-1.82,1.81Z" fill="#ff5722"/>
+									<path d="M46.84,30.47a5.91,5.91,0,0,0-4.05-2,5.93,5.93,0,0,0-4.06,2" fill="none" stroke="#ff5722" stroke-linecap="round" stroke-miterlimit="10"/>
+									<path d="M42.79,32.28a1.76,1.76,0,1,1,.1-3.52,1.69,1.69,0,0,1,1.71,1.71A1.87,1.87,0,0,1,42.79,32.28Z" fill="#ff5722"/>
+									<path d="M41.4,49.78c0,4.16-2.88,7.58-6.51,7.58s-6.51-3.42-6.51-7.58" fill="none" stroke="#ff5722" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1.5"/>
+								</svg>
+							</div>
+							<div class="statistics__content-wrapper">
+								<p class="statistics__number">4,89</p>
+								<p class="statistics__text  text">средняя оценка от&nbsp;клиентов</p>
+							</div>
+						</li>
+						<li class="statistics__item">
+							<div class="statistics__img-wrapper">
+								<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 70 70">
+									<path d="M24,25.77h8.2a1.13,1.13,0,0,1,1.12,1.13v2" fill="none" stroke="#ff5a19" stroke-linejoin="round"/>
+									<path d="M19.15,28.7H13.42a1.12,1.12,0,0,0-1.12,1.12v1.46a1.12,1.12,0,0,0,1.12,1.12H15l1.57,23.83a3.26,3.26,0,0,0,3.26,3.26h19.1a2.31,2.31,0,0,0,.9-.12" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="1.5"/>
+									<path d="M42.75,28.7H31" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="1.5"/>
+									<line x1="31.07" y1="32.18" x2="42.19" y2="32.18" fill="none" stroke="#ff5a19" stroke-linejoin="round"/>
+									<line x1="14.55" y1="32.18" x2="19.15" y2="32.18" fill="none" stroke="#ff5a19" stroke-linejoin="round"/>
+									<path d="M30.06,39.26c2.47,4.16,6.18,8.65,10.45,9.55" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="1.5"/>
+									<path d="M45,22.52c-2.92,6.63-4.94,20.56-5.06,36.74v2.81a36.57,36.57,0,0,0,9.22.9,43.3,43.3,0,0,0,8.54-.79v-3c-.11-16.63-2.36-30.45-5.28-36.75" fill="none" stroke="#ff5a19" stroke-linejoin="round" stroke-width="1.5"/>
+									<rect x="45.23" y="13.05" width="6.97" height="3.28" fill="none" stroke="#ff5a19" stroke-linejoin="round"/>
+									<path d="M44.1,13H54.67V7h-20v4.13h1.8a15.78,15.78,0,0,1,4.61.68" fill="none" stroke="#ff5a19" stroke-linejoin="round"/>
+									<path d="M40.94,11.79a15.72,15.72,0,0,1-1.56,4.43,16.66,16.66,0,0,1-2.58,3.71,8.12,8.12,0,0,0,4.27-2.36A8.83,8.83,0,0,0,44,13h-.45A7.91,7.91,0,0,0,40.94,11.79Z" fill="none" stroke="#ff5a19" stroke-linejoin="round"/>
+									<path d="M52.64,22.63v-6.3H44.55v6.3h8.09Z" fill="none" stroke="#ff5a19" stroke-linejoin="round"/>
+									<rect x="19.27" y="25.77" width="11.46" height="13.71" fill="none" stroke="#ff5a19" stroke-linejoin="round"/>
+									<line x1="37.58" y1="7.01" x2="37.58" y2="11.05" fill="none" stroke="#ff5a19" stroke-linejoin="round"/>
+								</svg>
+							</div>
+							<div class="statistics__content-wrapper">
+								<p class="statistics__number">250 000</p>
+								<p class="statistics__text  text">выполненных заказов</p>
+							</div>
+						</li>
+					</ul>
+					
+						<a class="link  link--black  link--without-line  link--with-arrow" href="{{buildUrl general.city '/about/'}}">
+							<span class="link__text">Подробнее о нас</span>
+							<svg width="10.54" height="15" viewBox="0 0 10.54 24">
+								<polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#000000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</section>
 
       <section class="page__section section">
         <div class="divided-section">
@@ -391,8 +724,7 @@
       </section>
 
       <section class="page__section section section--bg-white">
-        <div class="section__wrap">
-
+        <div class="section__wrap  section__wrap--for-swiper">
           <h2 class="section__title  title">Топ домовят {{general.currentRusMonth}}</h2>
           
           <div class="swiper-carousel">
@@ -495,12 +827,11 @@
               <svg width="10.54" height="24" viewBox="0 0 10.54 24"><rect width="10.54" height="24" fill="none"/><polyline points="1.49 21.25 9.05 12 1.49 2.75" fill="none" stroke="#8e8d8d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"/></svg>
             </button>
           </div>
-
         </div>
       </section>
 
       <section class="page__section  section  section--bg-grey">
-        <div class="section__wrap">
+        <div class="section__wrap  section__wrap--for-swiper">
           <h2 class="section__title  title">Отзывы</h2>
           <div class="swiper-carousel">
             <button class="swiper-carousel__button-prev" type="button">
@@ -600,8 +931,7 @@
 
       <section class="page__section  section  section--bg-white">
         <div class="section__wrap  section__wrap--for-swiper">
-          <h2 class="section__title  title">О нас говорят</h2>
-
+					<h2 class="section__title  title">О нас говорят</h2>
           <div class="swiper-carousel">
           	<button class="swiper-carousel__button-prev" type="button">
           		<svg width="10.54" height="24" viewBox="0 0 10.54 24">
@@ -1188,37 +1518,6 @@
   {{{{/raw}}}}
 </script>
 
-<script id="order-service" type="text/html">
-  <div class="service-card-sm" data-name="mite_okon">
-    <p class="service-card-sm__text">Мытьё окон</p>
-    <div class="service-card-sm__wrap">
-      <img class="service-card-sm__image" src="/static/pancake/img/service-washing-window.svg" width="50" height="50" alt="Посуда">
-      <div class="service-card-sm__btn-wrap">
-        <span class="service-card-sm__price">от 250</span> руб
-      </div>
-    </div>
-  </div>
-  <div class="service-card-sm" data-name="himchistka">
-    <p class="service-card-sm__text">Химчистка мебели</p>
-    <div class="service-card-sm__wrap">
-      <img class="service-card-sm__image" src="/static/pancake/img/service-armchair.svg" width="50" height="50" alt="Кресло">
-      <div class="service-card-sm__btn-wrap">
-        <span class="service-card-sm__price">от 120</span> руб
-      </div>
-    </div>
-  </div>
-  <div class="service-card-sm" data-name="home_master">
-    <p class="service-card-sm__text">Домашний мастер</p>
-    <div class="service-card-sm__wrap">
-      <img class="service-card-sm__image" src="/static/pancake/img/service-master.svg" width="50" height="50" alt="Инструменты">
-      <div class="service-card-sm__btn-wrap">
-        <span class="service-card-sm__price">от 500</span> руб
-      </div>
-    </div>
-  </div>
-</script>
-
-
 
 <script id="service-cart" type="text/html">
   {{{{raw}}}}
@@ -1289,7 +1588,7 @@
 
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.51"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.52"></script>
 <!-- /Java Script -->
 
 </body>
