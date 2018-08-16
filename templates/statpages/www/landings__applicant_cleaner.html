@@ -41,7 +41,7 @@
     })(window,document,'script','dataLayer','GTM-PHD7WW');
     </script>
   {{/if}}
-  <link rel="stylesheet" href="/static/pancake/css/landing.min.css?v0.59">
+  <link rel="stylesheet" href="/static/pancake/css/landing.min.css?v0.60">
 </head>
 <body>
 {{#if general.production}}
@@ -58,7 +58,7 @@
         <div class="landing-contact__wrap landing-contact__wrap--tel">
           <div class="landing-contact__text  landing-contact__text--orange  text  landing-contact__text--tel">
             <p>Москва</p>
-            <a class="landing-contact__tel  text" href="tel: +79263606032">8 (926) 360-60-32</a>
+            <a class="landing-contact__tel  text" href="tel:{{general.applicantPhoneHref}}" data-track-phone-applicant>{{general.applicantPhoneCode}} {{general.applicantPhoneNumber}}</a>
           </div>
           <div class="landing-contact__text  landing-contact__text--orange  text  landing-contact__text--tel">
             <p>Санкт-Петербург</p>
@@ -215,7 +215,7 @@
         <div class="landing-address  landing-address--left">
           <div class="landing-address__wrap">
             <p class="landing-address__text text">Москва</p>
-            <p class="landing-address__text text">Тел: <a class="landing-address__text  text" href="tel: +79263606032">8 (926) 360-60-32</a></p>
+            <p class="landing-address__text text">Тел: <a class="landing-address__text  text" href="tel:{{general.applicantPhoneHref}}" data-track-phone-applicant>{{general.applicantPhoneCode}} {{general.applicantPhoneNumber}}</a></p>
             <p class="landing-address__text text">Адрес: Москва, ул. Проспект Мира, д.102, стр.38</p>
           </div>
           <div class="landing-address__wrap">
@@ -261,7 +261,7 @@
       </div>
     </div>
   </div>
-  <script src="/static/pancake/js/landing.min.js?v1.52"></script>
+  <script src="/static/pancake/js/landing.min.js?v1.53"></script>
   <!-- /Java Script -->
 
 
