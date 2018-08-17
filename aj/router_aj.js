@@ -110,15 +110,11 @@ router.get('/aj/calltracking_client', async function (ctx) {
 
 // GET /aj/calltracking_applicant
 // responce
-// {
+//{
 //   "ok": true,
 //   "data": {
-//    "applicantPhone": {
-//       "ok": false,
-//       "data": "Over the phones"
-//     }
+//      phone: '4957894810'
 //   }
-// }
 // {
 //   "ok": false,
 //   "error": {
@@ -127,7 +123,6 @@ router.get('/aj/calltracking_client', async function (ctx) {
 // }
 router.get('/aj/calltracking_applicant', async function (ctx) {
   const user = ctx.state.pancakeUser;
-
   if (user.check_track_need_for_applicant()) {
     await user.set_track_waiting_applicant(true);
     const applicant_phone = await user.set_track_number_for_applicant();
