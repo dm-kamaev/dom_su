@@ -57,7 +57,11 @@ class PancakeUser {
     this.visit_uuid = null;
     this.request_event_uuid = null;
     this.city = null;
-    this.track = { done: null, waiting: null, numbers: {}, applicant_numbers: {} };
+    /**
+     * track: waiting -- detect we start calltracking for client, waiting_applicant –– detect we start calltracking for applicant
+     * @type {Object}
+     */
+    this.track = { done: null, waiting: null, waiting_applicant: null, numbers: {}, applicant_numbers: {} };
     this.google_id = null;
     // For fast working AB test
     this.firstVisit = true;
@@ -223,36 +227,57 @@ class PancakeUser {
     }
   }
 
-  checkTrackNeed() {
+  /**
+   * check_track_need_for_client:
+   * @return {Boolean}
+   */
+  check_track_need_for_client() {
+    return this._checkTrackNeed('v_id');
+  }
+
+  /**
+   * check_track_need_for_applicant:
+   * @return {Boolean}
+   */
+  check_track_need_for_applicant() {
+    return this._checkTrackNeed('v_applicant_id');
+  }
+
+  /**
+   * _checkTrackNeed:
+   * @param  {String} cookie_name_visitor_id: v_id || v_applicant_id
+   * @return {Boolean}
+   */
+  _checkTrackNeed(cookie_name_visitor_id) {
     // FOR TEST
     // |
     // |
     // V
     // return true;
     const me = this;
-    const headers = this.ctx.headers;
-    const cookies = this.ctx.cookies;
-    const v_id = cookies.get('v_id');
+    const ctx = this.ctx;
+    const headers = ctx.headers;
+    const cookies = ctx.cookies;
+    const v_id = cookies.get(cookie_name_visitor_id);
     // FOR TEST
     // |
     // |
     // V
     // set reffer and use tab chrome in mode incognito
-    // this.ctx.headers.referer = 'https://yandex.ru';
-
-    if (me.its_robot()) {
-      return false;
-    }
-
+    // ctx.headers.referer = 'https://yandex.ru';
     const uuid = me.uuid;
     const _logger = {
       info: function(str) {
         const url = me.ctx.request.url;
-        if (url === '/' || url === '/aj/calltracking') {
+        if (url === '/aj/calltracking_client' || url === '/aj/calltracking_applicant') {
           logger.info(str);
         }
       }
     };
+    if (me.its_robot()) {
+      _logger.info(`${uuid} checkTrackNeed => its_robot; return false;`);
+      return false;
+    }
 
     _logger.info(`${uuid} checkTrackNeed => first_visit `+((v_id) ? 'return false' : 'skip'));
     // is not newest user
@@ -262,7 +287,7 @@ class PancakeUser {
       return false;
     } else {
       // set cookie for first visit
-      cookies.set('v_id', Date.now()+'__'+headers['x-real-ip'], {
+      cookies.set(cookie_name_visitor_id, Date.now()+'__'+headers['x-real-ip'], {
         httpOnly: false,
         domain: headers.host,
         maxAge: 9 * 365 * 24 * 60 * 60 * 1000
@@ -272,7 +297,8 @@ class PancakeUser {
 
     let referer = headers.referer;
     _logger.info(`${uuid} checkTrackNeed => !referer || !/domovenok/.test(referer) `+((!referer || !/domovenok/.test(referer)) ? 'return false' : 'skip'));
-    if (!referer || /domovenok/.test(referer)) {
+    // if (!referer || !/domovenok/.test(referer)) {
+    if (!referer) {
       return false;
     }
 
@@ -310,7 +336,7 @@ class PancakeUser {
       }
     } catch (err) {
       logger.warn(err);
-      // _logger.info(`${uuid} checkTrackNeed => ERROR !/Russia/.test(geo_data.country) return false`);
+      _logger.info(`${uuid} checkTrackNeed => ERROR !/Russia/.test(geo_data.country) return false`);
       return false;
     }
 
@@ -333,15 +359,51 @@ class PancakeUser {
     return true;
   }
 
-  setTrackWaiting(waiting) {
-    if (this.track.waiting === waiting) {
+
+  // TODO: in one function with call return this._setTrackWaiting('waiting') || this._setTrackWaiting('waiting_applicant')
+  /**
+   * setTrackWaiting: check waiting track for client
+   * @param {Boolean} waiting:
+   */
+  async setTrackWaiting(waiting) {
+    const me = this;
+    if (me.track.waiting === waiting) {
       return;
     }
-    this.queue.push(async function (previousResult, pancakeUser) {
-      pancakeUser.track.waiting = waiting;
-      pancakeUser.model.set('data.track.waiting', waiting);
-      await pancakeUser.model.save();
-      return pancakeUser.model;
+    me.queue.push(async function (previousResult) {
+      me.track.waiting = waiting;
+      const user = await User.findOne({
+        where: {
+          uuid: me.uuid
+        }
+      });
+      user.set('data.track.waiting', waiting);
+      await user.save();
+      return user;
+    });
+  }
+
+  // TODO: in one function with call return this._setTrackWaiting('waiting') || this._setTrackWaiting('waiting_applicant')
+  /**
+   * set_track_waiting_applicant: check waiting track for applicant
+   * @param {Boolean} waiting:
+   */
+  async set_track_waiting_applicant(waiting_applicant) {
+    const me = this;
+    if (me.track.waiting_applicant === waiting_applicant) {
+      return;
+    }
+
+    me.queue.push(async function (previousResult) {
+      me.track.waiting_applicant = waiting_applicant;
+      const user = await User.findOne({
+        where: {
+          uuid: me.uuid
+        }
+      });
+      user.set('data.track.waiting_applicant', waiting_applicant);
+      await user.save();
+      return user;
     });
   }
 
@@ -357,13 +419,6 @@ class PancakeUser {
     if (client_number) {
       return client_number;
     }
-
-    // const client_numbers = this.track.numbers;
-    // const city_keyword = this.city.keyword;
-    // if (client_numbers && client_numbers[city_keyword]) {
-    //   return client_numbers[city_keyword];
-    // }
-    logger.log(`${me.uuid} after return`);
 
     // SELECT
     //   *
@@ -401,16 +456,9 @@ class PancakeUser {
         });
         user.set(`data.track.numbers.${pancakeUser.city.keyword}`, pancakeUser.track.numbers[pancakeUser.city.keyword]);
         await user.save();
-
         phone.user_uuid = me.uuid;
-
-        // pancakeUser.model.set(`data.track.numbers.${pancakeUser.city.keyword}`, pancakeUser.track.numbers[pancakeUser.city.keyword]);
-        // await pancakeUser.model.save();
-        // phone.user_uuid = pancakeUser.uuid;
-
         phone.living = true;
         await phone.save();
-        console.log(`\n\n SET DATA  data.track.numbers.${pancakeUser.city.keyword}`, pancakeUser.track.numbers[pancakeUser.city.keyword]);
         return phone;
       });
       return phone_number;
@@ -458,19 +506,11 @@ class PancakeUser {
             uuid: me.uuid
           }
         });
-        console.log('pancakeUser=', pancakeUser);
         user.set(`data.track.applicant_numbers.${pancakeUser.city.keyword}`, pancakeUser.track.applicant_numbers[pancakeUser.city.keyword]);
         await user.save();
-
         phone.user_uuid = me.uuid;
-
-        // pancakeUser.model.set(`data.track.applicant_numbers.${pancakeUser.city.keyword}`, pancakeUser.track.applicant_numbers[pancakeUser.city.keyword]);
-        // await pancakeUser.model.save();
-        // phone.user_uuid = pancakeUser.uuid;
-
         phone.living = true;
         await phone.save();
-        console.log(`SET DATA data.track.applicant_numbers.${pancakeUser.city.keyword}`, pancakeUser.track.applicant_numbers[pancakeUser.city.keyword]);
         return phone;
       });
       return phone_number;
