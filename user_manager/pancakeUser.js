@@ -297,7 +297,8 @@ class PancakeUser {
 
     let referer = headers.referer;
     _logger.info(`${uuid} checkTrackNeed => !referer || !/domovenok/.test(referer) `+((!referer || !/domovenok/.test(referer)) ? 'return false' : 'skip'));
-    if (!referer || /domovenok/.test(referer)) {
+    // if (!referer || !/domovenok/.test(referer)) {
+    if (!referer) {
       return false;
     }
 
