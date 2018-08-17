@@ -48,7 +48,7 @@
 	  </script>
 	{{/if}}
 
-	<link class="stylesheet" rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.60">
+	<link class="stylesheet" rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.62">
 	<base href="" >
 
 	<script>
@@ -843,19 +843,37 @@
 				</div>
 			</section>
 
-			<section class="page__section  section  section--bg-grey">
-				<div class="quote">
-				  <h2 class="quote__title  title">Наши ценности</h2>
-				  <div class="quote__inner">
-				    <div class="quote__text-wrapper">
-				      <p class="quote__text">Почему спустя 10 лет, я все еще занимаюсь уборкой? Однажды я приехал на заказ к пожилой женщине, которой уборку заказала дочка. После уборки, она предложила мне попить чай, и мы проговорили с ней пару часов. Я увидел, как важна ей наша помощь и какую искреннюю благодарность она испытывает.</p>
-				      <p class="quote__text">Мы считаем, что когда нас приглашают в дом, это проявление доверия. В ответ мы проявляем искреннюю заботу о доме, куда нас пригласили.<br> На доверии мы выстраиваем отношения и внутри компании.<br> Мы делаем все процессы максимально открытыми и прозрачными, чтобы наша забота и хорошее отношение передавалось через домовят Вам.</p>
-				      <div class="quote__img-wrapper  quote__img-wrapper--mobile"></div>
-				      <p class="quote__text  quote__text--right">Михаил Жилин,<br>
-				         Основатель компании</p>
-				    </div>
-				    <div class="quote__img-wrapper  quote__img-wrapper--desktop"></div>
-				  </div>
+			<section class="divided-section">
+
+				<!--img-part-->
+				<div class="divided-section__img-part  divided-section__img-part--quote"></div>
+
+				<!--content-part-->
+				<div class="divided-section__content-part  divided-section__content-part--bg-grey">
+
+					<div class="divided-section__content-inner  divided-section__content-inner--wide">
+
+						<div class="quote">
+						  <div class="quote__text-wrapper">
+						    <p class="quote__text">Почему спустя 10 лет, я все еще занимаюсь уборкой? Однажды я приехал на
+						      заказ к пожилой женщине, которой уборку заказала дочка. После уборки, она предложила мне попить чай, и мы проговорили
+						      с ней пару часов. Я увидел, как важна ей наша помощь и какую искреннюю благодарность она испытывает.</p>
+						    <p class="quote__text">Мы считаем, что когда нас приглашают в дом, это проявление доверия. В ответ
+						      мы проявляем искреннюю заботу о доме, куда нас пригласили. На доверии мы выстраиваем отношения и внутри компании.
+						      Мы делаем все процессы максимально открытыми и прозрачными, чтобы наша забота и хорошее отношение передавалось через
+						      домовят Вам.</p>
+						  </div>
+						  <div class="quote__img-wrapper">
+						    <img class="quote__img"
+						      src="/static/pancake/img/quote-ab-mobile@1x.jpg"
+						      srcset="/static/pancake/img/quote-ab-mobile@2x.jpg 2x"
+						      alt="Михаил Жилин">
+						  </div>
+						  <p class="quote__text  quote__text--right">Михаил Жилин,<br>
+						    Основатель компании</p>
+						</div>
+
+					</div>
 				</div>
 			</section>
 
@@ -1566,12 +1584,12 @@
 
 <!-- /Page wrapper -->
 <!-- Java Script -->
-<script type=text/javascript src="/static/pancake/vue/js/manifest.js?v1.53" async></script>
-<script type=text/javascript src="/static/pancake/vue/js/app.js?v1.53" async></script>
+<script type=text/javascript src="/static/pancake/vue/js/manifest.js?v1.55" async></script>
+<script type=text/javascript src="/static/pancake/vue/js/app.js?v1.55" async></script>
 
 
 <script src="https://cdn.ravenjs.com/3.22.2/raven.min.js"></script>
-<script src="/static/pancake/js/bundle.min.js?v1.53"></script>
+<script src="/static/pancake/js/bundle.min.js?v1.55"></script>
 
 <script type="text/javascript">
   const head = document.head;
@@ -1580,7 +1598,7 @@
 
   link.type = 'text/css';
   link.rel = 'stylesheet';
-  link.href = '/static/pancake/vue/css/app.css?v0.60';
+  link.href = '/static/pancake/vue/css/app.css?v0.62';
   head.insertBefore(link, existLink);
 </script>
 <!-- /Java Script -->
