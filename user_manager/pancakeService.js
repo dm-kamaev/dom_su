@@ -1,9 +1,8 @@
 'use strict';
 const {QueueAsync} = require('./queue');
 const logger = require('/p/pancake/lib/logger.js');
-const json = require('/p/pancake/my/json.js');
-const {models} = require('models');
-const {User, UTMS, Phone} = models;
+// const json = require('/p/pancake/my/json.js');
+const { User, UTMS, Phone } = require('/p/pancake/models/models.js');
 const {saveAndSend} = require('tickets');
 const http = require('http');
 const config = require('config');
@@ -62,8 +61,19 @@ class PancakeService {
       'ds': 'call center'
     });
 
-    // Clean Track Phone Number^ maybe in script free_phone set waiting false
-    user.track = {done: true, waiting: false, numbers: null, applicant_numbers: null };
+    // Clean Track Phone Number, maybe in script free_phone set waiting false
+    user.track = {
+      done: true,
+      numbers: null,
+      applicant_numbers: null
+    };
+    var track = user.track;
+    if (phone.category_type === 'client') {
+      track.waiting = false;
+    } else {
+      track.waiting_applicant = false;
+    }
+
     this.queue.push(async function (previousResult, pancakeService) {
       user.set('data.track', user.track);
       await user.save();
@@ -74,17 +84,17 @@ class PancakeService {
 
   async sendDataGA(data){
     const me = this;
+    const connectParam = {
+      hostname: 'www.google-analytics.com',
+      port: 80,
+      path: '/collect',
+      method: 'POST',
+      headers: {
+        'User-Agent': 'AstDom'
+      }
+    };
     try {
       // logger.log(`handler_tracking_call5:: sendDataGA: ${JSON.stringify(data)}`);
-      const connectParam = {
-        hostname: 'www.google-analytics.com',
-        port: 80,
-        path: '/collect',
-        method: 'POST',
-        headers: {
-          'User-Agent': 'AstDom'
-        }
-      };
       const res = await me.sendRequest(connectParam, querystring.stringify(data), 20);
       // logger.log(`handler_tracking_call5:: connectParam: ${JSON.stringify(connectParam)}`);
       // logger.log(`handler_tracking_call5:: data: ${JSON.stringify(data)}`);
@@ -94,34 +104,9 @@ class PancakeService {
     } catch (err) {
       me.sendRequest(connectParam, querystring.stringify(data), 20).catch((err) => {
         logger.warn('handler_tracking_call5:: Error send to Google analytics '+err);
+        throw new Error('Error send to Google analytics '+err);
       });
     }
-
-    // const me = this;
-    // me.queue.push(async function (previousResult, pancakeService) {
-    //   try {
-    //     logger.log(`handler_tracking_call5:: sendDataGA: ${JSON.stringify(data)}`);
-    //     const connectParam = {
-    //       hostname: 'www.google-analytics.com',
-    //       port: 80,
-    //       path: '/collect',
-    //       method: 'POST',
-    //       headers: {
-    //         'User-Agent': 'AstDom'
-    //       }
-    //     };
-    //     const res = await me.sendRequest(connectParam, querystring.stringify(data), 20);
-    //     logger.log(`handler_tracking_call5:: connectParam: ${JSON.stringify(connectParam)}`);
-    //     logger.log(`handler_tracking_call5:: data: ${JSON.stringify(data)}`);
-    //     logger.log(`handler_tracking_call5:: send to Google analytics: `);
-    //     logger.log(`handler_tracking_call5::`+JSON.stringify(res));
-    //   } catch (err) {
-    //     me.sendRequest(connectParam, querystring.stringify(data), 20).catch((err) => {
-    //       logger.warn('handler_tracking_call5:: Error send to Google analytics '+err);
-    //     });
-    //   }
-    //   return res;
-    // });
   }
 
   /**
@@ -175,7 +160,7 @@ class PancakeService {
       req.setTimeout(1000 * timeout, function () {
         reject(new Error(`Request timeout error - ${connectParam}`));
       });
-      req.on('error', (e) => {
+      req.on('error', (err) => {
         reject(new Error(`The request ended in failure - ${connectParam}`));
       });
       if (connectParam.method == 'POST'){
