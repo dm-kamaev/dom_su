@@ -48,7 +48,7 @@ void async function () {
         count_client_id--;
         console.log('remained= ', count_client_id);
         resolve(request(auth_data, file_name, ctx));
-      }, 2000);
+      }, 4000);
     });
   });
 }();
@@ -64,6 +64,18 @@ async function request(auth_data, file_name, ctx) {
     console.log('Error= ', get_common);
     wf_sync.append('/p/pancake/only_one/client_error.txt', JSON.stringify(get_common)+'\n');
   }
+
+  const request1Cv3_2 = new Request1Cv3(auth_data.token, null, null, ctx);
+  await request1Cv3_2.add('Client.GetContactInfo', { ClientID: auth_data.client_id }).do();
+  let contact_info = request1Cv3_2.get();
+
+  if (contact_info.ok) {
+    get_common.contact_info = contact_info.data;
+  } else {
+    console.log('Error= ', contact_info);
+    wf_sync.append('/p/pancake/only_one/client_error.txt', JSON.stringify(get_common)+'\n');
+  }
+
   get_common.phone = auth_data.phone;
   console.log('\n\n===========================');
   console.log(`SUCCESS WRITE auth_data: ${JSON.stringify(auth_data, null, 2)} get_common: ${JSON.stringify(get_common, null, 2)}`);

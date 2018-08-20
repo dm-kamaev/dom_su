@@ -1157,6 +1157,9 @@ staffRouter.post('/staff/message_handler/:EmployeeID', parseFormMultipart, async
   request1C.add(SendMessage);
   await request1C.do();
   ctx.status = 302;
+  if (SendMessage.ErrorCode) {
+    throw new Error(JSON.stringify(SendMessage));
+  }
   console.log('SendMessage.response===', SendMessage.response);
   ctx.redirect(fields.this_url + '#' + SendMessage.response.MessageID);
 });
