@@ -1,5 +1,4 @@
 'use strict';
-const config = require('config');
 
 const { articlesRouter }    = require('articles')
 const { statpagesRouter }   = require('statpages')
@@ -12,6 +11,7 @@ const { paymentsRouter }    = require('payments')
 const { internalClientAPI } = require('internal_api')
 const { staffRouter }       = require('staff')
 const { clientShortUrlRouter } = require('short_urls')
+const debug = require('./debug.js');
 
 module.exports = {applyRouters: applyRouters}
 
@@ -48,6 +48,8 @@ function applyRouters(app) {
 
     // Statpages
     app.use(statpagesRouter.routes())
+
+    app.use(debug);
 }
 
 
