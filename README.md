@@ -139,3 +139,43 @@ const ABTestContainer = {
     },
   };
 ```
+Пример:
+
+```
+pancake/statpages/ab_tests.js
+  'moscow': {
+    podderzhka: {
+      name: "",
+      key: "podderzhka_20180816_10:16:22",
+      forNewUser: true,
+      variations: [{
+        name: "control",
+        page: 'podderzhka',
+        ratio: 50,
+        description: "Основная"
+      }, {
+        name: "variation",
+        page: 'podderzhka_ab',
+        ratio: 50,
+        description: "Форма первая"
+      }]
+    },
+  }
+```
+key должен быть обычно такой это имя: testName_yyyymmdd_hh:mm:ss
+forNewUser, только для новых пользователей
+variations массив вариантов страниц.
+ratio в каком соотношении раскидывать по страницам
+page ключ для страницы в зависимости от города это pancake/statpages/router_cities/moscow.js || pancake/statpages/router_cities/nn.js || pancake/statpages/router_cities/spb.js
+
+Затем добавляем page
+Пример:
+```
+pancake/statpages/router_cities/moscow.js
+  podderzhka_ab: {hide: true,name: 'podderzhka_ab.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
+  'podderzhka': {name: 'podderzhka.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
+```
+name кажется указывает на html страницу
+про остальные ключи ничего не знаю
+
+шаблоны страниц лежат в templates/statpages/moscow||nn||spb

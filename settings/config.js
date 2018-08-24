@@ -23,6 +23,10 @@ const enum_api_1C = {
 
 const HOSTNAME = os.hostname();
 const CONF = config;
+CONF.mongodb = {
+  url: "mongodb://localhost/domovenok",
+};
+
 // const CONF = {
 //   env,
 //   pg: {

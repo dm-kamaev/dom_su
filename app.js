@@ -45,9 +45,13 @@ const userAgent = require('koa-useragent');
 const logger = require('/p/pancake/lib/logger.js');
 const robot_user = require('/p/pancake/user_manager/robot_user.js');
 const ab_test_api = require('/p/pancake/statpages/ab_test_api.js');
+const router_private = require('/p/pancake/private/router_private.js');
+const router_api_for_client_pa = require('/p/pancake/private/router_api_for_client_pa.js');
 
 process.on('uncaughtException', (err) => {
   logger.warn('ERROR= '+err.stack);
+  logger.warn('ERROR= '+err.stack);
+  // end client pa
 });
 
 process.on('unhandledRejection', (reason, p) => {
@@ -166,6 +170,13 @@ async function run() {
     applyRouters(appUser);
     appUser.use(routerProxyRequestTo1C.routes());
     appUser.use(routerStaffConversation.routes());
+
+    // client pa
+    app.use(router_private.middleware_for_difficult_url);
+    app.use(router_private.routes());
+    app.use(router_api_for_client_pa.routes());
+    // end client pa
+
     app.use(router_aj.routes());
     app.use(router_for_1c.routes());
     app.use(router.get('/custom_bashrc', async ctx => {
