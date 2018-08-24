@@ -8,9 +8,9 @@ const qs = require('querystring');
 // const time = require('/p/clientPA/my/time.js');
 const logger = require('/p/pancake/lib/logger.js');
 const AuthApi = require('/p/pancake/auth/authApi.js');
-// const Magic_url = require('/p/pancake/private/Magic_url.js');
+const Magic_url = require('/p/pancake/private/Magic_url.js');
 // const Request1Cv3 = require('/p/pancake/api1c/request1Cv3.js');
-// const PromoCode = require('/p/pancake/private/mongo_models/PromoCode.js');
+const Action_link = require('/p/pancake/private/mongo_models/Action_link.js');
 
 const router_api = module.exports = new Router({
   prefix: '/api'
@@ -71,27 +71,47 @@ router_api.post('/quick_auth', check_access, async function(ctx){
 });
 
 
-// router_api.post('/action_link', check_access, async function(ctx){
-//   const body = ctx.request.body;
-//   try {
-//     const key = await ActionLink.generate(body.content, JSON.stringify(body.action), body.headers)
-//     const fullActionLink = UrlBox.getActionLink(key);
-//     ctx.status =200;
-//     ctx.body = {
-//       success: true,
-//       data: {
-//         url: fullActionLink
-//       }
-//     };
-//   } catch (err) {
-//     logger.warn(err);
-//     ctx.status = 200;
-//     ctx.body = {
-//       success: false,
-//       error: err.stack.toString()
-//     });
+// request ---
+// {
+//   "action": {
+//     "Сообщение": "\"¦ref¦46c58fc3-cfbf-47b5-8d52-ca19a21bc640÷4781×81e3073ecde09a8c49a63cfadfb948f5¦\"",
+//     "ИдентификаторОтписки": "7e497071-e163-4181-895b-9ff647789ece",
+//     "Контакт": "\"¦ref¦fe4a54a4-c11a-4b32-83e4-94332dc968b0÷35×80e400155d59490011e6c6bb8ae77c1d¦\"",
+//     "Подписчик": "\"¦ref¦5515dced-1066-4436-b377-6c5bd5b05e6c÷33×80e400155d59490011e6c6bac424bc57¦\"",
+//     "ВидУведомления": "\"¦ref¦310eec49-7cda-4bbe-bc07-b0c6ab86f481÷5498×80e200155d59490011e65d9ea5f76d16¦\"",
+//     "action": "unsubscribe"
+//   },
+//   "content": "<h1>Вы успешно отписались от рассылки</h1>",
+//   "headers": "<title>Вы успешно отписались от рассылки</title>"
+// }
+// responce ––
+// {
+//   "success": true,
+//   "data": {
+//     "url": "https://www.domovenok.su/action/46870466f1aa4145a45a0e2c9244792c"
 //   }
-// });
+// }
+router_api.post('/action_link', check_access, async function(ctx){
+  const body = ctx.request.body;
+  try {
+    const key = await Action_link.generate(body.content, JSON.stringify(body.action), body.headers);
+    const fullActionLink = new Magic_url().getActionLink(key);
+    ctx.status =200;
+    ctx.body = {
+      success: true,
+      data: {
+        url: fullActionLink
+      }
+    };
+  } catch (err) {
+    logger.warn(err);
+    ctx.status = 200;
+    ctx.body = {
+      success: false,
+      error: err.stack.toString()
+    };
+  }
+});
 
 
 
