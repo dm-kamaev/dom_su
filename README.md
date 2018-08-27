@@ -4,11 +4,10 @@
 ```sh
   /p/log/ –––––
               |
-              | -- access_log/
-              | -- app/
-              | -- pm2/
-              | -- auth/ # log by auth user
-                      | –– 201801
+              | -- access_log/  access_log for pancake
+              | -- pm2/  all logs pm2
+              | -- payment/  all logs about payment
+
 ```
 
 
@@ -91,17 +90,21 @@
 
 ```
 
-## Make template dump for dev postgres and insert
+## Make template dump for dev postgres
 ```sh
-scp ~/Downloads/20180705_schema_domovenok.sql dmitrijd@192.168.1.145:~/20180705_schema_domovenok.sql;
-scp ~/Downloads/20180705_data_domovenok.sql dmitrijd@192.168.1.145:~/20180705_data_domovenok.sql;
+# only schema
+pg_dump -s -U domovenok -h localhost -d domovenok > ~/20180705_schema_domovenok.sql
+# only data for table
+pg_dump --data-only -d domovenok -t pgmigrations -t articles -t cities -t phones -t employee_news -t news -t payments -t pictures -t reviews -t reviews_count -t reviews_average_rating  -t short_url > ~/20180705_data_domovenok.sql
+```
 
+# Insert dump
 dropdb -U domovenok -h localhost pancake
 createdb -U domovenok -h localhost pancake
 password for dev: domovenokPG
 
-psql -U domovenok -h localhost -d pancake < /home/dmitrijd/20180705_shema_domovenok.sql
-psql -U domovenok -h localhost -d pancake < /home/dmitrijd/20180705_data_domovenok.sql
+psql -U domovenok -h localhost -d pancake < ~/20180705_shema_domovenok.sql
+psql -U domovenok -h localhost -d pancake < ~/20180705_data_domovenok.sql
 ```
 
 ## Cron script
@@ -111,6 +114,9 @@ psql -U domovenok -h localhost -d pancake < /home/dmitrijd/20180705_data_domoven
 
  # to decouple the users phone number
  node /p/pancake/cron/calc_count_for_reviews.js
+
+ # where are cron scriptы
+ sudo nano /etc/crontab
 ```
 
 ## How create a/b test
@@ -139,3 +145,43 @@ const ABTestContainer = {
     },
   };
 ```
+Пример:
+
+```
+pancake/statpages/ab_tests.js
+  'moscow': {
+    podderzhka: {
+      name: "",
+      key: "podderzhka_20180816_10:16:22",
+      forNewUser: true,
+      variations: [{
+        name: "control",
+        page: 'podderzhka',
+        ratio: 50,
+        description: "Основная"
+      }, {
+        name: "variation",
+        page: 'podderzhka_ab',
+        ratio: 50,
+        description: "Форма первая"
+      }]
+    },
+  }
+```
+key должен быть обычно такой это имя: testName_yyyymmdd_hh:mm:ss
+forNewUser, только для новых пользователей
+variations массив вариантов страниц.
+ratio в каком соотношении раскидывать по страницам
+page ключ для страницы в зависимости от города это pancake/statpages/router_cities/moscow.js || pancake/statpages/router_cities/nn.js || pancake/statpages/router_cities/spb.js
+
+Затем добавляем page
+Пример:
+```
+pancake/statpages/router_cities/moscow.js
+  podderzhka_ab: {hide: true,name: 'podderzhka_ab.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
+  'podderzhka': {name: 'podderzhka.html', ServiceName: 'Поддерживающая уборка', data:{ menu:{ podderzhka: true}}},
+```
+name кажется указывает на html страницу
+про остальные ключи ничего не знаю
+
+шаблоны страниц лежат в templates/statpages/moscow||nn||spb

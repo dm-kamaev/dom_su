@@ -45,7 +45,7 @@ void async function () {
       setTimeout(async function() {
         count_employee_id--;
         console.log('remained= ', count_employee_id);
-        resolve(request(auth_data, ctx));
+        resolve(request(auth_data, file_name, ctx));
       }, 2000);
     });
   });

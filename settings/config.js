@@ -5,6 +5,7 @@
 // КОНФИГУРАЦИОННЫЙ ФАЙЛ
 
 const os = require('os');
+const url = require('url');
 const config = require('/p/pancake/settings/config_pancake.json');
 
 if (!config.env) {
@@ -23,6 +24,10 @@ const enum_api_1C = {
 
 const HOSTNAME = os.hostname();
 const CONF = config;
+CONF.mongodb = {
+  url: "mongodb://localhost/domovenok",
+};
+
 // const CONF = {
 //   env,
 //   pg: {
@@ -47,6 +52,11 @@ module.exports = function() {
   CONF.ws = { // websocket
     address: 'ws://127.0.0.1:8888/ws',
     auth_key: 'SNYn4U1OqDWWxSBd1gZR',
+  };
+  const { protocol, host, } = url.parse(CONF.domain);
+  CONF.domain_object = {
+    protocol, // https:
+    host
   };
   switch (env) {
     case 'dev1':

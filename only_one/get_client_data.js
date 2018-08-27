@@ -48,14 +48,16 @@ void async function () {
         count_client_id--;
         console.log('remained= ', count_client_id);
         resolve(request(auth_data, file_name, ctx));
-      }, 4000);
+      }, 3000);
     });
   });
+  console.log('=== END ===');
+  global.process.exit();
 }();
 
 
 async function request(auth_data, file_name, ctx) {
-  const request1Cv3 = new Request1Cv3(auth_data.token, null, null, ctx);
+  const request1Cv3 = new Request1Cv3(auth_data.token, auth_data.uuid, null, ctx);
   await request1Cv3.add('Client.GetCommon', { ClientID: auth_data.client_id }).do();
   let get_common = request1Cv3.get();
   if (get_common.ok) {
@@ -65,7 +67,7 @@ async function request(auth_data, file_name, ctx) {
     wf_sync.append('/p/pancake/only_one/client_error.txt', JSON.stringify(get_common)+'\n');
   }
 
-  const request1Cv3_2 = new Request1Cv3(auth_data.token, null, null, ctx);
+  const request1Cv3_2 = new Request1Cv3(auth_data.token, auth_data.uuid, null, ctx);
   await request1Cv3_2.add('Client.GetContactInfo', { ClientID: auth_data.client_id }).do();
   let contact_info = request1Cv3_2.get();
 

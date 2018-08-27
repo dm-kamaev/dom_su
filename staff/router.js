@@ -1011,8 +1011,7 @@ staffRouter.get('/staff/:EmployeeID/rating', loginRequired(getEmployeeHeader(asy
 })));
 
 
-// Rating index
-staffRouter.get('/staff/:EmployeeID/rating2', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx) {
+async function render_vue_template(ctx, next, request1C, GetEmployeeData, templateCtx) {
   let GetRatingInfo = new Method1C('GetRatingInfo', {'EmployeeID': templateCtx.employeeId});
   let GetSavingFundInfo = new Method1C('GetSavingFundInfo', {'EmployeeID': templateCtx.employeeId});
   let template;
@@ -1033,13 +1032,15 @@ staffRouter.get('/staff/:EmployeeID/rating2', loginRequired(getEmployeeHeader(as
       detail.DailyChangesJSON = JSON.stringify(detail.DailyChanges);
     }
   }
-  if (isMobileVersion(ctx)){
-    template = getTemplate(staffTemplate.mobile.index_vue);
-  } else {
-    template = getTemplate(staffTemplate.mobile.index_vue);
-  }
+  template = getTemplate(staffTemplate.mobile.index_vue);
   ctx.body = template(ctx.proc(templateCtx, ctx));
-})));
+};
+
+// Rating index
+staffRouter.get('/staff/:EmployeeID/rating2', loginRequired(getEmployeeHeader(render_vue_template)));
+
+// Rating and percent new
+staffRouter.get('/staff/:EmployeeID/rating2/rating_and_percent', loginRequired(getEmployeeHeader(render_vue_template)));
 
 // Rating history
 staffRouter.get('/staff/:EmployeeID/rating_history', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx){
