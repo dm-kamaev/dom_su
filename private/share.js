@@ -45,7 +45,7 @@ share.render_page_share = async function (ctx, uuidMUVal0) {
     context.PromoCode = result[1];
     const template = result[2].toString();
     // addCsrf(req, context, meta);
-
+    context.authUrl = '/private/auth';
     context.inviteUrl = ctx.request.url;
     if (context.PromoCode) {
       // console.log('PromoCode in mongodb', context.PromoCode);
