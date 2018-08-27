@@ -51,6 +51,7 @@
   <link rel="yandex-tableau-widget" href="/yandex/manifest.json" />
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,400,700&amp;subset=cyrillic" rel="stylesheet">
+
   <link rel="stylesheet" href="/static/pancake/css/style.landing.min.css?v0.62">
 
 
@@ -151,10 +152,10 @@
 							<span class="window__title  window__title--services  window__title--bold">от  1 490 рублей</span>
 						</p>
 						<p class="window__text  window__text--services">Поддерживающая уборка нужна для сохранения чистоты и порядка в доме.</p>
-						<button class="window__button  window__button--services  button--application  button" data-name="service-order" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderMenuButton"}'>Заказать</button>
+						<a href="#service-calc" class="window__button  window__button--services  button" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderMenuButton"}'>Заказать</a>
 					</div>
         </div>
-        <a href="{{buildUrl general.city '/mite_okon'}}" class="window__offer">
+        <a id="service-calc" href="{{buildUrl general.city '/mite_okon'}}" class="window__offer">
           <p class="window__offer-text  text">Интересует мытье окон?</p>
         </a>
       </section>
