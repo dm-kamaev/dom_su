@@ -47,6 +47,7 @@ module.exports = class Magic_url {
     /* Domovenok */
     // this.domovenokUrl = config.get('sitePath:schema') + '://' + config.get('sitePath:domain');
     // this.paUrl = config.get('serverPath:schema') + '://' + config.get('serverPath:domain');
+    this.paUrl = CONF.domain_object.protocol + '//' + CONF.domain_object.host;
     // this.paPublicUrl = 'http://' + config.get('serverPath:domain');
     this.domovenokReview = '/otzivi/form/';
     /* End */
