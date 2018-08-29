@@ -86,15 +86,17 @@
     }
     </style>
     {{#if GetSavingFundInfo }}
-        {{#ifCond GetSavingFundInfo.Norm '!=' 0 }}
-            <span style="margin-bottom: 0; padding-left: 8px; display: inline-block"><b>В накопительном фонде:</b></span>
-            <br>
-            <span class="orange-color" style="margin-bottom: 0; padding-left: 8px;">{{ GetSavingFundInfo.Amount }} руб.</span>
-            <br><br>
-            <span style="margin-bottom: 0; padding-left: 8px; display: inline-block"><b>Должно быть:</b></span>
-            <br>
-            <span style="margin-bottom: 0; padding-left: 8px;" class="orange-color">{{ GetSavingFundInfo.Norm }},00 руб.</span>
-            <br><br>
+        {{#ifCond GetEmployeeData.EmployedAfter20180801 '===' false }}
+            {{#ifCond GetSavingFundInfo.Norm '!=' 0 }}
+                <span style="margin-bottom: 0; padding-left: 8px; display: inline-block"><b>В накопительном фонде:</b></span>
+                <br>
+                <span class="orange-color" style="margin-bottom: 0; padding-left: 8px;">{{ GetSavingFundInfo.Amount }} руб.</span>
+                <br><br>
+                <span style="margin-bottom: 0; padding-left: 8px; display: inline-block"><b>Должно быть:</b></span>
+                <br>
+                <span style="margin-bottom: 0; padding-left: 8px;" class="orange-color">{{ GetSavingFundInfo.Norm }},00 руб.</span>
+                <br><br>
+            {{/ifCond}}
         {{/ifCond}}
     {{/if}}
     {{#if GetRatingInfo.Date}}<p style="margin-bottom: 0; padding-left: 8px;"><b>Рейтинг расчитан на: </b><br/><span>{{ formatPartDate dep.Date "DD.MM.YYYY" }}</span></p>{{/if}}

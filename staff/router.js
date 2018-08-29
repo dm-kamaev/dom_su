@@ -992,6 +992,12 @@ staffRouter.get('/staff/:EmployeeID/rating', loginRequired(getEmployeeHeader(asy
   templateCtx.GetSavingFundInfo = GetSavingFundInfo.response;
   templateCtx.GetEmployeeData = GetEmployeeData.response;
 
+  // FOR TEST
+  // |
+  // V
+  // templateCtx.GetEmployeeData.EmployedAfter20180801 = true;
+  console.dir(templateCtx.GetEmployeeData, { depth: 20, colors: true });
+
   if (templateCtx.GetRatingInfo && templateCtx.GetRatingInfo.Details){
     for (let detail of templateCtx.GetRatingInfo.Details){
       if (detail.Rating == 'Оценка'){
@@ -1036,11 +1042,14 @@ async function render_vue_template(ctx, next, request1C, GetEmployeeData, templa
   ctx.body = template(ctx.proc(templateCtx, ctx));
 };
 
-// Rating index
-staffRouter.get('/staff/:EmployeeID/rating2', loginRequired(getEmployeeHeader(render_vue_template)));
+[
+  '/staff/:EmployeeID/rating2', // new Rating index
+  '/staff/:EmployeeID/rating2/rating_and_percent', // Rating and percent new
+  '/staff/:EmployeeID/rating2/become_domovenok',// Become domovenok
+].forEach(url =>
+  staffRouter.get(url, loginRequired(getEmployeeHeader(render_vue_template)))
+);
 
-// Rating and percent new
-staffRouter.get('/staff/:EmployeeID/rating2/rating_and_percent', loginRequired(getEmployeeHeader(render_vue_template)));
 
 // Rating history
 staffRouter.get('/staff/:EmployeeID/rating_history', loginRequired(getEmployeeHeader(async function (ctx, next, request1C, GetEmployeeData, templateCtx){
