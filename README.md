@@ -145,29 +145,7 @@ const ABTestContainer = {
     },
   };
 ```
-Пример:
 
-```
-pancake/statpages/ab_tests.js
-  'moscow': {
-    podderzhka: {
-      name: "",
-      key: "podderzhka_20180816_10:16:22",
-      forNewUser: true,
-      variations: [{
-        name: "control",
-        page: 'podderzhka',
-        ratio: 50,
-        description: "Основная"
-      }, {
-        name: "variation",
-        page: 'podderzhka_ab',
-        ratio: 50,
-        description: "Форма первая"
-      }]
-    },
-  }
-```
 key должен быть обычно такой это имя: testName_yyyymmdd_hh:mm:ss
 forNewUser, только для новых пользователей
 variations массив вариантов страниц.

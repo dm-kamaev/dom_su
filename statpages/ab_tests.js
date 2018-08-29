@@ -16,12 +16,14 @@ const ABTestContainer = {
         name: "control",
         page: 'podderzhka',
         ratio: 50,
-        description: "Основная"
+        description: "Основная",
+	visited: 0,
       }, {
         name: "variation",
         page: 'podderzhka_ab',
         ratio: 50,
-        description: "Форма первая"
+        description: "Форма первая",
+	visited: 0,
       }]
     },
     // 'posle_remonta': { name: "", key: "posle_remonta_2_new_design", forNewUser: true, variations: [
