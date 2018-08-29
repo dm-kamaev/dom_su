@@ -106,12 +106,14 @@ function test (data, target) {
     </style>
     <h1>Рейтинг</h1>
     {{#if GetSavingFundInfo }}
-        {{#ifCond GetSavingFundInfo.Norm '!=' 0 }}
-            <span style="margin-bottom: 0; padding-left: 8px;width: 170px; display: inline-block"><b>В накопительном фонде:</b></span><span class="orange-color"><b>{{ GetSavingFundInfo.Amount }}</b> руб.</span>
-            <br>
-            <br>
-            <span style="margin-bottom: 0; padding-left: 8px;width: 170px; display: inline-block"><b>Должно быть:</b> </span><span class="orange-color"><b>{{ GetSavingFundInfo.Norm }},00 </b>руб.</span>
-            <br><br><br>
+        {{#ifCond GetEmployeeData.EmployedAfter20180801 '===' false }}
+            {{#ifCond GetSavingFundInfo.Norm '!=' 0 }}
+                <span style="margin-bottom: 0; padding-left: 8px;width: 170px; display: inline-block"><b>В накопительном фонде:</b></span><span class="orange-color"><b>{{ GetSavingFundInfo.Amount }}</b> руб.</span>
+                <br>
+                <br>
+                <span style="margin-bottom: 0; padding-left: 8px;width: 170px; display: inline-block"><b>Должно быть:</b> </span><span class="orange-color"><b>{{ GetSavingFundInfo.Norm }},00 </b>руб.</span>
+                <br><br><br>
+            {{/ifCond}}
         {{/ifCond}}
     {{/if}}
     {{#if GetRatingInfo.Date}}<p style="margin-bottom: 0; padding-left: 8px;"><b>Рейтинг расчитан на: </b><span>{{ formatPartDate dep.Date "DD.MM.YYYY" }}</span></p>{{/if}}

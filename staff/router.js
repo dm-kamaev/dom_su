@@ -996,7 +996,6 @@ staffRouter.get('/staff/:EmployeeID/rating', loginRequired(getEmployeeHeader(asy
   // |
   // V
   // templateCtx.GetEmployeeData.EmployedAfter20180801 = true;
-  console.dir(templateCtx.GetEmployeeData, { depth: 20, colors: true });
 
   if (templateCtx.GetRatingInfo && templateCtx.GetRatingInfo.Details){
     for (let detail of templateCtx.GetRatingInfo.Details){
