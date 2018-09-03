@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <title>Личный кабинета компании Домовенок</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui" />
+    {{ #debug }}
+    <meta name="robots" content="noindex, nofollow">
+    {{ /debug }}
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/general/img/apple-touch-icon-57x57.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/general/img/apple-touch-icon-60x60.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/general/img/apple-touch-icon-72x72.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/general/img/apple-touch-icon-76x76.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/general/img/apple-touch-icon-114x114.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/general/img/apple-touch-icon-120x120.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/general/img/apple-touch-icon-144x144.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/general/img/apple-touch-icon-152x152.png?v=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/general/img/apple-touch-icon-180x180.png?v=1.0">
+    <link rel="icon" type="image/png" href="/static/general/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
+    <link rel="icon" type="image/png" href="/static/general/img/favicon-16x16.png?v=1.01" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/general/img/favicon-32x32.png?v=1.01" sizes="32x32">
+    <link rel="icon" type="image/png" href="/static/general/img/favicon-48x48.png?v=1.0" sizes="48x48">
+    <link rel="manifest" href="/static/general/manifest.json?v=1.02">
+    <link rel="mask-icon" href="/static/general/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
+    <link rel="yandex-tableau-widget" href="/yandex/manifest.json" />
+    <meta name="apple-mobile-web-app-title" content="Domovenok">
+    <meta name="application-name" content="Domovenok">
+    <meta name="msapplication-TileColor" content="#fd8204">
+    <meta name="msapplication-TileImage" content="/static/general/img/mstile-144x144.png?v=1.0">
+    <meta name="msapplication-config" content="/static/general/browserconfig.xml?v=1.02">
+    <meta name="theme-color" content="#fd8204">
+
+    <link rel="stylesheet" href="/static/general/css/style.min.css?v=1.23">
+
+    <script>
+      var generalPath = {
+        schema: '{{pathSchema}}',
+        domain: '{{pathDomain}}',
+        url: '{{pathUrl}}'
+      };
+      generalPath.buildUrl = function (additional) {
+        var build = '/' + this.url + '/';
+        if (additional)
+          build += additional;
+        return build
+      }
+    </script>
+
+  </head>
+
+  <body class="page page--authorization">
+    <!-- Page wrapper -->
+    <div class="page__wrap">
+      <!-- Page Header -->
+      <header class="page-header  page-header--scroll  {{ #GetCommon.response }}page-header--contact{{ /GetCommon.response }}">
+
+        <div class="page-header__top">
+          <a class="main-menu__btn  main-menu__btn--open" href>
+            <svg class="main-menu__image" width="31" height="23.9" viewBox="0 0 31 23.9">
+              <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
+              <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
+              <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
+            </svg>
+          </a>
+          <a class="page-header__logo" href="https://www.domovenok.su"><img height="38" width="152" src="/static/general/img/logo.svg"
+                                                    alt="Логотип"></a>
+          {{! TODO calltracking }}
+          <a class="page-header__tel" href="tel: +74956680468"><span class="page-header__tel-brown">8 (495)</span> 668-04-68</a>
+        </div>
+
+        <div class="page-header__wrap">
+          <a class="main-menu__icon-close  icon-close" href="#">
+            <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+              <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1"
+                    style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+              <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1"
+                    style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+            </svg>
+          </a>
+
+          <!--Main Menu-->
+          <nav class="page-header__main-menu  main-menu  scroll-container">
+
+            <ul class="main-menu__list">
+              {{ ^GetCommon.response }}
+              <li class="main-menu__item">
+                <a class="main-menu__link"  href="{{ authUrl }}">
+                  Войти
+                </a>
+              </li>
+              {{ /GetCommon.response }}
+              {{ #GetCommon.response }}
+
+              <li class="main-menu__item  main-menu__item--sub  main-menu__item--active">
+                <a class="main-menu__link"  href="">
+                  {{ GetCommon.response.FullTitle }}
+                </a>
+
+                <!--Sub Menu-->
+                <ul class="main-menu__list  main-menu__list--sub">
+                  <li class="main-menu__item-sub  main-menu__item-sub--active">
+                    <a class="main-menu__link-sub" href="{{ordersUrl}}">
+                      Заказы
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub  main-menu__link-sub--application" href="">
+                      Оставить заявку
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub  main-menu__link-sub--application" href="{{inviteUrl}}">
+                      Уборки бесплатно
+                    </a>
+                  </li>
+                  {{ #changeToEmployee }}
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/staff/">
+                      ЛК сотрудника
+                    </a>
+                  </li>
+                  {{ /changeToEmployee }}
+                  <li class="main-menu__item-sub  main-menu__item-sub--exit">
+                    <a class="main-menu__link-sub" href="/private/logout?_csrf={{ logoutCsrf }}">Выход</a>
+                  </li>
+                </ul>
+                <!--/Sub Menu-->
+              </li>
+              {{ /GetCommon.response }}
+
+              <li class="main-menu__item">
+                <a class="main-menu__link" href="/podderzhka">
+                  Поддерживающая уборка
+                </a>
+              </li>
+
+              <li class="main-menu__item">
+                <a class="main-menu__link" href="/generalnaya_uborka">
+                  Генеральная уборка
+                </a>
+              </li>
+
+              <li class="main-menu__item">
+                <a class="main-menu__link" href="/mite_okon">
+                  Мытьё окон
+                </a>
+              </li>
+
+              <li class="main-menu__item  main-menu__item--sub">
+                <a class="main-menu__link">
+                  Физическим лицам
+                </a>
+
+                <!--Sub Menu-->
+                <ul class="main-menu__list  main-menu__list--sub">
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/domrabotnica">
+                      Домработница
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub" >
+                    <a class="main-menu__link-sub" href="/glazhka">
+                      Глажка
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/posle_remonta">
+                      Уборка после ремонта
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/uborka-kottedzhej">
+                      Уборка коттеджей
+                    </a>
+                  </li>
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/himchistka">
+                      Химчистка
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/vizov_mastera_na_dom">
+                      Домашний мастер
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/obrabotka_poverhnostey">
+                      Обработка поверхностей
+                    </a>
+                  </li>
+
+                </ul>
+                <!--/Sub Menu-->
+
+              </li>
+
+              <li class="main-menu__item  main-menu__item--sub">
+                <a class="main-menu__link">
+                  Юридическим лицам
+                </a>
+
+                <!--Sub Menu-->
+                <ul class="main-menu__list  main-menu__list--sub">
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/uborka_ofisov">
+                      Уборка офисов
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/uborka-proizvodstvennyh-pomewenij">
+                      Уборка производственных помещений
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/ofisnyy-master">
+                      Офисный мастер
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/mite_stekol">
+                      Мытьё стекол
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/myte-fasadov">
+                      Мытьё фасадов
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/promyshlennyj-alpinizm">
+                      Промышленный альпинизм
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/obrabotka_poverhnostey">
+                      Обработка поверхностей
+                    </a>
+                  </li>
+
+                </ul>
+                <!--/Sub Menu-->
+
+              </li>
+
+              <li class="main-menu__item  main-menu__item--sub">
+                <a class="main-menu__link">
+                  О нас
+                </a>
+
+                <!--Sub Menu-->
+                <ul class="main-menu__list  main-menu__list--sub">
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/">
+                      Главная
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/about/">
+                      О компании
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/uslugi/">
+                      Услуги
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/vazhno_znat/">
+                      Важно знать
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/faq/">
+                      Вопросы и ответы
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/news/">
+                      Новости
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/articles/">
+                      Статьи
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/gallery/">
+                      Галерея
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/skidki_akcii/">
+                      Специальные акции
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/vakansii/">
+                      Вакансии
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/davay_druzhit/">
+                      Обслуживание по графику
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/otzivi/">
+                      Отзывы
+                    </a>
+                  </li>
+
+                  <li class="main-menu__item-sub">
+                    <a class="main-menu__link-sub" href="/price/">
+                      Цены
+                    </a>
+                  </li>
+
+                </ul>
+                <!--/Sub Menu-->
+
+              </li>
+
+              <li class="main-menu__item">
+                <a class="main-menu__link"  href="/contacts/">
+                  Контакты
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <!--/Main Menu-->
+
+          <!--Contacts-->
+          {{ #GetCommon.response }}
+          <div class="page-header__contact  contact">
+            <a class="contact__callback" href>Свяжитесь со мной</a>
+          </div>
+          {{ /GetCommon.response }}
+          <!--/Contacts-->
+
+        </div>
+
+      </header>
+      <!-- /Page Header -->
+      <!-- Main Content -->
+      <main class="page__main-content  main-content">
+
+        <div class="authorization">
+          <h3 class="authorization__heading  title">Вход в личный кабинет</h3>
+
+          <form class="authorization__form  authorization__form--tel">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            <label class="authorization__label  label" for="phone">
+              Введите номер телефона
+              <input type="tel" class="authorization__input  authorization__input--tel  input" id="phone" name="phone">
+            </label>
+            <button class="authorization__button  authorization__button--getpassword  button" type="submit">Выслать код</button>
+          </form>
+
+          <form class="authorization__form  authorization__form--code  authorization__form--hide">
+            <label class="authorization__label  label" for="password">Введите SMS-код отправленный на телефон
+              <input type="number" class="authorization__input  authorization__input--password  input" id="password" name="code" autocomplete = "off" autofocus>
+            </label>
+            <input type="hidden" id="isMobile" name="isMobile">
+            <button class="authorization__button  button" type="submit">Отправить</button>
+          </form>
+
+        </div>
+      </main>
+    </div>
+
+    <script src="/static/general/js/script.min.js?v=1.36"></script>
+
+
+    {{ ^debug }}
+    <noscript>
+      <iframe src="//www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+          'gtm.start': new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-PHD7WW');
+    </script>
+    {{ /debug }}
+
+  </body>
+</html>

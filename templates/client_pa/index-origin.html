@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Личный кабинет клиента компании Домовенок</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, minimal-ui" />
+  <meta name="format-detection" content="telephone=no">
+  {{ #debug }}
+  <meta name="robots" content="noindex, nofollow">
+  {{ /debug }}
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/static/general/img/apple-touch-icon-57x57.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="60x60" href="/static/general/img/apple-touch-icon-60x60.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="72x72" href="/static/general/img/apple-touch-icon-72x72.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="76x76" href="/static/general/img/apple-touch-icon-76x76.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="114x114" href="/static/general/img/apple-touch-icon-114x114.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="120x120" href="/static/general/img/apple-touch-icon-120x120.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="144x144" href="/static/general/img/apple-touch-icon-144x144.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="152x152" href="/static/general/img/apple-touch-icon-152x152.png?v=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/general/img/apple-touch-icon-180x180.png?v=1.0">
+  <link rel="icon" type="image/png" href="/static/general/img/android-chrome-192x192.png?v=1.0" sizes="192x192">
+  <link rel="icon" type="image/png" href="/static/general/img/favicon-16x16.png?v=1.01" sizes="16x16">
+  <link rel="icon" type="image/png" href="/static/general/img/favicon-32x32.png?v=1.01" sizes="32x32">
+  <link rel="icon" type="image/png" href="/static/general/img/favicon-48x48.png?v=1.0" sizes="48x48">
+  <link rel="manifest" href="/static/general/manifest.json?v=1.02">
+  <link rel="mask-icon" href="/static/general/img/safari-pinned-tab.svg?v=1.0" color="#fd8204">
+  <link rel="yandex-tableau-widget" href="/yandex/manifest.json" />
+  <meta name="apple-mobile-web-app-title" content="Domovenok">
+  <meta name="application-name" content="Domovenok">
+  <meta name="msapplication-TileColor" content="#fd8204">
+  <meta name="msapplication-TileImage" content="/static/general/img/mstile-144x144.png?v=1.0">
+  <meta name="msapplication-config" content="/static/general/browserconfig.xml?v=1.02">
+  <meta name="theme-color" content="#fd8204">
+
+  <link rel="stylesheet" href="/static/general/css/style.min.css?v=1.15">
+
+  <script src="//yastatic.net/share2/share.js"></script>
+  <base href="" >
+  <script>
+    var domovenokClient = {
+      name: '{{GetCommon.response.Name}}',
+      rating: '{{GetCommon.response.ReviewsRatingData.ReviewsRating}}',
+      numberRating: '{{GetCommon.response.ReviewsRatingData.NumberOfReviews}}'
+    };
+    var generalPath = {
+      schema: '{{pathSchema}}',
+//      domain: '{{pathDomain}}',
+      domain: 'dev2.domovenok.su',
+      url: '{{pathUrl}}'
+    };
+
+    generalPath.buildUrl = function (additional) {
+      var build = this.schema + '://' + this.domain + '/' + this.url + '/';
+      if (additional) {
+        build += additional;
+      }
+
+      return build;
+    };
+
+    {{ #help }}
+    var helpList = {{{ help.completed }}};
+
+    var popupIsAnswer =  {{ help.popupIsAnswer }};
+    var popupAnswerResult = {{ help.need }};
+
+    {{ /help }}
+
+
+    var departureList = {
+      begin: {{GetDepartureList.response.Begin}},
+    end: {{GetDepartureList.response.End}}
+    };
+    var clientId = '{{GetCommon.response.ClientID}}';
+
+    {{ #promotion }}
+    var promotionName = '{{promotion.name}}';
+    var promotionText= '{{{promotion.text}}}';
+    {{ /promotion }}
+    {{ ^promotion }}
+    var promotion = null;
+    {{ /promotion }}
+
+  </script>
+</head>
+<body class="page  page--orders">
+<!-- Page wrapper -->
+<div class="page__wrap">
+
+  <header class="page-header  page-header--contact">
+    <div class="page-header__top">
+      <button class="main-menu__btn  main-menu__btn--open">
+        <svg class="main-menu__image" width="31" height="23.9" viewBox="0 0 31 23.9">
+          <rect width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
+          <rect y="22.26" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
+          <rect y="11.13" width="31" height="1.64" rx="0.82" ry="0.82" fill="#fff"/>
+        </svg>
+      </button>
+      <a class="page-header__logo" href="https://www.domovenok.su"><img height="38" width="152" src="/static/general/img/logo.svg" alt="Логотип"></a>
+      {{! TODO calltracking }}
+      <a class="page-header__tel" href="tel: +74956680468"><span class="page-header__tel-brown">8 (495)</span> 668-04-68</a>
+    </div>
+
+    <div class="advertisment  advertisment--hide">
+      <a class="advertisment__btn  icon-close" href="#">
+        <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #ffffff;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 4px"/>
+          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #ffffff;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 4px"/>
+        </svg>
+      </a>
+      <p class="advertisment__text">-10% на <a class="advertisment__link" href="/himchistka">химчистки</a> и <a  class="advertisment__link" href="/vizov_mastera_na_dom">мастера</a> до 10.08. <br class="advertisment__mobile">Промокод: <b>ПорядокЛюбимым2017</b></p>
+    </div>
+
+    <div class="page-header__wrap">
+      <a class="main-menu__icon-close  icon-close" href="#">
+        <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+        </svg>
+      </a>
+
+      <!--Main Menu-->
+      <nav class="page-header__main-menu  main-menu  scroll-container">
+
+        <ul class="main-menu__list">
+          {{ ^GetCommon.response }}
+          <li class="main-menu__item">
+            <a class="main-menu__link"  href="{{ authUrl }}">
+              Войти
+            </a>
+          </li>
+          {{ /GetCommon.response }}
+          {{ #GetCommon.response }}
+          <li class="main-menu__item  main-menu__item--sub  main-menu__item--active">
+            <a class="main-menu__link"  href="">
+              {{ GetCommon.response.FullTitle }}
+            </a>
+
+            <!--Sub Menu-->
+            <ul class="main-menu__list  main-menu__list--sub">
+              <li class="main-menu__item-sub  main-menu__item-sub--active">
+                <a class="main-menu__link-sub" href="{{ordersUrl}}" id="openOrderDefine">
+                  Заказы
+                </a>
+              </li>
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub  main-menu__link-sub--invite" href="{{inviteUrl}}">
+                  Уборки бесплатно
+                </a>
+              </li>
+              {{ #changeToEmployee }}
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/staff/">
+                  ЛК сотрудника
+                </a>
+              </li>
+              {{ /changeToEmployee }}
+              <li class="main-menu__item-sub  main-menu__item-sub--exit">
+                <a class="main-menu__link-sub" href="/private/logout?_csrf={{ logoutCsrf }}">Выход</a>
+              </li>
+            </ul>
+            <!--/Sub Menu-->
+          </li>
+          {{ /GetCommon.response }}
+
+          <li class="main-menu__item">
+            <a class="main-menu__link" href="/podderzhka">
+              Поддерживающая уборка
+            </a>
+          </li>
+
+          <li class="main-menu__item">
+            <a class="main-menu__link" href="/generalnaya_uborka">
+              Генеральная уборка
+            </a>
+          </li>
+
+          <li class="main-menu__item">
+            <a class="main-menu__link" href="/mite_okon">
+              Мытьё окон
+            </a>
+          </li>
+
+          <li class="main-menu__item  main-menu__item--sub">
+            <a class="main-menu__link">
+              Физическим лицам
+            </a>
+
+            <!--Sub Menu-->
+            <ul class="main-menu__list  main-menu__list--sub">
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/domrabotnica">
+                  Домработница
+                </a>
+              </li>
+              <li class="main-menu__item-sub" >
+                <a class="main-menu__link-sub" href="/glazhka">
+                  Глажка
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/posle_remonta">
+                  Уборка после ремонта
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/uborka-kottedzhej">
+                  Уборка коттеджей
+                </a>
+              </li>
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/himchistka">
+                  Химчистка
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/vizov_mastera_na_dom">
+                  Домашний мастер
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/obrabotka_poverhnostey">
+                  Обработка поверхностей
+                </a>
+              </li>
+
+            </ul>
+            <!--/Sub Menu-->
+
+          </li>
+
+          <li class="main-menu__item  main-menu__item--sub">
+            <a class="main-menu__link">
+              Юридическим лицам
+            </a>
+
+            <!--Sub Menu-->
+            <ul class="main-menu__list  main-menu__list--sub">
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/uborka_ofisov">
+                  Уборка офисов
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/uborka-proizvodstvennyh-pomewenij">
+                  Уборка производственных помещений
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/ofisnyy-master">
+                  Офисный мастер
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/mite_stekol">
+                  Мытьё стекол
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/myte-fasadov">
+                  Мытьё фасадов
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/promyshlennyj-alpinizm">
+                  Промышленный альпинизм
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/obrabotka_poverhnostey">
+                  Обработка поверхностей
+                </a>
+              </li>
+
+            </ul>
+            <!--/Sub Menu-->
+
+          </li>
+
+          <li class="main-menu__item  main-menu__item--sub">
+            <a class="main-menu__link">
+              О нас
+            </a>
+
+            <!--Sub Menu-->
+            <ul class="main-menu__list  main-menu__list--sub">
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/">
+                  Главная
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/about/">
+                  О компании
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/uslugi/">
+                  Услуги
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/vazhno_znat/">
+                  Важно знать
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/faq/">
+                  Вопросы и ответы
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/news/">
+                  Новости
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/articles/">
+                  Статьи
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/gallery/">
+                  Галерея
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/skidki_akcii/">
+                  Специальные акции
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/vakansii/">
+                  Вакансии
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/davay_druzhit/">
+                  Обслуживание по графику
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/otzivi/">
+                  Отзывы
+                </a>
+              </li>
+
+              <li class="main-menu__item-sub">
+                <a class="main-menu__link-sub" href="/price/">
+                  Цены
+                </a>
+              </li>
+
+            </ul>
+            <!--/Sub Menu-->
+
+          </li>
+
+          <li class="main-menu__item">
+            <a class="main-menu__link"  href="/contacts/">
+              Контакты
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!--/Main Menu-->
+
+      <!--Contacts-->
+      <div class="page-header__contact  contact">
+        <span class="contact__callback" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "callbackLK"}'>Свяжитесь со мной</span>
+      </div>
+      <!--/Contacts-->
+
+    </div>
+
+  </header>
+  <!-- /Page Header -->
+
+
+  <!-- Main Content -->
+  <main class="page__main-content  main-content">
+
+    <!-- Left Side -->
+    <div class="left-side {{#NotOnlyDepartureList}}left-side--mobile{{/NotOnlyDepartureList}}">
+
+      <div class="left-side__top">
+
+        <div class="left-side__row">
+          <h1 class="left-side__title  title">Заказы</h1>
+          <button class="orders__button" type="button" data-name="application" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderLKButton"}'>+ Добавить новый</button>
+        </div>
+
+
+
+        <div class="left-side__selection  selection  selection--menu">
+          <button class="selection__btn">{{GetCommon.response.activeObjectTitle}}</button>
+          <ul class="selection__list">
+            {{#GetCommon.response.ObjectsList}}
+            <li class="selection__option">
+              <a class="selection__link" data-address="{{ObjectID}}" data-schedule="{{Schedule}}" href="{{link}}">{{AddressTitle}}</a>
+            </li>
+            {{/GetCommon.response.ObjectsList}}
+          </ul>
+        </div>
+
+        <!-- Orders Filter -->
+        <div class="orders__filter">
+          <a class="orders__option orders__option--actived {{#GetDepartureList.response.isActive}}orders__option--active{{/GetDepartureList.response.isActive}}" data-status="Active" >Актуальные</a>
+          <a class="orders__option orders__option--completed {{#GetDepartureList.response.isCompleted}}orders__option--active{{/GetDepartureList.response.isCompleted}}" data-status="Completed" >Выполненные</a>
+          <a class="orders__option orders__option--canceled {{#GetDepartureList.response.isCanceled}}orders__option--active{{/GetDepartureList.response.isCanceled}}" data-status="Canceled" >Отмененные</a>
+        </div>
+        <!-- Orders Filter -->
+
+
+        <div class="orders__schedule  orders__schedule--active {{ ^GetCommon.response.scheduleButton }}orders__schedule--hide{{ /GetCommon.response.scheduleButton }}" >
+          <button class="orders__schedule-text">График уборки</button>
+        </div>
+
+      </div>
+
+      <!-- Orders -->
+      <div class="left-side__content">
+        <div class="left-side__wrap {{#GetDepartureList.response.haveDepartures}}orders-wrap--list{{/GetDepartureList.response.haveDepartures}} scroll-container-unstable">
+
+
+            <div class="left-side__form {{#GetDepartureList.response.DepartureList}}left-side__form--hide{{/GetDepartureList.response.DepartureList}}">
+              <div class="application__wrap application__wrap--hide application__wrap--main" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "orderLKForm"}'>
+                  <form class="application__form">
+                      <h2 class="application__title  title">Форма заказа</h2>
+              
+                      <div class="application__row application__row--sm">
+                          <p class="application__label  label">Вид услуги</p>
+                          <div class="application__selection  selection  selection--grey  selection--square" data-option="podderzhka">
+                              <button class="selection__btn" type="button">Поддерживающая уборка</button>
+                              <ul class="selection__list  scroll-container">
+                                  <li class="selection__option" data-option="podderzhka" data-name="podderzhka" data-service="podderzhka" data-schedule="0x_week">Поддерживающая уборка</li>
+                                  <li class="selection__option" data-option="general" data-name="general" data-service="general" data-schedule="0x_week">Генеральная уборка</li>
+                                  <li class="selection__option" data-option="posle" data-name="posle" data-service="posle" data-class="space" data-feature="furniture" data-quantity="with">После ремонта</li>
+                                  <li class="selection__option" data-option="washwindow" data-name="washwindow" data-service="washwindow">Мытье окон</li>
+                              </ul>
+                          </div>
+                      </div>
+              
+                      <div class="application__row application__row--sm">
+                          <p class="application__label  label">Дата и время</p>
+                          <div class="application__timing">
+                              <div class="application__button-date  button-date" data-time="2017-06-13T11:07:42+03:00">
+                                  <button class="button-date__btn" data-name="service-calc-calendar" type="button"></button>
+                                  <div class="button-date__switch">
+                                      <span class="button-date__plus">Следующая</span>
+                                      <span class="button-date__minus button-date__minus--disabled">Предыдущая</span>
+                                  </div>
+                              </div>
+                              <div class="application__selection  selection  selection--square  selection--lg  selection--grey">
+                                  <button class="selection__btn" type="button">08:00</button>
+                                  <ul class="selection__list  scroll-container">
+                                      <li class="selection__option" data-option="9">09:00</li>
+                                      <li class="selection__option" data-option="10">10:00</li>
+                                      <li class="selection__option" data-option="11">11:00</li>
+                                      <li class="selection__option" data-option="12">12:00</li>
+                                      <li class="selection__option" data-option="13">13:00</li>
+                                      <li class="selection__option" data-option="14">14:00</li>
+                                      <li class="selection__option" data-option="15">15:00</li>
+                                      <li class="selection__option" data-option="16">16:00</li>
+                                      <li class="selection__option" data-option="17">17:00</li>
+                                      <li class="selection__option" data-option="18">18:00</li>
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+              
+                      <button class="application__button  button" type="submit">Узнать цену</button>
+                  </form>
+              </div>
+              <div class="application__wrap application__wrap--hide application__wrap--no-fixed application__wrap--price" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "orderLKFormPrice"}'>
+                  <form class="application__form">
+                      <p class="application__heading  text"></p>
+                      <div class="application__row">
+                          <label class="application__label application__label--promo label">Введите промокод:
+                              <input class="application__input  application__input--promo  input" type="text" name="name">
+                          </label>
+                      </div>
+              
+                      <div class="application__row application__row--hide">
+                          <p class="application__heading  text">С этим часто заказывают:</p>
+                          <div class="application__cards"></div>
+                      </div>
+                      <div class="application__button">
+                          <button class="application__button  button" type="submit">Заказать</button>
+                      </div>
+                  </form>
+              </div>
+            </div>
+
+
+          <div class="left-side__list articles">
+            {{^GetDepartureList.response.DepartureList}}
+            <p class="orders__note">
+              {{#GetDepartureList.response.isCompleted}}Выполненные заказы отсутствуют{{/GetDepartureList.response.isCompleted}}
+              {{#GetDepartureList.response.isCanceled}}Отмененные заказы отсутствуют{{/GetDepartureList.response.isCanceled}}
+            </p>
+            {{/GetDepartureList.response.DepartureList}}
+
+            <!-- Orders Items -->
+            {{#GetDepartureList.response.DepartureList}}
+            <div class="left-side__item orders-item {{#isActive}}left-side__item--active{{/isActive}}" data-id="{{DepartureID}}">
+              <div class="orders-item__col-left">
+                <p class="orders-item__number">№ {{OrderNumber}}</p>
+                <time class="orders-item__data" datetime="{{Date}}">{{formatDate}}</time>
+              </div>
+              <div class="orders-item__col-right">
+                <span class="orders-item__cost">{{TotalAmount}}</span>
+              </div>
+            </div>
+            {{/GetDepartureList.response.DepartureList}}
+          </div>
+
+        </div>
+      </div>
+      <!-- /Orders Items -->
+
+      <a class="btn-top  btn-top--hide" href="#">
+        <div>
+          <svg width="22.21" height="23.47" viewBox="0 0 22.21 23.47">
+            <path d="M1894.82,519.56l-3.26-3.54-4.76-5.18a3.42,3.42,0,0,0-4.84,0L1877.2,516l-3.26,3.54c-1.59,1.73-.15,4.27,2.42,4.27h4.31v5.76a3.71,3.71,0,0,0,7.42,0v-5.76h4.31C1895,523.83,1896.42,521.29,1894.82,519.56Z" transform="translate(-1873.28 -509.83)" style="fill: #fff"/>
+          </svg>
+        </div>
+      </a>
+
+    </div>
+    <!-- /Left Side -->
+
+    <!-- Right Side -->
+    <div class="right-side  right-side--hide {{#NotOnlyDepartureList}}right-side--mobile{{/NotOnlyDepartureList}} scroll-container-unstable">
+      {{#GetSchedule}}
+      {{#GetSchedule.response}}
+      <div class="right-side__wrap  right-side__wrap--schedule {{#GetDeparture}}right-side__wrap--hide{{/GetDeparture}}" data-departureid="{{ObjectID}}" data-status="Schedule">
+
+        <button class="right-side__btn  right-side__btn--close  icon-close" type="button">
+          <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+            <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+            <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+          </svg>
+        </button>
+
+        <header class="right-side__header">
+          <h2 class="right-side__title  right-side__title--schedule  title">График уборки</h2>
+        </header>
+
+        <!--Calendar-->
+        <div class="calendar">
+          <div class="calendar__wrap {{#GetSchedule.response.twoWeek}}calendar__wrap--periodicity{{/GetSchedule.response.twoWeek}}">
+            <div class="calendar__table">
+
+              <div class="calendar__list  calendar__list--week">
+                <span class="calendar__item  calendar__item--week">Пн</span>
+                <span class="calendar__item  calendar__item--week">Вт</span>
+                <span class="calendar__item  calendar__item--week">Ср</span>
+                <span class="calendar__item  calendar__item--week">Чт</span>
+                <span class="calendar__item  calendar__item--week">Пт</span>
+                <span class="calendar__item  calendar__item--week">Сб</span>
+                <span class="calendar__item  calendar__item--week">Вс</span>
+              </div>
+
+              <!--Calendar List-->
+              <div class="calendar__list  calendar__list--days">
+                {{#GetSchedule.response.Days}}
+                <a class="calendar__item {{#isActive}}calendar__item--active{{/isActive}}  {{#isSchedule}} {{^isActive}}calendar__item--notactive{{/isActive}} calendar__item--schedule{{/isSchedule}}" {{#isSchedule}}data-index="{{index}}"{{/isSchedule}}>
+                <svg class="calendar__image" width="34" height="34" viewBox="0 0 34 34">
+                  <circle class="calendar__circle" cx="17" cy="17" r="15" stroke-width="1"/>
+                  <text class="calendar__day" font-size="14" fill="white" font-family="Helvetica Neue" text-anchor="middle" x="17" y="22">{{day}}</text>
+                </svg>
+                </a>
+                {{/GetSchedule.response.Days}}
+              </div>
+              <!--/Calendar List-->
+
+            </div>
+          </div>
+        </div>
+        <!--/Calendar-->
+
+        <div class="right-side__containers">
+          {{#GetSchedule.response.CalculationMapList}}
+          <div class="right-side__container  {{#Active}}right-side__container--active{{/Active}}"  data-index="{{index}}">
+
+            <p class="right-side__hour heading" data-date="{{formatTime}}">Время:<span class="right-side__time-orange">{{formatTime}}</span></p>
+
+            <!--Service-->
+            <section class="service">
+              <h3 class="service__heading  heading">Услуги</h3>
+              {{#Services}}
+              <div class="service__wrap">
+                <div class="service__item  {{#ObjectClass}}service__item--sub  service__item--open{{/ObjectClass}}">
+                  <div class="service__item-wrap">
+                    <p class="service__text  text">{{ServiceTitle}}</p>
+                    <span class="service__icon-more">Открыть больше</span>
+                    {{^GetSchedule.response.RemoveValue}}
+                    <div class="service__cost">
+                      <span class="{{#Discount}}service__without-discount  text{{/Discount}}">{{Amount}}</span>
+                      {{#Discount}}
+                      <span class="service__discount  text">{{AmountWithDiscount}}</span>
+                      {{/Discount}}
+                    </div>
+                    {{/GetSchedule.response.RemoveValue}}
+                  </div>
+                  {{#ObjectClass}}
+                  <div class="service__list-sub">
+                    <p class="service__item-sub  text">{{ObjectClassTitle}} {{#ShowQuantity}}x {{Quantity}}{{/ShowQuantity}}{{^GetSchedule.response.RemoveValue}}<span class="service__cost">{{Amount}}</span>{{/GetSchedule.response.RemoveValue}}</p>
+                  </div>
+                  {{/ObjectClass}}
+                </div>
+              </div>
+              {{/Services}}
+              {{^GetSchedule.response.RemoveValue}}
+              <div class="service__row-total">
+                <div class="service__total">
+                  {{#Discount}}<span class="service__text  service__text--left">Скидка {{discountPercent}}%:</span>{{/Discount}}
+                  <span class="service__text  service__text--left">Итого{{#Discount}} со скидкой{{/Discount}}</span>
+                </div>
+                <div class="service__total">
+                  {{#Discount}}<span class="service__cost  service__cost--discount">{{DiscountAll}}</span>{{/Discount}}
+                  <span class="service__cost">{{AmountWithDiscount}}</span>
+                </div>
+              </div>
+              {{/GetSchedule.response.RemoveValue}}
+            </section>
+            <!--/Service-->
+
+            <!--Workers-->
+            <section class="worker">
+              <h3 class="worker__heading  heading">Домовята</h3>
+              {{#Employees}}
+              <div class="worker__row">
+                     <span>
+                       <img src="{{PhotoSrc}}" width="40" height="auto">
+                     </span>
+                <p class="worker__text  text">{{EmployeeTitle}}</p>
+              </div>
+              {{/Employees}}
+              {{^Employees}}
+              <div class="worker__row">
+                <p class="worker__text  text">Сотрудник еще не назначен</p>
+              </div>
+              {{/Employees}}
+            </section>
+            <!--Workers-->
+          </div>
+          {{/GetSchedule.response.CalculationMapList}}
+        </div>
+      </div>
+      {{/GetSchedule.response}}
+      {{/GetSchedule}}
+      {{#GetDeparture}}
+      {{#GetDeparture.response}}
+      <div class="right-side__wrap" data-departureid="{{DepartureID}}" data-ordernumber="{{OrderNumber}}"  data-status="{{StatusTitle}}">
+        <button class="right-side__btn  right-side__btn--close  icon-close">
+          <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+            <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+            <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+          </svg>
+        </button>
+
+        <header class="right-side__header">
+          <h2 class="right-side__title  title">Заказ №{{OrderNumber}}</h2>
+          {{^isActive}}<span class="right-side__type {{#isCompleted}}right-side__type--green{{/isCompleted}}   {{#isCanceled}}right-side__type--red{{/isCanceled}}">{{#isCompleted}}Выполненный{{/isCompleted}}{{#isCanceled}}Отмененный{{/isCanceled}}</span>{{/isActive}}
+          <p class="right-side__time" data-date="{{time}}">{{timeDay}}<span class="right-side__time-orange">{{timeHour}}</span>
+
+            {{#isActive}}
+          <div class="right-side__selection-btn  selection-btn">
+            <button class="selection-btn__button">Действия над заказом<span class="selection-btn__arrow">Вниз</span></button>
+          <ul class="selection-btn__list">
+            <li class="selection-btn__option  selection-btn__option" data-option="order-cancel" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "cancelledOrderShowLK"}'>
+              Отменить
+            </li>
+            <li class="selection-btn__option  selection-btn__option" data-option="order-move" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "cancelledOrderShowLK"}'>
+              Перенести
+            </li>
+          </ul>
+          </div>
+          {{/isActive}}
+
+        </header>
+
+        {{#isCompleted}}
+        <section class="rating">
+          <h3 class="rating__heading  heading">Оценка заказа</h3>
+          {{^Review}}
+          <button class="rating__button  button" data-name="rating-form" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "reviewBtnShowLK"}'>Оценить заказ</button>
+          {{/Review}}
+          <div class="rating__stars {{^Review}}rating__stars--hide{{/Review}}">
+            <div class="rating__label {{#RatingGorgeous}}rating__label--active{{/RatingGorgeous}}" title="gorgeous">gorgeous</div>
+            <div class="rating__label {{#RatingGood}}rating__label--active{{/RatingGood}}" title="good">good</div>
+            <div class="rating__label {{#RatingRegular}}rating__label--active{{/RatingRegular}}" title="regular">regular</div>
+            <div class="rating__label {{#RatingPoor}}rating__label--active{{/RatingPoor}}" title="poor">poor</div>
+            <div class="rating__label {{#RatingBad}}rating__label--active{{/RatingBad}}" title="bad">bad</div>
+          </div>
+        </section>
+        {{/isCompleted}}
+
+        <!--Service-->
+        <section class="service">
+          <h3 class="service__heading  heading">Услуги</h3>
+          {{#Services}}
+          <div class="service__item {{#ObjectClass}}service__item--sub {{/ObjectClass}}">
+            <div class="service__item-wrap">
+              <p class="service__text  text">{{ServiceTitle}}</p>
+              <span class="service__icon-more">Открыть больше</span>
+              <div class="service__cost">
+                <span class="{{#Discount}}service__without-discount  text{{/Discount}}">{{Amount}}</span>
+                {{#Discount}}
+                <span class="service__discount  text">{{AmountWithDiscount}}</span>
+                {{/Discount}}
+              </div>
+            </div>
+            {{#ObjectClass}}
+            <div class="service__list-sub">
+              <p class="service__item-sub  text">{{ObjectClassTitle}} {{#ShowQuantity}}x {{Quantity}}{{/ShowQuantity}}<span class="service__cost">{{Amount}}</span></p>
+            </div>
+            {{/ObjectClass}}
+          </div>
+          {{/Services}}
+
+          <div class="service__row-total">
+            <div class="service__total">
+              {{#Discount}}<span class="service__text  service__text--left">Скидка {{discountPercent}}%:</span>{{/Discount}}
+              <span class="service__text  service__text--left">Итого{{#Discount}} со скидкой{{/Discount}}</span>
+            </div>
+            <div class="service__total">
+              {{#Discount}}<span class="service__cost  service__cost--discount">{{DiscountAll}}</span>{{/Discount}}
+              <span class="service__cost">{{AmountWithDiscount}}</span>
+            </div>
+          </div>
+        </section>
+        <!--/Service-->
+
+        <!--Workers-->
+        <section class="worker">
+          <h3 class="worker__heading  heading">Домовята</h3>
+          {{#Employees}}
+          <div class="worker__row">
+                <span>
+                  <img src="{{PhotoSrc}}" width="40" height="auto">
+                </span>
+            <p class="worker__text  text">{{EmployeeTitle}}</p>
+          </div>
+          {{/Employees}}
+          {{^Employees}}
+          <div class="worker__row">
+            <p class="worker__text  text">Сотрудник еще не назначен</p>
+          </div>
+          {{/Employees}}
+        </section>
+        <!--Workers-->
+
+        {{^isCanceled}}
+        <section class="payment">
+          <h3 class="payment__heading  heading">Оплата</h3>
+          <div class="payment__wrap  payment__wrap--default">
+
+            {{#GetDeparture.response.isPaid}}<div class="payment__row"><a class="payment__option  payment__indicator  payment__indicator--checked">Оплачено</a></div>{{/GetDeparture.response.isPaid}}
+            {{^GetDeparture.response.isPaid}}<button class="payment__button button"  data-count="{{GetDeparture.response.needPaymentCount}}" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "payLK"}'>Оплатить</button>{{/GetDeparture.response.isPaid}}
+          </div>
+        </section>
+        {{/isCanceled}}
+      </div>
+      {{/GetDeparture.response}}
+      {{/GetDeparture}}
+    </div>
+    <!-- /Right Side -->
+
+    <!-- /Main Content -->
+    <div class="contact-btn  contact-btn--mobile">
+      <button class="contact-btn__btn contact-btn__btn--main  contact-btn__btn--new-order" type="button" data-name="application" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderFloatLKButton"}'>
+        <svg class="contact-btn__image" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><rect width="30" height="30" fill="none"/><line x1="15" y1="1.5" x2="15" y2="28.5" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/><line x1="1.5" y1="15" x2="28.5" y2="15" fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3"/></svg>
+      </button>
+    </div>
+
+  </main>
+
+
+  <!-- Pop up -->
+  <div class="pop-up pop-up--hide">
+    <div class="pop-up__wrap  scroll-container-unstable">
+      <button class="pop-up__btn-close  icon-close" type="button">
+        <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+        </svg>
+      </button>
+  
+      <div class="pop-up__item  pop-up__item--hide application">
+  
+        <div class="application__wrap application__wrap--hide application__wrap--main" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "orderLKForm"}'>
+            <form class="application__form">
+                <h2 class="application__title  title">Форма заказа</h2>
+        
+                <div class="application__row application__row--sm">
+                    <p class="application__label  label">Вид услуги</p>
+                    <div class="application__selection  selection  selection--grey  selection--square" data-option="podderzhka">
+                        <button class="selection__btn" type="button">Поддерживающая уборка</button>
+                        <ul class="selection__list  scroll-container">
+                            <li class="selection__option" data-option="podderzhka" data-name="podderzhka" data-service="podderzhka" data-schedule="0x_week">Поддерживающая уборка</li>
+                            <li class="selection__option" data-option="general" data-name="general" data-service="general" data-schedule="0x_week">Генеральная уборка</li>
+                            <li class="selection__option" data-option="posle" data-name="posle" data-service="posle" data-class="space" data-feature="furniture" data-quantity="with">После ремонта</li>
+                            <li class="selection__option" data-option="washwindow" data-name="washwindow" data-service="washwindow">Мытье окон</li>
+                        </ul>
+                    </div>
+                </div>
+        
+                <div class="application__row application__row--sm">
+                    <p class="application__label  label">Дата и время</p>
+                    <div class="application__timing">
+                        <div class="application__button-date  button-date" data-time="2017-06-13T11:07:42+03:00">
+                            <button class="button-date__btn" data-name="service-calc-calendar" type="button"></button>
+                            <div class="button-date__switch">
+                                <span class="button-date__plus">Следующая</span>
+                                <span class="button-date__minus button-date__minus--disabled">Предыдущая</span>
+                            </div>
+                        </div>
+                        <div class="application__selection  selection  selection--square  selection--lg  selection--grey">
+                            <button class="selection__btn" type="button">08:00</button>
+                            <ul class="selection__list  scroll-container">
+                                <li class="selection__option" data-option="9">09:00</li>
+                                <li class="selection__option" data-option="10">10:00</li>
+                                <li class="selection__option" data-option="11">11:00</li>
+                                <li class="selection__option" data-option="12">12:00</li>
+                                <li class="selection__option" data-option="13">13:00</li>
+                                <li class="selection__option" data-option="14">14:00</li>
+                                <li class="selection__option" data-option="15">15:00</li>
+                                <li class="selection__option" data-option="16">16:00</li>
+                                <li class="selection__option" data-option="17">17:00</li>
+                                <li class="selection__option" data-option="18">18:00</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        
+                <button class="application__button  button" type="submit">Узнать цену</button>
+            </form>
+        </div>
+        <div class="application__wrap application__wrap--hide application__wrap--no-fixed application__wrap--price" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "orderLKFormPrice"}'>
+            <form class="application__form">
+                <p class="application__heading  text"></p>
+                <div class="application__row">
+                    <label class="application__label application__label--promo label">Введите промокод:
+                        <input class="application__input  application__input--promo  input" type="text" name="name">
+                    </label>
+                </div>
+        
+                <div class="application__row application__row--hide">
+                    <p class="application__heading  text">С этим часто заказывают:</p>
+                    <div class="application__cards"></div>
+                </div>
+                <div class="application__button">
+                    <button class="application__button  button" type="submit">Заказать</button>
+                </div>
+            </form>
+        </div>
+  
+      </div>
+  
+      <div class="pop-up__item pop-up__item--sm pop-up__item--hide general-question">
+        <form class="general-question__form">
+          <h2 class="general-question__title  title">Вы уверены?</h2>
+          <div class="general-question__row">
+            <button class="general-question__button  general-question__button--ok  button" type="submit">Да</button>
+            <button class="general-question__button  general-question__button--no  button" type="button">Нет</button>
+          </div>
+        </form>
+      </div>
+  
+      <div class="pop-up__item pop-up__item--sm pop-up__item--hide action-order">
+        <div class="order-action__wrap order-action__wrap--hide order-action__wrap-survey">
+        <form class="order-action__form">
+          <p class="order-action__heading  text">Пожалуйста, укажите причину отмены</p>
+          <div class="order-action__row">
+            <label class="order-action__checkbox">
+              <input type="radio" class="order-action__input" name="cancel_reason" value="Cancel_NobodyAtHome">
+              никого не будет дома
+            </label>
+  
+            <label class="order-action__checkbox">
+              <input type="radio" class="order-action__input" name="cancel_reason" value="Cancel_StillClean">
+              дома <br>еще чисто
+            </label>
+  
+  
+            <label class="order-action__checkbox">
+              <input type="radio" class="order-action__input" name="cancel_reason" value="Cancel_ChangeEmployee">
+              хочу другого домовенка
+            </label>
+  
+            <label class="order-action__checkbox">
+              <input type="radio" class="order-action__input" name="cancel_reason" value="Cancel_AnotherCompany">
+              заказал в другом месте
+            </label>
+  
+          </div>
+  
+        </form>
+      </div>
+        <div class="order-action__wrap order-action__wrap--hide order-action__wrap-confirm">
+          <form class="order-action__form">
+            <p class="order-action__heading  text">Домовенок уже спешит к Вам на помощь. Ему придется менять свои планы. Вы уверены?</p>
+            <div class="general-question__row">
+              <button class="order-action__button  order-action__button--ok  button" type="submit">Подтвердить</button>
+              <button class="order-action__button  order-action__button--no  button" type="button">Отменить</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <div class="pop-up__item  pop-up__item--hide rating-form">
+        <div class="rating-form__wrap rating-form__wrap--hide rating-form__wrap--main">
+          <form class="rating-form__form" method="get" data-name="form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "reviewSubmitLK"}'>
+            <h2 class="rating-form__title  title">Оценка за заказ <br class="rating-form__number-mobile"><span class="rating-form__number"></span></h2>
+            <p class="rating-form__text  text">Оценкой Вы можете выразить благодарность Домовенку или подсказать нам, что можно сделать лучше? Спасибо!</p>
+  
+            <!-- rating-form  Sections-->
+            <div class="rating-form__sections">
+  
+              <div class="rating-form__section">
+                <p class="rating-form__heading  heading">Качество оказанных услуг</p>
+  
+                <div class="stars">
+                  <input class="stars__input  stars__input--quality" id="star-34" type="radio" name="Quality" value="5" data-name="input">
+                  <label class="stars__label  stars__label--quality" title="gorgeous" for="star-34"></label>
+  
+                  <input class="stars__input  stars__input--quality" id="star-33" type="radio" name="Quality" value="4" data-name="input">
+                  <label class="stars__label  stars__label--quality" title="good" for="star-33"></label>
+  
+                  <input class="stars__input  stars__input--quality" id="star-32" type="radio" name="Quality" value="3" data-name="input">
+                  <label class="stars__label  stars__label--quality" title="regular" for="star-32"></label>
+  
+                  <input class="stars__input  stars__input--quality" id="star-31" type="radio" name="Quality" value="2" data-name="input">
+                  <label class="stars__label  stars__label--quality" title="poor" for="star-31"></label>
+  
+                  <input class="stars__input  stars__input--quality" id="star-30" type="radio" name="Quality" value="1" data-name="input">
+                  <label class="stars__label  stars__label--quality" title="bad" for="star-30"></label>
+                </div>
+              </div>
+              <!-- /rating-form  Sections-->
+  
+              <p class="rating-form__heading  heading">Примечания</p>
+              <textarea class="rating-form__textarea  textarea"></textarea>
+              <button class="rating-form__button  button" type="submit">Оценить</button>
+            </div>
+          </form>
+        </div>
+        <div class="rating-form__wrap rating-form__wrap--hide rating-form__wrap--bad  interview-rating">
+          <form class="interview-rating__form">
+            <p class="interview-rating__title  title">Скажите, что мы могли бы сделать лучше</p>
+            <div class="interview-rating__row">
+              <label class="checkbox">
+                <input type="checkbox" class="checkbox__input" name="BadQuality" value="Improve_InTime">
+                <span class="checkbox__indicator  checkbox__indicator--light"></span>
+                <span class="interview-rating__checkbox-text  checkbox__text">Приходить вовремя</span>
+              </label>
+            </div>
+            <div class="interview-rating__row">
+              <label class="checkbox">
+                <input type="checkbox" class="checkbox__input" name="BadQuality" value="Improve_Quality">
+                <span class="checkbox__indicator  checkbox__indicator--light"></span>
+                <span class="interview-rating__checkbox-text  checkbox__text">Повысить качество уборки</span>
+              </label>
+            </div>
+            <div class="interview-rating__row">
+              <label class="checkbox">
+                <input type="checkbox" class="checkbox__input" name="BadQuality" value="Improve_Duration">
+                <span class="checkbox__indicator  checkbox__indicator--light"></span>
+                <span class="interview-rating__checkbox-text  checkbox__text">Убираться быстрее</span>
+              </label>
+            </div>
+            <div class="interview-rating__row">
+              <label class="checkbox">
+                <input type="checkbox" class="checkbox__input" name="BadQuality" value="Improve_Chem">
+                <span class="checkbox__indicator  checkbox__indicator--light"></span>
+                <span class="interview-rating__checkbox-text  checkbox__text">Сменить химию/инвентарь</span>
+              </label>
+            </div>
+            <div class="interview-rating__row">
+              <label class="checkbox">
+                <input type="checkbox" class="checkbox__input" name="BadQuality" value="Improve_Service">
+                <span class="checkbox__indicator  checkbox__indicator--light"></span>
+                <span class="interview-rating__checkbox-text  checkbox__text">Улучшить сервис</span>
+              </label>
+            </div>
+            <div class="interview-rating__row">
+              <label class="interview-rating__label  label">
+                Другое
+                <input class="interview-rating__input  input" type="text" name="BadQuality" data-value="Improve_Other">
+              </label>
+            </div>
+  
+            <button class="interview-rating__button button" type="submit">Отправить</button>
+          </form>
+        </div>
+        <div class="rating-form__wrap rating-form__wrap--hide rating-form__wrap--good rating-progress">
+          <div class="rating-progress__wrap">
+            <form class="rating-progress__form">
+              <p class="rating-progress__title  title"></p>
+              <div class="rating-progress__row">
+                <div class="rating-progress__image"></div>
+              </div>
+              <div class="rating-progress__row">
+                <p class="rating-progress__text  text"></p>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="rating-form__wrap rating-form__wrap--hide rating-form__wrap--friend post-rating" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "open", "eventLabel": "loyaltyLK"}'>
+          <div class="post-rating__wrap">
+            <h2 class="post-rating__title  title">Спасибо за оказанное доверие. <br>Мы и впредь будем стараться!</h2>
+            <section class="post-rating__section">
+              <img class="post-rating__image" src="https://www.domovenok.su//static/general/img/invite-friend.svg?v=1" width="300" height="auto">
+              <p class="post-rating__heading  text">Хотите получить следующую уборку бесплатно?</p>
+              <p class="post-rating__heading  text">Разместите пост в любимой соц. сети или скажите номер Вашего заказа лично другу. Вы получите 500 рублей на наши услуги за каждого обратившегося человека. Каждый Ваш друг также получить скидку в 500 рублей на первую уборку.</p>
+              <div class="post-rating__social-links  ya-share2" id ="my-share" data-services="facebook,vkontakte,odnoklassniki" data-url="{{inviteUrl}}" data-title="Дарю скидку на первую уборку" data-description="Скидка для моих друзей. Делюсь с вами скидкой 500 рублей на первую уборку от Домовёнка." data-image="{{paPublicUrl}}/media/general/stock/discount_on_cleaning.jpg"></div>
+            </section>
+          </div>
+        </div>
+      </div>
+  
+      <div class="pop-up__item  pop-up__item--sm  pop-up__item--hide  notification">
+        <p class="notification__text  text">Текст</p>
+      </div>
+  
+      <div class="pop-up__item pop-up__item--hide  service-calc-calendar">
+        <form class="service-order__form" data-ga='{"hitType": "event", "eventCategory": "form", "eventAction": "send", "eventLabel": "orderForm_2"}'>
+          <div class="service-order__calendar  calendar">
+            <p class="calendar__title  title">Март</p>
+            <div class="calendar__table">
+              <div class="calendar__list  calendar__list--week">
+                <span class="calendar__item  calendar__item--week">Пн</span>
+                <span class="calendar__item  calendar__item--week">Вт</span>
+                <span class="calendar__item  calendar__item--week">Ср</span>
+                <span class="calendar__item  calendar__item--week">Чт</span>
+                <span class="calendar__item  calendar__item--week">Пт</span>
+                <span class="calendar__item  calendar__item--week">Сб</span>
+                <span class="calendar__item  calendar__item--week">Вс</span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+  
+      <div class="pop-up__item pop-up__item--hide action-order-move">
+        <form class="pop-up__form">
+          <h2 class="title pop-up__title">Перенести заказ на:</h2>
+          <div class="time-carousel time-carousel_day">
+            <div class="time-carousel__wrapper">
+              <div class="time-carousel__inner"></div>
+              <div class="time-carousel__frame"></div>
+            </div>
+          </div>
+          <div class="time-carousel time-carousel_time">
+            <div class="time-carousel__wrapper">
+              <div class="time-carousel__inner"></div>
+              <div class="time-carousel__frame"></div>
+            </div>
+          </div>
+          <button class="button pop-up__submit" type="submit">Перенести</button>
+        </form>
+      </div>
+  
+    </div>
+  
+  </div>
+  <!-- /Pop up -->
+
+</div>
+<!-- /Page wrapper -->
+
+<!-- Java Script -->
+
+<script id="order-service-podderzhka" type="text/html">
+  <div class="application__card service-calc__item service-card" data-name="glazhka" data-service="glazhka" data-class="linen_glazhaka" data-classid="linen_glazhaka" data-feature="hour" data-quantity="1" data-price="500">
+    <div class="service-card__wrap">
+      <img class="service-card__image" src="/static/pancake/img/service-ironing.svg" width="50" height="50" alt="Утюг">
+      <p class="service-card__text text-ab  text-ab--small">Глажка белья</p>
+    </div>
+    <div class="service-counter" data-value="1">
+      <p class="service-counter__text">Глажка белья</p>
+      <div class="service-counter__control">
+        <button class="service-counter__btn  service-counter__btn--minus"></button>
+        <label class="service-counter__label">
+          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+        </label>
+        <button class="service-counter__btn  service-counter__btn--plus"></button>
+      </div>
+      <p class="service-counter__text">1 час</p>
+    </div>
+  </div>
+
+  <div class="application__card service-calc__item service-card"  data-name="wash_oven" data-service="individual_work" data-class="wash_oven" data-sum="1" data-classid="wash_oven" data-feature="" data-quantity="" data-price="350">
+    <div class="service-card__wrap">
+      <img class="service-card__image" src="/static/pancake/img/service-cleaning-oven.svg" width="50" height="50" alt="Утюг">
+      <p class="service-card__text text-ab  text-ab--small">Мытьё духового шкафа внутри</p>
+    </div>
+    <div class="service-counter" data-value="1">
+      <p class="service-counter__text">Мытьё духового шкафа внутри</p>
+      <div class="service-counter__control">
+        <button class="service-counter__btn  service-counter__btn--minus"></button>
+        <label class="service-counter__label">
+          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+        </label>
+        <button class="service-counter__btn  service-counter__btn--plus"></button>
+      </div>
+      <p class="service-counter__text">шт</p>
+    </div>
+  </div>
+
+  <div class="application__card service-calc__item service-card"  data-name="individual_work" data-service="individual_work" data-class="hourly" data-classid="hourly" data-feature="hour" data-quantity="1" data-price="650">
+    <div class="service-card__wrap">
+      <img class="service-card__image" src="/static/pancake/img/service-hour-work.svg" width="50" height="50" alt="швабра">
+      <p class="service-card__text text-ab  text-ab--small">Почасовая работа</p>
+    </div>
+    <div class="service-counter" data-value="1">
+      <p class="service-counter__text">Почасовая работа</p>
+      <div class="service-counter__control">
+        <button class="service-counter__btn  service-counter__btn--minus"></button>
+        <label class="service-counter__label">
+          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+        </label>
+        <button class="service-counter__btn  service-counter__btn--plus"></button>
+      </div>
+      <p class="service-counter__text">1 час</p>
+    </div>
+  </div>
+</script>
+
+<script id="order-service-general" type="text/html">
+  <div class="application__card service-calc__item service-card"  data-name="glazhka" data-service="glazhka" data-class="linen_glazhaka" data-classid="linen_glazhaka" data-feature="hour" data-quantity="1" data-price="500">
+    <div class="service-card__wrap">
+      <img class="service-card__image" src="/static/pancake/img/service-ironing.svg" width="50" height="50" alt="Утюг">
+      <p class="service-card__text text-ab  text-ab--small">Глажка белья</p>
+    </div>
+    <div class="service-counter" data-value="1">
+      <p class="service-counter__text">Глажка белья</p>
+      <div class="service-counter__control">
+        <button class="service-counter__btn  service-counter__btn--minus"></button>
+        <label class="service-counter__label">
+          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+        </label>
+        <button class="service-counter__btn  service-counter__btn--plus"></button>
+      </div>
+      <p class="service-counter__text">1 час</p>
+    </div>
+  </div>
+
+  <div class="application__card service-calc__item service-card" data-name="linen_wash" data-service="individual_work" data-class="linen_wash" data-sum="1" data-classid="linen_wash" data-feature="load_washer" data-quantity="1" data-price="200">
+    <div class="service-card__wrap">
+      <img class="service-card__image" src="/static/pancake/img/service-washing-machine.svg" width="50" height="50" alt="Стиральная машина">
+      <p class="service-card__text text-ab  text-ab--small">Стирка белья</p>
+    </div>
+    <div class="service-counter" data-value="1">
+      <p class="service-counter__text">Стирка белья</p>
+      <div class="service-counter__control">
+        <button class="service-counter__btn  service-counter__btn--minus"></button>
+        <label class="service-counter__label">
+          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+        </label>
+        <button class="service-counter__btn  service-counter__btn--plus"></button>
+      </div>
+      <p class="service-counter__text">1 стиральная машина</p>
+    </div>
+  </div>
+
+  <div class="application__card service-calc__item service-card" data-name="individual_work" data-service="individual_work" data-class="hourly" data-classid="hourly" data-feature="hour" data-quantity="1" data-price="650">
+    <div class="service-card__wrap">
+      <img class="service-card__image" src="/static/pancake/img/service-hour-work.svg" width="50" height="50" alt="швабра">
+      <p class="service-card__text text-ab  text-ab--small">Почасовая работа</p>
+    </div>
+    <div class="service-counter" data-value="1">
+      <p class="service-counter__text">Почасовая работа</p>
+      <div class="service-counter__control">
+        <button class="service-counter__btn  service-counter__btn--minus"></button>
+        <label class="service-counter__label">
+          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+        </label>
+        <button class="service-counter__btn  service-counter__btn--plus"></button>
+      </div>
+      <p class="service-counter__text">1 час</p>
+    </div>
+  </div>
+</script>
+
+<script id="order-service-washwindow" type="text/html">
+  <div class="application__card service-calc__item service-card" data-name="windowblind" data-service="washwindow" data-class="windowblind" data-classid="windowblind" data-sum="1" data-feature="square" data-quantity="1" data-price="120">
+    <div class="service-card__wrap">
+      <img class="service-card__image" src="/static/pancake/img/service-window-blinds.svg" width="50" height="50" alt="Жалюзи">
+      <p class="service-card__text text-ab  text-ab--small">Мытьё жалюзи</p>
+    </div>
+    <div class="service-counter" data-value="1">
+      <p class="service-counter__text">Мытьё жалюзи</p>
+      <div class="service-counter__control">
+        <button class="service-counter__btn  service-counter__btn--minus"></button>
+        <label class="service-counter__label">
+          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+        </label>
+        <button class="service-counter__btn  service-counter__btn--plus"></button>
+      </div>
+      <p class="service-counter__text">м<sup><small>2</small></sup></p>
+    </div>
+  </div>
+  <div class="application__card service-calc__item service-card" data-name="mosquitonet" data-service="washwindow" data-class="mosquitonet" data-classid="mosquitonet" data-sum="1" data-price="100">
+    <div class="service-card__wrap">
+      <img class="service-card__image" src="/static/pancake/img/service-window-grid.svg" width="50" height="50" alt="Сетка">
+      <p class="service-card__text text-ab  text-ab--small">Москитная сетка</p>
+    </div>
+    <div class="service-counter" data-value="1">
+      <p class="service-counter__text">Москитная сетка</p>
+      <div class="service-counter__control">
+        <button class="service-counter__btn  service-counter__btn--minus"></button>
+        <label class="service-counter__label">
+          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+        </label>
+        <button class="service-counter__btn  service-counter__btn--plus"></button>
+      </div>
+      <p class="service-counter__text">шт</p>
+    </div>
+  </div>
+  <div class="application__card service-calc__item service-card" data-name="grate" data-service="washwindow" data-class="grate" data-classid="grate" data-sum="1" data-feature="square" data-quantity="1" data-price="100">
+    <div class="service-card__wrap">
+      <img class="service-card__image" src="/static/pancake/img/service-window-grille.svg" width="50" height="50" alt="Решётка">
+      <p class="service-card__text text-ab  text-ab--small">Оконные решетки</p>
+    </div>
+    <div class="service-counter" data-value="1">
+      <p class="service-counter__text">Оконные решетки</p>
+      <div class="service-counter__control">
+        <button class="service-counter__btn  service-counter__btn--minus"></button>
+        <label class="service-counter__label">
+          <input class="service-counter__output" min="0" max="99" name="counter" type="number" value="1">
+        </label>
+        <button class="service-counter__btn  service-counter__btn--plus"></button>
+      </div>
+      <p class="service-counter__text">м<sup><small>2</small></sup></p>
+    </div>
+  </div>
+  </div>
+</script>
+
+<template id="help-block">
+  <div class="help  help--hide help--block">
+    <div class="help__block  help__block--window">
+      <p class="help__text text">Вы можете оценить заказ</p>
+      <div class="help__row">
+        <button class="help__button  help__button--white  help__button--close">Завершить</button>
+        <button class="help__button  help__button--white  help__button--next">Далее</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="help-form">
+  <div class="help  help--hide  help--form">
+    <form class="help__form help__form--hide"  data-ga='{"hitType": "event","eventCategory": "tips","eventLabel": "accepted"}'>
+      <button class="help__btn  help__btn--close  icon-close">
+        <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+          <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+          <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+        </svg>
+      </button>
+      <h3 class="help__title title">Это Ваш Личный кабинет. Давайте мы Вам тут все расскажем?</h3>
+      <div class="help__row">
+        <button class="help__button help__button--disagree button"  data-ga='{"hitType": "event","eventCategory": "tips","eventLabel": "notAccepted"}'>Сам посмотрю</button>
+        <button class="help__button help__button--agree button" type="submit">Рассказать</button>
+      </div>
+    </form>
+  </div>
+</template>
+
+<!-- Template Order -->
+<script id="left-side__item" type="text/html">
+  <div class="orders-item__col-left">
+    <p class="orders-item__number">№{{=<% %>=}} {{number}} <%={{ }}=%></p>
+    <time class="orders-item__data" datetime="2016-05-26T09:00:00Z">{{=<% %>=}} {{time}} <%={{ }}=%></time>
+  </div>
+  <div class="orders-item__col-right">
+    <span class="orders-item__cost">{{=<% %>=}} {{cost}} <%={{ }}=%></span>
+  </div>
+</script>
+<!-- /Template Order -->
+
+<!-- Template schedule -->
+<script id="order-schedule" type="text/html">
+
+  <button class="right-side__btn  right-side__btn--close  icon-close" type="button">
+    <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+      <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </svg>
+  </button>
+
+  <header class="right-side__header">
+    <h2 class="right-side__title  right-side__title--schedule title">График уборки</h2>
+  </header>
+
+  <!--Calendar-->
+  <div class="calendar">
+    <div class="calendar__wrap">
+      <div class="calendar__table">
+
+        <div class="calendar__list  calendar__list--week">
+          <span class="calendar__item  calendar__item--week">Пн</span>
+          <span class="calendar__item  calendar__item--week">Вт</span>
+          <span class="calendar__item  calendar__item--week">Ср</span>
+          <span class="calendar__item  calendar__item--week">Чт</span>
+          <span class="calendar__item  calendar__item--week">Пт</span>
+          <span class="calendar__item  calendar__item--week">Сб</span>
+          <span class="calendar__item  calendar__item--week">Вс</span>
+        </div>
+
+        <!--Calendar List-->
+        <div class="calendar__list  calendar__list--days">
+          {{=<% %>=}} {{#Days}} <%={{ }}=%>
+          <a class="calendar__item  {{=<% %>=}} {{#isActive}} <%={{ }}=%> calendar__item--active {{=<% %>=}} {{/isActive}} <%={{ }}=%> {{=<% %>=}} {{#isSchedule}} <%={{ }}=%> {{=<% %>=}} {{^isActive}} <%={{ }}=%> calendar__item--notactive {{=<% %>=}} {{/isActive}} <%={{ }}=%> calendar__item--schedule {{=<% %>=}} {{/isSchedule}} <%={{ }}=%>" {{=<% %>=}} {{#isSchedule}} data-index="{{index}}" {{/isSchedule}} <%={{ }}=%> >
+            <svg class="calendar__image" width="34" height="34" viewBox="0 0 34 34">
+              <circle class="calendar__circle" cx="17" cy="17" r="15" stroke-width="1"/>
+              <text class="calendar__day" font-size="14" fill="white" font-family="Helvetica Neue" text-anchor="middle" x="17" y="22">
+                {{=<% %>=}} {{day}} <%={{ }}=%>
+              </text>
+            </svg>
+          </a>
+          {{=<% %>=}} {{/Days}} <%={{ }}=%>
+
+        </div>
+        <!--/Calendar List-->
+      </div>
+    </div>
+  </div>
+  <!--/Calendar-->
+
+  <div class="right-side__containers">
+    {{=<% %>=}} {{#CalculationMapList}} <%={{ }}=%>
+    <div class="right-side__container {{=<% %>=}}{{#Active}}right-side__container--active{{/Active}}<%={{ }}=%>" data-index="{{=<% %>=}}{{index}}<%={{ }}=%>">
+
+      <p class="right-side__hour heading">Время:<span class="right-side__time-orange">{{=<% %>=}}{{formatTime}}<%={{ }}=%></span></p>
+      <!--Service-->
+      <section class="service">
+        <h3 class="service__heading  heading">Услуги</h3>
+        {{=<% %>=}} {{#Services}} <%={{ }}=%>
+        <div class="service__wrap">
+          <div class="service__item  {{=<% %>=}} {{#ObjectClass}} <%={{ }}=%>service__item--sub  service__item--open{{=<% %>=}} {{/ObjectClass}} <%={{ }}=%>">
+            <div class="service__item-wrap">
+              <p class="service__text  text">{{=<% %>=}} {{ServiceTitle}} <%={{ }}=%></p>
+              <div class="service__icon-more"></div>
+              {{=<% %>=}}{{^RemoveValue}}<%={{ }}=%>
+              <div class="service__cost">
+                <span class="{{=<% %>=}} {{#Discount}}service__without-discount  text{{/Discount}}">{{Amount}} <%={{ }}=%></span>
+                {{#Discount}}
+                <span class="service__discount  text">{{=<% %>=}} {{AmountWithDiscount}} <%={{ }}=%></span>
+                {{/Discount}}
+              </div>
+              {{=<% %>=}}{{/RemoveValue}}<%={{ }}=%>
+            </div>
+            {{=<% %>=}} {{#ObjectClass}} <%={{ }}=%>
+            <div class="service__list-sub">
+              <p class="service__item-sub  text">{{=<% %>=}} {{ObjectClassTitle}} {{#ShowQuantity}}x {{Quantity}}{{/ShowQuantity}}{{^RemoveValue}}<span class="service__cost">{{Amount}}</span>{{/RemoveValue}}<%={{ }}=%></p>
+            </div>
+            {{=<% %>=}} {{/ObjectClass}} <%={{ }}=%>
+          </div>
+        </div>
+        {{=<% %>=}} {{/Services}} <%={{ }}=%>
+
+        {{=<% %>=}} {{^RemoveValue}} <%={{ }}=%>
+        <div class="service__row-total">
+          <div class="service__total">
+            {{=<% %>=}} {{#Discount}}<span class="service__text  service__text--left">Скидка {{DiscountPercent}}%:</span>{{/Discount}} <%={{ }}=%>
+            <span class="service__text  service__text--left">Итого{{=<% %>=}} {{#Discount}} со скидкой{{/Discount}} <%={{ }}=%></span>
+          </div>
+          <div class="service__total">
+            {{=<% %>=}} {{#Discount}}<span class="service__cost  service__cost--discount">{{DiscountAll}}</span>{{/Discount}} <%={{ }}=%>
+            <span class="service__cost">{{=<% %>=}} {{AmountWithDiscount}} <%={{ }}=%></span>
+          </div>
+        </div>
+        {{=<% %>=}} {{/RemoveValue}} <%={{ }}=%>
+      </section>
+      <!--/Service-->
+
+      <!--Workers-->
+
+      <section class="worker">
+        <h3 class="worker__heading  heading">Домовята</h3>
+        {{=<% %>=}} {{#Employees}} <%={{ }}=%>
+        <div class="worker__row">
+            <span>
+              <img src="{{=<% %>=}}{{PhotoSrc}}<%={{ }}=%>" width="40" height="auto">
+            </span>
+          <p class="worker__text  text">{{=<% %>=}} {{EmployeeTitle}} <%={{ }}=%></p>
+        </div>
+        {{=<% %>=}} {{/Employees}} <%={{ }}=%>
+        {{=<% %>=}} {{^Employees}} <%={{ }}=%>
+        <div class="worker__row">
+          <p class="worker__text  text">Сотрудник еще не назначен</p>
+        </div>
+        {{=<% %>=}} {{/Employees}} <%={{ }}=%>
+      </section>
+
+      <!--Workers-->
+    </div>
+    {{=<% %>=}} {{/CalculationMapList}} <%={{ }}=%>
+  </div>
+</script>
+<!-- /Template schedule -->
+
+<!-- Template Order -->
+<script id="order-active" type="text/html">
+
+  <button class="right-side__btn  right-side__btn--close  icon-close">
+    <svg class="icon-close__image" width="19" height="19" viewBox="0 0 19 19">
+      <line class="icon-close__element" x1="1" y1="18" x2="18" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+      <line class="icon-close__element" x1="18" y1="18" x2="1" y2="1" style="fill: none;stroke: #fd8204;stroke-linecap: round;stroke-miterlimit: 10;stroke-width: 2px"/>
+    </svg>
+  </button>
+
+  <header class="right-side__header">
+    <h2 class="right-side__title  title">Заказ №{{=<% %>=}}{{OrderNumber}}<%={{ }}=%></h2>
+    {{=<% %>=}} {{^isActive}}<span class="right-side__type {{#isCompleted}}right-side__type--green{{/isCompleted}}   {{#isCanceled}}right-side__type--red{{/isCanceled}}">{{#isCompleted}}Выполненный{{/isCompleted}}{{#isCanceled}}Отмененный{{/isCanceled}}</span>{{/isActive}} <%={{ }}=%>
+    <p class="right-side__time" {{=<% %>=}}data-date="{{time}}">{{timeDay}}<span class="right-side__time-orange">{{timeHour}} <%={{ }}=%></span>
+
+      {{=<% %>=}} {{#isActive}} <%={{ }}=%>
+    <div class="right-side__selection-btn  selection-btn">
+      <button class="selection-btn__button">Действия над заказом<span class="selection-btn__arrow">Вниз</span>
+      </button>
+      <ul class="selection-btn__list">
+        <li class="selection-btn__option  selection-btn__option" data-option="order-cancel" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "cancelledOrderShowLK"}'>
+          Отменить
+        </li>
+        <li class="selection-btn__option  selection-btn__option" data-option="order-move" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "cancelledOrderShowLK"}'>
+          Перенести
+        </li>
+      </ul>
+    </div>
+    {{=<% %>=}} {{/isActive}} <%={{ }}=%>
+
+  </header>
+
+  {{=<% %>=}} {{#isCompleted}} <%={{ }}=%>
+
+  <section class="rating">
+    <h3 class="rating__heading  heading">Оценка заказа</h3>
+    {{=<% %>=}} {{^Review}} <%={{ }}=%>
+    <button class="rating__button  button" data-name="rating-form" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "reviewBtnShowLK"}'>Оценить заказ</button>
+    {{=<% %>=}} {{/Review}} <%={{ }}=%>
+    <div class="rating__stars  {{=<% %>=}} {{^Review}}rating__stars--hide{{/Review}} <%={{ }}=%>">
+      <div class="rating__label  {{=<% %>=}} {{#RatingGorgeous}}rating__label--active{{/RatingGorgeous}} <%={{ }}=%>" title="gorgeous">gorgeous</div>
+      <div class="rating__label  {{=<% %>=}} {{#RatingGood}}rating__label--active{{/RatingGood}} <%={{ }}=%>" title="good">good</div>
+      <div class="rating__label  {{=<% %>=}} {{#RatingRegular}}rating__label--active{{/RatingRegular}} <%={{ }}=%>" title="regular">regular</div>
+      <div class="rating__label  {{=<% %>=}} {{#RatingPoor}}rating__label--active{{/RatingPoor}} <%={{ }}=%>" title="poor">poor</div>
+      <div class="rating__label  {{=<% %>=}} {{#RatingBad}}rating__label--active{{/RatingBad}} <%={{ }}=%>" title="bad">bad</div>
+    </div>
+  </section>
+
+  {{=<% %>=}} {{/isCompleted}} <%={{ }}=%>
+
+  <!--Service-->
+  <section class="service">
+    <h3 class="service__heading  heading">Услуги</h3>
+    {{=<% %>=}} {{#Services}} <%={{ }}=%>
+    <div class="service__item  {{=<% %>=}} {{#ObjectClass}} <%={{ }}=%>service__item--sub{{=<% %>=}} {{/ObjectClass}} <%={{ }}=%>">
+      <div class="service__item-wrap">
+        <p class="service__text  text">{{=<% %>=}} {{ServiceTitle}} <%={{ }}=%></p>
+        <span class="service__icon-more">Открыть больше</span>
+        <div class="service__cost">
+          <span class="{{=<% %>=}} {{#Discount}}service__without-discount  text{{/Discount}}">{{Amount}} <%={{ }}=%></span>
+          {{=<% %>=}} {{#Discount}} <%={{ }}=%>
+          <span class="service__discount  text">{{=<% %>=}} {{AmountWithDiscount}} <%={{ }}=%></span>
+          {{=<% %>=}} {{/Discount}} <%={{ }}=%>
+        </div>
+      </div>
+      {{=<% %>=}} {{#ObjectClass}} <%={{ }}=%>
+      <div class="service__list-sub">
+        <p class="service__item-sub  text">{{=<% %>=}} {{ObjectClassTitle}} {{#ShowQuantity}}x {{Quantity}}{{/ShowQuantity}}<span class="service__cost">{{Amount}} <%={{ }}=%></span></p>
+      </div>
+      {{=<% %>=}} {{/ObjectClass}} <%={{ }}=%>
+    </div>
+    {{=<% %>=}} {{/Services}} <%={{ }}=%>
+
+    <div class="service__row-total">
+      <div class="service__total">
+        {{=<% %>=}} {{#Discount}}<span class="service__text  service__text--left">Скидка {{DiscountPercent}}%:</span>{{/Discount}} <%={{ }}=%>
+        <span class="service__text  service__text--left">Итого{{=<% %>=}} {{#Discount}} со скидкой{{/Discount}} <%={{ }}=%></span>
+      </div>
+      <div class="service__total">
+        {{=<% %>=}} {{#Discount}}<span class="service__cost  service__cost--discount">{{DiscountAll}}</span>{{/Discount}} <%={{ }}=%>
+        <span class="service__cost">{{=<% %>=}} {{AmountWithDiscount}} <%={{ }}=%></span>
+      </div>
+    </div>
+  </section>
+  <!--/Service-->
+
+  <!--Workers-->
+
+  <section class="worker">
+    <h3 class="worker__heading  heading">Домовята</h3>
+    {{=<% %>=}} {{#Employees}} <%={{ }}=%>
+    <div class="worker__row">
+            <span>
+              <img src="{{=<% %>=}}{{PhotoSrc}}<%={{ }}=%>" width="40" height="auto">
+            </span>
+      <p class="worker__text  text">{{=<% %>=}} {{EmployeeTitle}} <%={{ }}=%></p>
+    </div>
+    {{=<% %>=}} {{/Employees}} <%={{ }}=%>
+    {{=<% %>=}} {{^Employees}} <%={{ }}=%>
+    <div class="worker__row">
+      <p class="worker__text  text">Сотрудник еще не назначен</p>
+    </div>
+    {{=<% %>=}} {{/Employees}} <%={{ }}=%>
+  </section>
+
+  <!--Workers-->
+
+
+
+  {{=<% %>=}} {{^isCanceled}} <%={{ }}=%>
+
+  <section class="payment">
+    <h3 class="payment__heading  heading">Оплата</h3>
+    <div class="payment__wrap  payment__wrap--default">
+
+      {{=<% %>=}} {{#isPaid}}<div class="payment__row">
+      <a class="payment__option  payment__indicator  payment__indicator--checked">Оплачено</a>
+    </div>{{/isPaid}} <%={{ }}=%>
+      {{=<% %>=}} {{^isPaid}}<button class="payment__button button"  data-count="{{Count}}" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "payLK"}'>Оплатить</button>{{/isPaid}} <%={{ }}=%>
+    </div>
+
+  </section>
+  {{=<% %>=}} {{/isCanceled}} <%={{ }}=%>
+</script>
+<!-- /Template Active Order -->
+
+<script id="calendar" type="text/html">
+
+  {{=<% %>=}} {{#each days}} <%={{ }}=%>
+  <a class="calendar__item {{=<% %>=}} {{#if active}}calendar__item--active{{/if}} {{#if selected}}calendar__item--selected{{/if}}  {{#if inComplete}}calendar__item--incomplete{{/if}} <%={{ }}=%>" data-date="{{=<% %>=}} {{date}} <%={{ }}=%>" data-fulldate="{{=<% %>=}} {{fulldate}} <%={{ }}=%>">
+    <svg class="calendar__image" width="34" height="34" viewBox="0 0 34 34">
+      <circle class="calendar__circle" cx="17" cy="17" r="15" stroke-width="1"/>
+      <text class="calendar__day" font-size="14" fill="white" font-family="Helvetica Neue" text-anchor="middle" x="17" y="22">{{=<% %>=}} {{day}} <%={{ }}=%></text>
+    </svg>
+  </a>
+  {{=<% %>=}} {{/each}} <%={{ }}=%>
+
+</script>
+
+<script id="left-side" type="text/html">
+
+  <div class="left-side__top">
+
+    <div class="left-side__row">
+      <h1 class="left-side__title  title">Заказы</h1>
+      <button class="orders__button" type="button" data-name="application" data-ga='{"hitType": "event", "eventCategory": "button", "eventAction": "click", "eventLabel": "orderLKButton"}'>+ Добавить новый</button>
+    </div>
+
+    <div class="left-side__selection  selection  selection--menu">
+      <button class="selection__btn"> {{title}} </button>
+      <ul class="selection__list">
+        {{#list}}
+        <li class="selection__option">
+          <a class="selection__link" data-address="{{ObjectID}}" data-schedule="{{Schedule}}" href="{{link}}">{{ AddressTitle }}</a>
+        </li>
+        {{/list}}
+      </ul>
+    </div>
+
+    <!-- Orders Filter -->
+    <div class="orders__filter">
+      <a class="orders__option orders__option--actived orders__option--active" data-status="Active" >Актуальные</a>
+      <a class="orders__option orders__option--completed" data-status="Completed" >Выполненные</a>
+      <a class="orders__option orders__option--canceled" data-status="Canceled" >Отмененные</a>
+    </div>
+    <!-- Orders Filter -->
+    {{#schedule}}
+    <div class="orders__schedule  orders__schedule--active orders__schedule--hide">
+      <button class="orders__schedule-text">График уборки</button>
+    </div>
+    {{/schedule}}
+  </div>
+
+  <!-- Orders -->
+  <div class="left-side__content">
+    <div class="left-side__wrap">
+
+      <div class="left-side__list articles"></div>
+
+    </div>
+  </div>
+  <!-- /Orders Items -->
+
+  <a class="btn-top  btn-top--hide" href="#">
+    <div>
+      <svg width="22.21" height="23.47" viewBox="0 0 22.21 23.47">
+        <path d="M1894.82,519.56l-3.26-3.54-4.76-5.18a3.42,3.42,0,0,0-4.84,0L1877.2,516l-3.26,3.54c-1.59,1.73-.15,4.27,2.42,4.27h4.31v5.76a3.71,3.71,0,0,0,7.42,0v-5.76h4.31C1895,523.83,1896.42,521.29,1894.82,519.56Z" transform="translate(-1873.28 -509.83)" style="fill: #fff"/>
+      </svg>
+    </div>
+  </a>
+</script>
+
+
+<script src="/static/general/js/script.min.js?v=1.28"></script>
+
+{{ ^debug }}
+<noscript>
+  <iframe src="//www.googletagmanager.com/ns.html?id=GTM-PHD7WW" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({
+      'gtm.start': new Date().getTime(), event: 'gtm.js'
+    });
+    var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src =
+        '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', 'GTM-PHD7WW');
+</script>
+{{ /debug }}
+
+</body>
+</html>
