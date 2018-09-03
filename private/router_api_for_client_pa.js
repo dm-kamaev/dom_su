@@ -117,7 +117,7 @@ router_api.post('/api/action_link', check_access, async function(ctx){
 // /action/528fc47498fe4cd8bb9ce2314617807a
 router_api.get('/action/:key',  async function (ctx) {
   const key = ctx.params.key;
-  const template_path = '/p/clientPA/template/action_link.html';
+  const template_path = '/p/pancake/templates/client_pa/action_link.html';
   const auth_api = new AuthApi(ctx);
   const is_login = await auth_api.isLoginAsClient();
 

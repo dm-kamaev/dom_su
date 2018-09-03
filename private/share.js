@@ -12,7 +12,7 @@ const PromoCode = require('/p/pancake/private/mongo_models/PromoCode.js');
 const load_data_from_1c = require('/p/pancake/private/load_data_from_1c.js');
 const render_vue_template = require('/p/pancake/private/render_vue_template.js');
 
-const TEMPLATE_PATH = '/p/clientPA/template/share.html';
+const TEMPLATE_PATH = '/p/pancake/templates/client_pa/share.html';
 
 const share = exports;
 
