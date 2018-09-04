@@ -163,3 +163,50 @@ name кажется указывает на html страницу
 про остальные ключи ничего не знаю
 
 шаблоны страниц лежат в templates/statpages/moscow||nn||spb
+
+
+Массив url по которым будет отдаваться vuejs для clientPA
+```
+  /p/pancake/private/router_private.js
+  // /private/bind-card-success and etc
+  const urls = [
+    '/adr:uuidMUVal0([a-f0-9]{32})',
+    '/adr:uuidMUVal0([a-f0-9]{32})/shd:uuidMUVal1([a-f0-9]{32})',
+    '/adr:uuidMUVal0([a-f0-9]{32})/ord:uuidMUVal1([a-f0-9]{32})',
+    '/bind-card-error',
+    '/bind-card-success',
+    '/payment-success',
+    '/profile',
+    '/order',
+    '/order/history',
+    '/order/services',
+    '/order/service',
+    '/order/time',
+    '/order/address',
+    '/order/info',
+    '/order/addition',
+    '/order/window',
+    '/order/town'
+  ];
+```
+
+
+старый личный кабинет сотрудника
+изменения в templates коммитится прям в репу
+```
+  /p/pancake/staff/ –––––
+              |
+              | -- tempaltes/
+                          |
+                          |  mobile/*.html
+                          |  desktop/*.html
+              | -- router.js  // main router
+              | -- money.js   // another router
+              | -- router_*   // another routers
+              | -- decorators.js // check auth
+```
+
+``` Jquery mobile
+  <a href=/something data-ajax=false>Link</a> // if data-ajax=false then reloading page, else jquery mobile load url via ajax and fill data in <body> and <style>, but not loading data in <script>(WTF!!!!)
+  <input data-wrapper-class=‘my-class’/> // juery mobile add 'my-class' for wrapper DOM element
+```

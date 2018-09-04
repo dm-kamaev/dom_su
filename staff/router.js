@@ -1017,27 +1017,27 @@ staffRouter.get('/staff/:EmployeeID/rating', loginRequired(getEmployeeHeader(asy
 
 
 async function render_vue_template(ctx, next, request1C, GetEmployeeData, templateCtx) {
-  let GetRatingInfo = new Method1C('GetRatingInfo', {'EmployeeID': templateCtx.employeeId});
-  let GetSavingFundInfo = new Method1C('GetSavingFundInfo', {'EmployeeID': templateCtx.employeeId});
-  let template;
-  request1C.add(GetRatingInfo);
-  request1C.add(GetSavingFundInfo);
-  await request1C.do();
-  templateCtx.GetRatingInfo = GetRatingInfo.response;
-  templateCtx.GetSavingFundInfo = GetSavingFundInfo.response;
-  templateCtx.GetEmployeeData = GetEmployeeData.response;
+  // let GetRatingInfo = new Method1C('GetRatingInfo', {'EmployeeID': templateCtx.employeeId});
+  // let GetSavingFundInfo = new Method1C('GetSavingFundInfo', {'EmployeeID': templateCtx.employeeId});
+  // let template;
+  // request1C.add(GetRatingInfo);
+  // request1C.add(GetSavingFundInfo);
+  // await request1C.do();
+  // templateCtx.GetRatingInfo = GetRatingInfo.response;
+  // templateCtx.GetSavingFundInfo = GetSavingFundInfo.response;
+  // templateCtx.GetEmployeeData = GetEmployeeData.response;
 
-  if (templateCtx.GetRatingInfo && templateCtx.GetRatingInfo.Details){
-    for (let detail of templateCtx.GetRatingInfo.Details){
-      if (detail.Rating == 'Оценка'){
-        detail.Value = (detail.Value/20).toFixed(1);
-      } else {
-        detail.Value = detail.Value.toString() + ' %';
-      }
-      detail.DailyChangesJSON = JSON.stringify(detail.DailyChanges);
-    }
-  }
-  template = getTemplate(staffTemplate.mobile.index_vue);
+  // if (templateCtx.GetRatingInfo && templateCtx.GetRatingInfo.Details){
+  //   for (let detail of templateCtx.GetRatingInfo.Details){
+  //     if (detail.Rating == 'Оценка'){
+  //       detail.Value = (detail.Value/20).toFixed(1);
+  //     } else {
+  //       detail.Value = detail.Value.toString() + ' %';
+  //     }
+  //     detail.DailyChangesJSON = JSON.stringify(detail.DailyChanges);
+  //   }
+  // }
+  const template = getTemplate(staffTemplate.mobile.index_vue);
   ctx.body = template(ctx.proc(templateCtx, ctx));
 };
 
