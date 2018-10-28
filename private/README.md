@@ -1,3 +1,0 @@
-```sh
- Router for clientPa
-```

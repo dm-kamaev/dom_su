@@ -1,7 +1,0 @@
-{{#each GetRatingHistory.Items as |item| }}
-    <tr>
-    <td class="first top-white" style="text-align: left"><b>{{ formatPartDate item.Date "DD.MM.YYYY" }}</b></td>
-    <td class="third top-white"><b>{{ item.TotalPercent }} %</b></td>
-    <td class="third top-white"><b>{{ item.TotalRating }} %</b></td>
-    </tr>
-{{/each}}
